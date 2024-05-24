@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.collins.com/trustedmethods/matrics/soar/Soar" 
+       class = "com.collins.trustedmethods.matrics.soar.soar.SoarPackage"
+       genModel = "model/generated/Soar.genmodel" /> 
+	
+  </extension>
+
+
+
+
+</plugin>
