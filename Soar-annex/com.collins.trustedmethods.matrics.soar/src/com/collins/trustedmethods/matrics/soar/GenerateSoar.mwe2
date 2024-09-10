@@ -130,7 +130,6 @@ Workflow {
 			name = "com.collins.trustedmethods.matrics.soar"
 			grammarUri = "classpath:/com/collins/trustedmethods/matrics/soar/Soar.xtext"
 			fileExtensions = "soar"
-
 			// Java API to access grammar elements (required by several other fragments)
 			fragment = grammarAccess.GrammarAccessFragment2 {}
 
@@ -145,6 +144,7 @@ Workflow {
 				options = {
 					classSplitting = true
 					ignoreCase = true
+					backtrack=true
 				}
 			}
 			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 {}

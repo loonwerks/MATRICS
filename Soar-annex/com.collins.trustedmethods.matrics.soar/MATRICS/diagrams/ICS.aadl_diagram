@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="8bde8703-1a26-47ab-b8e7-c5ce486c42e3" manual="true">
+    <element uuid="2e76e2d4-f82d-4d90-8e15-e7ec2c7bef8f" manual="true">
+      <bo>
+        <seg>classifier</seg>
+        <seg>Headset</seg>
+      </bo>
+      <position x="201.0390625" y="38.0"/>
+      <size width="101.66145324707031" height="35.0"/>
+    </element>
+    <element uuid="8d7ec7b5-8570-4839-8dec-4e2408cd16d8" manual="true">
+      <element uuid="772c473e-a7d8-48fd-81f0-02bfa9afaac6" manual="true">
+        <bo>
+          <seg>realization</seg>
+        </bo>
+        <bendpoints>
+          <point x="185.0390625" y="55.5"/>
+          <point x="197.0390625" y="55.5"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>classifier</seg>
+        <seg>Headset.impl</seg>
+      </bo>
+      <position x="51.2265625" y="38.0"/>
+      <size width="129.8125" height="35.0"/>
+    </element>
+    <element uuid="b6c8433d-e622-4214-a605-75f5d441114f" manual="true">
+      <bo>
+        <seg>classifier</seg>
+        <seg>Operator</seg>
+      </bo>
+      <position x="203.99478149414062" y="93.0"/>
+      <size width="104.61718368530273" height="35.0"/>
+    </element>
+    <element uuid="7f115a12-fa8e-460b-8c05-7a262afa4172" manual="true">
+      <element uuid="a45b864e-89f1-4546-8440-456758c2fc3b" manual="true">
+        <bo>
+          <seg>realization</seg>
+        </bo>
+        <bendpoints>
+          <point x="187.99478149414062" y="110.5"/>
+          <point x="199.99478149414062" y="110.5"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>classifier</seg>
+        <seg>Operator.impl</seg>
+      </bo>
+      <position x="51.2265625" y="93.0"/>
+      <size width="132.76822662353516" height="35.0"/>
+    </element>
+    <bo>
+      <seg>package</seg>
+      <seg>ICS</seg>
+    </bo>
+    <position/>
+    <size width="320.6119689941406" height="140.0"/>
+  </element>
+  <config type="package" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>package</seg>
+      <seg>ICS</seg>
+    </context>
+  </config>
+</diagram:Diagram>

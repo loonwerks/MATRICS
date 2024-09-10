@@ -22,52 +22,56 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalSoarParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ISupport", "OSupport", "Template", "Default", "Impasse", "Crlf", "Chunk", "State", "Write", "HyphenMinusHyphenMinusGreaterThanSign", "LessThanSignEqualsSignGreaterThanSign", "LessThanSignLessThanSign", "LessThanSignEqualsSign", "LessThanSignGreaterThanSign", "EqualsSignEqualsSign", "GreaterThanSignEqualsSign", "GreaterThanSignGreaterThanSign", "Gp", "Sp", "ExclamationMark", "Ampersand", "LeftParenthesis", "RightParenthesis", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "CommercialAt", "LeftSquareBracket", "RightSquareBracket", "CircumflexAccent", "LeftCurlyBracket", "RightCurlyBracket", "Tilde", "RULE_SYM_CONSTANT_STRING", "RULE_STRING", "RULE_PIPE_STRING", "RULE_WS", "RULE_SL_COMMENT"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ISupport", "OSupport", "Template", "Default", "Impasse", "Crlf", "Chunk", "State", "Write", "QuotationMarkQuotationMarkQuotationMark", "HyphenMinusHyphenMinusGreaterThanSign", "LessThanSignEqualsSignGreaterThanSign", "LessThanSignLessThanSign", "LessThanSignEqualsSign", "LessThanSignGreaterThanSign", "EqualsSignEqualsSign", "GreaterThanSignEqualsSign", "GreaterThanSignGreaterThanSign", "Gp", "Sp", "ExclamationMark", "Ampersand", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "CommercialAt", "LeftSquareBracket", "RightSquareBracket", "CircumflexAccent", "LeftCurlyBracket", "RightCurlyBracket", "Tilde", "RULE_SYM_CONSTANT_STRING", "RULE_PRINT_STRING", "RULE_FLOAT", "RULE_INT", "RULE_WS", "RULE_SL_COMMENT"
     };
-    public static final int LessThanSignGreaterThanSign=17;
-    public static final int RULE_PIPE_STRING=44;
-    public static final int Gp=21;
-    public static final int LessThanSign=32;
+    public static final int LessThanSignGreaterThanSign=18;
+    public static final int Gp=22;
+    public static final int LessThanSign=35;
     public static final int Template=6;
-    public static final int LeftParenthesis=25;
-    public static final int Ampersand=24;
-    public static final int RightSquareBracket=37;
-    public static final int ExclamationMark=23;
-    public static final int GreaterThanSign=34;
+    public static final int LeftParenthesis=26;
+    public static final int Ampersand=25;
+    public static final int RightSquareBracket=40;
+    public static final int ExclamationMark=24;
+    public static final int GreaterThanSign=37;
     public static final int ISupport=4;
     public static final int OSupport=5;
-    public static final int RightParenthesis=26;
+    public static final int RightParenthesis=27;
     public static final int Chunk=10;
-    public static final int GreaterThanSignEqualsSign=19;
-    public static final int EqualsSignEqualsSign=18;
+    public static final int GreaterThanSignEqualsSign=20;
+    public static final int EqualsSignEqualsSign=19;
     public static final int State=11;
-    public static final int PlusSign=27;
-    public static final int LeftSquareBracket=36;
-    public static final int LessThanSignLessThanSign=15;
+    public static final int PlusSign=29;
+    public static final int RULE_INT=48;
+    public static final int LeftSquareBracket=39;
+    public static final int LessThanSignLessThanSign=16;
     public static final int Write=12;
-    public static final int LessThanSignEqualsSignGreaterThanSign=14;
-    public static final int RULE_STRING=43;
+    public static final int LessThanSignEqualsSignGreaterThanSign=15;
+    public static final int RULE_PRINT_STRING=46;
     public static final int Impasse=8;
-    public static final int RULE_SL_COMMENT=46;
-    public static final int Comma=28;
-    public static final int EqualsSign=33;
-    public static final int HyphenMinus=29;
-    public static final int LessThanSignEqualsSign=16;
-    public static final int Colon=31;
-    public static final int RightCurlyBracket=40;
+    public static final int RULE_SL_COMMENT=50;
+    public static final int Comma=30;
+    public static final int EqualsSign=36;
+    public static final int HyphenMinus=31;
+    public static final int LessThanSignEqualsSign=17;
+    public static final int Solidus=33;
+    public static final int Colon=34;
+    public static final int RightCurlyBracket=43;
     public static final int EOF=-1;
-    public static final int FullStop=30;
-    public static final int RULE_WS=45;
-    public static final int LeftCurlyBracket=39;
+    public static final int Asterisk=28;
+    public static final int FullStop=32;
+    public static final int RULE_WS=49;
+    public static final int QuotationMarkQuotationMarkQuotationMark=13;
+    public static final int LeftCurlyBracket=42;
     public static final int Crlf=9;
-    public static final int Tilde=41;
-    public static final int GreaterThanSignGreaterThanSign=20;
+    public static final int Tilde=44;
+    public static final int GreaterThanSignGreaterThanSign=21;
     public static final int Default=7;
-    public static final int CircumflexAccent=38;
-    public static final int CommercialAt=35;
-    public static final int HyphenMinusHyphenMinusGreaterThanSign=13;
-    public static final int RULE_SYM_CONSTANT_STRING=42;
-    public static final int Sp=22;
+    public static final int CircumflexAccent=41;
+    public static final int CommercialAt=38;
+    public static final int HyphenMinusHyphenMinusGreaterThanSign=14;
+    public static final int RULE_FLOAT=47;
+    public static final int RULE_SYM_CONSTANT_STRING=45;
+    public static final int Sp=23;
 
     // delegates
     // delegators
@@ -86,6 +90,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     public String getGrammarFileName() { return "InternalSoarParser.g"; }
 
 
+
+    /*
+      This grammar contains a lot of empty actions to work around a bug in ANTLR.
+      Otherwise the ANTLR tool will create synpreds that cannot be compiled in some rare cases.
+    */
 
      	private SoarGrammarAccess grammarAccess;
 
@@ -109,7 +118,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleAnnexLibrary"
-    // InternalSoarParser.g:77:1: entryRuleAnnexLibrary returns [EObject current=null] : iv_ruleAnnexLibrary= ruleAnnexLibrary EOF ;
+    // InternalSoarParser.g:83:1: entryRuleAnnexLibrary returns [EObject current=null] : iv_ruleAnnexLibrary= ruleAnnexLibrary EOF ;
     public final EObject entryRuleAnnexLibrary() throws RecognitionException {
         EObject current = null;
 
@@ -117,8 +126,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:77:53: (iv_ruleAnnexLibrary= ruleAnnexLibrary EOF )
-            // InternalSoarParser.g:78:2: iv_ruleAnnexLibrary= ruleAnnexLibrary EOF
+            // InternalSoarParser.g:83:53: (iv_ruleAnnexLibrary= ruleAnnexLibrary EOF )
+            // InternalSoarParser.g:84:2: iv_ruleAnnexLibrary= ruleAnnexLibrary EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAnnexLibraryRule()); 
@@ -149,7 +158,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAnnexLibrary"
-    // InternalSoarParser.g:84:1: ruleAnnexLibrary returns [EObject current=null] : this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary ;
+    // InternalSoarParser.g:90:1: ruleAnnexLibrary returns [EObject current=null] : this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary ;
     public final EObject ruleAnnexLibrary() throws RecognitionException {
         EObject current = null;
 
@@ -160,9 +169,14 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:90:2: (this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary )
-            // InternalSoarParser.g:91:2: this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary
+            // InternalSoarParser.g:96:2: (this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary )
+            // InternalSoarParser.g:97:2: this_SoarAnnexLibrary_0= ruleSoarAnnexLibrary
             {
+            if ( state.backtracking==0 ) {
+
+              		/* */
+              	
+            }
             if ( state.backtracking==0 ) {
 
               		newCompositeNode(grammarAccess.getAnnexLibraryAccess().getSoarAnnexLibraryParserRuleCall());
@@ -201,7 +215,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSoarAnnexLibrary"
-    // InternalSoarParser.g:102:1: entryRuleSoarAnnexLibrary returns [EObject current=null] : iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF ;
+    // InternalSoarParser.g:111:1: entryRuleSoarAnnexLibrary returns [EObject current=null] : iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF ;
     public final EObject entryRuleSoarAnnexLibrary() throws RecognitionException {
         EObject current = null;
 
@@ -209,8 +223,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:102:57: (iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF )
-            // InternalSoarParser.g:103:2: iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF
+            // InternalSoarParser.g:111:57: (iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF )
+            // InternalSoarParser.g:112:2: iv_ruleSoarAnnexLibrary= ruleSoarAnnexLibrary EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSoarAnnexLibraryRule()); 
@@ -241,7 +255,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSoarAnnexLibrary"
-    // InternalSoarParser.g:109:1: ruleSoarAnnexLibrary returns [EObject current=null] : ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) ;
+    // InternalSoarParser.g:118:1: ruleSoarAnnexLibrary returns [EObject current=null] : ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) ;
     public final EObject ruleSoarAnnexLibrary() throws RecognitionException {
         EObject current = null;
 
@@ -252,15 +266,20 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:115:2: ( ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) )
-            // InternalSoarParser.g:116:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
+            // InternalSoarParser.g:124:2: ( ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) )
+            // InternalSoarParser.g:125:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
             {
-            // InternalSoarParser.g:116:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
-            // InternalSoarParser.g:117:3: () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
+            // InternalSoarParser.g:125:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
+            // InternalSoarParser.g:126:3: () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
             {
-            // InternalSoarParser.g:117:3: ()
-            // InternalSoarParser.g:118:4: 
+            // InternalSoarParser.g:126:3: ()
+            // InternalSoarParser.g:127:4: 
             {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
             if ( state.backtracking==0 ) {
 
               				current = forceCreateModelElement(
@@ -271,7 +290,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:124:3: ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
+            // InternalSoarParser.g:136:3: ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
             loop1:
             do {
                 int alt1=2;
@@ -284,10 +303,10 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // InternalSoarParser.g:125:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
+            	    // InternalSoarParser.g:137:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
             	    {
-            	    // InternalSoarParser.g:125:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
-            	    // InternalSoarParser.g:126:5: lv_soarAnnexProductions_1_0= ruleSoarProduction
+            	    // InternalSoarParser.g:137:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
+            	    // InternalSoarParser.g:138:5: lv_soarAnnexProductions_1_0= ruleSoarProduction
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -349,7 +368,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSoarAnnexSubclause"
-    // InternalSoarParser.g:147:1: entryRuleSoarAnnexSubclause returns [EObject current=null] : iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF ;
+    // InternalSoarParser.g:159:1: entryRuleSoarAnnexSubclause returns [EObject current=null] : iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF ;
     public final EObject entryRuleSoarAnnexSubclause() throws RecognitionException {
         EObject current = null;
 
@@ -357,8 +376,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:147:59: (iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF )
-            // InternalSoarParser.g:148:2: iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF
+            // InternalSoarParser.g:159:59: (iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF )
+            // InternalSoarParser.g:160:2: iv_ruleSoarAnnexSubclause= ruleSoarAnnexSubclause EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSoarAnnexSubclauseRule()); 
@@ -389,7 +408,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSoarAnnexSubclause"
-    // InternalSoarParser.g:154:1: ruleSoarAnnexSubclause returns [EObject current=null] : ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) ;
+    // InternalSoarParser.g:166:1: ruleSoarAnnexSubclause returns [EObject current=null] : ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) ;
     public final EObject ruleSoarAnnexSubclause() throws RecognitionException {
         EObject current = null;
 
@@ -400,15 +419,20 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:160:2: ( ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) )
-            // InternalSoarParser.g:161:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
+            // InternalSoarParser.g:172:2: ( ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* ) )
+            // InternalSoarParser.g:173:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
             {
-            // InternalSoarParser.g:161:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
-            // InternalSoarParser.g:162:3: () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
+            // InternalSoarParser.g:173:2: ( () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )* )
+            // InternalSoarParser.g:174:3: () ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
             {
-            // InternalSoarParser.g:162:3: ()
-            // InternalSoarParser.g:163:4: 
+            // InternalSoarParser.g:174:3: ()
+            // InternalSoarParser.g:175:4: 
             {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
             if ( state.backtracking==0 ) {
 
               				current = forceCreateModelElement(
@@ -419,7 +443,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:169:3: ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
+            // InternalSoarParser.g:184:3: ( (lv_soarAnnexProductions_1_0= ruleSoarProduction ) )*
             loop2:
             do {
                 int alt2=2;
@@ -432,10 +456,10 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // InternalSoarParser.g:170:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
+            	    // InternalSoarParser.g:185:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
             	    {
-            	    // InternalSoarParser.g:170:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
-            	    // InternalSoarParser.g:171:5: lv_soarAnnexProductions_1_0= ruleSoarProduction
+            	    // InternalSoarParser.g:185:4: (lv_soarAnnexProductions_1_0= ruleSoarProduction )
+            	    // InternalSoarParser.g:186:5: lv_soarAnnexProductions_1_0= ruleSoarProduction
             	    {
             	    if ( state.backtracking==0 ) {
 
@@ -497,7 +521,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSoarProduction"
-    // InternalSoarParser.g:192:1: entryRuleSoarProduction returns [EObject current=null] : iv_ruleSoarProduction= ruleSoarProduction EOF ;
+    // InternalSoarParser.g:207:1: entryRuleSoarProduction returns [EObject current=null] : iv_ruleSoarProduction= ruleSoarProduction EOF ;
     public final EObject entryRuleSoarProduction() throws RecognitionException {
         EObject current = null;
 
@@ -505,8 +529,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:192:55: (iv_ruleSoarProduction= ruleSoarProduction EOF )
-            // InternalSoarParser.g:193:2: iv_ruleSoarProduction= ruleSoarProduction EOF
+            // InternalSoarParser.g:207:55: (iv_ruleSoarProduction= ruleSoarProduction EOF )
+            // InternalSoarParser.g:208:2: iv_ruleSoarProduction= ruleSoarProduction EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSoarProductionRule()); 
@@ -537,7 +561,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSoarProduction"
-    // InternalSoarParser.g:199:1: ruleSoarProduction returns [EObject current=null] : ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleStateImpCondition ) )* otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSideExpr ) )+ otherlv_10= RightCurlyBracket ) ;
+    // InternalSoarParser.g:214:1: ruleSoarProduction returns [EObject current=null] : ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleConditionSide ) ) otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSide ) ) otherlv_10= RightCurlyBracket ) ;
     public final EObject ruleSoarProduction() throws RecognitionException {
         EObject current = null;
 
@@ -560,15 +584,20 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:205:2: ( ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleStateImpCondition ) )* otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSideExpr ) )+ otherlv_10= RightCurlyBracket ) )
-            // InternalSoarParser.g:206:2: ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleStateImpCondition ) )* otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSideExpr ) )+ otherlv_10= RightCurlyBracket )
+            // InternalSoarParser.g:220:2: ( ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleConditionSide ) ) otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSide ) ) otherlv_10= RightCurlyBracket ) )
+            // InternalSoarParser.g:221:2: ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleConditionSide ) ) otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSide ) ) otherlv_10= RightCurlyBracket )
             {
-            // InternalSoarParser.g:206:2: ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleStateImpCondition ) )* otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSideExpr ) )+ otherlv_10= RightCurlyBracket )
-            // InternalSoarParser.g:207:3: () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleStateImpCondition ) )* otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSideExpr ) )+ otherlv_10= RightCurlyBracket
+            // InternalSoarParser.g:221:2: ( () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleConditionSide ) ) otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSide ) ) otherlv_10= RightCurlyBracket )
+            // InternalSoarParser.g:222:3: () (otherlv_1= Sp | otherlv_2= Gp ) otherlv_3= LeftCurlyBracket ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_doc_5_0= ruleDocumentation ) )? ( (lv_flag_6_0= ruleFlags ) )? ( (lv_conditions_7_0= ruleConditionSide ) ) otherlv_8= HyphenMinusHyphenMinusGreaterThanSign ( (lv_actions_9_0= ruleActionSide ) ) otherlv_10= RightCurlyBracket
             {
-            // InternalSoarParser.g:207:3: ()
-            // InternalSoarParser.g:208:4: 
+            // InternalSoarParser.g:222:3: ()
+            // InternalSoarParser.g:223:4: 
             {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
             if ( state.backtracking==0 ) {
 
               				current = forceCreateModelElement(
@@ -579,7 +608,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:214:3: (otherlv_1= Sp | otherlv_2= Gp )
+            // InternalSoarParser.g:232:3: (otherlv_1= Sp | otherlv_2= Gp )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -598,7 +627,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             }
             switch (alt3) {
                 case 1 :
-                    // InternalSoarParser.g:215:4: otherlv_1= Sp
+                    // InternalSoarParser.g:233:4: otherlv_1= Sp
                     {
                     otherlv_1=(Token)match(input,Sp,FollowSets000.FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -610,7 +639,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:220:4: otherlv_2= Gp
+                    // InternalSoarParser.g:238:4: otherlv_2= Gp
                     {
                     otherlv_2=(Token)match(input,Gp,FollowSets000.FOLLOW_4); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -630,11 +659,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
               			newLeafNode(otherlv_3, grammarAccess.getSoarProductionAccess().getLeftCurlyBracketKeyword_2());
               		
             }
-            // InternalSoarParser.g:229:3: ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) )
-            // InternalSoarParser.g:230:4: (lv_name_4_0= RULE_SYM_CONSTANT_STRING )
+            // InternalSoarParser.g:247:3: ( (lv_name_4_0= RULE_SYM_CONSTANT_STRING ) )
+            // InternalSoarParser.g:248:4: (lv_name_4_0= RULE_SYM_CONSTANT_STRING )
             {
-            // InternalSoarParser.g:230:4: (lv_name_4_0= RULE_SYM_CONSTANT_STRING )
-            // InternalSoarParser.g:231:5: lv_name_4_0= RULE_SYM_CONSTANT_STRING
+            // InternalSoarParser.g:248:4: (lv_name_4_0= RULE_SYM_CONSTANT_STRING )
+            // InternalSoarParser.g:249:5: lv_name_4_0= RULE_SYM_CONSTANT_STRING
             {
             lv_name_4_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_6); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -660,26 +689,26 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:247:3: ( (lv_doc_5_0= ruleDocumentation ) )?
+            // InternalSoarParser.g:265:3: ( (lv_doc_5_0= ruleDocumentation ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
-            if ( (LA4_0==RULE_STRING) ) {
+            if ( (LA4_0==QuotationMarkQuotationMarkQuotationMark) ) {
                 alt4=1;
             }
             switch (alt4) {
                 case 1 :
-                    // InternalSoarParser.g:248:4: (lv_doc_5_0= ruleDocumentation )
+                    // InternalSoarParser.g:266:4: (lv_doc_5_0= ruleDocumentation )
                     {
-                    // InternalSoarParser.g:248:4: (lv_doc_5_0= ruleDocumentation )
-                    // InternalSoarParser.g:249:5: lv_doc_5_0= ruleDocumentation
+                    // InternalSoarParser.g:266:4: (lv_doc_5_0= ruleDocumentation )
+                    // InternalSoarParser.g:267:5: lv_doc_5_0= ruleDocumentation
                     {
                     if ( state.backtracking==0 ) {
 
                       					newCompositeNode(grammarAccess.getSoarProductionAccess().getDocDocumentationParserRuleCall_4_0());
                       				
                     }
-                    pushFollow(FollowSets000.FOLLOW_7);
+                    pushFollow(FollowSets000.FOLLOW_6);
                     lv_doc_5_0=ruleDocumentation();
 
                     state._fsp--;
@@ -706,7 +735,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:266:3: ( (lv_flag_6_0= ruleFlags ) )?
+            // InternalSoarParser.g:284:3: ( (lv_flag_6_0= ruleFlags ) )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -715,17 +744,17 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // InternalSoarParser.g:267:4: (lv_flag_6_0= ruleFlags )
+                    // InternalSoarParser.g:285:4: (lv_flag_6_0= ruleFlags )
                     {
-                    // InternalSoarParser.g:267:4: (lv_flag_6_0= ruleFlags )
-                    // InternalSoarParser.g:268:5: lv_flag_6_0= ruleFlags
+                    // InternalSoarParser.g:285:4: (lv_flag_6_0= ruleFlags )
+                    // InternalSoarParser.g:286:5: lv_flag_6_0= ruleFlags
                     {
                     if ( state.backtracking==0 ) {
 
                       					newCompositeNode(grammarAccess.getSoarProductionAccess().getFlagFlagsParserRuleCall_5_0());
                       				
                     }
-                    pushFollow(FollowSets000.FOLLOW_8);
+                    pushFollow(FollowSets000.FOLLOW_6);
                     lv_flag_6_0=ruleFlags();
 
                     state._fsp--;
@@ -752,123 +781,81 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:285:3: ( (lv_conditions_7_0= ruleStateImpCondition ) )*
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+            // InternalSoarParser.g:303:3: ( (lv_conditions_7_0= ruleConditionSide ) )
+            // InternalSoarParser.g:304:4: (lv_conditions_7_0= ruleConditionSide )
+            {
+            // InternalSoarParser.g:304:4: (lv_conditions_7_0= ruleConditionSide )
+            // InternalSoarParser.g:305:5: lv_conditions_7_0= ruleConditionSide
+            {
+            if ( state.backtracking==0 ) {
 
-                if ( (LA6_0==LeftParenthesis) ) {
-                    alt6=1;
-                }
+              					newCompositeNode(grammarAccess.getSoarProductionAccess().getConditionsConditionSideParserRuleCall_6_0());
+              				
+            }
+            pushFollow(FollowSets000.FOLLOW_7);
+            lv_conditions_7_0=ruleConditionSide();
 
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
 
-                switch (alt6) {
-            	case 1 :
-            	    // InternalSoarParser.g:286:4: (lv_conditions_7_0= ruleStateImpCondition )
-            	    {
-            	    // InternalSoarParser.g:286:4: (lv_conditions_7_0= ruleStateImpCondition )
-            	    // InternalSoarParser.g:287:5: lv_conditions_7_0= ruleStateImpCondition
-            	    {
-            	    if ( state.backtracking==0 ) {
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getSoarProductionRule());
+              					}
+              					set(
+              						current,
+              						"conditions",
+              						lv_conditions_7_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.ConditionSide");
+              					afterParserOrEnumRuleCall();
+              				
+            }
 
-            	      					newCompositeNode(grammarAccess.getSoarProductionAccess().getConditionsStateImpConditionParserRuleCall_6_0());
-            	      				
-            	    }
-            	    pushFollow(FollowSets000.FOLLOW_8);
-            	    lv_conditions_7_0=ruleStateImpCondition();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      					if (current==null) {
-            	      						current = createModelElementForParent(grammarAccess.getSoarProductionRule());
-            	      					}
-            	      					add(
-            	      						current,
-            	      						"conditions",
-            	      						lv_conditions_7_0,
-            	      						"com.collins.trustedmethods.matrics.soar.Soar.StateImpCondition");
-            	      					afterParserOrEnumRuleCall();
-            	      				
-            	    }
-
-            	    }
+            }
 
 
-            	    }
-            	    break;
+            }
 
-            	default :
-            	    break loop6;
-                }
-            } while (true);
-
-            otherlv_8=(Token)match(input,HyphenMinusHyphenMinusGreaterThanSign,FollowSets000.FOLLOW_9); if (state.failed) return current;
+            otherlv_8=(Token)match(input,HyphenMinusHyphenMinusGreaterThanSign,FollowSets000.FOLLOW_8); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_8, grammarAccess.getSoarProductionAccess().getHyphenMinusHyphenMinusGreaterThanSignKeyword_7());
               		
             }
-            // InternalSoarParser.g:308:3: ( (lv_actions_9_0= ruleActionSideExpr ) )+
-            int cnt7=0;
-            loop7:
-            do {
-                int alt7=2;
-                int LA7_0 = input.LA(1);
+            // InternalSoarParser.g:326:3: ( (lv_actions_9_0= ruleActionSide ) )
+            // InternalSoarParser.g:327:4: (lv_actions_9_0= ruleActionSide )
+            {
+            // InternalSoarParser.g:327:4: (lv_actions_9_0= ruleActionSide )
+            // InternalSoarParser.g:328:5: lv_actions_9_0= ruleActionSide
+            {
+            if ( state.backtracking==0 ) {
 
-                if ( (LA7_0==LeftParenthesis) ) {
-                    alt7=1;
-                }
+              					newCompositeNode(grammarAccess.getSoarProductionAccess().getActionsActionSideParserRuleCall_8_0());
+              				
+            }
+            pushFollow(FollowSets000.FOLLOW_9);
+            lv_actions_9_0=ruleActionSide();
 
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
 
-                switch (alt7) {
-            	case 1 :
-            	    // InternalSoarParser.g:309:4: (lv_actions_9_0= ruleActionSideExpr )
-            	    {
-            	    // InternalSoarParser.g:309:4: (lv_actions_9_0= ruleActionSideExpr )
-            	    // InternalSoarParser.g:310:5: lv_actions_9_0= ruleActionSideExpr
-            	    {
-            	    if ( state.backtracking==0 ) {
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getSoarProductionRule());
+              					}
+              					set(
+              						current,
+              						"actions",
+              						lv_actions_9_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.ActionSide");
+              					afterParserOrEnumRuleCall();
+              				
+            }
 
-            	      					newCompositeNode(grammarAccess.getSoarProductionAccess().getActionsActionSideExprParserRuleCall_8_0());
-            	      				
-            	    }
-            	    pushFollow(FollowSets000.FOLLOW_10);
-            	    lv_actions_9_0=ruleActionSideExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      					if (current==null) {
-            	      						current = createModelElementForParent(grammarAccess.getSoarProductionRule());
-            	      					}
-            	      					add(
-            	      						current,
-            	      						"actions",
-            	      						lv_actions_9_0,
-            	      						"com.collins.trustedmethods.matrics.soar.Soar.ActionSideExpr");
-            	      					afterParserOrEnumRuleCall();
-            	      				
-            	    }
-
-            	    }
+            }
 
 
-            	    }
-            	    break;
-
-            	default :
-            	    if ( cnt7 >= 1 ) break loop7;
-            	    if (state.backtracking>0) {state.failed=true; return current;}
-                        EarlyExitException eee =
-                            new EarlyExitException(7, input);
-                        throw eee;
-                }
-                cnt7++;
-            } while (true);
+            }
 
             otherlv_10=(Token)match(input,RightCurlyBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -901,7 +888,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDocumentation"
-    // InternalSoarParser.g:335:1: entryRuleDocumentation returns [String current=null] : iv_ruleDocumentation= ruleDocumentation EOF ;
+    // InternalSoarParser.g:353:1: entryRuleDocumentation returns [String current=null] : iv_ruleDocumentation= ruleDocumentation EOF ;
     public final String entryRuleDocumentation() throws RecognitionException {
         String current = null;
 
@@ -909,8 +896,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:335:53: (iv_ruleDocumentation= ruleDocumentation EOF )
-            // InternalSoarParser.g:336:2: iv_ruleDocumentation= ruleDocumentation EOF
+            // InternalSoarParser.g:353:53: (iv_ruleDocumentation= ruleDocumentation EOF )
+            // InternalSoarParser.g:354:2: iv_ruleDocumentation= ruleDocumentation EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getDocumentationRule()); 
@@ -941,30 +928,51 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDocumentation"
-    // InternalSoarParser.g:342:1: ruleDocumentation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : this_STRING_0= RULE_STRING ;
+    // InternalSoarParser.g:360:1: ruleDocumentation returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= QuotationMarkQuotationMarkQuotationMark this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING kw= QuotationMarkQuotationMarkQuotationMark ) ;
     public final AntlrDatatypeRuleToken ruleDocumentation() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
-        Token this_STRING_0=null;
+        Token kw=null;
+        Token this_SYM_CONSTANT_STRING_1=null;
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:348:2: (this_STRING_0= RULE_STRING )
-            // InternalSoarParser.g:349:2: this_STRING_0= RULE_STRING
+            // InternalSoarParser.g:366:2: ( (kw= QuotationMarkQuotationMarkQuotationMark this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING kw= QuotationMarkQuotationMarkQuotationMark ) )
+            // InternalSoarParser.g:367:2: (kw= QuotationMarkQuotationMarkQuotationMark this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING kw= QuotationMarkQuotationMarkQuotationMark )
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            // InternalSoarParser.g:367:2: (kw= QuotationMarkQuotationMarkQuotationMark this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING kw= QuotationMarkQuotationMarkQuotationMark )
+            // InternalSoarParser.g:368:3: kw= QuotationMarkQuotationMarkQuotationMark this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING kw= QuotationMarkQuotationMarkQuotationMark
+            {
+            kw=(Token)match(input,QuotationMarkQuotationMarkQuotationMark,FollowSets000.FOLLOW_5); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              		current.merge(this_STRING_0);
-              	
+              			current.merge(kw);
+              			newLeafNode(kw, grammarAccess.getDocumentationAccess().getQuotationMarkQuotationMarkQuotationMarkKeyword_0());
+              		
+            }
+            this_SYM_CONSTANT_STRING_1=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_10); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			current.merge(this_SYM_CONSTANT_STRING_1);
+              		
             }
             if ( state.backtracking==0 ) {
 
-              		newLeafNode(this_STRING_0, grammarAccess.getDocumentationAccess().getSTRINGTerminalRuleCall());
-              	
+              			newLeafNode(this_SYM_CONSTANT_STRING_1, grammarAccess.getDocumentationAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_1());
+              		
             }
+            kw=(Token)match(input,QuotationMarkQuotationMarkQuotationMark,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			current.merge(kw);
+              			newLeafNode(kw, grammarAccess.getDocumentationAccess().getQuotationMarkQuotationMarkQuotationMarkKeyword_2());
+              		
+            }
+
+            }
+
 
             }
 
@@ -987,7 +995,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFlags"
-    // InternalSoarParser.g:359:1: entryRuleFlags returns [String current=null] : iv_ruleFlags= ruleFlags EOF ;
+    // InternalSoarParser.g:389:1: entryRuleFlags returns [String current=null] : iv_ruleFlags= ruleFlags EOF ;
     public final String entryRuleFlags() throws RecognitionException {
         String current = null;
 
@@ -995,8 +1003,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:359:45: (iv_ruleFlags= ruleFlags EOF )
-            // InternalSoarParser.g:360:2: iv_ruleFlags= ruleFlags EOF
+            // InternalSoarParser.g:389:45: (iv_ruleFlags= ruleFlags EOF )
+            // InternalSoarParser.g:390:2: iv_ruleFlags= ruleFlags EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getFlagsRule()); 
@@ -1027,7 +1035,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFlags"
-    // InternalSoarParser.g:366:1: ruleFlags returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) ) ;
+    // InternalSoarParser.g:396:1: ruleFlags returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) ) ;
     public final AntlrDatatypeRuleToken ruleFlags() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1037,11 +1045,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:372:2: ( (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) ) )
-            // InternalSoarParser.g:373:2: (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) )
+            // InternalSoarParser.g:402:2: ( (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) ) )
+            // InternalSoarParser.g:403:2: (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) )
             {
-            // InternalSoarParser.g:373:2: (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) )
-            // InternalSoarParser.g:374:3: kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template )
+            // InternalSoarParser.g:403:2: (kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template ) )
+            // InternalSoarParser.g:404:3: kw= Colon (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template )
             {
             kw=(Token)match(input,Colon,FollowSets000.FOLLOW_11); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -1050,45 +1058,45 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
               			newLeafNode(kw, grammarAccess.getFlagsAccess().getColonKeyword_0());
               		
             }
-            // InternalSoarParser.g:379:3: (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template )
-            int alt8=5;
+            // InternalSoarParser.g:409:3: (kw= OSupport | kw= ISupport | kw= Chunk | kw= Default | kw= Template )
+            int alt6=5;
             switch ( input.LA(1) ) {
             case OSupport:
                 {
-                alt8=1;
+                alt6=1;
                 }
                 break;
             case ISupport:
                 {
-                alt8=2;
+                alt6=2;
                 }
                 break;
             case Chunk:
                 {
-                alt8=3;
+                alt6=3;
                 }
                 break;
             case Default:
                 {
-                alt8=4;
+                alt6=4;
                 }
                 break;
             case Template:
                 {
-                alt8=5;
+                alt6=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 8, 0, input);
+                    new NoViableAltException("", 6, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt8) {
+            switch (alt6) {
                 case 1 :
-                    // InternalSoarParser.g:380:4: kw= OSupport
+                    // InternalSoarParser.g:410:4: kw= OSupport
                     {
                     kw=(Token)match(input,OSupport,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1101,7 +1109,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:386:4: kw= ISupport
+                    // InternalSoarParser.g:416:4: kw= ISupport
                     {
                     kw=(Token)match(input,ISupport,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1114,7 +1122,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSoarParser.g:392:4: kw= Chunk
+                    // InternalSoarParser.g:422:4: kw= Chunk
                     {
                     kw=(Token)match(input,Chunk,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1127,7 +1135,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSoarParser.g:398:4: kw= Default
+                    // InternalSoarParser.g:428:4: kw= Default
                     {
                     kw=(Token)match(input,Default,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1140,7 +1148,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSoarParser.g:404:4: kw= Template
+                    // InternalSoarParser.g:434:4: kw= Template
                     {
                     kw=(Token)match(input,Template,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -1179,8 +1187,198 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleFlags"
 
 
+    // $ANTLR start "entryRuleConditionSide"
+    // InternalSoarParser.g:444:1: entryRuleConditionSide returns [EObject current=null] : iv_ruleConditionSide= ruleConditionSide EOF ;
+    public final EObject entryRuleConditionSide() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleConditionSide = null;
+
+
+        try {
+            // InternalSoarParser.g:444:54: (iv_ruleConditionSide= ruleConditionSide EOF )
+            // InternalSoarParser.g:445:2: iv_ruleConditionSide= ruleConditionSide EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getConditionSideRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleConditionSide=ruleConditionSide();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleConditionSide; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleConditionSide"
+
+
+    // $ANTLR start "ruleConditionSide"
+    // InternalSoarParser.g:451:1: ruleConditionSide returns [EObject current=null] : ( () ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) ) ( (lv_cond_2_0= ruleCond ) )* ) ;
+    public final EObject ruleConditionSide() throws RecognitionException {
+        EObject current = null;
+
+        EObject lv_stateImpCondition_1_0 = null;
+
+        EObject lv_cond_2_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:457:2: ( ( () ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) ) ( (lv_cond_2_0= ruleCond ) )* ) )
+            // InternalSoarParser.g:458:2: ( () ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) ) ( (lv_cond_2_0= ruleCond ) )* )
+            {
+            // InternalSoarParser.g:458:2: ( () ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) ) ( (lv_cond_2_0= ruleCond ) )* )
+            // InternalSoarParser.g:459:3: () ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) ) ( (lv_cond_2_0= ruleCond ) )*
+            {
+            // InternalSoarParser.g:459:3: ()
+            // InternalSoarParser.g:460:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getConditionSideAccess().getConditionSideAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:469:3: ( (lv_stateImpCondition_1_0= ruleStateImpCondition ) )
+            // InternalSoarParser.g:470:4: (lv_stateImpCondition_1_0= ruleStateImpCondition )
+            {
+            // InternalSoarParser.g:470:4: (lv_stateImpCondition_1_0= ruleStateImpCondition )
+            // InternalSoarParser.g:471:5: lv_stateImpCondition_1_0= ruleStateImpCondition
+            {
+            if ( state.backtracking==0 ) {
+
+              					newCompositeNode(grammarAccess.getConditionSideAccess().getStateImpConditionStateImpConditionParserRuleCall_1_0());
+              				
+            }
+            pushFollow(FollowSets000.FOLLOW_12);
+            lv_stateImpCondition_1_0=ruleStateImpCondition();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getConditionSideRule());
+              					}
+              					set(
+              						current,
+              						"stateImpCondition",
+              						lv_stateImpCondition_1_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.StateImpCondition");
+              					afterParserOrEnumRuleCall();
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalSoarParser.g:488:3: ( (lv_cond_2_0= ruleCond ) )*
+            loop7:
+            do {
+                int alt7=2;
+                int LA7_0 = input.LA(1);
+
+                if ( (LA7_0==LeftParenthesis||LA7_0==HyphenMinus||LA7_0==LeftCurlyBracket) ) {
+                    alt7=1;
+                }
+
+
+                switch (alt7) {
+            	case 1 :
+            	    // InternalSoarParser.g:489:4: (lv_cond_2_0= ruleCond )
+            	    {
+            	    // InternalSoarParser.g:489:4: (lv_cond_2_0= ruleCond )
+            	    // InternalSoarParser.g:490:5: lv_cond_2_0= ruleCond
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getConditionSideAccess().getCondCondParserRuleCall_2_0());
+            	      				
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_12);
+            	    lv_cond_2_0=ruleCond();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getConditionSideRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"cond",
+            	      						lv_cond_2_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.Cond");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop7;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleConditionSide"
+
+
     // $ANTLR start "entryRuleStateImpCondition"
-    // InternalSoarParser.g:414:1: entryRuleStateImpCondition returns [EObject current=null] : iv_ruleStateImpCondition= ruleStateImpCondition EOF ;
+    // InternalSoarParser.g:511:1: entryRuleStateImpCondition returns [EObject current=null] : iv_ruleStateImpCondition= ruleStateImpCondition EOF ;
     public final EObject entryRuleStateImpCondition() throws RecognitionException {
         EObject current = null;
 
@@ -1188,8 +1386,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:414:58: (iv_ruleStateImpCondition= ruleStateImpCondition EOF )
-            // InternalSoarParser.g:415:2: iv_ruleStateImpCondition= ruleStateImpCondition EOF
+            // InternalSoarParser.g:511:58: (iv_ruleStateImpCondition= ruleStateImpCondition EOF )
+            // InternalSoarParser.g:512:2: iv_ruleStateImpCondition= ruleStateImpCondition EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getStateImpConditionRule()); 
@@ -1220,13 +1418,13 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStateImpCondition"
-    // InternalSoarParser.g:421:1: ruleStateImpCondition returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_id_4_0= ruleSymConstant ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) ;
+    // InternalSoarParser.g:518:1: ruleStateImpCondition returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE ) ( (lv_idTest_4_0= ruleVariable ) )? ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) ;
     public final EObject ruleStateImpCondition() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         Token otherlv_6=null;
-        AntlrDatatypeRuleToken lv_id_4_0 = null;
+        EObject lv_idTest_4_0 = null;
 
         EObject lv_attrValueTest_5_0 = null;
 
@@ -1235,15 +1433,20 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:427:2: ( ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_id_4_0= ruleSymConstant ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) )
-            // InternalSoarParser.g:428:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_id_4_0= ruleSymConstant ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
+            // InternalSoarParser.g:524:2: ( ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE ) ( (lv_idTest_4_0= ruleVariable ) )? ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) )
+            // InternalSoarParser.g:525:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE ) ( (lv_idTest_4_0= ruleVariable ) )? ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
             {
-            // InternalSoarParser.g:428:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_id_4_0= ruleSymConstant ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
-            // InternalSoarParser.g:429:3: () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_id_4_0= ruleSymConstant ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis
+            // InternalSoarParser.g:525:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE ) ( (lv_idTest_4_0= ruleVariable ) )? ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
+            // InternalSoarParser.g:526:3: () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE ) ( (lv_idTest_4_0= ruleVariable ) )? ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis
             {
-            // InternalSoarParser.g:429:3: ()
-            // InternalSoarParser.g:430:4: 
+            // InternalSoarParser.g:526:3: ()
+            // InternalSoarParser.g:527:4: 
             {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
             if ( state.backtracking==0 ) {
 
               				current = forceCreateModelElement(
@@ -1254,32 +1457,44 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_12); if (state.failed) return current;
+            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_13); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               			newLeafNode(otherlv_1, grammarAccess.getStateImpConditionAccess().getLeftParenthesisKeyword_1());
               		
             }
-            // InternalSoarParser.g:440:3: ( ruleSTATE | ruleIMPASSE )?
-            int alt9=3;
-            int LA9_0 = input.LA(1);
+            // InternalSoarParser.g:540:3: ( ruleSTATE | ruleIMPASSE )
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA9_0==State) ) {
-                alt9=1;
+            if ( (LA8_0==State) ) {
+                alt8=1;
             }
-            else if ( (LA9_0==Impasse) ) {
-                alt9=2;
+            else if ( (LA8_0==Impasse) ) {
+                alt8=2;
             }
-            switch (alt9) {
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 8, 0, input);
+
+                throw nvae;
+            }
+            switch (alt8) {
                 case 1 :
-                    // InternalSoarParser.g:441:4: ruleSTATE
+                    // InternalSoarParser.g:541:4: ruleSTATE
                     {
+                    if ( state.backtracking==0 ) {
+
+                      				/* */
+                      			
+                    }
                     if ( state.backtracking==0 ) {
 
                       				newCompositeNode(grammarAccess.getStateImpConditionAccess().getSTATEParserRuleCall_2_0());
                       			
                     }
-                    pushFollow(FollowSets000.FOLLOW_12);
+                    pushFollow(FollowSets000.FOLLOW_14);
                     ruleSTATE();
 
                     state._fsp--;
@@ -1293,14 +1508,19 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:449:4: ruleIMPASSE
+                    // InternalSoarParser.g:552:4: ruleIMPASSE
                     {
+                    if ( state.backtracking==0 ) {
+
+                      				/* */
+                      			
+                    }
                     if ( state.backtracking==0 ) {
 
                       				newCompositeNode(grammarAccess.getStateImpConditionAccess().getIMPASSEParserRuleCall_2_1());
                       			
                     }
-                    pushFollow(FollowSets000.FOLLOW_12);
+                    pushFollow(FollowSets000.FOLLOW_14);
                     ruleIMPASSE();
 
                     state._fsp--;
@@ -1316,66 +1536,77 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalSoarParser.g:457:3: ( (lv_id_4_0= ruleSymConstant ) )
-            // InternalSoarParser.g:458:4: (lv_id_4_0= ruleSymConstant )
-            {
-            // InternalSoarParser.g:458:4: (lv_id_4_0= ruleSymConstant )
-            // InternalSoarParser.g:459:5: lv_id_4_0= ruleSymConstant
-            {
-            if ( state.backtracking==0 ) {
+            // InternalSoarParser.g:563:3: ( (lv_idTest_4_0= ruleVariable ) )?
+            int alt9=2;
+            int LA9_0 = input.LA(1);
 
-              					newCompositeNode(grammarAccess.getStateImpConditionAccess().getIdSymConstantParserRuleCall_3_0());
-              				
+            if ( (LA9_0==LessThanSign) ) {
+                alt9=1;
             }
-            pushFollow(FollowSets000.FOLLOW_13);
-            lv_id_4_0=ruleSymConstant();
+            switch (alt9) {
+                case 1 :
+                    // InternalSoarParser.g:564:4: (lv_idTest_4_0= ruleVariable )
+                    {
+                    // InternalSoarParser.g:564:4: (lv_idTest_4_0= ruleVariable )
+                    // InternalSoarParser.g:565:5: lv_idTest_4_0= ruleVariable
+                    {
+                    if ( state.backtracking==0 ) {
 
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
+                      					newCompositeNode(grammarAccess.getStateImpConditionAccess().getIdTestVariableParserRuleCall_3_0());
+                      				
+                    }
+                    pushFollow(FollowSets000.FOLLOW_14);
+                    lv_idTest_4_0=ruleVariable();
 
-              					if (current==null) {
-              						current = createModelElementForParent(grammarAccess.getStateImpConditionRule());
-              					}
-              					set(
-              						current,
-              						"id",
-              						lv_id_4_0,
-              						"com.collins.trustedmethods.matrics.soar.Soar.SymConstant");
-              					afterParserOrEnumRuleCall();
-              				
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      					if (current==null) {
+                      						current = createModelElementForParent(grammarAccess.getStateImpConditionRule());
+                      					}
+                      					set(
+                      						current,
+                      						"idTest",
+                      						lv_idTest_4_0,
+                      						"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+                      					afterParserOrEnumRuleCall();
+                      				
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
             }
 
-            }
-
-
-            }
-
-            // InternalSoarParser.g:476:3: ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+
+            // InternalSoarParser.g:582:3: ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+
             int cnt10=0;
             loop10:
             do {
                 int alt10=2;
                 int LA10_0 = input.LA(1);
 
-                if ( (LA10_0==CircumflexAccent) ) {
+                if ( (LA10_0==HyphenMinus||LA10_0==CircumflexAccent) ) {
                     alt10=1;
                 }
 
 
                 switch (alt10) {
             	case 1 :
-            	    // InternalSoarParser.g:477:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
+            	    // InternalSoarParser.g:583:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
             	    {
-            	    // InternalSoarParser.g:477:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
-            	    // InternalSoarParser.g:478:5: lv_attrValueTest_5_0= ruleAttrValueTest
+            	    // InternalSoarParser.g:583:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
+            	    // InternalSoarParser.g:584:5: lv_attrValueTest_5_0= ruleAttrValueTest
             	    {
             	    if ( state.backtracking==0 ) {
 
             	      					newCompositeNode(grammarAccess.getStateImpConditionAccess().getAttrValueTestAttrValueTestParserRuleCall_4_0());
             	      				
             	    }
-            	    pushFollow(FollowSets000.FOLLOW_14);
+            	    pushFollow(FollowSets000.FOLLOW_15);
             	    lv_attrValueTest_5_0=ruleAttrValueTest();
 
             	    state._fsp--;
@@ -1440,28 +1671,28 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleStateImpCondition"
 
 
-    // $ANTLR start "entryRuleAttrValueTest"
-    // InternalSoarParser.g:503:1: entryRuleAttrValueTest returns [EObject current=null] : iv_ruleAttrValueTest= ruleAttrValueTest EOF ;
-    public final EObject entryRuleAttrValueTest() throws RecognitionException {
+    // $ANTLR start "entryRuleCond"
+    // InternalSoarParser.g:609:1: entryRuleCond returns [EObject current=null] : iv_ruleCond= ruleCond EOF ;
+    public final EObject entryRuleCond() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAttrValueTest = null;
+        EObject iv_ruleCond = null;
 
 
         try {
-            // InternalSoarParser.g:503:54: (iv_ruleAttrValueTest= ruleAttrValueTest EOF )
-            // InternalSoarParser.g:504:2: iv_ruleAttrValueTest= ruleAttrValueTest EOF
+            // InternalSoarParser.g:609:45: (iv_ruleCond= ruleCond EOF )
+            // InternalSoarParser.g:610:2: iv_ruleCond= ruleCond EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAttrValueTestRule()); 
+               newCompositeNode(grammarAccess.getCondRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleAttrValueTest=ruleAttrValueTest();
+            iv_ruleCond=ruleCond();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAttrValueTest; 
+               current =iv_ruleCond; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -1477,166 +1708,95 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAttrValueTest"
+    // $ANTLR end "entryRuleCond"
 
 
-    // $ANTLR start "ruleAttrValueTest"
-    // InternalSoarParser.g:510:1: ruleAttrValueTest returns [EObject current=null] : ( () otherlv_1= CircumflexAccent ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_test_5_0= ruleConditionExpr ) ) ) ;
-    public final EObject ruleAttrValueTest() throws RecognitionException {
+    // $ANTLR start "ruleCond"
+    // InternalSoarParser.g:616:1: ruleCond returns [EObject current=null] : ( () (otherlv_1= HyphenMinus )? ( (lv_cond_2_0= rulePositiveCond ) ) ) ;
+    public final EObject ruleCond() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
-        Token lv_attrTest_2_0=null;
-        Token otherlv_3=null;
-        Token lv_attrTest_4_0=null;
-        EObject lv_test_5_0 = null;
+        EObject lv_cond_2_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:516:2: ( ( () otherlv_1= CircumflexAccent ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_test_5_0= ruleConditionExpr ) ) ) )
-            // InternalSoarParser.g:517:2: ( () otherlv_1= CircumflexAccent ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_test_5_0= ruleConditionExpr ) ) )
+            // InternalSoarParser.g:622:2: ( ( () (otherlv_1= HyphenMinus )? ( (lv_cond_2_0= rulePositiveCond ) ) ) )
+            // InternalSoarParser.g:623:2: ( () (otherlv_1= HyphenMinus )? ( (lv_cond_2_0= rulePositiveCond ) ) )
             {
-            // InternalSoarParser.g:517:2: ( () otherlv_1= CircumflexAccent ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_test_5_0= ruleConditionExpr ) ) )
-            // InternalSoarParser.g:518:3: () otherlv_1= CircumflexAccent ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_test_5_0= ruleConditionExpr ) )
+            // InternalSoarParser.g:623:2: ( () (otherlv_1= HyphenMinus )? ( (lv_cond_2_0= rulePositiveCond ) ) )
+            // InternalSoarParser.g:624:3: () (otherlv_1= HyphenMinus )? ( (lv_cond_2_0= rulePositiveCond ) )
             {
-            // InternalSoarParser.g:518:3: ()
-            // InternalSoarParser.g:519:4: 
+            // InternalSoarParser.g:624:3: ()
+            // InternalSoarParser.g:625:4: 
             {
             if ( state.backtracking==0 ) {
 
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
               				current = forceCreateModelElement(
-              					grammarAccess.getAttrValueTestAccess().getAttrValueTestAction_0(),
+              					grammarAccess.getCondAccess().getCondAction_0(),
               					current);
               			
             }
 
             }
 
-            otherlv_1=(Token)match(input,CircumflexAccent,FollowSets000.FOLLOW_5); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
+            // InternalSoarParser.g:634:3: (otherlv_1= HyphenMinus )?
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-              			newLeafNode(otherlv_1, grammarAccess.getAttrValueTestAccess().getCircumflexAccentKeyword_1());
-              		
+            if ( (LA11_0==HyphenMinus) ) {
+                alt11=1;
             }
-            // InternalSoarParser.g:529:3: ( (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING ) )
-            // InternalSoarParser.g:530:4: (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING )
+            switch (alt11) {
+                case 1 :
+                    // InternalSoarParser.g:635:4: otherlv_1= HyphenMinus
+                    {
+                    otherlv_1=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_16); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_1, grammarAccess.getCondAccess().getHyphenMinusKeyword_1());
+                      			
+                    }
+
+                    }
+                    break;
+
+            }
+
+            // InternalSoarParser.g:640:3: ( (lv_cond_2_0= rulePositiveCond ) )
+            // InternalSoarParser.g:641:4: (lv_cond_2_0= rulePositiveCond )
             {
-            // InternalSoarParser.g:530:4: (lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING )
-            // InternalSoarParser.g:531:5: lv_attrTest_2_0= RULE_SYM_CONSTANT_STRING
-            {
-            lv_attrTest_2_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_15); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              					newLeafNode(lv_attrTest_2_0, grammarAccess.getAttrValueTestAccess().getAttrTestSYM_CONSTANT_STRINGTerminalRuleCall_2_0());
-              				
-            }
-            if ( state.backtracking==0 ) {
-
-              					if (current==null) {
-              						current = createModelElement(grammarAccess.getAttrValueTestRule());
-              					}
-              					addWithLastConsumed(
-              						current,
-              						"attrTest",
-              						lv_attrTest_2_0,
-              						"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
-              				
-            }
-
-            }
-
-
-            }
-
-            // InternalSoarParser.g:547:3: (otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) ) )*
-            loop11:
-            do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
-
-                if ( (LA11_0==FullStop) ) {
-                    alt11=1;
-                }
-
-
-                switch (alt11) {
-            	case 1 :
-            	    // InternalSoarParser.g:548:4: otherlv_3= FullStop ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) )
-            	    {
-            	    otherlv_3=(Token)match(input,FullStop,FollowSets000.FOLLOW_5); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      				newLeafNode(otherlv_3, grammarAccess.getAttrValueTestAccess().getFullStopKeyword_3_0());
-            	      			
-            	    }
-            	    // InternalSoarParser.g:552:4: ( (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING ) )
-            	    // InternalSoarParser.g:553:5: (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING )
-            	    {
-            	    // InternalSoarParser.g:553:5: (lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING )
-            	    // InternalSoarParser.g:554:6: lv_attrTest_4_0= RULE_SYM_CONSTANT_STRING
-            	    {
-            	    lv_attrTest_4_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_15); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      						newLeafNode(lv_attrTest_4_0, grammarAccess.getAttrValueTestAccess().getAttrTestSYM_CONSTANT_STRINGTerminalRuleCall_3_1_0());
-            	      					
-            	    }
-            	    if ( state.backtracking==0 ) {
-
-            	      						if (current==null) {
-            	      							current = createModelElement(grammarAccess.getAttrValueTestRule());
-            	      						}
-            	      						addWithLastConsumed(
-            	      							current,
-            	      							"attrTest",
-            	      							lv_attrTest_4_0,
-            	      							"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
-            	      					
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop11;
-                }
-            } while (true);
-
-            // InternalSoarParser.g:571:3: ( (lv_test_5_0= ruleConditionExpr ) )
-            // InternalSoarParser.g:572:4: (lv_test_5_0= ruleConditionExpr )
-            {
-            // InternalSoarParser.g:572:4: (lv_test_5_0= ruleConditionExpr )
-            // InternalSoarParser.g:573:5: lv_test_5_0= ruleConditionExpr
+            // InternalSoarParser.g:641:4: (lv_cond_2_0= rulePositiveCond )
+            // InternalSoarParser.g:642:5: lv_cond_2_0= rulePositiveCond
             {
             if ( state.backtracking==0 ) {
 
-              					newCompositeNode(grammarAccess.getAttrValueTestAccess().getTestConditionExprParserRuleCall_4_0());
+              					newCompositeNode(grammarAccess.getCondAccess().getCondPositiveCondParserRuleCall_2_0());
               				
             }
             pushFollow(FollowSets000.FOLLOW_2);
-            lv_test_5_0=ruleConditionExpr();
+            lv_cond_2_0=rulePositiveCond();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               					if (current==null) {
-              						current = createModelElementForParent(grammarAccess.getAttrValueTestRule());
+              						current = createModelElementForParent(grammarAccess.getCondRule());
               					}
               					set(
               						current,
-              						"test",
-              						lv_test_5_0,
-              						"com.collins.trustedmethods.matrics.soar.Soar.ConditionExpr");
+              						"cond",
+              						lv_cond_2_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.PositiveCond");
               					afterParserOrEnumRuleCall();
               				
             }
@@ -1667,31 +1827,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAttrValueTest"
+    // $ANTLR end "ruleCond"
 
 
-    // $ANTLR start "entryRuleRelationalOp"
-    // InternalSoarParser.g:594:1: entryRuleRelationalOp returns [String current=null] : iv_ruleRelationalOp= ruleRelationalOp EOF ;
-    public final String entryRuleRelationalOp() throws RecognitionException {
-        String current = null;
+    // $ANTLR start "entryRulePositiveCond"
+    // InternalSoarParser.g:663:1: entryRulePositiveCond returns [EObject current=null] : iv_rulePositiveCond= rulePositiveCond EOF ;
+    public final EObject entryRulePositiveCond() throws RecognitionException {
+        EObject current = null;
 
-        AntlrDatatypeRuleToken iv_ruleRelationalOp = null;
+        EObject iv_rulePositiveCond = null;
 
 
         try {
-            // InternalSoarParser.g:594:52: (iv_ruleRelationalOp= ruleRelationalOp EOF )
-            // InternalSoarParser.g:595:2: iv_ruleRelationalOp= ruleRelationalOp EOF
+            // InternalSoarParser.g:663:53: (iv_rulePositiveCond= rulePositiveCond EOF )
+            // InternalSoarParser.g:664:2: iv_rulePositiveCond= rulePositiveCond EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getRelationalOpRule()); 
+               newCompositeNode(grammarAccess.getPositiveCondRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleRelationalOp=ruleRelationalOp();
+            iv_rulePositiveCond=rulePositiveCond();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleRelationalOp.getText(); 
+               current =iv_rulePositiveCond; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -1707,175 +1867,369 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleRelationalOp"
+    // $ANTLR end "entryRulePositiveCond"
 
 
-    // $ANTLR start "ruleRelationalOp"
-    // InternalSoarParser.g:601:1: ruleRelationalOp returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= LessThanSignGreaterThanSign | kw= LessThanSign | kw= GreaterThanSign | kw= LessThanSignEqualsSign | kw= GreaterThanSignEqualsSign | kw= EqualsSignEqualsSign | kw= LessThanSignEqualsSignGreaterThanSign | kw= EqualsSign ) ;
-    public final AntlrDatatypeRuleToken ruleRelationalOp() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+    // $ANTLR start "rulePositiveCond"
+    // InternalSoarParser.g:670:1: rulePositiveCond returns [EObject current=null] : ( ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) ) | (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket ) ) ;
+    public final EObject rulePositiveCond() throws RecognitionException {
+        EObject current = null;
 
-        Token kw=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        EObject lv_condForOneId_1_0 = null;
+
+        EObject lv_cond_3_0 = null;
+
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:607:2: ( (kw= LessThanSignGreaterThanSign | kw= LessThanSign | kw= GreaterThanSign | kw= LessThanSignEqualsSign | kw= GreaterThanSignEqualsSign | kw= EqualsSignEqualsSign | kw= LessThanSignEqualsSignGreaterThanSign | kw= EqualsSign ) )
-            // InternalSoarParser.g:608:2: (kw= LessThanSignGreaterThanSign | kw= LessThanSign | kw= GreaterThanSign | kw= LessThanSignEqualsSign | kw= GreaterThanSignEqualsSign | kw= EqualsSignEqualsSign | kw= LessThanSignEqualsSignGreaterThanSign | kw= EqualsSign )
+            // InternalSoarParser.g:676:2: ( ( ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) ) | (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket ) ) )
+            // InternalSoarParser.g:677:2: ( ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) ) | (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket ) )
             {
-            // InternalSoarParser.g:608:2: (kw= LessThanSignGreaterThanSign | kw= LessThanSign | kw= GreaterThanSign | kw= LessThanSignEqualsSign | kw= GreaterThanSignEqualsSign | kw= EqualsSignEqualsSign | kw= LessThanSignEqualsSignGreaterThanSign | kw= EqualsSign )
-            int alt12=8;
-            switch ( input.LA(1) ) {
-            case LessThanSignGreaterThanSign:
-                {
-                alt12=1;
-                }
-                break;
-            case LessThanSign:
-                {
-                alt12=2;
-                }
-                break;
-            case GreaterThanSign:
-                {
-                alt12=3;
-                }
-                break;
-            case LessThanSignEqualsSign:
-                {
-                alt12=4;
-                }
-                break;
-            case GreaterThanSignEqualsSign:
-                {
-                alt12=5;
-                }
-                break;
-            case EqualsSignEqualsSign:
-                {
-                alt12=6;
-                }
-                break;
-            case LessThanSignEqualsSignGreaterThanSign:
-                {
-                alt12=7;
-                }
-                break;
-            case EqualsSign:
-                {
-                alt12=8;
-                }
-                break;
-            default:
+            // InternalSoarParser.g:677:2: ( ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) ) | (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket ) )
+            int alt13=2;
+            int LA13_0 = input.LA(1);
+
+            if ( (LA13_0==LeftParenthesis) ) {
+                alt13=1;
+            }
+            else if ( (LA13_0==LeftCurlyBracket) ) {
+                alt13=2;
+            }
+            else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 12, 0, input);
+                    new NoViableAltException("", 13, 0, input);
 
                 throw nvae;
             }
-
-            switch (alt12) {
+            switch (alt13) {
                 case 1 :
-                    // InternalSoarParser.g:609:3: kw= LessThanSignGreaterThanSign
+                    // InternalSoarParser.g:678:3: ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) )
                     {
-                    kw=(Token)match(input,LessThanSignGreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    // InternalSoarParser.g:678:3: ( () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) ) )
+                    // InternalSoarParser.g:679:4: () ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) )
+                    {
+                    // InternalSoarParser.g:679:4: ()
+                    // InternalSoarParser.g:680:5: 
+                    {
                     if ( state.backtracking==0 ) {
 
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getLessThanSignGreaterThanSignKeyword_0());
-                      		
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getPositiveCondAccess().getPositiveCondAction_0_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    // InternalSoarParser.g:689:4: ( ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) ) )
+                    // InternalSoarParser.g:690:5: ( ( ( ruleCondForOneId ) ) )=> ( (lv_condForOneId_1_0= ruleCondForOneId ) )
+                    {
+                    // InternalSoarParser.g:696:5: ( (lv_condForOneId_1_0= ruleCondForOneId ) )
+                    // InternalSoarParser.g:697:6: (lv_condForOneId_1_0= ruleCondForOneId )
+                    {
+                    // InternalSoarParser.g:697:6: (lv_condForOneId_1_0= ruleCondForOneId )
+                    // InternalSoarParser.g:698:7: lv_condForOneId_1_0= ruleCondForOneId
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      							newCompositeNode(grammarAccess.getPositiveCondAccess().getCondForOneIdCondForOneIdParserRuleCall_0_1_0_0());
+                      						
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_condForOneId_1_0=ruleCondForOneId();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      							if (current==null) {
+                      								current = createModelElementForParent(grammarAccess.getPositiveCondRule());
+                      							}
+                      							set(
+                      								current,
+                      								"condForOneId",
+                      								lv_condForOneId_1_0,
+                      								"com.collins.trustedmethods.matrics.soar.Soar.CondForOneId");
+                      							afterParserOrEnumRuleCall();
+                      						
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:718:3: (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket )
+                    {
+                    // InternalSoarParser.g:718:3: (otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket )
+                    // InternalSoarParser.g:719:4: otherlv_2= LeftCurlyBracket ( (lv_cond_3_0= ruleCond ) )+ otherlv_4= RightCurlyBracket
+                    {
+                    otherlv_2=(Token)match(input,LeftCurlyBracket,FollowSets000.FOLLOW_16); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_2, grammarAccess.getPositiveCondAccess().getLeftCurlyBracketKeyword_1_0());
+                      			
+                    }
+                    // InternalSoarParser.g:723:4: ( (lv_cond_3_0= ruleCond ) )+
+                    int cnt12=0;
+                    loop12:
+                    do {
+                        int alt12=2;
+                        int LA12_0 = input.LA(1);
+
+                        if ( (LA12_0==LeftParenthesis||LA12_0==HyphenMinus||LA12_0==LeftCurlyBracket) ) {
+                            alt12=1;
+                        }
+
+
+                        switch (alt12) {
+                    	case 1 :
+                    	    // InternalSoarParser.g:724:5: (lv_cond_3_0= ruleCond )
+                    	    {
+                    	    // InternalSoarParser.g:724:5: (lv_cond_3_0= ruleCond )
+                    	    // InternalSoarParser.g:725:6: lv_cond_3_0= ruleCond
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+
+                    	      						newCompositeNode(grammarAccess.getPositiveCondAccess().getCondCondParserRuleCall_1_1_0());
+                    	      					
+                    	    }
+                    	    pushFollow(FollowSets000.FOLLOW_17);
+                    	    lv_cond_3_0=ruleCond();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      						if (current==null) {
+                    	      							current = createModelElementForParent(grammarAccess.getPositiveCondRule());
+                    	      						}
+                    	      						add(
+                    	      							current,
+                    	      							"cond",
+                    	      							lv_cond_3_0,
+                    	      							"com.collins.trustedmethods.matrics.soar.Soar.Cond");
+                    	      						afterParserOrEnumRuleCall();
+                    	      					
+                    	    }
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt12 >= 1 ) break loop12;
+                    	    if (state.backtracking>0) {state.failed=true; return current;}
+                                EarlyExitException eee =
+                                    new EarlyExitException(12, input);
+                                throw eee;
+                        }
+                        cnt12++;
+                    } while (true);
+
+                    otherlv_4=(Token)match(input,RightCurlyBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_4, grammarAccess.getPositiveCondAccess().getRightCurlyBracketKeyword_1_2());
+                      			
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "rulePositiveCond"
+
+
+    // $ANTLR start "entryRuleCondForOneId"
+    // InternalSoarParser.g:751:1: entryRuleCondForOneId returns [EObject current=null] : iv_ruleCondForOneId= ruleCondForOneId EOF ;
+    public final EObject entryRuleCondForOneId() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleCondForOneId = null;
+
+
+        try {
+            // InternalSoarParser.g:751:53: (iv_ruleCondForOneId= ruleCondForOneId EOF )
+            // InternalSoarParser.g:752:2: iv_ruleCondForOneId= ruleCondForOneId EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getCondForOneIdRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleCondForOneId=ruleCondForOneId();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleCondForOneId; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleCondForOneId"
+
+
+    // $ANTLR start "ruleCondForOneId"
+    // InternalSoarParser.g:758:1: ruleCondForOneId returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_idTest_4_0= ruleVariable ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) ;
+    public final EObject ruleCondForOneId() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_6=null;
+        EObject lv_idTest_4_0 = null;
+
+        EObject lv_attrValueTest_5_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:764:2: ( ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_idTest_4_0= ruleVariable ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis ) )
+            // InternalSoarParser.g:765:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_idTest_4_0= ruleVariable ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
+            {
+            // InternalSoarParser.g:765:2: ( () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_idTest_4_0= ruleVariable ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis )
+            // InternalSoarParser.g:766:3: () otherlv_1= LeftParenthesis ( ruleSTATE | ruleIMPASSE )? ( (lv_idTest_4_0= ruleVariable ) ) ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+ otherlv_6= RightParenthesis
+            {
+            // InternalSoarParser.g:766:3: ()
+            // InternalSoarParser.g:767:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getCondForOneIdAccess().getCondForOneIdAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_18); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getCondForOneIdAccess().getLeftParenthesisKeyword_1());
+              		
+            }
+            // InternalSoarParser.g:780:3: ( ruleSTATE | ruleIMPASSE )?
+            int alt14=3;
+            int LA14_0 = input.LA(1);
+
+            if ( (LA14_0==State) ) {
+                alt14=1;
+            }
+            else if ( (LA14_0==Impasse) ) {
+                alt14=2;
+            }
+            switch (alt14) {
+                case 1 :
+                    // InternalSoarParser.g:781:4: ruleSTATE
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      				/* */
+                      			
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      				newCompositeNode(grammarAccess.getCondForOneIdAccess().getSTATEParserRuleCall_2_0());
+                      			
+                    }
+                    pushFollow(FollowSets000.FOLLOW_19);
+                    ruleSTATE();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				afterParserOrEnumRuleCall();
+                      			
                     }
 
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:615:3: kw= LessThanSign
+                    // InternalSoarParser.g:792:4: ruleIMPASSE
                     {
-                    kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getLessThanSignKeyword_1());
-                      		
+                      				/* */
+                      			
                     }
-
-                    }
-                    break;
-                case 3 :
-                    // InternalSoarParser.g:621:3: kw= GreaterThanSign
-                    {
-                    kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getGreaterThanSignKeyword_2());
-                      		
+                      				newCompositeNode(grammarAccess.getCondForOneIdAccess().getIMPASSEParserRuleCall_2_1());
+                      			
                     }
+                    pushFollow(FollowSets000.FOLLOW_19);
+                    ruleIMPASSE();
 
-                    }
-                    break;
-                case 4 :
-                    // InternalSoarParser.g:627:3: kw= LessThanSignEqualsSign
-                    {
-                    kw=(Token)match(input,LessThanSignEqualsSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    state._fsp--;
+                    if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getLessThanSignEqualsSignKeyword_3());
-                      		
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // InternalSoarParser.g:633:3: kw= GreaterThanSignEqualsSign
-                    {
-                    kw=(Token)match(input,GreaterThanSignEqualsSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getGreaterThanSignEqualsSignKeyword_4());
-                      		
-                    }
-
-                    }
-                    break;
-                case 6 :
-                    // InternalSoarParser.g:639:3: kw= EqualsSignEqualsSign
-                    {
-                    kw=(Token)match(input,EqualsSignEqualsSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getEqualsSignEqualsSignKeyword_5());
-                      		
-                    }
-
-                    }
-                    break;
-                case 7 :
-                    // InternalSoarParser.g:645:3: kw= LessThanSignEqualsSignGreaterThanSign
-                    {
-                    kw=(Token)match(input,LessThanSignEqualsSignGreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getLessThanSignEqualsSignGreaterThanSignKeyword_6());
-                      		
-                    }
-
-                    }
-                    break;
-                case 8 :
-                    // InternalSoarParser.g:651:3: kw= EqualsSign
-                    {
-                    kw=(Token)match(input,EqualsSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      			current.merge(kw);
-                      			newLeafNode(kw, grammarAccess.getRelationalOpAccess().getEqualsSignKeyword_7());
-                      		
+                      				afterParserOrEnumRuleCall();
+                      			
                     }
 
                     }
@@ -1883,289 +2237,313 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
             }
 
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleRelationalOp"
-
-
-    // $ANTLR start "entryRuleConditionExpr"
-    // InternalSoarParser.g:660:1: entryRuleConditionExpr returns [EObject current=null] : iv_ruleConditionExpr= ruleConditionExpr EOF ;
-    public final EObject entryRuleConditionExpr() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleConditionExpr = null;
-
-
-        try {
-            // InternalSoarParser.g:660:54: (iv_ruleConditionExpr= ruleConditionExpr EOF )
-            // InternalSoarParser.g:661:2: iv_ruleConditionExpr= ruleConditionExpr EOF
+            // InternalSoarParser.g:803:3: ( (lv_idTest_4_0= ruleVariable ) )
+            // InternalSoarParser.g:804:4: (lv_idTest_4_0= ruleVariable )
             {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getConditionExprRule()); 
-            }
-            pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleConditionExpr=ruleConditionExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleConditionExpr; 
-            }
-            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleConditionExpr"
-
-
-    // $ANTLR start "ruleConditionExpr"
-    // InternalSoarParser.g:667:1: ruleConditionExpr returns [EObject current=null] : this_PlusExpr_0= rulePlusExpr ;
-    public final EObject ruleConditionExpr() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_PlusExpr_0 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalSoarParser.g:673:2: (this_PlusExpr_0= rulePlusExpr )
-            // InternalSoarParser.g:674:2: this_PlusExpr_0= rulePlusExpr
+            // InternalSoarParser.g:804:4: (lv_idTest_4_0= ruleVariable )
+            // InternalSoarParser.g:805:5: lv_idTest_4_0= ruleVariable
             {
             if ( state.backtracking==0 ) {
 
-              		newCompositeNode(grammarAccess.getConditionExprAccess().getPlusExprParserRuleCall());
-              	
+              					newCompositeNode(grammarAccess.getCondForOneIdAccess().getIdTestVariableParserRuleCall_3_0());
+              				
             }
-            pushFollow(FollowSets000.FOLLOW_2);
-            this_PlusExpr_0=rulePlusExpr();
+            pushFollow(FollowSets000.FOLLOW_14);
+            lv_idTest_4_0=ruleVariable();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              		current = this_PlusExpr_0;
-              		afterParserOrEnumRuleCall();
-              	
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getCondForOneIdRule());
+              					}
+              					set(
+              						current,
+              						"idTest",
+              						lv_idTest_4_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+              					afterParserOrEnumRuleCall();
+              				
             }
 
             }
 
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleConditionExpr"
-
-
-    // $ANTLR start "entryRulePlusExpr"
-    // InternalSoarParser.g:685:1: entryRulePlusExpr returns [EObject current=null] : iv_rulePlusExpr= rulePlusExpr EOF ;
-    public final EObject entryRulePlusExpr() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_rulePlusExpr = null;
-
-
-        try {
-            // InternalSoarParser.g:685:49: (iv_rulePlusExpr= rulePlusExpr EOF )
-            // InternalSoarParser.g:686:2: iv_rulePlusExpr= rulePlusExpr EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getPlusExprRule()); 
-            }
-            pushFollow(FollowSets000.FOLLOW_1);
-            iv_rulePlusExpr=rulePlusExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_rulePlusExpr; 
-            }
-            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
             }
 
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRulePlusExpr"
-
-
-    // $ANTLR start "rulePlusExpr"
-    // InternalSoarParser.g:692:1: rulePlusExpr returns [EObject current=null] : (this_RelationalExpr_0= ruleRelationalExpr ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )* ) ;
-    public final EObject rulePlusExpr() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_op_2_0=null;
-        EObject this_RelationalExpr_0 = null;
-
-        EObject lv_right_3_0 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalSoarParser.g:698:2: ( (this_RelationalExpr_0= ruleRelationalExpr ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )* ) )
-            // InternalSoarParser.g:699:2: (this_RelationalExpr_0= ruleRelationalExpr ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )* )
-            {
-            // InternalSoarParser.g:699:2: (this_RelationalExpr_0= ruleRelationalExpr ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )* )
-            // InternalSoarParser.g:700:3: this_RelationalExpr_0= ruleRelationalExpr ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )*
-            {
-            if ( state.backtracking==0 ) {
-
-              			newCompositeNode(grammarAccess.getPlusExprAccess().getRelationalExprParserRuleCall_0());
-              		
-            }
-            pushFollow(FollowSets000.FOLLOW_16);
-            this_RelationalExpr_0=ruleRelationalExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			current = this_RelationalExpr_0;
-              			afterParserOrEnumRuleCall();
-              		
-            }
-            // InternalSoarParser.g:708:3: ( ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) ) )*
-            loop13:
+            // InternalSoarParser.g:822:3: ( (lv_attrValueTest_5_0= ruleAttrValueTest ) )+
+            int cnt15=0;
+            loop15:
             do {
-                int alt13=2;
-                int LA13_0 = input.LA(1);
+                int alt15=2;
+                int LA15_0 = input.LA(1);
 
-                if ( (LA13_0==PlusSign) && (synpred1_InternalSoarParser())) {
-                    alt13=1;
+                if ( (LA15_0==HyphenMinus||LA15_0==CircumflexAccent) ) {
+                    alt15=1;
                 }
 
 
-                switch (alt13) {
+                switch (alt15) {
             	case 1 :
-            	    // InternalSoarParser.g:709:4: ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) ) ( (lv_right_3_0= ruleRelationalExpr ) )
+            	    // InternalSoarParser.g:823:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
             	    {
-            	    // InternalSoarParser.g:709:4: ( ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) ) )
-            	    // InternalSoarParser.g:710:5: ( ( () ( ( PlusSign ) ) ) )=> ( () ( (lv_op_2_0= PlusSign ) ) )
-            	    {
-            	    // InternalSoarParser.g:720:5: ( () ( (lv_op_2_0= PlusSign ) ) )
-            	    // InternalSoarParser.g:721:6: () ( (lv_op_2_0= PlusSign ) )
-            	    {
-            	    // InternalSoarParser.g:721:6: ()
-            	    // InternalSoarParser.g:722:7: 
+            	    // InternalSoarParser.g:823:4: (lv_attrValueTest_5_0= ruleAttrValueTest )
+            	    // InternalSoarParser.g:824:5: lv_attrValueTest_5_0= ruleAttrValueTest
             	    {
             	    if ( state.backtracking==0 ) {
 
-            	      							current = forceCreateModelElementAndSet(
-            	      								grammarAccess.getPlusExprAccess().getBinaryExprLeftAction_1_0_0_0(),
-            	      								current);
-            	      						
+            	      					newCompositeNode(grammarAccess.getCondForOneIdAccess().getAttrValueTestAttrValueTestParserRuleCall_4_0());
+            	      				
             	    }
-
-            	    }
-
-            	    // InternalSoarParser.g:728:6: ( (lv_op_2_0= PlusSign ) )
-            	    // InternalSoarParser.g:729:7: (lv_op_2_0= PlusSign )
-            	    {
-            	    // InternalSoarParser.g:729:7: (lv_op_2_0= PlusSign )
-            	    // InternalSoarParser.g:730:8: lv_op_2_0= PlusSign
-            	    {
-            	    lv_op_2_0=(Token)match(input,PlusSign,FollowSets000.FOLLOW_15); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      								newLeafNode(lv_op_2_0, grammarAccess.getPlusExprAccess().getOpPlusSignKeyword_1_0_0_1_0());
-            	      							
-            	    }
-            	    if ( state.backtracking==0 ) {
-
-            	      								if (current==null) {
-            	      									current = createModelElement(grammarAccess.getPlusExprRule());
-            	      								}
-            	      								setWithLastConsumed(current, "op", lv_op_2_0, "+");
-            	      							
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-
-            	    // InternalSoarParser.g:744:4: ( (lv_right_3_0= ruleRelationalExpr ) )
-            	    // InternalSoarParser.g:745:5: (lv_right_3_0= ruleRelationalExpr )
-            	    {
-            	    // InternalSoarParser.g:745:5: (lv_right_3_0= ruleRelationalExpr )
-            	    // InternalSoarParser.g:746:6: lv_right_3_0= ruleRelationalExpr
-            	    {
-            	    if ( state.backtracking==0 ) {
-
-            	      						newCompositeNode(grammarAccess.getPlusExprAccess().getRightRelationalExprParserRuleCall_1_1_0());
-            	      					
-            	    }
-            	    pushFollow(FollowSets000.FOLLOW_16);
-            	    lv_right_3_0=ruleRelationalExpr();
+            	    pushFollow(FollowSets000.FOLLOW_15);
+            	    lv_attrValueTest_5_0=ruleAttrValueTest();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getCondForOneIdRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"attrValueTest",
+            	      						lv_attrValueTest_5_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.AttrValueTest");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt15 >= 1 ) break loop15;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(15, input);
+                        throw eee;
+                }
+                cnt15++;
+            } while (true);
+
+            otherlv_6=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_6, grammarAccess.getCondForOneIdAccess().getRightParenthesisKeyword_5());
+              		
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleCondForOneId"
+
+
+    // $ANTLR start "entryRuleAttrValueTest"
+    // InternalSoarParser.g:849:1: entryRuleAttrValueTest returns [EObject current=null] : iv_ruleAttrValueTest= ruleAttrValueTest EOF ;
+    public final EObject entryRuleAttrValueTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAttrValueTest = null;
+
+
+        try {
+            // InternalSoarParser.g:849:54: (iv_ruleAttrValueTest= ruleAttrValueTest EOF )
+            // InternalSoarParser.g:850:2: iv_ruleAttrValueTest= ruleAttrValueTest EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getAttrValueTestRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleAttrValueTest=ruleAttrValueTest();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAttrValueTest; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAttrValueTest"
+
+
+    // $ANTLR start "ruleAttrValueTest"
+    // InternalSoarParser.g:856:1: ruleAttrValueTest returns [EObject current=null] : ( () (otherlv_1= HyphenMinus )? otherlv_2= CircumflexAccent ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_valueTest_6_0= ruleValueTest ) )* ) ;
+    public final EObject ruleAttrValueTest() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token lv_attrTest_3_0=null;
+        Token otherlv_4=null;
+        Token lv_attrTest_5_0=null;
+        EObject lv_valueTest_6_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:862:2: ( ( () (otherlv_1= HyphenMinus )? otherlv_2= CircumflexAccent ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_valueTest_6_0= ruleValueTest ) )* ) )
+            // InternalSoarParser.g:863:2: ( () (otherlv_1= HyphenMinus )? otherlv_2= CircumflexAccent ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_valueTest_6_0= ruleValueTest ) )* )
+            {
+            // InternalSoarParser.g:863:2: ( () (otherlv_1= HyphenMinus )? otherlv_2= CircumflexAccent ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_valueTest_6_0= ruleValueTest ) )* )
+            // InternalSoarParser.g:864:3: () (otherlv_1= HyphenMinus )? otherlv_2= CircumflexAccent ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) ) (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )* ( (lv_valueTest_6_0= ruleValueTest ) )*
+            {
+            // InternalSoarParser.g:864:3: ()
+            // InternalSoarParser.g:865:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getAttrValueTestAccess().getAttrValueTestAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:874:3: (otherlv_1= HyphenMinus )?
+            int alt16=2;
+            int LA16_0 = input.LA(1);
+
+            if ( (LA16_0==HyphenMinus) ) {
+                alt16=1;
+            }
+            switch (alt16) {
+                case 1 :
+                    // InternalSoarParser.g:875:4: otherlv_1= HyphenMinus
+                    {
+                    otherlv_1=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_20); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_1, grammarAccess.getAttrValueTestAccess().getHyphenMinusKeyword_1());
+                      			
+                    }
+
+                    }
+                    break;
+
+            }
+
+            otherlv_2=(Token)match(input,CircumflexAccent,FollowSets000.FOLLOW_5); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_2, grammarAccess.getAttrValueTestAccess().getCircumflexAccentKeyword_2());
+              		
+            }
+            // InternalSoarParser.g:884:3: ( (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING ) )
+            // InternalSoarParser.g:885:4: (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING )
+            {
+            // InternalSoarParser.g:885:4: (lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING )
+            // InternalSoarParser.g:886:5: lv_attrTest_3_0= RULE_SYM_CONSTANT_STRING
+            {
+            lv_attrTest_3_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_21); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              					newLeafNode(lv_attrTest_3_0, grammarAccess.getAttrValueTestAccess().getAttrTestSYM_CONSTANT_STRINGTerminalRuleCall_3_0());
+              				
+            }
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              						current = createModelElement(grammarAccess.getAttrValueTestRule());
+              					}
+              					addWithLastConsumed(
+              						current,
+              						"attrTest",
+              						lv_attrTest_3_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalSoarParser.g:902:3: (otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) ) )*
+            loop17:
+            do {
+                int alt17=2;
+                int LA17_0 = input.LA(1);
+
+                if ( (LA17_0==FullStop) ) {
+                    alt17=1;
+                }
+
+
+                switch (alt17) {
+            	case 1 :
+            	    // InternalSoarParser.g:903:4: otherlv_4= FullStop ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) )
+            	    {
+            	    otherlv_4=(Token)match(input,FullStop,FollowSets000.FOLLOW_5); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      				newLeafNode(otherlv_4, grammarAccess.getAttrValueTestAccess().getFullStopKeyword_4_0());
+            	      			
+            	    }
+            	    // InternalSoarParser.g:907:4: ( (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING ) )
+            	    // InternalSoarParser.g:908:5: (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING )
+            	    {
+            	    // InternalSoarParser.g:908:5: (lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING )
+            	    // InternalSoarParser.g:909:6: lv_attrTest_5_0= RULE_SYM_CONSTANT_STRING
+            	    {
+            	    lv_attrTest_5_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_21); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						newLeafNode(lv_attrTest_5_0, grammarAccess.getAttrValueTestAccess().getAttrTestSYM_CONSTANT_STRINGTerminalRuleCall_4_1_0());
+            	      					
+            	    }
+            	    if ( state.backtracking==0 ) {
+
             	      						if (current==null) {
-            	      							current = createModelElementForParent(grammarAccess.getPlusExprRule());
+            	      							current = createModelElement(grammarAccess.getAttrValueTestRule());
             	      						}
-            	      						set(
+            	      						addWithLastConsumed(
             	      							current,
-            	      							"right",
-            	      							lv_right_3_0,
-            	      							"com.collins.trustedmethods.matrics.soar.Soar.RelationalExpr");
-            	      						afterParserOrEnumRuleCall();
+            	      							"attrTest",
+            	      							lv_attrTest_5_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
             	      					
             	    }
 
@@ -2179,7 +2557,60 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop13;
+            	    break loop17;
+                }
+            } while (true);
+
+            // InternalSoarParser.g:926:3: ( (lv_valueTest_6_0= ruleValueTest ) )*
+            loop18:
+            do {
+                int alt18=2;
+                int LA18_0 = input.LA(1);
+
+                if ( (LA18_0==State||(LA18_0>=LessThanSignEqualsSignGreaterThanSign && LA18_0<=GreaterThanSignEqualsSign)||LA18_0==LeftParenthesis||(LA18_0>=LessThanSign && LA18_0<=GreaterThanSign)||LA18_0==LeftSquareBracket||LA18_0==LeftCurlyBracket||(LA18_0>=RULE_SYM_CONSTANT_STRING && LA18_0<=RULE_INT)) ) {
+                    alt18=1;
+                }
+
+
+                switch (alt18) {
+            	case 1 :
+            	    // InternalSoarParser.g:927:4: (lv_valueTest_6_0= ruleValueTest )
+            	    {
+            	    // InternalSoarParser.g:927:4: (lv_valueTest_6_0= ruleValueTest )
+            	    // InternalSoarParser.g:928:5: lv_valueTest_6_0= ruleValueTest
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getAttrValueTestAccess().getValueTestValueTestParserRuleCall_5_0());
+            	      				
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_22);
+            	    lv_valueTest_6_0=ruleValueTest();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getAttrValueTestRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"valueTest",
+            	      						lv_valueTest_6_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.ValueTest");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop18;
                 }
             } while (true);
 
@@ -2204,31 +2635,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "rulePlusExpr"
+    // $ANTLR end "ruleAttrValueTest"
 
 
-    // $ANTLR start "entryRuleRelationalExpr"
-    // InternalSoarParser.g:768:1: entryRuleRelationalExpr returns [EObject current=null] : iv_ruleRelationalExpr= ruleRelationalExpr EOF ;
-    public final EObject entryRuleRelationalExpr() throws RecognitionException {
+    // $ANTLR start "entryRuleValueTest"
+    // InternalSoarParser.g:949:1: entryRuleValueTest returns [EObject current=null] : iv_ruleValueTest= ruleValueTest EOF ;
+    public final EObject entryRuleValueTest() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleRelationalExpr = null;
+        EObject iv_ruleValueTest = null;
 
 
         try {
-            // InternalSoarParser.g:768:55: (iv_ruleRelationalExpr= ruleRelationalExpr EOF )
-            // InternalSoarParser.g:769:2: iv_ruleRelationalExpr= ruleRelationalExpr EOF
+            // InternalSoarParser.g:949:50: (iv_ruleValueTest= ruleValueTest EOF )
+            // InternalSoarParser.g:950:2: iv_ruleValueTest= ruleValueTest EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getRelationalExprRule()); 
+               newCompositeNode(grammarAccess.getValueTestRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleRelationalExpr=ruleRelationalExpr();
+            iv_ruleValueTest=ruleValueTest();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleRelationalExpr; 
+               current =iv_ruleValueTest; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -2244,101 +2675,101 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleRelationalExpr"
+    // $ANTLR end "entryRuleValueTest"
 
 
-    // $ANTLR start "ruleRelationalExpr"
-    // InternalSoarParser.g:775:1: ruleRelationalExpr returns [EObject current=null] : (this_PrefixExpr_0= rulePrefixExpr ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )? ) ;
-    public final EObject ruleRelationalExpr() throws RecognitionException {
+    // $ANTLR start "ruleValueTest"
+    // InternalSoarParser.g:956:1: ruleValueTest returns [EObject current=null] : ( ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) ) | ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? ) ) ;
+    public final EObject ruleValueTest() throws RecognitionException {
         EObject current = null;
 
-        EObject this_PrefixExpr_0 = null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        EObject lv_test_1_0 = null;
 
-        AntlrDatatypeRuleToken lv_op_2_0 = null;
-
-        EObject lv_right_3_0 = null;
+        EObject lv_condForOneId_3_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:781:2: ( (this_PrefixExpr_0= rulePrefixExpr ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )? ) )
-            // InternalSoarParser.g:782:2: (this_PrefixExpr_0= rulePrefixExpr ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )? )
+            // InternalSoarParser.g:962:2: ( ( ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) ) | ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? ) ) )
+            // InternalSoarParser.g:963:2: ( ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) ) | ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? ) )
             {
-            // InternalSoarParser.g:782:2: (this_PrefixExpr_0= rulePrefixExpr ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )? )
-            // InternalSoarParser.g:783:3: this_PrefixExpr_0= rulePrefixExpr ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )?
-            {
-            if ( state.backtracking==0 ) {
+            // InternalSoarParser.g:963:2: ( ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) ) | ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? ) )
+            int alt21=2;
+            int LA21_0 = input.LA(1);
 
-              			newCompositeNode(grammarAccess.getRelationalExprAccess().getPrefixExprParserRuleCall_0());
-              		
+            if ( (LA21_0==State||(LA21_0>=LessThanSignEqualsSignGreaterThanSign && LA21_0<=GreaterThanSignEqualsSign)||(LA21_0>=LessThanSign && LA21_0<=GreaterThanSign)||LA21_0==LeftSquareBracket||LA21_0==LeftCurlyBracket||(LA21_0>=RULE_SYM_CONSTANT_STRING && LA21_0<=RULE_INT)) ) {
+                alt21=1;
             }
-            pushFollow(FollowSets000.FOLLOW_17);
-            this_PrefixExpr_0=rulePrefixExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			current = this_PrefixExpr_0;
-              			afterParserOrEnumRuleCall();
-              		
+            else if ( (LA21_0==LeftParenthesis) ) {
+                alt21=2;
             }
-            // InternalSoarParser.g:791:3: ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )?
-            int alt14=2;
-            alt14 = dfa14.predict(input);
-            switch (alt14) {
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 21, 0, input);
+
+                throw nvae;
+            }
+            switch (alt21) {
                 case 1 :
-                    // InternalSoarParser.g:792:4: ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) )
+                    // InternalSoarParser.g:964:3: ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) )
                     {
-                    // InternalSoarParser.g:792:4: ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) )
-                    // InternalSoarParser.g:793:5: ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) )
+                    // InternalSoarParser.g:964:3: ( () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? ) )
+                    // InternalSoarParser.g:965:4: () ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? )
                     {
-                    // InternalSoarParser.g:803:5: ( () ( (lv_op_2_0= ruleRelationalOp ) ) )
-                    // InternalSoarParser.g:804:6: () ( (lv_op_2_0= ruleRelationalOp ) )
-                    {
-                    // InternalSoarParser.g:804:6: ()
-                    // InternalSoarParser.g:805:7: 
+                    // InternalSoarParser.g:965:4: ()
+                    // InternalSoarParser.g:966:5: 
                     {
                     if ( state.backtracking==0 ) {
 
-                      							current = forceCreateModelElementAndSet(
-                      								grammarAccess.getRelationalExprAccess().getBinaryExprLeftAction_1_0_0_0(),
-                      								current);
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getValueTestAccess().getValueTestAction_0_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    // InternalSoarParser.g:975:4: ( ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )? )
+                    // InternalSoarParser.g:976:5: ( (lv_test_1_0= ruleTest ) ) (otherlv_2= PlusSign )?
+                    {
+                    // InternalSoarParser.g:976:5: ( (lv_test_1_0= ruleTest ) )
+                    // InternalSoarParser.g:977:6: (lv_test_1_0= ruleTest )
+                    {
+                    // InternalSoarParser.g:977:6: (lv_test_1_0= ruleTest )
+                    // InternalSoarParser.g:978:7: lv_test_1_0= ruleTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      							newCompositeNode(grammarAccess.getValueTestAccess().getTestTestParserRuleCall_0_1_0_0());
                       						
                     }
-
-                    }
-
-                    // InternalSoarParser.g:811:6: ( (lv_op_2_0= ruleRelationalOp ) )
-                    // InternalSoarParser.g:812:7: (lv_op_2_0= ruleRelationalOp )
-                    {
-                    // InternalSoarParser.g:812:7: (lv_op_2_0= ruleRelationalOp )
-                    // InternalSoarParser.g:813:8: lv_op_2_0= ruleRelationalOp
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      								newCompositeNode(grammarAccess.getRelationalExprAccess().getOpRelationalOpParserRuleCall_1_0_0_1_0());
-                      							
-                    }
-                    pushFollow(FollowSets000.FOLLOW_15);
-                    lv_op_2_0=ruleRelationalOp();
+                    pushFollow(FollowSets000.FOLLOW_23);
+                    lv_test_1_0=ruleTest();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      								if (current==null) {
-                      									current = createModelElementForParent(grammarAccess.getRelationalExprRule());
-                      								}
-                      								set(
-                      									current,
-                      									"op",
-                      									lv_op_2_0,
-                      									"com.collins.trustedmethods.matrics.soar.Soar.RelationalOp");
-                      								afterParserOrEnumRuleCall();
-                      							
+                      							if (current==null) {
+                      								current = createModelElementForParent(grammarAccess.getValueTestRule());
+                      							}
+                      							set(
+                      								current,
+                      								"test",
+                      								lv_test_1_0,
+                      								"com.collins.trustedmethods.matrics.soar.Soar.Test");
+                      							afterParserOrEnumRuleCall();
+                      						
                     }
 
                     }
@@ -2346,38 +2777,873 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
                     }
 
+                    // InternalSoarParser.g:995:5: (otherlv_2= PlusSign )?
+                    int alt19=2;
+                    int LA19_0 = input.LA(1);
+
+                    if ( (LA19_0==PlusSign) ) {
+                        alt19=1;
+                    }
+                    switch (alt19) {
+                        case 1 :
+                            // InternalSoarParser.g:996:6: otherlv_2= PlusSign
+                            {
+                            otherlv_2=(Token)match(input,PlusSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              						newLeafNode(otherlv_2, grammarAccess.getValueTestAccess().getPlusSignKeyword_0_1_1());
+                              					
+                            }
+
+                            }
+                            break;
 
                     }
 
 
                     }
 
-                    // InternalSoarParser.g:832:4: ( (lv_right_3_0= rulePrefixExpr ) )
-                    // InternalSoarParser.g:833:5: (lv_right_3_0= rulePrefixExpr )
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1004:3: ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? )
                     {
-                    // InternalSoarParser.g:833:5: (lv_right_3_0= rulePrefixExpr )
-                    // InternalSoarParser.g:834:6: lv_right_3_0= rulePrefixExpr
+                    // InternalSoarParser.g:1004:3: ( ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )? )
+                    // InternalSoarParser.g:1005:4: ( (lv_condForOneId_3_0= ruleCondForOneId ) ) (otherlv_4= PlusSign )?
+                    {
+                    // InternalSoarParser.g:1005:4: ( (lv_condForOneId_3_0= ruleCondForOneId ) )
+                    // InternalSoarParser.g:1006:5: (lv_condForOneId_3_0= ruleCondForOneId )
+                    {
+                    // InternalSoarParser.g:1006:5: (lv_condForOneId_3_0= ruleCondForOneId )
+                    // InternalSoarParser.g:1007:6: lv_condForOneId_3_0= ruleCondForOneId
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getRelationalExprAccess().getRightPrefixExprParserRuleCall_1_1_0());
+                      						newCompositeNode(grammarAccess.getValueTestAccess().getCondForOneIdCondForOneIdParserRuleCall_1_0_0());
                       					
                     }
-                    pushFollow(FollowSets000.FOLLOW_2);
-                    lv_right_3_0=rulePrefixExpr();
+                    pushFollow(FollowSets000.FOLLOW_23);
+                    lv_condForOneId_3_0=ruleCondForOneId();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getRelationalExprRule());
+                      							current = createModelElementForParent(grammarAccess.getValueTestRule());
                       						}
                       						set(
                       							current,
-                      							"right",
-                      							lv_right_3_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.PrefixExpr");
+                      							"condForOneId",
+                      							lv_condForOneId_3_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.CondForOneId");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+                    // InternalSoarParser.g:1024:4: (otherlv_4= PlusSign )?
+                    int alt20=2;
+                    int LA20_0 = input.LA(1);
+
+                    if ( (LA20_0==PlusSign) ) {
+                        alt20=1;
+                    }
+                    switch (alt20) {
+                        case 1 :
+                            // InternalSoarParser.g:1025:5: otherlv_4= PlusSign
+                            {
+                            otherlv_4=(Token)match(input,PlusSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_4, grammarAccess.getValueTestAccess().getPlusSignKeyword_1_1());
+                              				
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleValueTest"
+
+
+    // $ANTLR start "entryRuleTest"
+    // InternalSoarParser.g:1035:1: entryRuleTest returns [EObject current=null] : iv_ruleTest= ruleTest EOF ;
+    public final EObject entryRuleTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleTest = null;
+
+
+        try {
+            // InternalSoarParser.g:1035:45: (iv_ruleTest= ruleTest EOF )
+            // InternalSoarParser.g:1036:2: iv_ruleTest= ruleTest EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getTestRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleTest=ruleTest();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleTest; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleTest"
+
+
+    // $ANTLR start "ruleTest"
+    // InternalSoarParser.g:1042:1: ruleTest returns [EObject current=null] : ( ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) ) | ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket ) | ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) ) | ( (lv_relationalTest_7_0= ruleRelationalTest ) ) | ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket ) ) ;
+    public final EObject ruleTest() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_4=null;
+        Token otherlv_9=null;
+        Token this_INT_10=null;
+        Token otherlv_11=null;
+        EObject lv_disjunctionTest_2_0 = null;
+
+        EObject lv_relationalTest_3_0 = null;
+
+        EObject lv_disjunctionTest_6_0 = null;
+
+        EObject lv_relationalTest_7_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1048:2: ( ( ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) ) | ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket ) | ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) ) | ( (lv_relationalTest_7_0= ruleRelationalTest ) ) | ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket ) ) )
+            // InternalSoarParser.g:1049:2: ( ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) ) | ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket ) | ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) ) | ( (lv_relationalTest_7_0= ruleRelationalTest ) ) | ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket ) )
+            {
+            // InternalSoarParser.g:1049:2: ( ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) ) | ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket ) | ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) ) | ( (lv_relationalTest_7_0= ruleRelationalTest ) ) | ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket ) )
+            int alt23=5;
+            alt23 = dfa23.predict(input);
+            switch (alt23) {
+                case 1 :
+                    // InternalSoarParser.g:1050:3: ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) )
+                    {
+                    // InternalSoarParser.g:1050:3: ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) )
+                    // InternalSoarParser.g:1051:4: () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) )
+                    {
+                    // InternalSoarParser.g:1051:4: ()
+                    // InternalSoarParser.g:1052:5: 
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getTestAccess().getConjuctiveTestAction_0_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    otherlv_1=(Token)match(input,LeftCurlyBracket,FollowSets000.FOLLOW_24); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_1, grammarAccess.getTestAccess().getLeftCurlyBracketKeyword_0_1());
+                      			
+                    }
+                    // InternalSoarParser.g:1065:4: ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) )
+                    // InternalSoarParser.g:1066:5: (lv_disjunctionTest_2_0= ruleDisjunctionTest )
+                    {
+                    // InternalSoarParser.g:1066:5: (lv_disjunctionTest_2_0= ruleDisjunctionTest )
+                    // InternalSoarParser.g:1067:6: lv_disjunctionTest_2_0= ruleDisjunctionTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getTestAccess().getDisjunctionTestDisjunctionTestParserRuleCall_0_2_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_disjunctionTest_2_0=ruleDisjunctionTest();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"disjunctionTest",
+                      							lv_disjunctionTest_2_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.DisjunctionTest");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1086:3: ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket )
+                    {
+                    // InternalSoarParser.g:1086:3: ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket )
+                    // InternalSoarParser.g:1087:4: ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket
+                    {
+                    // InternalSoarParser.g:1087:4: ( (lv_relationalTest_3_0= ruleRelationalTest ) )
+                    // InternalSoarParser.g:1088:5: (lv_relationalTest_3_0= ruleRelationalTest )
+                    {
+                    // InternalSoarParser.g:1088:5: (lv_relationalTest_3_0= ruleRelationalTest )
+                    // InternalSoarParser.g:1089:6: lv_relationalTest_3_0= ruleRelationalTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getTestAccess().getRelationalTestRelationalTestParserRuleCall_1_0_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_9);
+                    lv_relationalTest_3_0=ruleRelationalTest();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"relationalTest",
+                      							lv_relationalTest_3_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.RelationalTest");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+                    otherlv_4=(Token)match(input,RightCurlyBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_4, grammarAccess.getTestAccess().getRightCurlyBracketKeyword_1_1());
+                      			
+                    }
+
+                    }
+
+
+                    }
+                    break;
+                case 3 :
+                    // InternalSoarParser.g:1112:3: ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) )
+                    {
+                    // InternalSoarParser.g:1112:3: ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) )
+                    // InternalSoarParser.g:1113:4: () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) )
+                    {
+                    // InternalSoarParser.g:1113:4: ()
+                    // InternalSoarParser.g:1114:5: 
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getTestAccess().getSimpleTestAction_2_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    // InternalSoarParser.g:1123:4: ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) )
+                    // InternalSoarParser.g:1124:5: (lv_disjunctionTest_6_0= ruleDisjunctionTest )
+                    {
+                    // InternalSoarParser.g:1124:5: (lv_disjunctionTest_6_0= ruleDisjunctionTest )
+                    // InternalSoarParser.g:1125:6: lv_disjunctionTest_6_0= ruleDisjunctionTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getTestAccess().getDisjunctionTestDisjunctionTestParserRuleCall_2_1_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_disjunctionTest_6_0=ruleDisjunctionTest();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"disjunctionTest",
+                      							lv_disjunctionTest_6_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.DisjunctionTest");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 4 :
+                    // InternalSoarParser.g:1144:3: ( (lv_relationalTest_7_0= ruleRelationalTest ) )
+                    {
+                    // InternalSoarParser.g:1144:3: ( (lv_relationalTest_7_0= ruleRelationalTest ) )
+                    // InternalSoarParser.g:1145:4: (lv_relationalTest_7_0= ruleRelationalTest )
+                    {
+                    // InternalSoarParser.g:1145:4: (lv_relationalTest_7_0= ruleRelationalTest )
+                    // InternalSoarParser.g:1146:5: lv_relationalTest_7_0= ruleRelationalTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					newCompositeNode(grammarAccess.getTestAccess().getRelationalTestRelationalTestParserRuleCall_3_0());
+                      				
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_relationalTest_7_0=ruleRelationalTest();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      					if (current==null) {
+                      						current = createModelElementForParent(grammarAccess.getTestRule());
+                      					}
+                      					set(
+                      						current,
+                      						"relationalTest",
+                      						lv_relationalTest_7_0,
+                      						"com.collins.trustedmethods.matrics.soar.Soar.RelationalTest");
+                      					afterParserOrEnumRuleCall();
+                      				
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalSoarParser.g:1164:3: ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket )
+                    {
+                    // InternalSoarParser.g:1164:3: ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket )
+                    // InternalSoarParser.g:1165:4: () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket
+                    {
+                    // InternalSoarParser.g:1165:4: ()
+                    // InternalSoarParser.g:1166:5: 
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getTestAccess().getMultiValueTestAction_4_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    otherlv_9=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_25); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_9, grammarAccess.getTestAccess().getLeftSquareBracketKeyword_4_1());
+                      			
+                    }
+                    // InternalSoarParser.g:1179:4: (this_INT_10= RULE_INT )+
+                    int cnt22=0;
+                    loop22:
+                    do {
+                        int alt22=2;
+                        int LA22_0 = input.LA(1);
+
+                        if ( (LA22_0==RULE_INT) ) {
+                            alt22=1;
+                        }
+
+
+                        switch (alt22) {
+                    	case 1 :
+                    	    // InternalSoarParser.g:1180:5: this_INT_10= RULE_INT
+                    	    {
+                    	    this_INT_10=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_26); if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      					newLeafNode(this_INT_10, grammarAccess.getTestAccess().getINTTerminalRuleCall_4_2());
+                    	      				
+                    	    }
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    if ( cnt22 >= 1 ) break loop22;
+                    	    if (state.backtracking>0) {state.failed=true; return current;}
+                                EarlyExitException eee =
+                                    new EarlyExitException(22, input);
+                                throw eee;
+                        }
+                        cnt22++;
+                    } while (true);
+
+                    otherlv_11=(Token)match(input,RightSquareBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_11, grammarAccess.getTestAccess().getRightSquareBracketKeyword_4_3());
+                      			
+                    }
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleTest"
+
+
+    // $ANTLR start "entryRuleDisjunctionTest"
+    // InternalSoarParser.g:1194:1: entryRuleDisjunctionTest returns [EObject current=null] : iv_ruleDisjunctionTest= ruleDisjunctionTest EOF ;
+    public final EObject entryRuleDisjunctionTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleDisjunctionTest = null;
+
+
+        try {
+            // InternalSoarParser.g:1194:56: (iv_ruleDisjunctionTest= ruleDisjunctionTest EOF )
+            // InternalSoarParser.g:1195:2: iv_ruleDisjunctionTest= ruleDisjunctionTest EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getDisjunctionTestRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleDisjunctionTest=ruleDisjunctionTest();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleDisjunctionTest; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleDisjunctionTest"
+
+
+    // $ANTLR start "ruleDisjunctionTest"
+    // InternalSoarParser.g:1201:1: ruleDisjunctionTest returns [EObject current=null] : ( () otherlv_1= LessThanSignLessThanSign ( (lv_constant_2_0= ruleConstant ) )+ otherlv_3= GreaterThanSignGreaterThanSign ) ;
+    public final EObject ruleDisjunctionTest() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_3=null;
+        EObject lv_constant_2_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1207:2: ( ( () otherlv_1= LessThanSignLessThanSign ( (lv_constant_2_0= ruleConstant ) )+ otherlv_3= GreaterThanSignGreaterThanSign ) )
+            // InternalSoarParser.g:1208:2: ( () otherlv_1= LessThanSignLessThanSign ( (lv_constant_2_0= ruleConstant ) )+ otherlv_3= GreaterThanSignGreaterThanSign )
+            {
+            // InternalSoarParser.g:1208:2: ( () otherlv_1= LessThanSignLessThanSign ( (lv_constant_2_0= ruleConstant ) )+ otherlv_3= GreaterThanSignGreaterThanSign )
+            // InternalSoarParser.g:1209:3: () otherlv_1= LessThanSignLessThanSign ( (lv_constant_2_0= ruleConstant ) )+ otherlv_3= GreaterThanSignGreaterThanSign
+            {
+            // InternalSoarParser.g:1209:3: ()
+            // InternalSoarParser.g:1210:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getDisjunctionTestAccess().getDisjunctionTestAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,LessThanSignLessThanSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getDisjunctionTestAccess().getLessThanSignLessThanSignKeyword_1());
+              		
+            }
+            // InternalSoarParser.g:1223:3: ( (lv_constant_2_0= ruleConstant ) )+
+            int cnt24=0;
+            loop24:
+            do {
+                int alt24=2;
+                int LA24_0 = input.LA(1);
+
+                if ( (LA24_0==State||(LA24_0>=RULE_SYM_CONSTANT_STRING && LA24_0<=RULE_INT)) ) {
+                    alt24=1;
+                }
+
+
+                switch (alt24) {
+            	case 1 :
+            	    // InternalSoarParser.g:1224:4: (lv_constant_2_0= ruleConstant )
+            	    {
+            	    // InternalSoarParser.g:1224:4: (lv_constant_2_0= ruleConstant )
+            	    // InternalSoarParser.g:1225:5: lv_constant_2_0= ruleConstant
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getDisjunctionTestAccess().getConstantConstantParserRuleCall_2_0());
+            	      				
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_28);
+            	    lv_constant_2_0=ruleConstant();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getDisjunctionTestRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"constant",
+            	      						lv_constant_2_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.Constant");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt24 >= 1 ) break loop24;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(24, input);
+                        throw eee;
+                }
+                cnt24++;
+            } while (true);
+
+            otherlv_3=(Token)match(input,GreaterThanSignGreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_3, grammarAccess.getDisjunctionTestAccess().getGreaterThanSignGreaterThanSignKeyword_3());
+              		
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDisjunctionTest"
+
+
+    // $ANTLR start "entryRuleSingleTest"
+    // InternalSoarParser.g:1250:1: entryRuleSingleTest returns [EObject current=null] : iv_ruleSingleTest= ruleSingleTest EOF ;
+    public final EObject entryRuleSingleTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleSingleTest = null;
+
+
+        try {
+            // InternalSoarParser.g:1250:51: (iv_ruleSingleTest= ruleSingleTest EOF )
+            // InternalSoarParser.g:1251:2: iv_ruleSingleTest= ruleSingleTest EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getSingleTestRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleSingleTest=ruleSingleTest();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleSingleTest; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleSingleTest"
+
+
+    // $ANTLR start "ruleSingleTest"
+    // InternalSoarParser.g:1257:1: ruleSingleTest returns [EObject current=null] : ( () ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) ) ) ;
+    public final EObject ruleSingleTest() throws RecognitionException {
+        EObject current = null;
+
+        EObject lv_variable_1_0 = null;
+
+        EObject lv_constant_2_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1263:2: ( ( () ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) ) ) )
+            // InternalSoarParser.g:1264:2: ( () ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) ) )
+            {
+            // InternalSoarParser.g:1264:2: ( () ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) ) )
+            // InternalSoarParser.g:1265:3: () ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) )
+            {
+            // InternalSoarParser.g:1265:3: ()
+            // InternalSoarParser.g:1266:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getSingleTestAccess().getSingleTestAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1275:3: ( ( (lv_variable_1_0= ruleVariable ) ) | ( (lv_constant_2_0= ruleConstant ) ) )
+            int alt25=2;
+            int LA25_0 = input.LA(1);
+
+            if ( (LA25_0==LessThanSign) ) {
+                alt25=1;
+            }
+            else if ( (LA25_0==State||(LA25_0>=RULE_SYM_CONSTANT_STRING && LA25_0<=RULE_INT)) ) {
+                alt25=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 25, 0, input);
+
+                throw nvae;
+            }
+            switch (alt25) {
+                case 1 :
+                    // InternalSoarParser.g:1276:4: ( (lv_variable_1_0= ruleVariable ) )
+                    {
+                    // InternalSoarParser.g:1276:4: ( (lv_variable_1_0= ruleVariable ) )
+                    // InternalSoarParser.g:1277:5: (lv_variable_1_0= ruleVariable )
+                    {
+                    // InternalSoarParser.g:1277:5: (lv_variable_1_0= ruleVariable )
+                    // InternalSoarParser.g:1278:6: lv_variable_1_0= ruleVariable
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getSingleTestAccess().getVariableVariableParserRuleCall_1_0_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_variable_1_0=ruleVariable();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getSingleTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"variable",
+                      							lv_variable_1_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1296:4: ( (lv_constant_2_0= ruleConstant ) )
+                    {
+                    // InternalSoarParser.g:1296:4: ( (lv_constant_2_0= ruleConstant ) )
+                    // InternalSoarParser.g:1297:5: (lv_constant_2_0= ruleConstant )
+                    {
+                    // InternalSoarParser.g:1297:5: (lv_constant_2_0= ruleConstant )
+                    // InternalSoarParser.g:1298:6: lv_constant_2_0= ruleConstant
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getSingleTestAccess().getConstantConstantParserRuleCall_1_1_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_constant_2_0=ruleConstant();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getSingleTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"constant",
+                      							lv_constant_2_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.Constant");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -2414,31 +3680,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleRelationalExpr"
+    // $ANTLR end "ruleSingleTest"
 
 
-    // $ANTLR start "entryRulePrefixExpr"
-    // InternalSoarParser.g:856:1: entryRulePrefixExpr returns [EObject current=null] : iv_rulePrefixExpr= rulePrefixExpr EOF ;
-    public final EObject entryRulePrefixExpr() throws RecognitionException {
+    // $ANTLR start "entryRuleRelationalTest"
+    // InternalSoarParser.g:1320:1: entryRuleRelationalTest returns [EObject current=null] : iv_ruleRelationalTest= ruleRelationalTest EOF ;
+    public final EObject entryRuleRelationalTest() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_rulePrefixExpr = null;
+        EObject iv_ruleRelationalTest = null;
 
 
         try {
-            // InternalSoarParser.g:856:51: (iv_rulePrefixExpr= rulePrefixExpr EOF )
-            // InternalSoarParser.g:857:2: iv_rulePrefixExpr= rulePrefixExpr EOF
+            // InternalSoarParser.g:1320:55: (iv_ruleRelationalTest= ruleRelationalTest EOF )
+            // InternalSoarParser.g:1321:2: iv_ruleRelationalTest= ruleRelationalTest EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getPrefixExprRule()); 
+               newCompositeNode(grammarAccess.getRelationalTestRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_rulePrefixExpr=rulePrefixExpr();
+            iv_ruleRelationalTest=ruleRelationalTest();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_rulePrefixExpr; 
+               current =iv_ruleRelationalTest; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -2454,116 +3720,239 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRulePrefixExpr"
+    // $ANTLR end "entryRuleRelationalTest"
 
 
-    // $ANTLR start "rulePrefixExpr"
-    // InternalSoarParser.g:863:1: rulePrefixExpr returns [EObject current=null] : ( ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) ) | this_AtomicConditionExpr_3= ruleAtomicConditionExpr ) ;
-    public final EObject rulePrefixExpr() throws RecognitionException {
+    // $ANTLR start "ruleRelationalTest"
+    // InternalSoarParser.g:1327:1: ruleRelationalTest returns [EObject current=null] : ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) | ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) ) ) ;
+    public final EObject ruleRelationalTest() throws RecognitionException {
         EObject current = null;
 
-        Token lv_op_1_0=null;
-        EObject lv_expr_2_0 = null;
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_3=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        Token otherlv_7=null;
+        Token otherlv_8=null;
+        EObject lv_singleTest_9_0 = null;
 
-        EObject this_AtomicConditionExpr_3 = null;
+        EObject lv_singleTest_11_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:869:2: ( ( ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) ) | this_AtomicConditionExpr_3= ruleAtomicConditionExpr ) )
-            // InternalSoarParser.g:870:2: ( ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) ) | this_AtomicConditionExpr_3= ruleAtomicConditionExpr )
+            // InternalSoarParser.g:1333:2: ( ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) | ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) ) ) )
+            // InternalSoarParser.g:1334:2: ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) | ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) ) )
             {
-            // InternalSoarParser.g:870:2: ( ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) ) | this_AtomicConditionExpr_3= ruleAtomicConditionExpr )
-            int alt15=2;
-            int LA15_0 = input.LA(1);
-
-            if ( (LA15_0==HyphenMinus) ) {
-                alt15=1;
-            }
-            else if ( (LA15_0==LessThanSignLessThanSign||LA15_0==LessThanSign||LA15_0==LeftSquareBracket||LA15_0==LeftCurlyBracket||LA15_0==RULE_SYM_CONSTANT_STRING) ) {
-                alt15=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return current;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 15, 0, input);
-
-                throw nvae;
-            }
-            switch (alt15) {
+            // InternalSoarParser.g:1334:2: ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) | ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) ) )
+            int alt27=2;
+            alt27 = dfa27.predict(input);
+            switch (alt27) {
                 case 1 :
-                    // InternalSoarParser.g:871:3: ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) )
+                    // InternalSoarParser.g:1335:3: ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) )
                     {
-                    // InternalSoarParser.g:871:3: ( () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) ) )
-                    // InternalSoarParser.g:872:4: () ( (lv_op_1_0= HyphenMinus ) ) ( (lv_expr_2_0= rulePrefixExpr ) )
+                    // InternalSoarParser.g:1335:3: ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) )
+                    // InternalSoarParser.g:1336:4: () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) )
                     {
-                    // InternalSoarParser.g:872:4: ()
-                    // InternalSoarParser.g:873:5: 
+                    // InternalSoarParser.g:1336:4: ()
+                    // InternalSoarParser.g:1337:5: 
                     {
                     if ( state.backtracking==0 ) {
 
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
                       					current = forceCreateModelElement(
-                      						grammarAccess.getPrefixExprAccess().getUnaryExprAction_0_0(),
+                      						grammarAccess.getRelationalTestAccess().getRelationalTestAction_0_0(),
                       						current);
                       				
                     }
 
                     }
 
-                    // InternalSoarParser.g:879:4: ( (lv_op_1_0= HyphenMinus ) )
-                    // InternalSoarParser.g:880:5: (lv_op_1_0= HyphenMinus )
+                    // InternalSoarParser.g:1346:4: (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign )
+                    int alt26=8;
+                    switch ( input.LA(1) ) {
+                    case LessThanSignGreaterThanSign:
+                        {
+                        alt26=1;
+                        }
+                        break;
+                    case LessThanSign:
+                        {
+                        alt26=2;
+                        }
+                        break;
+                    case GreaterThanSign:
+                        {
+                        alt26=3;
+                        }
+                        break;
+                    case LessThanSignEqualsSign:
+                        {
+                        alt26=4;
+                        }
+                        break;
+                    case GreaterThanSignEqualsSign:
+                        {
+                        alt26=5;
+                        }
+                        break;
+                    case EqualsSignEqualsSign:
+                        {
+                        alt26=6;
+                        }
+                        break;
+                    case LessThanSignEqualsSignGreaterThanSign:
+                        {
+                        alt26=7;
+                        }
+                        break;
+                    case EqualsSign:
+                        {
+                        alt26=8;
+                        }
+                        break;
+                    default:
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 26, 0, input);
+
+                        throw nvae;
+                    }
+
+                    switch (alt26) {
+                        case 1 :
+                            // InternalSoarParser.g:1347:5: otherlv_1= LessThanSignGreaterThanSign
+                            {
+                            otherlv_1=(Token)match(input,LessThanSignGreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_1, grammarAccess.getRelationalTestAccess().getLessThanSignGreaterThanSignKeyword_0_1_0());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 2 :
+                            // InternalSoarParser.g:1352:5: otherlv_2= LessThanSign
+                            {
+                            otherlv_2=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_2, grammarAccess.getRelationalTestAccess().getLessThanSignKeyword_0_1_1());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 3 :
+                            // InternalSoarParser.g:1357:5: otherlv_3= GreaterThanSign
+                            {
+                            otherlv_3=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_3, grammarAccess.getRelationalTestAccess().getGreaterThanSignKeyword_0_1_2());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 4 :
+                            // InternalSoarParser.g:1362:5: otherlv_4= LessThanSignEqualsSign
+                            {
+                            otherlv_4=(Token)match(input,LessThanSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_4, grammarAccess.getRelationalTestAccess().getLessThanSignEqualsSignKeyword_0_1_3());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 5 :
+                            // InternalSoarParser.g:1367:5: otherlv_5= GreaterThanSignEqualsSign
+                            {
+                            otherlv_5=(Token)match(input,GreaterThanSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_5, grammarAccess.getRelationalTestAccess().getGreaterThanSignEqualsSignKeyword_0_1_4());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 6 :
+                            // InternalSoarParser.g:1372:5: otherlv_6= EqualsSignEqualsSign
+                            {
+                            otherlv_6=(Token)match(input,EqualsSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_6, grammarAccess.getRelationalTestAccess().getEqualsSignEqualsSignKeyword_0_1_5());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 7 :
+                            // InternalSoarParser.g:1377:5: otherlv_7= LessThanSignEqualsSignGreaterThanSign
+                            {
+                            otherlv_7=(Token)match(input,LessThanSignEqualsSignGreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_7, grammarAccess.getRelationalTestAccess().getLessThanSignEqualsSignGreaterThanSignKeyword_0_1_6());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 8 :
+                            // InternalSoarParser.g:1382:5: otherlv_8= EqualsSign
+                            {
+                            otherlv_8=(Token)match(input,EqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(otherlv_8, grammarAccess.getRelationalTestAccess().getEqualsSignKeyword_0_1_7());
+                              				
+                            }
+
+                            }
+                            break;
+
+                    }
+
+                    // InternalSoarParser.g:1387:4: ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) )
+                    // InternalSoarParser.g:1388:5: ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest )
                     {
-                    // InternalSoarParser.g:880:5: (lv_op_1_0= HyphenMinus )
-                    // InternalSoarParser.g:881:6: lv_op_1_0= HyphenMinus
+                    // InternalSoarParser.g:1392:5: (lv_singleTest_9_0= ruleSingleTest )
+                    // InternalSoarParser.g:1393:6: lv_singleTest_9_0= ruleSingleTest
                     {
-                    lv_op_1_0=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_15); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      						newLeafNode(lv_op_1_0, grammarAccess.getPrefixExprAccess().getOpHyphenMinusKeyword_0_1_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getPrefixExprRule());
-                      						}
-                      						setWithLastConsumed(current, "op", lv_op_1_0, "-");
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-                    // InternalSoarParser.g:893:4: ( (lv_expr_2_0= rulePrefixExpr ) )
-                    // InternalSoarParser.g:894:5: (lv_expr_2_0= rulePrefixExpr )
-                    {
-                    // InternalSoarParser.g:894:5: (lv_expr_2_0= rulePrefixExpr )
-                    // InternalSoarParser.g:895:6: lv_expr_2_0= rulePrefixExpr
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      						newCompositeNode(grammarAccess.getPrefixExprAccess().getExprPrefixExprParserRuleCall_0_2_0());
+                      						newCompositeNode(grammarAccess.getRelationalTestAccess().getSingleTestSingleTestParserRuleCall_0_2_0());
                       					
                     }
                     pushFollow(FollowSets000.FOLLOW_2);
-                    lv_expr_2_0=rulePrefixExpr();
+                    lv_singleTest_9_0=ruleSingleTest();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getPrefixExprRule());
+                      							current = createModelElementForParent(grammarAccess.getRelationalTestRule());
                       						}
                       						set(
                       							current,
-                      							"expr",
-                      							lv_expr_2_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.PrefixExpr");
+                      							"singleTest",
+                      							lv_singleTest_9_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.SingleTest");
                       						afterParserOrEnumRuleCall();
                       					
                     }
@@ -2580,21 +3969,1477 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:914:3: this_AtomicConditionExpr_3= ruleAtomicConditionExpr
+                    // InternalSoarParser.g:1412:3: ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) )
+                    {
+                    // InternalSoarParser.g:1412:3: ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) )
+                    // InternalSoarParser.g:1413:4: () ( (lv_singleTest_11_0= ruleSingleTest ) )
+                    {
+                    // InternalSoarParser.g:1413:4: ()
+                    // InternalSoarParser.g:1414:5: 
                     {
                     if ( state.backtracking==0 ) {
 
-                      			newCompositeNode(grammarAccess.getPrefixExprAccess().getAtomicConditionExprParserRuleCall_1());
-                      		
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getRelationalTestAccess().getRelationalTestAction_1_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    // InternalSoarParser.g:1423:4: ( (lv_singleTest_11_0= ruleSingleTest ) )
+                    // InternalSoarParser.g:1424:5: (lv_singleTest_11_0= ruleSingleTest )
+                    {
+                    // InternalSoarParser.g:1424:5: (lv_singleTest_11_0= ruleSingleTest )
+                    // InternalSoarParser.g:1425:6: lv_singleTest_11_0= ruleSingleTest
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getRelationalTestAccess().getSingleTestSingleTestParserRuleCall_1_1_0());
+                      					
                     }
                     pushFollow(FollowSets000.FOLLOW_2);
-                    this_AtomicConditionExpr_3=ruleAtomicConditionExpr();
+                    lv_singleTest_11_0=ruleSingleTest();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      			current = this_AtomicConditionExpr_3;
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getRelationalTestRule());
+                      						}
+                      						set(
+                      							current,
+                      							"singleTest",
+                      							lv_singleTest_11_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.SingleTest");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleRelationalTest"
+
+
+    // $ANTLR start "entryRuleVariable"
+    // InternalSoarParser.g:1447:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
+    public final EObject entryRuleVariable() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleVariable = null;
+
+
+        try {
+            // InternalSoarParser.g:1447:49: (iv_ruleVariable= ruleVariable EOF )
+            // InternalSoarParser.g:1448:2: iv_ruleVariable= ruleVariable EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getVariableRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleVariable=ruleVariable();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleVariable; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleVariable"
+
+
+    // $ANTLR start "ruleVariable"
+    // InternalSoarParser.g:1454:1: ruleVariable returns [EObject current=null] : ( () (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign ) ) ;
+    public final EObject ruleVariable() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token this_SYM_CONSTANT_STRING_2=null;
+        Token otherlv_4=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1460:2: ( ( () (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign ) ) )
+            // InternalSoarParser.g:1461:2: ( () (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign ) )
+            {
+            // InternalSoarParser.g:1461:2: ( () (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign ) )
+            // InternalSoarParser.g:1462:3: () (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign )
+            {
+            // InternalSoarParser.g:1462:3: ()
+            // InternalSoarParser.g:1463:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getVariableAccess().getVariableAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1472:3: (otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign )
+            // InternalSoarParser.g:1473:4: otherlv_1= LessThanSign (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) otherlv_4= GreaterThanSign
+            {
+            otherlv_1=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_29); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_1, grammarAccess.getVariableAccess().getLessThanSignKeyword_1_0());
+              			
+            }
+            // InternalSoarParser.g:1477:4: (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+            int alt28=2;
+            int LA28_0 = input.LA(1);
+
+            if ( (LA28_0==RULE_SYM_CONSTANT_STRING) ) {
+                alt28=1;
+            }
+            else if ( (LA28_0==State) ) {
+                alt28=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 28, 0, input);
+
+                throw nvae;
+            }
+            switch (alt28) {
+                case 1 :
+                    // InternalSoarParser.g:1478:5: this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING
+                    {
+                    this_SYM_CONSTANT_STRING_2=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_30); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      					newLeafNode(this_SYM_CONSTANT_STRING_2, grammarAccess.getVariableAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_1_1_0());
+                      				
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1483:5: ruleSTATE
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      					/* */
+                      				
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      					newCompositeNode(grammarAccess.getVariableAccess().getSTATEParserRuleCall_1_1_1());
+                      				
+                    }
+                    pushFollow(FollowSets000.FOLLOW_30);
+                    ruleSTATE();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      					afterParserOrEnumRuleCall();
+                      				
+                    }
+
+                    }
+                    break;
+
+            }
+
+            otherlv_4=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_4, grammarAccess.getVariableAccess().getGreaterThanSignKeyword_1_2());
+              			
+            }
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleVariable"
+
+
+    // $ANTLR start "entryRuleActionSide"
+    // InternalSoarParser.g:1503:1: entryRuleActionSide returns [EObject current=null] : iv_ruleActionSide= ruleActionSide EOF ;
+    public final EObject entryRuleActionSide() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleActionSide = null;
+
+
+        try {
+            // InternalSoarParser.g:1503:51: (iv_ruleActionSide= ruleActionSide EOF )
+            // InternalSoarParser.g:1504:2: iv_ruleActionSide= ruleActionSide EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getActionSideRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleActionSide=ruleActionSide();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleActionSide; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleActionSide"
+
+
+    // $ANTLR start "ruleActionSide"
+    // InternalSoarParser.g:1510:1: ruleActionSide returns [EObject current=null] : ( () ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )* ) ;
+    public final EObject ruleActionSide() throws RecognitionException {
+        EObject current = null;
+
+        EObject lv_action_1_0 = null;
+
+        EObject lv_funcCall_2_0 = null;
+
+        EObject lv_print_3_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1516:2: ( ( () ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )* ) )
+            // InternalSoarParser.g:1517:2: ( () ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )* )
+            {
+            // InternalSoarParser.g:1517:2: ( () ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )* )
+            // InternalSoarParser.g:1518:3: () ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )*
+            {
+            // InternalSoarParser.g:1518:3: ()
+            // InternalSoarParser.g:1519:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getActionSideAccess().getActionSideAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1528:3: ( ( (lv_action_1_0= ruleAction ) ) | ( (lv_funcCall_2_0= ruleFuncCall ) ) | ( (lv_print_3_0= rulePrint ) ) )*
+            loop29:
+            do {
+                int alt29=4;
+                int LA29_0 = input.LA(1);
+
+                if ( (LA29_0==LeftParenthesis) ) {
+                    switch ( input.LA(2) ) {
+                    case LessThanSign:
+                        {
+                        alt29=1;
+                        }
+                        break;
+                    case State:
+                    case Asterisk:
+                    case PlusSign:
+                    case HyphenMinus:
+                    case Solidus:
+                    case RULE_SYM_CONSTANT_STRING:
+                        {
+                        alt29=2;
+                        }
+                        break;
+                    case Write:
+                        {
+                        alt29=3;
+                        }
+                        break;
+
+                    }
+
+                }
+
+
+                switch (alt29) {
+            	case 1 :
+            	    // InternalSoarParser.g:1529:4: ( (lv_action_1_0= ruleAction ) )
+            	    {
+            	    // InternalSoarParser.g:1529:4: ( (lv_action_1_0= ruleAction ) )
+            	    // InternalSoarParser.g:1530:5: (lv_action_1_0= ruleAction )
+            	    {
+            	    // InternalSoarParser.g:1530:5: (lv_action_1_0= ruleAction )
+            	    // InternalSoarParser.g:1531:6: lv_action_1_0= ruleAction
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      						newCompositeNode(grammarAccess.getActionSideAccess().getActionActionParserRuleCall_1_0_0());
+            	      					
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_31);
+            	    lv_action_1_0=ruleAction();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						if (current==null) {
+            	      							current = createModelElementForParent(grammarAccess.getActionSideRule());
+            	      						}
+            	      						add(
+            	      							current,
+            	      							"action",
+            	      							lv_action_1_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.Action");
+            	      						afterParserOrEnumRuleCall();
+            	      					
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // InternalSoarParser.g:1549:4: ( (lv_funcCall_2_0= ruleFuncCall ) )
+            	    {
+            	    // InternalSoarParser.g:1549:4: ( (lv_funcCall_2_0= ruleFuncCall ) )
+            	    // InternalSoarParser.g:1550:5: (lv_funcCall_2_0= ruleFuncCall )
+            	    {
+            	    // InternalSoarParser.g:1550:5: (lv_funcCall_2_0= ruleFuncCall )
+            	    // InternalSoarParser.g:1551:6: lv_funcCall_2_0= ruleFuncCall
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      						newCompositeNode(grammarAccess.getActionSideAccess().getFuncCallFuncCallParserRuleCall_1_1_0());
+            	      					
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_31);
+            	    lv_funcCall_2_0=ruleFuncCall();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						if (current==null) {
+            	      							current = createModelElementForParent(grammarAccess.getActionSideRule());
+            	      						}
+            	      						add(
+            	      							current,
+            	      							"funcCall",
+            	      							lv_funcCall_2_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.FuncCall");
+            	      						afterParserOrEnumRuleCall();
+            	      					
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 3 :
+            	    // InternalSoarParser.g:1569:4: ( (lv_print_3_0= rulePrint ) )
+            	    {
+            	    // InternalSoarParser.g:1569:4: ( (lv_print_3_0= rulePrint ) )
+            	    // InternalSoarParser.g:1570:5: (lv_print_3_0= rulePrint )
+            	    {
+            	    // InternalSoarParser.g:1570:5: (lv_print_3_0= rulePrint )
+            	    // InternalSoarParser.g:1571:6: lv_print_3_0= rulePrint
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      						newCompositeNode(grammarAccess.getActionSideAccess().getPrintPrintParserRuleCall_1_2_0());
+            	      					
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_31);
+            	    lv_print_3_0=rulePrint();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						if (current==null) {
+            	      							current = createModelElementForParent(grammarAccess.getActionSideRule());
+            	      						}
+            	      						add(
+            	      							current,
+            	      							"print",
+            	      							lv_print_3_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.Print");
+            	      						afterParserOrEnumRuleCall();
+            	      					
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop29;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleActionSide"
+
+
+    // $ANTLR start "entryRuleAction"
+    // InternalSoarParser.g:1593:1: entryRuleAction returns [EObject current=null] : iv_ruleAction= ruleAction EOF ;
+    public final EObject entryRuleAction() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleAction = null;
+
+
+        try {
+            // InternalSoarParser.g:1593:47: (iv_ruleAction= ruleAction EOF )
+            // InternalSoarParser.g:1594:2: iv_ruleAction= ruleAction EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getActionRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleAction=ruleAction();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleAction; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleAction"
+
+
+    // $ANTLR start "ruleAction"
+    // InternalSoarParser.g:1600:1: ruleAction returns [EObject current=null] : ( () (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis ) ) ;
+    public final EObject ruleAction() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_4=null;
+        EObject lv_variable_2_0 = null;
+
+        EObject lv_attrValMake_3_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1606:2: ( ( () (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis ) ) )
+            // InternalSoarParser.g:1607:2: ( () (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis ) )
+            {
+            // InternalSoarParser.g:1607:2: ( () (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis ) )
+            // InternalSoarParser.g:1608:3: () (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis )
+            {
+            // InternalSoarParser.g:1608:3: ()
+            // InternalSoarParser.g:1609:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getActionAccess().getActionAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1618:3: (otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis )
+            // InternalSoarParser.g:1619:4: otherlv_1= LeftParenthesis ( (lv_variable_2_0= ruleVariable ) ) ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+ otherlv_4= RightParenthesis
+            {
+            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_19); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_1, grammarAccess.getActionAccess().getLeftParenthesisKeyword_1_0());
+              			
+            }
+            // InternalSoarParser.g:1623:4: ( (lv_variable_2_0= ruleVariable ) )
+            // InternalSoarParser.g:1624:5: (lv_variable_2_0= ruleVariable )
+            {
+            // InternalSoarParser.g:1624:5: (lv_variable_2_0= ruleVariable )
+            // InternalSoarParser.g:1625:6: lv_variable_2_0= ruleVariable
+            {
+            if ( state.backtracking==0 ) {
+
+              						newCompositeNode(grammarAccess.getActionAccess().getVariableVariableParserRuleCall_1_1_0());
+              					
+            }
+            pushFollow(FollowSets000.FOLLOW_20);
+            lv_variable_2_0=ruleVariable();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              						if (current==null) {
+              							current = createModelElementForParent(grammarAccess.getActionRule());
+              						}
+              						set(
+              							current,
+              							"variable",
+              							lv_variable_2_0,
+              							"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+              						afterParserOrEnumRuleCall();
+              					
+            }
+
+            }
+
+
+            }
+
+            // InternalSoarParser.g:1642:4: ( (lv_attrValMake_3_0= ruleAttrValueMake ) )+
+            int cnt30=0;
+            loop30:
+            do {
+                int alt30=2;
+                int LA30_0 = input.LA(1);
+
+                if ( (LA30_0==CircumflexAccent) ) {
+                    alt30=1;
+                }
+
+
+                switch (alt30) {
+            	case 1 :
+            	    // InternalSoarParser.g:1643:5: (lv_attrValMake_3_0= ruleAttrValueMake )
+            	    {
+            	    // InternalSoarParser.g:1643:5: (lv_attrValMake_3_0= ruleAttrValueMake )
+            	    // InternalSoarParser.g:1644:6: lv_attrValMake_3_0= ruleAttrValueMake
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      						newCompositeNode(grammarAccess.getActionAccess().getAttrValMakeAttrValueMakeParserRuleCall_1_2_0());
+            	      					
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_32);
+            	    lv_attrValMake_3_0=ruleAttrValueMake();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						if (current==null) {
+            	      							current = createModelElementForParent(grammarAccess.getActionRule());
+            	      						}
+            	      						add(
+            	      							current,
+            	      							"attrValMake",
+            	      							lv_attrValMake_3_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.AttrValueMake");
+            	      						afterParserOrEnumRuleCall();
+            	      					
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt30 >= 1 ) break loop30;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(30, input);
+                        throw eee;
+                }
+                cnt30++;
+            } while (true);
+
+            otherlv_4=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_4, grammarAccess.getActionAccess().getRightParenthesisKeyword_1_3());
+              			
+            }
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAction"
+
+
+    // $ANTLR start "entryRulePrint"
+    // InternalSoarParser.g:1670:1: entryRulePrint returns [EObject current=null] : iv_rulePrint= rulePrint EOF ;
+    public final EObject entryRulePrint() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_rulePrint = null;
+
+
+        try {
+            // InternalSoarParser.g:1670:46: (iv_rulePrint= rulePrint EOF )
+            // InternalSoarParser.g:1671:2: iv_rulePrint= rulePrint EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getPrintRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_rulePrint=rulePrint();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_rulePrint; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRulePrint"
+
+
+    // $ANTLR start "rulePrint"
+    // InternalSoarParser.g:1677:1: rulePrint returns [EObject current=null] : ( () (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis ) ) ;
+    public final EObject rulePrint() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token this_PRINT_STRING_3=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        EObject lv_variable_4_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1683:2: ( ( () (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis ) ) )
+            // InternalSoarParser.g:1684:2: ( () (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis ) )
+            {
+            // InternalSoarParser.g:1684:2: ( () (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis ) )
+            // InternalSoarParser.g:1685:3: () (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis )
+            {
+            // InternalSoarParser.g:1685:3: ()
+            // InternalSoarParser.g:1686:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getPrintAccess().getPrintAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1695:3: (otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis )
+            // InternalSoarParser.g:1696:4: otherlv_1= LeftParenthesis otherlv_2= Write (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+ otherlv_6= RightParenthesis
+            {
+            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_33); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_1, grammarAccess.getPrintAccess().getLeftParenthesisKeyword_1_0());
+              			
+            }
+            otherlv_2=(Token)match(input,Write,FollowSets000.FOLLOW_34); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_2, grammarAccess.getPrintAccess().getWriteKeyword_1_1());
+              			
+            }
+            // InternalSoarParser.g:1704:4: (this_PRINT_STRING_3= RULE_PRINT_STRING | ( (lv_variable_4_0= ruleVariable ) ) | otherlv_5= Crlf )+
+            int cnt31=0;
+            loop31:
+            do {
+                int alt31=4;
+                switch ( input.LA(1) ) {
+                case RULE_PRINT_STRING:
+                    {
+                    alt31=1;
+                    }
+                    break;
+                case LessThanSign:
+                    {
+                    alt31=2;
+                    }
+                    break;
+                case Crlf:
+                    {
+                    alt31=3;
+                    }
+                    break;
+
+                }
+
+                switch (alt31) {
+            	case 1 :
+            	    // InternalSoarParser.g:1705:5: this_PRINT_STRING_3= RULE_PRINT_STRING
+            	    {
+            	    this_PRINT_STRING_3=(Token)match(input,RULE_PRINT_STRING,FollowSets000.FOLLOW_35); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					newLeafNode(this_PRINT_STRING_3, grammarAccess.getPrintAccess().getPRINT_STRINGTerminalRuleCall_1_2_0());
+            	      				
+            	    }
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // InternalSoarParser.g:1710:5: ( (lv_variable_4_0= ruleVariable ) )
+            	    {
+            	    // InternalSoarParser.g:1710:5: ( (lv_variable_4_0= ruleVariable ) )
+            	    // InternalSoarParser.g:1711:6: (lv_variable_4_0= ruleVariable )
+            	    {
+            	    // InternalSoarParser.g:1711:6: (lv_variable_4_0= ruleVariable )
+            	    // InternalSoarParser.g:1712:7: lv_variable_4_0= ruleVariable
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      							newCompositeNode(grammarAccess.getPrintAccess().getVariableVariableParserRuleCall_1_2_1_0());
+            	      						
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_35);
+            	    lv_variable_4_0=ruleVariable();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      							if (current==null) {
+            	      								current = createModelElementForParent(grammarAccess.getPrintRule());
+            	      							}
+            	      							add(
+            	      								current,
+            	      								"variable",
+            	      								lv_variable_4_0,
+            	      								"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+            	      							afterParserOrEnumRuleCall();
+            	      						
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+            	case 3 :
+            	    // InternalSoarParser.g:1730:5: otherlv_5= Crlf
+            	    {
+            	    otherlv_5=(Token)match(input,Crlf,FollowSets000.FOLLOW_35); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					newLeafNode(otherlv_5, grammarAccess.getPrintAccess().getCrlfKeyword_1_2_2());
+            	      				
+            	    }
+
+            	    }
+            	    break;
+
+            	default :
+            	    if ( cnt31 >= 1 ) break loop31;
+            	    if (state.backtracking>0) {state.failed=true; return current;}
+                        EarlyExitException eee =
+                            new EarlyExitException(31, input);
+                        throw eee;
+                }
+                cnt31++;
+            } while (true);
+
+            otherlv_6=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_6, grammarAccess.getPrintAccess().getRightParenthesisKeyword_1_3());
+              			
+            }
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "rulePrint"
+
+
+    // $ANTLR start "entryRuleFuncCall"
+    // InternalSoarParser.g:1744:1: entryRuleFuncCall returns [EObject current=null] : iv_ruleFuncCall= ruleFuncCall EOF ;
+    public final EObject entryRuleFuncCall() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleFuncCall = null;
+
+
+        try {
+            // InternalSoarParser.g:1744:49: (iv_ruleFuncCall= ruleFuncCall EOF )
+            // InternalSoarParser.g:1745:2: iv_ruleFuncCall= ruleFuncCall EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getFuncCallRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleFuncCall=ruleFuncCall();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleFuncCall; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleFuncCall"
+
+
+    // $ANTLR start "ruleFuncCall"
+    // InternalSoarParser.g:1751:1: ruleFuncCall returns [EObject current=null] : ( () otherlv_1= LeftParenthesis ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus ) ( (lv_value_8_0= ruleValue ) )* otherlv_9= RightParenthesis ) ;
+    public final EObject ruleFuncCall() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token this_SYM_CONSTANT_STRING_2=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        Token otherlv_7=null;
+        Token otherlv_9=null;
+        EObject lv_value_8_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1757:2: ( ( () otherlv_1= LeftParenthesis ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus ) ( (lv_value_8_0= ruleValue ) )* otherlv_9= RightParenthesis ) )
+            // InternalSoarParser.g:1758:2: ( () otherlv_1= LeftParenthesis ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus ) ( (lv_value_8_0= ruleValue ) )* otherlv_9= RightParenthesis )
+            {
+            // InternalSoarParser.g:1758:2: ( () otherlv_1= LeftParenthesis ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus ) ( (lv_value_8_0= ruleValue ) )* otherlv_9= RightParenthesis )
+            // InternalSoarParser.g:1759:3: () otherlv_1= LeftParenthesis ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus ) ( (lv_value_8_0= ruleValue ) )* otherlv_9= RightParenthesis
+            {
+            // InternalSoarParser.g:1759:3: ()
+            // InternalSoarParser.g:1760:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getFuncCallAccess().getFuncCallAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            otherlv_1=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_36); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_1, grammarAccess.getFuncCallAccess().getLeftParenthesisKeyword_1());
+              		
+            }
+            // InternalSoarParser.g:1773:3: ( (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | otherlv_4= PlusSign | otherlv_5= HyphenMinus | otherlv_6= Asterisk | otherlv_7= Solidus )
+            int alt33=5;
+            switch ( input.LA(1) ) {
+            case State:
+            case RULE_SYM_CONSTANT_STRING:
+                {
+                alt33=1;
+                }
+                break;
+            case PlusSign:
+                {
+                alt33=2;
+                }
+                break;
+            case HyphenMinus:
+                {
+                alt33=3;
+                }
+                break;
+            case Asterisk:
+                {
+                alt33=4;
+                }
+                break;
+            case Solidus:
+                {
+                alt33=5;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 33, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt33) {
+                case 1 :
+                    // InternalSoarParser.g:1774:4: (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+                    {
+                    // InternalSoarParser.g:1774:4: (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+                    int alt32=2;
+                    int LA32_0 = input.LA(1);
+
+                    if ( (LA32_0==RULE_SYM_CONSTANT_STRING) ) {
+                        alt32=1;
+                    }
+                    else if ( (LA32_0==State) ) {
+                        alt32=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 32, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt32) {
+                        case 1 :
+                            // InternalSoarParser.g:1775:5: this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING
+                            {
+                            this_SYM_CONSTANT_STRING_2=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_37); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(this_SYM_CONSTANT_STRING_2, grammarAccess.getFuncCallAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_2_0_0());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 2 :
+                            // InternalSoarParser.g:1780:5: ruleSTATE
+                            {
+                            if ( state.backtracking==0 ) {
+
+                              					/* */
+                              				
+                            }
+                            if ( state.backtracking==0 ) {
+
+                              					newCompositeNode(grammarAccess.getFuncCallAccess().getSTATEParserRuleCall_2_0_1());
+                              				
+                            }
+                            pushFollow(FollowSets000.FOLLOW_37);
+                            ruleSTATE();
+
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					afterParserOrEnumRuleCall();
+                              				
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1792:4: otherlv_4= PlusSign
+                    {
+                    otherlv_4=(Token)match(input,PlusSign,FollowSets000.FOLLOW_37); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_4, grammarAccess.getFuncCallAccess().getPlusSignKeyword_2_1());
+                      			
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // InternalSoarParser.g:1797:4: otherlv_5= HyphenMinus
+                    {
+                    otherlv_5=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_37); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_5, grammarAccess.getFuncCallAccess().getHyphenMinusKeyword_2_2());
+                      			
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // InternalSoarParser.g:1802:4: otherlv_6= Asterisk
+                    {
+                    otherlv_6=(Token)match(input,Asterisk,FollowSets000.FOLLOW_37); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_6, grammarAccess.getFuncCallAccess().getAsteriskKeyword_2_3());
+                      			
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // InternalSoarParser.g:1807:4: otherlv_7= Solidus
+                    {
+                    otherlv_7=(Token)match(input,Solidus,FollowSets000.FOLLOW_37); if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      				newLeafNode(otherlv_7, grammarAccess.getFuncCallAccess().getSolidusKeyword_2_4());
+                      			
+                    }
+
+                    }
+                    break;
+
+            }
+
+            // InternalSoarParser.g:1812:3: ( (lv_value_8_0= ruleValue ) )*
+            loop34:
+            do {
+                int alt34=2;
+                int LA34_0 = input.LA(1);
+
+                if ( (LA34_0==State||LA34_0==LeftParenthesis||LA34_0==LessThanSign||(LA34_0>=RULE_SYM_CONSTANT_STRING && LA34_0<=RULE_INT)) ) {
+                    alt34=1;
+                }
+
+
+                switch (alt34) {
+            	case 1 :
+            	    // InternalSoarParser.g:1813:4: (lv_value_8_0= ruleValue )
+            	    {
+            	    // InternalSoarParser.g:1813:4: (lv_value_8_0= ruleValue )
+            	    // InternalSoarParser.g:1814:5: lv_value_8_0= ruleValue
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getFuncCallAccess().getValueValueParserRuleCall_3_0());
+            	      				
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_37);
+            	    lv_value_8_0=ruleValue();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getFuncCallRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"value",
+            	      						lv_value_8_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.Value");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop34;
+                }
+            } while (true);
+
+            otherlv_9=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              			newLeafNode(otherlv_9, grammarAccess.getFuncCallAccess().getRightParenthesisKeyword_4());
+              		
+            }
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleFuncCall"
+
+
+    // $ANTLR start "entryRuleValue"
+    // InternalSoarParser.g:1839:1: entryRuleValue returns [EObject current=null] : iv_ruleValue= ruleValue EOF ;
+    public final EObject entryRuleValue() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleValue = null;
+
+
+        try {
+            // InternalSoarParser.g:1839:46: (iv_ruleValue= ruleValue EOF )
+            // InternalSoarParser.g:1840:2: iv_ruleValue= ruleValue EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getValueRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleValue=ruleValue();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleValue; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleValue"
+
+
+    // $ANTLR start "ruleValue"
+    // InternalSoarParser.g:1846:1: ruleValue returns [EObject current=null] : (this_Constant_0= ruleConstant | this_FuncCall_1= ruleFuncCall | this_Variable_2= ruleVariable ) ;
+    public final EObject ruleValue() throws RecognitionException {
+        EObject current = null;
+
+        EObject this_Constant_0 = null;
+
+        EObject this_FuncCall_1 = null;
+
+        EObject this_Variable_2 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:1852:2: ( (this_Constant_0= ruleConstant | this_FuncCall_1= ruleFuncCall | this_Variable_2= ruleVariable ) )
+            // InternalSoarParser.g:1853:2: (this_Constant_0= ruleConstant | this_FuncCall_1= ruleFuncCall | this_Variable_2= ruleVariable )
+            {
+            // InternalSoarParser.g:1853:2: (this_Constant_0= ruleConstant | this_FuncCall_1= ruleFuncCall | this_Variable_2= ruleVariable )
+            int alt35=3;
+            switch ( input.LA(1) ) {
+            case State:
+            case RULE_SYM_CONSTANT_STRING:
+            case RULE_PRINT_STRING:
+            case RULE_FLOAT:
+            case RULE_INT:
+                {
+                alt35=1;
+                }
+                break;
+            case LeftParenthesis:
+                {
+                alt35=2;
+                }
+                break;
+            case LessThanSign:
+                {
+                alt35=3;
+                }
+                break;
+            default:
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 35, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt35) {
+                case 1 :
+                    // InternalSoarParser.g:1854:3: this_Constant_0= ruleConstant
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getValueAccess().getConstantParserRuleCall_0());
+                      		
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    this_Constant_0=ruleConstant();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_Constant_0;
+                      			afterParserOrEnumRuleCall();
+                      		
+                    }
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:1866:3: this_FuncCall_1= ruleFuncCall
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getValueAccess().getFuncCallParserRuleCall_1());
+                      		
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    this_FuncCall_1=ruleFuncCall();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_FuncCall_1;
+                      			afterParserOrEnumRuleCall();
+                      		
+                    }
+
+                    }
+                    break;
+                case 3 :
+                    // InternalSoarParser.g:1878:3: this_Variable_2= ruleVariable
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      			/* */
+                      		
+                    }
+                    if ( state.backtracking==0 ) {
+
+                      			newCompositeNode(grammarAccess.getValueAccess().getVariableParserRuleCall_2());
+                      		
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    this_Variable_2=ruleVariable();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      			current = this_Variable_2;
                       			afterParserOrEnumRuleCall();
                       		
                     }
@@ -2622,31 +5467,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "rulePrefixExpr"
+    // $ANTLR end "ruleValue"
 
 
-    // $ANTLR start "entryRuleAtomicConditionExpr"
-    // InternalSoarParser.g:926:1: entryRuleAtomicConditionExpr returns [EObject current=null] : iv_ruleAtomicConditionExpr= ruleAtomicConditionExpr EOF ;
-    public final EObject entryRuleAtomicConditionExpr() throws RecognitionException {
+    // $ANTLR start "entryRuleAttrValueMake"
+    // InternalSoarParser.g:1893:1: entryRuleAttrValueMake returns [EObject current=null] : iv_ruleAttrValueMake= ruleAttrValueMake EOF ;
+    public final EObject entryRuleAttrValueMake() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAtomicConditionExpr = null;
+        EObject iv_ruleAttrValueMake = null;
 
 
         try {
-            // InternalSoarParser.g:926:60: (iv_ruleAtomicConditionExpr= ruleAtomicConditionExpr EOF )
-            // InternalSoarParser.g:927:2: iv_ruleAtomicConditionExpr= ruleAtomicConditionExpr EOF
+            // InternalSoarParser.g:1893:54: (iv_ruleAttrValueMake= ruleAttrValueMake EOF )
+            // InternalSoarParser.g:1894:2: iv_ruleAttrValueMake= ruleAttrValueMake EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAtomicConditionExprRule()); 
+               newCompositeNode(grammarAccess.getAttrValueMakeRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleAtomicConditionExpr=ruleAtomicConditionExpr();
+            iv_ruleAttrValueMake=ruleAttrValueMake();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAtomicConditionExpr; 
+               current =iv_ruleAttrValueMake; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -2662,158 +5507,638 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAtomicConditionExpr"
+    // $ANTLR end "entryRuleAttrValueMake"
 
 
-    // $ANTLR start "ruleAtomicConditionExpr"
-    // InternalSoarParser.g:933:1: ruleAtomicConditionExpr returns [EObject current=null] : ( ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket ) | ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket ) | ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign ) | ( () ( (lv_val_13_0= ruleSymConstant ) ) ) | ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) ) ) ;
-    public final EObject ruleAtomicConditionExpr() throws RecognitionException {
+    // $ANTLR start "ruleAttrValueMake"
+    // InternalSoarParser.g:1900:1: ruleAttrValueMake returns [EObject current=null] : ( () (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* ) ) ;
+    public final EObject ruleAttrValueMake() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
         Token otherlv_3=null;
-        Token otherlv_5=null;
-        Token otherlv_7=null;
-        Token otherlv_9=null;
-        Token otherlv_11=null;
-        Token lv_val_15_0=null;
-        EObject lv_tests_2_0 = null;
+        EObject lv_variableOrSymConstant_2_0 = null;
 
-        EObject lv_tests_6_0 = null;
+        EObject lv_variableOrSymConstant_4_0 = null;
 
-        EObject lv_consts_10_0 = null;
-
-        AntlrDatatypeRuleToken lv_val_13_0 = null;
+        EObject lv_valueMake_5_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:939:2: ( ( ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket ) | ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket ) | ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign ) | ( () ( (lv_val_13_0= ruleSymConstant ) ) ) | ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) ) ) )
-            // InternalSoarParser.g:940:2: ( ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket ) | ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket ) | ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign ) | ( () ( (lv_val_13_0= ruleSymConstant ) ) ) | ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) ) )
+            // InternalSoarParser.g:1906:2: ( ( () (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* ) ) )
+            // InternalSoarParser.g:1907:2: ( () (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* ) )
             {
-            // InternalSoarParser.g:940:2: ( ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket ) | ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket ) | ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign ) | ( () ( (lv_val_13_0= ruleSymConstant ) ) ) | ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) ) )
-            int alt19=5;
+            // InternalSoarParser.g:1907:2: ( () (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* ) )
+            // InternalSoarParser.g:1908:3: () (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* )
+            {
+            // InternalSoarParser.g:1908:3: ()
+            // InternalSoarParser.g:1909:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getAttrValueMakeAccess().getAttrValueMakeAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:1918:3: (otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )* )
+            // InternalSoarParser.g:1919:4: otherlv_1= CircumflexAccent ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) ) (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )* ( (lv_valueMake_5_0= ruleValueMake ) )*
+            {
+            otherlv_1=(Token)match(input,CircumflexAccent,FollowSets000.FOLLOW_38); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              				newLeafNode(otherlv_1, grammarAccess.getAttrValueMakeAccess().getCircumflexAccentKeyword_1_0());
+              			
+            }
+            // InternalSoarParser.g:1923:4: ( (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant ) )
+            // InternalSoarParser.g:1924:5: (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant )
+            {
+            // InternalSoarParser.g:1924:5: (lv_variableOrSymConstant_2_0= ruleVariableorSymConstant )
+            // InternalSoarParser.g:1925:6: lv_variableOrSymConstant_2_0= ruleVariableorSymConstant
+            {
+            if ( state.backtracking==0 ) {
+
+              						newCompositeNode(grammarAccess.getAttrValueMakeAccess().getVariableOrSymConstantVariableorSymConstantParserRuleCall_1_1_0());
+              					
+            }
+            pushFollow(FollowSets000.FOLLOW_39);
+            lv_variableOrSymConstant_2_0=ruleVariableorSymConstant();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              						if (current==null) {
+              							current = createModelElementForParent(grammarAccess.getAttrValueMakeRule());
+              						}
+              						add(
+              							current,
+              							"variableOrSymConstant",
+              							lv_variableOrSymConstant_2_0,
+              							"com.collins.trustedmethods.matrics.soar.Soar.VariableorSymConstant");
+              						afterParserOrEnumRuleCall();
+              					
+            }
+
+            }
+
+
+            }
+
+            // InternalSoarParser.g:1942:4: (otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) ) )*
+            loop36:
+            do {
+                int alt36=2;
+                int LA36_0 = input.LA(1);
+
+                if ( (LA36_0==FullStop) ) {
+                    alt36=1;
+                }
+
+
+                switch (alt36) {
+            	case 1 :
+            	    // InternalSoarParser.g:1943:5: otherlv_3= FullStop ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) )
+            	    {
+            	    otherlv_3=(Token)match(input,FullStop,FollowSets000.FOLLOW_38); if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					newLeafNode(otherlv_3, grammarAccess.getAttrValueMakeAccess().getFullStopKeyword_1_2_0());
+            	      				
+            	    }
+            	    // InternalSoarParser.g:1947:5: ( (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant ) )
+            	    // InternalSoarParser.g:1948:6: (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant )
+            	    {
+            	    // InternalSoarParser.g:1948:6: (lv_variableOrSymConstant_4_0= ruleVariableorSymConstant )
+            	    // InternalSoarParser.g:1949:7: lv_variableOrSymConstant_4_0= ruleVariableorSymConstant
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      							newCompositeNode(grammarAccess.getAttrValueMakeAccess().getVariableOrSymConstantVariableorSymConstantParserRuleCall_1_2_1_0());
+            	      						
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_39);
+            	    lv_variableOrSymConstant_4_0=ruleVariableorSymConstant();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      							if (current==null) {
+            	      								current = createModelElementForParent(grammarAccess.getAttrValueMakeRule());
+            	      							}
+            	      							add(
+            	      								current,
+            	      								"variableOrSymConstant",
+            	      								lv_variableOrSymConstant_4_0,
+            	      								"com.collins.trustedmethods.matrics.soar.Soar.VariableorSymConstant");
+            	      							afterParserOrEnumRuleCall();
+            	      						
+            	    }
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop36;
+                }
+            } while (true);
+
+            // InternalSoarParser.g:1967:4: ( (lv_valueMake_5_0= ruleValueMake ) )*
+            loop37:
+            do {
+                int alt37=2;
+                int LA37_0 = input.LA(1);
+
+                if ( (LA37_0==State||LA37_0==LeftParenthesis||LA37_0==LessThanSign||(LA37_0>=RULE_SYM_CONSTANT_STRING && LA37_0<=RULE_INT)) ) {
+                    alt37=1;
+                }
+
+
+                switch (alt37) {
+            	case 1 :
+            	    // InternalSoarParser.g:1968:5: (lv_valueMake_5_0= ruleValueMake )
+            	    {
+            	    // InternalSoarParser.g:1968:5: (lv_valueMake_5_0= ruleValueMake )
+            	    // InternalSoarParser.g:1969:6: lv_valueMake_5_0= ruleValueMake
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      						newCompositeNode(grammarAccess.getAttrValueMakeAccess().getValueMakeValueMakeParserRuleCall_1_3_0());
+            	      					
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_40);
+            	    lv_valueMake_5_0=ruleValueMake();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      						if (current==null) {
+            	      							current = createModelElementForParent(grammarAccess.getAttrValueMakeRule());
+            	      						}
+            	      						add(
+            	      							current,
+            	      							"valueMake",
+            	      							lv_valueMake_5_0,
+            	      							"com.collins.trustedmethods.matrics.soar.Soar.ValueMake");
+            	      						afterParserOrEnumRuleCall();
+            	      					
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop37;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleAttrValueMake"
+
+
+    // $ANTLR start "entryRuleVariableorSymConstant"
+    // InternalSoarParser.g:1991:1: entryRuleVariableorSymConstant returns [EObject current=null] : iv_ruleVariableorSymConstant= ruleVariableorSymConstant EOF ;
+    public final EObject entryRuleVariableorSymConstant() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleVariableorSymConstant = null;
+
+
+        try {
+            // InternalSoarParser.g:1991:62: (iv_ruleVariableorSymConstant= ruleVariableorSymConstant EOF )
+            // InternalSoarParser.g:1992:2: iv_ruleVariableorSymConstant= ruleVariableorSymConstant EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getVariableorSymConstantRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleVariableorSymConstant=ruleVariableorSymConstant();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleVariableorSymConstant; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleVariableorSymConstant"
+
+
+    // $ANTLR start "ruleVariableorSymConstant"
+    // InternalSoarParser.g:1998:1: ruleVariableorSymConstant returns [EObject current=null] : ( () ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) ) ) ;
+    public final EObject ruleVariableorSymConstant() throws RecognitionException {
+        EObject current = null;
+
+        Token this_SYM_CONSTANT_STRING_2=null;
+        EObject lv_variable_1_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:2004:2: ( ( () ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) ) ) )
+            // InternalSoarParser.g:2005:2: ( () ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) ) )
+            {
+            // InternalSoarParser.g:2005:2: ( () ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) ) )
+            // InternalSoarParser.g:2006:3: () ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) )
+            {
+            // InternalSoarParser.g:2006:3: ()
+            // InternalSoarParser.g:2007:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getVariableorSymConstantAccess().getVariableorSymConstantAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:2016:3: ( ( (lv_variable_1_0= ruleVariable ) ) | (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE ) )
+            int alt39=2;
+            int LA39_0 = input.LA(1);
+
+            if ( (LA39_0==LessThanSign) ) {
+                alt39=1;
+            }
+            else if ( (LA39_0==State||LA39_0==RULE_SYM_CONSTANT_STRING) ) {
+                alt39=2;
+            }
+            else {
+                if (state.backtracking>0) {state.failed=true; return current;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 39, 0, input);
+
+                throw nvae;
+            }
+            switch (alt39) {
+                case 1 :
+                    // InternalSoarParser.g:2017:4: ( (lv_variable_1_0= ruleVariable ) )
+                    {
+                    // InternalSoarParser.g:2017:4: ( (lv_variable_1_0= ruleVariable ) )
+                    // InternalSoarParser.g:2018:5: (lv_variable_1_0= ruleVariable )
+                    {
+                    // InternalSoarParser.g:2018:5: (lv_variable_1_0= ruleVariable )
+                    // InternalSoarParser.g:2019:6: lv_variable_1_0= ruleVariable
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      						newCompositeNode(grammarAccess.getVariableorSymConstantAccess().getVariableVariableParserRuleCall_1_0_0());
+                      					
+                    }
+                    pushFollow(FollowSets000.FOLLOW_2);
+                    lv_variable_1_0=ruleVariable();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      						if (current==null) {
+                      							current = createModelElementForParent(grammarAccess.getVariableorSymConstantRule());
+                      						}
+                      						set(
+                      							current,
+                      							"variable",
+                      							lv_variable_1_0,
+                      							"com.collins.trustedmethods.matrics.soar.Soar.Variable");
+                      						afterParserOrEnumRuleCall();
+                      					
+                    }
+
+                    }
+
+
+                    }
+
+
+                    }
+                    break;
+                case 2 :
+                    // InternalSoarParser.g:2037:4: (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+                    {
+                    // InternalSoarParser.g:2037:4: (this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+                    int alt38=2;
+                    int LA38_0 = input.LA(1);
+
+                    if ( (LA38_0==RULE_SYM_CONSTANT_STRING) ) {
+                        alt38=1;
+                    }
+                    else if ( (LA38_0==State) ) {
+                        alt38=2;
+                    }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 38, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt38) {
+                        case 1 :
+                            // InternalSoarParser.g:2038:5: this_SYM_CONSTANT_STRING_2= RULE_SYM_CONSTANT_STRING
+                            {
+                            this_SYM_CONSTANT_STRING_2=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					newLeafNode(this_SYM_CONSTANT_STRING_2, grammarAccess.getVariableorSymConstantAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_1_1_0());
+                              				
+                            }
+
+                            }
+                            break;
+                        case 2 :
+                            // InternalSoarParser.g:2043:5: ruleSTATE
+                            {
+                            if ( state.backtracking==0 ) {
+
+                              					/* */
+                              				
+                            }
+                            if ( state.backtracking==0 ) {
+
+                              					newCompositeNode(grammarAccess.getVariableorSymConstantAccess().getSTATEParserRuleCall_1_1_1());
+                              				
+                            }
+                            pushFollow(FollowSets000.FOLLOW_2);
+                            ruleSTATE();
+
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              					afterParserOrEnumRuleCall();
+                              				
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleVariableorSymConstant"
+
+
+    // $ANTLR start "entryRuleConstant"
+    // InternalSoarParser.g:2059:1: entryRuleConstant returns [EObject current=null] : iv_ruleConstant= ruleConstant EOF ;
+    public final EObject entryRuleConstant() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleConstant = null;
+
+
+        try {
+            // InternalSoarParser.g:2059:49: (iv_ruleConstant= ruleConstant EOF )
+            // InternalSoarParser.g:2060:2: iv_ruleConstant= ruleConstant EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getConstantRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_ruleConstant=ruleConstant();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_ruleConstant; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleConstant"
+
+
+    // $ANTLR start "ruleConstant"
+    // InternalSoarParser.g:2066:1: ruleConstant returns [EObject current=null] : ( () ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING ) ) ;
+    public final EObject ruleConstant() throws RecognitionException {
+        EObject current = null;
+
+        Token this_SYM_CONSTANT_STRING_1=null;
+        Token this_INT_3=null;
+        Token this_FLOAT_4=null;
+        Token this_PRINT_STRING_5=null;
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:2072:2: ( ( () ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING ) ) )
+            // InternalSoarParser.g:2073:2: ( () ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING ) )
+            {
+            // InternalSoarParser.g:2073:2: ( () ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING ) )
+            // InternalSoarParser.g:2074:3: () ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING )
+            {
+            // InternalSoarParser.g:2074:3: ()
+            // InternalSoarParser.g:2075:4: 
+            {
+            if ( state.backtracking==0 ) {
+
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
+
+              				current = forceCreateModelElement(
+              					grammarAccess.getConstantAccess().getConstantAction_0(),
+              					current);
+              			
+            }
+
+            }
+
+            // InternalSoarParser.g:2084:3: ( (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE ) | this_INT_3= RULE_INT | this_FLOAT_4= RULE_FLOAT | this_PRINT_STRING_5= RULE_PRINT_STRING )
+            int alt41=4;
             switch ( input.LA(1) ) {
-            case LeftCurlyBracket:
-                {
-                alt19=1;
-                }
-                break;
-            case LeftSquareBracket:
-                {
-                alt19=2;
-                }
-                break;
-            case LessThanSignLessThanSign:
-                {
-                alt19=3;
-                }
-                break;
-            case LessThanSign:
-                {
-                alt19=4;
-                }
-                break;
+            case State:
             case RULE_SYM_CONSTANT_STRING:
                 {
-                alt19=5;
+                alt41=1;
+                }
+                break;
+            case RULE_INT:
+                {
+                alt41=2;
+                }
+                break;
+            case RULE_FLOAT:
+                {
+                alt41=3;
+                }
+                break;
+            case RULE_PRINT_STRING:
+                {
+                alt41=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 19, 0, input);
+                    new NoViableAltException("", 41, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt19) {
+            switch (alt41) {
                 case 1 :
-                    // InternalSoarParser.g:941:3: ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket )
+                    // InternalSoarParser.g:2085:4: (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE )
                     {
-                    // InternalSoarParser.g:941:3: ( () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket )
-                    // InternalSoarParser.g:942:4: () otherlv_1= LeftCurlyBracket ( (lv_tests_2_0= ruleConditionExpr ) )* otherlv_3= RightCurlyBracket
-                    {
-                    // InternalSoarParser.g:942:4: ()
-                    // InternalSoarParser.g:943:5: 
-                    {
-                    if ( state.backtracking==0 ) {
+                    // InternalSoarParser.g:2085:4: (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | ruleSTATE )
+                    int alt40=2;
+                    int LA40_0 = input.LA(1);
 
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getAtomicConditionExprAccess().getConjunctTestExprAction_0_0(),
-                      						current);
-                      				
+                    if ( (LA40_0==RULE_SYM_CONSTANT_STRING) ) {
+                        alt40=1;
                     }
-
+                    else if ( (LA40_0==State) ) {
+                        alt40=2;
                     }
+                    else {
+                        if (state.backtracking>0) {state.failed=true; return current;}
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 40, 0, input);
 
-                    otherlv_1=(Token)match(input,LeftCurlyBracket,FollowSets000.FOLLOW_18); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_1, grammarAccess.getAtomicConditionExprAccess().getLeftCurlyBracketKeyword_0_1());
-                      			
+                        throw nvae;
                     }
-                    // InternalSoarParser.g:953:4: ( (lv_tests_2_0= ruleConditionExpr ) )*
-                    loop16:
-                    do {
-                        int alt16=2;
-                        int LA16_0 = input.LA(1);
+                    switch (alt40) {
+                        case 1 :
+                            // InternalSoarParser.g:2086:5: this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING
+                            {
+                            this_SYM_CONSTANT_STRING_1=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
 
-                        if ( (LA16_0==LessThanSignLessThanSign||LA16_0==HyphenMinus||LA16_0==LessThanSign||LA16_0==LeftSquareBracket||LA16_0==LeftCurlyBracket||LA16_0==RULE_SYM_CONSTANT_STRING) ) {
-                            alt16=1;
-                        }
+                              					newLeafNode(this_SYM_CONSTANT_STRING_1, grammarAccess.getConstantAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_1_0_0());
+                              				
+                            }
 
+                            }
+                            break;
+                        case 2 :
+                            // InternalSoarParser.g:2091:5: ruleSTATE
+                            {
+                            if ( state.backtracking==0 ) {
 
-                        switch (alt16) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:954:5: (lv_tests_2_0= ruleConditionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:954:5: (lv_tests_2_0= ruleConditionExpr )
-                    	    // InternalSoarParser.g:955:6: lv_tests_2_0= ruleConditionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
+                              					/* */
+                              				
+                            }
+                            if ( state.backtracking==0 ) {
 
-                    	      						newCompositeNode(grammarAccess.getAtomicConditionExprAccess().getTestsConditionExprParserRuleCall_0_2_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_18);
-                    	    lv_tests_2_0=ruleConditionExpr();
+                              					newCompositeNode(grammarAccess.getConstantAccess().getSTATEParserRuleCall_1_0_1());
+                              				
+                            }
+                            pushFollow(FollowSets000.FOLLOW_2);
+                            ruleSTATE();
 
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
 
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getAtomicConditionExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"tests",
-                    	      							lv_tests_2_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ConditionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
+                              					afterParserOrEnumRuleCall();
+                              				
+                            }
 
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    break loop16;
-                        }
-                    } while (true);
-
-                    otherlv_3=(Token)match(input,RightCurlyBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_3, grammarAccess.getAtomicConditionExprAccess().getRightCurlyBracketKeyword_0_3());
-                      			
-                    }
+                            }
+                            break;
 
                     }
 
@@ -2821,312 +6146,44 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:978:3: ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket )
+                    // InternalSoarParser.g:2103:4: this_INT_3= RULE_INT
                     {
-                    // InternalSoarParser.g:978:3: ( () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket )
-                    // InternalSoarParser.g:979:4: () otherlv_5= LeftSquareBracket ( (lv_tests_6_0= ruleConditionExpr ) )+ otherlv_7= RightSquareBracket
-                    {
-                    // InternalSoarParser.g:979:4: ()
-                    // InternalSoarParser.g:980:5: 
-                    {
+                    this_INT_3=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getAtomicConditionExprAccess().getMultiValTestExprAction_1_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    otherlv_5=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_15); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_5, grammarAccess.getAtomicConditionExprAccess().getLeftSquareBracketKeyword_1_1());
+                      				newLeafNode(this_INT_3, grammarAccess.getConstantAccess().getINTTerminalRuleCall_1_1());
                       			
                     }
-                    // InternalSoarParser.g:990:4: ( (lv_tests_6_0= ruleConditionExpr ) )+
-                    int cnt17=0;
-                    loop17:
-                    do {
-                        int alt17=2;
-                        int LA17_0 = input.LA(1);
-
-                        if ( (LA17_0==LessThanSignLessThanSign||LA17_0==HyphenMinus||LA17_0==LessThanSign||LA17_0==LeftSquareBracket||LA17_0==LeftCurlyBracket||LA17_0==RULE_SYM_CONSTANT_STRING) ) {
-                            alt17=1;
-                        }
-
-
-                        switch (alt17) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:991:5: (lv_tests_6_0= ruleConditionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:991:5: (lv_tests_6_0= ruleConditionExpr )
-                    	    // InternalSoarParser.g:992:6: lv_tests_6_0= ruleConditionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						newCompositeNode(grammarAccess.getAtomicConditionExprAccess().getTestsConditionExprParserRuleCall_1_2_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_19);
-                    	    lv_tests_6_0=ruleConditionExpr();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getAtomicConditionExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"tests",
-                    	      							lv_tests_6_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ConditionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt17 >= 1 ) break loop17;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(17, input);
-                                throw eee;
-                        }
-                        cnt17++;
-                    } while (true);
-
-                    otherlv_7=(Token)match(input,RightSquareBracket,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_7, grammarAccess.getAtomicConditionExprAccess().getRightSquareBracketKeyword_1_3());
-                      			
-                    }
-
-                    }
-
 
                     }
                     break;
                 case 3 :
-                    // InternalSoarParser.g:1015:3: ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign )
+                    // InternalSoarParser.g:2108:4: this_FLOAT_4= RULE_FLOAT
                     {
-                    // InternalSoarParser.g:1015:3: ( () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign )
-                    // InternalSoarParser.g:1016:4: () otherlv_9= LessThanSignLessThanSign ( (lv_consts_10_0= ruleConditionExpr ) )+ otherlv_11= GreaterThanSignGreaterThanSign
-                    {
-                    // InternalSoarParser.g:1016:4: ()
-                    // InternalSoarParser.g:1017:5: 
-                    {
+                    this_FLOAT_4=(Token)match(input,RULE_FLOAT,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getAtomicConditionExprAccess().getDisjunctTestExprAction_2_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    otherlv_9=(Token)match(input,LessThanSignLessThanSign,FollowSets000.FOLLOW_15); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_9, grammarAccess.getAtomicConditionExprAccess().getLessThanSignLessThanSignKeyword_2_1());
+                      				newLeafNode(this_FLOAT_4, grammarAccess.getConstantAccess().getFLOATTerminalRuleCall_1_2());
                       			
                     }
-                    // InternalSoarParser.g:1027:4: ( (lv_consts_10_0= ruleConditionExpr ) )+
-                    int cnt18=0;
-                    loop18:
-                    do {
-                        int alt18=2;
-                        int LA18_0 = input.LA(1);
-
-                        if ( (LA18_0==LessThanSignLessThanSign||LA18_0==HyphenMinus||LA18_0==LessThanSign||LA18_0==LeftSquareBracket||LA18_0==LeftCurlyBracket||LA18_0==RULE_SYM_CONSTANT_STRING) ) {
-                            alt18=1;
-                        }
-
-
-                        switch (alt18) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:1028:5: (lv_consts_10_0= ruleConditionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:1028:5: (lv_consts_10_0= ruleConditionExpr )
-                    	    // InternalSoarParser.g:1029:6: lv_consts_10_0= ruleConditionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						newCompositeNode(grammarAccess.getAtomicConditionExprAccess().getConstsConditionExprParserRuleCall_2_2_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_20);
-                    	    lv_consts_10_0=ruleConditionExpr();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getAtomicConditionExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"consts",
-                    	      							lv_consts_10_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ConditionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt18 >= 1 ) break loop18;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(18, input);
-                                throw eee;
-                        }
-                        cnt18++;
-                    } while (true);
-
-                    otherlv_11=(Token)match(input,GreaterThanSignGreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_11, grammarAccess.getAtomicConditionExprAccess().getGreaterThanSignGreaterThanSignKeyword_2_3());
-                      			
-                    }
-
-                    }
-
 
                     }
                     break;
                 case 4 :
-                    // InternalSoarParser.g:1052:3: ( () ( (lv_val_13_0= ruleSymConstant ) ) )
+                    // InternalSoarParser.g:2113:4: this_PRINT_STRING_5= RULE_PRINT_STRING
                     {
-                    // InternalSoarParser.g:1052:3: ( () ( (lv_val_13_0= ruleSymConstant ) ) )
-                    // InternalSoarParser.g:1053:4: () ( (lv_val_13_0= ruleSymConstant ) )
-                    {
-                    // InternalSoarParser.g:1053:4: ()
-                    // InternalSoarParser.g:1054:5: 
-                    {
+                    this_PRINT_STRING_5=(Token)match(input,RULE_PRINT_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getAtomicConditionExprAccess().getSymConstExprAction_3_0(),
-                      						current);
-                      				
+                      				newLeafNode(this_PRINT_STRING_5, grammarAccess.getConstantAccess().getPRINT_STRINGTerminalRuleCall_1_3());
+                      			
                     }
-
-                    }
-
-                    // InternalSoarParser.g:1060:4: ( (lv_val_13_0= ruleSymConstant ) )
-                    // InternalSoarParser.g:1061:5: (lv_val_13_0= ruleSymConstant )
-                    {
-                    // InternalSoarParser.g:1061:5: (lv_val_13_0= ruleSymConstant )
-                    // InternalSoarParser.g:1062:6: lv_val_13_0= ruleSymConstant
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      						newCompositeNode(grammarAccess.getAtomicConditionExprAccess().getValSymConstantParserRuleCall_3_1_0());
-                      					
-                    }
-                    pushFollow(FollowSets000.FOLLOW_2);
-                    lv_val_13_0=ruleSymConstant();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getAtomicConditionExprRule());
-                      						}
-                      						set(
-                      							current,
-                      							"val",
-                      							lv_val_13_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.SymConstant");
-                      						afterParserOrEnumRuleCall();
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-
 
                     }
                     break;
-                case 5 :
-                    // InternalSoarParser.g:1081:3: ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) )
-                    {
-                    // InternalSoarParser.g:1081:3: ( () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) ) )
-                    // InternalSoarParser.g:1082:4: () ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) )
-                    {
-                    // InternalSoarParser.g:1082:4: ()
-                    // InternalSoarParser.g:1083:5: 
-                    {
-                    if ( state.backtracking==0 ) {
 
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getAtomicConditionExprAccess().getConstStringExprAction_4_0(),
-                      						current);
-                      				
-                    }
+            }
 
-                    }
-
-                    // InternalSoarParser.g:1089:4: ( (lv_val_15_0= RULE_SYM_CONSTANT_STRING ) )
-                    // InternalSoarParser.g:1090:5: (lv_val_15_0= RULE_SYM_CONSTANT_STRING )
-                    {
-                    // InternalSoarParser.g:1090:5: (lv_val_15_0= RULE_SYM_CONSTANT_STRING )
-                    // InternalSoarParser.g:1091:6: lv_val_15_0= RULE_SYM_CONSTANT_STRING
-                    {
-                    lv_val_15_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						newLeafNode(lv_val_15_0, grammarAccess.getAtomicConditionExprAccess().getValSYM_CONSTANT_STRINGTerminalRuleCall_4_1_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getAtomicConditionExprRule());
-                      						}
-                      						setWithLastConsumed(
-                      							current,
-                      							"val",
-                      							lv_val_15_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
 
             }
 
@@ -3148,31 +6205,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAtomicConditionExpr"
+    // $ANTLR end "ruleConstant"
 
 
-    // $ANTLR start "entryRuleActionSideExpr"
-    // InternalSoarParser.g:1112:1: entryRuleActionSideExpr returns [EObject current=null] : iv_ruleActionSideExpr= ruleActionSideExpr EOF ;
-    public final EObject entryRuleActionSideExpr() throws RecognitionException {
+    // $ANTLR start "entryRuleValueMake"
+    // InternalSoarParser.g:2122:1: entryRuleValueMake returns [EObject current=null] : iv_ruleValueMake= ruleValueMake EOF ;
+    public final EObject entryRuleValueMake() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleActionSideExpr = null;
+        EObject iv_ruleValueMake = null;
 
 
         try {
-            // InternalSoarParser.g:1112:55: (iv_ruleActionSideExpr= ruleActionSideExpr EOF )
-            // InternalSoarParser.g:1113:2: iv_ruleActionSideExpr= ruleActionSideExpr EOF
+            // InternalSoarParser.g:2122:50: (iv_ruleValueMake= ruleValueMake EOF )
+            // InternalSoarParser.g:2123:2: iv_ruleValueMake= ruleValueMake EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getActionSideExprRule()); 
+               newCompositeNode(grammarAccess.getValueMakeRule()); 
             }
             pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleActionSideExpr=ruleActionSideExpr();
+            iv_ruleValueMake=ruleValueMake();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleActionSideExpr; 
+               current =iv_ruleValueMake; 
             }
             match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
 
@@ -3188,104 +6245,361 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleActionSideExpr"
+    // $ANTLR end "entryRuleValueMake"
 
 
-    // $ANTLR start "ruleActionSideExpr"
-    // InternalSoarParser.g:1119:1: ruleActionSideExpr returns [EObject current=null] : ( (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis ) | (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis ) ) ;
-    public final EObject ruleActionSideExpr() throws RecognitionException {
+    // $ANTLR start "ruleValueMake"
+    // InternalSoarParser.g:2129:1: ruleValueMake returns [EObject current=null] : ( () ( (lv_value_1_0= ruleValue ) ) ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )* ) ;
+    public final EObject ruleValueMake() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_0=null;
-        Token otherlv_2=null;
-        Token lv_makeId_3_0=null;
-        Token otherlv_5=null;
-        Token otherlv_6=null;
-        Token otherlv_7=null;
-        Token otherlv_9=null;
-        AntlrDatatypeRuleToken lv_id_1_0 = null;
+        EObject lv_value_1_0 = null;
 
-        EObject lv_attrValMakes_4_0 = null;
-
-        EObject lv_text_8_0 = null;
+        EObject lv_prefSpecifier_2_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalSoarParser.g:1125:2: ( ( (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis ) | (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis ) ) )
-            // InternalSoarParser.g:1126:2: ( (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis ) | (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis ) )
+            // InternalSoarParser.g:2135:2: ( ( () ( (lv_value_1_0= ruleValue ) ) ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )* ) )
+            // InternalSoarParser.g:2136:2: ( () ( (lv_value_1_0= ruleValue ) ) ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )* )
             {
-            // InternalSoarParser.g:1126:2: ( (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis ) | (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis ) )
-            int alt22=2;
-            int LA22_0 = input.LA(1);
+            // InternalSoarParser.g:2136:2: ( () ( (lv_value_1_0= ruleValue ) ) ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )* )
+            // InternalSoarParser.g:2137:3: () ( (lv_value_1_0= ruleValue ) ) ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )*
+            {
+            // InternalSoarParser.g:2137:3: ()
+            // InternalSoarParser.g:2138:4: 
+            {
+            if ( state.backtracking==0 ) {
 
-            if ( (LA22_0==LeftParenthesis) ) {
-                int LA22_1 = input.LA(2);
+              				/* */
+              			
+            }
+            if ( state.backtracking==0 ) {
 
-                if ( (LA22_1==LessThanSign) ) {
-                    alt22=1;
-                }
-                else if ( (LA22_1==Write) ) {
-                    alt22=2;
-                }
-                else {
-                    if (state.backtracking>0) {state.failed=true; return current;}
-                    NoViableAltException nvae =
-                        new NoViableAltException("", 22, 1, input);
+              				current = forceCreateModelElement(
+              					grammarAccess.getValueMakeAccess().getValueMakeAction_0(),
+              					current);
+              			
+            }
 
-                    throw nvae;
+            }
+
+            // InternalSoarParser.g:2147:3: ( (lv_value_1_0= ruleValue ) )
+            // InternalSoarParser.g:2148:4: (lv_value_1_0= ruleValue )
+            {
+            // InternalSoarParser.g:2148:4: (lv_value_1_0= ruleValue )
+            // InternalSoarParser.g:2149:5: lv_value_1_0= ruleValue
+            {
+            if ( state.backtracking==0 ) {
+
+              					newCompositeNode(grammarAccess.getValueMakeAccess().getValueValueParserRuleCall_1_0());
+              				
+            }
+            pushFollow(FollowSets000.FOLLOW_41);
+            lv_value_1_0=ruleValue();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+              					if (current==null) {
+              						current = createModelElementForParent(grammarAccess.getValueMakeRule());
+              					}
+              					set(
+              						current,
+              						"value",
+              						lv_value_1_0,
+              						"com.collins.trustedmethods.matrics.soar.Soar.Value");
+              					afterParserOrEnumRuleCall();
+              				
+            }
+
+            }
+
+
+            }
+
+            // InternalSoarParser.g:2166:3: ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )*
+            loop42:
+            do {
+                int alt42=2;
+                int LA42_0 = input.LA(1);
+
+                if ( (LA42_0==LessThanSign) ) {
+                    switch ( input.LA(2) ) {
+                    case RULE_SYM_CONSTANT_STRING:
+                        {
+                        int LA42_4 = input.LA(3);
+
+                        if ( (LA42_4==GreaterThanSign) ) {
+                            int LA42_6 = input.LA(4);
+
+                            if ( (synpred67_InternalSoarParser()) ) {
+                                alt42=1;
+                            }
+
+
+                        }
+                        else if ( (LA42_4==EOF||LA42_4==State||(LA42_4>=ExclamationMark && LA42_4<=RightParenthesis)||LA42_4==PlusSign||LA42_4==HyphenMinus||(LA42_4>=LessThanSign && LA42_4<=EqualsSign)||LA42_4==CommercialAt||LA42_4==CircumflexAccent||(LA42_4>=Tilde && LA42_4<=RULE_INT)) ) {
+                            alt42=1;
+                        }
+
+
+                        }
+                        break;
+                    case State:
+                        {
+                        int LA42_5 = input.LA(3);
+
+                        if ( (LA42_5==GreaterThanSign) ) {
+                            int LA42_6 = input.LA(4);
+
+                            if ( (synpred67_InternalSoarParser()) ) {
+                                alt42=1;
+                            }
+
+
+                        }
+                        else if ( (LA42_5==EOF||LA42_5==State||(LA42_5>=ExclamationMark && LA42_5<=RightParenthesis)||LA42_5==PlusSign||LA42_5==HyphenMinus||(LA42_5>=LessThanSign && LA42_5<=EqualsSign)||LA42_5==CommercialAt||LA42_5==CircumflexAccent||(LA42_5>=Tilde && LA42_5<=RULE_INT)) ) {
+                            alt42=1;
+                        }
+
+
+                        }
+                        break;
+                    case EOF:
+                    case ExclamationMark:
+                    case Ampersand:
+                    case LeftParenthesis:
+                    case RightParenthesis:
+                    case PlusSign:
+                    case Comma:
+                    case HyphenMinus:
+                    case LessThanSign:
+                    case EqualsSign:
+                    case GreaterThanSign:
+                    case CommercialAt:
+                    case CircumflexAccent:
+                    case Tilde:
+                    case RULE_PRINT_STRING:
+                    case RULE_FLOAT:
+                    case RULE_INT:
+                        {
+                        alt42=1;
+                        }
+                        break;
+
+                    }
+
                 }
+                else if ( ((LA42_0>=ExclamationMark && LA42_0<=Ampersand)||LA42_0==PlusSign||LA42_0==HyphenMinus||(LA42_0>=EqualsSign && LA42_0<=CommercialAt)||LA42_0==Tilde) ) {
+                    alt42=1;
+                }
+
+
+                switch (alt42) {
+            	case 1 :
+            	    // InternalSoarParser.g:2167:4: (lv_prefSpecifier_2_0= rulePrefSpecifier )
+            	    {
+            	    // InternalSoarParser.g:2167:4: (lv_prefSpecifier_2_0= rulePrefSpecifier )
+            	    // InternalSoarParser.g:2168:5: lv_prefSpecifier_2_0= rulePrefSpecifier
+            	    {
+            	    if ( state.backtracking==0 ) {
+
+            	      					newCompositeNode(grammarAccess.getValueMakeAccess().getPrefSpecifierPrefSpecifierParserRuleCall_2_0());
+            	      				
+            	    }
+            	    pushFollow(FollowSets000.FOLLOW_41);
+            	    lv_prefSpecifier_2_0=rulePrefSpecifier();
+
+            	    state._fsp--;
+            	    if (state.failed) return current;
+            	    if ( state.backtracking==0 ) {
+
+            	      					if (current==null) {
+            	      						current = createModelElementForParent(grammarAccess.getValueMakeRule());
+            	      					}
+            	      					add(
+            	      						current,
+            	      						"prefSpecifier",
+            	      						lv_prefSpecifier_2_0,
+            	      						"com.collins.trustedmethods.matrics.soar.Soar.PrefSpecifier");
+            	      					afterParserOrEnumRuleCall();
+            	      				
+            	    }
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop42;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+            if ( state.backtracking==0 ) {
+
+              	leaveRule();
+
+            }
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleValueMake"
+
+
+    // $ANTLR start "entryRulePrefSpecifier"
+    // InternalSoarParser.g:2189:1: entryRulePrefSpecifier returns [EObject current=null] : iv_rulePrefSpecifier= rulePrefSpecifier EOF ;
+    public final EObject entryRulePrefSpecifier() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_rulePrefSpecifier = null;
+
+
+        try {
+            // InternalSoarParser.g:2189:54: (iv_rulePrefSpecifier= rulePrefSpecifier EOF )
+            // InternalSoarParser.g:2190:2: iv_rulePrefSpecifier= rulePrefSpecifier EOF
+            {
+            if ( state.backtracking==0 ) {
+               newCompositeNode(grammarAccess.getPrefSpecifierRule()); 
+            }
+            pushFollow(FollowSets000.FOLLOW_1);
+            iv_rulePrefSpecifier=rulePrefSpecifier();
+
+            state._fsp--;
+            if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+               current =iv_rulePrefSpecifier; 
+            }
+            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
+
+            }
+
+        }
+
+            catch (RecognitionException re) {
+                recover(input,re);
+                appendSkippedTokens();
+            }
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRulePrefSpecifier"
+
+
+    // $ANTLR start "rulePrefSpecifier"
+    // InternalSoarParser.g:2196:1: rulePrefSpecifier returns [EObject current=null] : ( ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) ) | ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) ) ) ;
+    public final EObject rulePrefSpecifier() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_2=null;
+        Token otherlv_5=null;
+        Token otherlv_7=null;
+        AntlrDatatypeRuleToken lv_unaryPref_1_0 = null;
+
+        AntlrDatatypeRuleToken lv_unaryOrBinaryPref_4_0 = null;
+
+        EObject lv_value_6_0 = null;
+
+
+
+        	enterRule();
+
+        try {
+            // InternalSoarParser.g:2202:2: ( ( ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) ) | ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) ) ) )
+            // InternalSoarParser.g:2203:2: ( ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) ) | ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) ) )
+            {
+            // InternalSoarParser.g:2203:2: ( ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) ) | ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) ) )
+            int alt46=2;
+            int LA46_0 = input.LA(1);
+
+            if ( (LA46_0==ExclamationMark||LA46_0==PlusSign||LA46_0==HyphenMinus||LA46_0==CommercialAt||LA46_0==Tilde) ) {
+                alt46=1;
+            }
+            else if ( (LA46_0==Ampersand||(LA46_0>=LessThanSign && LA46_0<=GreaterThanSign)) ) {
+                alt46=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 22, 0, input);
+                    new NoViableAltException("", 46, 0, input);
 
                 throw nvae;
             }
-            switch (alt22) {
+            switch (alt46) {
                 case 1 :
-                    // InternalSoarParser.g:1127:3: (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis )
+                    // InternalSoarParser.g:2204:3: ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) )
                     {
-                    // InternalSoarParser.g:1127:3: (otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis )
-                    // InternalSoarParser.g:1128:4: otherlv_0= LeftParenthesis ( (lv_id_1_0= ruleSymConstant ) ) otherlv_2= CircumflexAccent ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) ) ( (lv_attrValMakes_4_0= ruleActionExpr ) )+ otherlv_5= RightParenthesis
+                    // InternalSoarParser.g:2204:3: ( () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? ) )
+                    // InternalSoarParser.g:2205:4: () ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? )
                     {
-                    otherlv_0=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_12); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_0, grammarAccess.getActionSideExprAccess().getLeftParenthesisKeyword_0_0());
-                      			
-                    }
-                    // InternalSoarParser.g:1132:4: ( (lv_id_1_0= ruleSymConstant ) )
-                    // InternalSoarParser.g:1133:5: (lv_id_1_0= ruleSymConstant )
-                    {
-                    // InternalSoarParser.g:1133:5: (lv_id_1_0= ruleSymConstant )
-                    // InternalSoarParser.g:1134:6: lv_id_1_0= ruleSymConstant
+                    // InternalSoarParser.g:2205:4: ()
+                    // InternalSoarParser.g:2206:5: 
                     {
                     if ( state.backtracking==0 ) {
 
-                      						newCompositeNode(grammarAccess.getActionSideExprAccess().getIdSymConstantParserRuleCall_0_1_0());
-                      					
+                      					/* */
+                      				
                     }
-                    pushFollow(FollowSets000.FOLLOW_13);
-                    lv_id_1_0=ruleSymConstant();
+                    if ( state.backtracking==0 ) {
+
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getPrefSpecifierAccess().getPrefSpecifierAction_0_0(),
+                      						current);
+                      				
+                    }
+
+                    }
+
+                    // InternalSoarParser.g:2215:4: ( ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )? )
+                    // InternalSoarParser.g:2216:5: ( (lv_unaryPref_1_0= ruleUnaryPref ) ) (otherlv_2= Comma )?
+                    {
+                    // InternalSoarParser.g:2216:5: ( (lv_unaryPref_1_0= ruleUnaryPref ) )
+                    // InternalSoarParser.g:2217:6: (lv_unaryPref_1_0= ruleUnaryPref )
+                    {
+                    // InternalSoarParser.g:2217:6: (lv_unaryPref_1_0= ruleUnaryPref )
+                    // InternalSoarParser.g:2218:7: lv_unaryPref_1_0= ruleUnaryPref
+                    {
+                    if ( state.backtracking==0 ) {
+
+                      							newCompositeNode(grammarAccess.getPrefSpecifierAccess().getUnaryPrefUnaryPrefParserRuleCall_0_1_0_0());
+                      						
+                    }
+                    pushFollow(FollowSets000.FOLLOW_42);
+                    lv_unaryPref_1_0=ruleUnaryPref();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      						if (current==null) {
-                      							current = createModelElementForParent(grammarAccess.getActionSideExprRule());
-                      						}
-                      						set(
-                      							current,
-                      							"id",
-                      							lv_id_1_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.SymConstant");
-                      						afterParserOrEnumRuleCall();
-                      					
+                      							if (current==null) {
+                      								current = createModelElementForParent(grammarAccess.getPrefSpecifierRule());
+                      							}
+                      							set(
+                      								current,
+                      								"unaryPref",
+                      								lv_unaryPref_1_0,
+                      								"com.collins.trustedmethods.matrics.soar.Soar.UnaryPref");
+                      							afterParserOrEnumRuleCall();
+                      						
                     }
 
                     }
@@ -3293,107 +6607,32 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_2=(Token)match(input,CircumflexAccent,FollowSets000.FOLLOW_5); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
+                    // InternalSoarParser.g:2235:5: (otherlv_2= Comma )?
+                    int alt43=2;
+                    int LA43_0 = input.LA(1);
 
-                      				newLeafNode(otherlv_2, grammarAccess.getActionSideExprAccess().getCircumflexAccentKeyword_0_2());
-                      			
+                    if ( (LA43_0==Comma) ) {
+                        alt43=1;
                     }
-                    // InternalSoarParser.g:1155:4: ( (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING ) )
-                    // InternalSoarParser.g:1156:5: (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING )
-                    {
-                    // InternalSoarParser.g:1156:5: (lv_makeId_3_0= RULE_SYM_CONSTANT_STRING )
-                    // InternalSoarParser.g:1157:6: lv_makeId_3_0= RULE_SYM_CONSTANT_STRING
-                    {
-                    lv_makeId_3_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_21); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
+                    switch (alt43) {
+                        case 1 :
+                            // InternalSoarParser.g:2236:6: otherlv_2= Comma
+                            {
+                            otherlv_2=(Token)match(input,Comma,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
 
-                      						newLeafNode(lv_makeId_3_0, grammarAccess.getActionSideExprAccess().getMakeIdSYM_CONSTANT_STRINGTerminalRuleCall_0_3_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
+                              						newLeafNode(otherlv_2, grammarAccess.getPrefSpecifierAccess().getCommaKeyword_0_1_1());
+                              					
+                            }
 
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getActionSideExprRule());
-                      						}
-                      						setWithLastConsumed(
-                      							current,
-                      							"makeId",
-                      							lv_makeId_3_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
-                      					
-                    }
+                            }
+                            break;
 
                     }
 
 
                     }
 
-                    // InternalSoarParser.g:1173:4: ( (lv_attrValMakes_4_0= ruleActionExpr ) )+
-                    int cnt20=0;
-                    loop20:
-                    do {
-                        int alt20=2;
-                        int LA20_0 = input.LA(1);
-
-                        if ( (LA20_0==Crlf||(LA20_0>=ExclamationMark && LA20_0<=LeftParenthesis)||(LA20_0>=PlusSign && LA20_0<=HyphenMinus)||(LA20_0>=LessThanSign && LA20_0<=CommercialAt)||(LA20_0>=Tilde && LA20_0<=RULE_SYM_CONSTANT_STRING)||LA20_0==RULE_PIPE_STRING) ) {
-                            alt20=1;
-                        }
-
-
-                        switch (alt20) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:1174:5: (lv_attrValMakes_4_0= ruleActionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:1174:5: (lv_attrValMakes_4_0= ruleActionExpr )
-                    	    // InternalSoarParser.g:1175:6: lv_attrValMakes_4_0= ruleActionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						newCompositeNode(grammarAccess.getActionSideExprAccess().getAttrValMakesActionExprParserRuleCall_0_4_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_22);
-                    	    lv_attrValMakes_4_0=ruleActionExpr();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getActionSideExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"attrValMakes",
-                    	      							lv_attrValMakes_4_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ActionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt20 >= 1 ) break loop20;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(20, input);
-                                throw eee;
-                        }
-                        cnt20++;
-                    } while (true);
-
-                    otherlv_5=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_5, grammarAccess.getActionSideExprAccess().getRightParenthesisKeyword_0_5());
-                      			
-                    }
 
                     }
 
@@ -3401,88 +6640,147 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:1198:3: (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis )
+                    // InternalSoarParser.g:2244:3: ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) )
                     {
-                    // InternalSoarParser.g:1198:3: (otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis )
-                    // InternalSoarParser.g:1199:4: otherlv_6= LeftParenthesis otherlv_7= Write ( (lv_text_8_0= ruleActionExpr ) )+ otherlv_9= RightParenthesis
+                    // InternalSoarParser.g:2244:3: ( () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? ) )
+                    // InternalSoarParser.g:2245:4: () ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? )
                     {
-                    otherlv_6=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_23); if (state.failed) return current;
+                    // InternalSoarParser.g:2245:4: ()
+                    // InternalSoarParser.g:2246:5: 
+                    {
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_6, grammarAccess.getActionSideExprAccess().getLeftParenthesisKeyword_1_0());
-                      			
+                      					/* */
+                      				
                     }
-                    otherlv_7=(Token)match(input,Write,FollowSets000.FOLLOW_21); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_7, grammarAccess.getActionSideExprAccess().getWriteKeyword_1_1());
-                      			
+                      					current = forceCreateModelElement(
+                      						grammarAccess.getPrefSpecifierAccess().getPrefSpecifierAction_1_0(),
+                      						current);
+                      				
                     }
-                    // InternalSoarParser.g:1207:4: ( (lv_text_8_0= ruleActionExpr ) )+
-                    int cnt21=0;
-                    loop21:
-                    do {
-                        int alt21=2;
-                        int LA21_0 = input.LA(1);
 
-                        if ( (LA21_0==Crlf||(LA21_0>=ExclamationMark && LA21_0<=LeftParenthesis)||(LA21_0>=PlusSign && LA21_0<=HyphenMinus)||(LA21_0>=LessThanSign && LA21_0<=CommercialAt)||(LA21_0>=Tilde && LA21_0<=RULE_SYM_CONSTANT_STRING)||LA21_0==RULE_PIPE_STRING) ) {
-                            alt21=1;
-                        }
+                    }
 
-
-                        switch (alt21) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:1208:5: (lv_text_8_0= ruleActionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:1208:5: (lv_text_8_0= ruleActionExpr )
-                    	    // InternalSoarParser.g:1209:6: lv_text_8_0= ruleActionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						newCompositeNode(grammarAccess.getActionSideExprAccess().getTextActionExprParserRuleCall_1_2_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_22);
-                    	    lv_text_8_0=ruleActionExpr();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getActionSideExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"text",
-                    	      							lv_text_8_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ActionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt21 >= 1 ) break loop21;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(21, input);
-                                throw eee;
-                        }
-                        cnt21++;
-                    } while (true);
-
-                    otherlv_9=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                    // InternalSoarParser.g:2255:4: ( ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )? )
+                    // InternalSoarParser.g:2256:5: ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) ) (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )? (otherlv_7= Comma )?
+                    {
+                    // InternalSoarParser.g:2256:5: ( (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref ) )
+                    // InternalSoarParser.g:2257:6: (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref )
+                    {
+                    // InternalSoarParser.g:2257:6: (lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref )
+                    // InternalSoarParser.g:2258:7: lv_unaryOrBinaryPref_4_0= ruleUnaryOrBinaryPref
+                    {
                     if ( state.backtracking==0 ) {
 
-                      				newLeafNode(otherlv_9, grammarAccess.getActionSideExprAccess().getRightParenthesisKeyword_1_3());
-                      			
+                      							newCompositeNode(grammarAccess.getPrefSpecifierAccess().getUnaryOrBinaryPrefUnaryOrBinaryPrefParserRuleCall_1_1_0_0());
+                      						
                     }
+                    pushFollow(FollowSets000.FOLLOW_42);
+                    lv_unaryOrBinaryPref_4_0=ruleUnaryOrBinaryPref();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      							if (current==null) {
+                      								current = createModelElementForParent(grammarAccess.getPrefSpecifierRule());
+                      							}
+                      							set(
+                      								current,
+                      								"unaryOrBinaryPref",
+                      								lv_unaryOrBinaryPref_4_0,
+                      								"com.collins.trustedmethods.matrics.soar.Soar.UnaryOrBinaryPref");
+                      							afterParserOrEnumRuleCall();
+                      						
+                    }
+
+                    }
+
+
+                    }
+
+                    // InternalSoarParser.g:2275:5: (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )?
+                    int alt44=2;
+                    alt44 = dfa44.predict(input);
+                    switch (alt44) {
+                        case 1 :
+                            // InternalSoarParser.g:2276:6: otherlv_5= Comma ( (lv_value_6_0= ruleValue ) )
+                            {
+                            otherlv_5=(Token)match(input,Comma,FollowSets000.FOLLOW_43); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              						newLeafNode(otherlv_5, grammarAccess.getPrefSpecifierAccess().getCommaKeyword_1_1_1_0());
+                              					
+                            }
+                            // InternalSoarParser.g:2280:6: ( (lv_value_6_0= ruleValue ) )
+                            // InternalSoarParser.g:2281:7: (lv_value_6_0= ruleValue )
+                            {
+                            // InternalSoarParser.g:2281:7: (lv_value_6_0= ruleValue )
+                            // InternalSoarParser.g:2282:8: lv_value_6_0= ruleValue
+                            {
+                            if ( state.backtracking==0 ) {
+
+                              								newCompositeNode(grammarAccess.getPrefSpecifierAccess().getValueValueParserRuleCall_1_1_1_1_0());
+                              							
+                            }
+                            pushFollow(FollowSets000.FOLLOW_42);
+                            lv_value_6_0=ruleValue();
+
+                            state._fsp--;
+                            if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              								if (current==null) {
+                              									current = createModelElementForParent(grammarAccess.getPrefSpecifierRule());
+                              								}
+                              								set(
+                              									current,
+                              									"value",
+                              									lv_value_6_0,
+                              									"com.collins.trustedmethods.matrics.soar.Soar.Value");
+                              								afterParserOrEnumRuleCall();
+                              							
+                            }
+
+                            }
+
+
+                            }
+
+
+                            }
+                            break;
+
+                    }
+
+                    // InternalSoarParser.g:2300:5: (otherlv_7= Comma )?
+                    int alt45=2;
+                    int LA45_0 = input.LA(1);
+
+                    if ( (LA45_0==Comma) ) {
+                        alt45=1;
+                    }
+                    switch (alt45) {
+                        case 1 :
+                            // InternalSoarParser.g:2301:6: otherlv_7= Comma
+                            {
+                            otherlv_7=(Token)match(input,Comma,FollowSets000.FOLLOW_2); if (state.failed) return current;
+                            if ( state.backtracking==0 ) {
+
+                              						newLeafNode(otherlv_7, grammarAccess.getPrefSpecifierAccess().getCommaKeyword_1_1_2());
+                              					
+                            }
+
+                            }
+                            break;
+
+                    }
+
+
+                    }
+
 
                     }
 
@@ -3510,11 +6808,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleActionSideExpr"
+    // $ANTLR end "rulePrefSpecifier"
 
 
     // $ANTLR start "entryRuleUnaryPref"
-    // InternalSoarParser.g:1235:1: entryRuleUnaryPref returns [String current=null] : iv_ruleUnaryPref= ruleUnaryPref EOF ;
+    // InternalSoarParser.g:2312:1: entryRuleUnaryPref returns [String current=null] : iv_ruleUnaryPref= ruleUnaryPref EOF ;
     public final String entryRuleUnaryPref() throws RecognitionException {
         String current = null;
 
@@ -3522,8 +6820,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:1235:49: (iv_ruleUnaryPref= ruleUnaryPref EOF )
-            // InternalSoarParser.g:1236:2: iv_ruleUnaryPref= ruleUnaryPref EOF
+            // InternalSoarParser.g:2312:49: (iv_ruleUnaryPref= ruleUnaryPref EOF )
+            // InternalSoarParser.g:2313:2: iv_ruleUnaryPref= ruleUnaryPref EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getUnaryPrefRule()); 
@@ -3554,7 +6852,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUnaryPref"
-    // InternalSoarParser.g:1242:1: ruleUnaryPref returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt ) ;
+    // InternalSoarParser.g:2319:1: ruleUnaryPref returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt ) ;
     public final AntlrDatatypeRuleToken ruleUnaryPref() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -3564,48 +6862,48 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:1248:2: ( (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt ) )
-            // InternalSoarParser.g:1249:2: (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt )
+            // InternalSoarParser.g:2325:2: ( (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt ) )
+            // InternalSoarParser.g:2326:2: (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt )
             {
-            // InternalSoarParser.g:1249:2: (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt )
-            int alt23=5;
+            // InternalSoarParser.g:2326:2: (kw= PlusSign | kw= HyphenMinus | kw= ExclamationMark | kw= Tilde | kw= CommercialAt )
+            int alt47=5;
             switch ( input.LA(1) ) {
             case PlusSign:
                 {
-                alt23=1;
+                alt47=1;
                 }
                 break;
             case HyphenMinus:
                 {
-                alt23=2;
+                alt47=2;
                 }
                 break;
             case ExclamationMark:
                 {
-                alt23=3;
+                alt47=3;
                 }
                 break;
             case Tilde:
                 {
-                alt23=4;
+                alt47=4;
                 }
                 break;
             case CommercialAt:
                 {
-                alt23=5;
+                alt47=5;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 23, 0, input);
+                    new NoViableAltException("", 47, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt23) {
+            switch (alt47) {
                 case 1 :
-                    // InternalSoarParser.g:1250:3: kw= PlusSign
+                    // InternalSoarParser.g:2327:3: kw= PlusSign
                     {
                     kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3618,7 +6916,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:1256:3: kw= HyphenMinus
+                    // InternalSoarParser.g:2333:3: kw= HyphenMinus
                     {
                     kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3631,7 +6929,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSoarParser.g:1262:3: kw= ExclamationMark
+                    // InternalSoarParser.g:2339:3: kw= ExclamationMark
                     {
                     kw=(Token)match(input,ExclamationMark,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3644,7 +6942,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSoarParser.g:1268:3: kw= Tilde
+                    // InternalSoarParser.g:2345:3: kw= Tilde
                     {
                     kw=(Token)match(input,Tilde,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3657,7 +6955,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 5 :
-                    // InternalSoarParser.g:1274:3: kw= CommercialAt
+                    // InternalSoarParser.g:2351:3: kw= CommercialAt
                     {
                     kw=(Token)match(input,CommercialAt,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3694,7 +6992,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUnaryOrBinaryPref"
-    // InternalSoarParser.g:1283:1: entryRuleUnaryOrBinaryPref returns [String current=null] : iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF ;
+    // InternalSoarParser.g:2360:1: entryRuleUnaryOrBinaryPref returns [String current=null] : iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF ;
     public final String entryRuleUnaryOrBinaryPref() throws RecognitionException {
         String current = null;
 
@@ -3702,8 +7000,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:1283:57: (iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF )
-            // InternalSoarParser.g:1284:2: iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF
+            // InternalSoarParser.g:2360:57: (iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF )
+            // InternalSoarParser.g:2361:2: iv_ruleUnaryOrBinaryPref= ruleUnaryOrBinaryPref EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getUnaryOrBinaryPrefRule()); 
@@ -3734,7 +7032,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUnaryOrBinaryPref"
-    // InternalSoarParser.g:1290:1: ruleUnaryOrBinaryPref returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand ) ;
+    // InternalSoarParser.g:2367:1: ruleUnaryOrBinaryPref returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand ) ;
     public final AntlrDatatypeRuleToken ruleUnaryOrBinaryPref() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -3744,43 +7042,43 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:1296:2: ( (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand ) )
-            // InternalSoarParser.g:1297:2: (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand )
+            // InternalSoarParser.g:2373:2: ( (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand ) )
+            // InternalSoarParser.g:2374:2: (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand )
             {
-            // InternalSoarParser.g:1297:2: (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand )
-            int alt24=4;
+            // InternalSoarParser.g:2374:2: (kw= GreaterThanSign | kw= EqualsSign | kw= LessThanSign | kw= Ampersand )
+            int alt48=4;
             switch ( input.LA(1) ) {
             case GreaterThanSign:
                 {
-                alt24=1;
+                alt48=1;
                 }
                 break;
             case EqualsSign:
                 {
-                alt24=2;
+                alt48=2;
                 }
                 break;
             case LessThanSign:
                 {
-                alt24=3;
+                alt48=3;
                 }
                 break;
             case Ampersand:
                 {
-                alt24=4;
+                alt48=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 24, 0, input);
+                    new NoViableAltException("", 48, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt24) {
+            switch (alt48) {
                 case 1 :
-                    // InternalSoarParser.g:1298:3: kw= GreaterThanSign
+                    // InternalSoarParser.g:2375:3: kw= GreaterThanSign
                     {
                     kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3793,7 +7091,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalSoarParser.g:1304:3: kw= EqualsSign
+                    // InternalSoarParser.g:2381:3: kw= EqualsSign
                     {
                     kw=(Token)match(input,EqualsSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3806,7 +7104,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalSoarParser.g:1310:3: kw= LessThanSign
+                    // InternalSoarParser.g:2387:3: kw= LessThanSign
                     {
                     kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3819,7 +7117,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalSoarParser.g:1316:3: kw= Ampersand
+                    // InternalSoarParser.g:2393:3: kw= Ampersand
                     {
                     kw=(Token)match(input,Ampersand,FollowSets000.FOLLOW_2); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
@@ -3855,683 +7153,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleUnaryOrBinaryPref"
 
 
-    // $ANTLR start "entryRuleActionExpr"
-    // InternalSoarParser.g:1325:1: entryRuleActionExpr returns [EObject current=null] : iv_ruleActionExpr= ruleActionExpr EOF ;
-    public final EObject entryRuleActionExpr() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleActionExpr = null;
-
-
-        try {
-            // InternalSoarParser.g:1325:51: (iv_ruleActionExpr= ruleActionExpr EOF )
-            // InternalSoarParser.g:1326:2: iv_ruleActionExpr= ruleActionExpr EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getActionExprRule()); 
-            }
-            pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleActionExpr=ruleActionExpr();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleActionExpr; 
-            }
-            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleActionExpr"
-
-
-    // $ANTLR start "ruleActionExpr"
-    // InternalSoarParser.g:1332:1: ruleActionExpr returns [EObject current=null] : ( ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) ) | ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) ) | ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) ) | ( () otherlv_8= Crlf ) | ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) ) | ( () otherlv_12= Comma ) | ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis ) ) ;
-    public final EObject ruleActionExpr() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_val_3_0=null;
-        Token otherlv_8=null;
-        Token lv_expr_10_0=null;
-        Token otherlv_12=null;
-        Token otherlv_14=null;
-        Token otherlv_16=null;
-        AntlrDatatypeRuleToken lv_val_1_0 = null;
-
-        EObject lv_exprs_15_0 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalSoarParser.g:1338:2: ( ( ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) ) | ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) ) | ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) ) | ( () otherlv_8= Crlf ) | ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) ) | ( () otherlv_12= Comma ) | ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis ) ) )
-            // InternalSoarParser.g:1339:2: ( ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) ) | ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) ) | ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) ) | ( () otherlv_8= Crlf ) | ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) ) | ( () otherlv_12= Comma ) | ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis ) )
-            {
-            // InternalSoarParser.g:1339:2: ( ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) ) | ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) ) | ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) ) | ( () otherlv_8= Crlf ) | ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) ) | ( () otherlv_12= Comma ) | ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis ) )
-            int alt27=7;
-            alt27 = dfa27.predict(input);
-            switch (alt27) {
-                case 1 :
-                    // InternalSoarParser.g:1340:3: ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) )
-                    {
-                    // InternalSoarParser.g:1340:3: ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) )
-                    // InternalSoarParser.g:1341:4: ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) )
-                    {
-                    // InternalSoarParser.g:1351:4: ( () ( (lv_val_1_0= ruleSymConstant ) ) )
-                    // InternalSoarParser.g:1352:5: () ( (lv_val_1_0= ruleSymConstant ) )
-                    {
-                    // InternalSoarParser.g:1352:5: ()
-                    // InternalSoarParser.g:1353:6: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      						current = forceCreateModelElement(
-                      							grammarAccess.getActionExprAccess().getSymConstExprAction_0_0_0(),
-                      							current);
-                      					
-                    }
-
-                    }
-
-                    // InternalSoarParser.g:1359:5: ( (lv_val_1_0= ruleSymConstant ) )
-                    // InternalSoarParser.g:1360:6: (lv_val_1_0= ruleSymConstant )
-                    {
-                    // InternalSoarParser.g:1360:6: (lv_val_1_0= ruleSymConstant )
-                    // InternalSoarParser.g:1361:7: lv_val_1_0= ruleSymConstant
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      							newCompositeNode(grammarAccess.getActionExprAccess().getValSymConstantParserRuleCall_0_0_1_0());
-                      						
-                    }
-                    pushFollow(FollowSets000.FOLLOW_2);
-                    lv_val_1_0=ruleSymConstant();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      							if (current==null) {
-                      								current = createModelElementForParent(grammarAccess.getActionExprRule());
-                      							}
-                      							set(
-                      								current,
-                      								"val",
-                      								lv_val_1_0,
-                      								"com.collins.trustedmethods.matrics.soar.Soar.SymConstant");
-                      							afterParserOrEnumRuleCall();
-                      						
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // InternalSoarParser.g:1381:3: ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) )
-                    {
-                    // InternalSoarParser.g:1381:3: ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) )
-                    // InternalSoarParser.g:1382:4: () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) )
-                    {
-                    // InternalSoarParser.g:1382:4: ()
-                    // InternalSoarParser.g:1383:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getStringExprAction_1_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    // InternalSoarParser.g:1389:4: ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) )
-                    // InternalSoarParser.g:1390:5: (lv_val_3_0= RULE_SYM_CONSTANT_STRING )
-                    {
-                    // InternalSoarParser.g:1390:5: (lv_val_3_0= RULE_SYM_CONSTANT_STRING )
-                    // InternalSoarParser.g:1391:6: lv_val_3_0= RULE_SYM_CONSTANT_STRING
-                    {
-                    lv_val_3_0=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						newLeafNode(lv_val_3_0, grammarAccess.getActionExprAccess().getValSYM_CONSTANT_STRINGTerminalRuleCall_1_1_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getActionExprRule());
-                      						}
-                      						setWithLastConsumed(
-                      							current,
-                      							"val",
-                      							lv_val_3_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.SYM_CONSTANT_STRING");
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 3 :
-                    // InternalSoarParser.g:1409:3: ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) )
-                    {
-                    // InternalSoarParser.g:1409:3: ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) )
-                    // InternalSoarParser.g:1410:4: () ( ruleUnaryPref | ruleUnaryOrBinaryPref )
-                    {
-                    // InternalSoarParser.g:1410:4: ()
-                    // InternalSoarParser.g:1411:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getPrefSpecifierExprAction_2_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    // InternalSoarParser.g:1417:4: ( ruleUnaryPref | ruleUnaryOrBinaryPref )
-                    int alt25=2;
-                    int LA25_0 = input.LA(1);
-
-                    if ( (LA25_0==ExclamationMark||LA25_0==PlusSign||LA25_0==HyphenMinus||LA25_0==CommercialAt||LA25_0==Tilde) ) {
-                        alt25=1;
-                    }
-                    else if ( (LA25_0==Ampersand||(LA25_0>=LessThanSign && LA25_0<=GreaterThanSign)) ) {
-                        alt25=2;
-                    }
-                    else {
-                        if (state.backtracking>0) {state.failed=true; return current;}
-                        NoViableAltException nvae =
-                            new NoViableAltException("", 25, 0, input);
-
-                        throw nvae;
-                    }
-                    switch (alt25) {
-                        case 1 :
-                            // InternalSoarParser.g:1418:5: ruleUnaryPref
-                            {
-                            if ( state.backtracking==0 ) {
-
-                              					newCompositeNode(grammarAccess.getActionExprAccess().getUnaryPrefParserRuleCall_2_1_0());
-                              				
-                            }
-                            pushFollow(FollowSets000.FOLLOW_2);
-                            ruleUnaryPref();
-
-                            state._fsp--;
-                            if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                              					afterParserOrEnumRuleCall();
-                              				
-                            }
-
-                            }
-                            break;
-                        case 2 :
-                            // InternalSoarParser.g:1426:5: ruleUnaryOrBinaryPref
-                            {
-                            if ( state.backtracking==0 ) {
-
-                              					newCompositeNode(grammarAccess.getActionExprAccess().getUnaryOrBinaryPrefParserRuleCall_2_1_1());
-                              				
-                            }
-                            pushFollow(FollowSets000.FOLLOW_2);
-                            ruleUnaryOrBinaryPref();
-
-                            state._fsp--;
-                            if (state.failed) return current;
-                            if ( state.backtracking==0 ) {
-
-                              					afterParserOrEnumRuleCall();
-                              				
-                            }
-
-                            }
-                            break;
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 4 :
-                    // InternalSoarParser.g:1436:3: ( () otherlv_8= Crlf )
-                    {
-                    // InternalSoarParser.g:1436:3: ( () otherlv_8= Crlf )
-                    // InternalSoarParser.g:1437:4: () otherlv_8= Crlf
-                    {
-                    // InternalSoarParser.g:1437:4: ()
-                    // InternalSoarParser.g:1438:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getCrlfExprAction_3_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    otherlv_8=(Token)match(input,Crlf,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_8, grammarAccess.getActionExprAccess().getCrlfKeyword_3_1());
-                      			
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 5 :
-                    // InternalSoarParser.g:1450:3: ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) )
-                    {
-                    // InternalSoarParser.g:1450:3: ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) )
-                    // InternalSoarParser.g:1451:4: () ( (lv_expr_10_0= RULE_PIPE_STRING ) )
-                    {
-                    // InternalSoarParser.g:1451:4: ()
-                    // InternalSoarParser.g:1452:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getStringExprAction_4_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    // InternalSoarParser.g:1458:4: ( (lv_expr_10_0= RULE_PIPE_STRING ) )
-                    // InternalSoarParser.g:1459:5: (lv_expr_10_0= RULE_PIPE_STRING )
-                    {
-                    // InternalSoarParser.g:1459:5: (lv_expr_10_0= RULE_PIPE_STRING )
-                    // InternalSoarParser.g:1460:6: lv_expr_10_0= RULE_PIPE_STRING
-                    {
-                    lv_expr_10_0=(Token)match(input,RULE_PIPE_STRING,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      						newLeafNode(lv_expr_10_0, grammarAccess.getActionExprAccess().getExprPIPE_STRINGTerminalRuleCall_4_1_0());
-                      					
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      						if (current==null) {
-                      							current = createModelElement(grammarAccess.getActionExprRule());
-                      						}
-                      						setWithLastConsumed(
-                      							current,
-                      							"expr",
-                      							lv_expr_10_0,
-                      							"com.collins.trustedmethods.matrics.soar.Soar.PIPE_STRING");
-                      					
-                    }
-
-                    }
-
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 6 :
-                    // InternalSoarParser.g:1478:3: ( () otherlv_12= Comma )
-                    {
-                    // InternalSoarParser.g:1478:3: ( () otherlv_12= Comma )
-                    // InternalSoarParser.g:1479:4: () otherlv_12= Comma
-                    {
-                    // InternalSoarParser.g:1479:4: ()
-                    // InternalSoarParser.g:1480:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getCommaExprAction_5_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    otherlv_12=(Token)match(input,Comma,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_12, grammarAccess.getActionExprAccess().getCommaKeyword_5_1());
-                      			
-                    }
-
-                    }
-
-
-                    }
-                    break;
-                case 7 :
-                    // InternalSoarParser.g:1492:3: ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis )
-                    {
-                    // InternalSoarParser.g:1492:3: ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis )
-                    // InternalSoarParser.g:1493:4: () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis
-                    {
-                    // InternalSoarParser.g:1493:4: ()
-                    // InternalSoarParser.g:1494:5: 
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      					current = forceCreateModelElement(
-                      						grammarAccess.getActionExprAccess().getParenExprAction_6_0(),
-                      						current);
-                      				
-                    }
-
-                    }
-
-                    otherlv_14=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_21); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_14, grammarAccess.getActionExprAccess().getLeftParenthesisKeyword_6_1());
-                      			
-                    }
-                    // InternalSoarParser.g:1504:4: ( (lv_exprs_15_0= ruleActionExpr ) )+
-                    int cnt26=0;
-                    loop26:
-                    do {
-                        int alt26=2;
-                        int LA26_0 = input.LA(1);
-
-                        if ( (LA26_0==Crlf||(LA26_0>=ExclamationMark && LA26_0<=LeftParenthesis)||(LA26_0>=PlusSign && LA26_0<=HyphenMinus)||(LA26_0>=LessThanSign && LA26_0<=CommercialAt)||(LA26_0>=Tilde && LA26_0<=RULE_SYM_CONSTANT_STRING)||LA26_0==RULE_PIPE_STRING) ) {
-                            alt26=1;
-                        }
-
-
-                        switch (alt26) {
-                    	case 1 :
-                    	    // InternalSoarParser.g:1505:5: (lv_exprs_15_0= ruleActionExpr )
-                    	    {
-                    	    // InternalSoarParser.g:1505:5: (lv_exprs_15_0= ruleActionExpr )
-                    	    // InternalSoarParser.g:1506:6: lv_exprs_15_0= ruleActionExpr
-                    	    {
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						newCompositeNode(grammarAccess.getActionExprAccess().getExprsActionExprParserRuleCall_6_2_0());
-                    	      					
-                    	    }
-                    	    pushFollow(FollowSets000.FOLLOW_22);
-                    	    lv_exprs_15_0=ruleActionExpr();
-
-                    	    state._fsp--;
-                    	    if (state.failed) return current;
-                    	    if ( state.backtracking==0 ) {
-
-                    	      						if (current==null) {
-                    	      							current = createModelElementForParent(grammarAccess.getActionExprRule());
-                    	      						}
-                    	      						add(
-                    	      							current,
-                    	      							"exprs",
-                    	      							lv_exprs_15_0,
-                    	      							"com.collins.trustedmethods.matrics.soar.Soar.ActionExpr");
-                    	      						afterParserOrEnumRuleCall();
-                    	      					
-                    	    }
-
-                    	    }
-
-
-                    	    }
-                    	    break;
-
-                    	default :
-                    	    if ( cnt26 >= 1 ) break loop26;
-                    	    if (state.backtracking>0) {state.failed=true; return current;}
-                                EarlyExitException eee =
-                                    new EarlyExitException(26, input);
-                                throw eee;
-                        }
-                        cnt26++;
-                    } while (true);
-
-                    otherlv_16=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_2); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(otherlv_16, grammarAccess.getActionExprAccess().getRightParenthesisKeyword_6_3());
-                      			
-                    }
-
-                    }
-
-
-                    }
-                    break;
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleActionExpr"
-
-
-    // $ANTLR start "entryRuleSymConstant"
-    // InternalSoarParser.g:1532:1: entryRuleSymConstant returns [String current=null] : iv_ruleSymConstant= ruleSymConstant EOF ;
-    public final String entryRuleSymConstant() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleSymConstant = null;
-
-
-        try {
-            // InternalSoarParser.g:1532:51: (iv_ruleSymConstant= ruleSymConstant EOF )
-            // InternalSoarParser.g:1533:2: iv_ruleSymConstant= ruleSymConstant EOF
-            {
-            if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getSymConstantRule()); 
-            }
-            pushFollow(FollowSets000.FOLLOW_1);
-            iv_ruleSymConstant=ruleSymConstant();
-
-            state._fsp--;
-            if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-               current =iv_ruleSymConstant.getText(); 
-            }
-            match(input,EOF,FollowSets000.FOLLOW_2); if (state.failed) return current;
-
-            }
-
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleSymConstant"
-
-
-    // $ANTLR start "ruleSymConstant"
-    // InternalSoarParser.g:1539:1: ruleSymConstant returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (kw= LessThanSign (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE ) kw= GreaterThanSign ) ;
-    public final AntlrDatatypeRuleToken ruleSymConstant() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token kw=null;
-        Token this_SYM_CONSTANT_STRING_1=null;
-        AntlrDatatypeRuleToken this_STATE_2 = null;
-
-
-
-        	enterRule();
-
-        try {
-            // InternalSoarParser.g:1545:2: ( (kw= LessThanSign (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE ) kw= GreaterThanSign ) )
-            // InternalSoarParser.g:1546:2: (kw= LessThanSign (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE ) kw= GreaterThanSign )
-            {
-            // InternalSoarParser.g:1546:2: (kw= LessThanSign (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE ) kw= GreaterThanSign )
-            // InternalSoarParser.g:1547:3: kw= LessThanSign (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE ) kw= GreaterThanSign
-            {
-            kw=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_24); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			current.merge(kw);
-              			newLeafNode(kw, grammarAccess.getSymConstantAccess().getLessThanSignKeyword_0());
-              		
-            }
-            // InternalSoarParser.g:1552:3: (this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING | this_STATE_2= ruleSTATE )
-            int alt28=2;
-            int LA28_0 = input.LA(1);
-
-            if ( (LA28_0==RULE_SYM_CONSTANT_STRING) ) {
-                alt28=1;
-            }
-            else if ( (LA28_0==State) ) {
-                alt28=2;
-            }
-            else {
-                if (state.backtracking>0) {state.failed=true; return current;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 28, 0, input);
-
-                throw nvae;
-            }
-            switch (alt28) {
-                case 1 :
-                    // InternalSoarParser.g:1553:4: this_SYM_CONSTANT_STRING_1= RULE_SYM_CONSTANT_STRING
-                    {
-                    this_SYM_CONSTANT_STRING_1=(Token)match(input,RULE_SYM_CONSTANT_STRING,FollowSets000.FOLLOW_25); if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				current.merge(this_SYM_CONSTANT_STRING_1);
-                      			
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      				newLeafNode(this_SYM_CONSTANT_STRING_1, grammarAccess.getSymConstantAccess().getSYM_CONSTANT_STRINGTerminalRuleCall_1_0());
-                      			
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // InternalSoarParser.g:1561:4: this_STATE_2= ruleSTATE
-                    {
-                    if ( state.backtracking==0 ) {
-
-                      				newCompositeNode(grammarAccess.getSymConstantAccess().getSTATEParserRuleCall_1_1());
-                      			
-                    }
-                    pushFollow(FollowSets000.FOLLOW_25);
-                    this_STATE_2=ruleSTATE();
-
-                    state._fsp--;
-                    if (state.failed) return current;
-                    if ( state.backtracking==0 ) {
-
-                      				current.merge(this_STATE_2);
-                      			
-                    }
-                    if ( state.backtracking==0 ) {
-
-                      				afterParserOrEnumRuleCall();
-                      			
-                    }
-
-                    }
-                    break;
-
-            }
-
-            kw=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_2); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			current.merge(kw);
-              			newLeafNode(kw, grammarAccess.getSymConstantAccess().getGreaterThanSignKeyword_2());
-              		
-            }
-
-            }
-
-
-            }
-
-            if ( state.backtracking==0 ) {
-
-              	leaveRule();
-
-            }
-        }
-
-            catch (RecognitionException re) {
-                recover(input,re);
-                appendSkippedTokens();
-            }
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleSymConstant"
-
-
     // $ANTLR start "entryRuleSTATE"
-    // InternalSoarParser.g:1581:1: entryRuleSTATE returns [String current=null] : iv_ruleSTATE= ruleSTATE EOF ;
+    // InternalSoarParser.g:2402:1: entryRuleSTATE returns [String current=null] : iv_ruleSTATE= ruleSTATE EOF ;
     public final String entryRuleSTATE() throws RecognitionException {
         String current = null;
 
@@ -4539,8 +7162,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:1581:45: (iv_ruleSTATE= ruleSTATE EOF )
-            // InternalSoarParser.g:1582:2: iv_ruleSTATE= ruleSTATE EOF
+            // InternalSoarParser.g:2402:45: (iv_ruleSTATE= ruleSTATE EOF )
+            // InternalSoarParser.g:2403:2: iv_ruleSTATE= ruleSTATE EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getSTATERule()); 
@@ -4571,7 +7194,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSTATE"
-    // InternalSoarParser.g:1588:1: ruleSTATE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= State ;
+    // InternalSoarParser.g:2409:1: ruleSTATE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= State ;
     public final AntlrDatatypeRuleToken ruleSTATE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4581,8 +7204,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:1594:2: (kw= State )
-            // InternalSoarParser.g:1595:2: kw= State
+            // InternalSoarParser.g:2415:2: (kw= State )
+            // InternalSoarParser.g:2416:2: kw= State
             {
             kw=(Token)match(input,State,FollowSets000.FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4613,7 +7236,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIMPASSE"
-    // InternalSoarParser.g:1603:1: entryRuleIMPASSE returns [String current=null] : iv_ruleIMPASSE= ruleIMPASSE EOF ;
+    // InternalSoarParser.g:2424:1: entryRuleIMPASSE returns [String current=null] : iv_ruleIMPASSE= ruleIMPASSE EOF ;
     public final String entryRuleIMPASSE() throws RecognitionException {
         String current = null;
 
@@ -4621,8 +7244,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalSoarParser.g:1603:47: (iv_ruleIMPASSE= ruleIMPASSE EOF )
-            // InternalSoarParser.g:1604:2: iv_ruleIMPASSE= ruleIMPASSE EOF
+            // InternalSoarParser.g:2424:47: (iv_ruleIMPASSE= ruleIMPASSE EOF )
+            // InternalSoarParser.g:2425:2: iv_ruleIMPASSE= ruleIMPASSE EOF
             {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getIMPASSERule()); 
@@ -4653,7 +7276,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIMPASSE"
-    // InternalSoarParser.g:1610:1: ruleIMPASSE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= Impasse ;
+    // InternalSoarParser.g:2431:1: ruleIMPASSE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= Impasse ;
     public final AntlrDatatypeRuleToken ruleIMPASSE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4663,8 +7286,8 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalSoarParser.g:1616:2: (kw= Impasse )
-            // InternalSoarParser.g:1617:2: kw= Impasse
+            // InternalSoarParser.g:2437:2: (kw= Impasse )
+            // InternalSoarParser.g:2438:2: kw= Impasse
             {
             kw=(Token)match(input,Impasse,FollowSets000.FOLLOW_2); if (state.failed) return current;
             if ( state.backtracking==0 ) {
@@ -4693,61 +7316,160 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "ruleIMPASSE"
 
-    // $ANTLR start synpred1_InternalSoarParser
-    public final void synpred1_InternalSoarParser_fragment() throws RecognitionException {   
-        // InternalSoarParser.g:710:5: ( ( () ( ( PlusSign ) ) ) )
-        // InternalSoarParser.g:710:6: ( () ( ( PlusSign ) ) )
+    // $ANTLR start synpred42_InternalSoarParser
+    public final void synpred42_InternalSoarParser_fragment() throws RecognitionException {   
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_3=null;
+        Token otherlv_4=null;
+        Token otherlv_5=null;
+        Token otherlv_6=null;
+        Token otherlv_7=null;
+        Token otherlv_8=null;
+        EObject lv_singleTest_9_0 = null;
+
+
+        // InternalSoarParser.g:1335:3: ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) )
+        // InternalSoarParser.g:1335:3: ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) )
         {
-        // InternalSoarParser.g:710:6: ( () ( ( PlusSign ) ) )
-        // InternalSoarParser.g:711:6: () ( ( PlusSign ) )
+        // InternalSoarParser.g:1335:3: ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) )
+        // InternalSoarParser.g:1336:4: () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) )
         {
-        // InternalSoarParser.g:711:6: ()
-        // InternalSoarParser.g:712:6: 
+        // InternalSoarParser.g:1336:4: ()
+        // InternalSoarParser.g:1337:5: 
         {
+        if ( state.backtracking==0 ) {
+
+          					/* */
+          				
         }
 
-        // InternalSoarParser.g:713:6: ( ( PlusSign ) )
-        // InternalSoarParser.g:714:7: ( PlusSign )
-        {
-        // InternalSoarParser.g:714:7: ( PlusSign )
-        // InternalSoarParser.g:715:8: PlusSign
-        {
-        match(input,PlusSign,FollowSets000.FOLLOW_2); if (state.failed) return ;
+        }
+
+        // InternalSoarParser.g:1346:4: (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign )
+        int alt50=8;
+        switch ( input.LA(1) ) {
+        case LessThanSignGreaterThanSign:
+            {
+            alt50=1;
+            }
+            break;
+        case LessThanSign:
+            {
+            alt50=2;
+            }
+            break;
+        case GreaterThanSign:
+            {
+            alt50=3;
+            }
+            break;
+        case LessThanSignEqualsSign:
+            {
+            alt50=4;
+            }
+            break;
+        case GreaterThanSignEqualsSign:
+            {
+            alt50=5;
+            }
+            break;
+        case EqualsSignEqualsSign:
+            {
+            alt50=6;
+            }
+            break;
+        case LessThanSignEqualsSignGreaterThanSign:
+            {
+            alt50=7;
+            }
+            break;
+        case EqualsSign:
+            {
+            alt50=8;
+            }
+            break;
+        default:
+            if (state.backtracking>0) {state.failed=true; return ;}
+            NoViableAltException nvae =
+                new NoViableAltException("", 50, 0, input);
+
+            throw nvae;
+        }
+
+        switch (alt50) {
+            case 1 :
+                // InternalSoarParser.g:1347:5: otherlv_1= LessThanSignGreaterThanSign
+                {
+                otherlv_1=(Token)match(input,LessThanSignGreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 2 :
+                // InternalSoarParser.g:1352:5: otherlv_2= LessThanSign
+                {
+                otherlv_2=(Token)match(input,LessThanSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 3 :
+                // InternalSoarParser.g:1357:5: otherlv_3= GreaterThanSign
+                {
+                otherlv_3=(Token)match(input,GreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 4 :
+                // InternalSoarParser.g:1362:5: otherlv_4= LessThanSignEqualsSign
+                {
+                otherlv_4=(Token)match(input,LessThanSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 5 :
+                // InternalSoarParser.g:1367:5: otherlv_5= GreaterThanSignEqualsSign
+                {
+                otherlv_5=(Token)match(input,GreaterThanSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 6 :
+                // InternalSoarParser.g:1372:5: otherlv_6= EqualsSignEqualsSign
+                {
+                otherlv_6=(Token)match(input,EqualsSignEqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 7 :
+                // InternalSoarParser.g:1377:5: otherlv_7= LessThanSignEqualsSignGreaterThanSign
+                {
+                otherlv_7=(Token)match(input,LessThanSignEqualsSignGreaterThanSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
+            case 8 :
+                // InternalSoarParser.g:1382:5: otherlv_8= EqualsSign
+                {
+                otherlv_8=(Token)match(input,EqualsSign,FollowSets000.FOLLOW_27); if (state.failed) return ;
+
+                }
+                break;
 
         }
 
+        // InternalSoarParser.g:1387:4: ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) )
+        // InternalSoarParser.g:1388:5: ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest )
+        {
+        // InternalSoarParser.g:1392:5: (lv_singleTest_9_0= ruleSingleTest )
+        // InternalSoarParser.g:1393:6: lv_singleTest_9_0= ruleSingleTest
+        {
+        if ( state.backtracking==0 ) {
 
+          						newCompositeNode(grammarAccess.getRelationalTestAccess().getSingleTestSingleTestParserRuleCall_0_2_0());
+          					
         }
-
-
-        }
-
-
-        }
-    }
-    // $ANTLR end synpred1_InternalSoarParser
-
-    // $ANTLR start synpred2_InternalSoarParser
-    public final void synpred2_InternalSoarParser_fragment() throws RecognitionException {   
-        // InternalSoarParser.g:793:5: ( ( () ( ( ruleRelationalOp ) ) ) )
-        // InternalSoarParser.g:793:6: ( () ( ( ruleRelationalOp ) ) )
-        {
-        // InternalSoarParser.g:793:6: ( () ( ( ruleRelationalOp ) ) )
-        // InternalSoarParser.g:794:6: () ( ( ruleRelationalOp ) )
-        {
-        // InternalSoarParser.g:794:6: ()
-        // InternalSoarParser.g:795:6: 
-        {
-        }
-
-        // InternalSoarParser.g:796:6: ( ( ruleRelationalOp ) )
-        // InternalSoarParser.g:797:7: ( ruleRelationalOp )
-        {
-        // InternalSoarParser.g:797:7: ( ruleRelationalOp )
-        // InternalSoarParser.g:798:8: ruleRelationalOp
-        {
         pushFollow(FollowSets000.FOLLOW_2);
-        ruleRelationalOp();
+        lv_singleTest_9_0=ruleSingleTest();
 
         state._fsp--;
         if (state.failed) return ;
@@ -4763,29 +7485,60 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
         }
     }
-    // $ANTLR end synpred2_InternalSoarParser
+    // $ANTLR end synpred42_InternalSoarParser
 
-    // $ANTLR start synpred3_InternalSoarParser
-    public final void synpred3_InternalSoarParser_fragment() throws RecognitionException {   
-        // InternalSoarParser.g:1341:4: ( ( () ( ( ruleSymConstant ) ) ) )
-        // InternalSoarParser.g:1341:5: ( () ( ( ruleSymConstant ) ) )
+    // $ANTLR start synpred67_InternalSoarParser
+    public final void synpred67_InternalSoarParser_fragment() throws RecognitionException {   
+        EObject lv_prefSpecifier_2_0 = null;
+
+
+        // InternalSoarParser.g:2167:4: ( (lv_prefSpecifier_2_0= rulePrefSpecifier ) )
+        // InternalSoarParser.g:2167:4: (lv_prefSpecifier_2_0= rulePrefSpecifier )
         {
-        // InternalSoarParser.g:1341:5: ( () ( ( ruleSymConstant ) ) )
-        // InternalSoarParser.g:1342:5: () ( ( ruleSymConstant ) )
+        // InternalSoarParser.g:2167:4: (lv_prefSpecifier_2_0= rulePrefSpecifier )
+        // InternalSoarParser.g:2168:5: lv_prefSpecifier_2_0= rulePrefSpecifier
         {
-        // InternalSoarParser.g:1342:5: ()
-        // InternalSoarParser.g:1343:5: 
-        {
+        if ( state.backtracking==0 ) {
+
+          					newCompositeNode(grammarAccess.getValueMakeAccess().getPrefSpecifierPrefSpecifierParserRuleCall_2_0());
+          				
+        }
+        pushFollow(FollowSets000.FOLLOW_2);
+        lv_prefSpecifier_2_0=rulePrefSpecifier();
+
+        state._fsp--;
+        if (state.failed) return ;
+
         }
 
-        // InternalSoarParser.g:1344:5: ( ( ruleSymConstant ) )
-        // InternalSoarParser.g:1345:6: ( ruleSymConstant )
+
+        }
+    }
+    // $ANTLR end synpred67_InternalSoarParser
+
+    // $ANTLR start synpred70_InternalSoarParser
+    public final void synpred70_InternalSoarParser_fragment() throws RecognitionException {   
+        Token otherlv_5=null;
+        EObject lv_value_6_0 = null;
+
+
+        // InternalSoarParser.g:2276:6: (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )
+        // InternalSoarParser.g:2276:6: otherlv_5= Comma ( (lv_value_6_0= ruleValue ) )
         {
-        // InternalSoarParser.g:1345:6: ( ruleSymConstant )
-        // InternalSoarParser.g:1346:7: ruleSymConstant
+        otherlv_5=(Token)match(input,Comma,FollowSets000.FOLLOW_43); if (state.failed) return ;
+        // InternalSoarParser.g:2280:6: ( (lv_value_6_0= ruleValue ) )
+        // InternalSoarParser.g:2281:7: (lv_value_6_0= ruleValue )
         {
+        // InternalSoarParser.g:2281:7: (lv_value_6_0= ruleValue )
+        // InternalSoarParser.g:2282:8: lv_value_6_0= ruleValue
+        {
+        if ( state.backtracking==0 ) {
+
+          								newCompositeNode(grammarAccess.getPrefSpecifierAccess().getValueValueParserRuleCall_1_1_1_1_0());
+          							
+        }
         pushFollow(FollowSets000.FOLLOW_2);
-        ruleSymConstant();
+        lv_value_6_0=ruleValue();
 
         state._fsp--;
         if (state.failed) return ;
@@ -4797,19 +7550,16 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
 
 
         }
-
-
-        }
     }
-    // $ANTLR end synpred3_InternalSoarParser
+    // $ANTLR end synpred70_InternalSoarParser
 
     // Delegated rules
 
-    public final boolean synpred3_InternalSoarParser() {
+    public final boolean synpred67_InternalSoarParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred3_InternalSoarParser_fragment(); // can never throw exception
+            synpred67_InternalSoarParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -4819,11 +7569,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred2_InternalSoarParser() {
+    public final boolean synpred42_InternalSoarParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred2_InternalSoarParser_fragment(); // can never throw exception
+            synpred42_InternalSoarParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -4833,11 +7583,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
         state.failed=false;
         return success;
     }
-    public final boolean synpred1_InternalSoarParser() {
+    public final boolean synpred70_InternalSoarParser() {
         state.backtracking++;
         int start = input.mark();
         try {
-            synpred1_InternalSoarParser_fragment(); // can never throw exception
+            synpred70_InternalSoarParser_fragment(); // can never throw exception
         } catch (RecognitionException re) {
             System.err.println("impossible: "+re);
         }
@@ -4849,44 +7599,47 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     }
 
 
-    protected DFA14 dfa14 = new DFA14(this);
+    protected DFA23 dfa23 = new DFA23(this);
     protected DFA27 dfa27 = new DFA27(this);
-    static final String dfa_1s = "\35\uffff";
-    static final String dfa_2s = "\1\11\11\uffff\1\23\22\uffff";
-    static final String dfa_3s = "\1\16\1\uffff\1\13\7\uffff\1\17\22\uffff";
-    static final String dfa_4s = "\1\52\1\uffff\1\52\7\uffff\1\52\22\uffff";
-    static final String dfa_5s = "\1\uffff\1\1\1\uffff\6\1\1\2\1\uffff\22\1";
-    static final String dfa_6s = "\1\0\1\uffff\1\1\7\uffff\1\2\22\uffff}>";
+    protected DFA44 dfa44 = new DFA44(this);
+    static final String dfa_1s = "\37\uffff";
+    static final String dfa_2s = "\12\uffff\5\32\3\uffff\7\32\4\uffff\2\32";
+    static final String dfa_3s = "\1\13\1\uffff\15\13\2\uffff\10\13\2\uffff\2\45\2\13";
+    static final String dfa_4s = "\1\60\1\uffff\15\60\2\uffff\1\55\7\60\2\uffff\2\45\2\60";
+    static final String dfa_5s = "\1\uffff\1\1\15\uffff\1\3\1\5\10\uffff\1\2\1\4\4\uffff";
+    static final String dfa_6s = "\37\uffff}>";
     static final String[] dfa_7s = {
-            "\1\7\1\11\1\4\1\1\1\6\1\5\1\11\5\uffff\2\11\1\uffff\1\11\2\uffff\1\2\1\10\1\3\1\uffff\5\11\1\uffff\1\11",
+            "\1\13\3\uffff\1\10\1\17\1\5\1\2\1\7\1\6\16\uffff\1\3\1\11\1\4\1\uffff\1\20\2\uffff\1\1\2\uffff\1\12\1\16\1\15\1\14",
             "",
-            "\1\11\3\uffff\1\16\15\uffff\1\13\2\uffff\1\17\3\uffff\1\15\2\uffff\1\14\2\uffff\1\12",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\30\4\uffff\1\34\5\uffff\1\21\1\20\1\uffff\1\25\2\uffff\1\31\1\uffff\1\11\1\uffff\1\27\1\33\1\22\1\26\1\24\1\uffff\1\32",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\30\27\uffff\1\21\11\uffff\1\27\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\23\27\uffff\1\21\11\uffff\1\22\1\26\1\25\1\24",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
             "",
             "",
+            "\1\34\41\uffff\1\33",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\2\32\1\35\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\2\32\1\35\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
+            "\1\36",
+            "\1\36",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32",
+            "\1\32\3\uffff\6\32\5\uffff\2\32\1\uffff\1\32\1\uffff\1\32\3\uffff\3\32\1\uffff\1\32\1\uffff\2\32\1\31\1\uffff\4\32"
     };
 
     static final short[] dfa_1 = DFA.unpackEncodedString(dfa_1s);
@@ -4897,11 +7650,11 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
     static final short[] dfa_6 = DFA.unpackEncodedString(dfa_6s);
     static final short[][] dfa_7 = unpackEncodedStringArray(dfa_7s);
 
-    class DFA14 extends DFA {
+    class DFA23 extends DFA {
 
-        public DFA14(BaseRecognizer recognizer) {
+        public DFA23(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 14;
+            this.decisionNumber = 23;
             this.eot = dfa_1;
             this.eof = dfa_2;
             this.min = dfa_3;
@@ -4911,130 +7664,31 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             this.transition = dfa_7;
         }
         public String getDescription() {
-            return "791:3: ( ( ( ( () ( ( ruleRelationalOp ) ) ) )=> ( () ( (lv_op_2_0= ruleRelationalOp ) ) ) ) ( (lv_right_3_0= rulePrefixExpr ) ) )?";
-        }
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
-            TokenStream input = (TokenStream)_input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA14_0 = input.LA(1);
-
-                         
-                        int index14_0 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA14_0==LessThanSignGreaterThanSign) && (synpred2_InternalSoarParser())) {s = 1;}
-
-                        else if ( (LA14_0==LessThanSign) ) {s = 2;}
-
-                        else if ( (LA14_0==GreaterThanSign) && (synpred2_InternalSoarParser())) {s = 3;}
-
-                        else if ( (LA14_0==LessThanSignEqualsSign) && (synpred2_InternalSoarParser())) {s = 4;}
-
-                        else if ( (LA14_0==GreaterThanSignEqualsSign) && (synpred2_InternalSoarParser())) {s = 5;}
-
-                        else if ( (LA14_0==EqualsSignEqualsSign) && (synpred2_InternalSoarParser())) {s = 6;}
-
-                        else if ( (LA14_0==LessThanSignEqualsSignGreaterThanSign) && (synpred2_InternalSoarParser())) {s = 7;}
-
-                        else if ( (LA14_0==EqualsSign) && (synpred2_InternalSoarParser())) {s = 8;}
-
-                        else if ( (LA14_0==EOF||LA14_0==LessThanSignLessThanSign||LA14_0==GreaterThanSignGreaterThanSign||(LA14_0>=RightParenthesis && LA14_0<=PlusSign)||LA14_0==HyphenMinus||(LA14_0>=LeftSquareBracket && LA14_0<=RightCurlyBracket)||LA14_0==RULE_SYM_CONSTANT_STRING) ) {s = 9;}
-
-                         
-                        input.seek(index14_0);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA14_2 = input.LA(1);
-
-                         
-                        int index14_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA14_2==RULE_SYM_CONSTANT_STRING) ) {s = 10;}
-
-                        else if ( (LA14_2==State) ) {s = 9;}
-
-                        else if ( (LA14_2==HyphenMinus) && (synpred2_InternalSoarParser())) {s = 11;}
-
-                        else if ( (LA14_2==LeftCurlyBracket) && (synpred2_InternalSoarParser())) {s = 12;}
-
-                        else if ( (LA14_2==LeftSquareBracket) && (synpred2_InternalSoarParser())) {s = 13;}
-
-                        else if ( (LA14_2==LessThanSignLessThanSign) && (synpred2_InternalSoarParser())) {s = 14;}
-
-                        else if ( (LA14_2==LessThanSign) && (synpred2_InternalSoarParser())) {s = 15;}
-
-                         
-                        input.seek(index14_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA14_10 = input.LA(1);
-
-                         
-                        int index14_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA14_10==GreaterThanSign) ) {s = 9;}
-
-                        else if ( (LA14_10==PlusSign) && (synpred2_InternalSoarParser())) {s = 16;}
-
-                        else if ( (LA14_10==RightParenthesis) && (synpred2_InternalSoarParser())) {s = 17;}
-
-                        else if ( (LA14_10==CircumflexAccent) && (synpred2_InternalSoarParser())) {s = 18;}
-
-                        else if ( (LA14_10==EOF) && (synpred2_InternalSoarParser())) {s = 19;}
-
-                        else if ( (LA14_10==RightCurlyBracket) && (synpred2_InternalSoarParser())) {s = 20;}
-
-                        else if ( (LA14_10==HyphenMinus) && (synpred2_InternalSoarParser())) {s = 21;}
-
-                        else if ( (LA14_10==LeftCurlyBracket) && (synpred2_InternalSoarParser())) {s = 22;}
-
-                        else if ( (LA14_10==LeftSquareBracket) && (synpred2_InternalSoarParser())) {s = 23;}
-
-                        else if ( (LA14_10==LessThanSignLessThanSign) && (synpred2_InternalSoarParser())) {s = 24;}
-
-                        else if ( (LA14_10==LessThanSign) && (synpred2_InternalSoarParser())) {s = 25;}
-
-                        else if ( (LA14_10==RULE_SYM_CONSTANT_STRING) && (synpred2_InternalSoarParser())) {s = 26;}
-
-                        else if ( (LA14_10==RightSquareBracket) && (synpred2_InternalSoarParser())) {s = 27;}
-
-                        else if ( (LA14_10==GreaterThanSignGreaterThanSign) && (synpred2_InternalSoarParser())) {s = 28;}
-
-                         
-                        input.seek(index14_10);
-                        if ( s>=0 ) return s;
-                        break;
-            }
-            if (state.backtracking>0) {state.failed=true; return -1;}
-            NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 14, _s, input);
-            error(nvae);
-            throw nvae;
+            return "1049:2: ( ( () otherlv_1= LeftCurlyBracket ( (lv_disjunctionTest_2_0= ruleDisjunctionTest ) ) ) | ( ( (lv_relationalTest_3_0= ruleRelationalTest ) ) otherlv_4= RightCurlyBracket ) | ( () ( (lv_disjunctionTest_6_0= ruleDisjunctionTest ) ) ) | ( (lv_relationalTest_7_0= ruleRelationalTest ) ) | ( () otherlv_9= LeftSquareBracket (this_INT_10= RULE_INT )+ otherlv_11= RightSquareBracket ) )";
         }
     }
-    static final String dfa_8s = "\13\uffff";
-    static final String dfa_9s = "\1\uffff\1\3\11\uffff";
-    static final String dfa_10s = "\2\11\6\uffff\1\11\1\uffff\1\0";
-    static final String dfa_11s = "\2\54\6\uffff\1\54\1\uffff\1\0";
-    static final String dfa_12s = "\2\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\1\1\uffff";
-    static final String dfa_13s = "\1\uffff\1\0\10\uffff\1\1}>";
+    static final String dfa_8s = "\20\uffff";
+    static final String dfa_9s = "\4\uffff\2\1\1\3\6\uffff\2\3\1\uffff";
+    static final String dfa_10s = "\1\13\1\uffff\1\13\1\uffff\4\13\5\0\2\13\1\0";
+    static final String dfa_11s = "\1\60\1\uffff\1\60\1\uffff\4\60\5\0\2\60\1\0";
+    static final String dfa_12s = "\1\uffff\1\1\1\uffff\1\2\14\uffff";
+    static final String dfa_13s = "\10\uffff\1\0\1\4\1\5\1\2\1\3\2\uffff\1\1}>";
     static final String[] dfa_14s = {
-            "\1\4\15\uffff\2\3\1\7\1\uffff\1\3\1\6\1\3\2\uffff\1\1\3\3\5\uffff\1\3\1\2\1\uffff\1\5",
-            "\1\3\1\uffff\1\11\13\uffff\7\3\2\uffff\4\3\5\uffff\1\3\1\10\1\uffff\1\3",
+            "\1\3\3\uffff\1\1\1\uffff\4\1\16\uffff\1\2\2\1\7\uffff\4\3",
             "",
+            "\1\5\27\uffff\1\1\11\uffff\1\4\3\1",
             "",
-            "",
-            "",
-            "",
-            "",
-            "\1\3\15\uffff\7\3\2\uffff\2\3\1\12\1\3\5\uffff\2\3\1\uffff\1\3",
-            "",
+            "\1\1\3\uffff\6\1\5\uffff\2\1\1\uffff\1\1\1\uffff\1\1\3\uffff\2\1\1\6\1\uffff\1\1\1\uffff\3\1\1\uffff\4\1",
+            "\1\1\3\uffff\6\1\5\uffff\2\1\1\uffff\1\1\1\uffff\1\1\3\uffff\2\1\1\6\1\uffff\1\1\1\uffff\3\1\1\uffff\4\1",
+            "\1\11\3\uffff\6\3\5\uffff\2\3\1\uffff\1\3\1\uffff\1\3\3\uffff\1\7\2\3\1\uffff\1\3\1\uffff\3\3\1\uffff\1\10\1\14\1\13\1\12",
+            "\1\16\27\uffff\1\3\11\uffff\1\15\3\3",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\uffff",
+            "\1\3\3\uffff\6\3\5\uffff\2\3\1\uffff\1\3\1\uffff\1\3\3\uffff\2\3\1\17\1\uffff\1\3\1\uffff\3\3\1\uffff\4\3",
+            "\1\3\3\uffff\6\3\5\uffff\2\3\1\uffff\1\3\1\uffff\1\3\3\uffff\2\3\1\17\1\uffff\1\3\1\uffff\3\3\1\uffff\4\3",
             "\1\uffff"
     };
 
@@ -5060,37 +7714,95 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             this.transition = dfa_14;
         }
         public String getDescription() {
-            return "1339:2: ( ( ( ( () ( ( ruleSymConstant ) ) ) )=> ( () ( (lv_val_1_0= ruleSymConstant ) ) ) ) | ( () ( (lv_val_3_0= RULE_SYM_CONSTANT_STRING ) ) ) | ( () ( ruleUnaryPref | ruleUnaryOrBinaryPref ) ) | ( () otherlv_8= Crlf ) | ( () ( (lv_expr_10_0= RULE_PIPE_STRING ) ) ) | ( () otherlv_12= Comma ) | ( () otherlv_14= LeftParenthesis ( (lv_exprs_15_0= ruleActionExpr ) )+ otherlv_16= RightParenthesis ) )";
+            return "1334:2: ( ( () (otherlv_1= LessThanSignGreaterThanSign | otherlv_2= LessThanSign | otherlv_3= GreaterThanSign | otherlv_4= LessThanSignEqualsSign | otherlv_5= GreaterThanSignEqualsSign | otherlv_6= EqualsSignEqualsSign | otherlv_7= LessThanSignEqualsSignGreaterThanSign | otherlv_8= EqualsSign ) ( ( ( ruleSingleTest ) )=> (lv_singleTest_9_0= ruleSingleTest ) ) ) | ( () ( (lv_singleTest_11_0= ruleSingleTest ) ) ) )";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA27_1 = input.LA(1);
+                        int LA27_8 = input.LA(1);
 
                          
-                        int index27_1 = input.index();
+                        int index27_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA27_1==EOF||LA27_1==Crlf||(LA27_1>=ExclamationMark && LA27_1<=HyphenMinus)||(LA27_1>=LessThanSign && LA27_1<=CommercialAt)||LA27_1==Tilde||LA27_1==RULE_PIPE_STRING) ) {s = 3;}
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
 
-                        else if ( (LA27_1==RULE_SYM_CONSTANT_STRING) ) {s = 8;}
-
-                        else if ( (LA27_1==State) && (synpred3_InternalSoarParser())) {s = 9;}
+                        else if ( (true) ) {s = 3;}
 
                          
-                        input.seek(index27_1);
+                        input.seek(index27_8);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
+                        int LA27_15 = input.LA(1);
+
+                         
+                        int index27_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index27_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA27_11 = input.LA(1);
+
+                         
+                        int index27_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index27_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA27_12 = input.LA(1);
+
+                         
+                        int index27_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index27_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA27_9 = input.LA(1);
+
+                         
+                        int index27_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
+
+                        else if ( (true) ) {s = 3;}
+
+                         
+                        input.seek(index27_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA27_10 = input.LA(1);
 
                          
                         int index27_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred3_InternalSoarParser()) ) {s = 9;}
+                        if ( (synpred42_InternalSoarParser()) ) {s = 1;}
 
                         else if ( (true) ) {s = 3;}
 
@@ -5106,35 +7818,134 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             throw nvae;
         }
     }
+    static final String dfa_15s = "\25\uffff";
+    static final String dfa_16s = "\1\2\24\uffff";
+    static final String dfa_17s = "\1\13\1\0\23\uffff";
+    static final String dfa_18s = "\1\60\1\0\23\uffff";
+    static final String dfa_19s = "\2\uffff\1\2\21\uffff\1\1";
+    static final String dfa_20s = "\1\uffff\1\0\23\uffff}>";
+    static final String[] dfa_21s = {
+            "\1\2\14\uffff\4\2\1\uffff\1\2\1\1\1\2\3\uffff\4\2\2\uffff\1\2\2\uffff\5\2",
+            "\1\uffff",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+    };
+
+    static final short[] dfa_15 = DFA.unpackEncodedString(dfa_15s);
+    static final short[] dfa_16 = DFA.unpackEncodedString(dfa_16s);
+    static final char[] dfa_17 = DFA.unpackEncodedStringToUnsignedChars(dfa_17s);
+    static final char[] dfa_18 = DFA.unpackEncodedStringToUnsignedChars(dfa_18s);
+    static final short[] dfa_19 = DFA.unpackEncodedString(dfa_19s);
+    static final short[] dfa_20 = DFA.unpackEncodedString(dfa_20s);
+    static final short[][] dfa_21 = unpackEncodedStringArray(dfa_21s);
+
+    class DFA44 extends DFA {
+
+        public DFA44(BaseRecognizer recognizer) {
+            this.recognizer = recognizer;
+            this.decisionNumber = 44;
+            this.eot = dfa_15;
+            this.eof = dfa_16;
+            this.min = dfa_17;
+            this.max = dfa_18;
+            this.accept = dfa_19;
+            this.special = dfa_20;
+            this.transition = dfa_21;
+        }
+        public String getDescription() {
+            return "2275:5: (otherlv_5= Comma ( (lv_value_6_0= ruleValue ) ) )?";
+        }
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
+            TokenStream input = (TokenStream)_input;
+        	int _s = s;
+            switch ( s ) {
+                    case 0 : 
+                        int LA44_1 = input.LA(1);
+
+                         
+                        int index44_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred70_InternalSoarParser()) ) {s = 20;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index44_1);
+                        if ( s>=0 ) return s;
+                        break;
+            }
+            if (state.backtracking>0) {state.failed=true; return -1;}
+            NoViableAltException nvae =
+                new NoViableAltException(getDescription(), 44, _s, input);
+            error(nvae);
+            throw nvae;
+        }
+    }
  
 
     
     private static class FollowSets000 {
         public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000600002L});
-        public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000008000000000L});
-        public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000040000000000L});
-        public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000080082002000L});
-        public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000082002000L});
-        public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000002002000L});
-        public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000002000000L});
-        public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000010002000000L});
+        public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000C00002L});
+        public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x0000040000000000L});
+        public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x0000200000000000L});
+        public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000404002000L});
+        public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000004000L});
+        public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000080004000000L});
+        public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000080000000000L});
+        public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000002000L});
         public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x00000000000004F0L});
-        public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000000100000900L});
-        public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000004000000000L});
-        public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000004004000000L});
-        public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000049160008900L});
-        public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000008000002L});
-        public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x00000007000F4002L});
-        public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000059160008900L});
-        public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x000004B160008900L});
-        public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000049160108900L});
-        public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000160F3B800B00L});
-        public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000160F3F800B00L});
-        public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000000001000L});
-        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000040000000800L});
-        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000400000000L});
+        public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000040084000002L});
+        public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000000900L});
+        public static final BitSet FOLLOW_14 = new BitSet(new long[]{0x0000020880000000L});
+        public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000020888000000L});
+        public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000040084000000L});
+        public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x00000C0084000000L});
+        public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000800000900L});
+        public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000800000000L});
+        public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000020000000000L});
+        public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0001E4B9041F8802L});
+        public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0001E4B8041F8802L});
+        public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000020000002L});
+        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000010000L});
+        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0001000000000000L});
+        public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0001010000000000L});
+        public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0001E038001E8800L});
+        public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0001E038003E8800L});
+        public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000200000000800L});
+        public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000002000000000L});
+        public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000004000002L});
+        public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000020008000000L});
+        public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0000000000001000L});
+        public static final BitSet FOLLOW_34 = new BitSet(new long[]{0x0000400800000200L});
+        public static final BitSet FOLLOW_35 = new BitSet(new long[]{0x0000400808000200L});
+        public static final BitSet FOLLOW_36 = new BitSet(new long[]{0x00002002B0000800L});
+        public static final BitSet FOLLOW_37 = new BitSet(new long[]{0x0001E0380C1E8800L});
+        public static final BitSet FOLLOW_38 = new BitSet(new long[]{0x0000200800000800L});
+        public static final BitSet FOLLOW_39 = new BitSet(new long[]{0x0001E039041E8802L});
+        public static final BitSet FOLLOW_40 = new BitSet(new long[]{0x0001E038041E8802L});
+        public static final BitSet FOLLOW_41 = new BitSet(new long[]{0x00001078A3000002L});
+        public static final BitSet FOLLOW_42 = new BitSet(new long[]{0x0000000040000002L});
+        public static final BitSet FOLLOW_43 = new BitSet(new long[]{0x0001E038041E8800L});
     }
 
 
