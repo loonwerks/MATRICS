@@ -1,7 +1,6 @@
 grammar com.collins.trustedmethods.matrics.soar.Soar hidden(WS, SL_COMMENT)//with org.osate.xtext.aadl2.properties.Properties
 
 generate soar "http://www.collins.com/trustedmethods/matrics/soar/Soar"
-
 import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -21,153 +20,222 @@ SoarAnnexSubclause:
 	{SoarAnnexSubclause} soarAnnexProductions+=SoarProduction*
 ;
 
-//soar: soar_production+ ;
 
-// Grammar of Soar productions
+//Updated Grammar
+
+//soar_production : ('sp'|'gp') '{' sym_constant Documentation? flags? condition_side '-->' action_side '}' ;
 SoarProduction returns SoarProduction : 
-	{SoarProduction} ('sp'|'gp') '{' name=SYM_CONSTANT_STRING doc=Documentation? flag=Flags? conditions+=StateImpCondition* '-->' actions+=ActionSideExpr+ '}'
+	{SoarProduction} ('sp'|'gp') '{' name=SYM_CONSTANT_STRING doc=Documentation? flag=Flags? conditions=ConditionSide '-->' actions=ActionSide '}'
 ;
+
+
 //Documentation : '"""' ~["]* '"""' ;
-Documentation : STRING;
+//Documentation : STRING;
+Documentation : '"""' SYM_CONSTANT_STRING '"""';
+
 Flags : ':' ('o-support' | 'i-support' | 'chunk' | 'default' | 'template' ) ;
 
 // Grammar for Condition Side
-//ConditionSide returns ConditionSide: 
-//	{ConditionSide} conditions+=ConditionExpr*
-//;
-StateImpCondition returns StateImpCondition: 
-	{StateImpCond} '(' (STATE | IMPASSE)? id=SymConstant (attrValueTest+=AttrValueTest)+ ')'
+
+//condition_side : state_imp_cond cond* ;
+ConditionSide returns ConditionSide: 
+	{ConditionSide} (stateImpCondition=StateImpCondition) (cond+=Cond)*
 ;
- 
- AttrValueTest returns AttrValueTest:
- 	{AttrValueTest} '^' attrTest+=SYM_CONSTANT_STRING ('.' attrTest+=SYM_CONSTANT_STRING)* test=ConditionExpr
- ;
- 
+
+//state_imp_cond : '(' (STATE | 'impasse') id_test? attr_value_tests+ ')' ;
+StateImpCondition returns StateImpCondition: 
+	{StateImpCond} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
+;
+
 //cond : positive_cond | ( ('-') positive_cond ) ;
+Cond returns Cond:
+	{Cond} ('-')? (cond=PositiveCond)
+;
+
 //positive_cond : conds_for_one_id | ('{' cond+ '}') ;
+PositiveCond returns PositiveCond:
+	{PositiveCond} => (condForOneId=CondForOneId) | ('{' (cond+=Cond)+ '}')
+;
+
 //conds_for_one_id : '(' (STATE | IMPASSE)? id_test AttrValueTests+ ')';
+CondForOneId returns CondForOneId:
+	{CondForOneId} '(' (STATE | IMPASSE)? (idTest=Variable) (attrValueTest+=AttrValueTest)+ ')'
+;
+
 //id_test : test ;
 //AttrValueTests : '-'? '^' attr_test ('.' attr_test)* value_test* ;
+ AttrValueTest returns AttrValueTest:
+ 	{AttrValueTest} '-'? '^' (attrTest+=SYM_CONSTANT_STRING) ('.' attrTest+=SYM_CONSTANT_STRING)* (valueTest+=ValueTest)*
+ ;
+ 
 //attr_test : test ;
 //value_test : ( test '+'? ) | ( conds_for_one_id '+'? ) ;
-
+ ValueTest returns ValueTest:
+ 	{ValueTest} (test=Test '+'?) | (condForOneId=CondForOneId '+'?)
+ ;
+ 
 //test : conjunctive_test | simple_test | multi_value_test ;
-//conjunctive_test : '{' simple_test+ '}' ;
+// conjunctive_test : '{' simple_test+ '}' ;
 //simple_test : disjunction_test | relational_test ;
-//multi_value_test : '[' INTEGER_LIT+ ']' ;
+//multi_value_test : '[' Int_constant+ ']' ;
+ Test returns Test:
+	{ConjuctiveTest} '{' disjunctionTest=DisjunctionTest | relationalTest=RelationalTest '}'
+ |	{SimpleTest} disjunctionTest=DisjunctionTest | relationalTest=RelationalTest
+ |	{MultiValueTest} '[' INT+ ']' 
+ ;
+ 
 //disjunction_test : '<<' constant+ '>>' ;
-//relational_test : RelationalOp? single_test ;
-RelationalOp : '<>' | '<' | '>' | '<=' | '>=' | '==' | '<=>' | '=';
+DisjunctionTest returns DisjunctionTest:
+	{DisjunctionTest} '<<' (constant+=Constant)+ '>>'
+;
+
+
 //single_test : variable | constant ;
-//variable : '<|' SymConstant '|>' ;
-
-//constant : sym_constant | INTEGER_LIT | REAL_LIT | Print_string ;
-//constant : SymConstant | INTEGER_LIT | REAL_LIT ;
-
-ConditionExpr:
-	PlusExpr
+SingleTest returns SingleTest:
+	{SingleTest} (variable=Variable | constant=Constant)
 ;
 
-PlusExpr returns Expr:
-	RelationalExpr (=>({BinaryExpr.left=current} op='+') right=RelationalExpr)*
-;
-
-RelationalExpr returns Expr:
-	PrefixExpr (=>({BinaryExpr.left=current} op=RelationalOp) right=PrefixExpr)?
-;
-
-
-
-PrefixExpr returns Expr:
-	{UnaryExpr} op='-' expr=PrefixExpr
-|	AtomicConditionExpr
-;
-
-AtomicConditionExpr returns Expr:
-////	{ConditionExpr} cond=Expr
-////	{NegativeCondExpr} '-' cond=ConditionExpr
-//	{StateImpCondExpr} '(' (STATE | IMPASSE)? name=SymConstant ('^' attrTests+=SYM_CONSTANT_STRING ('.' attrTests+=SYM_CONSTANT_STRING)*)+ ')'
-//	{AttrValTestExpr} '^' attrTests+=SYM_CONSTANT_STRING ('.' attrTests+=SYM_CONSTANT_STRING)* valTests+=ConditionExpr*
-////|	{ValTestExpr} (test=Expr ('+')?)
-////|	{RelationalTestExpr} RelationalOp test=ConditionExpr
-	{ConjunctTestExpr}  '{' tests+=ConditionExpr* '}'
-|	{MultiValTestExpr} '[' tests+=ConditionExpr+ ']'
-|	{DisjunctTestExpr} '<<' consts+=ConditionExpr+ '>>'
-////|	{VarExpr} '<|' var=ConditionExpr '|>'
-////|	{ConstExpr} val=ConditionExpr
-|	{SymConstExpr} val=SymConstant
-//|	{IntExpr} val=INTEGER_LIT
-//|	{RealExpr} val=REAL_LIT	
-|	{ConstStringExpr} val=SYM_CONSTANT_STRING
-;
-
-
-
-// Grammar for Action Side
-////action_side : (action  | func_call | print)* ;
-//ActionSide returns ActionSide: 
-//////	(action  | func_call )*
-//	{ActionSide} actions+=ActionExpr*
+//relational_test : relation? single_test ;
+//RelationalTest returns RelationalTest:
+//	{RelationalTest} ('<>' | '<' | '>' | '<=' | '>=' | '==' | '<=>' | '=')? (singleTest=SingleTest)
 //;
 
-ActionSideExpr returns ActionSideExpr:
-	'(' id=SymConstant '^' makeId=SYM_CONSTANT_STRING attrValMakes+=ActionExpr+ ')'
-|	'(' 'write' text+=ActionExpr+ ')'
+RelationalTest returns RelationalTest:
+    {RelationalTest} ('<>' | '<' | '>' | '<=' | '>=' | '==' | '<=>' | '=') => singleTest=SingleTest
+    | {RelationalTest} singleTest=SingleTest
 ;
 
-////action : ( '(' variable attr_value_make+ ')' );
-////print : ( '(' 'write ' ( Print_string | variable | '(crlf)')+ ')' )+ ;
-////Print_string : '|' ~[|]* '|' ;
-////Print_string : '|' STRING '|' ;
-////func_call : '(' func_name value* ')' ;
-////func_name : SymConstant | '+' | '-' | '*' | '/' ;
-////value : constant | func_call | variable ;
-////attr_value_make : '^' variable_or_sym_constant ( '.' variable_or_sym_constant )* value_make ;
-////variable_or_sym_constant : variable | SymConstant ;
+
+//variable : '<|' SymConstant '|>' ;
+Variable returns Variable:
+	{Variable} ('<' (SYM_CONSTANT_STRING | STATE) '>')
+;
+
+//relation : '<>' | '<' | '>' | '<=' | '>=' | '==' | '<=>' | '=';
+//RelationalOp : ;
+
+
+//action_side : (action  | func_call | print)* ;
+ActionSide returns ActionSide:
+	{ActionSide} ((action+=Action) | (funcCall+=FuncCall) | (print+=Print))*
+;
+
+//action : ( '(' variable attr_value_make+ ')' );
+Action returns Action:
+	{Action} ( '(' variable=Variable (attrValMake+=AttrValueMake)+ ')')
+;
+
+//print : ( '(' 'write ' ( Print_string | variable | '(crlf)')+ ')' )+ ;
+Print returns Print: 
+	{Print} ('(' 'write' (PRINT_STRING | variable+=Variable | '(crlf)')+ ')' )
+;
+
+//func_call : '(' func_name value* ')' ;
+//func_name : sym_constant | '+' | '-' | '*' | '/' ;
+
+FuncCall returns FuncCall:
+    {FuncCall} '(' ((SYM_CONSTANT_STRING | STATE) | '+' | '-' | '*' | '/') (value+=Value)* ')'
+;
+
+//value : constant | func_call | variable ;
+Value returns Value:
+	 (Constant) | (FuncCall) | (Variable)
+;
+
+//attr_value_make : '^' variable_or_sym_constant ( '.' variable_or_sym_constant )* value_make* ;
+AttrValueMake returns AttrValueMake:
+	
+	{AttrValueMake}  ('^' (variableOrSymConstant+=VariableorSymConstant) ( '.' (variableOrSymConstant+=VariableorSymConstant))* (valueMake+=ValueMake)*)
+;
+
+//variable_or_sym_constant : variable | sym_constant ;
+VariableorSymConstant returns VariableorSymConstant:
+	{VariableorSymConstant} (variable=Variable | (SYM_CONSTANT_STRING | STATE))
+;
+
+
+//constant : sym_constant | Int_constant | Float_constant | Print_string ;
+Constant returns Constant:
+	{Constant} ((SYM_CONSTANT_STRING | STATE) | INT | FLOAT | PRINT_STRING)
+;
+
+ValueMake returns ValueMake:
+	{ValueMake} (value=Value) (prefSpecifier+=PrefSpecifier)*
+;
+
+//PrefSpecifier returns PrefSpecifier:
+//	{PrefSpecifier} (( unaryPref=UnaryPref ','? ) | ( unaryOrBinaryPref=UnaryOrBinaryPref ','?) | (unaryOrBinaryPref=UnaryOrBinaryPref) (value=Value) ','?) 
+//;
+
+PrefSpecifier returns PrefSpecifier:
+    {PrefSpecifier} (unaryPref=UnaryPref (','?)?)
+    | {PrefSpecifier} (unaryOrBinaryPref=UnaryOrBinaryPref ((',' value=Value)?)? (','?))
+;
+
+
+
+
 ////value_make : value pref_specifier* ;
+//ValueMake returns ValueMake:
+//	{ValueMake} (value=Value) (prefSpecifier=PrefSpecifier)
+//;
+//
+
+////PrefSpecifierChain: //returns PrefSpecifierChain:
+////	(prefSpecifier=PrefSpecifier) // (',' prefSpecifier+=PrefSpecifier)
+////;
 ////pref_specifier : ( unary_pref ','? ) | ( unary_or_binary_pref ','? ) | unary_or_binary_pref value ','? ;
-UnaryPref : '+' | '-' | '!' | '~' | '@' ;
-UnaryOrBinaryPref : '>' | '=' | '<' | '&' ;
+//PrefSpecifier returns PrefSpecifier:
+//	{PrefSpecifier} (unary+=Unary)* | ((pref=UnaryOrBinaryPref ) (value=Value))//| (( pref=UnaryOrBinaryPref ) (value=Value)))
+//;
+//
+//Unary returns Unary:
+//	{Unary} (( pref=UnaryPref ) | ( pref=UnaryOrBinaryPref )) ','?
+//;
 
-ActionExpr returns Expr:
-//	{ActionSideExpr} '(' id=SymConstant '^' makeId=SYM_CONSTANT_STRING attrValMakes+=ActionExpr+ ')'
-//|	{PrintExpr} '(' 'write' text+=ActionExpr+ ')'
-//	{FnCallExpr} '(' FuncName val+=ActionExpr* ')'
-//|	{VarExpr} '<|' var=ActionExpr '|>'
-	=> ({SymConstExpr} val=SymConstant)
-//|	{IntExpr} val=INTEGER_LIT
-//|	{RealExpr} val=REAL_LIT	
-|	{StringExpr} val=SYM_CONSTANT_STRING
-//|	{AttrValMakeExpr} '^' attrMake+=ActionExpr ('.' attrMake+=ActionExpr)* valMake=ActionExpr
-//|	{ValMakeExpr} 'm' val=ActionExpr prefSpecifiers+=ActionExpr (',' prefSpecifiers+=ActionExpr)*
-|	{PrefSpecifierExpr} (UnaryPref | UnaryOrBinaryPref)
-|	{CrlfExpr} '(crlf)'
-|	{StringExpr} expr=PIPE_STRING
-|	{CommaExpr} ','
-|	{ParenExpr} '(' exprs+=ActionExpr+ ')'
-;
-
-//FuncName: SymConstant | '+' | '-' | '*' | '/' ;
-
-//sym_constant: Sym_constant | STATE ;
-SymConstant: '<' (SYM_CONSTANT_STRING | STATE) '>';
+//Binary returns Binary:
+//	{Binary} (pref=UnaryOrBinaryPref ) (value=Value)
+//;
+//unary_pref : '+' | '-' | '!' | '~' | '@' ;
+//unary_or_binary_pref : '>' | '=' | '<' | '&' ;
+UnaryPref: '+' | '-' | '!' | '~' | '@'; 
+UnaryOrBinaryPref: '>' | '=' | '<' | '&';
 
 // Types of constants
 STATE: 'state' ;
 IMPASSE: 'impasse';
+
 //Sym_constant : [a-zA-Z] [a-zA-Z0-9-_*]* ;
 terminal SYM_CONSTANT_STRING : ('a'..'z' | 'A'..'Z') (('_')? ('*')? ('-')? ('a'..'z' | 'A'..'Z' | '0'..'9'))* ;
-//Int_constant : [0-9]+ ;
-//Float_constant : [0-9]+ '.' [0-9]+ ;
-//WS : [ \t\r\n]+ -> skip ;
-terminal STRING	: 
-			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' 
-//|			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
-;
-terminal PIPE_STRING :
-	'|' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'|') )* '|'
-;
 
+//Print_string : '|' ~[|]* '|' ;
+terminal PRINT_STRING:
+    '|' ( '\\|' | !'|' )* '|';
+
+//Float_constant : [0-9]+ '.' [0-9]+ ;
+terminal FLOAT returns ecore::EFloat:
+    ('0'..'9')+ '.' ('0'..'9')+;
+
+//Int_constant : [0-9]+ ;
+terminal INT returns ecore::EInt:
+    ('0'..'9')+;
+    	
+//WS : [ \t\r\n]+ -> skip ;
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+		
+//COMMENT : '#' ~[\r\n]* -> skip ;	
+//@Override
+terminal SL_COMMENT:
+	'#' !('\n' | '\r')* ('\r'? '\n')?;
+	
+		
+//terminal STRING	: 
+//			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' 
+////|			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'"
+//;
+//terminal PIPE_STRING :
+//	'|' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'|') )* '|'
+//;
 //terminal fragment
 //EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;
 
@@ -184,10 +252,4 @@ terminal PIPE_STRING :
 //terminal INTEGER_LIT : 
 //		(DIGIT)+
 //  ;
-			
-terminal WS			: (' '|'\t'|'\r'|'\n')+;
-			
-//@Override
-terminal SL_COMMENT:
-	'#' !('\n' | '\r')* ('\r'? '\n')?;
 //terminal SL_COMMENT : '#' !('\n' | '\r')* ('\r'? '\n')?;
