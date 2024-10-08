@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Analysis
+Bundle-SymbolicName: com.collins.trustedmethods.matrics.analysis
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.collins.trustedmethods.matrics.analysis.Activator
+Bundle-Vendor: COLLINS
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.ui,
+ org.osate.aadl2.modelsupport,
+ org.osate.ui,
+ com.collins.trustedmethods.matrics.soar
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: com.collins.trustedmethods.matrics.analysis
+Bundle-ActivationPolicy: lazy
+Import-Package: org.osate.aadl2
