@@ -15,7 +15,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 
 	@Override
 	protected String getJobName() {
-		return "Soar Translation";
+		return "Soar Translator";
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 
 		// Make sure a component implementation is selected
 		if (!(selection instanceof ComponentImplementation)) {
-			Dialog.showError("Soar Translation", "A component implementation must be selected");
+			Dialog.showError(getJobName(), "A component implementation must be selected");
 			return Status.CANCEL_STATUS;
 		}
 
@@ -38,18 +38,18 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			}
 		}
 		if (soarAnnex == null) {
-			Dialog.showError("Soar Translation", "Selected component implementation must contain a Soar annex");
+			Dialog.showError(getJobName(), "Selected component implementation must contain a Soar annex");
 			return Status.CANCEL_STATUS;
 		}
 
 		translate(soarAnnex);
 
-		return null;
+		return Status.OK_STATUS;
 	}
 
 	private void translate(SoarAnnexSubclause soarAnnex) {
 
-
+		Dialog.showInfo(getJobName(), "Translation Complete!");
 
 	}
 
