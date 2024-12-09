@@ -3,6 +3,7 @@ package com.collins.trustedmethods.matrics.analysis.handlers;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DefaultAnnexSubclause;
@@ -12,13 +13,17 @@ import org.osate.ui.dialogs.Dialog;
 import com.collins.trustedmethods.matrics.soar.soar.Action;
 import com.collins.trustedmethods.matrics.soar.soar.ActionSide;
 import com.collins.trustedmethods.matrics.soar.soar.AttrValueMake;
+import com.collins.trustedmethods.matrics.soar.soar.AttrValueTest;
 import com.collins.trustedmethods.matrics.soar.soar.Cond;
+import com.collins.trustedmethods.matrics.soar.soar.CondForOneId;
 import com.collins.trustedmethods.matrics.soar.soar.ConditionSide;
+import com.collins.trustedmethods.matrics.soar.soar.FuncCall;
+import com.collins.trustedmethods.matrics.soar.soar.PositiveCond;
+import com.collins.trustedmethods.matrics.soar.soar.Print;
 import com.collins.trustedmethods.matrics.soar.soar.SoarAnnexSubclause;
 import com.collins.trustedmethods.matrics.soar.soar.SoarProduction;
 import com.collins.trustedmethods.matrics.soar.soar.StateImpCondition;
-import com.collins.trustedmethods.matrics.soar.soar.ValueMake;
-import com.collins.trustedmethods.matrics.soar.soar.VariableorSymConstant;
+import com.collins.trustedmethods.matrics.soar.soar.util.SoarSwitch;
 
 public class SoarTranslatorHandler extends MatricsHandler {
 
@@ -51,63 +56,131 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			return Status.CANCEL_STATUS;
 		}
 
-		translate(soarAnnex);
+		TranslateSoarSwitch<Void> soarSwitch = new TranslateSoarSwitch<>();
+		soarSwitch.doSwitch(soarAnnex);
 
 		return Status.OK_STATUS;
 	}
 
+	private static class TranslateSoarSwitch<T> extends SoarSwitch<T> {
+		@Override
+		public T caseSoarAnnexSubclause(SoarAnnexSubclause object) {
+			System.out.println("Processing SoarAnnexSubclause...");
+			for (SoarProduction production : object.getSoarAnnexProductions()) {
+				doSwitch(production); // Process each production
+			}
+			return (T) Boolean.TRUE;
+		}
 
-	private void translate(SoarAnnexSubclause soarAnnex) {
-	    for (SoarProduction production : soarAnnex.getSoarAnnexProductions()) {
-	        System.out.println("Production Name: " + production.getName());
-	        processConditions(production.getConditions());
-	        processActions(production.getActions());
-	    }
+		@Override
+		public T caseSoarProduction(SoarProduction object) {
+			System.out.println("Processing SoarProduction: " + object.getName());
+			if (object.getConditions() != null) {
+				doSwitch(object.getConditions()); // Process ConditionSide
+			}
+			if (object.getActions() != null) {
+				doSwitch(object.getActions()); // Process ActionSide
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseConditionSide(ConditionSide object) {
+			System.out.println("Processing ConditionSide...");
+			if (object.getStateImpCondition() != null) {
+				doSwitch(object.getStateImpCondition()); // Process StateImpCondition
+			}
+			for (Cond cond : object.getCond()) {
+				doSwitch(cond); // Process individual conditions
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseStateImpCondition(StateImpCondition object) {
+			System.out.println("Processing StateImpCondition...");
+			System.out.println("State/Impasse: " + (object.getIdTest() != null ? object.getIdTest() : "None"));
+			for (AttrValueTest attrValueTest : object.getAttrValueTest()) {
+				doSwitch(attrValueTest); // Process attribute-value tests
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseCond(Cond object) {
+			System.out.println("Processing Cond...");
+			if (object.getCond() != null) {
+				doSwitch(object.getCond()); // Process PositiveCond
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T casePositiveCond(PositiveCond object) {
+			System.out.println("Processing PositiveCond...");
+			if (object.getCondForOneId() != null) {
+				doSwitch(object.getCondForOneId()); // Process CondForOneId
+			}
+			for (Cond nestedCond : object.getCond()) {
+				doSwitch(nestedCond); // Process nested conditions
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseCondForOneId(CondForOneId object) {
+			System.out.println("Processing CondForOneId...");
+			System.out.println("ID Test: " + object.getIdTest());
+			for (AttrValueTest attrValueTest : object.getAttrValueTest()) {
+				doSwitch(attrValueTest); // Process attribute-value tests
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseAttrValueTest(AttrValueTest object) {
+			System.out.println("Processing AttrValueTest...");
+			System.out.println("Attributes: " + object.getAttrTest());
+			System.out.println("Value Tests: " + object.getValueTest());
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseActionSide(ActionSide object) {
+			System.out.println("Processing ActionSide...");
+			for (Action action : object.getAction()) {
+				doSwitch(action); // Process actions
+			}
+			for (FuncCall funcCall : object.getFuncCall()) {
+				doSwitch(funcCall); // Process function calls
+			}
+			for (Print print : object.getPrint()) {
+				doSwitch(print); // Process print statements
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseAction(Action object) {
+			System.out.println("Processing Action...");
+			System.out.println("Variable: " + object.getVariable());
+			for (AttrValueMake attrValueMake : object.getAttrValMake()) {
+				doSwitch(attrValueMake); // Process attribute-value makes
+			}
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T caseAttrValueMake(AttrValueMake object) {
+			System.out.println("Processing AttrValueMake...");
+			System.out.println("Attributes/Values: " + object.getVariableOrSymConstant());
+			return (T) Boolean.TRUE;
+		}
+
+		@Override
+		public T defaultCase(EObject object) {
+			System.out.println("Unhandled EObject type: " + object.eClass().getName());
+			return null;
+		}
 	}
-	private void processConditions(ConditionSide conditions) {
-	    if (conditions.getStateImpCondition() != null) {
-			StateImpCondition stateImpCondition = conditions.getStateImpCondition();
-//	        System.out.println("State/Impasse: " + stateImpCondition.getIdTest().getName());
-//	        for (AttrValueTest attrValueTest : stateImpCondition.getAttrValueTest()) {
-//	            System.out.println("Attribute-Value Test: " + attrValueTest.toString());
-//	        }
-	    }
-
-	    for (Cond cond : conditions.getCond()) {
-	        System.out.println("Condition: " + cond.getCond());
-	    }
-	}
-	private void processActions(ActionSide actions) {
-	    for (Action action : actions.getAction()) {
-	        String variableName = action.getVariable().toString();
-	        System.out.println("Action Variable: " + variableName);
-
-	        for (AttrValueMake attrValueMake : action.getAttrValMake()) {
-	            String attrValueMakeDetails = formatAttrValueMake(attrValueMake);
-	            System.out.println("Attribute-Value Make: " + attrValueMakeDetails);
-	        }
-	    }
-	}
-
-	private String formatAttrValueMake(AttrValueMake attrValueMake) {
-	    StringBuilder sb = new StringBuilder();
-	    sb.append("^");
-	    for (VariableorSymConstant variableOrSymConstant : attrValueMake.getVariableOrSymConstant()) {
-			sb.append(variableOrSymConstant).append(" ");
-	    }
-	    for (ValueMake valueMake : attrValueMake.getValueMake()) {
-	        sb.append(valueMake.getValue()).append(" ");
-	    }
-	    return sb.toString().trim();
-	}
-	private void debugSoarAnnex(SoarAnnexSubclause soarAnnex) {
-	    for (SoarProduction production : soarAnnex.getSoarAnnexProductions()) {
-	        System.out.println("Production: " + production.getName());
-	        System.out.println("Conditions: " + production.getConditions());
-	        System.out.println("Actions: " + production.getActions());
-	    }
-	}
-
-
-
 }
