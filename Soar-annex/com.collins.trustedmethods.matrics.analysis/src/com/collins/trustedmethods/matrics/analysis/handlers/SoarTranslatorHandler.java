@@ -9,7 +9,16 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.ui.dialogs.Dialog;
 
+import com.collins.trustedmethods.matrics.soar.soar.Action;
+import com.collins.trustedmethods.matrics.soar.soar.ActionSide;
+import com.collins.trustedmethods.matrics.soar.soar.AttrValueMake;
+import com.collins.trustedmethods.matrics.soar.soar.Cond;
+import com.collins.trustedmethods.matrics.soar.soar.ConditionSide;
 import com.collins.trustedmethods.matrics.soar.soar.SoarAnnexSubclause;
+import com.collins.trustedmethods.matrics.soar.soar.SoarProduction;
+import com.collins.trustedmethods.matrics.soar.soar.StateImpCondition;
+import com.collins.trustedmethods.matrics.soar.soar.ValueMake;
+import com.collins.trustedmethods.matrics.soar.soar.VariableorSymConstant;
 
 public class SoarTranslatorHandler extends MatricsHandler {
 
@@ -47,10 +56,58 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		return Status.OK_STATUS;
 	}
 
+
 	private void translate(SoarAnnexSubclause soarAnnex) {
-
-		Dialog.showInfo(getJobName(), "Translation Complete!");
-
+	    for (SoarProduction production : soarAnnex.getSoarAnnexProductions()) {
+	        System.out.println("Production Name: " + production.getName());
+	        processConditions(production.getConditions());
+	        processActions(production.getActions());
+	    }
 	}
+	private void processConditions(ConditionSide conditions) {
+	    if (conditions.getStateImpCondition() != null) {
+			StateImpCondition stateImpCondition = conditions.getStateImpCondition();
+//	        System.out.println("State/Impasse: " + stateImpCondition.getIdTest().getName());
+//	        for (AttrValueTest attrValueTest : stateImpCondition.getAttrValueTest()) {
+//	            System.out.println("Attribute-Value Test: " + attrValueTest.toString());
+//	        }
+	    }
+
+	    for (Cond cond : conditions.getCond()) {
+	        System.out.println("Condition: " + cond.getCond());
+	    }
+	}
+	private void processActions(ActionSide actions) {
+	    for (Action action : actions.getAction()) {
+	        String variableName = action.getVariable().toString();
+	        System.out.println("Action Variable: " + variableName);
+
+	        for (AttrValueMake attrValueMake : action.getAttrValMake()) {
+	            String attrValueMakeDetails = formatAttrValueMake(attrValueMake);
+	            System.out.println("Attribute-Value Make: " + attrValueMakeDetails);
+	        }
+	    }
+	}
+
+	private String formatAttrValueMake(AttrValueMake attrValueMake) {
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("^");
+	    for (VariableorSymConstant variableOrSymConstant : attrValueMake.getVariableOrSymConstant()) {
+			sb.append(variableOrSymConstant).append(" ");
+	    }
+	    for (ValueMake valueMake : attrValueMake.getValueMake()) {
+	        sb.append(valueMake.getValue()).append(" ");
+	    }
+	    return sb.toString().trim();
+	}
+	private void debugSoarAnnex(SoarAnnexSubclause soarAnnex) {
+	    for (SoarProduction production : soarAnnex.getSoarAnnexProductions()) {
+	        System.out.println("Production: " + production.getName());
+	        System.out.println("Conditions: " + production.getConditions());
+	        System.out.println("Actions: " + production.getActions());
+	    }
+	}
+
+
 
 }
