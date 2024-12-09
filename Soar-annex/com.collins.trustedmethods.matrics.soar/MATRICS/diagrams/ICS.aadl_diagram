@@ -1,62 +1,73 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
   <element uuid="8bde8703-1a26-47ab-b8e7-c5ce486c42e3" manual="true">
-    <element uuid="2e76e2d4-f82d-4d90-8e15-e7ec2c7bef8f" manual="true">
+    <element uuid="6280b62b-518e-4a1d-b60a-9a0ec5e30f5f" manual="true">
       <bo>
         <seg>classifier</seg>
         <seg>Headset</seg>
       </bo>
-      <position x="201.0390625" y="38.0"/>
-      <size width="101.66145324707031" height="35.0"/>
+      <position x="40.0" y="120.0"/>
+      <size width="102.0" height="35.0"/>
     </element>
-    <element uuid="8d7ec7b5-8570-4839-8dec-4e2408cd16d8" manual="true">
-      <element uuid="772c473e-a7d8-48fd-81f0-02bfa9afaac6" manual="true">
+    <element uuid="e244c80e-1f4a-404d-bc8f-dc9b7ecbbe1b" manual="true">
+      <element uuid="02b4fcdb-5b47-41b7-864d-1922e98b4bcb" manual="true">
         <bo>
           <seg>realization</seg>
         </bo>
         <bendpoints>
-          <point x="185.0390625" y="55.5"/>
-          <point x="197.0390625" y="55.5"/>
+          <point x="92.0" y="87.0"/>
         </bendpoints>
       </element>
       <bo>
         <seg>classifier</seg>
         <seg>Headset.impl</seg>
       </bo>
-      <position x="51.2265625" y="38.0"/>
-      <size width="129.8125" height="35.0"/>
+      <position x="30.0" y="30.0"/>
+      <size width="130.0" height="35.0"/>
     </element>
-    <element uuid="b6c8433d-e622-4214-a605-75f5d441114f" manual="true">
+    <element uuid="d337726b-5c3e-43a1-b6e9-b1c07437a550" manual="true">
       <bo>
         <seg>classifier</seg>
         <seg>Operator</seg>
       </bo>
-      <position x="203.99478149414062" y="93.0"/>
-      <size width="104.61718368530273" height="35.0"/>
+      <position x="300.0" y="250.0"/>
+      <size width="105.0" height="35.0"/>
     </element>
-    <element uuid="7f115a12-fa8e-460b-8c05-7a262afa4172" manual="true">
-      <element uuid="a45b864e-89f1-4546-8440-456758c2fc3b" manual="true">
+    <element uuid="c72a5991-dd33-469c-8bdf-799b3ecccdd8" manual="true">
+      <element uuid="47e0e4a5-8cbd-48c4-98ce-5402b8390876" manual="true">
         <bo>
           <seg>realization</seg>
         </bo>
-        <bendpoints>
-          <point x="187.99478149414062" y="110.5"/>
-          <point x="199.99478149414062" y="110.5"/>
-        </bendpoints>
+      </element>
+      <element uuid="5060a209-71cf-48b3-886b-02087e1cd1ab" manual="true">
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>hardware</seg>
+        </bo>
+        <position x="130.0" y="90.0"/>
+        <size width="112.77473449707031" height="35.0"/>
+      </element>
+      <element uuid="cc9fefbd-5542-4d3b-bfb9-0f0550d6e101" manual="true">
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>software</seg>
+        </bo>
+        <position x="10.0" y="50.0"/>
+        <size width="107.57942581176758" height="35.0"/>
       </element>
       <bo>
         <seg>classifier</seg>
         <seg>Operator.impl</seg>
       </bo>
-      <position x="51.2265625" y="93.0"/>
-      <size width="132.76822662353516" height="35.0"/>
+      <position x="220.0" y="30.0"/>
+      <size width="260.0" height="170.0"/>
     </element>
     <bo>
       <seg>package</seg>
       <seg>ICS</seg>
     </bo>
     <position/>
-    <size width="320.6119689941406" height="140.0"/>
+    <size width="560.0" height="320.0"/>
   </element>
   <config type="package" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>

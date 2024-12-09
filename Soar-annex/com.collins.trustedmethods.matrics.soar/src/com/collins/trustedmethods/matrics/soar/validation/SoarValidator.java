@@ -23,22 +23,22 @@
 
 package com.collins.trustedmethods.matrics.soar.validation;
 
+import org.eclipse.xtext.validation.Check;
+
+import com.collins.trustedmethods.matrics.soar.soar.SoarPackage;
+import com.collins.trustedmethods.matrics.soar.soar.SoarProduction;
+
 /**
  * This class contains custom validation rules.
  *
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#validation
  */
 public class SoarValidator extends AbstractSoarValidator {
-
-//	public static final String INVALID_NAME = "invalidName";
-//
-//	@Check
-//	public void checkGreetingStartsWithCapital(Greeting greeting) {
-//		if (!Character.isUpperCase(greeting.getName().charAt(0))) {
-//			warning("Name should start with a capital",
-//					SoarPackage.Literals.GREETING__NAME,
-//					INVALID_NAME);
-//		}
-//	}
-
+	@Check
+	public void checkValidProduction(SoarProduction production) {
+		if (production.getName() == null || production.getName().isEmpty()) {
+			error("Production name cannot be empty", SoarPackage.Literals.SOAR_PRODUCTION__NAME);
+		}
+	}
 }
+
