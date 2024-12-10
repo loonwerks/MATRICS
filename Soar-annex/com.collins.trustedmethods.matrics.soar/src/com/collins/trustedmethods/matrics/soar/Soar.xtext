@@ -43,8 +43,8 @@ ConditionSide returns ConditionSide:
 ;
 
 //state_imp_cond : '(' (STATE | 'impasse') id_test? attr_value_tests+ ')' ;
-StateImpCondition returns StateImpCondition: 
-	{StateImpCond} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
+StateImpCondition returns StateImpCondition:
+	{StateImpCondition} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
 ;
 
 //cond : positive_cond | ( ('-') positive_cond ) ;
