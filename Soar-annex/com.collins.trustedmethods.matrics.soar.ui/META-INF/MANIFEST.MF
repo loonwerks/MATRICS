@@ -5,7 +5,7 @@ Bundle-SymbolicName: com.collins.trustedmethods.matrics.soar.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: COLLINS
 Automatic-Module-Name: com.collins.trustedmethods.matrics.soar.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: com.collins.trustedmethods.matrics.soar.ide.contentassist.antlr,
  com.collins.trustedmethods.matrics.soar.ui.quickfix,
  com.collins.trustedmethods.matrics.soar.ide.contentassist.antlr.lexer,

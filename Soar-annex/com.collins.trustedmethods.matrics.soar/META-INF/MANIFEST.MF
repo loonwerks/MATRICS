@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.common;bundle-version="[2.22.0,3.0.0)",
  org.antlr.runtime;bundle-version="[3.2.0,3.2.1)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.14.0,3.0.0)"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: matrics
 Bundle-ActivationPolicy: lazy
 Export-Package: com.collins.trustedmethods.matrics.soar.services,

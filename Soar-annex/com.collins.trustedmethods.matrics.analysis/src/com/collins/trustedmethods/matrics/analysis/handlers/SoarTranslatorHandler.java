@@ -1,12 +1,17 @@
 package com.collins.trustedmethods.matrics.analysis.handlers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -15,9 +20,16 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ui.dialogs.Dialog;
 
+import com.collins.trustedmethods.matrics.analysis.NuXmvRunner;
+import com.collins.trustedmethods.matrics.analysis.SoarUtil;
+
 import main.main;
 
 public class SoarTranslatorHandler extends MatricsHandler {
+
+	private final static String NUXMV_FOLDER_NAME = "nuXmv";
+	private final static String SOAR_FILE_EXT = "soar";
+	private final static String NUXMV_FILE_EXT = "smv";
 
 	@Override
 	protected String getJobName() {
@@ -41,50 +53,105 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		}
 
 		textSoarAnnex = textSoarAnnex.replace("{**", "").replace("**}", "");
+
+		if (textSoarAnnex.isBlank()) {
+			Dialog.showError(getJobName(), "Selected component does not contain a Soar annex!");
+			return Status.OK_STATUS;
+		}
+
 //		System.out.println(textSoarAnnex);
 
 //nuXmv.exe -load smv_commands.smv Cybersick-main.smv
 
-		String soarInputPath = "D:/input.soar";
-		PrintWriter pw;
+		final IProject project = SoarUtil.getProject(compImpl);
+		if (project == null) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  AADL project could not be determined.");
+			return Status.CANCEL_STATUS;
+		}
+
+		// Project folder relative to Eclipse file system
+		URI uri = URI.createPlatformResourceURI(project.getFullPath().toString(), true);
+
+		// Create folder for nuXmv files
+		uri = uri.appendSegment(NUXMV_FOLDER_NAME);
+		final IFolder soarFolder = SoarUtil.makeFolder(uri);
+
+		// Refresh directory
 		try {
-			pw = new PrintWriter(new File(soarInputPath));
-			pw.println(textSoarAnnex);
-			pw.flush();
-			pw.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+		} catch (CoreException e) {
 			e.printStackTrace();
 		}
 
-		String args[] = { soarInputPath };
+		// Translator input file name
+		uri = uri.appendSegment(compImpl.getTypeName()).appendFileExtension(SOAR_FILE_EXT);
+
+		// Write translator input file
+		final IFile inputFile = SoarUtil.createFile(uri, textSoarAnnex);
+		if (inputFile == null) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem saving soar file.");
+			return Status.CANCEL_STATUS;
+		}
+
+		// Translator input file path (absolute OS path)
+		final String soarInputPath = inputFile.getLocation().toString();
+
+		// Run Translator
+		final String args[] = { soarInputPath };
 		main.main(args);
 
-//		if (soarAnnex == null) {
-//			Dialog.showError(getJobName(), "Selected component implementation must contain a Soar annex");
-//			return Status.CANCEL_STATUS;
-//		}
+		// TODO Create nuXmv command file
+		final String commandFileContents = "";
+		final URI cmdUri = uri.trimFileExtension()
+				.trimSegments(1)
+				.appendSegment(compImpl.getTypeName() + "_cmd")
+				.appendFileExtension(NUXMV_FILE_EXT);
+		final IFile commandFile = SoarUtil.createFile(cmdUri, commandFileContents);
+		if (commandFile == null) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem saving command file.");
+			return Status.CANCEL_STATUS;
+		}
+
+		// TODO Can we specify the Translator output file name and path,
+		// or can the Translator use the same input file name and path?
+		final String translatorOutputPath = soarFolder.getLocation()
+				.append("output")
+				.addFileExtension(NUXMV_FILE_EXT)
+				.toString();
+
+		// TODO Insert constraints and LTL specs into Translator output
 
 
+		// Launch nuXmv
+		// This needs to be done in a separate process otherwise Eclipse freezes up
+		final WorkspaceJob job = new WorkspaceJob("nuXmv") {
+			@Override
+			public IStatus runInWorkspace(IProgressMonitor monitor) {
+				monitor.beginTask("nuXmv", IProgressMonitor.UNKNOWN);
 
-//		TranslateSoarSwitch<Void> soarSwitch = new TranslateSoarSwitch<>();
-//		soarSwitch.doSwitch(soarAnnex);
+				try {
+					new NuXmvRunner(monitor, commandFile.getLocation().toString(), translatorOutputPath);
+				} catch (Exception e) {
+					Dialog.showError("MATRICS", "Unable to analyze soar.  Problem running nuXmv.");
+					e.printStackTrace();
+				}
+
+				monitor.done();
+				return Status.OK_STATUS;
+			}
+		};
+		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+		job.schedule();
 
 		return Status.OK_STATUS;
 	}
 
 	private String getSoarAnnex(Classifier comp) {
-//		Classifier classComp = null;
-//		if (comp instanceof Subcomponent)
-//		{
-//			Subcomponent subComp = (Subcomponent)comp;
-//			if (subComp.getClassifier() )
-//		}
+
 		for (AnnexSubclause annex : comp.getOwnedAnnexSubclauses()) {
 			final DefaultAnnexSubclause defaultAnnexSubclause = (DefaultAnnexSubclause) annex;
 			if ("soar".equalsIgnoreCase(defaultAnnexSubclause.getName())) {
-//				soarAnnex = (SoarAnnexSubclause) defaultAnnexSubclause.getParsedAnnexSubclause();
-				return defaultAnnexSubclause.getSourceText() + "\n";
+				return defaultAnnexSubclause.getSourceText() + System.lineSeparator();
 			}
 		}
 		return "";

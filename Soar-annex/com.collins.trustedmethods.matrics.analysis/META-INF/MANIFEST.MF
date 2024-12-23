@@ -4,6 +4,8 @@ Bundle-Name: Analysis
 Bundle-SymbolicName: com.collins.trustedmethods.matrics.analysis;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.collins.trustedmethods.matrics.analysis.Activator
+Bundle-ClassPath: lib/SoarToNuXmvTranslator-1.0-SNAPSHOT-jar-with-dependencies.jar,
+ .
 Bundle-Vendor: COLLINS
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
