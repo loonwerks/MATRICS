@@ -43,9 +43,12 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		textSoarAnnex = textSoarAnnex.replace("{**", "").replace("**}", "");
 //		System.out.println(textSoarAnnex);
 
+//nuXmv.exe -load smv_commands.smv Cybersick-main.smv
+
+		String soarInputPath = "D:/input.soar";
 		PrintWriter pw;
 		try {
-			pw = new PrintWriter(new File("D:/input.soar"));
+			pw = new PrintWriter(new File(soarInputPath));
 			pw.println(textSoarAnnex);
 			pw.flush();
 			pw.close();
@@ -54,7 +57,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			e.printStackTrace();
 		}
 
-		String args[] = { "D:/input.soar" };
+		String args[] = { soarInputPath };
 		main.main(args);
 
 //		if (soarAnnex == null) {
