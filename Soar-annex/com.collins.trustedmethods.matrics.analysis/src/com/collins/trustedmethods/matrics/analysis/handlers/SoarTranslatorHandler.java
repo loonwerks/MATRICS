@@ -33,7 +33,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 
 	@Override
 	protected String getJobName() {
-		return "Soar Translator";
+		return "Soar Analysis";
 	}
 
 	@Override
@@ -59,10 +59,6 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			return Status.OK_STATUS;
 		}
 
-//		System.out.println(textSoarAnnex);
-
-//nuXmv.exe -load smv_commands.smv Cybersick-main.smv
-
 		final IProject project = SoarUtil.getProject(compImpl);
 		if (project == null) {
 			Dialog.showError("MATRICS", "Unable to analyze soar.  AADL project could not be determined.");
@@ -70,11 +66,15 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		}
 
 		// Project folder relative to Eclipse file system
-		URI uri = URI.createPlatformResourceURI(project.getFullPath().toString(), true);
+		URI nuXmvFolderUri = URI.createPlatformResourceURI(project.getFullPath().toString(), true);
 
 		// Create folder for nuXmv files
-		uri = uri.appendSegment(NUXMV_FOLDER_NAME);
-		final IFolder soarFolder = SoarUtil.makeFolder(uri);
+		nuXmvFolderUri = nuXmvFolderUri.appendSegment(NUXMV_FOLDER_NAME);
+		final IFolder soarFolder = SoarUtil.makeFolder(nuXmvFolderUri);
+		if (soarFolder == null || !soarFolder.exists()) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  Could not create nuXmv folder.");
+			return Status.CANCEL_STATUS;
+		}
 
 		// Refresh directory
 		try {
@@ -84,43 +84,66 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		}
 
 		// Translator input file name
-		uri = uri.appendSegment(compImpl.getTypeName()).appendFileExtension(SOAR_FILE_EXT);
+		final URI soarUri = nuXmvFolderUri.appendSegment(compImpl.getTypeName()).appendFileExtension(SOAR_FILE_EXT);
 
 		// Write translator input file
-		final IFile inputFile = SoarUtil.createFile(uri, textSoarAnnex);
-		if (inputFile == null) {
+		final IFile soarFile = SoarUtil.createFile(soarUri, textSoarAnnex);
+		if (soarFile == null) {
 			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem saving soar file.");
 			return Status.CANCEL_STATUS;
 		}
 
 		// Translator input file path (absolute OS path)
-		final String soarInputPath = inputFile.getLocation().toString();
+		final String soarFilePath = soarFile.getLocation().toString();
 
 		// Run Translator
-		final String args[] = { soarInputPath };
+		final String args[] = { soarFilePath };
 		main.main(args);
 
-		// TODO Create nuXmv command file
-		final String commandFileContents = "go_msat \n check_ltlspec_ic3";
-		final URI cmdUri = uri.trimFileExtension()
-				.trimSegments(1)
-				.appendSegment(compImpl.getTypeName() + "_cmd")
+		// Create nuXmv command file
+		final String commandFileContents = "go_msat" + System.lineSeparator() + "check_ltlspec_ic3"
+				+ System.lineSeparator() + "quit";
+		final URI cmdUri = nuXmvFolderUri.appendSegment(compImpl.getTypeName() + "_cmd")
 				.appendFileExtension(NUXMV_FILE_EXT);
 		final IFile commandFile = SoarUtil.createFile(cmdUri, commandFileContents);
 		if (commandFile == null) {
 			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem saving command file.");
 			return Status.CANCEL_STATUS;
 		}
+		final String commandFilePath = commandFile.getLocation().toString();
 
-		// TODO Can we specify the Translator output file name and path,
+		// Can we specify the Translator output file name and path,
 		// or can the Translator use the same input file name and path?
-		final String translatorOutputPath = soarFolder.getLocation()
-				.append(compImpl.getTypeName())
-				.addFileExtension(NUXMV_FILE_EXT)
-				.toString();
-		System.out.println(translatorOutputPath);
-		// TODO Insert constraints and LTL specs into Translator output
+		final URI nuXmvUri = nuXmvFolderUri.appendSegment(compImpl.getTypeName()).appendFileExtension(NUXMV_FILE_EXT);
+		final IFile nuXmvFile = SoarUtil.getFile(nuXmvUri);
+		if (nuXmvFile == null || !nuXmvFile.exists()) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem translating soar.");
+			return Status.CANCEL_STATUS;
+		}
+		final String nuXmvFilePath = nuXmvFile.getLocation().toString();
 
+		// Insert constraints and LTL specs into Translator output
+		// Temporary: Constraints and LTL specs will eventually be annotated in the AADL model
+		final URI specUri = nuXmvFolderUri.appendSegment(compImpl.getTypeName() + "_spec")
+				.appendFileExtension(NUXMV_FILE_EXT);
+		final IFile specFile = SoarUtil.getFile(specUri);
+		if (specFile != null && specFile.exists()) {
+			try {
+				String nuXmvContents = SoarUtil.readFile(nuXmvFile);
+				final String specContents = SoarUtil.readFile(specFile);
+				final String searchString = "";
+				int index = nuXmvContents.indexOf(searchString);
+				nuXmvContents = SoarUtil.insertString(nuXmvContents, specContents, index);
+
+				if (!SoarUtil.writeFile(nuXmvFile, nuXmvContents)) {
+					throw new Exception();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Dialog.showError("MATRICS", "Unable to add constraints and LTL specs to nuXmv input file.");
+				return Status.CANCEL_STATUS;
+			}
+		}
 
 		// Launch nuXmv
 		// This needs to be done in a separate process otherwise Eclipse freezes up
@@ -130,7 +153,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 				monitor.beginTask("nuXmv", IProgressMonitor.UNKNOWN);
 
 				try {
-					new NuXmvRunner(monitor, commandFile.getLocation().toString(), translatorOutputPath);
+					new NuXmvRunner(monitor, commandFilePath, nuXmvFilePath);
 				} catch (Exception e) {
 					Dialog.showError("MATRICS", "Unable to analyze soar.  Problem running nuXmv.");
 					e.printStackTrace();

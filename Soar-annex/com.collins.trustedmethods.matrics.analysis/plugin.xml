@@ -13,7 +13,7 @@
       <command
             categoryId="com.collins.trustedmethods.matrics.analysis.commands"
             id="com.collins.trustedmethods.matrics.analysis.commands.soartranslator"
-            name="Soar Translator">
+            name="Soar Analysis">
       </command>
    </extension>
    <extension

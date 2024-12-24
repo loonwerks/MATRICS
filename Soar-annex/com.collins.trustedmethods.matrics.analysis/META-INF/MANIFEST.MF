@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtext.ui,
  org.osate.aadl2.modelsupport,
  org.osate.ui,
- com.collins.trustedmethods.matrics.soar
+ com.collins.trustedmethods.matrics.soar,
+ org.eclipse.ui.console
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: com.collins.trustedmethods.matrics.analysis
 Bundle-ActivationPolicy: lazy

@@ -1,7 +1,10 @@
 package com.collins.trustedmethods.matrics.analysis;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -46,11 +49,24 @@ public class SoarUtil {
 	}
 
 	public static IFile createFile(URI fileName, String contents) {
-		final IFile file = getRoot().getFile(new Path(fileName.toPlatformString(true)));
+		final IFile file = getFile(fileName);
 		if (!writeFile(file, contents)) {
 			return null;
 		}
 		return file;
+	}
+
+	public static String readFile(IFile res) throws CoreException, IOException {
+		String contents = "";
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(res.getContents()));
+		String line = null;
+
+		while ((line = bufferedReader.readLine()) != null) {
+			contents += line + System.lineSeparator();
+		}
+		bufferedReader.close();
+
+		return contents;
 	}
 
 	public static boolean writeFile(IFile res, String contents) {
@@ -67,6 +83,11 @@ public class SoarUtil {
 			return false;
 		}
 		return true;
+	}
+
+	public static String insertString(String original, String newContent, int index) {
+		return original.substring(0, index + 1) + System.lineSeparator() + newContent + System.lineSeparator()
+				+ original.substring(index + 1);
 	}
 
 	private static IWorkspaceRoot getRoot() {
