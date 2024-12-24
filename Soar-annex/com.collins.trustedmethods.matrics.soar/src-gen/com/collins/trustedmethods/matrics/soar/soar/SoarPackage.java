@@ -345,31 +345,13 @@ public interface SoarPackage extends EPackage
   int STATE_IMP_CONDITION = 4;
 
   /**
-   * The feature id for the '<em><b>Id Test</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_IMP_CONDITION__ID_TEST = 0;
-
-  /**
-   * The feature id for the '<em><b>Attr Value Test</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_IMP_CONDITION__ATTR_VALUE_TEST = 1;
-
-  /**
    * The number of structural features of the '<em>State Imp Condition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATE_IMP_CONDITION_FEATURE_COUNT = 2;
+  int STATE_IMP_CONDITION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.CondImpl <em>Cond</em>}' class.
@@ -1013,6 +995,43 @@ public interface SoarPackage extends EPackage
   int PREF_SPECIFIER_FEATURE_COUNT = 3;
 
   /**
+   * The meta object id for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.StateImpCondImpl <em>State Imp Cond</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.collins.trustedmethods.matrics.soar.soar.impl.StateImpCondImpl
+   * @see com.collins.trustedmethods.matrics.soar.soar.impl.SoarPackageImpl#getStateImpCond()
+   * @generated
+   */
+  int STATE_IMP_COND = 25;
+
+  /**
+   * The feature id for the '<em><b>Id Test</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATE_IMP_COND__ID_TEST = STATE_IMP_CONDITION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Attr Value Test</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATE_IMP_COND__ATTR_VALUE_TEST = STATE_IMP_CONDITION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>State Imp Cond</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATE_IMP_COND_FEATURE_COUNT = STATE_IMP_CONDITION_FEATURE_COUNT + 2;
+
+  /**
    * The meta object id for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.ConjuctiveTestImpl <em>Conjuctive Test</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1020,7 +1039,7 @@ public interface SoarPackage extends EPackage
    * @see com.collins.trustedmethods.matrics.soar.soar.impl.SoarPackageImpl#getConjuctiveTest()
    * @generated
    */
-  int CONJUCTIVE_TEST = 25;
+  int CONJUCTIVE_TEST = 26;
 
   /**
    * The feature id for the '<em><b>Relational Test</b></em>' containment reference.
@@ -1057,7 +1076,7 @@ public interface SoarPackage extends EPackage
    * @see com.collins.trustedmethods.matrics.soar.soar.impl.SoarPackageImpl#getSimpleTest()
    * @generated
    */
-  int SIMPLE_TEST = 26;
+  int SIMPLE_TEST = 27;
 
   /**
    * The feature id for the '<em><b>Relational Test</b></em>' containment reference.
@@ -1094,7 +1113,7 @@ public interface SoarPackage extends EPackage
    * @see com.collins.trustedmethods.matrics.soar.soar.impl.SoarPackageImpl#getMultiValueTest()
    * @generated
    */
-  int MULTI_VALUE_TEST = 27;
+  int MULTI_VALUE_TEST = 28;
 
   /**
    * The feature id for the '<em><b>Relational Test</b></em>' containment reference.
@@ -1263,28 +1282,6 @@ public interface SoarPackage extends EPackage
    * @generated
    */
   EClass getStateImpCondition();
-
-  /**
-   * Returns the meta object for the containment reference '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getIdTest <em>Id Test</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Id Test</em>'.
-   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getIdTest()
-   * @see #getStateImpCondition()
-   * @generated
-   */
-  EReference getStateImpCondition_IdTest();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getAttrValueTest <em>Attr Value Test</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Attr Value Test</em>'.
-   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getAttrValueTest()
-   * @see #getStateImpCondition()
-   * @generated
-   */
-  EReference getStateImpCondition_AttrValueTest();
 
   /**
    * Returns the meta object for class '{@link com.collins.trustedmethods.matrics.soar.soar.Cond <em>Cond</em>}'.
@@ -1806,6 +1803,38 @@ public interface SoarPackage extends EPackage
   EReference getPrefSpecifier_Value();
 
   /**
+   * Returns the meta object for class '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCond <em>State Imp Cond</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>State Imp Cond</em>'.
+   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCond
+   * @generated
+   */
+  EClass getStateImpCond();
+
+  /**
+   * Returns the meta object for the containment reference '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCond#getIdTest <em>Id Test</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Id Test</em>'.
+   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCond#getIdTest()
+   * @see #getStateImpCond()
+   * @generated
+   */
+  EReference getStateImpCond_IdTest();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCond#getAttrValueTest <em>Attr Value Test</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Attr Value Test</em>'.
+   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCond#getAttrValueTest()
+   * @see #getStateImpCond()
+   * @generated
+   */
+  EReference getStateImpCond_AttrValueTest();
+
+  /**
    * Returns the meta object for class '{@link com.collins.trustedmethods.matrics.soar.soar.ConjuctiveTest <em>Conjuctive Test</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2001,22 +2030,6 @@ public interface SoarPackage extends EPackage
      * @generated
      */
     EClass STATE_IMP_CONDITION = eINSTANCE.getStateImpCondition();
-
-    /**
-     * The meta object literal for the '<em><b>Id Test</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE_IMP_CONDITION__ID_TEST = eINSTANCE.getStateImpCondition_IdTest();
-
-    /**
-     * The meta object literal for the '<em><b>Attr Value Test</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE_IMP_CONDITION__ATTR_VALUE_TEST = eINSTANCE.getStateImpCondition_AttrValueTest();
 
     /**
      * The meta object literal for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.CondImpl <em>Cond</em>}' class.
@@ -2449,6 +2462,32 @@ public interface SoarPackage extends EPackage
      * @generated
      */
     EReference PREF_SPECIFIER__VALUE = eINSTANCE.getPrefSpecifier_Value();
+
+    /**
+     * The meta object literal for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.StateImpCondImpl <em>State Imp Cond</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.collins.trustedmethods.matrics.soar.soar.impl.StateImpCondImpl
+     * @see com.collins.trustedmethods.matrics.soar.soar.impl.SoarPackageImpl#getStateImpCond()
+     * @generated
+     */
+    EClass STATE_IMP_COND = eINSTANCE.getStateImpCond();
+
+    /**
+     * The meta object literal for the '<em><b>Id Test</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATE_IMP_COND__ID_TEST = eINSTANCE.getStateImpCond_IdTest();
+
+    /**
+     * The meta object literal for the '<em><b>Attr Value Test</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATE_IMP_COND__ATTR_VALUE_TEST = eINSTANCE.getStateImpCond_AttrValueTest();
 
     /**
      * The meta object literal for the '{@link com.collins.trustedmethods.matrics.soar.soar.impl.ConjuctiveTestImpl <em>Conjuctive Test</em>}' class.

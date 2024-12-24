@@ -109,6 +109,7 @@ public class SoarFactoryImpl extends EFactoryImpl implements SoarFactory
       case SoarPackage.CONSTANT: return createConstant();
       case SoarPackage.VALUE_MAKE: return createValueMake();
       case SoarPackage.PREF_SPECIFIER: return createPrefSpecifier();
+      case SoarPackage.STATE_IMP_COND: return createStateImpCond();
       case SoarPackage.CONJUCTIVE_TEST: return createConjuctiveTest();
       case SoarPackage.SIMPLE_TEST: return createSimpleTest();
       case SoarPackage.MULTI_VALUE_TEST: return createMultiValueTest();
@@ -415,6 +416,18 @@ public class SoarFactoryImpl extends EFactoryImpl implements SoarFactory
   {
     PrefSpecifierImpl prefSpecifier = new PrefSpecifierImpl();
     return prefSpecifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public StateImpCond createStateImpCond()
+  {
+    StateImpCondImpl stateImpCond = new StateImpCondImpl();
+    return stateImpCond;
   }
 
   /**

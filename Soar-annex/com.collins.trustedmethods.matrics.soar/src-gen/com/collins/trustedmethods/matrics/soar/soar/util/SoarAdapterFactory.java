@@ -226,6 +226,11 @@ public class SoarAdapterFactory extends AdapterFactoryImpl
         return createPrefSpecifierAdapter();
       }
       @Override
+      public Adapter caseStateImpCond(StateImpCond object)
+      {
+        return createStateImpCondAdapter();
+      }
+      @Override
       public Adapter caseConjuctiveTest(ConjuctiveTest object)
       {
         return createConjuctiveTestAdapter();
@@ -658,6 +663,21 @@ public class SoarAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPrefSpecifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCond <em>State Imp Cond</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.collins.trustedmethods.matrics.soar.soar.StateImpCond
+   * @generated
+   */
+  public Adapter createStateImpCondAdapter()
   {
     return null;
   }

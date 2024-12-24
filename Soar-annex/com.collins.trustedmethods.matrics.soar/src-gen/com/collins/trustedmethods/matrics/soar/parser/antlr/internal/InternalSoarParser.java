@@ -1450,7 +1450,7 @@ public class InternalSoarParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               				current = forceCreateModelElement(
-              					grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0(),
+              					grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0(),
               					current);
               			
             }

@@ -295,7 +295,7 @@ public class SoarGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	public class StateImpConditionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "com.collins.trustedmethods.matrics.soar.Soar.StateImpCondition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cStateImpConditionAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cStateImpCondAction_0 = (Action)cGroup.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final RuleCall cSTATEParserRuleCall_2_0 = (RuleCall)cAlternatives_2.eContents().get(0);
@@ -308,15 +308,15 @@ public class SoarGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 		
 		////state_imp_cond : '(' (STATE | 'impasse') id_test? attr_value_tests+ ')' ;
 		//StateImpCondition returns StateImpCondition:
-		//    {StateImpCondition} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
+		//    {StateImpCond} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
 		//;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//{StateImpCondition} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
+		//{StateImpCond} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
 		public Group getGroup() { return cGroup; }
 		
-		//{StateImpCondition}
-		public Action getStateImpConditionAction_0() { return cStateImpConditionAction_0; }
+		//{StateImpCond}
+		public Action getStateImpCondAction_0() { return cStateImpCondAction_0; }
 		
 		//'('
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
@@ -1682,7 +1682,7 @@ public class SoarGrammarAccess extends AbstractElementFinder.AbstractGrammarElem
 	
 	////state_imp_cond : '(' (STATE | 'impasse') id_test? attr_value_tests+ ')' ;
 	//StateImpCondition returns StateImpCondition:
-	//    {StateImpCondition} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
+	//    {StateImpCond} '(' (STATE | IMPASSE) (idTest=Variable)? (attrValueTest+=AttrValueTest)+ ')'
 	//;
 	public StateImpConditionElements getStateImpConditionAccess() {
 		return pStateImpCondition;

@@ -22,8 +22,6 @@
  */
 package com.collins.trustedmethods.matrics.soar.soar;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -31,13 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>State Imp Condition</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * </p>
- * <ul>
- *   <li>{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getIdTest <em>Id Test</em>}</li>
- *   <li>{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getAttrValueTest <em>Attr Value Test</em>}</li>
- * </ul>
  *
  * @see com.collins.trustedmethods.matrics.soar.soar.SoarPackage#getStateImpCondition()
  * @model
@@ -45,38 +36,4 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface StateImpCondition extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Id Test</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Id Test</em>' containment reference.
-   * @see #setIdTest(Variable)
-   * @see com.collins.trustedmethods.matrics.soar.soar.SoarPackage#getStateImpCondition_IdTest()
-   * @model containment="true"
-   * @generated
-   */
-  Variable getIdTest();
-
-  /**
-   * Sets the value of the '{@link com.collins.trustedmethods.matrics.soar.soar.StateImpCondition#getIdTest <em>Id Test</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id Test</em>' containment reference.
-   * @see #getIdTest()
-   * @generated
-   */
-  void setIdTest(Variable value);
-
-  /**
-   * Returns the value of the '<em><b>Attr Value Test</b></em>' containment reference list.
-   * The list contents are of type {@link com.collins.trustedmethods.matrics.soar.soar.AttrValueTest}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Attr Value Test</em>' containment reference list.
-   * @see com.collins.trustedmethods.matrics.soar.soar.SoarPackage#getStateImpCondition_AttrValueTest()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AttrValueTest> getAttrValueTest();
-
 } // StateImpCondition

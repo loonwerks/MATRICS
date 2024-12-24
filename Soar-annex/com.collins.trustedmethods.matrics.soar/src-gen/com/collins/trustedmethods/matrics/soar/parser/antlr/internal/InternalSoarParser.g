@@ -529,7 +529,7 @@ ruleStateImpCondition returns [EObject current=null]
 			}
 			{
 				$current = forceCreateModelElement(
-					grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0(),
+					grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0(),
 					$current);
 			}
 		)

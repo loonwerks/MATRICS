@@ -45,6 +45,7 @@ import com.collins.trustedmethods.matrics.soar.soar.SoarAnnexSubclause;
 import com.collins.trustedmethods.matrics.soar.soar.SoarFactory;
 import com.collins.trustedmethods.matrics.soar.soar.SoarPackage;
 import com.collins.trustedmethods.matrics.soar.soar.SoarProduction;
+import com.collins.trustedmethods.matrics.soar.soar.StateImpCond;
 import com.collins.trustedmethods.matrics.soar.soar.StateImpCondition;
 import com.collins.trustedmethods.matrics.soar.soar.Test;
 import com.collins.trustedmethods.matrics.soar.soar.Value;
@@ -245,6 +246,13 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
    * @generated
    */
   private EClass prefSpecifierEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass stateImpCondEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -485,28 +493,6 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
   public EClass getStateImpCondition()
   {
     return stateImpConditionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getStateImpCondition_IdTest()
-  {
-    return (EReference)stateImpConditionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EReference getStateImpCondition_AttrValueTest()
-  {
-    return (EReference)stateImpConditionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1054,6 +1040,39 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
    * @generated
    */
   @Override
+  public EClass getStateImpCond()
+  {
+    return stateImpCondEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getStateImpCond_IdTest()
+  {
+    return (EReference)stateImpCondEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getStateImpCond_AttrValueTest()
+  {
+    return (EReference)stateImpCondEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getConjuctiveTest()
   {
     return conjuctiveTestEClass;
@@ -1152,8 +1171,6 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
     createEReference(conditionSideEClass, CONDITION_SIDE__COND);
 
     stateImpConditionEClass = createEClass(STATE_IMP_CONDITION);
-    createEReference(stateImpConditionEClass, STATE_IMP_CONDITION__ID_TEST);
-    createEReference(stateImpConditionEClass, STATE_IMP_CONDITION__ATTR_VALUE_TEST);
 
     condEClass = createEClass(COND);
     createEReference(condEClass, COND__COND);
@@ -1224,6 +1241,10 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
     createEAttribute(prefSpecifierEClass, PREF_SPECIFIER__UNARY_OR_BINARY_PREF);
     createEReference(prefSpecifierEClass, PREF_SPECIFIER__VALUE);
 
+    stateImpCondEClass = createEClass(STATE_IMP_COND);
+    createEReference(stateImpCondEClass, STATE_IMP_COND__ID_TEST);
+    createEReference(stateImpCondEClass, STATE_IMP_COND__ATTR_VALUE_TEST);
+
     conjuctiveTestEClass = createEClass(CONJUCTIVE_TEST);
     createEReference(conjuctiveTestEClass, CONJUCTIVE_TEST__DISJUNCTION_TEST);
 
@@ -1271,6 +1292,7 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
     variableEClass.getESuperTypes().add(this.getValue());
     funcCallEClass.getESuperTypes().add(this.getValue());
     constantEClass.getESuperTypes().add(this.getValue());
+    stateImpCondEClass.getESuperTypes().add(this.getStateImpCondition());
     conjuctiveTestEClass.getESuperTypes().add(this.getTest());
     simpleTestEClass.getESuperTypes().add(this.getTest());
     multiValueTestEClass.getESuperTypes().add(this.getTest());
@@ -1294,8 +1316,6 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
     initEReference(getConditionSide_Cond(), this.getCond(), null, "cond", null, 0, -1, ConditionSide.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stateImpConditionEClass, StateImpCondition.class, "StateImpCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStateImpCondition_IdTest(), this.getVariable(), null, "idTest", null, 0, 1, StateImpCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateImpCondition_AttrValueTest(), this.getAttrValueTest(), null, "attrValueTest", null, 0, -1, StateImpCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(condEClass, Cond.class, "Cond", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getCond_Cond(), this.getPositiveCond(), null, "cond", null, 0, 1, Cond.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1365,6 +1385,10 @@ public class SoarPackageImpl extends EPackageImpl implements SoarPackage
     initEAttribute(getPrefSpecifier_UnaryPref(), theEcorePackage.getEString(), "unaryPref", null, 0, 1, PrefSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getPrefSpecifier_UnaryOrBinaryPref(), theEcorePackage.getEString(), "unaryOrBinaryPref", null, 0, 1, PrefSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPrefSpecifier_Value(), this.getValue(), null, "value", null, 0, 1, PrefSpecifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(stateImpCondEClass, StateImpCond.class, "StateImpCond", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStateImpCond_IdTest(), this.getVariable(), null, "idTest", null, 0, 1, StateImpCond.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateImpCond_AttrValueTest(), this.getAttrValueTest(), null, "attrValueTest", null, 0, -1, StateImpCond.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(conjuctiveTestEClass, ConjuctiveTest.class, "ConjuctiveTest", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConjuctiveTest_DisjunctionTest(), this.getDisjunctionTest(), null, "disjunctionTest", null, 0, 1, ConjuctiveTest.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
