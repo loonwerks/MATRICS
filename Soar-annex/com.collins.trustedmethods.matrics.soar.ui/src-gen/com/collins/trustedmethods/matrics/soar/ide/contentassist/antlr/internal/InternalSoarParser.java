@@ -7528,7 +7528,7 @@ public class InternalSoarParser extends AbstractInternalContentAssistParser {
             // InternalSoarParser.g:2161:2: ()
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0()); 
+               before(grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0()); 
             }
             // InternalSoarParser.g:2162:2: ()
             // InternalSoarParser.g:2162:3: 
@@ -7536,7 +7536,7 @@ public class InternalSoarParser extends AbstractInternalContentAssistParser {
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0()); 
+               after(grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0()); 
             }
 
             }

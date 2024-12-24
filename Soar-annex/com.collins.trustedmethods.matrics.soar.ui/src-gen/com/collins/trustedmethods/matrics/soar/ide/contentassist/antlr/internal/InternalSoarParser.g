@@ -2158,9 +2158,9 @@ rule__StateImpCondition__Group__0__Impl
 	}
 :
 (
-	{ before(grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0()); }
+	{ before(grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0()); }
 	()
-	{ after(grammarAccess.getStateImpConditionAccess().getStateImpCondAction_0()); }
+	{ after(grammarAccess.getStateImpConditionAccess().getStateImpConditionAction_0()); }
 )
 ;
 finally {

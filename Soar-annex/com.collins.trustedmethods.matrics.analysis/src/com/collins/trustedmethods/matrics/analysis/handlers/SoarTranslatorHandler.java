@@ -101,7 +101,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		main.main(args);
 
 		// TODO Create nuXmv command file
-		final String commandFileContents = "";
+		final String commandFileContents = "go_msat \n check_ltlspec_ic3";
 		final URI cmdUri = uri.trimFileExtension()
 				.trimSegments(1)
 				.appendSegment(compImpl.getTypeName() + "_cmd")

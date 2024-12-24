@@ -22,22 +22,63 @@
  */
 package com.collins.trustedmethods.matrics.soar.soar.impl;
 
+import com.collins.trustedmethods.matrics.soar.soar.AttrValueTest;
 import com.collins.trustedmethods.matrics.soar.soar.SoarPackage;
 import com.collins.trustedmethods.matrics.soar.soar.StateImpCondition;
+import com.collins.trustedmethods.matrics.soar.soar.Variable;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>State Imp Condition</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link com.collins.trustedmethods.matrics.soar.soar.impl.StateImpConditionImpl#getIdTest <em>Id Test</em>}</li>
+ *   <li>{@link com.collins.trustedmethods.matrics.soar.soar.impl.StateImpConditionImpl#getAttrValueTest <em>Attr Value Test</em>}</li>
+ * </ul>
  *
  * @generated
  */
 public class StateImpConditionImpl extends MinimalEObjectImpl.Container implements StateImpCondition
 {
+  /**
+   * The cached value of the '{@link #getIdTest() <em>Id Test</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getIdTest()
+   * @generated
+   * @ordered
+   */
+  protected Variable idTest;
+
+  /**
+   * The cached value of the '{@link #getAttrValueTest() <em>Attr Value Test</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAttrValueTest()
+   * @generated
+   * @ordered
+   */
+  protected EList<AttrValueTest> attrValueTest;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -57,6 +98,167 @@ public class StateImpConditionImpl extends MinimalEObjectImpl.Container implemen
   protected EClass eStaticClass()
   {
     return SoarPackage.Literals.STATE_IMP_CONDITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Variable getIdTest()
+  {
+    return idTest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetIdTest(Variable newIdTest, NotificationChain msgs)
+  {
+    Variable oldIdTest = idTest;
+    idTest = newIdTest;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SoarPackage.STATE_IMP_CONDITION__ID_TEST, oldIdTest, newIdTest);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void setIdTest(Variable newIdTest)
+  {
+    if (newIdTest != idTest)
+    {
+      NotificationChain msgs = null;
+      if (idTest != null)
+        msgs = ((InternalEObject)idTest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SoarPackage.STATE_IMP_CONDITION__ID_TEST, null, msgs);
+      if (newIdTest != null)
+        msgs = ((InternalEObject)newIdTest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SoarPackage.STATE_IMP_CONDITION__ID_TEST, null, msgs);
+      msgs = basicSetIdTest(newIdTest, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, SoarPackage.STATE_IMP_CONDITION__ID_TEST, newIdTest, newIdTest));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EList<AttrValueTest> getAttrValueTest()
+  {
+    if (attrValueTest == null)
+    {
+      attrValueTest = new EObjectContainmentEList<AttrValueTest>(AttrValueTest.class, this, SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST);
+    }
+    return attrValueTest;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case SoarPackage.STATE_IMP_CONDITION__ID_TEST:
+        return basicSetIdTest(null, msgs);
+      case SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST:
+        return ((InternalEList<?>)getAttrValueTest()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case SoarPackage.STATE_IMP_CONDITION__ID_TEST:
+        return getIdTest();
+      case SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST:
+        return getAttrValueTest();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case SoarPackage.STATE_IMP_CONDITION__ID_TEST:
+        setIdTest((Variable)newValue);
+        return;
+      case SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST:
+        getAttrValueTest().clear();
+        getAttrValueTest().addAll((Collection<? extends AttrValueTest>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case SoarPackage.STATE_IMP_CONDITION__ID_TEST:
+        setIdTest((Variable)null);
+        return;
+      case SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST:
+        getAttrValueTest().clear();
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case SoarPackage.STATE_IMP_CONDITION__ID_TEST:
+        return idTest != null;
+      case SoarPackage.STATE_IMP_CONDITION__ATTR_VALUE_TEST:
+        return attrValueTest != null && !attrValueTest.isEmpty();
+    }
+    return super.eIsSet(featureID);
   }
 
 } //StateImpConditionImpl

@@ -45,7 +45,7 @@ import com.collins.trustedmethods.matrics.soar.soar.SoarAnnexLibrary;
 import com.collins.trustedmethods.matrics.soar.soar.SoarAnnexSubclause;
 import com.collins.trustedmethods.matrics.soar.soar.SoarPackage;
 import com.collins.trustedmethods.matrics.soar.soar.SoarProduction;
-import com.collins.trustedmethods.matrics.soar.soar.StateImpCond;
+import com.collins.trustedmethods.matrics.soar.soar.StateImpCondition;
 import com.collins.trustedmethods.matrics.soar.soar.Test;
 import com.collins.trustedmethods.matrics.soar.soar.ValueMake;
 import com.collins.trustedmethods.matrics.soar.soar.ValueTest;
@@ -140,8 +140,8 @@ public abstract class AbstractSoarSemanticSequencer extends AbstractDelegatingSe
 			case SoarPackage.SOAR_PRODUCTION:
 				sequence_SoarProduction(context, (SoarProduction) semanticObject); 
 				return; 
-			case SoarPackage.STATE_IMP_COND:
-				sequence_StateImpCondition(context, (StateImpCond) semanticObject); 
+			case SoarPackage.STATE_IMP_CONDITION:
+				sequence_StateImpCondition(context, (StateImpCondition) semanticObject); 
 				return; 
 			case SoarPackage.TEST:
 				sequence_Test(context, (Test) semanticObject); 
@@ -428,13 +428,13 @@ public abstract class AbstractSoarSemanticSequencer extends AbstractDelegatingSe
 	/**
 	 * <pre>
 	 * Contexts:
-	 *     StateImpCondition returns StateImpCond
+	 *     StateImpCondition returns StateImpCondition
 	 *
 	 * Constraint:
 	 *     (idTest=Variable? attrValueTest+=AttrValueTest+)
 	 * </pre>
 	 */
-	protected void sequence_StateImpCondition(ISerializationContext context, StateImpCond semanticObject) {
+	protected void sequence_StateImpCondition(ISerializationContext context, StateImpCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

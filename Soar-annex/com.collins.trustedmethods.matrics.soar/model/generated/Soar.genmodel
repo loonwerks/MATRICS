@@ -23,7 +23,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//ConditionSide/stateImpCondition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//ConditionSide/cond"/>
     </genClasses>
-    <genClasses ecoreClass="Soar.ecore#//StateImpCondition"/>
+    <genClasses ecoreClass="Soar.ecore#//StateImpCondition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//StateImpCondition/idTest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//StateImpCondition/attrValueTest"/>
+    </genClasses>
     <genClasses ecoreClass="Soar.ecore#//Cond">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//Cond/cond"/>
     </genClasses>
@@ -89,10 +92,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Soar.ecore#//PrefSpecifier/unaryPref"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Soar.ecore#//PrefSpecifier/unaryOrBinaryPref"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//PrefSpecifier/value"/>
-    </genClasses>
-    <genClasses ecoreClass="Soar.ecore#//StateImpCond">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//StateImpCond/idTest"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//StateImpCond/attrValueTest"/>
     </genClasses>
     <genClasses ecoreClass="Soar.ecore#//ConjuctiveTest">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Soar.ecore#//ConjuctiveTest/disjunctionTest"/>

@@ -283,14 +283,6 @@ public class SoarSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case SoarPackage.STATE_IMP_COND:
-      {
-        StateImpCond stateImpCond = (StateImpCond)theEObject;
-        T result = caseStateImpCond(stateImpCond);
-        if (result == null) result = caseStateImpCondition(stateImpCond);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case SoarPackage.CONJUCTIVE_TEST:
       {
         ConjuctiveTest conjuctiveTest = (ConjuctiveTest)theEObject;
@@ -715,22 +707,6 @@ public class SoarSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePrefSpecifier(PrefSpecifier object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>State Imp Cond</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>State Imp Cond</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseStateImpCond(StateImpCond object)
   {
     return null;
   }

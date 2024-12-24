@@ -268,15 +268,6 @@ public interface SoarFactory extends EFactory
   PrefSpecifier createPrefSpecifier();
 
   /**
-   * Returns a new object of class '<em>State Imp Cond</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>State Imp Cond</em>'.
-   * @generated
-   */
-  StateImpCond createStateImpCond();
-
-  /**
    * Returns a new object of class '<em>Conjuctive Test</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
