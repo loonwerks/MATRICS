@@ -101,7 +101,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		main.main(args);
 
 		// TODO Create nuXmv command file
-		final String commandFileContents = "";
+		final String commandFileContents = "go_msat \n check_ltlspec_ic3";
 		final URI cmdUri = uri.trimFileExtension()
 				.trimSegments(1)
 				.appendSegment(compImpl.getTypeName() + "_cmd")
@@ -115,10 +115,10 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		// TODO Can we specify the Translator output file name and path,
 		// or can the Translator use the same input file name and path?
 		final String translatorOutputPath = soarFolder.getLocation()
-				.append("output")
+				.append(compImpl.getTypeName())
 				.addFileExtension(NUXMV_FILE_EXT)
 				.toString();
-
+		System.out.println(translatorOutputPath);
 		// TODO Insert constraints and LTL specs into Translator output
 
 
