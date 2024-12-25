@@ -131,12 +131,28 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			try {
 				String nuXmvContents = SoarUtil.readFile(nuXmvFile);
 				final String specContents = SoarUtil.readFile(specFile);
-				final String searchString = "";
-				int index = nuXmvContents.indexOf(searchString);
-				nuXmvContents = SoarUtil.insertString(nuXmvContents, specContents, index);
 
-				if (!SoarUtil.writeFile(nuXmvFile, nuXmvContents)) {
-					throw new Exception();
+				// Locate the position to insert Operator_spec
+				final String searchString = "VAR soarAgent : soarRules(";
+				int index = nuXmvContents.indexOf(searchString);
+				if (index != -1) {
+					// Find the closing parenthesis and semi-colon of the VAR declaration
+					int closeParenIndex = nuXmvContents.indexOf(");", index);
+					if (closeParenIndex != -1) {
+						// Insert Operator_spec.smv contents after the closing parenthesis
+						String before = nuXmvContents.substring(0, closeParenIndex + 2); // Include ");"
+						String after = nuXmvContents.substring(closeParenIndex + 2);
+						nuXmvContents = before + "\n" + specContents + "\n" + after;
+
+						// Write updated contents back to the file
+						if (!SoarUtil.writeFile(nuXmvFile, nuXmvContents)) {
+							throw new Exception("Failed to write to nuXmv file");
+						}
+					} else {
+						throw new Exception("Closing parenthesis for VAR soarAgent not found");
+					}
+				} else {
+					throw new Exception("VAR soarAgent declaration not found");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -144,6 +160,8 @@ public class SoarTranslatorHandler extends MatricsHandler {
 				return Status.CANCEL_STATUS;
 			}
 		}
+
+
 
 		// Launch nuXmv
 		// This needs to be done in a separate process otherwise Eclipse freezes up
