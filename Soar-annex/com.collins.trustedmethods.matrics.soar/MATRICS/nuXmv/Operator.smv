@@ -3,19 +3,15 @@ MODULE main
 VAR state_superstate : {nil};
 VAR state_name : {nil,cybersickness-monitor};
 VAR state_io_systemdata : {nil};
-VAR state_operator_name : {initialize,nil,apply-latency-violated,apply-framerate-violated,apply-opticflow-mid-violated};
-VAR state_latency-mid-threshold : integer;
-VAR state_latency-mid-threshold_exists : {yes,no};
+VAR state_operator_name : {initialize,nil,apply-latency-violated,apply-framerate-violated,apply-opticflow-violated};
 VAR state_latency-upper-threshold : integer;
 VAR state_latency-upper-threshold_exists : {yes,no};
-VAR state_framerate-mid-threshold : integer;
-VAR state_framerate-mid-threshold_exists : {yes,no};
 VAR state_framerate-problem-threshold : integer;
 VAR state_framerate-problem-threshold_exists : {yes,no};
 VAR state_optic-flow-threshold : integer;
 VAR state_optic-flow-threshold_exists : {yes,no};
 VAR state_io_cybersickness-check : {none};
-VAR state_io_cybersickness-level : {none,nil,affected-level-II,incapacitated-level-III,affected-level-I};
+VAR state_io_cybersickness-level : {none,nil,incapacitated-level-III,affected-level-II,affected-level-I};
 VAR state_io_systemdata_sys-latency : integer;
 VAR state_io_systemdata_sys-latency_exists : {yes,no};
 VAR state_io_systemdata_sys-framerate : integer;
@@ -27,12 +23,8 @@ VAR state_io_systemdata_sys-opticflow_exists : {yes,no};
 ASSIGN
     init (state_name) := nil;
     init (state_operator_name) := nil;
-    init (state_latency-mid-threshold) := 0;
-    init (state_latency-mid-threshold_exists) := no;
     init (state_latency-upper-threshold) := 0;
     init (state_latency-upper-threshold_exists) := no;
-    init (state_framerate-mid-threshold) := 0;
-    init (state_framerate-mid-threshold_exists) := no;
     init (state_framerate-problem-threshold) := 0;
     init (state_framerate-problem-threshold_exists) := no;
     init (state_optic-flow-threshold) := 0;
@@ -46,10 +38,10 @@ ASSIGN
     init (state_io_systemdata_sys-opticflow_exists) := yes;
 
 
-VAR soarAgent : soarRules(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists);
+VAR soarAgent : soarRules(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists);
 VAR inputModuleRule: inputModule(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists);
 
-LTLSPEC (G state_operator_name != initialize)
+LTLSPEC (G state_io_cybersickness-level != incapacitated-level-III)
 
 MODULE inputModule(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
 
@@ -61,7 +53,7 @@ ASSIGN
             esac;
         next (state_io_systemdata_sys-latency) :=
             case
-            (state_io_systemdata_sys-latency = 0):40;
+            (state_io_systemdata_sys-latency = 0):60;
             TRUE: state_io_systemdata_sys-latency;
             esac;
         next (state_io_systemdata_sys-framerate) :=
@@ -72,7 +64,7 @@ ASSIGN
 
 
 
-MODULE soarRules(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
+MODULE soarRules(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
 
 VAR state:{start, run};
 ASSIGN
@@ -87,14 +79,14 @@ ASSIGN
         state = start & (state_name = cybersickness-monitor & state_io_systemdata_sys-latency > state_latency-upper-threshold) : run;
         --propose*framerate-check (state_name,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_io_systemdata,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists)
         state = start & (state_name = cybersickness-monitor & state_io_systemdata_sys-framerate < state_framerate-problem-threshold) : run;
-        --propose*opticflow-mid-check (state_name,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_systemdata,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
+        --propose*opticflow-check (state_name,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_systemdata,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
         state = start & (state_name = cybersickness-monitor & state_io_systemdata_sys-opticflow < state_optic-flow-threshold) : run;
-        --apply*apply-framerate-check (state_operator_name,state_io_cybersickness-level)
-        state = start & (state_operator_name = apply-framerate-violated) : run;
         --apply*apply-latency-violated (state_operator_name,state_io_cybersickness-level)
         state = start & (state_operator_name = apply-latency-violated) : run;
-        --apply*apply-opticflow-mid-violated (state_operator_name,state_io_cybersickness-level)
-        state = start & (state_operator_name = apply-opticflow-mid-violated) : run;
+        --apply*apply-framerate-check (state_operator_name,state_io_cybersickness-level)
+        state = start & (state_operator_name = apply-framerate-violated) : run;
+        --apply*apply-opticflow-violated (state_operator_name,state_io_cybersickness-level)
+        state = start & (state_operator_name = apply-opticflow-violated) : run;
         state = run : start;
             TRUE : state;
             esac;
@@ -106,8 +98,8 @@ TRANS
         (state = run & state_name = cybersickness-monitor & state_io_systemdata_sys-latency > state_latency-upper-threshold): apply-latency-violated;
         -- 10000.0        --propose*initialize (state_superstate,state_name,state_io_systemdata)
         (state = run & state_superstate = nil & state_name = nil): initialize;
-        --propose*opticflow-mid-check (state_name,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_systemdata,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
-        (state = run & state_name = cybersickness-monitor & state_io_systemdata_sys-opticflow < state_optic-flow-threshold): apply-opticflow-mid-violated;
+        --propose*opticflow-check (state_name,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_systemdata,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
+        (state = run & state_name = cybersickness-monitor & state_io_systemdata_sys-opticflow < state_optic-flow-threshold): apply-opticflow-violated;
         --propose*framerate-check (state_name,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_io_systemdata,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists)
         (state = run & state_name = cybersickness-monitor & state_io_systemdata_sys-framerate < state_framerate-problem-threshold): apply-framerate-violated;
             TRUE : state_operator_name;
@@ -119,22 +111,6 @@ TRANS
         --apply*initialize (state_operator_name)
         (state = start & state_operator_name = initialize): cybersickness-monitor;
             TRUE : state_name;
-                esac;
-TRANS
-        next (state_latency-mid-threshold) =
-            case
-
-        --apply*initialize (state_operator_name)
-        (state = start & state_operator_name = initialize): 20;
-            TRUE : state_latency-mid-threshold;
-                esac;
-TRANS
-        next (state_latency-mid-threshold_exists) =
-            case
-
-        --apply*initialize (state_operator_name)
-        (state = start & state_operator_name = initialize): yes;
-            TRUE : state_latency-mid-threshold_exists;
                 esac;
 TRANS
         next (state_latency-upper-threshold) =
@@ -151,22 +127,6 @@ TRANS
         --apply*initialize (state_operator_name)
         (state = start & state_operator_name = initialize): yes;
             TRUE : state_latency-upper-threshold_exists;
-                esac;
-TRANS
-        next (state_framerate-mid-threshold) =
-            case
-
-        --apply*initialize (state_operator_name)
-        (state = start & state_operator_name = initialize): 60;
-            TRUE : state_framerate-mid-threshold;
-                esac;
-TRANS
-        next (state_framerate-mid-threshold_exists) =
-            case
-
-        --apply*initialize (state_operator_name)
-        (state = start & state_operator_name = initialize): yes;
-            TRUE : state_framerate-mid-threshold_exists;
                 esac;
 TRANS
         next (state_framerate-problem-threshold) =
@@ -214,12 +174,12 @@ TRANS
 
         --apply*initialize (state_operator_name)
         (state = start & state_operator_name = initialize): none;
-        --apply*apply-framerate-check (state_operator_name,state_io_cybersickness-level)
-        (state = start & state_operator_name = apply-framerate-violated): affected-level-II;
         --apply*apply-latency-violated (state_operator_name,state_io_cybersickness-level)
         (state = start & state_operator_name = apply-latency-violated): incapacitated-level-III;
-        --apply*apply-opticflow-mid-violated (state_operator_name,state_io_cybersickness-level)
-        (state = start & state_operator_name = apply-opticflow-mid-violated): affected-level-I;
+        --apply*apply-framerate-check (state_operator_name,state_io_cybersickness-level)
+        (state = start & state_operator_name = apply-framerate-violated): affected-level-II;
+        --apply*apply-opticflow-violated (state_operator_name,state_io_cybersickness-level)
+        (state = start & state_operator_name = apply-opticflow-violated): affected-level-I;
             TRUE : state_io_cybersickness-level;
                 esac;
 

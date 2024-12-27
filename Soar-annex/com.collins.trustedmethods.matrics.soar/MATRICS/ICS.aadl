@@ -19,84 +19,71 @@ public
 	system implementation hardware.impl
 		annex soar {**
 			sp {propose*latency-check
-			    (state <s> ^name cybersickness-monitor
-			            #    ^check latency <c>
-			               ^latency-upper-threshold  <lut>
-			               ^io.input-link.systemdata <sd>)
-			    (<sd> ^sys-latency <sl> > <lut>)
-			
+				(state <s> ^name cybersickness-monitor
+						^latency-upper-threshold  <lut>
+						^io.input-link.systemdata <sd>)
+				(<sd> ^sys-latency <sl> > <lut>)
+
 			-->
-			    (write (crlf) |Checking for cybersickness for System Latency value: | <sl>)
-			    (<s> ^operator <o> + >,=)
-			    (<o> ^name apply-latency-violated)
-			
+				(write (crlf) |Checking for cybersickness for System Latency value: | <sl>)
+				(<s> ^operator <o> + >,=)
+				(<o> ^name apply-latency-violated)
+
 			}
-			
+
 			sp {propose*framerate-check
-			    (state <s> ^name cybersickness-monitor
-			            #    ^check framerate <c> 
-			               ^framerate-problem-threshold  <fpt>
-			               ^io.input-link.systemdata <sd>)
-			    (<sd> ^sys-framerate <sf> < <fpt>)
-			
+				(state <s> ^name cybersickness-monitor
+						^framerate-problem-threshold  <fpt>
+						^io.input-link.systemdata <sd>)
+				(<sd> ^sys-framerate <sf> < <fpt>)
+
 			-->
-			    (write (crlf) |Checking for cybersickness for System FrameRate value: | <sf>)
-			    (<s> ^operator <o> + =)
-			    (<o> ^name apply-framerate-violated)
-			
+				(write (crlf) |Checking for cybersickness for System FrameRate value: | <sf>)
+				(<s> ^operator <o> + =)
+				(<o> ^name apply-framerate-violated)
+
 			}
-			
-			sp {propose*opticflow-mid-check
-			    (state <s> ^name cybersickness-monitor
-			            #    ^check opticflow-mid
-			               ^optic-flow-threshold <ot>
-			               ^io.input-link.systemdata <sd>)
-			    (<sd> ^sys-opticflow <sof> < <ot>)
-			
+
+			sp {propose*opticflow-check
+				(state <s> ^name cybersickness-monitor
+						^optic-flow-threshold <ot>
+						^io.input-link.systemdata <sd>)
+				(<sd> ^sys-opticflow <sof> < <ot>)
+
 			-->
-			    (write (crlf) |Checking for cybersickness for System Mid OpticFlow Framerate: | <sof>)
-			    (<s> ^operator <o> + < )
-			    (<o> ^name apply-opticflow-mid-violated)
-			
-			}
-			
-			 sp {apply*apply-framerate-check
-			    (state <s> ^operator.name apply-framerate-violated
-			                # ^check framerate <c> 
-			               ^io.output-link <out>)
-			    (<out> ^cybersickness-level <cl>)
-			
-			-->
-			    # (<s> ^check framerate - opticflow-mid +)
-			    (write (crlf) |Incapacitated...|)
-			    # (<out> ^cybersickness-check <cc> - framerate +)
-			    (<out> ^cybersickness-level <cl> - affected-level-II +)
-			
+				(write (crlf) |Checking for cybersickness for System OpticFlow Framerate: | <sof>)
+				(<s> ^operator <o> + < )
+				(<o> ^name apply-opticflow-violated)
+
 			}
 			sp {apply*apply-latency-violated
-			    (state <s> ^operator.name apply-latency-violated
-			            #    ^check latency <c>
-			               ^io.output-link <out>)
-			    (<out> ^cybersickness-level <cl>)
-			
+				(state <s> ^operator.name apply-latency-violated
+						^io.output-link <out>)
+				(<out> ^cybersickness-level <cl>)
+
 			-->
-			    # (<s> ^check latency - framerate +)
-			    (write (crlf) |Latency Incapacitated...|)
-			    # (<out> ^cybersickness-check <cc> - latency +)
-			    (<out> ^cybersickness-level <cl> - incapacitated-level-III +)
-			   
+				(write (crlf) |Latency Incapacitated...|)
+				(<out> ^cybersickness-level <cl> - incapacitated-level-III +)
+			
 			}
-			 sp {apply*apply-opticflow-mid-violated
-			    (state <s> ^operator.name apply-opticflow-mid-violated
-			            # ^check opticflow-mid <c>
-			               ^io.output-link <out>)
-			    (<out> ^cybersickness-level <cl>)
-			
+			sp {apply*apply-framerate-check
+				(state <s> ^operator.name apply-framerate-violated
+						^io.output-link <out>)
+				(<out> ^cybersickness-level <cl>)
+
 			-->
-			    # (<s> ^check opticflow-mid - latency +)
-			    (write (crlf) |Affected...|)
-			    # (<out> ^cybersickness-check <cc> - opticflow-mid +)
-			    (<out> ^cybersickness-level <cl> - affected-level-I +)
+				(write (crlf) |Incapacitated...|)
+				(<out> ^cybersickness-level <cl> - affected-level-II +)
+
+			}
+			sp {apply*apply-opticflow-violated
+				(state <s> ^operator.name apply-opticflow-violated
+						^io.output-link <out>)
+				(<out> ^cybersickness-level <cl>)
+
+			-->
+				(write (crlf) |Affected...|)
+				(<out> ^cybersickness-level <cl> - affected-level-I +)
 			}
 		
 	**};
@@ -114,31 +101,28 @@ public
 			software: system software.impl;
 		annex soar {**
 			sp {propose*initialize
-			    (state <s> ^superstate nil
-			               ^io.input-link.systemdata <sd>
-			              -^name)
-			 
-			-->
-			    (<s> ^operator <o> + >,=)
-			    (<o> ^name initialize)
-			    (write (crlf) |Agent initializing...|)
+				(state <s> ^superstate nil
+						^io.input-link.systemdata <sd>
+						-^name)
 			
-			 }
+			-->
+				(<s> ^operator <o> + >,=)
+				(<o> ^name initialize)
+				(write (crlf) |Agent initializing...|)
+
+			}
 			 
 			 sp {apply*initialize
-			    (state <s> ^operator.name initialize
-			               ^io.output-link <out>)
+				(state <s> ^operator.name initialize
+						^io.output-link <out>)
 			-->
-			    (<s> ^name cybersickness-monitor)
-			    # (<s> ^check latency)
-			    (<s> ^latency-mid-threshold 20)
-			    (<s> ^latency-upper-threshold 40)
-			    (<s> ^framerate-mid-threshold 60)
-			    (<s> ^framerate-problem-threshold 40)
-			    (<s> ^optic-flow-threshold 1)
-			    (<out> ^cybersickness-check none)
-			    (<out> ^cybersickness-level none)
-			    (write (crlf) |Agent initialized.|)
+				(<s> ^name cybersickness-monitor)
+				(<s> ^latency-upper-threshold 40)
+				(<s> ^framerate-problem-threshold 40)
+				(<s> ^optic-flow-threshold 1)
+				(<out> ^cybersickness-check none)
+				(<out> ^cybersickness-level none)
+				(write (crlf) |Agent initialized.|)
 			}
 		**};
 	end Operator.impl;

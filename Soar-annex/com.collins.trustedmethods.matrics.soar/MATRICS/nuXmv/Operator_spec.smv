@@ -1,6 +1,6 @@
 VAR inputModuleRule: inputModule(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists);
 
-LTLSPEC (G state_operator_name != initialize)
+LTLSPEC (G state_io_cybersickness-level != incapacitated-level-III)
 
 MODULE inputModule(state_superstate,state_name,state_io_systemdata,state_operator_name,state_latency-mid-threshold,state_latency-mid-threshold_exists,state_latency-upper-threshold,state_latency-upper-threshold_exists,state_framerate-mid-threshold,state_framerate-mid-threshold_exists,state_framerate-problem-threshold,state_framerate-problem-threshold_exists,state_optic-flow-threshold,state_optic-flow-threshold_exists,state_io_cybersickness-check,state_io_cybersickness-level,state_io_systemdata_sys-latency,state_io_systemdata_sys-latency_exists,state_io_systemdata_sys-framerate,state_io_systemdata_sys-framerate_exists,state_io_systemdata_sys-opticflow,state_io_systemdata_sys-opticflow_exists)
 
@@ -12,7 +12,7 @@ ASSIGN
             esac;
         next (state_io_systemdata_sys-latency) :=
             case
-            (state_io_systemdata_sys-latency = 0):40;
+            (state_io_systemdata_sys-latency = 0):60;
             TRUE: state_io_systemdata_sys-latency;
             esac;
         next (state_io_systemdata_sys-framerate) :=

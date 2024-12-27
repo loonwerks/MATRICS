@@ -162,7 +162,6 @@ public class SoarTranslatorHandler extends MatricsHandler {
 		}
 
 
-
 		// Launch nuXmv
 		// This needs to be done in a separate process otherwise Eclipse freezes up
 		final WorkspaceJob job = new WorkspaceJob("nuXmv") {

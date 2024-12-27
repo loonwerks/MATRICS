@@ -18,9 +18,7 @@ sp {apply*initialize
     (<i*1> ^output-link <out>)
     -->
     (<s> ^name cybersickness-monitor +)
-    (<s> ^latency-mid-threshold 20 +)
     (<s> ^latency-upper-threshold 40 +)
-    (<s> ^framerate-mid-threshold 60 +)
     (<s> ^framerate-problem-threshold 40 +)
     (<s> ^optic-flow-threshold 1 +)
     (<out> ^cybersickness-check none +)
@@ -56,7 +54,7 @@ sp {propose*framerate-check
     (<s> ^operator <o> =)
     (<o> ^name apply-framerate-violated +)
 }
-sp {propose*opticflow-mid-check
+sp {propose*opticflow-check
     (state <s> ^name cybersickness-monitor)
     (<s> ^optic-flow-threshold <ot>)
     (<s> ^io <i*1>)
@@ -65,21 +63,10 @@ sp {propose*opticflow-mid-check
     (<sd> ^sys-opticflow { < <ot>  })
     (<sd> ^sys-opticflow <sof>)
     -->
-    (write (crlf) |Checking for cybersickness for System Mid OpticFlow Framerate: | <sof>)
+    (write (crlf) |Checking for cybersickness for System OpticFlow Framerate: | <sof>)
     (<s> ^operator <o> +)
     (<s> ^operator <o> <)
-    (<o> ^name apply-opticflow-mid-violated +)
-}
-sp {apply*apply-framerate-check
-    (state <s> ^operator <o*1>)
-    (<o*1> ^name apply-framerate-violated)
-    (<s> ^io <i*1>)
-    (<i*1> ^output-link <out>)
-    (<out> ^cybersickness-level <cl>)
-    -->
-    (write (crlf) |Incapacitated_..|)
-    (<out> ^cybersickness-level <cl> -)
-    (<out> ^cybersickness-level affected-level-II +)
+    (<o> ^name apply-opticflow-violated +)
 }
 sp {apply*apply-latency-violated
     (state <s> ^operator <o*1>)
@@ -92,9 +79,20 @@ sp {apply*apply-latency-violated
     (<out> ^cybersickness-level <cl> -)
     (<out> ^cybersickness-level incapacitated-level-III +)
 }
-sp {apply*apply-opticflow-mid-violated
+sp {apply*apply-framerate-check
     (state <s> ^operator <o*1>)
-    (<o*1> ^name apply-opticflow-mid-violated)
+    (<o*1> ^name apply-framerate-violated)
+    (<s> ^io <i*1>)
+    (<i*1> ^output-link <out>)
+    (<out> ^cybersickness-level <cl>)
+    -->
+    (write (crlf) |Incapacitated_..|)
+    (<out> ^cybersickness-level <cl> -)
+    (<out> ^cybersickness-level affected-level-II +)
+}
+sp {apply*apply-opticflow-violated
+    (state <s> ^operator <o*1>)
+    (<o*1> ^name apply-opticflow-violated)
     (<s> ^io <i*1>)
     (<i*1> ^output-link <out>)
     (<out> ^cybersickness-level <cl>)
