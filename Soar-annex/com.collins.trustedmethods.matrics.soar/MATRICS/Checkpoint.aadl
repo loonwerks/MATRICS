@@ -1,0 +1,25 @@
+package Checkpoint
+public
+
+	with Operator;
+	with HMD;
+	with Base_Types;
+
+	system Checkpoint
+		features
+			mission_success: out event data port Base_Types::Boolean;
+		annex agree {**
+			guarantee No_Cybersickness "Checkpoint guard will not experience incapacitating cybersickness" : mission_success;
+		**};
+	end Checkpoint;
+
+	system implementation Checkpoint.impl
+		subcomponents
+			HMD: system HMD::HMD.impl;
+			Operator: system Operator::Operator.impl;
+		connections
+			c1: port HMD.frame_rate -> Operator.frame_rate;
+			c2: port Operator.not_cybersick -> mission_success;
+	end Checkpoint.impl;
+	
+end Checkpoint;

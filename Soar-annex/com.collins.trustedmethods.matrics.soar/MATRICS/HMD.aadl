@@ -1,0 +1,48 @@
+package HMD
+public
+	with Base_Types;
+	
+	system Frame_Rate_Monitor
+		features
+			frame_rate: in event data port Base_Types::Integer;
+			priority: out event data port Base_Types::Boolean;
+		annex agree {**
+			guarantee Rate_Priority "Increase priority if framerate is 40 or below" : (event(frame_rate) and frame_rate <= 40) => (event(priority) and priority = true);
+		**};
+	end Frame_Rate_Monitor;
+	
+	system implementation Frame_Rate_Monitor.impl
+
+	end Frame_Rate_Monitor.impl;
+
+
+	system Display
+		features
+			priority: in event data port Base_Types::Boolean;
+			frame_rate: out event data port Base_Types::Integer;
+		annex agree {**
+			guarantee Positive_Frame_Rate "Positive frame rate" : event(frame_rate) and frame_rate > 0 and frame_rate <= 60;
+			guarantee Priority "Priority increases frame rate" : (event(priority) and priority) => frame_rate > 40;
+		**};
+	end Display;
+
+	system implementation Display.impl
+		
+	end Display.impl;
+
+	system HMD
+		features
+			frame_rate: out event data port Base_Types::Integer;
+	end HMD;
+	
+	system implementation HMD.impl
+		subcomponents
+			Display: system Display.impl;
+			Monitor: system Frame_Rate_Monitor.impl;
+		connections
+			c2: port Display.frame_rate -> frame_rate;
+			c3: port Display.frame_rate -> Monitor.frame_rate;
+			c4: port Monitor.priority -> Display.priority;
+	end HMD.impl;
+	
+end HMD;
