@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.collins.trustedmethods.matrics.feature"
+      label="Feature"
+      version="0.1.1.qualifier"
+      provider-name="Collins Aerospace">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <plugin
+         id="com.collins.trustedmethods.matrics.soar"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.collins.trustedmethods.matrics.analysis"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.collins.trustedmethods.matrics.soar.ui"
+         version="0.0.0"/>
+
+</feature>
