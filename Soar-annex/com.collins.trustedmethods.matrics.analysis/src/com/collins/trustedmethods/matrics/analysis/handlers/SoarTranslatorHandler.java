@@ -142,7 +142,7 @@ public class SoarTranslatorHandler extends MatricsHandler {
 						// Insert Operator_spec.smv contents after the closing parenthesis
 						String before = nuXmvContents.substring(0, closeParenIndex + 2); // Include ");"
 						String after = nuXmvContents.substring(closeParenIndex + 2);
-						nuXmvContents = before + "\n" + specContents + "\n" + after;
+						nuXmvContents = before + System.lineSeparator() + specContents + System.lineSeparator() + after;
 
 						// Write updated contents back to the file
 						if (!SoarUtil.writeFile(nuXmvFile, nuXmvContents)) {

@@ -70,10 +70,10 @@ public class NuXmvRunner {
 			println(out);
 			if (monitor.isCanceled()) {
 				stop();
-				return;
+				break;
 			}
 		}
-		process.waitFor();
+//		process.waitFor();
 		println("Finished running nuXmv.");
 
 	}
