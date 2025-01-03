@@ -4,8 +4,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -39,14 +37,21 @@ public class SoarTranslatorHandler extends MatricsHandler {
 	@Override
 	protected IStatus runJob(Element selection, IProgressMonitor monitor) {
 
+		monitor.subTask("Soar Translation");
+		ComponentImplementation compImpl = null;
+
 		// Make sure a component implementation is selected
-		if (!(selection instanceof ComponentImplementation)) {
+		if (selection instanceof Subcomponent
+				&& ((Subcomponent) selection).getClassifier() instanceof ComponentImplementation) {
+			compImpl = ((Subcomponent) selection).getComponentImplementation();
+		} else if (selection instanceof ComponentImplementation) {
+			compImpl = (ComponentImplementation) selection;
+		} else {
 			Dialog.showError(getJobName(), "A component implementation must be selected");
 			return Status.CANCEL_STATUS;
 		}
 
 		// Make sure component implementation contains a Soar annex
-		final ComponentImplementation compImpl = (ComponentImplementation) selection;
 		String textSoarAnnex = getSoarAnnex(compImpl);
 		for (Subcomponent compSub : compImpl.getOwnedSubcomponents()) {
 			textSoarAnnex += getSoarAnnex(compSub.getClassifier());
@@ -161,27 +166,15 @@ public class SoarTranslatorHandler extends MatricsHandler {
 			}
 		}
 
-
 		// Launch nuXmv
-		// This needs to be done in a separate process otherwise Eclipse freezes up
-		final WorkspaceJob job = new WorkspaceJob("nuXmv") {
-			@Override
-			public IStatus runInWorkspace(IProgressMonitor monitor) {
-				monitor.beginTask("nuXmv", IProgressMonitor.UNKNOWN);
+		monitor.subTask("Run nuXmv");
 
-				try {
-					new NuXmvRunner(monitor, commandFilePath, nuXmvFilePath);
-				} catch (Exception e) {
-					Dialog.showError("MATRICS", "Unable to analyze soar.  Problem running nuXmv.");
-					e.printStackTrace();
-				}
-
-				monitor.done();
-				return Status.OK_STATUS;
-			}
-		};
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
+		try {
+			new NuXmvRunner(monitor, commandFilePath, nuXmvFilePath);
+		} catch (Exception e) {
+			Dialog.showError("MATRICS", "Unable to analyze soar.  Problem running nuXmv.");
+			e.printStackTrace();
+		}
 
 		return Status.OK_STATUS;
 	}

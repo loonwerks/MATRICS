@@ -8,6 +8,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
+import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -24,6 +25,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
@@ -33,6 +36,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.ge.BusinessObjectSelection;
 import org.osate.ui.dialogs.Dialog;
 
 public abstract class MatricsHandler extends AbstractHandler {
@@ -65,10 +69,6 @@ public abstract class MatricsHandler extends AbstractHandler {
 	}
 
 	public Object executeURI(final URI uri) {
-		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
-		if (xtextEditor == null) {
-			return null;
-		}
 
 		if (!saveChanges(window.getActivePage().getDirtyEditors())) {
 			return null;
@@ -77,14 +77,16 @@ public abstract class MatricsHandler extends AbstractHandler {
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				return xtextEditor.getDocument().readOnly(resource -> {
-					EObject eobj = resource.getResourceSet().getEObject(uri, true);
-					if (eobj instanceof Element) {
-						return runJob((Element) eobj, monitor);
-					} else {
-						return Status.CANCEL_STATUS;
-					}
-				});
+				monitor.beginTask(getJobName(), IProgressMonitor.UNKNOWN);
+				final EObject eobj = getEObject(uri);
+				if (eobj instanceof Element) {
+					final IStatus status = runJob((Element) eobj, monitor);
+					monitor.done();
+					return status;
+				} else {
+					monitor.done();
+					return Status.CANCEL_STATUS;
+				}
 			}
 		};
 
@@ -114,9 +116,16 @@ public abstract class MatricsHandler extends AbstractHandler {
 
 		if (currentSelection instanceof IStructuredSelection) {
 			final IStructuredSelection iss = (IStructuredSelection) currentSelection;
-			if (iss.size() == 1) {
-				final Object obj = iss.getFirstElement();
-				return ((EObjectNode) obj).getEObjectURI();
+			if (iss.size() == 1 && iss.getFirstElement() instanceof EObjectNode) {
+				EObjectNode node = (EObjectNode) iss.getFirstElement();
+				return node.getEObjectURI();
+			} else {
+				final BusinessObjectSelection bos = Adapters.adapt(currentSelection, BusinessObjectSelection.class);
+				if (bos != null) {
+					if (bos.boStream(EObject.class).count() == 1) {
+						return bos.boStream(EObject.class).findFirst().map(e -> EcoreUtil.getURI(e)).orElse(null);
+					}
+				}
 			}
 		} else if (currentSelection instanceof TextSelection) {
 			// Selection may be stale, get latest from editor
@@ -128,6 +137,14 @@ public abstract class MatricsHandler extends AbstractHandler {
 			});
 		}
 		return null;
+	}
+
+	protected EObject getEObject(URI uri) {
+
+		final XtextResourceSet resourceSet = new XtextResourceSet();
+		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+		return resourceSet.getEObject(uri, true);
+
 	}
 
 	protected IWorkbenchWindow getWindow() {

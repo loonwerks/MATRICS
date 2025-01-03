@@ -23,13 +23,13 @@
 
 package com.collins.trustedmethods.matrics.soar.ui.outline;
 
-import org.osate.xtext.aadl2.ui.outline.Aadl2OutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
 
 /**
  * Customization of the default outline structure.
  *
  * See https://www.eclipse.org/Xtext/documentation/310_eclipse_support.html#outline
  */
-public class SoarOutlineTreeProvider extends Aadl2OutlineTreeProvider {
+public class SoarOutlineTreeProvider extends BackgroundOutlineTreeProvider {
 
 }
