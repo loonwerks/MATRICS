@@ -13,7 +13,7 @@ public
 		annex soar {**
 			sp {propose*latency-check
 				(state <s> ^name cybersickness-monitor
-						^latency-upper-threshold  <lut>
+						^latency-problem-threshold  <lut>
 						^io.input-link.systemdata <sd>)
 				(<sd> ^sys-latency <sl> > <lut>)
 
@@ -120,7 +120,7 @@ public
 						^io.output-link <out>)
 			-->
 				(<s> ^name cybersickness-monitor)
-				(<s> ^latency-upper-threshold 40)
+				(<s> ^latency-problem-threshold 40)
 				(<s> ^framerate-problem-threshold 40)
 				(<s> ^optic-flow-threshold 1)
 				(<out> ^cybersickness-check none)
