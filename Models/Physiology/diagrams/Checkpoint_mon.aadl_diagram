@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="c14888d9-63ac-40ba-89ad-e94ae466d371" manual="true" outline="#000000" fontColor="#000000">
+    <element uuid="1f8d19b2-1bb2-4110-abdf-f15138d6df71" manual="true">
+      <bo>
+        <seg>agree.guarantee</seg>
+        <seg>Checkpoint guard will not experience incapacitating cybersickness</seg>
+        <seg>0</seg>
+      </bo>
+      <position/>
+      <size width="443.0" height="36.0"/>
+    </element>
+    <element uuid="18f213d4-c5ce-4de9-9f05-3e6fe4d13278" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="66a6fcae-c128-4453-af6c-ee92b7423c52" manual="true" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+    </element>
+    <element uuid="3b410cfe-1fae-469c-ba5c-669ff9fb49d4" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="cf9815f5-8c5a-4dd7-93bf-c22b57934fe6" manual="true" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c2</seg>
+      </bo>
+    </element>
+    <element uuid="de540429-0206-4370-b74a-379d691a9e71" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+      <bo>
+        <seg>feature</seg>
+        <seg>mission_success</seg>
+      </bo>
+      <position x="1017.2252731323242" y="340.0"/>
+    </element>
+    <element uuid="43273062-2aca-4ae8-888f-9f7c013a28e5" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="e22073be-5820-4baf-a0fb-c48c6bcf8fcc" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="0f647363-70f9-4fd7-ab01-6aeb0f2cb1ac" manual="true" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c1</seg>
+        </bo>
+      </element>
+      <element uuid="5ccfffc8-a3e5-40f5-bc8e-2b7832df008e" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="b48a392b-13cf-4acf-ac27-5026dc6980f4" manual="true" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c2</seg>
+        </bo>
+        <bendpoints>
+          <point x="560.0" y="132.0"/>
+          <point x="561.0" y="332.0"/>
+        </bendpoints>
+      </element>
+      <element uuid="51d29993-7258-455b-8b05-a79a919513a1" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="e407ebed-b597-4579-9fde-626c7e34d162" manual="true" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c3</seg>
+        </bo>
+        <bendpoints>
+          <point x="160.0" y="321.0"/>
+        </bendpoints>
+      </element>
+      <element uuid="a038fcab-9593-43ce-80b1-6ed08bcdd8a1" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>frame_rate</seg>
+        </bo>
+        <position x="483.52734375" y="50.0"/>
+      </element>
+      <element uuid="c5ba5a0a-7ab3-46d3-a610-dfd06af268ab" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="c5f22e1b-b22a-492f-967a-41e927c04850" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: priority => frame_rate >= 40</seg>
+            <seg>0</seg>
+          </bo>
+          <position/>
+          <size width="235.0" height="36.0"/>
+        </element>
+        <element uuid="0c0a036c-02d8-4ad1-9ebe-b39cf114964f" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>Non-negative frame rate</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="10.0" y="50.0"/>
+          <size width="196.0" height="36.0"/>
+        </element>
+        <element uuid="666792ee-34f7-47be-90e3-653deec387bc" manual="true" dockArea="right" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+          <bo>
+            <seg>feature</seg>
+            <seg>frame_rate</seg>
+          </bo>
+          <position x="440.0" y="40.0"/>
+        </element>
+        <element uuid="1386486b-af2d-40a3-8d1e-4ebdbbb6f579" manual="true" dockArea="bottom" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>feature</seg>
+            <seg>priority</seg>
+          </bo>
+          <position x="30.0" y="128.0"/>
+        </element>
+        <element uuid="44a97c8b-c45c-4a67-b2af-482ae37f0f38" manual="true" boData="G: priority => frame_rate >= 40">
+          <bo>
+            <seg>note</seg>
+            <seg>69a686c5-639d-4ca6-a5e4-4c4f7562cdba</seg>
+          </bo>
+          <position x="210.0" y="40.0"/>
+          <size width="220.0" height="36.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>Display</seg>
+        </bo>
+        <position x="20.0" y="30.0"/>
+        <size width="460.0" height="152.0"/>
+      </element>
+      <element uuid="1d37c51d-c078-4454-a29a-1aec426422a6" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="f663aa17-9ea9-4127-8dd7-c48f13761dc7" manual="true">
+          <bo>
+            <seg>agree.assertion</seg>
+            <seg></seg>
+            <seg>0</seg>
+          </bo>
+          <position/>
+          <size width="130.0" height="36.0"/>
+        </element>
+        <element uuid="431288a5-47cb-449d-a946-d02fd499800d" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: frame_rate &lt; 40 => priority</seg>
+            <seg>0</seg>
+          </bo>
+          <position/>
+          <size width="227.0" height="36.0"/>
+        </element>
+        <element uuid="8e3beaf8-5c98-4886-9a0b-040266371cd4" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>feature</seg>
+            <seg>frame_rate</seg>
+          </bo>
+          <position x="263.52734375" y="40.0"/>
+        </element>
+        <element uuid="790b8680-2200-4bd0-813f-e310b829f6d3" manual="true" dockArea="left" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+          <bo>
+            <seg>feature</seg>
+            <seg>priority</seg>
+          </bo>
+          <position y="50.0"/>
+        </element>
+        <element uuid="d0ed78e8-69ae-496c-8591-2aab87480152" manual="true" boData="G: frame_rate &lt; 40 => priority">
+          <bo>
+            <seg>note</seg>
+            <seg>8ab8a3d3-3e43-4baa-9a74-7a464843f59c</seg>
+          </bo>
+          <position x="30.0" y="50.0"/>
+          <size width="211.0" height="36.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>Monitor</seg>
+        </bo>
+        <position x="140.0" y="210.0"/>
+        <size width="340.0" height="110.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>HMD</seg>
+      </bo>
+      <position x="50.0" y="50.0"/>
+      <size width="560.0" height="360.0"/>
+    </element>
+    <element uuid="9b15db84-09ba-4b8a-87c7-6d8b6d9bb591" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="5d9ca48e-1bd5-4ae6-9015-d7a4d9cc7c01" manual="true">
+        <bo>
+          <seg>agree.assertion</seg>
+          <seg>Event</seg>
+          <seg>0</seg>
+        </bo>
+        <position/>
+        <size width="130.0" height="36.0"/>
+      </element>
+      <element uuid="2568061b-cd6a-48dc-985b-2dad25e084a8" manual="true">
+        <bo>
+          <seg>agree.assumption</seg>
+          <seg>A: frame_rate >= 40</seg>
+          <seg>0</seg>
+        </bo>
+        <position x="20.0" y="190.0"/>
+        <size width="171.0" height="36.0"/>
+      </element>
+      <element uuid="d228af12-779c-42ba-b768-76ac93c93175" manual="true">
+        <bo>
+          <seg>agree.guarantee</seg>
+          <seg>G: Operator will not get cybersick</seg>
+          <seg>0</seg>
+        </bo>
+        <position x="30.0" y="130.0"/>
+        <size width="248.0" height="36.0"/>
+      </element>
+      <element uuid="682b0a95-e7b5-4dd6-9114-a0b7caa4024e" manual="true" dockArea="left" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+        <bo>
+          <seg>feature</seg>
+          <seg>frame_rate</seg>
+        </bo>
+        <position y="70.0"/>
+      </element>
+      <element uuid="9d200ce9-66cf-4f61-8fd4-1fbd07f87afe" manual="true" dockArea="right" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+        <bo>
+          <seg>feature</seg>
+          <seg>not_cybersick</seg>
+        </bo>
+        <position x="277.0" y="310.0"/>
+      </element>
+      <element uuid="c29d5f77-d3f7-459f-b998-117b85e4c6c1" manual="true" primaryLabelVisible="true" boData="A: frame_rate >= 40">
+        <bo>
+          <seg>note</seg>
+          <seg>39eeda69-dd26-498d-a8fa-ffc530eea070</seg>
+        </bo>
+        <position x="30.0" y="70.0"/>
+        <size width="164.0" height="36.0"/>
+      </element>
+      <element uuid="7739b041-6d94-411f-becb-f50aba87c0b8" manual="true" boData="G: Operator will not get cybersick">
+        <bo>
+          <seg>note</seg>
+          <seg>4845ed03-0889-434b-9c71-acf57ddaba35</seg>
+        </bo>
+        <position x="40.0" y="310.0"/>
+        <size width="230.0" height="36.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Operator</seg>
+      </bo>
+      <position x="690.0" y="50.0"/>
+      <size width="297.0" height="360.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Checkpoint.impl</seg>
+    </bo>
+    <position/>
+    <size width="1130.0" height="460.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Checkpoint::Checkpoint.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

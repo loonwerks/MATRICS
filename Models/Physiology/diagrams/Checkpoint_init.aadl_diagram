@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="f75b9215-9e78-45a9-ba69-5650082a0b83" manual="true" outline="#000000" fontColor="#000000">
+    <element uuid="5ef13c7d-8e41-4982-9eb5-51f0cf431ac5" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="990d23a9-da8d-48d8-87b8-f6a587b9bc28" manual="true" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+    </element>
+    <element uuid="49b249c0-6b40-47cf-9365-b481f2a11b17" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="700ea61d-d1ac-4c2b-b5a3-77d0d583a8d8" manual="true" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c2</seg>
+      </bo>
+    </element>
+    <element uuid="e30a6522-c5bf-4feb-b6ca-92989b255dbc" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+      <bo>
+        <seg>feature</seg>
+        <seg>mission_success</seg>
+      </bo>
+      <position x="807.2252731323242" y="200.0"/>
+    </element>
+    <element uuid="d38d27dd-e0fe-4819-b111-e83ad62d5157" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="1af6709d-5187-4344-99a3-66920049eb18" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="9ae4b36f-59e0-40e3-ac5c-2167564dda99" manual="true" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c1</seg>
+        </bo>
+      </element>
+      <element uuid="14b39d92-2ec8-4551-a086-5912587bfdf7" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>frame_rate</seg>
+        </bo>
+        <position x="262.52734375" y="80.0"/>
+      </element>
+      <element uuid="a4a9aa6a-2121-4d2c-9773-606e9e91c8cb" manual="true" outline="#000000" fontColor="#000000">
+        <element uuid="56de4e30-9999-4a45-8b39-457c39d871f7" manual="true" dockArea="right" outline="#000000" fontColor="#000000">
+          <bo>
+            <seg>feature</seg>
+            <seg>frame_rate</seg>
+          </bo>
+          <position x="127.52734375" y="38.0"/>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>Display</seg>
+        </bo>
+        <position x="40.0" y="42.0"/>
+        <size width="204.0" height="110.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>HMD</seg>
+      </bo>
+      <position x="40.0" y="60.0"/>
+      <size width="339.0" height="172.0"/>
+    </element>
+    <element uuid="a55389ae-3dbf-4140-9382-67aca13b3388" manual="true" outline="#000000" fontColor="#000000">
+      <element uuid="7d4fd0f7-5754-42e4-8ac5-2df0fbcb2f9c" manual="true" dockArea="left" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+        <bo>
+          <seg>feature</seg>
+          <seg>frame_rate</seg>
+        </bo>
+        <position y="100.0"/>
+      </element>
+      <element uuid="5727dfcc-65b3-40ac-879a-32586e850bb9" manual="true" dockArea="right" outline="#000000" fontColor="#000000" primaryLabelVisible="false">
+        <bo>
+          <seg>feature</seg>
+          <seg>not_cybersick</seg>
+        </bo>
+        <position x="330.0" y="160.0"/>
+      </element>
+      <element uuid="7ac7a9df-1703-4313-a72a-7626368a6823" manual="true" boData="A: frame_rate >= 40">
+        <bo>
+          <seg>note</seg>
+          <seg>0addbf39-3b54-4261-b657-23e5183c45ae</seg>
+        </bo>
+        <position x="10.0" y="60.0"/>
+        <size width="150.0" height="36.0"/>
+      </element>
+      <element uuid="5c8ba66a-39b7-4203-a9f7-4f35ca8011be" manual="true" boData="G: Operator will not get cybersick">
+        <bo>
+          <seg>note</seg>
+          <seg>fb699ece-9058-4402-926a-8b526b5b1dd0</seg>
+        </bo>
+        <position x="110.0" y="180.0"/>
+        <size width="234.0" height="36.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Operator</seg>
+      </bo>
+      <position x="450.0" y="60.0"/>
+      <size width="350.0" height="230.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Checkpoint.impl</seg>
+    </bo>
+    <position x="250.0" y="80.0"/>
+    <size width="920.0" height="340.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Checkpoint::Checkpoint.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>
