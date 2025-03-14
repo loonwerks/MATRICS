@@ -1,0 +1,54 @@
+package Operator
+public
+	
+	with Base_Types;
+	
+	system hardware
+	end hardware;
+	
+	system software
+	end software;
+	
+	system implementation hardware.impl
+	end hardware.impl;
+	
+	system implementation software.impl
+
+	end software.impl;
+	-- annex could be outside of component: then its content becomes global
+
+	annex agree{**
+		-- these contants are global.
+		const LOW_LIGHT : real = 10.0; 
+		const HIGH_LIGHT : real = 0.5;  
+	**}; 
+	
+	system Operator
+		features
+			ambient_light: in data port Base_Types::Float;
+			target_is_marked: in data port Base_Types::Boolean; 
+			filtered_light_around_target : in data port Base_Types::Float; 
+			detect_target: out data port Base_Types::Boolean;			
+		annex agree {**
+			-- no memories in functions
+			fun lt_than_delta(q1: real, q2: real, d: real) : bool = if (q1>=q2) then (q1-q2)<d else (q2-q1)>-1.0*d; 
+			fun ge_than_delta(q1: real, q2: real, d: real) : bool = if (q1>=q2) then (q1-q2)>=d else (q2-q1)<=-1.0*d; 		
+			-- yes memories in nodes	
+			node persistent(cond : bool, t: real) returns (output : bool); var count : real; 
+			let output = if count>50.0 then true else false; count = if cond then 0.0->pre(count) + 1.0 else 0.0; tel; 
+			assume amblient_light_range "A: Ambient light between this range" : ambient_light <= HIGH_LIGHT and ambient_light >= LOW_LIGHT;
+			guarantee target_detection_under_similar_light "G: Lower light around target lead to detection eventually within 50.0 ticks" : 
+				persistent(target_is_marked = true and lt_than_delta(filtered_light_around_target,ambient_light,5.0),30.0) => detect_target = true;
+			guarantee target_detection_under_bright_light "G: Bright light around target lead to no detection" : 
+				target_is_marked = true and ge_than_delta(filtered_light_around_target,ambient_light, 5.0)=> detect_target = false;
+		**};
+	end Operator;
+	
+	system implementation Operator.impl
+		subcomponents
+			hardware: system hardware.impl;
+			software: system software.impl;
+		
+	end Operator.impl;
+	
+end Operator;

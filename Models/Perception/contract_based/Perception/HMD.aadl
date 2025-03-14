@@ -1,0 +1,65 @@
+package HMD
+public
+	with Base_Types;
+	
+	system Light_Filter
+		features
+			perceived_light_around_target: in data port Base_Types::Float;
+			filtered_light_around_target: out data port Base_Types::Float;
+		annex agree {**
+		**};
+	end Light_Filter;
+	
+	system implementation Light_Filter.impl
+
+	end Light_Filter.impl;
+	
+	system Display
+		features
+			light_around_target : in data port Base_Types::Float; 
+			target_within_fov : in data port Base_Types::Boolean; 
+			perceived_light_around_target: out data port Base_Types::Float;
+			target_is_marked : out data port Base_Types::Boolean; 
+		annex agree {**
+			
+		**};
+	end Display;
+	
+	system implementation Display.impl
+		annex agree {**
+		**};
+	end Display.impl;
+	
+	system HMD
+		features
+			target_within_fov:  in data port Base_Types::Boolean;
+			filtered_light_around_target: out data port Base_Types::Float;
+			target_is_marked : out data port Base_Types::Boolean; 
+			light_around_target:  in data port Base_Types::Float;  
+	end HMD;
+	
+	system implementation HMD.init
+		subcomponents
+			Display: system Display.impl;
+		connections
+			c1: port Display.perceived_light_around_target -> filtered_light_around_target;
+			c2: port Display.target_is_marked -> target_is_marked;
+		annex agree {**
+		**};
+	end HMD.init;
+	
+	system implementation HMD.mon
+		subcomponents
+			Display: system Display.impl;
+			Filter: system Light_Filter.impl;
+		connections
+			c1: port Display.target_is_marked -> target_is_marked;
+			c2: port Display.perceived_light_around_target -> Filter.perceived_light_around_target;
+			c3: port target_within_fov -> Display.target_within_fov ; 
+			c4: port Filter.filtered_light_around_target -> filtered_light_around_target; 
+			c5: port light_around_target -> Display.light_around_target; 
+		annex agree {**
+		**};
+	end HMD.mon;
+	
+end HMD;

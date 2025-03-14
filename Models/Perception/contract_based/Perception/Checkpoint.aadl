@@ -1,0 +1,31 @@
+package Checkpoint
+public
+	with Operator;
+	with HMD;
+	with Base_Types;
+
+	system Checkpoint
+		features
+			ambient_light : in data port  Base_Types::Float; 
+			target_within_fov : in data port  Base_Types::Boolean;			
+			light_around_target:  in data port Base_Types::Float;  
+			mission_success: out data port Base_Types::Boolean;
+		annex agree {**
+			guarantee always_detection "Checkpoint guard will eventually detect the target with contraband" : target_within_fov => mission_success;
+		**};
+	end Checkpoint;
+
+	system implementation Checkpoint.impl
+		subcomponents
+			HMD: system HMD::HMD.mon;
+			Operator: system Operator::Operator.impl;
+		connections
+			c2: port Operator.detect_target -> mission_success;
+			c1: port HMD.target_is_marked -> Operator.target_is_marked ; 
+			c3: port ambient_light -> Operator.ambient_light; 
+			c4: port target_within_fov -> HMD.target_within_fov; 
+			c5: port HMD.filtered_light_around_target -> Operator.filtered_light_around_target; 
+			c6: port light_around_target -> HMD.light_around_target ; 
+	end Checkpoint.impl;
+
+end Checkpoint;
