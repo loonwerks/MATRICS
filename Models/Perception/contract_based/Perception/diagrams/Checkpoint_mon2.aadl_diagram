@@ -8,7 +8,7 @@
         <seg>0</seg>
       </bo>
       <position x="1790.0" y="890.0"/>
-      <size width="440.3789978027344" height="42.0"/>
+      <size width="440.0" height="42.0"/>
     </element>
     <element uuid="113c9e52-d1a6-43c7-aca3-2a54cf40eb7c" manual="true" fontSize="16.0">
       <element uuid="954873d4-b6d6-4341-9387-ae2c7141c67c" manual="true" fontSize="16.0">
@@ -46,8 +46,8 @@
         <seg>c3</seg>
       </bo>
       <bendpoints>
-        <point x="358.934814453125" y="197.0"/>
-        <point x="358.934814453125" y="200.0"/>
+        <point x="359.0" y="197.0"/>
+        <point x="359.0" y="200.0"/>
       </bendpoints>
     </element>
     <element uuid="e2cf9de4-2c3e-4ff0-937b-201f0d175617" manual="true" fontSize="16.0">
@@ -91,14 +91,14 @@
         <seg>feature</seg>
         <seg>ambient_light</seg>
       </bo>
-      <position y="49.99999999999994"/>
+      <position y="50.0"/>
     </element>
     <element uuid="60709fbc-9d9f-467d-921e-7c480967d187" manual="true" dockArea="left" fontSize="16.0">
       <bo>
         <seg>feature</seg>
         <seg>light_around_target</seg>
       </bo>
-      <position y="390.00000000000006"/>
+      <position y="390.0"/>
     </element>
     <element uuid="dacf195a-394a-4e1d-a4d6-662018e6b1c8" manual="true" dockArea="right" fontSize="16.0">
       <bo>
@@ -112,7 +112,7 @@
         <seg>feature</seg>
         <seg>target_within_fov</seg>
       </bo>
-      <position y="550.0000000000002"/>
+      <position y="550.0"/>
     </element>
     <element uuid="f2480698-80ee-4e26-ab57-738705ec8b68" manual="true" fontSize="16.0">
       <bo>
@@ -192,7 +192,7 @@
           <seg>feature</seg>
           <seg>light_around_target</seg>
         </bo>
-        <position y="230.00000000000017"/>
+        <position y="230.0"/>
       </element>
       <element uuid="04c2638f-eea6-49fd-8517-02cf71e3241b" manual="true" dockArea="right" fontSize="16.0">
         <bo>
@@ -206,7 +206,7 @@
           <seg>feature</seg>
           <seg>target_within_fov</seg>
         </bo>
-        <position y="380.00000000000017"/>
+        <position y="380.0"/>
       </element>
       <element uuid="f93fb05b-3e87-4ebf-afe2-8d93a5a81f23" manual="true" fontSize="16.0">
         <element uuid="00268a34-d256-4342-ad7b-e5f23aa60b54" manual="true" dockArea="left" fontSize="16.0">
@@ -221,7 +221,7 @@
             <seg>feature</seg>
             <seg>perceived_light_around_target</seg>
           </bo>
-          <position x="195.84373474121094" y="217.99999999999994"/>
+          <position x="195.84373474121094" y="218.0"/>
         </element>
         <element uuid="24d27422-0e4b-4909-ba16-4ee8d3a83e9a" manual="true" dockArea="right" fontSize="16.0">
           <bo>
@@ -235,14 +235,14 @@
             <seg>feature</seg>
             <seg>target_within_fov</seg>
           </bo>
-          <position y="207.99999999999994"/>
+          <position y="208.0"/>
         </element>
         <bo>
           <seg>subcomponent</seg>
           <seg>Display</seg>
         </bo>
         <position x="200.0" y="170.0"/>
-        <size width="496.0520782470703" height="529.9999999999999"/>
+        <size width="496.0520782470703" height="530.0"/>
       </element>
       <element uuid="e51bc554-1743-4df1-80c9-d7f29342b7b7" manual="true" fontSize="16.0">
         <element uuid="e9e18822-9a1f-4e77-b97f-570c3f57f2a2" manual="true" dockArea="right" fontSize="16.0">
@@ -250,7 +250,7 @@
             <seg>feature</seg>
             <seg>filtered_light_around_target</seg>
           </bo>
-          <position x="300.2083435058594" y="240.0"/>
+          <position x="300.26043701171875" y="240.0"/>
         </element>
         <element uuid="6687996d-e516-490b-8a57-24c5130a0798" manual="true" dockArea="left" fontSize="16.0">
           <bo>
@@ -264,7 +264,7 @@
           <seg>Filter</seg>
         </bo>
         <position x="730.0" y="260.0"/>
-        <size width="571.9479064941406" height="350.0"/>
+        <size width="572.0" height="350.0"/>
       </element>
       <element uuid="d5087b3c-fc05-4420-b5c9-f83baf6d5df9" manual="true" fontSize="16.0">
         <bo>
@@ -277,7 +277,7 @@
         <seg>HMD</seg>
       </bo>
       <position x="140.0" y="150.0"/>
-      <size width="1380.0" height="781.9999999999998"/>
+      <size width="1380.0" height="782.0"/>
     </element>
     <element uuid="d93a58d8-f748-4135-8b1e-516c359c7b7e" manual="true" fontSize="16.0">
       <element uuid="875efafb-ba91-4fe2-b0ea-8fa43c6fad3b" manual="true" fontSize="16.0">
@@ -286,8 +286,8 @@
           <seg>A: Ambient light between this range</seg>
           <seg>0</seg>
         </bo>
-        <position x="30.0" y="90.00000000000006"/>
-        <size width="245.45050048828125" height="42.0"/>
+        <position x="30.0" y="90.0"/>
+        <size width="245.0" height="42.0"/>
       </element>
       <element uuid="1212f141-2af5-4062-9411-3b19d82db7b1" manual="true" fontSize="16.0">
         <bo>
@@ -296,7 +296,7 @@
           <seg>0</seg>
         </bo>
         <position x="270.0" y="540.0"/>
-        <size width="318.106689453125" height="42.0"/>
+        <size width="318.0" height="42.0"/>
       </element>
       <element uuid="5100d87b-f525-4098-8b35-3fc368e581c8" manual="true" fontSize="16.0">
         <bo>
@@ -305,23 +305,14 @@
           <seg>0</seg>
         </bo>
         <position x="110.0" y="380.0"/>
-        <size width="480.3985595703125" height="37.0"/>
-      </element>
-      <element uuid="9a9bddf2-bf20-445e-87c0-6dd859726e61" manual="true">
-        <bo>
-          <seg>agree.node_def</seg>
-          <seg>duration</seg>
-          <seg>0</seg>
-        </bo>
-        <position x="70.0" y="220.0"/>
-        <size width="180.00000000000023" height="50.0"/>
+        <size width="480.0" height="37.0"/>
       </element>
       <element uuid="7f30a3a7-abef-4576-97ee-6f160e48ff2d" manual="true" dockArea="left" fontSize="16.0">
         <bo>
           <seg>feature</seg>
           <seg>ambient_light</seg>
         </bo>
-        <position y="20.000000000000057"/>
+        <position y="20.0"/>
       </element>
       <element uuid="ccee2b77-a262-4a45-babf-83e4a87977e1" manual="true" dockArea="right" fontSize="16.0">
         <bo>
@@ -335,14 +326,14 @@
           <seg>feature</seg>
           <seg>filtered_light_around_target</seg>
         </bo>
-        <position y="540.0000000000002"/>
+        <position y="540.0"/>
       </element>
       <element uuid="332cff45-01a0-49b9-b2c5-3d06053e2897" manual="true" dockArea="left" fontSize="16.0">
         <bo>
           <seg>feature</seg>
           <seg>target_is_marked</seg>
         </bo>
-        <position y="320.00000000000006"/>
+        <position y="320.0"/>
       </element>
       <element uuid="96585aae-0ed8-480f-b89c-4fb4473dd41b" manual="true" fontSize="16.0">
         <bo>
@@ -362,7 +353,7 @@
       <seg>Checkpoint.impl</seg>
     </bo>
     <position x="-510.0" y="120.0"/>
-    <size width="2490.0" height="959.9999999999998"/>
+    <size width="2490.0" height="960.0"/>
   </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>

@@ -20,8 +20,9 @@ public
 			target_within_fov : in data port Base_Types::Boolean; 
 			perceived_light_around_target: out data port Base_Types::Float;
 			target_is_marked : out data port Base_Types::Boolean; 
-		annex agree {**
 			
+		annex agree {**
+			-- when 
 		**};
 	end Display;
 	

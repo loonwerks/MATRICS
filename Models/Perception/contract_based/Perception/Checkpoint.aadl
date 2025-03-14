@@ -11,8 +11,10 @@ public
 			light_around_target:  in data port Base_Types::Float;  
 			mission_success: out data port Base_Types::Boolean;
 		annex agree {**
-			
-			guarantee always_detection "Checkpoint guard will eventually detect the target with contraband" : target_within_fov => mission_success;
+			node persistent(cond : bool, t: real) returns (output : bool); var count : real; 
+			let output = if count> t then true else false; count = if cond then 0.0->pre(count) + 1.0 else 0.0; tel; 
+			guarantee always_detection "Checkpoint guard will eventually detect the target with contraband" : 
+						persistent(target_within_fov,60.0) => mission_success;
 		**};
 	end Checkpoint;
 
