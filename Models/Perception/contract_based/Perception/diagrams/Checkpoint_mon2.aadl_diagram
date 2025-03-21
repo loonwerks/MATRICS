@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
   <element uuid="60545ef1-7c23-4543-979c-9e791028de90" manual="true" fontSize="16.0">
-    <element uuid="9cd84ade-ce92-4932-a09f-b166172ef44d" manual="true" fontSize="16.0">
+    <element uuid="193cde07-0344-4e55-b693-cd8507df904c" manual="true">
       <bo>
-        <seg>agree.guarantee</seg>
-        <seg>Checkpoint guard will eventually detect the target with contraband</seg>
+        <seg>agree.assumption</seg>
+        <seg>A: Ambient light is low</seg>
         <seg>0</seg>
       </bo>
-      <position x="1790.0" y="890.0"/>
-      <size width="440.0" height="42.0"/>
+      <position x="360.0" y="20.0"/>
+      <size width="182.42318725585938" height="36.0"/>
+    </element>
+    <element uuid="95906d34-13b2-4d79-bf6e-5cbe6797bf98" manual="true">
+      <bo>
+        <seg>agree.assumption</seg>
+        <seg>A: light around target >= ambient light</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="670.0" y="10.0"/>
+      <size width="274.36322021484375" height="36.0"/>
+    </element>
+    <element uuid="210d2348-4545-4a34-982a-f472b206f6e4" manual="true">
+      <bo>
+        <seg>agree.guarantee</seg>
+        <seg>G: checkpoint guard will eventually detect the target with contraband</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="1820.0" y="900.0"/>
+      <size width="455.19671630859375" height="36.0"/>
     </element>
     <element uuid="113c9e52-d1a6-43c7-aca3-2a54cf40eb7c" manual="true" fontSize="16.0">
       <element uuid="954873d4-b6d6-4341-9387-ae2c7141c67c" manual="true" fontSize="16.0">
@@ -209,6 +227,33 @@
         <position y="380.0"/>
       </element>
       <element uuid="f93fb05b-3e87-4ebf-afe2-8d93a5a81f23" manual="true" fontSize="16.0">
+        <element uuid="d2f2f847-3b88-4cde-a0fd-bb17bf17cc69" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: display will marked any target within FOV</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="40.0" y="310.0"/>
+          <size width="314.0" height="36.0"/>
+        </element>
+        <element uuid="13d08955-aec4-424c-9a72-cca8f2cd4f47" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: display will marked the target within FOV</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="30.0" y="370.0"/>
+          <size width="311.0" height="36.0"/>
+        </element>
+        <element uuid="0e9e76b6-63cb-4f9a-81b6-17901a98a8f7" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: light out = light in </seg>
+            <seg>0</seg>
+          </bo>
+          <position x="30.0" y="430.0"/>
+          <size width="174.0" height="36.0"/>
+        </element>
         <element uuid="00268a34-d256-4342-ad7b-e5f23aa60b54" manual="true" dockArea="left" fontSize="16.0">
           <bo>
             <seg>feature</seg>
@@ -245,6 +290,15 @@
         <size width="496.0520782470703" height="530.0"/>
       </element>
       <element uuid="e51bc554-1743-4df1-80c9-d7f29342b7b7" manual="true" fontSize="16.0">
+        <element uuid="4ac52a96-b211-4583-929d-e165fee846fe" manual="true">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: light out = light in </seg>
+            <seg>0</seg>
+          </bo>
+          <position x="40.0" y="270.0"/>
+          <size width="174.0" height="36.0"/>
+        </element>
         <element uuid="e9e18822-9a1f-4e77-b97f-570c3f57f2a2" manual="true" dockArea="right" fontSize="16.0">
           <bo>
             <seg>feature</seg>
@@ -286,26 +340,26 @@
           <seg>A: Ambient light between this range</seg>
           <seg>0</seg>
         </bo>
-        <position x="30.0" y="90.0"/>
+        <position x="40.0" y="100.0"/>
         <size width="245.0" height="42.0"/>
       </element>
-      <element uuid="1212f141-2af5-4062-9411-3b19d82db7b1" manual="true" fontSize="16.0">
+      <element uuid="955f9a5f-eab3-4121-9948-e8130d2c5223" manual="true">
         <bo>
           <seg>agree.guarantee</seg>
-          <seg>G: Bright light around target lead to no detection</seg>
+          <seg>G: Lower light around target for at least 10 ticks before detection</seg>
           <seg>0</seg>
         </bo>
-        <position x="270.0" y="540.0"/>
-        <size width="318.0" height="42.0"/>
+        <position x="60.0" y="230.0"/>
+        <size width="431.4726867675781" height="36.0"/>
       </element>
-      <element uuid="5100d87b-f525-4098-8b35-3fc368e581c8" manual="true" fontSize="16.0">
+      <element uuid="50546cd8-10e9-48e5-9c1e-47dc7ae83ca6" manual="true">
         <bo>
           <seg>agree.guarantee</seg>
-          <seg>G: Lower light around target lead to detection eventually within 50.0 ticks</seg>
-          <seg>0</seg>
+          <seg>G: Lower light around target for at least 10 ticks before detection</seg>
+          <seg>1</seg>
         </bo>
-        <position x="110.0" y="380.0"/>
-        <size width="480.0" height="37.0"/>
+        <position x="60.0" y="170.0"/>
+        <size width="431.4726867675781" height="36.0"/>
       </element>
       <element uuid="7f30a3a7-abef-4576-97ee-6f160e48ff2d" manual="true" dockArea="left" fontSize="16.0">
         <bo>
