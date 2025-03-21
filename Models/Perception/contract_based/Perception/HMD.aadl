@@ -7,6 +7,9 @@ public
 			perceived_light_around_target: in data port Base_Types::Float;
 			filtered_light_around_target: out data port Base_Types::Float;
 		annex agree {**
+				
+			guarantee bad_filter "G: light out = light in " : filtered_light_around_target = perceived_light_around_target; 
+				
 		**};
 	end Light_Filter;
 	
@@ -22,7 +25,13 @@ public
 			target_is_marked : out data port Base_Types::Boolean; 
 			
 		annex agree {**
-			-- when 
+			-- when
+						node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
+			
+			guarantee display_target_1 "G: display will marked any target within FOV" : persistent(target_within_fov, 2) => target_is_marked; 
+			guarantee display_target_2 "G: display will marked the target within FOV" : not persistent(target_within_fov, 2) => not target_is_marked; 
+			guarantee display_light_process "G: light out = light in " : perceived_light_around_target = light_around_target; 
 		**};
 	end Display;
 	
@@ -59,7 +68,10 @@ public
 			c3: port target_within_fov -> Display.target_within_fov ; 
 			c4: port Filter.filtered_light_around_target -> filtered_light_around_target; 
 			c5: port light_around_target -> Display.light_around_target; 
+	--	properties 
+	--		period => 3 ms; 
 		annex agree {**
+				
 		**};
 	end HMD.mon;
 	
