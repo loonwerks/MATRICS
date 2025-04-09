@@ -6,8 +6,8 @@ public
 	annex agree{**
 		-- these contants are global.
 		const LOW_LIGHT : real = 10.0; 
-		const HIGH_LIGHT : real = 80.0;  
-		const MAX_LIGHT : real = 100.0;
+		const HIGH_LIGHT : real = 100.0;  
+		const MAX_LIGHT : real = 120.0;
 		const ZERO_LIGHT : real = 0.0; 
 	**}; 
 	system Checkpoint
@@ -16,15 +16,22 @@ public
 			target_within_fov : in data port  Base_Types::Boolean;			
 			light_around_target:  in data port Base_Types::Float; -- attack effects light around target..  
 			mission_success: out data port Base_Types::Boolean;
+
 		annex agree {**
+			fun ge_than_delta(q1: real, q2: real, d: real) : bool = (q1 - q2)>=d ; 	
 			node counter(cond: bool) returns (output : int); var count : int; 
 			let output  = count; count = if cond then 0->pre(count) + 1 else 0->pre(count); tel;  
 			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
-			assume ambient_light_is_low "A: Ambient light is low" : ambient_light>=LOW_LIGHT and ambient_light<=30.0; -- low ambient light 
-			assume light_around_target_invariant "A: light around target >= ambient light" : light_around_target>=ambient_light ; 
-			guarantee always_detection "G: checkpoint guard will eventually detect the target with contraband" : 
-						persistent(target_within_fov,30) => counter(mission_success)>0; 
+			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
+			assume ambient_light_is_low "A: Ambient light is low" : ambient_light>=5.0 and ambient_light<=LOW_LIGHT; -- low light condition 
+			assume light_around_target_invariant "A: light around target represents an attack." : light_around_target=ambient_light or light_around_target>=ambient_light+95.0; 
+		--	assume attack_characteristics "A: no rapid pulse attacks and there is at least one period of no attacks" : 
+			--counter(persistent(ambient_light=light_around_target,50))>0 ; 
+		--	counter(persistentleq(ge_than_delta(light_around_target,ambient_light,90.0),5))=0 ; 
+			guarantee always_detection "G: if a target is within FOV for X duration, the checkpoint guard will detect it." : 
+						persistent(target_within_fov,150) => counter(mission_success)>0; 
 		**};
 	end Checkpoint;
 
@@ -40,7 +47,7 @@ public
 			c5: port HMD.filtered_light_around_target -> Operator.filtered_light_around_target; 
 			c6: port light_around_target -> HMD.light_around_target ; 
 	--	properties 
-		--	period => 30 ms; 
+		--	period => 20 ms; 
 		annex agree {**
 			assert ambient_light_is_between_0_and_high "Domain of ambient light" : ambient_light>=ZERO_LIGHT and ambient_light<=MAX_LIGHT ; 
 			assert light_around_target_is_between_0_and_high "Domain of light around target" : light_around_target>=ZERO_LIGHT and light_around_target<=MAX_LIGHT ; 
