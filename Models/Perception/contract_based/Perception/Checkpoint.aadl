@@ -30,7 +30,7 @@ public
 		--	assume attack_characteristics "A: no rapid pulse attacks and there is at least one period of no attacks" : 
 			--counter(persistent(ambient_light=light_around_target,50))>0 ; 
 		--	counter(persistentleq(ge_than_delta(light_around_target,ambient_light,90.0),5))=0 ; 
-			guarantee always_detection "G: if a target is within FOV for X duration, the checkpoint guard will detect it." : 
+			guarantee always_detection "G: if a target is within FOV for Y duration, the checkpoint guard will detect it." : 
 						persistent(target_within_fov,150) => counter(mission_success)>0; 
 		**};
 	end Checkpoint;

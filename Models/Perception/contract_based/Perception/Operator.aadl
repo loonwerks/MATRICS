@@ -46,13 +46,14 @@ public
 			
 			guarantee target_detection_under_similar_light "G: no bright glare for Y period implies detection." : 
 			--persistent(target_is_marked,15) and persistent(filtered_light_around_target = ambient_light,15) and 
-			not truewithinthepast(ge_than_delta(filtered_light_around_target,ambient_light,90.0),124) => detect_target;
-		--	not truewithinthepast(persistentbetween(ge_than_delta(filtered_light_around_target,ambient_light,90.0),10,37),124) => detect_target; 
+--			not truewithinthepast(ge_than_delta(filtered_light_around_target,ambient_light,90.0),124) => detect_target;
+	
+			persistent(target_is_marked,15) and not truewithinthepast(persistentbetween(ge_than_delta(filtered_light_around_target,ambient_light,90.0),10,36),124) => detect_target; 
 			
 			guarantee no_target_detection_for_Y_duration_1 "G: a bright glare attack within the last Y period means no detection." : 
 			-- not persistent(target_is_marked,15) or not persistent(filtered_light_around_target = ambient_light,15) or  
-			truewithinthepast(ge_than_delta(filtered_light_around_target,ambient_light,90.0),124) => not detect_target; 
-			--truewithinthepast(persistentbetween(ge_than_delta(filtered_light_around_target,ambient_light,90.0), 10, 36),124) => not detect_target; ;
+			--truewithinthepast(ge_than_delta(filtered_light_around_target,ambient_light,90.0),124) => not detect_target; 
+			not persistent(target_is_marked,15) or truewithinthepast(persistentbetween(ge_than_delta(filtered_light_around_target,ambient_light,90.0), 10, 36),124) => not detect_target; 
 			 -- 124 ticks (20ms per tick) is the 2 sigma time delay due to contraction and dilation data.. 
 		**};
 	end Operator;

@@ -19,15 +19,6 @@
       <position x="300.0" y="100.0"/>
       <size width="670.0" height="72.0"/>
     </element>
-    <element uuid="faf16397-cf8a-49c6-88e5-9564059ec4f3" manual="true" fontSize="20.0">
-      <bo>
-        <seg>agree.guarantee</seg>
-        <seg>G: if a target is within FOV for X duration, the checkpoint guard will detect it.</seg>
-        <seg>0</seg>
-      </bo>
-      <position x="1780.0" y="1000.0"/>
-      <size width="780.0" height="90.0"/>
-    </element>
     <element uuid="113c9e52-d1a6-43c7-aca3-2a54cf40eb7c" manual="true" fontSize="20.0">
       <element uuid="954873d4-b6d6-4341-9387-ae2c7141c67c" manual="true" fontSize="20.0">
         <bo>
