@@ -1,0 +1,129 @@
+package GroundStation
+
+public
+	with Common;
+	
+	
+	-- Processor for Ground Station communication system
+	processor Proc
+		features
+			sera: requires bus access Common::Serial_Bus;			
+	end Proc;
+	
+	processor implementation Proc.Impl
+	end Proc.Impl;
+	
+	
+	-- Memory and storage for Ground Station communication system
+	memory Mem
+		features
+			sera: requires bus access Common::Serial_Bus;		
+	end Mem;
+	
+	memory implementation Mem.Impl	
+	end Mem.Impl;
+	
+	memory Storage
+		features
+			sera: requires bus access Common::Serial_Bus;		
+	end Storage;
+	
+	memory implementation Storage.Impl	
+	end Storage.Impl;
+	
+	
+	process Native_SW
+		features
+			ipcDataIn: in data port;
+			ipcDataOut: out data port;
+			--
+			dataIn: in data port;
+			dataOut: out data port;
+		flows
+			f1: flow path dataIn -> dataOut;
+			f2: flow path ipcDataIn -> ipcDataOut;
+	end Native_SW;
+	
+	process implementation Native_SW.Impl
+	end Native_SW.Impl;
+	
+	
+	system CPU_SW
+		features
+			-- NOTE: to determine whether SW ports dataIn and dataOut should be connected to some entity
+			dataIn: in data port;
+			dataOut: out data port;
+			--
+			wfComIn: in data port;
+			wfComOut: out data port;
+		flows
+			f1: flow path dataIn -> dataOut;
+			-- NOTE: sink and source, rather than path, due to virtual bus lack of flow support
+			f2: flow sink wfComIn;
+			f3: flow source wfComOut;
+			f4: flow path wfComIn -> wfComOut; -- NOTE: added for convenience, without implementation
+	end CPU_SW;
+	
+	system implementation CPU_SW.Impl
+		subcomponents
+			nativeSw: process Native_SW.Impl;
+			comSw: process Common::Com_SW.Impl;
+			ipcCom: virtual bus Common::IPC_Com.Impl;
+		connections
+			c1: port nativeSw.ipcDataOut -> ipcCom.dataInN;
+			c2: port ipcCom.dataOutC -> comSw.ipcDataIn;
+			c3: port comSw.ipcDataOut -> ipcCom.dataInC;
+			c4: port ipcCom.dataOutN -> nativeSw.ipcDataIn;
+			--
+			c5: port wfComIn -> comSw.wfComIn;
+			c6: port comSw.wfComOut -> wfComOut;
+			--
+			c7: port dataIn -> nativeSw.dataIn;
+			c8: port nativeSw.dataOut -> dataOut;
+			--
+		flows
+			f1: flow path dataIn -> c7 -> nativeSw.f1 -> c8 -> dataOut;
+			f2: flow sink wfComIn -> c5 -> comSw.f1;
+			f3: flow source comSw.f2 -> c6 -> wfComOut;
+	end CPU_SW.Impl;
+	
+
+	-- The Ground Station communication system
+	system GroundStation
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			wfa: requires bus access Common::WF_Bus;
+		flows
+			f1: flow path wifiRecv -> wifiSend;
+	end GroundStation;
+	
+	system implementation GroundStation.Impl
+		subcomponents
+			wifi: device Common::Wifi.Impl;
+			cpu: processor Proc.Impl;
+			mem: memory Mem.Impl;
+			storage: memory Storage.Impl;
+			ser1: bus Common::Serial_Bus.Impl;
+			ser2: bus Common::Serial_Bus.Impl;
+			cpuSw: system CPU_SW.Impl;
+		connections
+			bac1: bus access wifi.sera <-> ser2;
+			bac2: bus access cpu.sera <-> ser2;
+			bac3: bus access cpu.sera <-> ser1;
+			bac4: bus access mem.sera <-> ser1;
+			bac5: bus access storage.sera <-> ser1;
+			bac6: bus access wifi.wfa <-> wfa;
+			c1: port cpuSw.wfComOut -> wifi.sendIn;
+			c2: port wifi.sendOut -> wifiSend;
+			c3: port wifiRecv -> wifi.recvIn;
+			c4: port wifi.recvOut -> cpuSw.wfComIn;
+		flows
+			f1: flow path wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f4 -> c1 -> wifi.f2 -> c2 -> wifiSend; 
+		properties
+			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
+			Actual_Memory_Binding => (reference (mem), reference(storage)) applies to cpuSw;
+			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
+	end GroundStation.Impl;
+	
+end GroundStation;

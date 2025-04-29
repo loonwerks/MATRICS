@@ -1,0 +1,26 @@
+-- One ground station connected with one VAS
+package Status_Scenario_1
+public
+	with GroundStation;
+	with VAS;
+	with Common;
+
+	system VAS_GS
+		-- NOTE: to determine information flows
+	end VAS_GS;
+
+	system implementation VAS_GS.Impl
+		subcomponents
+			groundStation: system GroundStation::GroundStation.Impl;
+			vas: system VAS::VAS.Impl;
+			wf: bus Common::WF_Bus.Impl;
+		connections
+			p1: port GroundStation.WifiSend -> vas.wifiRecv;
+			p2: port vas.wifiSend -> GroundStation.wifiRecv;
+			bac1: bus access wf <-> GroundStation.wfa;
+			bac2: bus access wf <-> vas.wfa;
+		properties
+			Actual_Connection_Binding => (reference (wf)) applies to p1, p2;
+	end VAS_GS.Impl;
+
+end Status_Scenario_1;

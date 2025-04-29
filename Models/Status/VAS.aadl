@@ -1,0 +1,47 @@
+-- Visual Augmentation System
+package VAS
+public
+	with VAS_Computer;
+	with VAS_HUD;
+	with Common;
+
+	system VAS
+		features
+			wfa: requires bus access Common::WF_Bus.Impl;
+			bta: requires bus access Common::BT_Bus.Impl;
+			wifiSend: out event data port;
+			wifiRecv: in event data port;
+			btSend: out event data port;
+			btRecv: in event data port;
+		-- NOTE: to determine information flows
+	end VAS;
+	
+	system implementation VAS.Impl
+		subcomponents			
+			-- Head-worn computer
+			computer: system VAS_Computer::Computer.Impl;
+			-- Heads-Up Display
+			hud: system VAS_HUD::HUD.Impl;
+			--
+			ser: bus Common::Serial_Bus.Impl;
+		connections
+			bac1: bus access computer.sera <-> ser;
+			bac6: bus access hud.sera <-> ser;
+			bac3: bus access computer.wfa <-> wfa;
+			bac4: bus access computer.bta <-> bta;
+			--
+			p1: port hud.cameraImagery -> computer.cameraImagery;
+			p5: port hud.eyeTrackInfo -> computer.eyeTrackInfo;
+			p6: port hud.depthInfo -> computer.depthInfo;
+			p7: port computer.displayImagery -> hud.displayImagery;
+			--
+			p8: port computer.wifiSend -> wifiSend;
+			p9: port wifiRecv -> computer.wifiRecv;
+			--
+			p10: port computer.btSend -> btSend;
+			p11: port btRecv -> computer.btRecv;
+		properties
+			Actual_Connection_Binding => (reference (ser)) applies to p1,p5,p6,p7;
+	end VAS.Impl;
+	
+end VAS;

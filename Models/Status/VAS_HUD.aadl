@@ -1,0 +1,93 @@
+-- Heads-Up Display
+package VAS_HUD
+public
+	with Common;
+	
+	-- Camera
+	device Camera
+		features
+			sera: requires bus access Common::Serial_Bus;
+			imagery: out data port;	
+		flows 
+			f1: flow source imagery;
+	end Camera;
+	
+	device implementation Camera.Impl
+	end Camera.Impl;
+	
+	-- Eye tracking sensor
+	device EyeTrackingSensor
+		features
+			sera: requires bus access Common::Serial_Bus;
+			info: out data port;	
+		flows 
+			f1: flow source info;
+	end EyeTrackingSensor;
+	
+	device implementation EyeTrackingSensor.Impl
+	end EyeTrackingSensor.Impl;
+	
+	-- Depth sensor
+	device DepthSensor
+		features
+			sera: requires bus access Common::Serial_Bus;
+			info: out data port;	
+		flows 
+			f1: flow source info;
+	end DepthSensor;
+	
+	device implementation DepthSensor.Impl
+	end DepthSensor.Impl;
+	
+	-- Physical display
+	device Display
+		features
+			sera: requires bus access Common::Serial_Bus;
+			imagery: in data port;
+		flows 
+			f1: flow sink imagery;	
+	end Display;
+	
+	device implementation Display.Impl
+	end Display.Impl;
+
+	-- NOTE: not including buttons for now
+	
+	system HUD
+		features
+			sera: requires bus access Common::Serial_Bus;
+			eyeTrackInfo: out data port;
+			depthInfo: out data port;
+			cameraImagery: out data port;
+			displayImagery: in data port;
+		flows 
+			f4: flow source eyeTrackInfo;
+			f5: flow source depthInfo;
+			f6: flow source cameraImagery;
+			f7: flow sink displayImagery;
+	end HUD;
+	
+	system implementation HUD.Impl
+		subcomponents
+			eyeTrackSensor: device EyeTrackingSensor.Impl;
+			depthSensor: device DepthSensor.Impl;
+			camera: device Camera.Impl;
+			display: device Display.Impl;
+		connections
+			ba4: bus access eyeTrackSensor.sera <-> sera;
+			ba5: bus access depthSensor.sera <-> sera;
+			ba6: bus access camera.sera <-> sera;
+			ba7: bus access display.sera <-> sera;
+			--
+			c4: port eyeTrackSensor.info -> eyeTrackInfo;
+			c5: port depthSensor.info -> depthInfo;
+			c6: port camera.imagery -> cameraImagery;
+			c7: port displayImagery -> display.imagery;
+		flows
+			f4: flow source eyeTrackSensor.f1 -> c4 -> eyeTrackInfo;
+			f5: flow source depthSensor.f1 -> c5 -> depthInfo;
+			f6: flow source camera.f1 -> c6 -> cameraImagery;
+			f7: flow sink displayImagery -> c7 -> display.f1;
+	end HUD.Impl;
+	
+end VAS_HUD;
