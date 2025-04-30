@@ -1,0 +1,54 @@
+##!
+# @file
+#
+# @created candice 20241107
+
+# Assigning the users gender
+sp {top-state*elaborate*gender-check
+    (state <s> ^io.input-link.systemdata.user-gender <ug>)
+-->
+    (<s> ^gender <ug>)
+    (write (crlf) |Assigning the user gender: | <ug>)
+    }
+
+# Assigning the users age
+sp {top-state*elaborate*age-check
+    (state <s> ^io.input-link.systemdata.user-age <ua>)
+-->
+    (<s> ^age <ua>)
+    (<s> ^age-set yes)
+    (write (crlf) |Assigning the user age: | <ua>)
+    }
+   
+# Assigning the thresholds based on the user's gender
+sp {top-state*elaborate*set*threshold*male
+    (state <s> ^gender Male <g>)
+-->
+    (<s> ^latency-upper-threshold 70)
+    (<s> ^latency-lower-threshold 30)
+    (<s> ^optic-flow-threshold 1)
+    (<s> ^gender-threshold-set yes)
+    (write (crlf) |Assigning the thresholds for gender: | <g>)
+    }
+
+sp {top-state*elaborate*set*threshold*female
+    (state <s> ^gender Female <g>)
+-->
+    (<s> ^latency-upper-threshold 70)
+    (<s> ^latency-lower-threshold 20)
+    (<s> ^optic-flow-threshold 1)
+    (<s> ^gender-threshold-set yes)
+    (write (crlf) |Assigning the thresholds for gender: | <g>)
+    }
+
+# Switching to the software monitor
+sp {propose*check*h-cybersickness
+    (state <s> ^name demographic-monitor
+               ^age-set yes
+               ^gender-threshold-set yes)
+-->
+    # (write (crlf) |Switched...|)
+    (<s> ^operator <o> + >,=)
+    (<o> ^name switch-monitor)
+    }
+    
