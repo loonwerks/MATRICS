@@ -1,14 +1,14 @@
 package Common
 public
 
-	-- Wifi: range 150ft, higher data transfer and power comsumption than BlueTooth
+	-- Wi-Fi: range 150ft, higher data transfer and power consumption than BlueTooth
 	bus WF_Bus
 	end WF_Bus;
 
 	bus implementation WF_Bus.Impl
 	end WF_Bus.Impl;
 	
-	-- Bluetooth: range 150ft, lower data transfer and power comsumption than BlueTooth
+	-- Bluetooth: range 150ft, lower data transfer and power consumption than BlueTooth
 	bus BT_Bus
 	end BT_Bus;
 
@@ -22,7 +22,7 @@ public
 	end Serial_Bus.Impl;
 	
 	
-	-- Wifi hardware
+	-- Wi-Fi hardware
 	device Wifi
 		features
 			sera: requires bus access Serial_Bus;
@@ -57,7 +57,7 @@ public
 	end Bluetooth.Impl;
 	
 	
-	-- Custom SW handling Wifi and Bluetooth communication, interacting with other SW via IPC
+	-- Custom SW handling Wi-Fi and Bluetooth communication, interacting with other SW via IPC
 	process Com_SW
 		features
 			ipcDataIn: in data port;
@@ -77,17 +77,8 @@ public
 	end Com_SW.Impl;
 	
 	
-	-- To represent communication between native and custom software?
+	-- To represent communication between native and custom software
 	virtual bus IPC_Com
-		features
-			dataInN: in data port;
-			dataOutC: out data port;
-			dataInC: in data port;
-			dataOutN: out data port;
-		-- NOTE: not allowed in AADL
-		--flows
-			--f1: flow path dataInN -> dataOutC;
-			--f2: flow path dataInC -> dataOutN;
 	end IPC_Com;
 	
 	virtual bus implementation IPC_Com.Impl
