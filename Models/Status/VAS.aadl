@@ -1,11 +1,11 @@
--- Visual Augmentation System
-package VAS
+-- Helmet-Mounted Display
+package HMD
 public
-	with VAS_Computer;
-	with VAS_HUD;
+	with HMD_Computer;
+	with HMD_HUD;
 	with Common;
 
-	system VAS
+	system HMD
 		features
 			wfa: requires bus access Common::WF_Bus.Impl;
 			bta: requires bus access Common::BT_Bus.Impl;
@@ -14,14 +14,14 @@ public
 			btSend: out event data port;
 			btRecv: in event data port;
 		-- NOTE: to determine information flows
-	end VAS;
+	end HMD;
 	
-	system implementation VAS.Impl
+	system implementation HMD.Impl
 		subcomponents			
 			-- Head-worn computer
-			computer: system VAS_Computer::Computer.Impl;
+			computer: system HMD_Computer::Computer.Impl;
 			-- Heads-Up Display
-			hud: system VAS_HUD::HUD.Impl;
+			hud: system HMD_HUD::HUD.Impl;
 			--
 			ser: bus Common::Serial_Bus.Impl;
 		connections
@@ -41,7 +41,7 @@ public
 			p10: port computer.btSend -> btSend;
 			p11: port btRecv -> computer.btRecv;
 		properties
-			Actual_Connection_Binding => (reference (ser)) applies to p1,p5,p6,p7;
-	end VAS.Impl;
+			Actual_Connection_Binding => (reference (ser)) applies to p1, p5, p6, p7;
+	end HMD.Impl;
 	
-end VAS;
+end HMD;
