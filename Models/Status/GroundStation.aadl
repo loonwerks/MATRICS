@@ -70,10 +70,8 @@ public
 			comSw: process Common::Com_SW.Impl;
 			ipcCom: virtual bus Common::IPC_Com.Impl;
 		connections
-			c1: port nativeSw.ipcDataOut -> ipcCom.dataInN;
-			c2: port ipcCom.dataOutC -> comSw.ipcDataIn;
-			c3: port comSw.ipcDataOut -> ipcCom.dataInC;
-			c4: port ipcCom.dataOutN -> nativeSw.ipcDataIn;
+			c1: port nativeSw.ipcDataOut -> comSw.ipcDataIn;
+			c2: port comSw.ipcDataOut -> nativeSw.ipcDataIn;
 			--
 			c5: port wfComIn -> comSw.wfComIn;
 			c6: port comSw.wfComOut -> wfComOut;
@@ -85,6 +83,8 @@ public
 			f1: flow path dataIn -> c7 -> nativeSw.f1 -> c8 -> dataOut;
 			f2: flow sink wfComIn -> c5 -> comSw.f1;
 			f3: flow source comSw.f2 -> c6 -> wfComOut;
+		properties
+			Actual_Connection_Binding => (reference (ipcCom)) applies to c1, c2;
 	end CPU_SW.Impl;
 	
 
@@ -123,7 +123,7 @@ public
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
 			Actual_Memory_Binding => (reference (mem), reference(storage)) applies to cpuSw;
-			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
+			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4, cpuSw.ipcCom;
 	end GroundStation.Impl;
 	
 end GroundStation;
