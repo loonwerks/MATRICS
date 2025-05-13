@@ -1,5 +1,5 @@
 -- Heads-Up Display
-package VAS_HUD
+package HMD_HUD
 public
 	with Common;
 	
@@ -90,4 +90,4 @@ public
 			f7: flow sink displayImagery -> c7 -> display.f1;
 	end HUD.Impl;
 	
-end VAS_HUD;
+end HMD_HUD;
