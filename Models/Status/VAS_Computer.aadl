@@ -1,5 +1,5 @@
--- Head-worn computer
-package VAS_Computer
+-- Head-Worn Computer
+package HMD_Computer
 public
 	with Common;
 	
@@ -122,10 +122,8 @@ public
 			comSw: process Common::Com_SW.Impl;
 			ipcCom: virtual bus Common::IPC_Com.Impl;
 		connections
-			c1: port nativeSw.ipcDataOut -> ipcCom.dataInN;
-			c2: port ipcCom.dataOutC -> comSw.ipcDataIn;
-			c3: port comSw.ipcDataOut -> ipcCom.dataInC;
-			c4: port ipcCom.dataOutN -> nativeSw.ipcDataIn;
+			c1: port nativeSw.ipcDataOut -> comSw.ipcDataIn;
+			c2: port comSw.ipcDataOut -> nativeSw.ipcDataIn;
 			--
 			c5: port wfComIn -> comSw.wfComIn;
 			c6: port comSw.wfComOut -> wfComOut;
@@ -141,6 +139,8 @@ public
 			c16: port cameraImagery -> nativeSw.cameraImagery;
 			--
 			-- NOTE: to determine information flows
+		properties
+			Actual_Connection_Binding => (reference (ipcCom)) applies to c1, c2;
 	end CPU_SW.Impl;
 	
 	
@@ -175,82 +175,80 @@ public
 	end Computer;
 	
 	system implementation Computer.Impl
-	subcomponents
-		cpu: processor CPU.Impl;
-		gpu: processor GPU.Impl;
-		cpuMem: memory CPU_Mem.Impl;
-		gpuMem: memory GPU_Mem.Impl;
-		storage: memory Storage.Impl;
-		cpuSw: system CPU_SW.Impl;
-		gpuSw: system GPU_SW.Impl;
-		wifi: device Common::Wifi.Impl;
-		bluetooth: device Common::Bluetooth.Impl;
-		imu: device IMU.Impl;
-		--
-		ser1: bus Common::Serial_Bus.impl;
-		ser2: bus Common::Serial_Bus.impl;
-		ser3: bus Common::Serial_Bus.impl;
-		ser5: bus Common::Serial_Bus.impl;
-		ser6: bus Common::Serial_Bus.impl;
-		ser7: bus Common::Serial_Bus.impl;
-	connections
-		-- Processor connected to memory and storage
-		ba1: bus access cpu.sera <-> ser1;
-		ba2: bus access cpuMem.sera <-> ser1;
-		ba3: bus access storage.sera <-> ser1;
-		-- GPU connected to CPU and memory
-		ba4: bus access cpu.sera <-> ser2;
-		ba5: bus access gpu.sera <-> ser2;
-		c5: port cpuSW.imageryOut -> gpuSw.imageryIn;
-		c6: port gpuSw.imageryOut -> cpuSW.imageryIn;
-		ba17: bus access gpu.sera <-> ser7;
-		ba18: bus access gpuMem.sera <-> ser7;
-		-- WiFi connected to CPU
-		ba6: bus access cpu.sera <-> ser3;
-		ba7: bus access wifi.sera <-> ser3;
-		c3: port wifi.recvOut -> cpuSw.wfcomIn;
-		c4: port cpuSW.wfcomOut -> wifi.sendIn;
-		-- Bluetooth connected to CPU
-		ba14: bus access cpu.sera <-> ser6;
-		ba15: bus access bluetooth.sera <-> ser6;
-		c16: port bluetooth.recvOut -> cpuSw.btComIn;
-		c17: port cpuSW.btComOut -> bluetooth.sendIn;
-		-- Position/facing unit connected to CPU
-		ba10: bus access cpu.sera <-> ser5;
-		ba11: bus access imu.sera <-> ser5;
-		c2: port imu.info -> cpuSw.imuInfo;
-		-- GPU connected to the outside
-		ba12: bus access gpu.sera <-> sera;
-		-- Wifi connected to the outside
-		ba13: bus access wifi.wfa <-> wfa;
-		-- Bluetooth connected to the outside
-		ba16: bus access bluetooth.bta <-> bta;
-		-- CPU process data from HUD
-		c7: port cameraImagery -> cpuSW.cameraImagery;
-		c11: port eyeTrackInfo -> cpuSW.eyeTrackInfo;
-		c12: port depthInfo -> cpuSW.depthInfo;
-		-- GPU process data to HUD
-		c13: port gpuSw.displayImagery -> displayImagery;
-		-- Wifi exchange with outside
-		c14: port wifi.sendOut -> wifiSend;
-		c15: port wifiRecv -> wifi.recvIn; 	
-		-- Bluetooth exchange with outside
-		c18: port bluetooth.sendOut -> btSend;
-		c19: port btRecv -> bluetooth.recvIn; 
-		-- NOTE: to determine information flows	
-	properties
-		Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
-		Actual_Processor_Binding => (reference (gpu)) applies to gpuSw;
-		Actual_Memory_Binding => (reference (cpuMem), reference (storage)) applies to cpuSw;
-		Actual_Memory_Binding => (reference (gpuMem)) applies to gpuSw;
-		Actual_Connection_Binding => (reference (ser5)) applies to c2;
-		Actual_Connection_Binding => (reference (ser3)) applies to c3,c4;
-		Actual_Connection_Binding => (reference (ser6)) applies to c16,c17;
-		Actual_Connection_Binding => (reference (ser2)) applies to c5,c6;
-
--- NOTE: different threads in the CPU SW responsible for processing different types of data; 
--- consider connecting SW or threads (representing drivers) to devices and bind the connections to the buses
-
-end Computer.Impl;
+		subcomponents
+			cpu: processor CPU.Impl;
+			gpu: processor GPU.Impl;
+			cpuMem: memory CPU_Mem.Impl;
+			gpuMem: memory GPU_Mem.Impl;
+			storage: memory Storage.Impl;
+			cpuSw: system CPU_SW.Impl;
+			gpuSw: system GPU_SW.Impl;
+			wifi: device Common::Wifi.Impl;
+			bluetooth: device Common::Bluetooth.Impl;
+			imu: device IMU.Impl;
+			--
+			ser1: bus Common::Serial_Bus.impl;
+			ser2: bus Common::Serial_Bus.impl;
+			ser3: bus Common::Serial_Bus.impl;
+			ser5: bus Common::Serial_Bus.impl;
+			ser6: bus Common::Serial_Bus.impl;
+			ser7: bus Common::Serial_Bus.impl;
+		connections
+			-- Processor connected to memory and storage
+			ba1: bus access cpu.sera <-> ser1;
+			ba2: bus access cpuMem.sera <-> ser1;
+			ba3: bus access storage.sera <-> ser1;
+			-- GPU connected to CPU and memory
+			ba4: bus access cpu.sera <-> ser2;
+			ba5: bus access gpu.sera <-> ser2;
+			c5: port cpuSW.imageryOut -> gpuSw.imageryIn;
+			c6: port gpuSw.imageryOut -> cpuSW.imageryIn;
+			ba17: bus access gpu.sera <-> ser7;
+			ba18: bus access gpuMem.sera <-> ser7;
+			-- Wi-Fi connected to CPU
+			ba6: bus access cpu.sera <-> ser3;
+			ba7: bus access wifi.sera <-> ser3;
+			c3: port wifi.recvOut -> cpuSw.wfcomIn;
+			c4: port cpuSW.wfcomOut -> wifi.sendIn;
+			-- Bluetooth connected to CPU
+			ba14: bus access cpu.sera <-> ser6;
+			ba15: bus access bluetooth.sera <-> ser6;
+			c16: port bluetooth.recvOut -> cpuSw.btComIn;
+			c17: port cpuSW.btComOut -> bluetooth.sendIn;
+			-- Position/facing unit connected to CPU
+			ba10: bus access cpu.sera <-> ser5;
+			ba11: bus access imu.sera <-> ser5;
+			c2: port imu.info -> cpuSw.imuInfo;
+			-- GPU connected to the outside
+			ba12: bus access gpu.sera <-> sera;
+			-- Wi-Fi connected to the outside
+			ba13: bus access wifi.wfa <-> wfa;
+			-- Bluetooth connected to the outside
+			ba16: bus access bluetooth.bta <-> bta;
+			-- CPU process data from HUD
+			c7: port cameraImagery -> cpuSW.cameraImagery;
+			c11: port eyeTrackInfo -> cpuSW.eyeTrackInfo;
+			c12: port depthInfo -> cpuSW.depthInfo;
+			-- GPU process data to HUD
+			c13: port gpuSw.displayImagery -> displayImagery;
+			-- Wi-Fi exchange with outside
+			c14: port wifi.sendOut -> wifiSend;
+			c15: port wifiRecv -> wifi.recvIn; 	
+			-- Bluetooth exchange with outside
+			c18: port bluetooth.sendOut -> btSend;
+			c19: port btRecv -> bluetooth.recvIn; 
+			-- NOTE: to determine information flows	
+		properties
+			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
+			Actual_Processor_Binding => (reference (gpu)) applies to gpuSw;
+			Actual_Memory_Binding => (reference (cpuMem), reference (storage)) applies to cpuSw;
+			Actual_Memory_Binding => (reference (gpuMem)) applies to gpuSw;
+			Actual_Connection_Binding => (reference (ser5)) applies to c2;
+			Actual_Connection_Binding => (reference (ser3)) applies to c3, c4;
+			Actual_Connection_Binding => (reference (ser6)) applies to c16, c17;
+			Actual_Connection_Binding => (reference (ser2)) applies to c5, c6, cpuSw.ipcCom;
+		-- NOTE: different threads in the CPU SW responsible for processing different types of data; 
+		-- consider connecting SW or threads (representing drivers) to devices and bind the connections to the buses
+	end Computer.Impl;
 	
-end VAS_Computer;
+end HMD_Computer;
