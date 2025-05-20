@@ -1,0 +1,46 @@
+##!
+# @file
+#
+# @created parth 20241022
+
+# R0: If sys_latency > latency_threshold then increment the latency counter
+# latency-violated agent
+sp {propose*latency-violated
+    (state <s> ^name hw-cybersickness-monitor
+               ^latency-threshold <lt>
+               ^latency-counter <lc>
+               ^io.input-link.systemdata <sd>)         
+    (<s> ^latency-counter <lc> < 20)
+    (<sd> ^sys-latency <sl> > <lt>)
+-->
+    (write (crlf) |Checking for cybersickness for System Latency value: | <sl> )
+    (write (crlf) | Latency Threshold | <lt>)
+    (<s> ^operator <o> + = 2.0)
+    (<o> ^name apply-latency-violated
+         ^original-latency-counter <lc>)
+    }
+
+# R1: If sys_opticflow < opticflow_threshold then increment the optical counter
+# opticflow-check agent
+sp {propose*opticflow-check
+    (state <s> ^name hw-cybersickness-monitor
+               ^opticflow-threshold <ot>
+               ^io.input-link.systemdata <sd>
+               ^opticflow-counter <oc>)
+    (<s> ^opticflow-counter <oc> < 15)
+    (<sd> ^sys-opticflow <sof> > <ot>)
+-->
+    (write (crlf) |Checking for cybersickness for System OpticFlow: | <sof>)
+    (<s> ^operator <o> + = 1.0)
+    (<o> ^name apply-opticflow-violated
+         ^original-opticflow-counter <oc>)
+}
+
+sp {propose*check*hw-cybersickness
+    (state <s> ^name hw-cybersickness-monitor
+               ^check-flag yes)
+-->
+    (write (crlf) |Switched...|)
+    (<s> ^operator <o> + >,=)
+    (<o> ^name switch-monitor)
+    }

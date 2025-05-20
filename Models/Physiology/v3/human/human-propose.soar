@@ -1,0 +1,15 @@
+##!
+# @file
+#
+# @created candice 20241107
+
+# Switching to the software monitor
+sp {propose*check*h-cybersickness
+    (state <s> ^name demographic-monitor)
+
+-->
+    (write (crlf) |Switched...|)
+    (<s> ^operator <o> + >,=)
+    (<o> ^name switch-monitor)
+    }
+    

@@ -1,0 +1,12 @@
+##!
+# @file
+#
+# @created candice 20241104
+
+sp {propose*check*sw-cybersickness
+    (state <s> ^name sw-cybersickness-monitor)
+-->
+    (write (crlf) |Switched...|)
+    (<s> ^operator <o> + >,=)
+    (<o> ^name switch-monitor)
+    }

@@ -1,0 +1,15 @@
+##!
+# @file
+#
+# @created candice 20241107
+
+# Assigning the users gender
+
+sp {apply*check*h-cybersickness
+    (state <s> ^operator.name switch-monitor
+               ^name demographic-monitor)
+-->
+    (write (crlf) |Switched... Demographic to Software|)
+    (<s> ^name demographic-monitor - )
+    (<s>  ^name sw-cybersickness-monitor)
+}

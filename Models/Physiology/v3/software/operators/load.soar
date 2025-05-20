@@ -1,0 +1,7 @@
+##!
+# @file: 
+#
+# @created candice 20241104
+
+echo "\nLoading software/operators.soar"
+source "software-apply.soar"

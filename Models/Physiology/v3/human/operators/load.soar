@@ -1,0 +1,7 @@
+##!
+# @file: 
+#
+# @created candice 20240821
+
+echo "\nLoading human/operators.soar"
+source "human-apply.soar"
