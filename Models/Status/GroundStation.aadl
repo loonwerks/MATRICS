@@ -32,60 +32,89 @@ public
 	end Storage.Impl;
 	
 	
-	process Native_SW
+	thread wifiDriver
 		features
-			ipcDataIn: in data port;
-			ipcDataOut: out data port;
-			--
-			dataIn: in data port;
-			dataOut: out data port;
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			HMD_log: out event data port;
+			analysis_report: in event data port;
+			analysis_request: out event data port;
 		flows
-			f1: flow path dataIn -> dataOut;
-			f2: flow path ipcDataIn -> ipcDataOut;
-	end Native_SW;
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;
+	end wifiDriver;
 	
-	process implementation Native_SW.Impl
-	end Native_SW.Impl;
-	
-	
-	system CPU_SW
+	thread dataManager
 		features
-			-- NOTE: to determine whether SW ports dataIn and dataOut should be connected to some entity
-			dataIn: in data port;
-			dataOut: out data port;
-			--
-			wfComIn: in data port;
-			wfComOut: out data port;
+			HMD_log: in event data port;
+			request_log: in event data port;
+			response_log: out event data port;
 		flows
-			f1: flow path dataIn -> dataOut;
-			-- NOTE: sink and source, rather than path, due to virtual bus lack of flow support
-			f2: flow sink wfComIn;
-			f3: flow source wfComOut;
-			f4: flow path wfComIn -> wfComOut; -- NOTE: added for convenience, without implementation
-	end CPU_SW;
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+	end dataManager;
 	
-	system implementation CPU_SW.Impl
+	thread dataAnalysis
+		features
+			request_log: out event data port;
+			response_log: in event data port;
+			analysis_report: out event data port;
+			analysis_request: in event data port;
+		flows
+			f1: flow source request_log;
+			f2: flow sink response_log;
+			f3: flow path analysis_request -> analysis_report;
+	end dataAnalysis;
+
+	thread btDriver
+		features
+			btRecv: in event data port;			
+			btSend: out event data port;
+	end btDriver;
+	
+	thread usbDriver
+		features
+			usbRecv: in event data port;
+			usbSend: out event data port;
+	end usbDriver;
+	
+	process SW
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			--
+			btRecv: in event data port;			
+			btSend: out event data port;
+			--
+			usbRecv: in event data port;			
+			usbSend: out event data port;
+	end SW;
+	
+	process implementation SW.unhardened
 		subcomponents
-			nativeSw: process Native_SW.Impl;
-			comSw: process Common::Com_SW.Impl;
-			ipcCom: virtual bus Common::IPC_Com.Impl;
+			wifiDriver: thread wifiDriver;
+			btDriver: thread btDriver;
+			usbDriver: thread usbDriver;
+			dataManager: thread dataManager;
+			dataAnalysis: thread dataAnalysis;
 		connections
-			c1: port nativeSw.ipcDataOut -> comSw.ipcDataIn;
-			c2: port comSw.ipcDataOut -> nativeSw.ipcDataIn;
-			--
-			c5: port wfComIn -> comSw.wfComIn;
-			c6: port comSw.wfComOut -> wfComOut;
-			--
-			c7: port dataIn -> nativeSw.dataIn;
-			c8: port nativeSw.dataOut -> dataOut;
-			--
-		flows
-			f1: flow path dataIn -> c7 -> nativeSw.f1 -> c8 -> dataOut;
-			f2: flow sink wfComIn -> c5 -> comSw.f1;
-			f3: flow source comSw.f2 -> c6 -> wfComOut;
-		properties
-			Actual_Connection_Binding => (reference (ipcCom)) applies to c1, c2;
-	end CPU_SW.Impl;
+			-- Wi-Fi exchange with outside
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port wifiDriver.wifiSend -> wifiSend;
+			-- Bluetooth exchange with outside
+			c9: port btRecv -> btDriver.btRecv;
+			c10: port btDriver.btSend -> btSend;
+			-- USB exchange with outside
+			c11: port usbRecv -> usbDriver.usbRecv;
+			c12: port usbDriver.usbSend -> usbSend;
+			-- internal data communication
+			c3: port wifiDriver.HMD_log -> dataManager.HMD_log;
+			c4: port dataAnalysis.request_log -> dataManager.request_log;
+			c5: port dataManager.response_log -> dataAnalysis.response_log;
+			c6: port dataAnalysis.analysis_report -> wifiDriver.analysis_report;
+			c7: port wifiDriver.analysis_request -> dataAnalysis.analysis_request;
+	end SW.unhardened;
 	
 
 	-- The Ground Station communication system
@@ -93,37 +122,247 @@ public
 		features
 			wifiRecv: in event data port;
 			wifiSend: out event data port;
+			btSend: out event data port;
+			btRecv: in event data port;
 			wfa: requires bus access Common::WF_Bus;
-		flows
-			f1: flow path wifiRecv -> wifiSend;
+			bta: requires bus access Common::BT_Bus;
 	end GroundStation;
 	
 	system implementation GroundStation.Impl
 		subcomponents
 			wifi: device Common::Wifi.Impl;
+			bluetooth: device Common::Bluetooth.Impl;
+			usb: device Common::USB.Impl;
 			cpu: processor Proc.Impl;
 			mem: memory Mem.Impl;
 			storage: memory Storage.Impl;
 			ser1: bus Common::Serial_Bus.Impl;
 			ser2: bus Common::Serial_Bus.Impl;
-			cpuSw: system CPU_SW.Impl;
+			ser3: bus Common::Serial_Bus.Impl;
+			ser4: bus Common::Serial_Bus.Impl;			
+			cpuSw: process SW.unhardened;
 		connections
-			bac1: bus access wifi.sera <-> ser2;
-			bac2: bus access cpu.sera <-> ser2;
-			bac3: bus access cpu.sera <-> ser1;
-			bac4: bus access mem.sera <-> ser1;
-			bac5: bus access storage.sera <-> ser1;
-			bac6: bus access wifi.wfa <-> wfa;
-			c1: port cpuSw.wfComOut -> wifi.sendIn;
+			-- Processor connected to memory and storage
+			bac1: bus access mem.sera <-> ser1;
+			bac2: bus access cpu.sera <-> ser1;
+			bac3: bus access storage.sera <-> ser1;			
+			-- Wi-Fi connected to CPU
+			bac4: bus access wifi.sera <-> ser2;
+			bac5: bus access cpu.sera <-> ser2;
+			-- Bluetooth connected to CPU
+			bac6: bus access bluetooth.sera <-> ser3;
+			bac7: bus access cpu.sera <-> ser3;			
+			-- USB connected to CPU
+			bac8: bus access usb.sera <-> ser4;
+			bac9: bus access cpu.sera <-> ser4;
+			-- Wi-Fi connected to the outside			
+			bac10: bus access wifi.wfa <-> wfa;
+			-- Bluetooth connected to the outside			
+			bac11: bus access bluetooth.bta <-> bta;
+			--
+			c1: port cpuSw.wifiSend -> wifi.sendIn;
 			c2: port wifi.sendOut -> wifiSend;
 			c3: port wifiRecv -> wifi.recvIn;
-			c4: port wifi.recvOut -> cpuSw.wfComIn;
-		flows
-			f1: flow path wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f4 -> c1 -> wifi.f2 -> c2 -> wifiSend; 
+			c4: port wifi.recvOut -> cpuSw.wifiRecv;
+			c5: port bluetooth.recvOut -> cpuSw.btRecv;
+			c6: port cpuSW.btSend -> bluetooth.sendIn;
+			c7: port bluetooth.sendOut -> btSend;
+			c8: port btRecv -> bluetooth.recvIn; 
+			c9: port usb.usbSend -> cpuSW.usbRecv;
+			c10: port cpuSW.usbSend -> usb.usbRecv;
+		--flows
+			--f1: flow path wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f4 -> c1 -> wifi.f2 -> c2 -> wifiSend; 
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
-			Actual_Memory_Binding => (reference (mem), reference(storage)) applies to cpuSw;
-			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4, cpuSw.ipcCom;
+			Actual_Memory_Binding => (reference(storage)) applies to cpuSw.dataManager;
+			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 	end GroundStation.Impl;
+	
+	
+	-- Processes introduced to isolate threads
+	process wifiDriver_seL4
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			HMD_log: out event data port;
+			analysis_report: in event data port;
+			analysis_request: out event data port;
+		flows
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;			
+	end wifiDriver_seL4;
+	
+	process implementation wifiDriver_seL4.Impl
+		subcomponents
+			wifiDriver: thread wifiDriver;
+		connections
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port analysis_report -> wifiDriver.analysis_report;
+			c3: port wifiDriver.wifiSend -> wifiSend;
+			c4: port wifiDriver.HMD_log -> HMD_log;
+			c5: port wifiDriver.analysis_request -> analysis_request;
+	end wifiDriver_seL4.Impl;
+	
+	process dataManager_seL4
+		features
+			HMD_log: in event data port;
+			request_log: in event data port;
+			response_log: out event data port;
+		flows
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+	end dataManager_seL4;
+	
+	process implementation dataManager_seL4.Impl
+		subcomponents
+			dataManager: thread dataManager;
+		connections
+			c1: port HMD_log -> dataManager.HMD_log;
+			c2: port request_log -> dataManager.request_log;
+			c3: port dataManager.response_log -> response_log;
+	end dataManager_seL4.Impl;
+	
+	process dataAnalysis_seL4
+		features
+			request_log: out event data port;
+			response_log: in event data port;
+			analysis_report: out event data port;
+			analysis_request: in event data port;
+		flows
+			f1: flow source request_log;
+			f2: flow sink response_log;
+			f3: flow path analysis_request -> analysis_report;
+	end dataAnalysis_seL4;
+	
+	process implementation dataAnalysis_seL4.Impl
+		subcomponents
+			dataAnalysis: thread dataAnalysis;
+		connections
+			c1: port response_log -> dataAnalysis.response_log;
+			c2: port analysis_request -> dataAnalysis.analysis_Request;
+			c3: port dataAnalysis.request_log -> request_log;
+			c4: port dataAnalysis.analysis_report -> analysis_report;
+	end dataAnalysis_seL4.Impl;
+
+	process btDriver_seL4
+		features
+			btRecv: in event data port;			
+			btSend: out event data port;
+	end btDriver_seL4;
+	
+	process implementation btDriver_seL4.Impl
+		subcomponents
+			btDriver: thread btDriver;
+		connections
+			c1: port btRecv -> btDriver.btRecv;
+			c2: port btDriver.btSend -> btSend;
+	end btDriver_seL4.Impl;
+	
+	process usbDriver_seL4
+		features
+			usbRecv: in event data port;
+			usbSend: out event data port;
+	end usbDriver_seL4;
+	
+	process implementation usbDriver_seL4.Impl
+		subcomponents
+			usbDriver: thread usbDriver;
+		connections
+			c1: port usbRecv -> usbDriver.usbRecv;
+			c2: port usbDriver.usbSend -> usbSend;
+	end usbDriver_seL4.Impl;
+	
+	-- High-Assurance Components
+	thread monitor1
+		features
+			request_log: in event data port;
+			response_log: in event data port;
+			alert: out event port;
+	end monitor1;
+	
+	process monitor1_seL4
+		features
+			request_log: in event data port;
+			response_log: in event data port;
+			alert: out event port;
+	end monitor1_seL4;
+	
+	process implementation monitor1_seL4.Impl
+		subcomponents
+			monitor1: thread monitor1;
+		connections
+			c1: port request_log -> monitor1.request_log;
+			c2: port response_log -> monitor1.response_log;
+			c3: port monitor1.alert -> alert;
+	end monitor1_seL4.Impl;
+
+	thread monitor2
+		features
+			analysis_request: in event data port;
+			analysis_report: in event data port;
+			alert: out event port;
+	end monitor2;
+
+	process monitor2_seL4
+		features
+			analysis_request: in event data port;
+			analysis_report: in event data port;
+			alert: out event port;
+	end monitor2_seL4;
+	
+	process implementation monitor2_seL4.Impl
+		subcomponents
+			monitor2: thread monitor2;
+		connections
+			c1: port analysis_request -> monitor2.analysis_request;
+			c2: port analysis_report -> monitor2.analysis_report;
+			c3: port monitor2.alert -> alert;
+	end monitor2_seL4.Impl;
+	
+	-- Hardened Software System
+	system SW_seL4
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			--
+			btRecv: in event data port;			
+			btSend: out event data port;
+			--
+			usbRecv: in event data port;			
+			usbSend: out event data port;
+	end SW_seL4;
+	
+	system implementation SW_seL4.hardened
+		subcomponents
+			wifiDriver: process wifiDriver_seL4.Impl;
+			btDriver: process btDriver_seL4.Impl;
+			usbDriver: process usbDriver_seL4.Impl;
+			dataManager: process dataManager_seL4.Impl;
+			dataAnalysis: process dataAnalysis_seL4.Impl;
+			monitor1: process monitor1_seL4.Impl;
+			monitor2: process monitor2_seL4.Impl;
+		connections
+			-- Wi-Fi exchange with outside
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port wifiDriver.wifiSend -> wifiSend;
+			-- Bluetooth exchange with outside
+			c9: port btRecv -> btDriver.btRecv;
+			c10: port btDriver.btSend -> btSend;
+			-- USB exchange with outside
+			c11: port usbRecv -> usbDriver.usbRecv;
+			c12: port usbDriver.usbSend -> usbSend;
+			-- internal data communication
+			c3: port wifiDriver.HMD_log -> dataManager.HMD_log;
+			c4: port dataAnalysis.request_log -> dataManager.request_log;
+			c5: port dataManager.response_log -> dataAnalysis.response_log;
+			c6: port dataAnalysis.analysis_report -> wifiDriver.analysis_report;
+			c7: port wifiDriver.analysis_request -> dataAnalysis.analysis_request;
+			-- monitor connections
+			c13: port dataAnalysis.request_log -> monitor1.request_log;
+			c14: port dataManager.response_log -> monitor1.response_log;
+			c15: port wifiDriver.analysis_request -> monitor2. analysis_request;
+			c16: port dataAnalysis.analysis_report -> monitor2. analysis_report;
+	end SW_seL4.hardened;
 	
 end GroundStation;
