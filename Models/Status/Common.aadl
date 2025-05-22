@@ -1,14 +1,14 @@
 package Common
 public
 
-	-- Wi-Fi: range 150ft, higher data transfer and power consumption than BlueTooth
+	-- Wi-Fi: range 150ft, higher data transfer and power consumption than Bluetooth
 	bus WF_Bus
 	end WF_Bus;
 
 	bus implementation WF_Bus.Impl
 	end WF_Bus.Impl;
 	
-	-- Bluetooth: range 150ft, lower data transfer and power consumption than BlueTooth
+	-- Bluetooth: range 150ft, lower data transfer and power consumption than Bluetooth
 	bus BT_Bus
 	end BT_Bus;
 
@@ -56,6 +56,19 @@ public
 	device implementation Bluetooth.Impl	
 	end Bluetooth.Impl;
 	
+	-- USB hardware
+	device USB
+		features
+			sera: requires bus access Serial_Bus;
+			usbRecv: in event data port;
+			usbSend: out event data port;
+		flows
+			f1: flow sink usbRecv; 
+			f2: flow source usbSend;
+	end USB;
+	
+	device implementation USB.Impl
+	end USB.Impl;
 	
 	-- Custom SW handling Wi-Fi and Bluetooth communication, interacting with other SW via IPC
 	process Com_SW
