@@ -97,4 +97,11 @@ public
 	virtual bus implementation IPC_Com.Impl
 	end IPC_Com.Impl;
 	
+	-- To represent TCP protocol
+	virtual bus TCP
+	end TCP;
+	
+	virtual bus implementation TCP.Impl
+	end TCP.Impl;
+	
 end Common;
