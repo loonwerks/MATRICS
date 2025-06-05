@@ -85,6 +85,8 @@ public
 			f7: flow path cameraImagery -> imageryOut;
 			f9: flow path imuInfo -> imageryOut;
 			f10: flow path ipcDataIn -> ipcDataOut;
+			f11: flow path eyeTrackInfo -> ipcDataOut;
+			f12: flow path imuInfo -> ipcDataOut;
 	end Native_SW;
 	
 	process implementation Native_SW.Impl
@@ -114,6 +116,8 @@ public
 			f7: flow path depthInfo -> imageryOut;
 			f8: flow path cameraImagery -> imageryOut;
 			f10: flow path imuInfo -> imageryOut;
+			f11: flow path eyeTrackInfo -> wfComOut;
+			f12: flow path imuInfo -> wfComOut;
 	end CPU_SW;
 	
 	system implementation CPU_SW.Impl
@@ -137,8 +141,9 @@ public
 			c14: port eyeTrackInfo -> nativeSw.eyeTrackInfo;
 			c15: port depthInfo -> nativeSw.depthInfo;
 			c16: port cameraImagery -> nativeSw.cameraImagery;
-			--
-			-- NOTE: to determine information flows
+		flows
+			f11: flow path eyeTrackInfo -> c14 -> nativeSw.f11 -> c1 -> comSw.f2 -> c6 -> wfComOut;
+			f12: flow path imuInfo -> c8 -> nativeSw.f12 -> c1 -> comSw.f2 -> c6 -> wfComOut;
 		properties
 			Actual_Connection_Binding => (reference (ipcCom)) applies to c1, c2;
 	end CPU_SW.Impl;
@@ -171,7 +176,9 @@ public
 			wifiRecv: in event data port;
 			btSend: out event data port;
 			btRecv: in event data port;
-			-- NOTE: to determine information flows
+		flows
+			f1: flow path eyeTrackInfo -> wifiSend;
+			f2: flow source wifiSend;
 	end Computer;
 	
 	system implementation Computer.Impl
@@ -187,44 +194,44 @@ public
 			bluetooth: device Common::Bluetooth.Impl;
 			imu: device IMU.Impl;
 			--
-			ser1: bus Common::Serial_Bus.impl;
-			ser2: bus Common::Serial_Bus.impl;
-			ser3: bus Common::Serial_Bus.impl;
-			ser5: bus Common::Serial_Bus.impl;
-			ser6: bus Common::Serial_Bus.impl;
-			ser7: bus Common::Serial_Bus.impl;
+			ser1: bus Common::Serial_Bus.Impl;
+			ser2: bus Common::Serial_Bus.Impl;
+			ser3: bus Common::Serial_Bus.Impl;
+			ser5: bus Common::Serial_Bus.Impl;
+			ser6: bus Common::Serial_Bus.Impl;
+			ser7: bus Common::Serial_Bus.Impl;
 		connections
 			-- Processor connected to memory and storage
-			ba1: bus access cpu.sera <-> ser1;
-			ba2: bus access cpuMem.sera <-> ser1;
-			ba3: bus access storage.sera <-> ser1;
+			bac1: bus access cpu.sera <-> ser1;
+			bac2: bus access cpuMem.sera <-> ser1;
+			bac3: bus access storage.sera <-> ser1;
 			-- GPU connected to CPU and memory
-			ba4: bus access cpu.sera <-> ser2;
-			ba5: bus access gpu.sera <-> ser2;
+			bac4: bus access cpu.sera <-> ser2;
+			bac5: bus access gpu.sera <-> ser2;
 			c5: port cpuSW.imageryOut -> gpuSw.imageryIn;
 			c6: port gpuSw.imageryOut -> cpuSW.imageryIn;
-			ba17: bus access gpu.sera <-> ser7;
-			ba18: bus access gpuMem.sera <-> ser7;
+			bac17: bus access gpu.sera <-> ser7;
+			bac18: bus access gpuMem.sera <-> ser7;
 			-- Wi-Fi connected to CPU
-			ba6: bus access cpu.sera <-> ser3;
-			ba7: bus access wifi.sera <-> ser3;
+			bac6: bus access cpu.sera <-> ser3;
+			bac7: bus access wifi.sera <-> ser3;
 			c3: port wifi.recvOut -> cpuSw.wfcomIn;
 			c4: port cpuSW.wfcomOut -> wifi.sendIn;
 			-- Bluetooth connected to CPU
-			ba14: bus access cpu.sera <-> ser6;
-			ba15: bus access bluetooth.sera <-> ser6;
+			bac14: bus access cpu.sera <-> ser6;
+			bac15: bus access bluetooth.sera <-> ser6;
 			c16: port bluetooth.recvOut -> cpuSw.btComIn;
 			c17: port cpuSW.btComOut -> bluetooth.sendIn;
 			-- Position/facing unit connected to CPU
-			ba10: bus access cpu.sera <-> ser5;
-			ba11: bus access imu.sera <-> ser5;
+			bac10: bus access cpu.sera <-> ser5;
+			bac11: bus access imu.sera <-> ser5;
 			c2: port imu.info -> cpuSw.imuInfo;
 			-- GPU connected to the outside
-			ba12: bus access gpu.sera <-> sera;
+			bac12: bus access gpu.sera <-> sera;
 			-- Wi-Fi connected to the outside
-			ba13: bus access wifi.wfa <-> wfa;
+			bac13: bus access wifi.wfa <-> wfa;
 			-- Bluetooth connected to the outside
-			ba16: bus access bluetooth.bta <-> bta;
+			bac16: bus access bluetooth.bta <-> bta;
 			-- CPU process data from HUD
 			c7: port cameraImagery -> cpuSW.cameraImagery;
 			c11: port eyeTrackInfo -> cpuSW.eyeTrackInfo;
@@ -238,6 +245,9 @@ public
 			c18: port bluetooth.sendOut -> btSend;
 			c19: port btRecv -> bluetooth.recvIn; 
 			-- NOTE: to determine information flows	
+		flows
+			f1: flow path eyeTrackInfo -> c11 -> cpuSW.f11 -> c4 -> wifi.f2 -> c14 -> wifiSend;
+			f2: flow source imu.f1 -> c2 -> cpuSW.f12 -> c4 -> wifi.f2 -> c14 -> wifiSend;
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
 			Actual_Processor_Binding => (reference (gpu)) applies to gpuSw;
