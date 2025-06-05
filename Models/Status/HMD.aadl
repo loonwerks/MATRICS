@@ -13,7 +13,9 @@ public
 			wifiRecv: in event data port;
 			btSend: out event data port;
 			btRecv: in event data port;
-		-- NOTE: to determine information flows
+		flows
+			f1: flow source wifiSend;
+			f2: flow source WifiSend;
 	end HMD;
 	
 	system implementation HMD.Impl
@@ -30,18 +32,21 @@ public
 			bac3: bus access computer.wfa <-> wfa;
 			bac4: bus access computer.bta <-> bta;
 			--
-			p1: port hud.cameraImagery -> computer.cameraImagery;
-			p5: port hud.eyeTrackInfo -> computer.eyeTrackInfo;
-			p6: port hud.depthInfo -> computer.depthInfo;
-			p7: port computer.displayImagery -> hud.displayImagery;
+			c1: port hud.cameraImagery -> computer.cameraImagery;
+			c5: port hud.eyeTrackInfo -> computer.eyeTrackInfo;
+			c6: port hud.depthInfo -> computer.depthInfo;
+			c7: port computer.displayImagery -> hud.displayImagery;
 			--
-			p8: port computer.wifiSend -> wifiSend;
-			p9: port wifiRecv -> computer.wifiRecv;
+			c8: port computer.wifiSend -> wifiSend;
+			c9: port wifiRecv -> computer.wifiRecv;
 			--
-			p10: port computer.btSend -> btSend;
-			p11: port btRecv -> computer.btRecv;
+			c10: port computer.btSend -> btSend;
+			c11: port btRecv -> computer.btRecv;
+		flows
+			f1: flow source hud.f4 -> c5 -> computer.f1 -> c8 -> wifiSend;
+			f2: flow source computer.f2 -> c8 -> wifiSend;
 		properties
-			Actual_Connection_Binding => (reference (ser)) applies to p1, p5, p6, p7;
+			Actual_Connection_Binding => (reference (ser)) applies to c1, c5, c6, c7;
 	end HMD.Impl;
 	
 end HMD;
