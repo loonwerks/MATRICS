@@ -12,7 +12,7 @@ public
 	end Checkpoint;
 	system implementation Checkpoint.impl
 		subcomponents
-			HMD: system HMD::HMD.init;
+			HMD: system HMD::HMD.mon;
 			Operator: system Operator::Operator.impl;
 		connections
 			c1: port HMD.frame_rate -> Operator.frame_rate;

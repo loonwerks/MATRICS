@@ -84,20 +84,18 @@ public
 	end usbDriver;
 	
 	process SW
-		features
-			wifiRecv: in event data port;
-			wifiSend: out event data port;
-			--
-			btRecv: in event data port;			
-			btSend: out event data port;
-			--
-			usbRecv: in event data port;			
-			usbSend: out event data port;
-		flows
-			f1: flow sink wifiRecv;
-			f2: flow path btRecv -> btSend;
-			f3: flow path usbRecv -> usbSend;
-	end SW;
+	features
+		wifiRecv: in event data port;
+		wifiSend: out event data port;
+		--
+		btRecv: in event data port;
+		btSend: out event data port;
+		--
+		usbRecv: in event data port;
+		usbSend: out event data port;
+	flows
+		f1: flow sink wifiRecv;
+end SW;
 	
 	process implementation SW.unhardened
 		subcomponents

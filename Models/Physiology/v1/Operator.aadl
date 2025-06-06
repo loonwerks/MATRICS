@@ -75,48 +75,43 @@ public
 	end software.impl;
 	
 	system Operator
+		
 		features
 			frame_rate: in event data port Base_Types::Integer;
 			not_cybersick: out event data port Base_Types::Boolean;
+			
 		annex agree {**
-			assume Frame_Rate_Range "A: frame_rate >= 40" : true -> (event(frame_rate) and pre(event(frame_rate)) and pre(frame_rate) < 40) => frame_rate >= 40;
-			guarantee No_Cybersickness "G: Operator will not get cybersick" : (event(not_cybersick) and not_cybersick = true) -> ((pre(event(frame_rate)) and event(frame_rate)) => (event(not_cybersick) and not_cybersick = true));
+			eq consec: bool = 
+				true -> (event(frame_rate) and pre(event(frame_rate)));
+			assume Frame_Rate_Range "A: frame_rate >= 40" : 
+				true -> consec and pre(frame_rate) < 40 => frame_rate >= 40;
+			guarantee No_Cybersickness "G: Operator will not get cybersick" : 
+				consec => (event(not_cybersick) and not_cybersick);
 		**};
+		
 	end Operator;
 	
 	system implementation Operator.impl
-		subcomponents
-			hardware: system hardware.impl;
-			software: system software.impl;
 			
 		annex soar {**
 			sp {propose*initialize
-				(state <s> ^superstate nil
-						^io.input-link.systemdata <sd>
-						-^name)
-			
+				(state <s> ^superstate nil ^io.input-link.systemdata <sd> -^name)
 			-->
 				(<s> ^operator <o> + >,=)
 				(<o> ^name initialize)
-				(write (crlf) |Agent initializing...|)
 			}
 			
-			 sp {apply*initialize
-				(state <s> ^operator.name initialize
-						^io.output-link <out>)
+			sp {apply*initialize
+				(state <s> ^operator.name initialize ^io.output-link <out>)
 			-->
 				(<s> ^name cybersickness-monitor)
-				(<s> ^latency-problem-threshold 40)
 				(<s> ^framerate-problem-threshold 40)
-				(<s> ^optic-flow-threshold 1)
 				(<out> ^cybersickness-check none)
 				(<out> ^cybersickness-level none)
-				(write (crlf) |Agent initialized.|)
 			}
 		**};
 		
 		annex agree {**
-			assert Trigger_Event "Event" : event(not_cybersick) = event(frame_rate);
 			assign not_cybersick = if frame_rate >= 40 then true else false;
 		**};
 		

@@ -1,15 +1,15 @@
 -- One ground station connected with one HMD
-package Status_Scenario_1
+package Status_v1
 public
 	with GroundStation;
 	with HMD;
 	with Common;
-	with MATRICS_Properties;
+--	with MATRICS_Properties;
 
-	system HMD_GS
-	end HMD_GS;
+	system Checkpoint
+	end Checkpoint;
 
-	system implementation HMD_GS.Impl
+	system implementation Checkpoint.Impl
 		subcomponents
 			groundStation: system GroundStation::GroundStation.Impl;
 			hmd: system HMD::HMD.Impl;
@@ -30,6 +30,6 @@ public
 			
 			-- present in hardened system
 			--MATRICS_Properties::Encrypted => TLS applies to tcp;
-	end HMD_GS.Impl;
+	end Checkpoint.Impl;
 
-end Status_Scenario_1;
+end Status_v1;
