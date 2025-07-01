@@ -1,5 +1,7 @@
 package Common
 public
+	with Data_Model;
+	with Base_Types;
 
 	-- Wi-Fi: range 150ft, higher data transfer and power consumption than Bluetooth
 	bus WF_Bus
@@ -103,5 +105,73 @@ public
 	
 	virtual bus implementation TCP.Impl
 	end TCP.Impl;
+	
+	
+	-- Message structures used by ground station
+	-- Message header
+	data MsgHeader
+	end MsgHeader;
+
+	data implementation MsgHeader.Impl
+		subcomponents
+			src: data Base_Types::Unsigned_32;
+			dst: data Base_Types::Unsigned_32;
+	end MsgHeader.Impl;
+	
+	-- HMD log message structure
+	data Log
+	end Log;
+	
+	-- NOTE: need to define sizes for these data elements
+	data implementation Log.Impl
+		subcomponents
+			timestamp: data Base_Types::Integer;
+			userID: data Base_Types::Integer;
+			numSuspects: data Base_Types::Integer;
+			numSuspectsFlagged: data Base_Types::Integer;
+			yaw: data Base_Types::Float;
+			pitch: data Base_Types::Float;
+			roll: data Base_Types::Float;
+	end Log.Impl;
+
+	-- Analysis request message structure
+	data AnalysisRequest
+	end AnalysisRequest;
+	
+	data implementation AnalysisRequest.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data;
+	end AnalysisRequest.Impl;
+	
+	-- Response log message structure
+	data ResponseLog
+	end ResponseLog;
+	
+	data LogArray
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Log.Impl));
+			Data_Model::Dimension => (60);		
+	end LogArray;
+	
+	data implementation LogArray.Impl
+	end LogArray.Impl;
+
+	data implementation ResponseLog.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data LogArray.Impl;
+	end ResponseLog.Impl;
+	
+	-- Analysis report message structure
+	data AnalysisReport
+	end AnalysisReport;
+	
+	data implementation AnalysisReport.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data;
+	end AnalysisReport.Impl;
 	
 end Common;
