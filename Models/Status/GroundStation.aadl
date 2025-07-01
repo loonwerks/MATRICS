@@ -1,7 +1,11 @@
 package GroundStation
 public
 	with Common;
-	with MATRICS_Properties;	
+	with AGREE_PLTL;
+	renames AGREE_PLTL::all;	
+	with MATRICS_Properties;
+	with MATRICS_Model_Transformations;
+	renames MATRICS_Model_Transformations::all;	
 	
 	-- Processor for Ground Station communication system
 	processor Proc
@@ -35,36 +39,54 @@ public
 		features
 			wifiRecv: in event data port;
 			wifiSend: out event data port;
-			HMD_log: out event data port;
-			analysis_report: in event data port;
-			analysis_request: out event data port;
+			HMD_log: out event data port Common::Log.Impl;
+			analysis_report: in event data port Common::AnalysisReport.Impl;
+			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert: in event data port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
+		annex agree {**
+			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
+			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
+				if event(analysis_report) and not(Once(event(alert)))
+				then event(wifiSend)
+				else not(event(wifiSend));
+		**};
 	end wifiDriver;
 	
 	thread dataManager
 		features
-			HMD_log: in event data port;
+			HMD_log: in event data port Common::Log.Impl;
 			request_log: in event data port;
-			response_log: out event data port;
+			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
 		flows
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
+		annex agree {**
+			fun NULL_RESPONSE(logs: Common::LogArray.Impl): bool = 
+				forall i in indices(logs), logs[i] = NULL_LOG;
+				
+			guarantee Zeroize "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+				Once(event(zeroize)) and event(request_log) => NULL_RESPONSE(response_log.payload);
+		**};
 	end dataManager;
 	
 	thread dataAnalysis
 		features
 			request_log: out event data port;
-			response_log: in event data port;
-			analysis_report: out event data port;
-			analysis_request: in event data port;
+			response_log: in event data port Common::ResponseLog.Impl;
+			analysis_report: out event data port Common::AnalysisReport.Impl;
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
 		flows
 			f1: flow path analysis_request -> request_log;
 			f2: flow path response_log -> analysis_report;
+		annex agree {**
+			assume Trusted_Request "A: Requests received are from a trusted source." :
+				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.src);
+		**};
 	end dataAnalysis;
 
 	thread btDriver
@@ -84,18 +106,18 @@ public
 	end usbDriver;
 	
 	process SW
-	features
-		wifiRecv: in event data port;
-		wifiSend: out event data port;
-		--
-		btRecv: in event data port;
-		btSend: out event data port;
-		--
-		usbRecv: in event data port;
-		usbSend: out event data port;
-	flows
-		f1: flow sink wifiRecv;
-end SW;
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			--
+			btRecv: in event data port;			
+			btSend: out event data port;
+			--
+			usbRecv: in event data port;			
+			usbSend: out event data port;
+		flows
+			f1: flow sink wifiRecv;
+	end SW;
 	
 	process implementation SW.unhardened
 		subcomponents
