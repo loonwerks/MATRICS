@@ -74,10 +74,10 @@ public
 			camera: device Camera.Impl;
 			display: device Display.Impl;
 		connections
-			ba4: bus access eyeTrackSensor.sera <-> sera;
-			ba5: bus access depthSensor.sera <-> sera;
-			ba6: bus access camera.sera <-> sera;
-			ba7: bus access display.sera <-> sera;
+			bac4: bus access eyeTrackSensor.sera <-> sera;
+			bac5: bus access depthSensor.sera <-> sera;
+			bac6: bus access camera.sera <-> sera;
+			bac7: bus access display.sera <-> sera;
 			--
 			c4: port eyeTrackSensor.info -> eyeTrackInfo;
 			c5: port depthSensor.info -> depthInfo;
