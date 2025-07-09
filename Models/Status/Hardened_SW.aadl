@@ -42,7 +42,7 @@ public
 	process dataManager_seL4
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			request_log: in event data port;
+			request_log: in event data port Common::Request.Impl;
 			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
 		flows
@@ -65,7 +65,7 @@ public
 	
 	process dataAnalysis_seL4
 		features
-			request_log: out event data port;
+			request_log: out event data port Common::Request.Impl;
 			response_log: in event data port Common::ResponseLog.Impl;
 			analysis_report: out event data port Common::AnalysisReport.Impl;
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
@@ -123,7 +123,7 @@ public
 	-- monitors the behavior of the dataManager component	
 	thread monitor1
 		features
-			request_log: in event data port;
+			request_log: in event data port Common::Request.Impl;
 			response_log_in: in event data port Common::ResponseLog.Impl;
 			response_log_out: out event data port Common::ResponseLog.Impl;			
 			alert: out event port;
@@ -146,7 +146,7 @@ public
 	
 	process monitor1_seL4
 		features
-			request_log: in event data port;
+			request_log: in event data port Common::Request.Impl;
 			response_log_in: in event data port Common::ResponseLog.Impl;
 			response_log_out: out event data port Common::ResponseLog.Impl;
 			alert: out event port;
@@ -197,10 +197,10 @@ public
 				if is_invalid2
 				then event(alert)
 				else not(event(alert));
-			guarantee Forward_Report "G: Only forward a report if a valid request has been made." :
-				if event(analysis_report_in) and is_valid1 and not(is_invalid2)
+			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
+				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.dst)
 				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
-				else not(event(analysis_report_out));				
+				else not(event(analysis_report_out));	
 		**};
 	end monitor2;
 
@@ -234,6 +234,10 @@ public
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
+		annex agree {**
+			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+				HMD_log_out != HMD_log_in;
+		**}	;				
 	end decryptor;
 
 	process decryptor_seL4
@@ -252,6 +256,9 @@ public
 		connections
 			c1: port HMD_log_in -> decryptor.HMD_log_in;
 			c2: port decryptor.HMD_log_out -> HMD_log_out;
+		annex agree {**
+			lift contract;
+		**};				
 	end decryptor_seL4.Impl;
 	
 	-- handles encryption
@@ -263,8 +270,10 @@ public
 		flows
 			f1: flow path analysis_report_in -> analysis_report_out;
 		annex agree {**
-			guarantee Message_Encrypted "G: Outgoing messages are encrypted." : 
-				analysis_report_out != analysis_report_in;
+			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
+				analysis_report_out.payload != analysis_report_in.payload;
+			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
+				analysis_report_out.header = analysis_report_in.header;
 		**}	;	
 	end encryptor;
 	
@@ -290,7 +299,7 @@ public
 	end encryptor_seL4.Impl;
 	
 	-- filters the analysis request to guarantee it is from a trusted device
-	thread filter
+	thread firewall
 		features
 			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
 			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
@@ -302,9 +311,9 @@ public
 				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
 				else not event(analysis_request_out);
 		**};
-	end filter;
+	end firewall;
 	
-	process filter_seL4
+	process firewall_seL4
 		features
 			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
 			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
@@ -312,18 +321,18 @@ public
 			f1: flow path analysis_request_in -> analysis_request_out;
 		properties
 			MATRICS_Properties::Component_Type => FILTER;
-	end filter_seL4;
+	end firewall_seL4;
 	
-	process implementation filter_seL4.impl
+	process implementation firewall_seL4.impl
 		subcomponents
-			filter: thread filter;
+			firewall: thread firewall;
 		connections
-			c1: port analysis_request_in -> filter.analysis_request_in;
-			c2: port filter.analysis_request_out -> analysis_request_out;
+			c1: port analysis_request_in -> firewall.analysis_request_in;
+			c2: port firewall.analysis_request_out -> analysis_request_out;
 		annex agree {**
 			lift contract;
 		**};			
-	end filter_seL4.impl;
+	end firewall_seL4.impl;
 	
 	-- Hardened Software System
 	system SW_seL4
@@ -349,7 +358,7 @@ public
 			encryptor: process encryptor_seL4.Impl;
 			monitor1: process monitor1_seL4.Impl;
 			monitor2: process monitor2_seL4.Impl;
-			filter: process filter_seL4.Impl;
+			firewall: process firewall_seL4.Impl;
 		connections
 			-- Wi-Fi exchange with outside
 			c1: port wifiRecv -> wifiDriver.wifiRecv;
@@ -376,14 +385,14 @@ public
 			c15: port wifiDriver.analysis_request -> monitor2.analysis_request;
 			c16: port encryptor.analysis_report_out -> monitor2.analysis_report_in;
 			c18: port monitor2.alert -> wifiDriver.alert;
-			--filter connections
-			c22: port wifiDriver.analysis_request -> filter.analysis_request_in;
-			c23: port filter.analysis_request_out -> dataAnalysis.analysis_request;
+			--firewall connections
+			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
+			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
 		annex resolute {**
 			--TODO: resolve component_implemented checks
 			--TODO: confirm whether implementation_language_assurance is wanted and if CakeML should be specified for component implementation
 			--TODO: confirm whether this dot notation makes sense
-			prove add_filter(this.dataAnalysis.dataAnalysis, this.filter.filter, this.c23, Common::AnalysisRequest.Impl)
+			prove add_filter(this.dataAnalysis.dataAnalysis, this.firewall.firewall, this.c23, Common::AnalysisRequest.Impl)
 			prove add_monitor(this.encryptor.encryptor, this.monitor2.monitor2)
 			prove add_monitor_gate(this.dataAnalysis.dataAnalysis, this.monitor1.monitor1, this.dataManager.dataManager, Common::ResponseLog.Impl)
 		**};
