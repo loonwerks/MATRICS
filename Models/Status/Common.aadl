@@ -138,15 +138,37 @@ public
 	data AnalysisRequest
 	end AnalysisRequest;
 	
+	data Request
+	end Request;
+	
+	data implementation Request.Impl
+		subcomponents
+			requestID: data Base_Types::Integer;
+			analysisType: data Base_Types::Integer;
+			userID: data Base_Types::Integer;
+			startTime: data Base_Types::Integer;
+			endTime: data Base_Types::Integer;
+	end Request.Impl;
+	
 	data implementation AnalysisRequest.Impl
 		subcomponents
 			header: data MsgHeader.Impl;
-			payload: data;
+			payload: data Request.Impl;
 	end AnalysisRequest.Impl;
 	
 	-- Response log message structure
 	data ResponseLog
 	end ResponseLog;
+	
+	data ResponseHeader
+	end ResponseHeader;
+	
+	data implementation ResponseHeader.Impl
+		subcomponents
+			requestID: data Base_Types::Integer;
+			sequenceNumber: data Base_Types::Integer;
+			totalParts: data Base_Types::Integer;
+	end ResponseHeader.Impl;
 	
 	data LogArray
 		properties
@@ -160,7 +182,7 @@ public
 
 	data implementation ResponseLog.Impl
 		subcomponents
-			header: data MsgHeader.Impl;
+			header: data ResponseHeader.Impl;
 			payload: data LogArray.Impl;
 	end ResponseLog.Impl;
 	
@@ -171,7 +193,7 @@ public
 	data implementation AnalysisReport.Impl
 		subcomponents
 			header: data MsgHeader.Impl;
-			payload: data;
+			payload: data Base_Types::Unsigned_8[100];
 	end AnalysisReport.Impl;
 	
 end Common;
