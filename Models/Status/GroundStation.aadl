@@ -48,6 +48,10 @@ public
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
 		annex agree {**
+			assume Alert "A: A report should not be received if an alert is received." :
+				event(alert) => not(event(analysis_report));
+			assume Trusted_Report "A: Reports received are to a trusted destination." :
+				event(analysis_report) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report.header.dst);
 			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
 			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
 				if event(analysis_report) and not(Once(event(alert)))
@@ -59,7 +63,7 @@ public
 	thread dataManager
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			request_log: in event data port;
+			request_log: in event data port Common::Request.Impl;
 			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
 		flows
@@ -76,7 +80,7 @@ public
 	
 	thread dataAnalysis
 		features
-			request_log: out event data port;
+			request_log: out event data port Common::Request.Impl;
 			response_log: in event data port Common::ResponseLog.Impl;
 			analysis_report: out event data port Common::AnalysisReport.Impl;
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
