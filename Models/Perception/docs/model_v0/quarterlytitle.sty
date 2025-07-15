@@ -1,0 +1,34 @@
+\ProvidesPackage{quarterlytitle}[2019/01/15 v.01]
+\RequirePackage{graphicx}
+\newcommand*{\contractnumber}[1]{\gdef\@contractnumber{#1}%
+}
+\newcommand*{\@contractnumber}{XXX}
+\newcommand*{\reportname}[1]{\gdef\@reportname{#1}%
+}
+\newcommand*{\@reportname}{Quarterly Status and Financial Report}
+\newcommand*{\jc}[1]{\gdef\@jc{#1}%
+}
+\newcommand*{\@jc}{
+	Copyright RTX 2025. All rights reserved.}
+\renewcommand*{\maketitle}{%
+\begin{titlepage}
+\begin{flushleft}
+\vspace{36pt}
+{\huge\bfseries\@title\unskip\strut\par}
+\vspace{24pt}
+{\large\em\@reportname\unskip\strut\par}
+\vspace{96pt}
+{ Contract N\textsuperscript{\underline{o}} \@contractnumber\par}
+\vspace{12pt}
+{\@author\par}
+\vspace{12pt}
+{\@date\par}
+\vfill
+\includegraphics[width=2in]{figs/rtx}
+\vspace{20pt}
+
+{\footnotesize \@jc \par}
+\end{flushleft}
+\end{titlepage}
+}
+\endinput

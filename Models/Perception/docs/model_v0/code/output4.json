@@ -1,0 +1,303 @@
+Time taken by function: 279 milliseconds
+{
+   "class_id": "contract_network_instance",
+   "contract_network": "root",
+   "links": [
+      {
+         "contract": "testcase2.root.i0.sc_is_achieved",
+         "contract_network_instance": {
+            "class_id": "contract_network_instance",
+            "contract_network": "testcase2_0.dala_cn",
+            "links": [],
+            "name": "testcase2_0"
+         },
+         "refinement": "testcase2_0.dala_sc_ref"
+      },
+      {
+         "contract": "testcase2.root.i0.sc_is_achieved",
+         "contract_network_instance": {
+            "class_id": "contract_network_instance",
+            "contract_network": "testcase2_1.dalb_cn",
+            "links": [],
+            "name": "testcase2_1"
+         },
+         "refinement": "testcase2_1.dalb_sc_ref"
+      }
+   ],
+   "name": "testcase2"
+}
+[
+{
+   "class_id": "type",
+   "name": "Module"
+},
+
+{
+   "class_id": "type",
+   "name": "Requirement"
+},
+
+{
+   "class_id": "type",
+   "name": "System"
+},
+
+{
+   "class_id": "type",
+   "name": "Test"
+},
+
+{
+   "class_id": "type",
+   "name": "TestCase"
+},
+
+{
+   "class_id": "type",
+   "name": "TestCases"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      ""
+   ],
+   "name": "A320::Entertainment::VideoModule",
+   "range": "Module"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "Dal",
+   "range": "Int"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Requirement"
+   ],
+   "name": "HLRCovered",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Requirement"
+   ],
+   "name": "LLRCovered",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "coveredByDC",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "coveredByMCDC",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "coveredBySC",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "hlr",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "llr",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Requirements"
+   ],
+   "name": "manualReview",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Requirements"
+   ],
+   "name": "mutationTest",
+   "range": "Real"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "sourceCode",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "structureCovered",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "testCases",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Test"
+   ],
+   "name": "testDiscrepanciesExplained",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      "Module"
+   ],
+   "name": "testingCovered",
+   "range": "Bool"
+},
+
+{
+   "assumption": "true",
+   "class_id": "contract",
+   "context": {
+      "dal": "Int",
+      "module": "Module"
+   },
+   "guarantee": "(and (structureCovered |A320::Entertainment::VideoModule|)\n     (<= dal (Dal |A320::Entertainment::VideoModule|)))",
+   "name": "testcase2.root.i0.sc_is_achieved"
+},
+
+{
+   "assumption": "true",
+   "class_id": "contract",
+   "context": {
+      "module": "Module"
+   },
+   "guarantee": "(and (sourceCode |A320::Entertainment::VideoModule|)\n     (testCases |A320::Entertainment::VideoModule|))",
+   "name": "testcase2_0.dala_cn.i1.sc_conditions"
+},
+
+{
+   "assumption": "(and (sourceCode |A320::Entertainment::VideoModule|)\n     (testCases |A320::Entertainment::VideoModule|))",
+   "class_id": "contract",
+   "context": {
+      "dal": "Int",
+      "module": "Module"
+   },
+   "guarantee": "(and (structureCovered |A320::Entertainment::VideoModule|) (= dal 1))",
+   "name": "testcase2_0.dala_cn.i2.dala"
+},
+
+{
+   "assumption": "true",
+   "class_id": "contract",
+   "context": {
+      "module": "Module"
+   },
+   "guarantee": "(and (sourceCode |A320::Entertainment::VideoModule|)\n     (testCases |A320::Entertainment::VideoModule|))",
+   "name": "testcase2_1.dalb_cn.i1.sc_conditions"
+},
+
+{
+   "assumption": "(and (sourceCode |A320::Entertainment::VideoModule|)\n     (testCases |A320::Entertainment::VideoModule|))",
+   "class_id": "contract",
+   "context": {
+      "dal": "Int",
+      "module": "Module"
+   },
+   "guarantee": "(and (structureCovered |A320::Entertainment::VideoModule|) (= dal 2))",
+   "name": "testcase2_1.dalb_cn.i2.dalb"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i0": "testcase2.root.i0.sc_is_achieved"
+   },
+   "name": "root"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i1": "testcase2_0.dala_cn.i1.sc_conditions",
+      "i2": "testcase2_0.dala_cn.i2.dala"
+   },
+   "name": "testcase2_0.dala_cn"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i1": "testcase2_1.dalb_cn.i1.sc_conditions",
+      "i2": "testcase2_1.dalb_cn.i2.dalb"
+   },
+   "name": "testcase2_1.dalb_cn"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "testcase2.root.i0.sc_is_achieved",
+   "contract_network": "testcase2_0.dala_cn",
+   "formula": "true",
+   "name": "testcase2_0.dala_sc_ref"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "testcase2.root.i0.sc_is_achieved",
+   "contract_network": "testcase2_1.dalb_cn",
+   "formula": "true",
+   "name": "testcase2_1.dalb_sc_ref"
+}
+]
+
+

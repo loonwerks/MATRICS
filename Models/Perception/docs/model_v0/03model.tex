@@ -1,0 +1,64 @@
+%% 03 model details 
+\subsection{Assume-Guarantee join operator + device Model}
+
+
+\begin{enumerate}
+
+    \item device components 
+    \item operator component, an abstraction of human perception 
+    \item assume and guarantees 
+    \item sources from the cognitive literature for estimating the parameter values int he assumption, guarantee formulas.. 
+    \item usage in designing filter, and perform security analysis.. 
+    
+\end{enumerate}
+
+\subsection{HSR Protocol for Validting the Operator Component}
+
+We plan conduct human subject experimentations to validate the operator component.  
+To validate the operator model, we have devised the following Subject Research Protocol
+
+Description: In an environment where the ambient lighting is constant, there is 1 target in the field of view.
+Target walks along path starting from step 1 to 5. A bounding box around the target appears between step 2-
+4. The timing of when a bounding box is randomized to prevent participant learning effect. The location of
+the bounding box relative to the target is constant, but its appearance is also randomized to minimize
+learning effect. The design choices of the bounding box incorporates current Helmet-Mounted symbology
+concepts for degraded environments (Cheung et al., 2015).
+Participants Instructions: Bounding boxes may or may not appear around a pedestrian. If you see a
+bounding box, press a button as soon as you see it.
+Measure: Participant performance in 
+
+\begin{enumerate}
+    \item true and false positives for identifying existence of bounding box
+    \item delays in correct identification.
+\end{enumerate}
+Baseline Condition: No attack, target walks along path. Bounding box appears.
+Attack Condition: Glare attack: Target turns on a headlamp somewhere along the walking path.
+Luminance level of headlamp matches or is greater than bounding box. Headlamp is pointing at HMD.
+Bounding box appears
+Mitigation Condition: HMD modifies the stimuli by introducing a regional diming filter around the high
+luminance area produced in the headlamp. See example of auto-diming glass
+(https://www.gentextech.com/dimmable-glass.html).
+Timing: Six combinations with an estimated 15 seconds per run. Each subject performs multiple sets of the
+full combination for a total of 10 minute of subject task time. We may choose to add variations in ambient
+lighting conditions should power analysis permits.
+Hypotheses for Baseline, Attack, \& Mitigation conditions:
+\begin{enumerate}
+\item Baseline: Participants will correctly identify symbology (DV1) at $90\%$ with delays (DV2) <=600ms (+/- 60ms).
+\item  Baseline DV1 estimates consider the presence and absence of factors specific to our
+stimuli that affect human error rates (Remington \& Willaims, 1985).
+\item Baseline DV2 estimates delay leverages findings in the analogous visual-motor task of a
+cricket batter perceiving the ball release to judging the futural arrival point of the ball
+(Sarpeshkar \& Mann, 2011).
+\item Attack: Participants will correctly identify symbology (DV1) at $80\%$ with delays (DV2) >= 1sec.
+\end{enumerate}
+The expected performance decrement in delay is based on a hypothesized function of the following features:
+\begin{enumerate} 
+    \item Attack light source of 100 lumens such as from a low cost flashlight.
+\item A maximum pupil size change of 1.15mm for a maximum luminance change of 10.90cd/m2 (standard deviation 20.04) (see Table 1 and 2, Sulutvedt et al., 2021)
+\item 1mm increase in pupil diameter corresponds to an average increase in the perceptual experience of 2.09 cd/m2 in brightness (Sulutvedt et al., 2021)
+\end{enumerate}
+Mitigation: Return to baseline for both DV1 and DV2 with a $10\%$ performance decrement. 
+
+Independent Variables
+
+%% 

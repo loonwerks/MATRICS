@@ -1,0 +1,150 @@
+
+[
+{
+   "class_id": "type",
+   "name": "Bool"
+},
+
+{
+   "assumption": "a_c1",
+   "class_id": "contract",
+   "context": {
+      "a_c1": "Bool",
+      "g_c1": "Bool"
+   },
+   "guarantee": "g_c1",
+   "name": "c1"
+},
+
+{
+   "assumption": "a_c2",
+   "class_id": "contract",
+   "context": {
+      "a_c2": "Bool",
+      "g_c2": "Bool"
+   },
+   "guarantee": "g_c2",
+   "name": "c2"
+},
+
+{
+   "assumption": "a_c1",
+   "class_id": "contract",
+   "context": {
+      "a_c1": "Bool",
+      "g_c1": "Bool"
+   },
+   "guarantee": "g_c1",
+   "name": "c3"
+},
+
+{
+   "assumption": "a_c4",
+   "class_id": "contract",
+   "context": {
+      "a_c4": "Bool",
+      "g_c4": "Bool"
+   },
+   "guarantee": "g_c4",
+   "name": "c4"
+},
+
+{
+   "assumption": "a_c5",
+   "class_id": "contract",
+   "context": {
+      "a_c5": "Bool",
+      "g_c5": "Bool"
+   },
+   "guarantee": "g_c5",
+   "name": "c5"
+},
+
+{
+   "assumption": "a_c7",
+   "class_id": "contract",
+   "context": {
+      "a_c7": "Bool",
+      "g_c7": "Bool"
+   },
+   "guarantee": "g_c7",
+   "name": "c7"
+},
+
+{
+   "assumption": "a_c1",
+   "class_id": "contract",
+   "context": {
+      "a_c1": "Bool",
+      "g_c1": "Bool"
+   },
+   "guarantee": "g_c1",
+   "name": "c8"
+},
+
+{
+   "assumption": "a_tp",
+   "class_id": "contract",
+   "context": {
+      "a_tp": "Bool",
+      "g_tp": "Bool"
+   },
+   "guarantee": "g_tp",
+   "name": "c_tp"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i1": "c1",
+      "i2": "c2"
+   },
+   "name": "cn1"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i3": "c3",
+      "i4": "c4"
+   },
+   "name": "cn2"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i3": "c8",
+      "i4": "c7"
+   },
+   "name": "cn3"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "c_tp",
+   "contract_network": "cn1",
+   "formula": "(and (= a_tp(or (and a_c1 a_c2) (and (not g_c1) (not g_c2)))) (= g_tp(and g_c1 g_c2)) )",
+   "name": "ref1"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "c3",
+   "contract_network": "cn2",
+   "formula": "(and (= a_c1(or (and a_c4 a_c5) (and (not g_c4) (not g_c5)))) (= g_c1(and g_c4 g_c5)) )",
+   "name": "ref2"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "c8",
+   "contract_network": "cn3",
+   "formula": "(and (= a_c1(or (and a_c7 a_c8) (and (not g_c7) (not g_c8)))) (= g_c1(and g_c7 g_c8)) )",
+   "name": "ref3"
+}
+]
+

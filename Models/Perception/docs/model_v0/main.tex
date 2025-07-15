@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{quarterlytitle}
+\usepackage{fancyhdr} 
+\usepackage{bera}% optional: just to have a nice mono-spaced font
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\input{headers/math_commands.tex} 
+\include{headers/tim} 
+
+\title{Documentation for Perception Model Version 0}
+\author{%
+	\textbf{Timothy E. Wang} \\
+    Research Engineer \\
+	Autonomous and Intelligent Systems \\
+	C: +1 860.610.7962 \\
+	wangte@rtx.com  \\
+    \vspace{12pt} 
+    \textbf{Peggy Wu} \\
+    Tech Fellow \\
+	Autonomous and Intelligent Systems \\
+	C: \\
+	peggy.wu@rtx.com  \\
+	\vspace{12pt} 
+	\textbf{RTX Technology} \\
+	Research Center \\
+	411 Silver Lane \\
+	East Hartford, CT 06013}
+\contractnumber{}
+\reportname{DARPA MATRICS PERCEPTION MODEL} 
+\date{APRIL 3, 2024}
+\begin{document}
+\maketitle
+
+\pagestyle{simplefooter}
+\tableofcontents
+\newpage
+
+\pagestyle{simplefooter} 
+\section{INTRODUCTION} 
+\label{sec:intro}
+\input{01intro}
+
+\section{BACKGROUND} 
+\label{sec:background}
+\input{02background}
+
+\section{MODEL DETAILS} 
+\label{sec:model}
+\input{03model}
+
+\section{ANALYSIS} 
+\label{sec:analysis}
+\input{04analysis}
+
+\section{FUTURE REFINEMENTS} 
+\label{sec:refine}
+\input{05refine}
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{references/tim}
+
+\end{document}

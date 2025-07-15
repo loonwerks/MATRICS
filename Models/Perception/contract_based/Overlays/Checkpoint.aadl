@@ -28,9 +28,9 @@ public
 			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
 			assume normal_ambient_light "A: typical daylight room ambient light" : ambient_light>=5.0 and ambient_light<=HIGH_LIGHT; -- all light conditions.. 
 		--	assume double_green_attack "A: a green transparent box appears around the green bounding box." : red_overlay_attack =0.0 and green_overlay_attack=70.0; -- 70% transparent
-			assume false_red_attack "A: a red transparent box appears around the green bounding box." : green_overlay_attack =0.0 and red_overlay_attack = 70.0; -- 70% transparent 
-		--	assume no_overlay "A: no attack at all." : red_overlay_attack =0.0 and green_overlay_attack=0.0 ; -- 70% transparent
-			guarantee always_detection "G: if a target is within FOV for 1.0 second, the checkpoint guard will detect it." : 
+		--	assume false_red_attack "A: a red transparent box appears around the green bounding box." : green_overlay_attack =0.0 and red_overlay_attack = 70.0; -- 70% transparent 
+			assume no_overlay "A: no attack at all." : red_overlay_attack =0.0 and green_overlay_attack=0.0 ; -- 70% transparent
+			guarantee always_detection "G: if a target is within FOV for 1.0 second, the checkpoint guard  detect it within that second." : 
 						persistent(target_within_fov,105) => counter(mission_success)>0; 
 		**};
 	end Checkpoint;

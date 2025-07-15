@@ -1,0 +1,47 @@
+%% 02 background information
+
+\subsection{Mission Scenario}
+
+The MATRICS team has defined a common mission scenario (with slight variations for each category). The mission centers around an HMD application used at border crossings and other security checkpoints for identifying people carrying suspicious packages.  The system highlights the suspicious person by drawing a red bounding box around them, and the HMD operator (e.g., a checkpoint guard in an observation tower) must then visually confirm whether the highlighted person is indeed a threat or an attacker.  If so, the guard will confirm the alert (which might then trigger ground personnel to intercept the person identified by the scan).  If not, the guard will dismiss the alert, which will remove the bounding box.  The guard can also alert to a suspicious person that was not identified by the scanning system. 
+The guard will be positioned with a bird’s eye view of the surveillance area enhanced by a HMD display. 
+People passing through the surveillance area can be moving in any direction and at any humanly possible speed. People may be carrying a bag or backpack.  Suspicious packages will all look identical.
+
+
+\subsection{Mission Task}
+
+\subsection{Perception Attack}
+
+For this scenario, we assume the adversary has not compromised the headset system i.e. 
+they cannot directly manipulate what the headset displays to the user. The adversary party has enough control of the external environment
+to introduce different sources of intense light into that environment at any location.  The intense light 
+will be targeted at the general direction of the guard, causing temporary pupil constriction and compromised visual 
+capabilities. 
+
+\subsection{Scope of Application}
+
+
+\subsection{Overarching Assumptions for Version 0}
+
+We make a few global assumptions which applies to the entire model. 
+These assumptions are mostly made to simplify this first release of perception model. 
+Some assumptions are made to either simplify the formal analysis or to justify the formal language used for the modeling and analysis. 
+
+\begin{enumerate}
+    \item There is only one attacker in the field-of-vision (FOV) of the HMD at any given time. This greatly simplifies this first version of the model as we can now 
+    abstract the presence of attacker in the FOV using a single Boolean variable.  With multiple attackers at different locations within the FOV, complexities are introduced 
+    such as the location on the screen of the attacker and the different characteristics of the different attackers.
+    \item The HMD system is perfect (no false positives nor false negativese) in detecting an attacker i.e. marking the attacker with a red bounding box. 
+    This simplifies the behavior of the HMD system.  False positives and false negatives will introduced in a future version of this model.  
+    \item There is only one source of light attack and it is localized around the attacker. Multiple sources of attack from different locations in the environment could 
+    be introduced in future versions of the model. 
+    \item The perception process in a human operator behaves like a reactive synchronous\cite{halbwachs1991synchronous} process with a discrete-time clock. This assumption is made 
+    in the selection of lustre~\cite{halbwachs2012synchronous} (can think of it as a discrete subset of Simulink) 
+    as the underlying formal language for specifying the perception behavior of the human operator and formal reasoning/analysis using 
+    lustre-based model checkers~\cite{champion2016kind,gacek2018jk}. We hypothsize that this is a close enough abstraction of the human perception process 
+    i.e. at each sample period, it takes in a visual input, processes the visual input to extract some information (possible presence and location of attacker), store the extracted 
+    information in memory, and then starts over again on the next visual input.   
+    \item The operator component operates on the same clock as HMD display i.e. synchronized and has the same sample period. This assumption is made to simplify the analysis in this 
+    first version of the model.     
+\end{enumerate}
+
+

@@ -1,0 +1,325 @@
+[
+  {
+    "class_id": "type",
+    "name": "Bool"
+  },
+  {
+    "class_id": "type",
+    "name": "Int"
+  },
+  {
+    "class_id": "type",
+    "name": "Module"
+  },
+
+  {
+    "class_id": "type",
+    "name": "Requirement"
+  },
+
+  {
+    "class_id": "type",
+    "name": "System"
+  },
+
+  {
+    "class_id": "type",
+    "name": "Test"
+  },
+
+  {
+    "class_id": "type",
+    "name": "TestCase"
+  },
+
+  {
+    "class_id": "type",
+    "name": "TestCases"
+  },
+
+  {
+    "domain": [
+      "Requirement"
+    ],
+    "class_id": "function",
+    "name": "HLRCovered",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Requirement"
+    ],
+    "class_id": "function",
+    "name": "LLRCovered",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "coveredByDC",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "coveredByMCDC",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "coveredBySC",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "Dal",
+    "range": "Int"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "hlr",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "llr",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Requirements"
+    ],
+    "class_id": "function",
+    "name": "manualReview",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Requirements"
+    ],
+    "class_id": "function",
+    "name": "mutationTest",
+    "range": "Real"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "sourceCode",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "structureCovered",
+    "range": "Bool"
+  },
+
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "testCases",
+    "range": "Bool"
+  },
+  {
+    "domain": [
+      "Test"
+    ],
+    "class_id": "function",
+    "name": "testDiscrepanciesExplained",
+    "range": "Bool"
+  },
+  {
+    "domain": [
+      "Module"
+    ],
+    "class_id": "function",
+    "name": "testingCovered",
+    "range": "Bool"
+  },
+  {
+    "assumption": "true",
+    "class_id": "contract",
+    "context": {
+      "module": "Module",
+      "dal": "Int"
+    },
+    "guarantee": "(and (structureCovered module) (<= dal (Dal module)))",
+    "name": "sc_is_achieved"
+  },
+  {
+    "assumption": "true",
+    "class_id": "contract",
+    "context": {
+      "module": "Module"
+    },
+    "guarantee": "(and (sourceCode module) (testCases module))",
+    "name": "sc_conditions"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module",
+      "dal": "Int"
+    },
+    "guarantee": "(and (structureCovered module) (= dal 1))",
+    "name": "dala"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module",
+      "dal": "Int"
+    },
+    "guarantee": "(and (structureCovered module) (= dal 1))",
+    "name": "dala_other"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module",
+      "dal": "Int"
+    },
+    "guarantee": "(and (structureCovered module) (<= dal 2))",
+    "name": "dalb"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module",
+      "dal": "Int"
+    },
+    "guarantee": "(and (structureCovered module) (= dal 2))",
+    "name": "dalb_other"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module"
+    },
+    "guarantee": "(coveredByMCDC module)",
+    "name": "dal_stc_c1"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module"
+    },
+    "guarantee": "(coveredByDC module)",
+    "name": "dal_stc_c2"
+  },
+  {
+    "assumption": "(and (sourceCode module) (testCases module))",
+    "class_id": "contract",
+    "context": {
+      "module": "Module"
+    },
+    "guarantee": "(coveredBySC module)",
+    "name": "dal_stc_c3"
+  },
+  {
+    "class_id": "contract_network",
+    "connections": null,
+    "contract_instances": {
+      "i1": "sc_conditions",
+      "i2": "dala"
+    },
+    "name": "dala_cn"
+  },
+  {
+    "class_id": "contract_network",
+    "connections": null,
+    "contract_instances": {
+      "i1": "sc_conditions",
+      "i2": "dalb"
+    },
+    "name": "dalb_cn"
+  },
+  {
+    "class_id": "contract_network",
+    "connections": null,
+    "contract_instances": {
+      "i1": "dal_stc_c1",
+      "i2": "dal_stc_c2",
+      "i3": "dal_stc_c3"
+    },
+    "name": "dala_sc"
+  },
+  {
+    "class_id": "contract_network",
+    "connections": null,
+    "contract_instances": {
+      "i1": "dal_stc_c2",
+      "i2": "dal_stc_c3"
+    },
+    "name": "dalb_sc"
+  },
+  {
+    "class_id": "refinement",
+    "contract": "dala",
+    "contract_network": "dala_sc",
+    "formula": "(=> (and (and (coveredBySC module) (coveredByDC module)) (coveredByMCDC module)) (and (structureCovered module) (= dal 1)))",
+    "name": "dala_ref"
+  },
+  {
+    "class_id": "refinement",
+    "contract": "dalb",
+    "contract_network": "dalb_sc",
+    "formula": "(=> (and  (coveredBySC module) (coveredByDC module)) (and (structureCovered module) (= dal 2)))",
+    "name": "dalb_ref"
+  },
+  {
+    "class_id": "refinement",
+    "contract": "sc_is_achieved",
+    "contract_network": "dala_cn",
+    "formula": "true",
+    "name": "dala_sc_ref"
+  },
+  {
+    "class_id": "refinement",
+    "contract": "sc_is_achieved",
+    "contract_network": "dalb_cn",
+    "formula": "true",
+    "name": "dalb_sc_ref"
+  }
+]
+
+

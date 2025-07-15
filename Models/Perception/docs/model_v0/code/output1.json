@@ -1,0 +1,100 @@
+Time taken by function: 72 milliseconds
+{
+   "class_id": "contract_network_instance",
+   "contract_network": "root",
+   "links": [
+      {
+         "contract": "testcase1.root.i0.c_tp",
+         "contract_network_instance": {
+            "class_id": "contract_network_instance",
+            "contract_network": "testcase1_0.cn1",
+            "links": [],
+            "name": "testcase1_0"
+         },
+         "refinement": "testcase1_0.ref1"
+      }
+   ],
+   "name": "testcase1"
+}
+
+[
+{
+   "class_id": "function",
+   "domain": [
+      ""
+   ],
+   "name": "A320_is_neo",
+   "range": "Bool"
+},
+
+{
+   "class_id": "function",
+   "domain": [
+      ""
+   ],
+   "name": "fuel_efficient_is_high",
+   "range": "Bool"
+},
+
+{
+   "assumption": "A320_is_neo",
+   "class_id": "contract",
+   "context": {
+      "a_tp": "Bool",
+      "g_tp": "Bool"
+   },
+   "guarantee": "fuel_efficient_is_high",
+   "name": "testcase1.root.i0.c_tp"
+},
+
+{
+   "assumption": "a_c1",
+   "class_id": "contract",
+   "context": {
+      "a_c1": "Bool",
+      "g_c1": "Bool"
+   },
+   "guarantee": "g_c1",
+   "name": "testcase1_0.cn1.i1.c1"
+},
+
+{
+   "assumption": "a_c2",
+   "class_id": "contract",
+   "context": {
+      "a_c2": "Bool",
+      "g_c2": "Bool"
+   },
+   "guarantee": "g_c2",
+   "name": "testcase1_0.cn1.i2.c2"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i0": "testcase1.root.i0.c_tp"
+   },
+   "name": "root"
+},
+
+{
+   "class_id": "contract_network",
+   "connections": null,
+   "contract_instances": {
+      "i1": "testcase1_0.cn1.i1.c1",
+      "i2": "testcase1_0.cn1.i2.c2"
+   },
+   "name": "testcase1_0.cn1"
+},
+
+{
+   "class_id": "refinement",
+   "contract": "testcase1.root.i0.c_tp",
+   "contract_network": "testcase1_0.cn1",
+   "formula": "(let ((a!1 (= A320_is_neo (or (and a_c1 a_c2) (and (not g_c1) (not g_c2))))))\n  (and a!1 (= fuel_efficient_is_high (and g_c1 g_c2))))",
+   "name": "testcase1_0.ref1"
+}
+]
+
+
