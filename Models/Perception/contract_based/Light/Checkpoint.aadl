@@ -5,7 +5,7 @@ public
 	with Base_Types;
 	annex agree{**
 		-- these contants are global.
-		const LOW_LIGHT : real = 10.0; 
+		const LOW_LIGHT : real = 20.0; 
 		const HIGH_LIGHT : real = 100.0;  
 		const MAX_LIGHT : real = 120.0;
 		const ZERO_LIGHT : real = 0.0; 
@@ -25,7 +25,7 @@ public
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
 			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
-			assume ambient_light_is_low "A: Ambient light is low" : ambient_light>=5.0 and ambient_light<=LOW_LIGHT; -- low light condition 
+			assume ambient_light_is_low "A: Ambient light is low" : ambient_light>=2.0 and ambient_light<=LOW_LIGHT; -- low light condition 
 			assume light_around_target_invariant "A: light around target represents an attack." : light_around_target=ambient_light or light_around_target>=ambient_light+95.0; 
 		--	assume attack_characteristics "A: no rapid pulse attacks and there is at least one period of no attacks" : 
 			--counter(persistent(ambient_light=light_around_target,50))>0 ; 
@@ -40,12 +40,13 @@ public
 			HMD: system HMD::HMD.mon;
 			Operator: system Operator::Operator.impl;
 		connections
-			c2: port Operator.detect_target -> mission_success;
 			c1: port HMD.target_is_marked -> Operator.target_is_marked ; 
+			c2: port Operator.detect_target -> mission_success;
 			c3: port ambient_light -> Operator.ambient_light; 
 			c4: port target_within_fov -> HMD.target_within_fov; 
 			c5: port HMD.filtered_light_around_target -> Operator.filtered_light_around_target; 
-			c6: port light_around_target -> HMD.light_around_target ; 
+			c6: port light_around_target -> HMD.light_around_target ;
+			c7: port ambient_light -> HMD.ambient_light; 
 	--	properties 
 		--	period => 20 ms; 
 		annex agree {**

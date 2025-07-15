@@ -1,4 +1,4 @@
-package Checkpoint
+package Driver
 public
 	with Operator;
 	with HMD;
@@ -26,13 +26,13 @@ public
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
 			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
-			assume ambient_light_is_low "A: ambient light is around 20" : ambient_light>=19.99 and ambient_light<=20.0; -- low light condition 
+			assume ambient_light_is_low "A: ambient light is around 20" : ambient_light>=19.8 and ambient_light<=20.2; -- low light condition 
 			--assume hacker_is_successful "A: hacker manipulates the contrast enough to delay the mission" : hacker_input=-99.5; 
 			assume hacker_is_not_successful "A: hacker manipulates the contrast but not by enough to delay the mission" : hacker_input=-70.5; 
 			guarantee always_detection "G: if an object is within FOV and visual range for 0.5 seconds, the driver will detect it." : 
 						persistent(target_within_fov,25) => counter(mission_success)>0; 
 		**};
-	end Checkpoint;
+	end Driver;
 
 	system implementation Driver.impl
 		subcomponents
@@ -49,9 +49,9 @@ public
 			Period => 20ms; 
 		annex agree {**
 			assert ambient_light_is_between_0_and_high "Domain of ambient light" : ambient_light>=ZERO_LIGHT and ambient_light<=MAX_LIGHT ; 			
-			assert hacker_limits "limited to between 0 and -96.4" : hacker_input>=-99.6 and hacker_input<=0.0; 
+			assert hacker_limits "limited to between 0 and -99.8" : hacker_input>=-99.6 and hacker_input<=0.0; 
 		**}; 
 			
-	end Checkpoint.impl;
+	end Driver.impl;
 
-end Checkpoint;
+end Driver;

@@ -44,8 +44,6 @@ public
 			    var count : int; 
 			    let output = if (count<=t2 and count>=t1) then true else false; 
 			    count = if cond then 0->pre(count) + 1 else 0; tel;
-			assume amblient_light_range "A: Ambient light between this range": 
-			    ambient_light <= LOW_LIGHT and ambient_light >= 1.0;
 			guarantee target_detection 
 			    "G: no attack means detection.": 	
 			    persistent(target_is_marked,15) and 

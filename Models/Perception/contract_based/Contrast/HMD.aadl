@@ -14,16 +14,16 @@ public
 			Period => 20ms; 	
 		annex agree {**
 			-- when			
-			const delta_luminance : real = 100.0; -- for a good contrast.. 
+			const delta_luminance : real = 100.0; -- for contrast of the markers.. 
 
 			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
 			node max(t1: real, t2: real) returns (output: real); let output = if t1<=t2 then t2 else t1; tel; 
 			
-			guarantee display_target_1 "G: display will marked a target within FOV with a bounding box." : persistent(target_within_fov, 5) => target_is_marked; 
-			guarantee display_target_2 "G: otherwise no bounding box" : not persistent(target_within_fov, 5) => not target_is_marked; 
+			guarantee display_target_1 "G: display will tag a target within FOV with a marker i.e. a cross." : persistent(target_within_fov, 5) => target_is_marked; 
+			guarantee display_target_2 "G: otherwise no cross" : not persistent(target_within_fov, 5) => not target_is_marked; 
 			guarantee bounding_box  "G: bounding box will have contrast of certain level versus surrounding ambient lighting condition" : 
-			bounding_box_inv_contrast = 2.0/(delta_luminance + hacker_input)*ambient_light; -- hacker modifies the contrast of the bounding box.. 
+			bounding_box_inv_contrast = 2.0/(delta_luminance + hacker_input)*ambient_light; -- hacker modifies the contrast of the marker. 
 		**};
 	end Display;
 	
