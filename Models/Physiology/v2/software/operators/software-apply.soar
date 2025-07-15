@@ -1,0 +1,13 @@
+##!
+# @file
+#
+# @created candice 20241104
+
+sp {apply*check*sw-cybersickness
+    (state <s> ^operator.name switch-monitor
+               ^name sw-cybersickness-monitor)
+-->
+    (write (crlf) |Switched... Software to Hardware|)
+    (<s> ^name sw-cybersickness-monitor - )
+    (<s> ^name hw-cybersickness-monitor)
+}

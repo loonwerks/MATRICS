@@ -1,0 +1,36 @@
+##!
+# @file
+#
+# @created candice 20240821
+
+echo "\nLoading initialize.soar"
+sp {apply*initialize
+    (state <s> ^operator.name initialize
+               ^io.output-link <out>)
+-->
+    (<s> ^name demographic-monitor)
+    (<s> ^latency-counter 0)
+    (<s> ^opticflow-counter 0) 
+    (<s> ^latency-threshold 30)
+    (<s> ^opticflow-threshold 1)
+    (<s> ^ssq-low 10)
+    (<s> ^ssq-medium 15)
+    (<s> ^ssq-high 30)
+    (<s> ^sum 0)
+    (<s> ^sum-weights no)
+    (<s> ^x1 0)
+    (<s> ^c1 0.36)
+    (<s> ^c1x1 0)
+    (<s> ^c1x1-set no)
+    (<s> ^c2x2 0)
+    (<s> ^c2 0.12)
+    (<s> ^c2x2-set no)
+    (<s> ^c3x3 0)
+    (<s> ^c3 4.51)
+    (<s> ^c3x3-set no)
+    (<s> ^check-flag no)
+    (<s> ^cybersickness-level-checked no)
+    (<out> ^cybersickness-level none)
+    (write (crlf) |Agent initialized.|)
+}
+

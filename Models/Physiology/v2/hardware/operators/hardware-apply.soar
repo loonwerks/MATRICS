@@ -1,0 +1,60 @@
+##!
+# @file
+#
+# @created candice 20240821
+
+# Applying Latency Violations Counter
+echo "\nLoading apply-latency-violated-high"
+sp {apply*apply-latency-violated-high
+    (state <s> ^name hw-cybersickness-monitor
+               ^operator <o>
+               ^check-flag <check-flag>
+               ^latency-upper-counter <luc>)
+    (<o> ^name apply-latency-violated-high
+         ^original-latency-upper-counter <luc>)
+-->
+    (<s> ^latency-upper-counter <luc> -
+         ^latency-upper-counter (+ 1 <luc>))
+    (<s> ^check-flag no - yes +)
+    (write (crlf) |Increment Upper Latency Counter...| <luc>)
+}
+
+echo "\nLoading apply-latency-violated-medium"
+sp {apply*apply-latency-violated-medium
+    (state <s> ^name hw-cybersickness-monitor
+               ^operator <o>
+               ^check-flag <check-flag>
+               ^latency-lower-counter <llc>)
+    (<o> ^name apply-latency-violated-medium
+         ^original-latency-lower-counter <llc>)
+-->
+    (<s> ^latency-lower-counter <llc> -
+         ^latency-lower-counter (+ 1 <llc>))
+    (<s> ^check-flag no - yes +)
+    (write (crlf) |Increment Lower Latency Counter...| <llc>)
+}
+
+# Applying Opticflow Violations Counter
+echo "\nLoading opticflow-check"
+sp {apply*apply-opticflow-violated
+    (state <s> ^name hw-cybersickness-monitor
+               ^operator <o>
+               ^check-flag <check-flag>
+               ^opticflow-counter <oc>)
+    (<o> ^name apply-opticflow-violated
+         ^original-opticflow-counter <oc>)
+-->
+    (<s> ^opticflow-counter <oc> -
+         ^opticflow-counter (+ 1 <oc>))
+    (<s> ^check-flag no - yes +)
+    (write (crlf) |Increment Opticflow Counter...|) 
+    }
+
+sp {apply*check*hw-cybersickness
+    (state <s> ^name hw-cybersickness-monitor
+               ^operator.name switch-monitor)
+-->
+    (write (crlf) |Switched... Hardware to Cybersickness-Monitor|)
+    (<s> ^name hw-cybersickness-monitor - )
+    (<s> ^name cybersickness-monitor)
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="4950d303-b1b8-41fe-9dd1-f286f4f28c2a" manual="true">
+    <element uuid="cbad00e2-f06c-4202-914f-6ec0894f3ac0" manual="true" outline="#000000">
+      <bo>
+        <seg>agree.assumption</seg>
+        <seg>A: frame_rate >= 40</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="30.0" y="60.0"/>
+      <size width="170.5872573852539" height="36.0"/>
+    </element>
+    <element uuid="26c0523e-f2a5-4edd-969f-35e5aa366ef2" manual="true" outline="#000000">
+      <bo>
+        <seg>agree.guarantee</seg>
+        <seg>G: Operator will not get cybersick</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="30.0" y="340.0"/>
+      <size width="248.36721801757812" height="36.0"/>
+    </element>
+    <element uuid="e0f8b7d2-6eea-4a11-a87e-84de57b5542b" manual="true" dockArea="left" primaryLabelVisible="false">
+      <bo>
+        <seg>feature</seg>
+        <seg>frame_rate</seg>
+      </bo>
+      <position y="60.0"/>
+    </element>
+    <element uuid="764b9ecb-71e9-47c3-8e34-deb85b3b5db2" manual="true" dockArea="left" primaryLabelVisible="false">
+      <bo>
+        <seg>feature</seg>
+        <seg>not_cybersick</seg>
+      </bo>
+      <position y="340.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Operator.impl</seg>
+    </bo>
+    <position x="140.0" y="150.0"/>
+    <size width="390.0" height="400.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Operator::Operator.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

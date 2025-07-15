@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="89bbc8ee-19ef-4aec-b0fe-fd5a0f047859" manual="true">
+    <element uuid="e5b036db-dfd8-4afe-8373-7cc36c1abd9e" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bac1</seg>
+      </bo>
+    </element>
+    <element uuid="9682c881-cece-4a6d-8f0f-63b4e963091c" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bac2</seg>
+      </bo>
+    </element>
+    <element uuid="dfe9258d-8aa1-4fa0-833d-d05ccb32d84f" manual="true">
+      <element uuid="b00cd5b2-8406-4e25-bc24-d0a6c061dc1d" manual="true">
+        <bo>
+          <seg>pvg</seg>
+          <seg>Deployment_Properties::Actual_Connection_Binding</seg>
+          <seg>e011b8a9-2bba-4ee8-b32d-cec7e1f94e0f</seg>
+        </bo>
+      </element>
+      <element uuid="d854a8a4-e408-433d-9c54-0fcc49b3c06b" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+    </element>
+    <element uuid="5b9281d0-5231-4ba5-9be3-67e0599a04c9" manual="true">
+      <element uuid="bb518970-6a16-410b-a66d-21a522fcc01f" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>bta</seg>
+        </bo>
+        <position y="225.0"/>
+      </element>
+      <element uuid="afbf9aee-2b3a-43c0-9a85-2b6c8f48342a" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>btRecv</seg>
+        </bo>
+        <position y="180.0"/>
+      </element>
+      <element uuid="415b92a4-c03e-4136-9c93-5e40e4320e9b" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>btSend</seg>
+        </bo>
+        <position x="290.203125" y="180.0"/>
+      </element>
+      <element uuid="402a0c75-a487-4b06-97bf-f3ae4bd54e2f" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>wfa</seg>
+        </bo>
+        <position y="130.0"/>
+      </element>
+      <element uuid="90247bb6-5bd3-4f5e-ab75-518a479181e0" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiRecv</seg>
+        </bo>
+        <position y="40.0"/>
+      </element>
+      <element uuid="a57a3d46-97e7-49bb-9ae4-3d5ef91d3d3b" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiSend</seg>
+        </bo>
+        <position x="282.06510162353516" y="40.0"/>
+      </element>
+      <element uuid="740c9c15-39be-4023-b4d1-402c89851899" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f1</seg>
+        </bo>
+        <position x="159.05450439453125" y="68.53113460540771"/>
+      </element>
+      <element uuid="0a2e5cf0-108d-41ea-858c-36a2b5c0e84c" manual="true">
+        <bo>
+          <seg>pvg</seg>
+          <seg>Deployment_Properties::Actual_Connection_Binding</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>groundStation</seg>
+      </bo>
+      <position x="580.0" y="50.0"/>
+      <size width="344.4622344970703" height="270.0"/>
+    </element>
+    <element uuid="fb38c24e-18ea-4365-806c-1853988a1a53" manual="true">
+      <element uuid="f5672760-dd22-4f4d-9069-e426d2d05550" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>bta</seg>
+        </bo>
+        <position x="334.68879318237305" y="220.0"/>
+      </element>
+      <element uuid="daf87197-5967-42e5-9ac5-bc8a31292083" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>btRecv</seg>
+        </bo>
+        <position y="170.0"/>
+      </element>
+      <element uuid="905079fd-8c6d-4a2c-abbe-a70deb0cab15" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>btSend</seg>
+        </bo>
+        <position x="310.96483993530273" y="175.0"/>
+      </element>
+      <element uuid="09173eac-2612-493e-9153-dbf58a1cd4de" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>wfa</seg>
+        </bo>
+        <position x="332.47525215148926" y="130.0"/>
+      </element>
+      <element uuid="3ae6bd16-29bd-44a6-a3e5-783c3a50a3fd" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiRecv</seg>
+        </bo>
+        <position y="40.0"/>
+      </element>
+      <element uuid="9ac7e26e-b5c6-4c77-984d-2fb49e05c014" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiSend</seg>
+        </bo>
+        <position x="302.8268165588379" y="40.0"/>
+      </element>
+      <element uuid="2371af0b-3925-42e5-9608-5947c48be192" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f1</seg>
+        </bo>
+        <position x="150.0" y="72.0"/>
+      </element>
+      <element uuid="1f3b7ea5-08d2-4c8d-a7bc-d1f363d366f1" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f2</seg>
+        </bo>
+        <position x="163.00000762939453" y="50.453999519348145"/>
+        <bendpoints>
+          <point x="183.00001525878906" y="120.45399570465088"/>
+          <point x="183.00001525878906" y="100.45399475097656"/>
+        </bendpoints>
+      </element>
+      <element uuid="0512758e-7537-4fa4-977f-1a6f051d0482" manual="true">
+        <bo>
+          <seg>pvg</seg>
+          <seg>Deployment_Properties::Actual_Connection_Binding</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>hmd</seg>
+      </bo>
+      <position x="30.0" y="50.0"/>
+      <size width="365.22394943237305" height="270.0"/>
+    </element>
+    <element uuid="e011b8a9-2bba-4ee8-b32d-cec7e1f94e0f" manual="true">
+      <element uuid="9c398ccf-05a1-4b84-9766-5b176b2e16c9" manual="true">
+        <bo>
+          <seg>pvg</seg>
+          <seg>Deployment_Properties::Actual_Connection_Binding</seg>
+          <seg>c7134e15-0a92-4b33-bf87-ed2fed71c4da</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>tcp</seg>
+      </bo>
+      <position x="450.0" y="140.0"/>
+      <size width="74.97525787353516" height="35.0"/>
+    </element>
+    <element uuid="c7134e15-0a92-4b33-bf87-ed2fed71c4da" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>wf</seg>
+      </bo>
+      <position x="450.0" y="190.0"/>
+      <size width="70.52213478088379" height="45.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Checkpoint.Impl</seg>
+    </bo>
+    <position/>
+    <size width="949.1835708618164" height="360.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties>
+      <property>deployment_properties::actual_connection_binding</property>
+    </enabledAadlProperties>
+    <context>
+      <seg>classifier</seg>
+      <seg>Status_v1::Checkpoint.Impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

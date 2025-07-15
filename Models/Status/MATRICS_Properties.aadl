@@ -1,0 +1,13 @@
+property set MATRICS_Properties is
+	
+	-- Runtime
+	OS: aadlstring applies to (processor, virtual processor);
+	
+	-- Indicates a bus or virtual bus is an encrypted channel or that data is encrypted.	
+	Encrypted: enumeration (AES_GCM, RSA, TLS) applies to (bus, virtual bus, data);
+	
+	-- Specifies the type of component
+	Component_Type: inherit enumeration (FILTER, MONITOR, ENCRYPTOR, DECRYPTOR) applies to 
+		(system, process, thread);
+			
+end MATRICS_Properties;

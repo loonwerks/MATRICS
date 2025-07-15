@@ -1,0 +1,114 @@
+##!
+# @file
+#
+# @created candice 20250327
+
+
+
+
+# Linear equation for calculating the cybersickness level
+# c1x1 + c2x2 + c3x3 + c4x4 >= [ssq1, ssq2,ssq3]
+# c1 = 0.1, c2 = 0.2, c3= 0.3, c4 = 0.4 weights
+# ssq1 -> low; ssq2 -> medium; ssq3 -> high
+# x1 = total number of violations
+# x2 = total number of medium latency violations
+# x3 = total number of high latency violations
+# x4 = total number of optical flow violations
+
+# x1 = total number of violations
+echo "\nCalculating c1x1"
+sp {propose*c1x1
+   (state <s> ^name cybersickness-monitor
+              ^c1x1-set no)
+--> 
+   (<s> ^operator <o> + <)
+   (<o> ^name apply-c1x1)
+}
+
+# c2x2 = c2 * x2 (total number of medium latency violations)
+echo "\nCalculating c2x2"
+sp {propose*c2x2
+  (state <s> ^name cybersickness-monitor
+             ^c2x2-set no)
+-->
+  (<s> ^operator <o> + = 2.0)
+  (<o> ^name apply-c2x2)
+}
+
+# c3x3 = c3 * x3 (total number of high latency violations)
+echo "\nCalculating c3x3"
+sp {propose*c3x3
+  (state <s> ^name cybersickness-monitor
+             ^c3x3-set no)
+-->
+  (<s> ^operator <o> + = 3.0)
+  (<o> ^name apply-c3x3)
+}
+
+# c4x4 = c4 * x4 (total number of optical flow violations)
+echo "\nCalculating c4x4"
+sp {propose*c4x4
+  (state <s> ^name cybersickness-monitor
+             ^c4x4-set no)
+-->
+  (<s> ^operator <o> + = 4.0)
+  (<o> ^name apply-c4x4)
+}
+
+sp {propose*sum-weights
+  (state <s> ^name cybersickness-monitor
+             ^c1x1-set yes
+             ^sum-weights no)
+-->
+  (<s> ^operator <o> + >,=)
+  (<o> ^name apply-sum-weights)
+}
+
+sp {propose*normal-cybersickness-level
+  (state <s> ^name cybersickness-monitor
+             ^ssq-low <ssq-low>
+             ^sum <sum>
+             ^sum-weights yes
+             ^cybersickness-level-checked no)
+  (<s> ^sum <sum> < <ssq-low>)
+-->
+  (<s> ^operator <o> + >,=)
+  (<o> ^name apply-normal-cybersickness-level)
+}
+
+sp {propose*affected-cybersickness-level
+  (state <s> ^name cybersickness-monitor
+             ^ssq-low <ssq-low>
+             ^ssq-medium <ssq-medium>
+             ^sum <sum>
+             ^sum-weights yes
+             ^cybersickness-level-checked no)
+  (<s> ^sum <sum> > <ssq-low>)
+  (<s> ^sum <sum> < <ssq-medium>)
+-->
+  (<s> ^operator <o> + >,=)
+  (<o> ^name apply-affected-cybersickness-level)
+}
+
+sp {propose*incapacitated-cybersickness-level
+  (state <s> ^name cybersickness-monitor
+             ^ssq-medium <ssq-medium>
+             ^ssq-high <ssq-high>
+             ^sum <sum>
+             ^sum-weights yes
+             ^cybersickness-level-checked no)
+  (<s> ^sum <sum> > <ssq-medium>)           
+  (<s> ^sum <sum> < <ssq-high>)
+-->
+  (<s> ^operator <o> + >,=)
+  (<o> ^name apply-incapacitated-cybersickness-level)
+}
+
+sp {propose*check*cybersickness
+    (state <s> ^name cybersickness-monitor
+               ^cybersickness-level-checked yes)
+-->
+    (write (crlf) |Switched...|)
+    (<s> ^operator <o> + >,=)
+    (<o> ^name switch-monitor)
+    }

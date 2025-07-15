@@ -1,0 +1,199 @@
+package Common
+public
+	with Data_Model;
+	with Base_Types;
+
+	-- Wi-Fi: range 150ft, higher data transfer and power consumption than Bluetooth
+	bus WF_Bus
+	end WF_Bus;
+
+	bus implementation WF_Bus.Impl
+	end WF_Bus.Impl;
+	
+	-- Bluetooth: range 150ft, lower data transfer and power consumption than Bluetooth
+	bus BT_Bus
+	end BT_Bus;
+
+	bus implementation BT_Bus.Impl
+	end BT_Bus.Impl;
+
+	bus Serial_Bus
+	end Serial_Bus;
+
+	bus implementation Serial_Bus.Impl
+	end Serial_Bus.Impl;
+	
+	
+	-- Wi-Fi hardware
+	device Wifi
+		features
+			sera: requires bus access Serial_Bus;
+			wfa: requires bus access WF_Bus;
+			recvIn: in event data port;
+			recvOut: out event data port;
+			sendIn: in event data port;
+			sendOut: out event data port;
+		flows
+			f1: flow path recvIn -> recvOut;
+			f2: flow path sendIn -> sendOut;
+	end Wifi;
+	
+	device implementation Wifi.Impl	
+	end Wifi.Impl;
+	
+	-- Bluetooth hardware
+	device Bluetooth
+		features
+			sera: requires bus access Serial_Bus;
+			bta: requires bus access BT_Bus;
+			recvIn: in event data port;
+			recvOut: out event data port;
+			sendIn: in event data port;
+			sendOut: out event data port;
+		flows
+			f1: flow path recvIn -> recvOut;
+			f2: flow path sendIn -> sendOut;
+	end Bluetooth;
+	
+	device implementation Bluetooth.Impl	
+	end Bluetooth.Impl;
+	
+	-- USB hardware
+	device USB
+		features
+			sera: requires bus access Serial_Bus;
+			usbRecv: in event data port;
+			usbSend: out event data port;
+		flows
+			f1: flow sink usbRecv; 
+			f2: flow source usbSend;
+	end USB;
+	
+	device implementation USB.Impl
+	end USB.Impl;
+	
+	-- Custom SW handling Wi-Fi and Bluetooth communication, interacting with other SW via IPC
+	process Com_SW
+		features
+			ipcDataIn: in data port;
+			ipcDataOut: out data port;
+			wfComIn: in data port;
+			wfComOut: out data port;
+			btComIn: in data port;
+			btComOut: out data port;
+		flows
+			f1: flow path wfComIn -> ipcDataOut;
+			f2: flow path ipcDataIn -> wfComOut;
+			f3: flow path btComIn -> ipcDataOut;
+			f4: flow path ipcDataIn -> btComOut;
+	end Com_SW;
+	
+	process implementation Com_SW.Impl
+	end Com_SW.Impl;
+	
+	
+	-- To represent communication between native and custom software
+	virtual bus IPC_Com
+	end IPC_Com;
+	
+	virtual bus implementation IPC_Com.Impl
+	end IPC_Com.Impl;
+	
+	-- To represent TCP protocol
+	virtual bus TCP
+	end TCP;
+	
+	virtual bus implementation TCP.Impl
+	end TCP.Impl;
+	
+	
+	-- Message structures used by ground station
+	-- Message header
+	data MsgHeader
+	end MsgHeader;
+
+	data implementation MsgHeader.Impl
+		subcomponents
+			src: data Base_Types::Unsigned_32;
+			dst: data Base_Types::Unsigned_32;
+	end MsgHeader.Impl;
+	
+	-- HMD log message structure
+	data Log
+	end Log;
+	
+	-- NOTE: need to define sizes for these data elements
+	data implementation Log.Impl
+		subcomponents
+			timestamp: data Base_Types::Integer;
+			userID: data Base_Types::Integer;
+			numSuspects: data Base_Types::Integer;
+			numSuspectsFlagged: data Base_Types::Integer;
+			yaw: data Base_Types::Float;
+			pitch: data Base_Types::Float;
+			roll: data Base_Types::Float;
+	end Log.Impl;
+
+	-- Analysis request message structure
+	data AnalysisRequest
+	end AnalysisRequest;
+	
+	data Request
+	end Request;
+	
+	data implementation Request.Impl
+		subcomponents
+			requestID: data Base_Types::Integer;
+			analysisType: data Base_Types::Integer;
+			userID: data Base_Types::Integer;
+			startTime: data Base_Types::Integer;
+			endTime: data Base_Types::Integer;
+	end Request.Impl;
+	
+	data implementation AnalysisRequest.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data Request.Impl;
+	end AnalysisRequest.Impl;
+	
+	-- Response log message structure
+	data ResponseLog
+	end ResponseLog;
+	
+	data ResponseHeader
+	end ResponseHeader;
+	
+	data implementation ResponseHeader.Impl
+		subcomponents
+			requestID: data Base_Types::Integer;
+			sequenceNumber: data Base_Types::Integer;
+			totalParts: data Base_Types::Integer;
+	end ResponseHeader.Impl;
+	
+	data LogArray
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Log.Impl));
+			Data_Model::Dimension => (60);		
+	end LogArray;
+	
+	data implementation LogArray.Impl
+	end LogArray.Impl;
+
+	data implementation ResponseLog.Impl
+		subcomponents
+			header: data ResponseHeader.Impl;
+			payload: data LogArray.Impl;
+	end ResponseLog.Impl;
+	
+	-- Analysis report message structure
+	data AnalysisReport
+	end AnalysisReport;
+	
+	data implementation AnalysisReport.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data Base_Types::Unsigned_8[100];
+	end AnalysisReport.Impl;
+	
+end Common;

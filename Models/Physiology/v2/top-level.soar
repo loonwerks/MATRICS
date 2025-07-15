@@ -1,0 +1,18 @@
+##!
+# @file
+#
+# @created candice 20240821
+
+echo "\nLoading top-level.soar"
+
+# Initialize agent
+sp {propose*initialize
+    (state <s> ^superstate nil
+               ^io.input-link.systemdata <sd>
+               -^name)
+ 
+-->
+    (<s> ^operator <o> + >,=)
+    (<o> ^name initialize)
+    (write (crlf) |Agent initializing...|)
+ }

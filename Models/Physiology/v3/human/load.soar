@@ -1,0 +1,8 @@
+##!
+# @file: 
+#
+# @created candice 20240821
+
+echo "\nLoading human/load.soar"
+source "human-propose.soar"
+source "operators/load.soar"
