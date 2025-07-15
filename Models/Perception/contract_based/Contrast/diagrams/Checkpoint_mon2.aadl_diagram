@@ -55,8 +55,8 @@
         <seg>c3</seg>
       </bo>
       <bendpoints>
-        <point x="159.00006103515625" y="367.0"/>
-        <point x="159.00006103515625" y="370.0"/>
+        <point x="249.0" y="-23.0"/>
+        <point x="249.0" y="-20.0"/>
       </bendpoints>
     </element>
     <element uuid="e2cf9de4-2c3e-4ff0-937b-201f0d175617" manual="true" fontSize="20.0">
@@ -334,24 +334,6 @@
         <position x="40.0" y="100.0"/>
         <size width="460.0" height="42.0"/>
       </element>
-      <element uuid="e3c8d078-5a5f-4018-8619-de781aa07e7d" manual="true" fontSize="20.0">
-        <bo>
-          <seg>agree.guarantee</seg>
-          <seg>G: a bright glare attack within the last Y period means no detection.</seg>
-          <seg>0</seg>
-        </bo>
-        <position x="30.0" y="450.0"/>
-        <size width="600.0" height="70.0"/>
-      </element>
-      <element uuid="6e18d67e-5cd5-4f53-b80e-4583fdfcab35" manual="true" fontSize="20.0">
-        <bo>
-          <seg>agree.guarantee</seg>
-          <seg>G: no bright glare for Y period implies detection.</seg>
-          <seg>0</seg>
-        </bo>
-        <position x="30.0" y="390.0"/>
-        <size width="590.0" height="42.0"/>
-      </element>
       <element uuid="7f30a3a7-abef-4576-97ee-6f160e48ff2d" manual="true" dockArea="left" fontSize="20.0">
         <bo>
           <seg>feature</seg>
@@ -397,7 +379,7 @@
       <seg>classifier</seg>
       <seg>Checkpoint.impl</seg>
     </bo>
-    <position x="-830.0" y="200.0"/>
+    <position x="-740.0" y="-190.0"/>
     <size width="2750.0" height="1120.0"/>
   </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">

@@ -1,0 +1,69 @@
+package HMD
+public
+	with Base_Types;
+	
+	
+	system Display
+		features
+			ambient_light : in data port Base_Types::Float; 
+			target_within_fov : in data port Base_Types::Boolean; 
+			hacker_input : in data port Base_Types::Float; -- modeling a hacker.. 
+			target_is_marked : out data port Base_Types::Boolean; 
+			bounding_box_inv_contrast : out data port Base_Types::Float; -- contrast..(Lmax-Ambient)/(Lmax + Ambient) s
+	properties 
+			Period => 20ms; 	
+		annex agree {**
+			-- when			
+			const delta_luminance : real = 100.0; -- for a good contrast.. 
+
+			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
+			node max(t1: real, t2: real) returns (output: real); let output = if t1<=t2 then t2 else t1; tel; 
+			
+			guarantee display_target_1 "G: display will marked a target within FOV with a bounding box." : persistent(target_within_fov, 5) => target_is_marked; 
+			guarantee display_target_2 "G: otherwise no bounding box" : not persistent(target_within_fov, 5) => not target_is_marked; 
+			guarantee bounding_box  "G: bounding box will have contrast of certain level versus surrounding ambient lighting condition" : 
+			bounding_box_inv_contrast = 2.0/(delta_luminance + hacker_input)*ambient_light; -- hacker modifies the contrast of the bounding box.. 
+		**};
+	end Display;
+	
+	system implementation Display.impl
+		annex agree {**
+		**};
+	end Display.impl;
+	
+	system HMD
+		features
+			ambient_light: in data port Base_Types::Float; 
+			hacker_input : in data port Base_Types::Float; -- modeling a hacker.. 
+			target_within_fov:  in data port Base_Types::Boolean;
+			target_is_marked : out data port Base_Types::Boolean; 
+			bounding_box_inv_contrast : out data port Base_Types::Float; -- contrast..(Lmax-Ambient)/(Lmax + Ambient) 
+	end HMD;
+	
+	system implementation HMD.init
+		subcomponents
+			Display: system Display.impl;
+		connections
+			c1: port Display.target_is_marked -> target_is_marked;
+		annex agree {**
+		**};
+	end HMD.init;
+	
+	system implementation HMD.mon
+		subcomponents
+			Display: system Display.impl;
+		connections
+			c1: port Display.target_is_marked -> target_is_marked;
+			c2: port ambient_light -> Display.ambient_light; 
+			c3: port target_within_fov -> Display.target_within_fov ;
+			c4: port Display.bounding_box_inv_contrast -> bounding_box_inv_contrast; 
+			c5: port hacker_input -> Display.hacker_input; 
+		properties 
+			Period => 20ms; 
+		annex agree {**
+				
+		**};
+	end HMD.mon;
+	
+end HMD;
