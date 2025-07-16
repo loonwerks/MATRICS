@@ -1,0 +1,52 @@
+-- Helmet-Mounted Display
+package HMD
+public
+	with HMD_Computer;
+	with HMD_HUD;
+	with Common;
+
+	system HMD
+		features
+			wfa: requires bus access Common::WF_Bus.Impl;
+			bta: requires bus access Common::BT_Bus.Impl;
+			wifiSend: out event data port;
+			wifiRecv: in event data port;
+			btSend: out event data port;
+			btRecv: in event data port;
+		flows
+			f1: flow source wifiSend;
+			f2: flow source WifiSend;
+	end HMD;
+	
+	system implementation HMD.Impl
+		subcomponents			
+			-- Head-worn computer
+			computer: system HMD_Computer::Computer.Impl;
+			-- Heads-Up Display
+			hud: system HMD_HUD::HUD.Impl;
+			--
+			ser: bus Common::Serial_Bus.Impl;
+		connections
+			bac1: bus access computer.sera <-> ser;
+			bac6: bus access hud.sera <-> ser;
+			bac3: bus access computer.wfa <-> wfa;
+			bac4: bus access computer.bta <-> bta;
+			--
+			c1: port hud.cameraImagery -> computer.cameraImagery;
+			c5: port hud.eyeTrackInfo -> computer.eyeTrackInfo;
+			c6: port hud.depthInfo -> computer.depthInfo;
+			c7: port computer.displayImagery -> hud.displayImagery;
+			--
+			c8: port computer.wifiSend -> wifiSend;
+			c9: port wifiRecv -> computer.wifiRecv;
+			--
+			c10: port computer.btSend -> btSend;
+			c11: port btRecv -> computer.btRecv;
+		flows
+			f1: flow source hud.f4 -> c5 -> computer.f1 -> c8 -> wifiSend;
+			f2: flow source computer.f2 -> c8 -> wifiSend;
+		properties
+			Actual_Connection_Binding => (reference (ser)) applies to c1, c5, c6, c7;
+	end HMD.Impl;
+	
+end HMD;

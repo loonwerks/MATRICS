@@ -1,0 +1,35 @@
+-- One ground station connected with one HMD
+package Status_v1
+public
+	with GroundStation;
+	with HMD;
+	with Common;
+	with MATRICS_Properties;
+
+	system Checkpoint
+	end Checkpoint;
+
+	system implementation Checkpoint.Impl
+		subcomponents
+			groundStation: system GroundStation::GroundStation.Impl;
+			hmd: system HMD::HMD.Impl;
+			wf: bus Common::WF_Bus.Impl;
+			tcp: virtual bus Common::TCP.Impl;
+		connections
+			c1: port hmd.wifiSend -> GroundStation.wifiRecv;
+			bac1: bus access wf <-> GroundStation.wfa;
+			bac2: bus access wf <-> hmd.wfa;
+		flows
+			-- eye track info
+			f1: end to end flow hmd.f1 -> c1 -> groundstation.f1;
+			-- IMU info
+			f2: end to end flow hmd.f2 -> c1 -> groundstation.f1;
+		properties
+			Actual_Connection_Binding => (reference (wf)) applies to tcp;
+			Actual_Connection_Binding => (reference (tcp)) applies to c1;
+			
+			-- present in hardened system
+			MATRICS_Properties::Encrypted => TLS applies to tcp;
+	end Checkpoint.Impl;
+
+end Status_v1;

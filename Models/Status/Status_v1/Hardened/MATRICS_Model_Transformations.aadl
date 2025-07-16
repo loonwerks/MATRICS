@@ -1,0 +1,159 @@
+package MATRICS_Model_Transformations
+public
+	with Data_Model;
+	with Base_Types;
+	with Common;
+	with MATRICS_Properties;
+	
+	-- Allow list that establishes set of trusted devices
+	data AllowList
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_32));
+			Data_Model::Dimension => (4);
+	end AllowList;
+	
+	data implementation AllowList.Impl
+	end AllowList.Impl;
+	
+	annex agree {**
+		const ALLOW_LIST: AllowList.Impl = [| 1, 2, 3, 4 |];
+			
+		fun FOUND_IN_ALLOW_LIST(allow_list: AllowList.Impl, src: Base_Types::Unsigned_32): bool = 
+			exists i in allow_list, i = src;
+			
+		const NULL_LOG: Common::Log.Impl = Common::Log.Impl
+			{timestamp = 0;
+			 userID = 0;
+			 numSuspects = 0;
+			 numSuspectsFlagged = 0;
+			 yaw = 0.0;
+			 pitch = 0.0;
+			 roll = 0.0
+			};
+	**};
+	
+	annex Resolute {**
+		
+		---------------------------
+		-- MODEL TRANSFORMATIONS --
+		---------------------------
+		
+		-- Top-level claim for proper insertion of a firewall
+		is_firewalled(comp_context : component, conn : connection, msg_type : data) <=
+			** "Firewall is properly added to component " comp_context **
+			let firewalls : {component} = upstream_trusted_components(comp_context, "FIREWALL");
+			exists(f : firewalls) . (firewall_exists(f, comp_context, conn) and component_not_bypassed(f, comp_context, msg_type))
+		
+		-- Top-level claim for proper insertion of a monitor
+		is_monitored(comp_context : component, monitor : component) <=
+			** "Monitor " monitor " is properly added to " comp_context **
+			component_exists(monitor, "MONITOR") and alert_connected(monitor)
+
+		-- Top-level claim for proper insertion of a monitor with a gate
+		is_monitored_gated(comp_context : component, gate_context : component, message_type : data) <=
+			** "Monitor is properly added to component " comp_context **
+			let monitors : {component} = upstream_trusted_components(gate_context, "MONITOR");
+			exists(m : monitors) . (alert_connected(m) and component_not_bypassed(m, gate_context, message_type))
+		
+		-- Top-level claim that a component is built for seL4
+		is_seL4_compliant(comp_context : component) <=
+			** "Component " comp_context " is built for seL4" **
+			is_seL4_component(comp_context) and each_thread_in_separate_process(comp_context)
+
+		----------------
+		-- SUB CLAIMS --
+		----------------	
+		
+		-- Check to see if there is a firewall immediately before 
+		-- the component on the communication pathway.
+		firewall_exists(firewall : component, comp_context : component, conn : connection) <=
+			** "A firewall " firewall " is connected to component " comp_context " by connection " conn **
+			let conns : {connection} = {c for (c : connections(comp_context)) | destination_component(c) = comp_context and source_component(c) = firewall};
+			is_of_matrics_type(firewall, "FIREWALL") and exists(c : conns) . c = conn
+						
+		-- Check to see if the specified component exists
+		component_exists(comp : component, matrics_type : string) <=
+			** comp " exists in the model" **
+			is_of_matrics_type(comp, matrics_type) and exists(m : component) . m = comp
+			
+		upstream_trusted_components(comp : component, matrics_type : string) : {component} =
+			let input_ports : {feature} = {p for (p : features(comp)) | direction(p) = "in"};
+			let input_conns : {connection} = {c for (p : input_ports) (c : connection) | destination(c) = p};
+			{s for (c: input_conns) (s : component) | source_component(c) = s and has_property(s, MATRICS_Properties::Component_Type) and (property(s, MATRICS_Properties::Component_Type) = matrics_type)}
+
+		-- Make sure there is no communication pathway that avoids the component
+		component_not_bypassed(comp : component, comp_context : component, msg_type : data) <=
+			** "Component " comp " cannot be bypassed" **
+			let comp_srcs : {component} = get_filter_sources(comp_context, comp, msg_type); 
+			let non_comp_srcs : {component} = get_non_filter_sources(comp_context, comp, msg_type); 
+			size(intersect(comp_srcs, non_comp_srcs)) = 0
+			
+		is_of_matrics_type(comp : component, type_name : string) : bool =
+			has_property(comp, MATRICS_Properties::Component_Type) and property(comp, MATRICS_Properties::Component_Type) = type_name
+			
+		-- Returns the set of components that are ancestors of a target component through communication pathways that don't pass through a filter
+		get_non_filter_sources(target : component, filter : component, msg_type : data) : {component} = 
+			let srcs : {component} = {c for (conn : connections (target)) (c : source_component(conn)) | has_type(conn) and type(conn) = msg_type and not (source_component(conn) = filter) and not (source_component(conn) = target)}; 
+			recursive_backwards_reach(srcs)
+		
+		-- Returns the set of components that are ancestors of the filter on a target component
+		get_filter_sources(target : component, filter : component, msg_type : data) : {component} = 
+			let srcs : {component} = {c for (conn : connections(target)) (c : source_component(conn)) | has_type(conn) and type(conn) = msg_type and name(source_component(conn)) = name(filter)};
+			prev_reach(srcs)
+		
+		recursive_backwards_reach(curr : {component}) : {component} = 
+			let prev : {component} = union(curr, prev_reach(curr)); 
+			if prev = curr then 
+				curr
+			else 
+				recursive_backwards_reach(prev)
+		
+		prev_reach(curr : {component}) : {component} = 
+			{y for (x : curr) (y : backwards_reachable_components(x))}
+		
+		backwards_reachable_components(comp : component) : {component} = 
+			{c for (conn : connections (comp)) (c : backwards_reachable_components_via_connection(comp, conn))}
+		
+		backwards_reachable_components_via_connection(comp : component, conn : connection) : {component} = 
+			if is_port_connection(conn) then 
+				if destination_component(conn) = comp then 
+					{source_component(conn)} 
+				else 
+					{} 
+			else 
+				{}
+		
+		is_bound_to_processor(c : component, p : component) : bool =
+			is_bound_to(c, p) and (is_processor(p) or is_virtual_processor(p))
+						
+		alert_connected(monitor : component) <=
+			** "Monitor Alert port is connected" **
+			let alert_ports : {feature} = {p for (p : features(monitor)) | name(p) = "alert"};
+			let alert_conns : {connection} = {c for (p : alert_ports) (c : connection) | source(c) = p};
+			length(alert_conns) > 0
+
+		-- checks that a component will run on seL4 by checking that the processors it is bound to have the seL4 OS property		
+		is_seL4_component(comp : component) : bool =
+			let proc : {component} = {c for (c : component) | is_bound_to_processor(comp, c)};
+			(size(proc) > 0) and forall (p : proc) . (has_property(p, MATRICS_Properties::OS) and property(p, MATRICS_Properties::OS) = "seL4")
+			
+		-- Get set of descendants
+		get_subcomponents(curr : {component}) : {component} =
+			let next : {component} = union(curr, next_subcomponent(curr));
+			if next = curr then
+				curr
+			else
+				get_subcomponents(next)
+			
+		next_subcomponent(curr : {component}) : {component} =
+			{y for (x : curr) (y : subcomponents(x))}			
+			
+		each_thread_in_separate_process(root : component) <=
+			** "Each thread runs in a separate process" **
+			let comps : {component} = get_subcomponents({root});
+			forall (c : comps) . ((is_system(c) or is_thread(c) or is_process(c)) and is_process(c) => (length(subcomponents(c)) = 1 and is_thread(head(as_list(subcomponents(c))))))			
+		
+	**};
+	
+end MATRICS_Model_Transformations;

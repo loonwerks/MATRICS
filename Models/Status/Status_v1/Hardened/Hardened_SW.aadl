@@ -1,0 +1,416 @@
+package Hardened_SW
+public
+	with GroundStation;
+	renames Groundstation::all;
+	with AGREE_PLTL;
+	renames AGREE_PLTL::all;
+	with Common;
+	with MATRICS_Properties;
+	with MATRICS_Model_Transformations;
+	renames MATRICS_Model_Transformations::all;
+	
+	-- Processes introduced to isolate threads
+	process wifiDriver_seL4
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			HMD_log: out event data port Common::Log.Impl;
+			analysis_report: in event data port Common::AnalysisReport.Impl;
+			analysis_request: out event data port Common::AnalysisRequest.Impl;
+			alert: in event data port;
+		flows
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;	
+			f4: flow sink alert;		
+	end wifiDriver_seL4;
+	
+	process implementation wifiDriver_seL4.Impl
+		subcomponents
+			wifiDriver: thread wifiDriver;
+		connections
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port analysis_report -> wifiDriver.analysis_report;
+			c3: port wifiDriver.wifiSend -> wifiSend;
+			c4: port wifiDriver.HMD_log -> HMD_log;
+			c5: port wifiDriver.analysis_request -> analysis_request;
+			c6: port alert -> wifiDriver.alert;
+		annex agree {**
+			lift contract;
+		**};
+	end wifiDriver_seL4.Impl;
+	
+	process dataManager_seL4
+		features
+			HMD_log: in event data port Common::Log.Impl;
+			request_log: in event data port Common::Request.Impl;
+			response_log: out event data port Common::ResponseLog.Impl;
+			zeroize: in event port;
+		flows
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+			f3: flow sink zeroize;
+	end dataManager_seL4;
+	
+	process implementation dataManager_seL4.Impl
+		subcomponents
+			dataManager: thread dataManager;
+		connections
+			c1: port HMD_log -> dataManager.HMD_log;
+			c2: port request_log -> dataManager.request_log;
+			c3: port dataManager.response_log -> response_log;
+			c4: port zeroize -> dataManager.zeroize;
+		annex agree {**
+			lift contract;
+		**};			
+	end dataManager_seL4.Impl;
+	
+	process dataAnalysis_seL4
+		features
+			request_log: out event data port Common::Request.Impl;
+			response_log: in event data port Common::ResponseLog.Impl;
+			analysis_report: out event data port Common::AnalysisReport.Impl;
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request -> request_log;
+			f2: flow path response_log -> analysis_report;
+	end dataAnalysis_seL4;
+	
+	process implementation dataAnalysis_seL4.Impl
+		subcomponents
+			dataAnalysis: thread dataAnalysis;
+		connections
+			c1: port response_log -> dataAnalysis.response_log;
+			c2: port analysis_request -> dataAnalysis.analysis_Request;
+			c3: port dataAnalysis.request_log -> request_log;
+			c4: port dataAnalysis.analysis_report -> analysis_report;
+		annex agree {**
+			lift contract;
+		**};			
+	end dataAnalysis_seL4.Impl;
+
+	process btDriver_seL4
+		features
+			btRecv: in event data port;			
+			btSend: out event data port;
+		flows
+			f1: flow path btRecv -> btSend;
+	end btDriver_seL4;
+	
+	process implementation btDriver_seL4.Impl
+		subcomponents
+			btDriver: thread btDriver;
+		connections
+			c1: port btRecv -> btDriver.btRecv;
+			c2: port btDriver.btSend -> btSend;
+	end btDriver_seL4.Impl;
+	
+	process usbDriver_seL4
+		features
+			usbRecv: in event data port;
+			usbSend: out event data port;
+		flows
+			f1: flow path usbRecv -> usbSend;
+	end usbDriver_seL4;
+	
+	process implementation usbDriver_seL4.Impl
+		subcomponents
+			usbDriver: thread usbDriver;
+		connections
+			c1: port usbRecv -> usbDriver.usbRecv;
+			c2: port usbDriver.usbSend -> usbSend;
+	end usbDriver_seL4.Impl;
+	
+	-- High-Assurance Components
+	-- monitors the behavior of the dataManager component	
+	thread logMonitor
+		features
+			request_log: in event data port Common::Request.Impl;
+			response_log_in: in event data port Common::ResponseLog.Impl;
+			response_log_out: out event data port Common::ResponseLog.Impl;			
+			alert: out event port;
+		flows
+			f1: flow path request_log -> response_log_out;
+			f2: flow path response_log_in -> response_log_out;
+			f3: flow source alert;
+		annex agree {**
+			eq is_valid: bool = 
+				if event(request_log) and event(response_log_in)
+				then true
+				else event(response_log_in) => Yesterday(Since(not(event(response_log_in)), event(request_log)));
+
+			guarantee Alert "G: Send an alert if more than one response is received without a request." :
+				if event(response_log_in) and not(is_valid)
+				then event(alert)
+				else not(event(alert));
+			guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
+				if event(response_log_in) and is_valid
+				then event(response_log_out) and (response_log_out = response_log_in)
+				else not(event(response_log_out));
+		**};
+	end logMonitor;
+	
+	process logMonitor_seL4
+		features
+			request_log: in event data port Common::Request.Impl;
+			response_log_in: in event data port Common::ResponseLog.Impl;
+			response_log_out: out event data port Common::ResponseLog.Impl;
+			alert: out event port;
+		flows
+			f1: flow path request_log -> response_log_out;
+			f2: flow path response_log_in -> response_log_out;
+			f3: flow source alert;
+		properties
+			MATRICS_Properties::Component_Type => MONITOR;
+	end logMonitor_seL4;
+	
+	process implementation logMonitor_seL4.Impl
+		subcomponents
+			logMonitor: thread logMonitor;
+		connections
+			c1: port request_log -> logMonitor.request_log;
+			c2: port response_log_in -> logMonitor.response_log_in;
+			c3: port logMonitor.response_log_out -> response_log_out;
+			c4: port logMonitor.alert -> alert;
+		annex agree {**
+			lift contract;
+		**};
+	end logMonitor_seL4.Impl;
+
+	-- monitors the behavior of the dataAnalysis component and incoming requests
+	thread reportMonitor
+		features
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+			alert: out event data port;
+		flows
+			f1: flow path analysis_request -> analysis_report_out;
+			f2: flow path analysis_report_in -> analysis_report_out;
+			f3: flow source alert;			
+		annex agree {**
+			node Counter(i: bool, reset: bool) returns (count: int);
+			let
+				count = if reset then 0 
+							else 0 -> if i then pre(count) + 1 
+								else pre(count);
+			tel;
+			
+			const threshold: int = 3;			
+			eq is_valid1: bool = 
+				if event(analysis_request) and event(analysis_report_in)
+				then true
+				else event(analysis_report_in) => Yesterday(Since(not(event(analysis_report_in)), event(analysis_request)));
+			eq is_invalid2: bool = Counter(event(analysis_request), event(analysis_report_in)) >= threshold;
+								 
+			guarantee Alert1 "G: Send an alert if more than one report is received without a request." :
+				if event(analysis_report_in) and not(is_valid1)
+				then event(alert)
+				else not(event(alert));
+			guarantee Alert2 "G: Send an alert if 3 or more requests are received without a report." :
+				if is_invalid2
+				then event(alert)
+				else not(event(alert));
+			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
+				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.dst)
+				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
+				else not(event(analysis_report_out));	
+		**};
+	end reportMonitor;
+
+	process reportMonitor_seL4
+		features
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;			
+			alert: out event data port;
+		flows	
+			f1: flow path analysis_request -> analysis_report_out;
+			f2: flow path analysis_report_in -> analysis_report_out;
+			f3: flow source alert;				
+		properties
+			MATRICS_Properties::Component_Type => MONITOR;
+	end reportMonitor_seL4;
+	
+	process implementation reportMonitor_seL4.Impl
+		subcomponents
+			reportMonitor: thread reportMonitor;
+		connections
+			c1: port analysis_request -> reportMonitor.analysis_request;
+			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
+			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
+			c4: port reportMonitor.alert -> alert;
+		annex agree {**
+			lift contract;
+		**};
+	end reportMonitor_seL4.Impl;
+	
+	-- handles decryption
+	thread decryptor
+		features
+			HMD_log_in: in event data port Common::Log.Impl;
+			HMD_log_out: out event data port Common::Log.Impl;
+		flows
+			f1: flow path HMD_log_in -> HMD_log_out;
+		annex agree {**
+			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+				HMD_log_out != HMD_log_in;
+		**}	;				
+	end decryptor;
+
+	process decryptor_seL4
+		features
+			HMD_log_in: in event data port Common::Log.Impl;
+			HMD_log_out: out event data port Common::Log.Impl;
+		flows
+			f1: flow path HMD_log_in -> HMD_log_out;
+		properties
+			MATRICS_Properties::Component_Type => DECRYPTOR;
+	end decryptor_seL4;
+	
+	process implementation decryptor_seL4.Impl
+		subcomponents
+			decryptor: thread decryptor;
+		connections
+			c1: port HMD_log_in -> decryptor.HMD_log_in;
+			c2: port decryptor.HMD_log_out -> HMD_log_out;
+		annex agree {**
+			lift contract;
+		**};				
+	end decryptor_seL4.Impl;
+	
+	-- handles encryption
+	-- NOTE: Figure out what this change means.
+	thread encryptor
+		features
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+		flows
+			f1: flow path analysis_report_in -> analysis_report_out;
+		annex agree {**
+			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
+				analysis_report_out.payload != analysis_report_in.payload;
+			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
+				analysis_report_out.header = analysis_report_in.header;
+		**}	;	
+	end encryptor;
+	
+	process encryptor_seL4
+		features
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+		flows
+			f1: flow path analysis_report_in -> analysis_report_out;
+		properties
+			MATRICS_Properties::Component_Type => ENCRYPTOR;
+	end encryptor_seL4;
+	
+	process implementation encryptor_seL4.Impl
+		subcomponents
+			encryptor: thread encryptor;
+		connections
+			c1: port analysis_report_in -> encryptor.analysis_report_in;
+			c2: port encryptor.analysis_report_out -> analysis_report_out;
+		annex agree {**
+			lift contract;
+		**};			
+	end encryptor_seL4.Impl;
+	
+	-- filters the analysis request to guarantee it is from a trusted device
+	thread firewall
+		features
+			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
+			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request_in -> analysis_request_out;
+		annex agree {**
+			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
+				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.src)
+				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
+				else not event(analysis_request_out);
+		**};
+	end firewall;
+	
+	process firewall_seL4
+		features
+			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
+			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request_in -> analysis_request_out;
+		properties
+			MATRICS_Properties::Component_Type => FIREWALL;
+	end firewall_seL4;
+	
+	process implementation firewall_seL4.impl
+		subcomponents
+			firewall: thread firewall;
+		connections
+			c1: port analysis_request_in -> firewall.analysis_request_in;
+			c2: port firewall.analysis_request_out -> analysis_request_out;
+		annex agree {**
+			lift contract;
+		**};			
+	end firewall_seL4.impl;
+	
+	-- Hardened Software System
+	system SW_seL4
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			--
+			btRecv: in event data port;			
+			btSend: out event data port;
+			--
+			usbRecv: in event data port;			
+			usbSend: out event data port;
+		flows
+			f1: flow sink wifiRecv;	
+	end SW_seL4;
+	
+	system implementation SW_seL4.hardened
+		subcomponents
+			wifiDriver: process wifiDriver_seL4.Impl;
+			btDriver: process btDriver_seL4.Impl;
+			usbDriver: process usbDriver_seL4.Impl;
+			dataManager: process dataManager_seL4.Impl;
+			dataAnalysis: process dataAnalysis_seL4.Impl;
+			decryptor: process decryptor_seL4.Impl;
+			encryptor: process encryptor_seL4.Impl;
+			logMonitor: process logMonitor_seL4.Impl;
+			reportMonitor: process reportMonitor_seL4.Impl;
+			firewall: process firewall_seL4.Impl;
+		connections
+			-- Wi-Fi exchange with outside
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port wifiDriver.wifiSend -> wifiSend;
+			-- Bluetooth exchange with outside
+			c9: port btRecv -> btDriver.btRecv;
+			c10: port btDriver.btSend -> btSend;
+			-- USB exchange with outside
+			c11: port usbRecv -> usbDriver.usbRecv;
+			c12: port usbDriver.usbSend -> usbSend;
+			-- internal data communication
+			c4: port dataAnalysis.request_log -> dataManager.request_log;
+			-- decryption connections
+			c19: port wifiDriver.HMD_log -> decryptor.HMD_log_in;
+			c21: port decryptor.HMD_log_out -> dataManager.HMD_log;
+			-- encryption connections
+			c24: port dataAnalysis.analysis_report -> encryptor.analysis_report_in;
+			c25: port reportMonitor.analysis_report_out -> wifiDriver.analysis_report;			
+			-- monitor connections
+			c13: port dataAnalysis.request_log -> logMonitor.request_log;
+			c14: port dataManager.response_log -> logMonitor.response_log_in;
+			c5: port logMonitor.response_log_out -> dataAnalysis.response_log;
+			c17: port logMonitor.alert -> dataManager.zeroize;
+			c15: port wifiDriver.analysis_request -> reportMonitor.analysis_request;
+			c16: port encryptor.analysis_report_out -> reportMonitor.analysis_report_in;
+			c18: port reportMonitor.alert -> wifiDriver.alert;
+			--firewall connections
+			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
+			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
+		flows
+			-- HMD log flow path
+			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;			
+	end SW_seL4.hardened;
+	
+end Hardened_SW;
