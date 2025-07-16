@@ -1,0 +1,90 @@
+package HMD
+public
+	with Base_Types;
+	
+	system Light_Filter
+		features
+			perceived_light_around_target: in data port Base_Types::Float;
+			filtered_light_around_target: out data port Base_Types::Float;
+			ambient_light:  in data port Base_Types::Float;
+
+		annex agree {**
+			node occured(cond : bool, t: int) returns (output : bool);  var count : int; let output  = if cond then true else if count<=t then false->pre(output) else false; 
+						    count = if not cond then 0->pre(count) + 1 else 0; tel;  	
+			node delay(value: real,initial: real) returns (output: real); let output = initial->pre(value);  tel; 
+			
+			--guarantee bad_filter "G: poor filter i.e. filtered light out is similar to light in" : filtered_light_around_target = perceived_light_around_target; 
+			guarantee good_filter_1 "G: better filter": occured(perceived_light_around_target>=ambient_light + 50.0,10) => filtered_light_around_target = perceived_light_around_target - 50.0;
+			guarantee good_filter_2 "G: better filter": 
+			not occured(perceived_light_around_target>=ambient_light + 50.0,10) 
+				=> filtered_light_around_target = delay(filtered_light_around_target,perceived_light_around_target); 
+			 
+			
+		**};
+	end Light_Filter;
+	
+	system implementation Light_Filter.impl
+
+	end Light_Filter.impl;
+	
+	system Display
+		features
+			light_around_target : in data port Base_Types::Float; 
+			target_within_fov : in data port Base_Types::Boolean; 
+			perceived_light_around_target: out data port Base_Types::Float;
+			target_is_marked : out data port Base_Types::Boolean; 
+			
+		annex agree {**
+			-- when
+			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
+			
+			guarantee display_target_1 "G: display will marked a target within FOV with a bounding box." : persistent(target_within_fov, 2) => target_is_marked; 
+			guarantee display_target_2 "G: otherwise no bounding box" : not persistent(target_within_fov, 2) => not target_is_marked; 
+			guarantee display_light_process "G: light out = light in " : perceived_light_around_target = light_around_target; 
+		**};
+	end Display;
+	
+	system implementation Display.impl
+		annex agree {**
+		**};
+	end Display.impl;
+	
+	system HMD
+		features
+			target_within_fov:  in data port Base_Types::Boolean;
+			filtered_light_around_target: out data port Base_Types::Float;
+			target_is_marked : out data port Base_Types::Boolean; 
+			light_around_target:  in data port Base_Types::Float;  
+			ambient_light : in data port Base_Types::Float;  
+	end HMD;
+	
+	system implementation HMD.init
+		subcomponents
+			Display: system Display.impl;
+		connections
+			c1: port Display.perceived_light_around_target -> filtered_light_around_target;
+			c2: port Display.target_is_marked -> target_is_marked;
+		annex agree {**
+		**};
+	end HMD.init;
+	
+	system implementation HMD.mon
+		subcomponents
+			Display: system Display.impl;
+			Filter: system Light_Filter.impl;
+		connections
+			c1: port Display.target_is_marked -> target_is_marked;
+			c2: port Display.perceived_light_around_target -> Filter.perceived_light_around_target;
+			c3: port target_within_fov -> Display.target_within_fov ; 
+			c4: port Filter.filtered_light_around_target -> filtered_light_around_target; 
+			c5: port light_around_target -> Display.light_around_target; 
+			c6: port ambient_light -> Filter.ambient_light; 
+	--	properties 
+	--		period => 20 ms; 
+		annex agree {**
+				
+		**};
+	end HMD.mon;
+	
+end HMD;
