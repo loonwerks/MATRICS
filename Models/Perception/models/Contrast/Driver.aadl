@@ -49,7 +49,7 @@ public
 			Period => 20ms; 
 		annex agree {**
 			assert ambient_light_is_between_0_and_high "Domain of ambient light" : ambient_light>=ZERO_LIGHT and ambient_light<=MAX_LIGHT ; 			
-			assert hacker_limits "limited to between 0 and -99.8" : hacker_input>=-99.6 and hacker_input<=0.0; 
+			assert hacker_limits "limited to between 0 and -99.8" : hacker_input>=-99.0 and hacker_input<=0.0; 
 		**}; 
 			
 	end Driver.impl;

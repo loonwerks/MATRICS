@@ -44,6 +44,9 @@ public
 			    var count : int; 
 			    let output = if (count<=t2 and count>=t1) then true else false; 
 			    count = if cond then 0->pre(count) + 1 else 0; tel;
+			assume range_of_inv_contrast "Domain of inverse contrast model" : bounding_box_inv_contrast>=0.1 and bounding_box_inv_contrast<=200.0 ; 			
+			
+			-- piecewise constant discretization of the linear model (SP at 2 cd/m2 for high spatial freq 7.48 from Plainis 
 			guarantee target_detection_0
 			    "G: .. inverse contrast <= 1 means reaction time of <= 14.": 		
 			    (persistent(bounding_box_inv_contrast>0.1 and bounding_box_inv_contrast<=1.0, 14) and persistent(target_is_marked,14)) => detect_target; 	

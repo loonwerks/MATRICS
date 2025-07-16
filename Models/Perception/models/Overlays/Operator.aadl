@@ -55,13 +55,12 @@ public
 			guarantee red_overlay_delay_target_detection 
 			    "G: red overlay over green bounding box means delayed reaction...": 	
 			    persistent(target_is_marked and red_box_over_bounding_box=70.0 and green_box_over_bounding_box=0.0,99)
-			        => detect_target; 
+			        => detect_target; -- 99 ticks is the +2 sigma value taken from the Kaiming paper.
 			
 			guarantee green_overlay_delay_target_detection 
 			    "G: green overlay over green bounding box means delayed reaction...": 	
 			    persistent(target_is_marked and red_box_over_bounding_box=0.0 and green_box_over_bounding_box=70.0,107)
-			        => detect_target; 
-			 -- 124 ticks (20ms per tick) is the 2 sigma time delay due to contraction and dilation data.. 
+			        => detect_target; -- 107 ticks is the +2 sigma value taken from the Kaiming paper.
 		**};
 	end Operator;
 
