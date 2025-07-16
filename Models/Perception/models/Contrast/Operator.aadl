@@ -46,30 +46,30 @@ public
 			    count = if cond then 0->pre(count) + 1 else 0; tel;
 			assume range_of_inv_contrast "Domain of inverse contrast model" : bounding_box_inv_contrast>=0.1 and bounding_box_inv_contrast<=200.0 ; 			
 			
-			-- piecewise constant discretization of the linear model (SP at 2 cd/m2 for high spatial freq 7.48 from Plainis 
+			-- piecewise constant discretization of the linear model: SP at 2 cd/m2 for high spatial freq of 7.48 from Plainis and Murray
 			guarantee target_detection_0
-			    "G: .. inverse contrast <= 1 means reaction time of <= 14.": 		
+			    "G: .. inverse contrast <= 1 means reaction time of <= 14 ticks": 		
 			    (persistent(bounding_box_inv_contrast>0.1 and bounding_box_inv_contrast<=1.0, 14) and persistent(target_is_marked,14)) => detect_target; 	
 			guarantee target_detection_1 
-			    "G: .. inverse contrast <= 5 means reaction time of <= 15.": 	
+			    "G: .. inverse contrast <= 5 means reaction time of <= 15 ticks": 	
 			    (persistent(bounding_box_inv_contrast>1.0 and bounding_box_inv_contrast<=5.0, 15) and persistent(target_is_marked,15)) => detect_target; 
 			guarantee target_detection_2 
-			    "G: .. inverse contrast <= 10 means reaction time of <= 17.": 	
+			    "G: .. inverse contrast <= 10 means reaction time of <= 17 ticks": 	
 			    (persistent(bounding_box_inv_contrast>5.0 and bounding_box_inv_contrast<=10.0,17) and persistent(target_is_marked,17)) => detect_target; 
 			guarantee target_detection_3 
-			    "G:.. inverse contrast <= 20 means reaction time of <= 19.": 	
+			    "G:.. inverse contrast <= 20 means reaction time of <= 19 ticks": 	
 			    (persistent(bounding_box_inv_contrast>10.0 and bounding_box_inv_contrast<=20.0,19) and persistent(target_is_marked,19)) => detect_target; 
 			guarantee target_detection_4 
-			    "G:.. inverse contrast <= 30 means reaction time of <= 21.": 	
+			    "G:.. inverse contrast <= 30 means reaction time of <= 21 ticks": 	
 			    (persistent(bounding_box_inv_contrast>20.0 and bounding_box_inv_contrast<=30.0,21) and persistent(target_is_marked,21))=> detect_target; 
 			guarantee target_detection_5 
-			    "G:.. inverse contrast <= 40 means reaction time of <= 24.": 	
+			    "G:.. inverse contrast <= 40 means reaction time of <= 24 ticks": 	
 			    (persistent(bounding_box_inv_contrast>30.0 and bounding_box_inv_contrast<=40.0,24) and persistent(target_is_marked,24))=> detect_target; 
 			guarantee target_detection_6 
-			    "G:.. inverse contrast <= 50 means reaction time of <= 26.": 	
+			    "G:.. inverse contrast <= 50 means reaction time of <= 26 ticks": 	
 			   (persistent(bounding_box_inv_contrast>40.0 and bounding_box_inv_contrast<=50.0,26) and persistent(target_is_marked,26))=> detect_target; 			    
 			guarantee target_detection_7 
-			    "G:.. inverse contrast <= 200 means reaction time of <= 61.": 	
+			    "G:.. inverse contrast <= 200 means reaction time of <= 61 ticks": 	
 			   (persistent(bounding_box_inv_contrast>50.0 and bounding_box_inv_contrast<=200.0,61) and persistent(target_is_marked,61))=> detect_target; 
 		**};
 	end Operator;
