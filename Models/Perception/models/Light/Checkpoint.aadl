@@ -30,14 +30,14 @@ public
 		--	assume attack_characteristics "A: no rapid pulse attacks and there is at least one period of no attacks" : 
 			--counter(persistent(ambient_light=light_around_target,50))>0 ; 
 		--	counter(persistentleq(ge_than_delta(light_around_target,ambient_light,90.0),5))=0 ; 
-			guarantee always_detection "G: if a target is within FOV for Y duration, the checkpoint guard will detect it." : 
+			guarantee always_detection "G: if a target is within FOV for 3.0 seconds, the checkpoint guard will detect it in those 3.0 seconds." : 
 						persistent(target_within_fov,150) => counter(mission_success)>0; 
 		**};
 	end Checkpoint;
 
-	system implementation Checkpoint.impl
+	system implementation Checkpoint.poor
 		subcomponents
-			HMD: system HMD::HMD.mon;
+			HMD: system HMD::HMD.poor;
 			Operator: system Operator::Operator.impl;
 		connections
 			c1: port HMD.target_is_marked -> Operator.target_is_marked ; 
@@ -55,6 +55,28 @@ public
 			
 		**}; 
 			
-	end Checkpoint.impl;
-
+	end Checkpoint.poor;
+	system implementation Checkpoint.good
+		subcomponents
+			HMD: system HMD::HMD.good;
+			Operator: system Operator::Operator.impl;
+		connections
+			c1: port HMD.target_is_marked -> Operator.target_is_marked ; 
+			c2: port Operator.detect_target -> mission_success;
+			c3: port ambient_light -> Operator.ambient_light; 
+			c4: port target_within_fov -> HMD.target_within_fov; 
+			c5: port HMD.filtered_light_around_target -> Operator.filtered_light_around_target; 
+			c6: port light_around_target -> HMD.light_around_target ;
+			c7: port ambient_light -> HMD.ambient_light; 
+	--	properties 
+		--	period => 20 ms; 
+		annex agree {**
+			assert ambient_light_is_between_0_and_high "Domain of ambient light" : ambient_light>=ZERO_LIGHT and ambient_light<=MAX_LIGHT ; 
+			assert light_around_target_is_between_0_and_high "Domain of light around target" : light_around_target>=ZERO_LIGHT and light_around_target<=MAX_LIGHT ; 
+			
+		**}; 
+			
+	end Checkpoint.good;
+	
+	
 end Checkpoint;
