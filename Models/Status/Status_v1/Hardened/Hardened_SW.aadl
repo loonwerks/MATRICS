@@ -408,6 +408,7 @@ public
 			--firewall connections
 			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
 			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
+--			c26: port wifiDriver.analysis_request -> dataAnalysis.analysis_request;
 		flows
 			-- HMD log flow path
 			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;			

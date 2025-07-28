@@ -345,6 +345,7 @@ public
 			--
 			usbRecv: in event data port;			
 			usbSend: out event data port;
+
 	end SW_seL4;
 	
 	system implementation SW_seL4.hardened
@@ -385,6 +386,7 @@ public
 			c15: port wifiDriver.analysis_request -> monitor2.analysis_request;
 			c16: port encryptor.analysis_report_out -> monitor2.analysis_report_in;
 			c18: port monitor2.alert -> wifiDriver.alert;
+<<<<<<< Updated upstream
 			--firewall connections
 			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
 			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
@@ -396,6 +398,12 @@ public
 			prove add_monitor(this.encryptor.encryptor, this.monitor2.monitor2)
 			prove add_monitor_gate(this.dataAnalysis.dataAnalysis, this.monitor1.monitor1, this.dataManager.dataManager, Common::ResponseLog.Impl)
 		**};
+=======
+			--filter connections
+			c22: port wifiDriver.analysis_request -> filter.analysis_request_in;
+			c23: port filter.analysis_request_out -> dataAnalysis.analysis_request;
+
+>>>>>>> Stashed changes
 	end SW_seL4.hardened;
 	
 end Hardened_SW;

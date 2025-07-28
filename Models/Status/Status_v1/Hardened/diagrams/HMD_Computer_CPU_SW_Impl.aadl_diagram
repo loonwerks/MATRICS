@@ -13,8 +13,8 @@
         <seg>c1</seg>
       </bo>
       <bendpoints>
-        <point x="879.2786254882812" y="299.0"/>
-        <point x="879.2786254882812" y="228.00001525878906"/>
+        <point x="879.0" y="299.0"/>
+        <point x="879.0" y="228.0"/>
       </bendpoints>
     </element>
     <element uuid="078f8973-e33c-4eca-be07-8ea579249dc0" manual="true">
@@ -101,10 +101,10 @@
         <seg>c2</seg>
       </bo>
       <bendpoints>
-        <point x="1302.3084716796875" y="117.99998474121094"/>
-        <point x="1302.3084716796875" y="38.000003814697266"/>
-        <point x="325.87109375" y="38.000003814697266"/>
-        <point x="325.87109375" y="249.00001525878906"/>
+        <point x="1302.0" y="118.0"/>
+        <point x="1302.0" y="38.0"/>
+        <point x="326.0" y="38.0"/>
+        <point x="326.0" y="249.0"/>
       </bendpoints>
     </element>
     <element uuid="4691dc50-b3e6-43c4-9c50-95b6da4eccf1" manual="true">
@@ -167,7 +167,7 @@
         <seg>feature</seg>
         <seg>btComOut</seg>
       </bo>
-      <position x="1437.083209991455" y="246.0"/>
+      <position x="1437.2382850646973" y="246.0"/>
     </element>
     <element uuid="04622396-eaba-4175-b3de-1c21105537f6" manual="true" dockArea="left">
       <bo>
@@ -202,7 +202,7 @@
         <seg>feature</seg>
         <seg>imageryOut</seg>
       </bo>
-      <position x="1428.9321594238281" y="367.0"/>
+      <position x="1429.0872344970703" y="367.0"/>
     </element>
     <element uuid="32071602-33d5-4086-836a-a4d986d40921" manual="true" dockArea="left">
       <bo>
@@ -223,9 +223,9 @@
         <seg>feature</seg>
         <seg>wfComOut</seg>
       </bo>
-      <position x="1434.86967086792" y="196.0"/>
+      <position x="1435.024745941162" y="196.0"/>
     </element>
-    <element uuid="94558625-ef48-452f-a447-4651901785b7" manual="true">
+    <element uuid="94558625-ef48-452f-a447-4651901785b7" manual="true" background="#e0e0e0">
       <element uuid="c9db12b3-9c6e-4f3d-9a61-11e6adbdba99" manual="true" dockArea="left">
         <bo>
           <seg>feature</seg>
@@ -238,7 +238,7 @@
           <seg>feature</seg>
           <seg>btComOut</seg>
         </bo>
-        <position x="330.26819229125977" y="198.0"/>
+        <position x="330.23828506469727" y="198.0"/>
       </element>
       <element uuid="6a0dd875-e28f-4a9a-bdda-93f6114338bf" manual="true" dockArea="left">
         <bo>
@@ -252,7 +252,7 @@
           <seg>feature</seg>
           <seg>ipcDataOut</seg>
         </bo>
-        <position x="324.33069610595703" y="38.0"/>
+        <position x="324.30078887939453" y="38.0"/>
       </element>
       <element uuid="2c2efbca-3b76-40d0-9031-45580514c188" manual="true" dockArea="left">
         <bo>
@@ -266,7 +266,7 @@
           <seg>feature</seg>
           <seg>wfComOut</seg>
         </bo>
-        <position x="328.0546531677246" y="148.0"/>
+        <position x="328.0247459411621" y="148.0"/>
       </element>
       <element uuid="693e9201-ce9b-4b38-8b26-f0ee313c4fa5" manual="true">
         <bo>
@@ -286,8 +286,8 @@
           <seg>f3</seg>
         </bo>
         <bendpoints>
-          <point x="1109.1861572265625" y="168.0"/>
-          <point x="1109.1861572265625" y="117.99999237060547"/>
+          <point x="1109.0" y="168.0"/>
+          <point x="1109.0" y="118.0"/>
         </bendpoints>
       </element>
       <element uuid="1765fc3e-1968-4fa0-bc91-61bda9f3d0dc" manual="true">
@@ -296,26 +296,26 @@
           <seg>f4</seg>
         </bo>
         <bendpoints>
-          <point x="1116.634033203125" y="228.00001525878906"/>
-          <point x="1116.634033203125" y="278.0"/>
+          <point x="1117.0" y="228.0"/>
+          <point x="1117.0" y="278.0"/>
         </bendpoints>
       </element>
       <bo>
         <seg>subcomponent</seg>
         <seg>comSw</seg>
       </bo>
-      <position x="889.2786026000977" y="48.0"/>
-      <size width="403.0299072265625" height="250.0"/>
+      <position x="889.0" y="48.0"/>
+      <size width="403.0" height="250.0"/>
     </element>
     <element uuid="3e88ce56-37df-4e5c-b9e7-fc48de9080fe" manual="true">
       <bo>
         <seg>subcomponent</seg>
         <seg>ipcCom</seg>
       </bo>
-      <position x="116.62369537353516" y="539.0"/>
-      <size width="102.38410949707031" height="35.0"/>
+      <position x="117.0" y="539.0"/>
+      <size width="102.0" height="35.0"/>
     </element>
-    <element uuid="f513cd1b-dc3c-44e7-8fb7-abd2d9cc3462" manual="true">
+    <element uuid="f513cd1b-dc3c-44e7-8fb7-abd2d9cc3462" manual="true" background="#e0e0e0">
       <element uuid="9f2b2593-58fb-4e48-afdd-c26d22171142" manual="true" dockArea="left">
         <bo>
           <seg>feature</seg>
@@ -349,7 +349,7 @@
           <seg>feature</seg>
           <seg>imageryOut</seg>
         </bo>
-        <position x="452.4947814941406" y="188.0"/>
+        <position x="452.0872344970703" y="188.0"/>
       </element>
       <element uuid="aa5d714e-e7f3-420b-bebf-cb860919cc68" manual="true" dockArea="left">
         <bo>
@@ -370,7 +370,7 @@
           <seg>feature</seg>
           <seg>ipcDataOut</seg>
         </bo>
-        <position x="454.70833587646484" y="88.0"/>
+        <position x="454.30078887939453" y="88.0"/>
       </element>
       <element uuid="e2c04a05-30dd-4bfa-864d-a5a9491d5db5" manual="true">
         <bo>
@@ -378,8 +378,8 @@
           <seg>f1</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="449.0"/>
-          <point x="661.7421875" y="399.0"/>
+          <point x="662.0" y="449.0"/>
+          <point x="662.0" y="399.0"/>
         </bendpoints>
       </element>
       <element uuid="b34b0a85-a7e4-437a-b840-e07672256f40" manual="true">
@@ -388,8 +388,8 @@
           <seg>f10</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="249.00001525878906"/>
-          <point x="661.7421875" y="299.0"/>
+          <point x="662.0" y="249.0"/>
+          <point x="662.0" y="299.0"/>
         </bendpoints>
       </element>
       <element uuid="f6c2aed3-bf15-4fb1-a1ac-bd8d1e749284" manual="true">
@@ -398,8 +398,8 @@
           <seg>f11</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="349.0"/>
-          <point x="661.7421875" y="299.0"/>
+          <point x="662.0" y="349.0"/>
+          <point x="662.0" y="299.0"/>
         </bendpoints>
       </element>
       <element uuid="983f035b-965a-4869-a1f4-face4db7ca21" manual="true">
@@ -414,8 +414,8 @@
           <seg>f5</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="349.0"/>
-          <point x="661.7421875" y="399.0"/>
+          <point x="662.0" y="349.0"/>
+          <point x="662.0" y="399.0"/>
         </bendpoints>
       </element>
       <element uuid="47388e79-3bd5-4ed0-9832-544b817b4beb" manual="true">
@@ -424,8 +424,8 @@
           <seg>f6</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="498.9999694824219"/>
-          <point x="661.7421875" y="399.0"/>
+          <point x="662.0" y="499.0"/>
+          <point x="662.0" y="399.0"/>
         </bendpoints>
       </element>
       <element uuid="154c6852-2ee7-45e4-887f-b9b9531e4a5c" manual="true">
@@ -440,23 +440,23 @@
           <seg>f9</seg>
         </bo>
         <bendpoints>
-          <point x="661.7421875" y="299.0"/>
-          <point x="661.7421875" y="399.0"/>
+          <point x="662.0" y="299.0"/>
+          <point x="662.0" y="399.0"/>
         </bendpoints>
       </element>
       <bo>
         <seg>subcomponent</seg>
         <seg>nativeSw</seg>
       </bo>
-      <position x="335.87108612060547" y="179.0"/>
-      <size width="533.4075469970703" height="340.0"/>
+      <position x="336.0" y="179.0"/>
+      <size width="533.0" height="340.0"/>
     </element>
     <bo>
       <seg>classifier</seg>
       <seg>CPU_SW.Impl</seg>
     </bo>
     <position/>
-    <size width="1509.8449249267578" height="586.0"/>
+    <size width="1510.0" height="586.0"/>
   </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>
