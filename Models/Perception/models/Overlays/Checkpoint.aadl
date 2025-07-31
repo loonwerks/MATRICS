@@ -10,12 +10,13 @@ public
 		const MAX_LIGHT : real = 300.0;
 		const ZERO_LIGHT : real = 0.0; 
 	**}; 
-	system Checkpoint
-		features
-			ambient_light : in data port  Base_Types::Float; 
+	
+		system Checkpoint_normal
+			features
+			
 			target_within_fov : in data port  Base_Types::Boolean;			
-			red_overlay_attack:  in data port Base_Types::Float; -- hacker effects green_overlay.. t
-			green_overlay_attack: in data port Base_Types::Float; -- heacker effects red overlay.. transparency value, 
+			red_overlay_attack:  in data port Base_Types::Boolean; -- hacker effects green_overlay.. t
+			green_overlay_attack: in data port Base_Types::Boolean; -- heacker effects red overlay.. transparency value, 
 			mission_success: out data port Base_Types::Boolean;
 
 		annex agree {**
@@ -26,35 +27,121 @@ public
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
 			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
-			assume normal_ambient_light "A: typical daylight room ambient light" : ambient_light>=5.0 and ambient_light<=HIGH_LIGHT; -- all light conditions.. 
-			assume double_green_attack "A: a green transparent box appears around the green bounding box." : red_overlay_attack =0.0 and green_overlay_attack=70.0; -- 70% transparent
-		--	assume false_red_attack "A: a red transparent box appears around the green bounding box." : green_overlay_attack =0.0 and red_overlay_attack = 70.0; -- 70% transparent 
-		--	assume no_overlay "A: no attack at all." : red_overlay_attack =0.0 and green_overlay_attack=0.0 ; -- 70% transparent
+			assume no_overlay "A: no attack at all." : not red_overlay_attack and not green_overlay_attack ; -- 70% transparent
 			guarantee always_detection "G: if a target is within FOV for 2.0 second, the checkpoint guard  detect it within that 2.0 second." : 
 						persistent(target_within_fov,100) => counter(mission_success)>0; 
 		**};
-	end Checkpoint;
+	end Checkpoint_normal;
+	
+	
+	system Checkpoint_double_green
+		features
+			target_within_fov : in data port  Base_Types::Boolean;			
+			red_overlay_attack:  in data port Base_Types::Boolean; -- hacker effects green_overlay.. t
+			green_overlay_attack: in data port Base_Types::Boolean; -- heacker effects red overlay.. transparency value, 
+			mission_success: out data port Base_Types::Boolean;
 
-	system implementation Checkpoint.impl
+		annex agree {**
+			fun ge_than_delta(q1: real, q2: real, d: real) : bool = (q1 - q2)>=d ; 	
+			node counter(cond: bool) returns (output : int); var count : int; 
+			let output  = count; count = if cond then 0->pre(count) + 1 else 0->pre(count); tel;  
+			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
+			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
+			assume double_green_attack "A: a green transparent box appears around the green bounding box." : 
+			not red_overlay_attack and green_overlay_attack; -- 70% transparent
+			guarantee always_detection "G: if a target is within FOV for 2.0 second, the checkpoint guard  detect it within that 2.0 second." : 
+						persistent(target_within_fov,100) => counter(mission_success)>0; 
+		**};
+	end Checkpoint_double_green;
+
+
+	system Checkpoint_false_red
+		features
+			target_within_fov : in data port  Base_Types::Boolean;			
+			red_overlay_attack:  in data port Base_Types::Boolean; -- hacker effects green_overlay.. t
+			green_overlay_attack: in data port Base_Types::Boolean; -- heacker effects red overlay.. transparency value, 
+			mission_success: out data port Base_Types::Boolean;
+
+		annex agree {**
+			fun ge_than_delta(q1: real, q2: real, d: real) : bool = (q1 - q2)>=d ; 	
+			node counter(cond: bool) returns (output : int); var count : int; 
+			let output  = count; count = if cond then 0->pre(count) + 1 else 0->pre(count); tel;  
+			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
+			node persistentleq(cond : bool, t: int) returns (output : bool); var count : int; 
+			let output = if (count<=t and count>0) then true else false; count = if cond then 0->pre(count) + 1 else 0; tel;
+			assume false_red_attack "A: a red transparent box appears around the green bounding box." : 
+			not green_overlay_attack and red_overlay_attack; -- 70% transparent 
+			guarantee always_detection "G: if a target is within FOV for 2.0 second, the checkpoint guard  detect it within that 2.0 second." : 
+						persistent(target_within_fov,100) => counter(mission_success)>0; 
+		**};
+	end Checkpoint_false_red;
+	
+system implementation Checkpoint_normal.impl
 		subcomponents
 			HMD: system HMD::HMD.mon;
 			Operator: system Operator::Operator.impl;
 		connections
-			c1: port HMD.target_is_marked -> Operator.target_is_marked ; 
+			c1: port HMD.target_marked -> Operator.target_marked ; 
 			c2: port Operator.detect_target -> mission_success;
-			c3: port ambient_light -> Operator.ambient_light; 
 			c4: port target_within_fov -> HMD.target_within_fov; 
 			c6: port red_overlay_attack -> HMD.red_overlay_attack ; 
 			c7: port green_overlay_attack -> HMD.green_overlay_attack; 
-			c8: port HMD.target_is_covered_by_green_box -> Operator.green_box_over_bounding_box; 
-			c9: port HMD.target_is_covered_by_red_box -> Operator.red_box_over_bounding_box; 
+			c8: port HMD.target_covered_by_green_box -> Operator.green_overlay; 
+			c9: port HMD.target_covered_by_red_box -> Operator.red_overlay; 
+			c10: port HMD.target_identified -> Operator.target_identified ; 
+			
 	--	properties 
 		--	period => 20 ms; 
 		annex agree {**
-			assert ambient_light_is_between_0_and_high "Domain of ambient light" : ambient_light>=ZERO_LIGHT and ambient_light<=MAX_LIGHT ; 
 			
 		**}; 
 			
-	end Checkpoint.impl;
+	end Checkpoint_normal.impl; 
+
+	system implementation Checkpoint_double_green.impl
+		subcomponents
+			HMD: system HMD::HMD.mon;
+			Operator: system Operator::Operator.impl;
+		connections
+			c1: port HMD.target_marked -> Operator.target_marked ; 
+			c2: port Operator.detect_target -> mission_success;
+			c4: port target_within_fov -> HMD.target_within_fov; 
+			c6: port red_overlay_attack -> HMD.red_overlay_attack ; 
+			c7: port green_overlay_attack -> HMD.green_overlay_attack; 
+			c8: port HMD.target_covered_by_green_box -> Operator.green_overlay; 
+			c9: port HMD.target_covered_by_red_box -> Operator.red_overlay; 
+			c10: port HMD.target_identified -> Operator.target_identified ; 
+	--	properties 
+		--	period => 20 ms; 
+		annex agree {**
+			
+		**}; 
+			
+	end Checkpoint_double_green.impl; 
+
+	system implementation Checkpoint_false_red.impl
+		subcomponents
+			HMD: system HMD::HMD.mon;
+			Operator: system Operator::Operator.impl;
+		connections
+			c1: port HMD.target_marked -> Operator.target_marked ; 
+			c2: port Operator.detect_target -> mission_success;
+			c4: port target_within_fov -> HMD.target_within_fov; 
+			c6: port red_overlay_attack -> HMD.red_overlay_attack ; 
+			c7: port green_overlay_attack -> HMD.green_overlay_attack; 
+			c8: port HMD.target_covered_by_green_box -> Operator.green_overlay; 
+			c9: port HMD.target_covered_by_red_box -> Operator.red_overlay; 
+			c10: port HMD.target_identified -> Operator.target_identified ; 
+			
+	--	properties 
+		--	period => 20 ms; 
+		annex agree {**
+			
+		**}; 
+			
+	end Checkpoint_false_red.impl; 
 
 end Checkpoint;

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="60545ef1-7c23-4543-979c-9e791028de90" manual="true" fontSize="16.0">
+    <element uuid="6d6d7a5e-091f-4c69-b0b4-ed2bfaa78954" manual="true" fontSize="16.0">
+      <bo>
+        <seg>agree.assumption</seg>
+        <seg>A: no attack at all.</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="220.0" y="90.0"/>
+      <size width="350.0" height="42.0"/>
+    </element>
+    <element uuid="b13e1a52-e5ee-4497-8054-f53cf539568c" manual="true" fontSize="16.0">
+      <bo>
+        <seg>agree.guarantee</seg>
+        <seg>G: if a target is within FOV for 2.0 second, the checkpoint guard  detect it within that 2.0 second.</seg>
+        <seg>0</seg>
+      </bo>
+      <position x="200.0" y="170.0000000000001"/>
+      <size width="1250.0" height="42.0"/>
+    </element>
+    <element uuid="113c9e52-d1a6-43c7-aca3-2a54cf40eb7c" manual="true" fontSize="16.0">
+      <element uuid="954873d4-b6d6-4341-9387-ae2c7141c67c" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+    </element>
+    <element uuid="053fecdf-d144-4076-b2da-c0359539f589" manual="true" fontSize="16.0">
+      <element uuid="5d0278f9-65f2-46f5-9adf-318e308e5e24" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c10</seg>
+      </bo>
+    </element>
+    <element uuid="fbde676f-3eb0-43f8-9d7a-512565fa006c" manual="true" fontSize="16.0">
+      <element uuid="58bfb11a-299f-45af-ae89-f40a66b6e5d1" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c2</seg>
+      </bo>
+    </element>
+    <element uuid="e2cf9de4-2c3e-4ff0-937b-201f0d175617" manual="true" fontSize="16.0">
+      <element uuid="f09a1a57-98fb-4b60-b67f-72a2090fe8d9" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c4</seg>
+      </bo>
+    </element>
+    <element uuid="aa42f947-188b-452d-915f-844c448eabb4" manual="true" fontSize="16.0">
+      <element uuid="982a8071-8854-41e0-a423-a800e740010d" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c6</seg>
+      </bo>
+    </element>
+    <element uuid="0eae484c-1f5a-444e-87f2-c387f7cbec7a" manual="true" fontSize="16.0">
+      <element uuid="19eb616b-bb45-41ba-8853-a229e8e6362f" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c7</seg>
+      </bo>
+    </element>
+    <element uuid="60fd25d1-0dc2-4a26-8466-88c9e3e312cb" manual="true" fontSize="16.0">
+      <element uuid="4d71ca68-4762-461e-892f-86bd721875bd" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c8</seg>
+      </bo>
+    </element>
+    <element uuid="52e49558-be22-45ad-b94a-7ef74b867c2a" manual="true" fontSize="16.0">
+      <element uuid="8286bc75-5638-4556-8ac6-9328f6f8f625" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c9</seg>
+      </bo>
+    </element>
+    <element uuid="8452ebaf-e90a-4be8-84e7-a9a6d43057bd" manual="true" dockArea="left" fontSize="16.0">
+      <bo>
+        <seg>feature</seg>
+        <seg>green_overlay_attack</seg>
+      </bo>
+      <position y="700.0"/>
+    </element>
+    <element uuid="dacf195a-394a-4e1d-a4d6-662018e6b1c8" manual="true" dockArea="right" fontSize="16.0">
+      <bo>
+        <seg>feature</seg>
+        <seg>mission_success</seg>
+      </bo>
+      <position x="2576.7604064941406" y="830.0"/>
+    </element>
+    <element uuid="74d30b76-acc9-486b-a9b0-b1818f8b9df9" manual="true" dockArea="left" fontSize="16.0">
+      <bo>
+        <seg>feature</seg>
+        <seg>red_overlay_attack</seg>
+      </bo>
+      <position y="755.0"/>
+    </element>
+    <element uuid="c5fc4670-6e4a-4e46-9a3e-b01383449559" manual="true" dockArea="left" fontSize="16.0">
+      <bo>
+        <seg>feature</seg>
+        <seg>target_within_fov</seg>
+      </bo>
+      <position y="640.0"/>
+    </element>
+    <element uuid="f2480698-80ee-4e26-ab57-738705ec8b68" manual="true" fontSize="16.0">
+      <bo>
+        <seg>realization</seg>
+      </bo>
+    </element>
+    <element uuid="1d61c24a-86c8-429a-aae4-858b76b92491" manual="true" fontSize="16.0">
+      <element uuid="a156f70d-a284-4b92-b61c-b5923fba983d" manual="true" fontSize="16.0">
+        <element uuid="2ff732e3-11eb-4a13-a70b-e734ca764c89" manual="true" fontSize="16.0">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c2</seg>
+        </bo>
+      </element>
+      <element uuid="71fd8af4-e142-4f28-94ac-39f1bf664a99" manual="true" fontSize="16.0">
+        <element uuid="d316d195-24ce-4e36-8e97-5fc514a2a143" manual="true" fontSize="16.0">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c3</seg>
+        </bo>
+      </element>
+      <element uuid="9075c8a6-0c86-460d-a181-6d3d2f19f792" manual="true" fontSize="16.0">
+        <element uuid="76e9d08e-a898-4c6f-af4f-3a015decd0cb" manual="true" fontSize="16.0">
+          <bo>
+            <seg>tag</seg>
+            <seg>unidirectional</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>connection</seg>
+          <seg>c4</seg>
+        </bo>
+      </element>
+      <element uuid="7c2547ea-e826-4cd2-a15f-2e61c0ef389e" manual="true" dockArea="left" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>green_overlay_attack</seg>
+        </bo>
+        <position y="440.0"/>
+      </element>
+      <element uuid="30adab00-d529-4e47-a7de-8fd67135dfcc" manual="true" dockArea="left" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>red_overlay_attack</seg>
+        </bo>
+        <position y="500.0"/>
+      </element>
+      <element uuid="0c945f5e-1f97-418e-a8b5-0072fa84d40c" manual="true" dockArea="left" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>target_within_fov</seg>
+        </bo>
+        <position y="380.0"/>
+      </element>
+      <element uuid="f93fb05b-3e87-4ebf-afe2-8d93a5a81f23" manual="true" fontSize="16.0">
+        <element uuid="f594e2d4-a145-4f84-b237-b998ce4bb86d" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: display (ATR1) will marked a human within FOV with a bounding box of color 1 after 100ms.</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="40.0" y="70.0"/>
+          <size width="611.50537109375" height="42.0"/>
+        </element>
+        <element uuid="06567bc9-5d15-40c9-8b48-6ec47dda3df6" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: display (ATR2) will identify a marked human as a target with a bounding box of color 2 after 500ms.</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="40.0" y="190.0"/>
+          <size width="655.2552490234375" height="42.0"/>
+        </element>
+        <element uuid="06e32239-d4b8-409d-83c3-8bee552dda4e" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: if no target are marked then overlay</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="30.0" y="420.0"/>
+          <size width="620.0" height="42.0"/>
+        </element>
+        <element uuid="7795c186-4d47-40b2-86bd-9751747be4d8" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: otherwise not identified as target.</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="710.0" y="190.0"/>
+          <size width="140.0" height="42.0"/>
+        </element>
+        <element uuid="d41871d6-bf27-44cb-b3ae-7ce8e8003dec" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: otherwise not marked as a human.</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="660.0" y="70.0"/>
+          <size width="170.0" height="42.0"/>
+        </element>
+        <element uuid="48e34b3e-53af-4c12-a47d-d26013fb3158" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: transparent color 1 box over the color 2 bounding box</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="30.0" y="480.0000000000001"/>
+          <size width="750.0" height="42.0"/>
+        </element>
+        <element uuid="b082d517-7b50-40e8-89ea-503ea9cd284c" manual="true" fontSize="16.0">
+          <bo>
+            <seg>agree.guarantee</seg>
+            <seg>G: transparent color 2 box over the color 2 bounding box</seg>
+            <seg>0</seg>
+          </bo>
+          <position x="30.0" y="540.0"/>
+          <size width="760.0" height="42.0"/>
+        </element>
+        <element uuid="bf2f7f4f-b704-4f2c-a132-2f8568eebae3" manual="true" dockArea="left" fontSize="16.0">
+          <bo>
+            <seg>feature</seg>
+            <seg>green_overlay_attack</seg>
+          </bo>
+          <position y="298.0"/>
+        </element>
+        <element uuid="4481a53f-3a4c-480e-bc61-a76eb910a29f" manual="true" dockArea="left" fontSize="16.0">
+          <bo>
+            <seg>feature</seg>
+            <seg>red_overlay_attack</seg>
+          </bo>
+          <position y="358.0"/>
+        </element>
+        <element uuid="f5d8aa4a-9608-4aca-b81b-61af062f295e" manual="true" dockArea="left" fontSize="16.0">
+          <bo>
+            <seg>feature</seg>
+            <seg>target_within_fov</seg>
+          </bo>
+          <position y="238.0"/>
+        </element>
+        <element uuid="cfae6d40-bcfc-4b55-98e5-ad00748a2048" manual="true" fontSize="16.0">
+          <bo>
+            <seg>tag</seg>
+            <seg>sc_type</seg>
+          </bo>
+        </element>
+        <bo>
+          <seg>subcomponent</seg>
+          <seg>Display</seg>
+        </bo>
+        <position x="230.0" y="100.0"/>
+        <size width="1100.0" height="639.9999999999999"/>
+      </element>
+      <element uuid="d5087b3c-fc05-4420-b5c9-f83baf6d5df9" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>sc_type</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>HMD</seg>
+      </bo>
+      <position x="230.0" y="260.0"/>
+      <size width="1570.0" height="781.9999999999999"/>
+    </element>
+    <element uuid="d93a58d8-f748-4135-8b1e-516c359c7b7e" manual="true" fontSize="16.0">
+      <element uuid="b0c0225e-00a2-42a8-9f6f-8851f2589f6b" manual="true" fontSize="16.0">
+        <bo>
+          <seg>agree.guarantee</seg>
+          <seg>G: green overlay over green bounding box means delayed reaction...</seg>
+          <seg>0</seg>
+        </bo>
+        <position y="580.0"/>
+        <size width="590.0000000000002" height="42.0"/>
+      </element>
+      <element uuid="8dbc192e-88a9-4a8f-b779-db8ae09210c7" manual="true" fontSize="16.0">
+        <bo>
+          <seg>agree.guarantee</seg>
+          <seg>G: no box overlay means normal detection...</seg>
+          <seg>0</seg>
+        </bo>
+        <position x="20.000000000000455" y="210.0"/>
+        <size width="459.9999999999998" height="42.0"/>
+      </element>
+      <element uuid="57ae6d1d-5dee-433e-a380-a10443b71181" manual="true" fontSize="16.0">
+        <bo>
+          <seg>agree.guarantee</seg>
+          <seg>G: red overlay over green bounding box means delayed reaction...</seg>
+          <seg>0</seg>
+        </bo>
+        <position x="29.999999999999545" y="700.0"/>
+        <size width="570.0000000000002" height="42.0"/>
+      </element>
+      <element uuid="ccee2b77-a262-4a45-babf-83e4a87977e1" manual="true" dockArea="right" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>detect_target</seg>
+        </bo>
+        <position x="523.4687347412107" y="660.0"/>
+      </element>
+      <element uuid="e781efcd-50d5-47d4-a87a-2d9f1aa9c97c" manual="true" dockArea="left" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>green_overlay</seg>
+        </bo>
+        <position y="510.0"/>
+      </element>
+      <element uuid="7ac0481a-7718-4b7a-a00a-765259588f97" manual="true" dockArea="left" fontSize="16.0">
+        <bo>
+          <seg>feature</seg>
+          <seg>red_overlay</seg>
+        </bo>
+        <position y="390.0"/>
+      </element>
+      <element uuid="96585aae-0ed8-480f-b89c-4fb4473dd41b" manual="true" fontSize="16.0">
+        <bo>
+          <seg>tag</seg>
+          <seg>sc_type</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Operator</seg>
+      </bo>
+      <position x="1900.0000000000002" y="230.0"/>
+      <size width="659.9999999999998" height="789.9999999999999"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Checkpoint_normal.impl</seg>
+    </bo>
+    <position x="-510.0" y="-80.0"/>
+    <size width="2750.0" height="1120.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Checkpoint::Checkpoint_normal.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

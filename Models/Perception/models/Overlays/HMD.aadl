@@ -2,41 +2,36 @@ package HMD
 public
 	with Base_Types;
 	
-	system Light_Filter
-		features
-			perceived_light_around_target: in data port Base_Types::Float;
-			filtered_light_around_target: out data port Base_Types::Float;
-		annex agree {**
-			guarantee bad_filter "G: poor filter i.e. filtered light out is similar to light in" : filtered_light_around_target = perceived_light_around_target; 
-				
-		**};
-	end Light_Filter;
-	
-	system implementation Light_Filter.impl
-
-	end Light_Filter.impl;
 	
 	system Display
 		features
-			light_around_target : in data port Base_Types::Float; 
-			target_within_fov : in data port Base_Types::Boolean; 
-			red_overlay_attack:  in data port Base_Types::Float; -- hacker effects green_overlay.. t
-			green_overlay_attack: in data port Base_Types::Float; -- heacker effects red overlay.. transparency value, 
-			target_is_marked : out data port Base_Types::Boolean; 
-			target_is_covered_by_green_box: out data port Base_Types::Float; 
-			target_is_covered_by_red_box: out data port Base_Types::Float; 
+			target_within_fov : in data port Base_Types::Boolean; -- a person is within the FOV or not. 
+			red_overlay_attack:  in data port Base_Types::Boolean; -- hacker effects green_overlay.. t
+			green_overlay_attack: in data port Base_Types::Boolean; -- heacker effects red overlay.. transparency value, 
+			target_marked : out data port Base_Types::Boolean; 
+			target_identified : out data port Base_Types::Boolean; 
 			
+			green_box_overlay: out data port Base_Types::Float; 
+			red_box_overlay: out data port Base_Types::Float; 
 			
 		annex agree {**
 			-- when
-						node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
+			node persistent(cond : bool, t: int) returns (output : bool); var count : int; 
 			let output = if count>=t then true else false; count = if cond then 0->pre(count) + 1 else 0; tel; 
 			
-			guarantee display_target_1 "G: display will marked a target within FOV with a green bounding box." : persistent(target_within_fov, 5) => target_is_marked; 
-			guarantee display_target_2 "G: otherwise no bounding box" : not persistent(target_within_fov, 5) => not target_is_marked; 
-			guarantee overlay_green_box "G: transparent green box over the green bounding box" : target_is_marked => target_is_covered_by_green_box = green_overlay_attack; 
-			guarantee overlay_red_box  "G: transparent red box over the green bounding box" : target_is_marked => target_is_covered_by_red_box = red_overlay_attack; 
-			guarantee no_overlay_if_target_is_not_marked "G: if no target are marked then overlay" : not target_is_marked => target_is_covered_by_green_box = 0.0 and target_is_covered_by_red_box = 0.0; 
+			guarantee identify_human "G: display (ATR1) will marked a human within FOV with a bounding box of color 1 after 100ms." : 
+				persistent(target_within_fov, 5) => target_marked; -- 100ms
+			guarantee not_identify_human "G: otherwise not marked as a human." : not persistent(target_within_fov, 2) => not target_marked; 
+			
+			guarantee identify_target "G: display (ATR2) will identify a marked human as a target with a bounding box of color 2 after 500ms." : 
+				persistent(target_marked, 25) => target_identified; -- 500ms
+			guarantee not_identify_target "G: otherwise not identified as target." : not persistent(target_marked, 25) => not target_identified; 			
+			guarantee overlay_green_box "G: transparent color 2 box over the color 2 bounding box" : target_identified and green_overlay_attack => green_box_overlay = 70.0; 
+			guarantee overlay_red_box  "G: transparent color 1 box over the color 2 bounding box" : target_identified and red_overlay_attack => red_box_overlay = 70.0 ; 
+			guarantee no_overlay_if_target_not_marked "G: if no target are marked then overlay" : 
+				not target_identified or 
+				(target_identified and not (green_overlay_attack or red_overlay_attack))
+				=> green_box_overlay = 0.0 and red_box_overlay = 0.0; 
 		**};
 	end Display;
 	
@@ -48,19 +43,19 @@ public
 	system HMD
 		features
 			target_within_fov:  in data port Base_Types::Boolean;
-			red_overlay_attack:  in data port Base_Types::Float; -- hacker effects green_overlay.. t
-			green_overlay_attack: in data port Base_Types::Float; -- hacker effects red overlay.. transparency value, 
-			target_is_marked : out data port Base_Types::Boolean; 
-			target_is_covered_by_green_box: out data port Base_Types::Float; 
-			target_is_covered_by_red_box: out data port Base_Types::Float; 
-			
+			red_overlay_attack:  in data port Base_Types::Boolean; -- hacker effects green_overlay.. t
+			green_overlay_attack: in data port Base_Types::Boolean; -- hacker effects red overlay.. transparency value, 
+			target_marked : out data port Base_Types::Boolean; 
+			target_identified :  out data port Base_Types::Boolean; -- bounding box switches from color 1 to color 2 (target)
+			target_covered_by_green_box: out data port Base_Types::Float; 
+			target_covered_by_red_box: out data port Base_Types::Float; 
 	end HMD;
 	
 	system implementation HMD.init
 		subcomponents
 			Display: system Display.impl;
 		connections
-			c2: port Display.target_is_marked -> target_is_marked;
+			c2: port Display.target_marked -> target_marked;
 		annex agree {**
 		**};
 	end HMD.init;
@@ -68,14 +63,15 @@ public
 	system implementation HMD.mon
 		subcomponents
 			Display: system Display.impl;
-			Filter: system Light_Filter.impl;
 		connections
-			c1: port Display.target_is_marked -> target_is_marked;
+			c1: port Display.target_marked -> target_marked;
 			c2: port green_overlay_attack->Display.green_overlay_attack;
 			c3: port target_within_fov -> Display.target_within_fov ; 
 			c4: port red_overlay_attack -> Display.red_overlay_attack; 
-			c5: port Display.target_is_covered_by_green_box -> target_is_covered_by_green_box; 
-			c6: port Display.target_is_covered_by_red_box -> target_is_covered_by_red_box; 
+			c5: port Display.green_box_overlay -> target_covered_by_green_box; 
+			c6: port Display.red_box_overlay -> target_covered_by_red_box; 
+			c7: port Display.target_identified -> target_identified;
+			
 	--	properties 
 	--		period => 20 ms; 
 		annex agree {**
