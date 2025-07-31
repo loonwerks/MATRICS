@@ -73,7 +73,6 @@
         <seg>c14</seg>
       </bo>
       <bendpoints>
-        <point x="1386.0" y="331.0"/>
         <point x="1386.0" y="402.0"/>
       </bendpoints>
     </element>
@@ -172,6 +171,10 @@
         <seg>connection</seg>
         <seg>c21</seg>
       </bo>
+      <bendpoints>
+        <point x="994.0" y="390.0"/>
+        <point x="995.0" y="341.0"/>
+      </bendpoints>
     </element>
     <element uuid="8f30f4d2-ad78-4825-a713-37aa0e35053f" manual="true">
       <element uuid="406fe0ee-e9bd-4cb7-b6fc-ad5e34bfc4bf" manual="true">
@@ -234,7 +237,7 @@
         <point x="1348.0" y="663.0"/>
         <point x="1349.0" y="823.0"/>
         <point x="34.0" y="823.0"/>
-        <point x="31.000001907348633" y="501.0"/>
+        <point x="31.0" y="501.0"/>
       </bendpoints>
     </element>
     <element uuid="c4c78399-3b52-4b07-bf50-ced9d1ac5b9f" manual="true">
@@ -249,8 +252,8 @@
         <seg>c4</seg>
       </bo>
       <bendpoints>
-        <point x="1059.0" y="501.0"/>
-        <point x="1058.0" y="330.0"/>
+        <point x="1061.0" y="500.0"/>
+        <point x="1063.0" y="401.0"/>
       </bendpoints>
     </element>
     <element uuid="ee8a8d21-02ac-466e-a75b-2744bc0e7dbe" manual="true">
@@ -332,7 +335,7 @@
           <seg>feature</seg>
           <seg>btSend</seg>
         </bo>
-        <position x="192.10937881469727" y="38.0"/>
+        <position x="191.7408905029297" y="38.0"/>
       </element>
       <element uuid="62c7b825-d874-43ea-a1f6-8a2c0dccb8dd" manual="true">
         <bo>
@@ -344,8 +347,8 @@
         <seg>subcomponent</seg>
         <seg>btDriver</seg>
       </bo>
-      <position x="173.63151168823242" y="38.0"/>
-      <size width="246.36848831176758" height="90.0"/>
+      <position x="174.0" y="38.0"/>
+      <size width="246.0" height="90.0"/>
     </element>
     <element uuid="62f70636-3aa5-4cf0-a6e9-7688f7eb4345" manual="true" background="#ffffcc">
       <element uuid="21884835-8b9b-44b4-bc32-aaf3b3763553" manual="true" dockArea="left">
@@ -401,21 +404,21 @@
           <seg>feature</seg>
           <seg>HMD_log</seg>
         </bo>
-        <position y="98.0"/>
+        <position y="50.0"/>
       </element>
       <element uuid="dd590a80-e3e7-49a1-8da6-d4c6ca7a1e5b" manual="true" dockArea="left">
         <bo>
           <seg>feature</seg>
           <seg>request_log</seg>
         </bo>
-        <position y="38.0"/>
+        <position y="110.0"/>
       </element>
       <element uuid="f256bf3a-68f4-4698-a5e9-7b4a439dcbee" manual="true" dockArea="right">
         <bo>
           <seg>feature</seg>
           <seg>response_log</seg>
         </bo>
-        <position x="187.94140625" y="38.0"/>
+        <position x="187.94140625" y="110.0"/>
       </element>
       <element uuid="4f07d430-c76e-4e99-8e80-0c5a85908e04" manual="true" dockArea="right">
         <bo>
@@ -429,7 +432,7 @@
           <seg>flow_specification</seg>
           <seg>f1</seg>
         </bo>
-        <position x="229.20441436767578" y="130.0"/>
+        <position x="134.0" y="82.0"/>
       </element>
       <element uuid="f2d101c6-8d55-49db-9b8c-0b2f72540987" manual="true">
         <bo>
@@ -606,7 +609,7 @@
           <seg>feature</seg>
           <seg>usbSend</seg>
         </bo>
-        <position x="210.97657012939453" y="38.0"/>
+        <position x="211.36328506469727" y="38.0"/>
       </element>
       <element uuid="fd4639e0-fa94-408e-90a6-81affa81c181" manual="true">
         <bo>
@@ -618,8 +621,8 @@
         <seg>subcomponent</seg>
         <seg>usbDriver</seg>
       </bo>
-      <position x="194.38671493530273" y="148.0"/>
-      <size width="275.61328506469727" height="90.0"/>
+      <position x="194.0" y="148.0"/>
+      <size width="276.0" height="90.0"/>
     </element>
     <element uuid="e3d2f9bf-a626-4153-a694-79faf7b495ca" manual="true" background="#ffffcc">
       <element uuid="0032ccaa-15ee-4943-9097-15a28cf61b10" manual="true" dockArea="left">

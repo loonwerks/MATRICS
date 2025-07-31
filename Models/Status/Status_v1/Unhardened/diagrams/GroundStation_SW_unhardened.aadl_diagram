@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
-  <element uuid="936933b5-9a93-4d8a-b35e-6ac84ac95eb5" manual="true">
+  <element uuid="936933b5-9a93-4d8a-b35e-6ac84ac95eb5" manual="true" fontColor="#000000" fontSize="16.0">
     <element uuid="43ecb3c7-149c-499e-8471-3d5ba42977f0" manual="true">
       <element uuid="9010ae33-4d09-4ebe-a8b6-b373e20739f8" manual="true">
         <bo>
@@ -60,10 +60,6 @@
         <seg>connection</seg>
         <seg>c2</seg>
       </bo>
-      <bendpoints>
-        <point x="725.2552490234375" y="428.0"/>
-        <point x="725.2552490234375" y="458.0"/>
-      </bendpoints>
     </element>
     <element uuid="96b50305-4ea3-4e6e-b1a5-211cbae9545b" manual="true">
       <element uuid="9d89e810-723d-4d7b-8bc8-54589c3be5f3" manual="true">
@@ -77,8 +73,8 @@
         <seg>c3</seg>
       </bo>
       <bendpoints>
-        <point x="725.2552490234375" y="318.0"/>
-        <point x="725.2552490234375" y="338.0"/>
+        <point x="303.0" y="312.0"/>
+        <point x="303.0" y="262.0"/>
       </bendpoints>
     </element>
     <element uuid="3122c461-82b5-4b25-9a23-ea85893b901a" manual="true">
@@ -93,10 +89,8 @@
         <seg>c4</seg>
       </bo>
       <bendpoints>
-        <point x="1762.7083740234375" y="368.0"/>
-        <point x="1762.7083740234375" y="198.0"/>
-        <point x="725.2552490234375" y="198.0"/>
-        <point x="725.2552490234375" y="278.0"/>
+        <point x="684.0" y="360.0"/>
+        <point x="684.0" y="322.0"/>
       </bendpoints>
     </element>
     <element uuid="6d2c9d44-7843-4579-ae7e-ae208fad7beb" manual="true">
@@ -111,8 +105,8 @@
         <seg>c5</seg>
       </bo>
       <bendpoints>
-        <point x="1198.79296875" y="278.0"/>
-        <point x="1198.79296875" y="428.0"/>
+        <point x="1048.0" y="322.0"/>
+        <point x="1047.0" y="422.0"/>
       </bendpoints>
     </element>
     <element uuid="e8d8d153-612a-45ea-8b65-449c18491eac" manual="true">
@@ -126,12 +120,6 @@
         <seg>connection</seg>
         <seg>c6</seg>
       </bo>
-      <bendpoints>
-        <point x="1762.7083740234375" y="428.0"/>
-        <point x="1762.7083740234375" y="518.0"/>
-        <point x="199.9075469970703" y="518.0"/>
-        <point x="199.9075469970703" y="428.0"/>
-      </bendpoints>
     </element>
     <element uuid="ed6f7a47-e8c0-4280-8566-58c9a6063da8" manual="true">
       <element uuid="97adad03-2f10-4a27-8380-abfc155b6e40" manual="true">
@@ -157,98 +145,98 @@
         <seg>c9</seg>
       </bo>
     </element>
-    <element uuid="9629aee4-7d2a-46d0-9f3d-83b742d082b1" manual="true" dockArea="left">
+    <element uuid="9629aee4-7d2a-46d0-9f3d-83b742d082b1" manual="true" dockArea="left" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>btRecv</seg>
       </bo>
-      <position y="48.0"/>
+      <position y="40.0"/>
     </element>
-    <element uuid="936352bf-40f5-4564-b7cd-1c844fa56d0b" manual="true" dockArea="right">
+    <element uuid="936352bf-40f5-4564-b7cd-1c844fa56d0b" manual="true" dockArea="right" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>btSend</seg>
       </bo>
-      <position x="1857.4830703735352" y="48.0"/>
+      <position x="1205.7408905029297" y="40.0"/>
     </element>
-    <element uuid="bffef8fd-e17f-4035-8465-6adbad1fbc4b" manual="true" dockArea="left">
+    <element uuid="bffef8fd-e17f-4035-8465-6adbad1fbc4b" manual="true" dockArea="left" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>usbRecv</seg>
       </bo>
-      <position y="128.0"/>
+      <position y="120.0"/>
     </element>
-    <element uuid="9615081d-b4bd-47bf-ab67-8a94029302ba" manual="true" dockArea="right">
+    <element uuid="9615081d-b4bd-47bf-ab67-8a94029302ba" manual="true" dockArea="right" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>usbSend</seg>
       </bo>
-      <position x="1847.1054649353027" y="128.0"/>
+      <position x="1195.3632850646973" y="120.0"/>
     </element>
-    <element uuid="fbe003bb-ee65-40b8-8ec6-dbd4247b6ae6" manual="true" dockArea="left">
+    <element uuid="fbe003bb-ee65-40b8-8ec6-dbd4247b6ae6" manual="true" dockArea="left" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>wifiRecv</seg>
       </bo>
-      <position y="286.0"/>
+      <position y="270.0"/>
     </element>
-    <element uuid="ccd37313-44bf-44af-8998-c09fcf855880" manual="true" dockArea="right">
+    <element uuid="ccd37313-44bf-44af-8998-c09fcf855880" manual="true" dockArea="right" fontColor="#000000">
       <bo>
         <seg>feature</seg>
         <seg>wifiSend</seg>
       </bo>
-      <position x="1849.3450469970703" y="426.0"/>
+      <position x="1197.6028671264648" y="430.0"/>
     </element>
-    <element uuid="3a2b443b-0eaa-4974-ad12-12e748338002" manual="true">
-      <element uuid="6cd984e6-faf0-4fa7-93dd-184db26641b5" manual="true" dockArea="left">
+    <element uuid="3a2b443b-0eaa-4974-ad12-12e748338002" manual="true" fontColor="#000000" fontSize="16.0">
+      <element uuid="6cd984e6-faf0-4fa7-93dd-184db26641b5" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>btRecv</seg>
         </bo>
-        <position y="10.0"/>
+        <position y="20.0"/>
       </element>
-      <element uuid="8952a7aa-976d-45c8-8317-1df7d3cda7b7" manual="true" dockArea="right">
+      <element uuid="8952a7aa-976d-45c8-8317-1df7d3cda7b7" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>btSend</seg>
         </bo>
-        <position x="158.12108612060547" y="10.0"/>
+        <position x="135.7408905029297" y="20.0"/>
       </element>
       <bo>
         <seg>subcomponent</seg>
         <seg>btDriver</seg>
       </bo>
-      <position x="173.63151168823242" y="38.0"/>
-      <size width="212.38019561767578" height="60.0"/>
+      <position x="180.0" y="20.0"/>
+      <size width="190.0" height="80.0"/>
     </element>
-    <element uuid="5a7d39fd-86cf-4459-9204-53cb1476a9da" manual="true">
-      <element uuid="4e2e1ad0-7d7a-4831-ac24-6297020fc529" manual="true" dockArea="right">
+    <element uuid="5a7d39fd-86cf-4459-9204-53cb1476a9da" manual="true" background="#ffffcc" fontColor="#000000" fontSize="16.0">
+      <element uuid="4e2e1ad0-7d7a-4831-ac24-6297020fc529" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>analysis_report</seg>
         </bo>
-        <position x="441.49871826171875" y="98.0"/>
+        <position y="100.0"/>
       </element>
-      <element uuid="45bdfa47-81e1-4e38-9460-10c772d19050" manual="true" dockArea="left">
+      <element uuid="45bdfa47-81e1-4e38-9460-10c772d19050" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>analysis_request</seg>
         </bo>
         <position y="38.0"/>
       </element>
-      <element uuid="b462d60b-41f1-4222-a0db-7e4af8ab149a" manual="true" dockArea="right">
+      <element uuid="b462d60b-41f1-4222-a0db-7e4af8ab149a" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>request_log</seg>
         </bo>
-        <position x="462.2344055175781" y="38.0"/>
+        <position x="218.3190155029297" y="38.0"/>
       </element>
-      <element uuid="43d820fc-8268-4cb3-abd2-efb2d5f2bd54" manual="true" dockArea="left">
+      <element uuid="43d820fc-8268-4cb3-abd2-efb2d5f2bd54" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>response_log</seg>
         </bo>
-        <position y="98.0"/>
+        <position x="207.94140625" y="100.0"/>
       </element>
       <element uuid="5585dd90-a4b3-4b7f-8f75-a2ea22957d4f" manual="true">
         <bo>
@@ -268,44 +256,37 @@
         <seg>subcomponent</seg>
         <seg>dataAnalysis</seg>
       </bo>
-      <position x="1208.7929649353027" y="298.0"/>
-      <size width="543.9153900146484" height="150.0"/>
+      <position x="480.0" y="280.0"/>
+      <size width="300.0" height="160.0"/>
     </element>
-    <element uuid="432796f1-b06c-45f9-9ea9-48b29267ef7a" manual="true">
-      <element uuid="2bbd6f2b-d125-4d0b-b6a2-d0e960543a3c" manual="true" dockArea="left">
+    <element uuid="432796f1-b06c-45f9-9ea9-48b29267ef7a" manual="true" background="#ffffcc" fontColor="#000000" fontSize="16.0">
+      <element uuid="2bbd6f2b-d125-4d0b-b6a2-d0e960543a3c" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>HMD_log</seg>
         </bo>
-        <position y="98.0"/>
+        <position y="30.0"/>
       </element>
-      <element uuid="a45b7f4b-7c6c-47a5-a99e-fec754746e82" manual="true" dockArea="left">
+      <element uuid="a45b7f4b-7c6c-47a5-a99e-fec754746e82" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>request_log</seg>
         </bo>
-        <position y="38.0"/>
+        <position y="90.0"/>
       </element>
-      <element uuid="68347a01-934f-4dcd-a207-41b30b920c0f" manual="true" dockArea="right">
+      <element uuid="68347a01-934f-4dcd-a207-41b30b920c0f" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>response_log</seg>
         </bo>
-        <position x="361.4791564941406" y="38.0"/>
-      </element>
-      <element uuid="fc5789f2-b8c0-405d-9c10-b89ca672e09c" manual="true" dockArea="right">
-        <bo>
-          <seg>feature</seg>
-          <seg>zeroize</seg>
-        </bo>
-        <position x="398.55598068237305" y="98.0"/>
+        <position x="187.94140625" y="90.0"/>
       </element>
       <element uuid="466e010e-1b3c-4cc9-91f6-92345d96e139" manual="true">
         <bo>
           <seg>flow_specification</seg>
           <seg>f1</seg>
         </bo>
-        <position x="229.20441436767578" y="130.0"/>
+        <position x="150.0" y="63.0"/>
       </element>
       <element uuid="fc5ecef2-6eec-448a-a3bb-95f2f4490a3a" manual="true">
         <bo>
@@ -317,75 +298,68 @@
         <seg>subcomponent</seg>
         <seg>dataManager</seg>
       </bo>
-      <position x="735.2552452087402" y="208.0"/>
-      <size width="453.5377502441406" height="150.0"/>
+      <position x="890.0" y="190.0"/>
+      <size width="280.0" height="150.0"/>
     </element>
-    <element uuid="53e10f15-df57-482b-8999-7b034485f1be" manual="true">
-      <element uuid="64eb9d7e-ad8a-470e-849d-516709074888" manual="true" dockArea="left">
+    <element uuid="53e10f15-df57-482b-8999-7b034485f1be" manual="true" fontColor="#000000" fontSize="16.0">
+      <element uuid="64eb9d7e-ad8a-470e-849d-516709074888" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>usbRecv</seg>
         </bo>
-        <position y="10.0"/>
+        <position y="30.0"/>
       </element>
-      <element uuid="7e377296-6ad2-48c6-80d2-c4fee2e74b6c" manual="true" dockArea="right">
+      <element uuid="7e377296-6ad2-48c6-80d2-c4fee2e74b6c" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>usbSend</seg>
         </bo>
-        <position x="178.8762969970703" y="10.0"/>
+        <position x="135.36328506469727" y="30.0"/>
       </element>
       <bo>
         <seg>subcomponent</seg>
         <seg>usbDriver</seg>
       </bo>
-      <position x="194.38671493530273" y="118.0"/>
-      <size width="243.51301193237305" height="60.0"/>
+      <position x="380.0" y="90.0"/>
+      <size width="200.0" height="82.0"/>
     </element>
-    <element uuid="ea2806e8-8e71-4c0b-810c-c2963fe1e504" manual="true">
-      <element uuid="86a9725b-821c-47c6-8024-25b2789d9cb7" manual="true" dockArea="right">
-        <bo>
-          <seg>feature</seg>
-          <seg>alert</seg>
-        </bo>
-        <position x="467.41017150878906" y="208.0"/>
-      </element>
-      <element uuid="f2c1b258-a834-4412-ac9e-f177e743f7f3" manual="true" dockArea="left">
+    <element uuid="ea2806e8-8e71-4c0b-810c-c2963fe1e504" manual="true" background="#ffffcc" fontColor="#000000" fontSize="16.0">
+      <element uuid="f2c1b258-a834-4412-ac9e-f177e743f7f3" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>analysis_report</seg>
         </bo>
-        <position y="148.0"/>
+        <position x="197.5833282470703" y="150.0"/>
       </element>
-      <element uuid="ba04c4ce-f271-4ef2-a447-5c133af05fb8" manual="true" dockArea="right">
+      <element uuid="ba04c4ce-f271-4ef2-a447-5c133af05fb8" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>analysis_request</seg>
         </bo>
-        <position x="393.28907012939453" y="88.0"/>
+        <position x="187.94139862060547" y="88.0"/>
       </element>
-      <element uuid="136581ca-c546-4936-88bf-06cbf475f7cc" manual="true" dockArea="right">
+      <element uuid="136581ca-c546-4936-88bf-06cbf475f7cc" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>HMD_log</seg>
         </bo>
-        <position x="437.7747611999512" y="38.0"/>
+        <position x="232.4270896911621" y="40.0"/>
       </element>
-      <element uuid="8df2421d-7025-480c-9a71-4e213fc3d591" manual="true" dockArea="left">
+      <element uuid="8df2421d-7025-480c-9a71-4e213fc3d591" manual="true" dockArea="left" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>wifiRecv</seg>
         </bo>
-        <position y="38.0"/>
+        <position y="40.0"/>
       </element>
-      <element uuid="ab6fd957-617c-4bc0-971b-8a4490f69d0d" manual="true" dockArea="right">
+      <element uuid="ab6fd957-617c-4bc0-971b-8a4490f69d0d" manual="true" dockArea="right" fontColor="#000000">
         <bo>
           <seg>feature</seg>
           <seg>wifiSend</seg>
         </bo>
-        <position x="442.9505386352539" y="148.0"/>
+        <position x="237.60286712646484" y="200.0"/>
       </element>
-      <element uuid="5fbe8423-938d-44b8-9e08-d79ba0efeefe" manual="true">
+      <element uuid="1343b46a-533d-4bf0-855d-b8943d68b7b7" manual="true">
         <bo>
           <seg>flow_specification</seg>
           <seg>f1</seg>
@@ -397,8 +371,8 @@
           <seg>f2</seg>
         </bo>
         <bendpoints>
-          <point x="457.23699951171875" y="318.0"/>
-          <point x="457.23699951171875" y="368.0"/>
+          <point x="52.0" y="312.0"/>
+          <point x="51.0" y="360.0"/>
         </bendpoints>
       </element>
       <element uuid="7fa8d438-6f57-4166-b6e8-5088bff95ba8" manual="true">
@@ -406,20 +380,24 @@
           <seg>flow_specification</seg>
           <seg>f3</seg>
         </bo>
+        <bendpoints>
+          <point x="127.0" y="422.0"/>
+          <point x="127.0" y="472.0"/>
+        </bendpoints>
       </element>
       <bo>
         <seg>subcomponent</seg>
         <seg>wifiDriver</seg>
       </bo>
-      <position x="209.9075584411621" y="248.0"/>
-      <size width="505.34767150878906" height="260.0"/>
+      <position x="80.0" y="230.0"/>
+      <size width="300.0" height="260.0"/>
     </element>
     <bo>
       <seg>classifier</seg>
       <seg>SW.unhardened</seg>
     </bo>
-    <position/>
-    <size width="1911.7421798706055" height="531.0"/>
+    <position x="-150.0" y="10.0"/>
+    <size width="1260.0" height="520.0"/>
   </element>
   <config type="structure" connectionPrimaryLabelsVisible="false">
     <enabledAadlProperties/>
