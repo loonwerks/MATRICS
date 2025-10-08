@@ -51,16 +51,72 @@ public
 			component_exists(monitor, "MONITOR") and alert_connected(monitor)
 
 		-- Top-level claim for proper insertion of a monitor with a gate
-		is_monitored_gated(comp_context : component, gate_context : component, message_type : data) <=
+		is_monitored_gated(comp_context : component, gate_context : component, msg_type : data) <=
 			** "Monitor is properly added to component " comp_context **
 			let monitors : {component} = upstream_trusted_components(gate_context, "MONITOR");
-			exists(m : monitors) . (alert_connected(m) and component_not_bypassed(m, gate_context, message_type))
+			exists(m : monitors) . (alert_connected(m) and component_not_bypassed(m, gate_context, msg_type))
 		
 		-- Top-level claim that a component is built for seL4
 		is_seL4_compliant(comp_context : component) <=
 			** "Component " comp_context " is built for seL4" **
 			is_seL4_component(comp_context) and each_thread_in_separate_process(comp_context)
-
+			
+		-- Top-level claim that communication channel is encrypted
+		is_communication_encrypted(comp_context1 : component, comp_context2 : component) <=
+			** "All communication between " comp_context1 " and " comp_context2 " is encrypted"**
+			let conns : {connection} = intersect(connections(comp_context1), connections(comp_context2));
+			forall (c : conns) . is_encrypted_protocol(c)
+			
+		is_encrypted_protocol(conn : connection) : bool =
+			let buses : {component} = {c for (c : component) | is_bound_to_bus(conn, c)};
+			(size(buses) > 0) and forall (b : buses) . (has_property(b, MATRICS_Properties::Encrypted))		
+			
+		is_bound_to_bus(c : connection, b : component) : bool =
+			is_bound_to(c, b) and (is_virtual_bus(b) or is_bus(b))
+		
+		-- Top-level claim that message has been encrypted
+		is_message_encrypted(comp_context : component, msg_type : data) <=
+			** "Message " msg_type " on component " comp_context " is encrypted" **
+			let srcs : {component} = get_sources_by_type(comp_context, msg_type, "ENCRYPTOR");
+			srcs <> {} and not(exists(s : srcs) . is_of_matrics_type(s, "DECRYPTOR"))
+			
+		-- Returns the set of components that are ancestors of a target component through communication pathways for a given data type
+		get_sources_by_type(comp_context : component, msg_type : data, matrics_type : string) : {component} = 
+			let srcs : {component} = {c for (conn : connections (comp_context)) (c : source_component(conn)) | has_type(conn) and type(conn) = msg_type}; 
+			recursive_backwards_reach_by_type(srcs, msg_type, matrics_type)						
+				
+		recursive_backwards_reach_by_type(curr : {component}, msg_type : data, matrics_type : string) : {component} = 
+			let prev : {component} = union(curr, prev_reach_by_type(curr, msg_type)); 
+			if exists(c : prev) . is_of_matrics_type(c, matrics_type) then
+				curr
+			else 
+				if prev = curr then 
+					{}
+			else 
+				recursive_backwards_reach_by_type(prev, msg_type, matrics_type)				
+				
+		prev_reach_by_type(curr : {component}, msg_type : data) : {component} = 
+			{y for (x : curr) (y : backwards_reachable_components_by_type(x, msg_type))}				
+				
+		backwards_reachable_components_by_type(comp : component, msg_type : data) : {component} = 
+			{c for (conn : connections (comp)) (c : backwards_reachable_components_via_connection_by_type(comp, conn, msg_type))}				
+				
+		backwards_reachable_components_via_connection_by_type(comp : component, conn : connection, msg_type : data) : {component} =
+			if is_port_connection(conn) and has_type(conn) and type(conn) = msg_type then
+				if destination_component(conn) = comp and has_parent(source_component(conn)) then
+					{source_component(conn)}
+				else
+					{}
+			else
+				{}
+				
+		-- Top-level claim that a component only communicates with a particular communicaiton driver
+		uses_authorized_communication(comp_context : component, comm_driver : component) <=		
+			** "Component " comp_context " only communicates using " comm_driver " communication driver"**
+			let srcs : {component} = recursive_backwards_reach({comp_context, comm_driver});
+			let comm_driver_srcs : {component} = {s for (s : srcs) | is_of_matrics_type(s, "COMM_DRIVER")};
+			comm_driver_srcs = {comm_driver}
+				
 		----------------
 		-- SUB CLAIMS --
 		----------------	
@@ -113,17 +169,17 @@ public
 			{y for (x : curr) (y : backwards_reachable_components(x))}
 		
 		backwards_reachable_components(comp : component) : {component} = 
-			{c for (conn : connections (comp)) (c : backwards_reachable_components_via_connection(comp, conn))}
+			{c for (conn : connections (comp)) (c : backwards_reachable_components_via_connection(comp, conn))}		
 		
 		backwards_reachable_components_via_connection(comp : component, conn : connection) : {component} = 
 			if is_port_connection(conn) then 
-				if destination_component(conn) = comp then 
+				if destination_component(conn) = comp and has_parent(source_component(conn)) then
 					{source_component(conn)} 
 				else 
 					{} 
 			else 
 				{}
-		
+				
 		is_bound_to_processor(c : component, p : component) : bool =
 			is_bound_to(c, p) and (is_processor(p) or is_virtual_processor(p))
 						
