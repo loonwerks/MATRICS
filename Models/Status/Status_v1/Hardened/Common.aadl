@@ -62,11 +62,13 @@ public
 	device USB
 		features
 			sera: requires bus access Serial_Bus;
-			usbRecv: in event data port;
-			usbSend: out event data port;
+			recvIn: in event data port;
+			recvOut: out event data port;
+			sendIn: in event data port;
+			sendOut: out event data port;
 		flows
-			f1: flow sink usbRecv; 
-			f2: flow source usbSend;
+			f1: flow path recvIn -> recvOut;
+			f2: flow path sendIn -> sendOut;
 	end USB;
 	
 	device implementation USB.Impl
