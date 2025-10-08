@@ -27,6 +27,9 @@ public
 		properties
 			Actual_Connection_Binding => (reference (wf)) applies to tcp;
 			Actual_Connection_Binding => (reference (tcp)) applies to c1;
+		annex Resolute {**
+			argue is_communication_encrypted(this.groundStation, this.hmd)
+			**};			
 	end Checkpoint.Impl;
 
 end Status_v1;
