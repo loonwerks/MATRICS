@@ -47,7 +47,9 @@ public
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
-			f4: flow sink alert;			
+			f4: flow sink alert;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;						
 		annex agree {**
 			assume Alert "A: A report should not be received if an alert is received." :
 				event(alert) => not(event(analysis_report));
@@ -105,6 +107,8 @@ public
 			btSend: out event data port;
 		flows
 			f1: flow path btRecv -> btSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
 	end btDriver;
 	
 	thread usbDriver
@@ -113,6 +117,8 @@ public
 			usbSend: out event data port;
 		flows
 			f1: flow path usbRecv -> usbSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;			
 	end usbDriver;
 	
 	process SW
@@ -165,8 +171,10 @@ public
 			wifiSend: out event data port;
 			btSend: out event data port;
 			btRecv: in event data port;
+			usbRecv: in event data port;
+			usbSend: out event data port;
 			wfa: requires bus access Common::WF_Bus;
-			bta: requires bus access Common::BT_Bus;
+			bta: requires bus access Common::BT_Bus;			
 		flows
 			f1: flow sink wifiRecv;
 	end GroundStation;
@@ -211,19 +219,22 @@ public
 			c6: port cpuSW.btSend -> bluetooth.sendIn;
 			c7: port bluetooth.sendOut -> btSend;
 			c8: port btRecv -> bluetooth.recvIn; 
-			c9: port usb.usbSend -> cpuSW.usbRecv;
-			c10: port cpuSW.usbSend -> usb.usbRecv;
+			c9: port usb.recvOut -> cpuSW.usbRecv;
+			c10: port cpuSW.usbSend -> usb.sendIn;
+			c11: port usbRecv -> usb.recvIn;
+			c12: port usb.sendOut -> usbSend;			
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 		annex resolute {**
-			--TODO: confirm whether this dot notation makes sense					
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis, this.cpuSW.c7, Common::AnalysisRequest.Impl)
+			argue is_monitored_gated(this.cpuSW.dataManager, this.cpuSW.dataAnalysis, Common::ResponseLog.Impl)			
 			argue is_monitored_gated(this.cpuSW.dataAnalysis, this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
-			argue is_monitored_gated(this.cpuSW.dataManager, this.cpuSW.dataAnalysis, Common::ResponseLog.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager, this.cpuSW.wifiDriver)	
 		**};
 	end GroundStation.Impl;
 	
