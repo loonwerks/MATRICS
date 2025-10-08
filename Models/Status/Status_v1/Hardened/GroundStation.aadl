@@ -124,8 +124,10 @@ public
 			wifiSend: out event data port;
 			btSend: out event data port;
 			btRecv: in event data port;
+			usbRecv: in event data port;
+			usbSend: out event data port;
 			wfa: requires bus access Common::WF_Bus;
-			bta: requires bus access Common::BT_Bus;
+			bta: requires bus access Common::BT_Bus;					
 		flows
 			f1: flow sink wifiRecv;
 	end GroundStation;
@@ -170,8 +172,10 @@ public
 			c6: port cpuSW.btSend -> bluetooth.sendIn;
 			c7: port bluetooth.sendOut -> btSend;
 			c8: port btRecv -> bluetooth.recvIn; 
-			c9: port usb.usbSend -> cpuSW.usbRecv;
-			c10: port cpuSW.usbSend -> usb.usbRecv;
+			c9: port usb.recvOut -> cpuSW.usbRecv;
+			c10: port cpuSW.usbSend -> usb.sendIn;
+			c11: port usbRecv -> usb.recvIn;
+			c12: port usb.sendOut -> usbSend;	
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
@@ -181,11 +185,12 @@ public
 			-- present in hardened system
 			MATRICS_Properties::OS => "seL4" applies to cpu;
 		annex resolute {**
-			--TODO: confirm whether this dot notation makes sense				
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c23, Common::AnalysisRequest.Impl)
+			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)		
 			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
-			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriver)
 		**};
 	end GroundStation.Impl;
 	
