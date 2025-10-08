@@ -7,7 +7,7 @@ property set MATRICS_Properties is
 	Encrypted: enumeration (AES_GCM, RSA, TLS) applies to (bus, virtual bus, data);
 	
 	-- Specifies the type of component
-	Component_Type: inherit enumeration (FILTER, MONITOR, ENCRYPTOR, DECRYPTOR) applies to 
+	Component_Type: inherit enumeration (FIREWALL, FILTER, MONITOR, ENCRYPTOR, DECRYPTOR, COMM_DRIVER) applies to 
 		(system, process, thread);
 			
 end MATRICS_Properties;
