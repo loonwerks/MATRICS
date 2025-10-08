@@ -30,6 +30,9 @@ public
 			
 			-- present in hardened system
 			MATRICS_Properties::Encrypted => TLS applies to tcp;
+		annex Resolute {**
+			argue is_communication_encrypted(this.groundStation, this.hmd)
+			**};
 	end Checkpoint.Impl;
 
 end Status_v1;
