@@ -22,7 +22,9 @@ public
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
-			f4: flow sink alert;		
+			f4: flow sink alert;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;	
 	end wifiDriver_seL4;
 	
 	process implementation wifiDriver_seL4.Impl
@@ -95,6 +97,8 @@ public
 			btSend: out event data port;
 		flows
 			f1: flow path btRecv -> btSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
 	end btDriver_seL4;
 	
 	process implementation btDriver_seL4.Impl
@@ -111,6 +115,8 @@ public
 			usbSend: out event data port;
 		flows
 			f1: flow path usbRecv -> usbSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
 	end usbDriver_seL4;
 	
 	process implementation usbDriver_seL4.Impl
@@ -229,7 +235,7 @@ public
 			f2: flow path analysis_report_in -> analysis_report_out;
 			f3: flow source alert;				
 		properties
-			MATRICS_Properties::Component_Type => MONITOR;
+			MATRICS_Properties::Component_Type => MONITOR;			
 	end reportMonitor_seL4;
 	
 	process implementation reportMonitor_seL4.Impl
@@ -408,7 +414,6 @@ public
 			--firewall connections
 			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
 			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
---			c26: port wifiDriver.analysis_request -> dataAnalysis.analysis_request;
 		flows
 			-- HMD log flow path
 			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;			
