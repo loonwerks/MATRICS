@@ -9,5 +9,11 @@ property set MATRICS_Properties is
 	-- Specifies the type of component
 	Component_Type: inherit enumeration (FIREWALL, FILTER, MONITOR, ENCRYPTOR, DECRYPTOR, COMM_DRIVER) applies to 
 		(system, process, thread);
+	
+	-- Specifies the level of confidentiality a component requires
+	Requires_Data_Confidentiality: aadlboolean applies to (data);
+	
+	-- Specifies the type of memory
+	Memory_Type: inherit enumeration (RAM, ON_DISK) applies to (memory);
 			
 end MATRICS_Properties;
