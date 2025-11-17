@@ -63,7 +63,7 @@ public
 			
 		-- Top-level claim that communication channel is encrypted
 		is_communication_encrypted(comp_context1 : component, comp_context2 : component) <=
-			** "All communication between " comp_context1 " and " comp_context2 " is encrypted"**
+			** "All communication between " comp_context1 " and " comp_context2 " is encrypted" **
 			let conns : {connection} = intersect(connections(comp_context1), connections(comp_context2));
 			forall (c : conns) . is_encrypted_protocol(c)
 			
@@ -110,13 +110,36 @@ public
 			else
 				{}
 				
-		-- Top-level claim that a component only communicates with a particular communicaiton driver
+		-- Top-level claim that a component only communicates with a particular communication driver
 		uses_authorized_communication(comp_context : component, comm_driver : component) <=		
-			** "Component " comp_context " only communicates using " comm_driver " communication driver"**
+			** "Component " comp_context " only communicates using " comm_driver " communication driver" **
 			let srcs : {component} = recursive_backwards_reach({comp_context, comm_driver});
 			let comm_driver_srcs : {component} = {s for (s : srcs) | is_of_matrics_type(s, "COMM_DRIVER")};
 			comm_driver_srcs = {comm_driver}
-				
+		
+		-- Top-level claim that confidential data is only accessible via a trusted component and is encrypted if stored on-disk
+		confidential_data_secure_storage(comp_context : component, trusted_comp : component) <=
+			** "Confidential data is only accessible by " trusted_comp " and is encrypted if stored on-disk" **
+			let comps : {component} = get_subcomponents({comp_context});			
+			let confidential_data : {component} = {comp for (comp : comps) | 
+				has_property(comp, MATRICS_Properties::Requires_Data_Confidentiality) 
+				and property(comp, MATRICS_Properties::Requires_Data_Confidentiality)
+			};
+			forall (d : confidential_data) . trusted_data_access(d, trusted_comp)
+		
+		-- Checks if a data component is stored on-disk then it is encrypted
+		data_secured(d : component) : bool =
+			let mem : {memory} = {m for (m : memory) | is_stored_on_disc(d, m)};
+			size(mem) > 0 => has_property(d, MATRICS_Properties::Encrypted)
+			
+		is_stored_on_disc(d : component, m : memory) : bool =
+			is_bound_to(d, m) and has_property(m, MATRICS_Properties::Memory_Type) and property(m, MATRICS_Properties::Memory_Type) = "ON_DISK"
+	
+		-- Checks if a data component is associated with only one trusted component and that that data is secured
+		trusted_data_access(d : component, trusted_comp : component) : bool =
+			let conns : {connection} = {c for (c : connection) | is_data_access_connection(c) and source(c) = d and is_destination_component(c, trusted_comp)};
+			size(conns) = 1 and data_secured(source_component(head(as_list(conns))))
+
 		----------------
 		-- SUB CLAIMS --
 		----------------	
@@ -203,12 +226,16 @@ public
 				get_subcomponents(next)
 			
 		next_subcomponent(curr : {component}) : {component} =
-			{y for (x : curr) (y : subcomponents(x))}			
+			{y for (x : curr) (y : subcomponents(x))}
+			
+		thread_subcomponents(comp : component) : {component} =
+			let threads : {component} = {s for (s : subcomponents(comp)) | is_thread(s)};
+			threads
 			
 		each_thread_in_separate_process(root : component) <=
 			** "Each thread runs in a separate process" **
 			let comps : {component} = get_subcomponents({root});
-			forall (c : comps) . ((is_system(c) or is_thread(c) or is_process(c)) and is_process(c) => (length(subcomponents(c)) = 1 and is_thread(head(as_list(subcomponents(c))))))			
+			forall (c : comps) . is_process(c) => length(thread_subcomponents(c)) = 1
 		
 	**};
 	
