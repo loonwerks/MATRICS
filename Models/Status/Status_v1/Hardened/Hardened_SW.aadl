@@ -52,19 +52,34 @@ public
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
 			f3: flow sink zeroize;
+		annex agree {**
+			eq cache: Common::LogArray.Impl;			
+				
+			fun IS_ZEROIZED(logs: Common::LogArray.Impl): bool = 
+				forall i in indices(logs), logs[i] = NULL_LOG;
+				
+			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
+			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
+				Once(event(zeroize)) => IS_ZEROIZED(cache);			
+		**};
 	end dataManager_seL4;
 	
 	process implementation dataManager_seL4.Impl
 		subcomponents
 			dataManager: thread dataManager;
+			logs: data Common::Log.Impl[100];
 		connections
 			c1: port HMD_log -> dataManager.HMD_log;
 			c2: port request_log -> dataManager.request_log;
 			c3: port dataManager.response_log -> response_log;
-			c4: port zeroize -> dataManager.zeroize;
-		annex agree {**
-			lift contract;
-		**};			
+			c4: port zeroize -> dataManager.zeroize;	
+			dac1: data access logs <-> dataManager.log_data;
+		properties
+			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
+			
+			-- present in hardened system			
+			MATRICS_Properties::Encrypted => AES_GCM applies to logs;		
 	end dataManager_seL4.Impl;
 	
 	process dataAnalysis_seL4
