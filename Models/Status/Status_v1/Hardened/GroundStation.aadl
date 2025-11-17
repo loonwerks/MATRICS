@@ -68,10 +68,11 @@ public
 			request_log: in event data port Common::Request.Impl;
 			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
+			log_data: requires data access Common::Log.Impl[100] {Access_Right => read_write;};
 		flows
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
-			f3: flow sink zeroize;			
+			f3: flow sink zeroize;		
 		annex agree {**
 			eq cache: Common::LogArray.Impl;			
 				
@@ -181,6 +182,9 @@ public
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
+			MATRICS_Properties::Memory_Type => RAM applies to mem;
+			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			
+			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.logs;			
 			
 			-- present in hardened system
 			MATRICS_Properties::OS => "seL4" applies to cpu;
@@ -191,6 +195,7 @@ public
 			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
 			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
 			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriver)
+			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataManager)
 		**};
 	end GroundStation.Impl;
 	
