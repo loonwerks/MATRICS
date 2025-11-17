@@ -69,6 +69,7 @@ public
 			request_log: in event data port Common::Request.Impl;
 			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
+			log_data: requires data access Common::Log.Impl[100] {Access_Right => read_write;};			
 		flows
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
@@ -142,6 +143,7 @@ public
 			usbDriver: thread usbDriver;
 			dataManager: thread dataManager;
 			dataAnalysis: thread dataAnalysis;
+			logs: data Common::Log.Impl[100];			
 		connections
 			-- Wi-Fi exchange with outside
 			c1: port wifiRecv -> wifiDriver.wifiRecv;
@@ -158,9 +160,13 @@ public
 			c5: port dataManager.response_log -> dataAnalysis.response_log;
 			c6: port dataAnalysis.analysis_report -> wifiDriver.analysis_report;
 			c7: port wifiDriver.analysis_request -> dataAnalysis.analysis_request;
+			-- data access connection
+			dac1: data access logs <-> dataManager.log_data;	
 		flows
 			-- HMD log flow path
 			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c3 -> dataManager.f1;
+		properties
+			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;			
 	end SW.unhardened;
 	
 
@@ -228,13 +234,17 @@ public
 		properties
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
+			MATRICS_Properties::Memory_Type => RAM applies to mem;
+			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			
+			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.logs;
 		annex resolute {**
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis, this.cpuSW.c7, Common::AnalysisRequest.Impl)
 			argue is_monitored_gated(this.cpuSW.dataManager, this.cpuSW.dataAnalysis, Common::ResponseLog.Impl)			
 			argue is_monitored_gated(this.cpuSW.dataAnalysis, this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
 			argue is_message_encrypted(this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
-			argue uses_authorized_communication(this.cpuSw.dataManager, this.cpuSW.wifiDriver)	
+			argue uses_authorized_communication(this.cpuSw.dataManager, this.cpuSW.wifiDriver)
+			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager)		
 		**};
 	end GroundStation.Impl;
 	
