@@ -2,6 +2,7 @@ package Common
 public
 	with Data_Model;
 	with Base_Types;
+	with HAMR;
 
 	-- Wi-Fi: range 150ft, higher data transfer and power consumption than Bluetooth
 	bus WF_Bus
@@ -29,10 +30,10 @@ public
 		features
 			sera: requires bus access Serial_Bus;
 			wfa: requires bus access WF_Bus;
-			recvIn: in event data port;
-			recvOut: out event data port;
-			sendIn: in event data port;
-			sendOut: out event data port;
+			recvIn: in event data port Common::DummyMessage.Impl;
+			recvOut: out event data port Common::DummyMessage.Impl;
+			sendIn: in event data port Common::DummyMessage.Impl;
+			sendOut: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path recvIn -> recvOut;
 			f2: flow path sendIn -> sendOut;
@@ -46,10 +47,10 @@ public
 		features
 			sera: requires bus access Serial_Bus;
 			bta: requires bus access BT_Bus;
-			recvIn: in event data port;
-			recvOut: out event data port;
-			sendIn: in event data port;
-			sendOut: out event data port;
+			recvIn: in event data port Common::DummyMessage.Impl;
+			recvOut: out event data port Common::DummyMessage.Impl;
+			sendIn: in event data port Common::DummyMessage.Impl;
+			sendOut: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path recvIn -> recvOut;
 			f2: flow path sendIn -> sendOut;
@@ -62,10 +63,10 @@ public
 	device USB
 		features
 			sera: requires bus access Serial_Bus;
-			recvIn: in event data port;
-			recvOut: out event data port;
-			sendIn: in event data port;
-			sendOut: out event data port;
+			recvIn: in event data port Common::DummyMessage.Impl;
+			recvOut: out event data port Common::DummyMessage.Impl;
+			sendIn: in event data port Common::DummyMessage.Impl;
+			sendOut: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path recvIn -> recvOut;
 			f2: flow path sendIn -> sendOut;
@@ -127,13 +128,13 @@ public
 	-- NOTE: need to define sizes for these data elements
 	data implementation Log.Impl
 		subcomponents
-			timestamp: data Base_Types::Integer;
-			userID: data Base_Types::Integer;
-			numSuspects: data Base_Types::Integer;
-			numSuspectsFlagged: data Base_Types::Integer;
-			yaw: data Base_Types::Float;
-			pitch: data Base_Types::Float;
-			roll: data Base_Types::Float;
+			timestamp: data Base_Types::Integer_32;
+			userID: data Base_Types::Integer_32;
+			numSuspects: data Base_Types::Integer_32;
+			numSuspectsFlagged: data Base_Types::Integer_32;
+			yaw: data Base_Types::Float_32;
+			pitch: data Base_Types::Float_32;
+			roll: data Base_Types::Float_32;
 	end Log.Impl;
 
 	-- Analysis request message structure
@@ -145,11 +146,11 @@ public
 	
 	data implementation Request.Impl
 		subcomponents
-			requestID: data Base_Types::Integer;
-			analysisType: data Base_Types::Integer;
-			userID: data Base_Types::Integer;
-			startTime: data Base_Types::Integer;
-			endTime: data Base_Types::Integer;
+			requestID: data Base_Types::Integer_32;
+			analysisType: data Base_Types::Integer_32;
+			userID: data Base_Types::Integer_32;
+			startTime: data Base_Types::Integer_32;
+			endTime: data Base_Types::Integer_32;
 	end Request.Impl;
 	
 	data implementation AnalysisRequest.Impl
@@ -167,16 +168,18 @@ public
 	
 	data implementation ResponseHeader.Impl
 		subcomponents
-			requestID: data Base_Types::Integer;
-			sequenceNumber: data Base_Types::Integer;
-			totalParts: data Base_Types::Integer;
+			requestID: data Base_Types::Integer_32;
+			sequenceNumber: data Base_Types::Integer_32;
+			totalParts: data Base_Types::Integer_32;
 	end ResponseHeader.Impl;
 	
 	data LogArray
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Log.Impl));
-			Data_Model::Dimension => (60);
+			Data_Model::Dimension => (100);
+			Memory_Properties::Data_Size => 100 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
 	end LogArray;
 	
 	data implementation LogArray.Impl
@@ -197,5 +200,17 @@ public
 			header: data MsgHeader.Impl;
 			payload: data Base_Types::Unsigned_8[100];
 	end AnalysisReport.Impl;
+	
+	data DummyMessage
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (100);
+			Memory_Properties::Data_Size => 100 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end DummyMessage;
+	
+	data implementation DummyMessage.Impl
+	end DummyMessage.Impl;
 	
 end Common;

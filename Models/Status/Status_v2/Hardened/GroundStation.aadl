@@ -1,6 +1,8 @@
 package GroundStation
 public
 	with Common;
+	with CASE_Scheduling;
+	with HAMR;
 	with AGREE_PLTL;
 	renames AGREE_PLTL::all;	
 	with MATRICS_Properties;
@@ -11,7 +13,11 @@ public
 	-- Processor for Ground Station communication system
 	processor Proc
 		features
-			sera: requires bus access Common::Serial_Bus;			
+			sera: requires bus access Common::Serial_Bus;
+		properties
+			Frame_Period => 1000ms;
+			Clock_Period => 1ms;
+			CASE_Scheduling::Max_Domain => 15;				
 	end Proc;
 	
 	processor implementation Proc.Impl
@@ -38,17 +44,21 @@ public
 	
 	thread wifiDriver
 		features
-			wifiRecv: in event data port;
-			wifiSend: out event data port;
+			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::DummyMessage.Impl;
 			HMD_log: out event data port Common::Log.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event data port;
+			alert: in event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
-			f4: flow sink alert;			
+			f4: flow sink alert;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;			
 		annex agree {**
 			assume Alert "A: A report should not be received if an alert is received." :
 				event(alert) => not(event(analysis_report));
@@ -68,11 +78,15 @@ public
 			request_log: in event data port Common::Request.Impl;
 			response_log: out event data port Common::ResponseLog.Impl;
 			zeroize: in event port;
-			log_data: requires data access Common::Log.Impl[100] {Access_Right => read_write;};
+			log_data: requires data access Common::LogArray {Access_Right => read_write;};
 		flows
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
-			f3: flow sink zeroize;		
+			f3: flow sink zeroize;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;		
 		annex agree {**
 			eq cache: Common::LogArray.Impl;			
 				
@@ -95,6 +109,10 @@ public
 		flows
 			f1: flow path analysis_request -> request_log;
 			f2: flow path response_log -> analysis_report;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 		annex agree {**
 			assume Trusted_Request "A: Requests received are from a trusted source." :
 				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.src);
@@ -103,30 +121,37 @@ public
 
 	thread btDriver
 		features
-			btRecv: in event data port;			
-			btSend: out event data port;
+			btRecv: in event data port Common::DummyMessage.Impl;			
+			btSend: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path btRecv -> btSend;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 	end btDriver;
 	
 	thread usbDriver
 		features
-			usbRecv: in event data port;
-			usbSend: out event data port;
+			usbRecv: in event data port Common::DummyMessage.Impl;
+			usbSend: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path usbRecv -> usbSend;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 	end usbDriver;
-	
 
 	-- The Ground Station communication system
 	system GroundStation
 		features
-			wifiRecv: in event data port;
-			wifiSend: out event data port;
-			btSend: out event data port;
-			btRecv: in event data port;
-			usbRecv: in event data port;
-			usbSend: out event data port;
+			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::DummyMessage.Impl;
+			btSend: out event data port Common::DummyMessage.Impl;
+			btRecv: in event data port Common::DummyMessage.Impl;
+			usbRecv: in event data port Common::DummyMessage.Impl;
+			usbSend: out event data port Common::DummyMessage.Impl;
 			wfa: requires bus access Common::WF_Bus;
 			bta: requires bus access Common::BT_Bus;					
 		flows
@@ -188,6 +213,8 @@ public
 			
 			-- present in hardened system
 			MATRICS_Properties::OS => "seL4" applies to cpu;
+			HAMR::Platform => (Microkit);
+			HAMR::Microkit_Language => Rust;
 		annex resolute {**
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c23, Common::AnalysisRequest.Impl)

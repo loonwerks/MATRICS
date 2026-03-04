@@ -5,6 +5,8 @@ public
 	with AGREE_PLTL;
 	renames AGREE_PLTL::all;
 	with Common;
+	with HAMR;
+	with CASE_Scheduling;
 	with MATRICS_Properties;
 	with MATRICS_Model_Transformations;
 	renames MATRICS_Model_Transformations::all;
@@ -12,12 +14,12 @@ public
 	-- Processes introduced to isolate threads
 	process wifiDriver_seL4
 		features
-			wifiRecv: in event data port;
-			wifiSend: out event data port;
+			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::DummyMessage.Impl;
 			HMD_log: out event data port Common::Log.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event data port;
+			alert: in event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
@@ -37,6 +39,8 @@ public
 			c4: port wifiDriver.HMD_log -> HMD_log;
 			c5: port wifiDriver.analysis_request -> analysis_request;
 			c6: port alert -> wifiDriver.alert;
+		properties
+			CASE_Scheduling::Domain => 11;
 		annex agree {**
 			lift contract;
 		**};
@@ -68,7 +72,7 @@ public
 	process implementation dataManager_seL4.Impl
 		subcomponents
 			dataManager: thread dataManager;
-			logs: data Common::Log.Impl[100];
+			logs: data Common::LogArray;
 		connections
 			c1: port HMD_log -> dataManager.HMD_log;
 			c2: port request_log -> dataManager.request_log;
@@ -79,7 +83,8 @@ public
 			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
 			
 			-- present in hardened system			
-			MATRICS_Properties::Encrypted => AES_GCM applies to logs;		
+			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
+			CASE_Scheduling::Domain => 2;		
 	end dataManager_seL4.Impl;
 	
 	process dataAnalysis_seL4
@@ -101,6 +106,8 @@ public
 			c2: port analysis_request -> dataAnalysis.analysis_Request;
 			c3: port dataAnalysis.request_log -> request_log;
 			c4: port dataAnalysis.analysis_report -> analysis_report;
+		properties
+			CASE_Scheduling::Domain => 3;
 		annex agree {**
 			lift contract;
 		**};			
@@ -108,8 +115,8 @@ public
 
 	process btDriver_seL4
 		features
-			btRecv: in event data port;			
-			btSend: out event data port;
+			btRecv: in event data port Common::DummyMessage.Impl;			
+			btSend: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path btRecv -> btSend;
 		properties
@@ -122,12 +129,14 @@ public
 		connections
 			c1: port btRecv -> btDriver.btRecv;
 			c2: port btDriver.btSend -> btSend;
+		properties
+			CASE_Scheduling::Domain => 4;
 	end btDriver_seL4.Impl;
 	
 	process usbDriver_seL4
 		features
-			usbRecv: in event data port;
-			usbSend: out event data port;
+			usbRecv: in event data port Common::DummyMessage.Impl;
+			usbSend: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path usbRecv -> usbSend;
 		properties
@@ -140,6 +149,8 @@ public
 		connections
 			c1: port usbRecv -> usbDriver.usbRecv;
 			c2: port usbDriver.usbSend -> usbSend;
+		properties
+			CASE_Scheduling::Domain => 5;
 	end usbDriver_seL4.Impl;
 	
 	-- High-Assurance Components
@@ -154,6 +165,10 @@ public
 			f1: flow path request_log -> response_log_out;
 			f2: flow path response_log_in -> response_log_out;
 			f3: flow source alert;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 		annex agree {**
 			eq is_valid: bool = 
 				if event(request_log) and event(response_log_in)
@@ -193,6 +208,8 @@ public
 			c2: port response_log_in -> logMonitor.response_log_in;
 			c3: port logMonitor.response_log_out -> response_log_out;
 			c4: port logMonitor.alert -> alert;
+		properties
+			CASE_Scheduling::Domain => 6;
 		annex agree {**
 			lift contract;
 		**};
@@ -204,11 +221,15 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;
-			alert: out event data port;
+			alert: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
-			f3: flow source alert;			
+			f3: flow source alert;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;			
 		annex agree {**
 			node Counter(i: bool, reset: bool) returns (count: int);
 			let
@@ -244,7 +265,7 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;			
-			alert: out event data port;
+			alert: out event data port Common::DummyMessage.Impl;
 		flows	
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
@@ -261,6 +282,8 @@ public
 			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
 			c4: port reportMonitor.alert -> alert;
+		properties
+			CASE_Scheduling::Domain => 7;
 		annex agree {**
 			lift contract;
 		**};
@@ -273,6 +296,10 @@ public
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				HMD_log_out != HMD_log_in;
@@ -295,6 +322,8 @@ public
 		connections
 			c1: port HMD_log_in -> decryptor.HMD_log_in;
 			c2: port decryptor.HMD_log_out -> HMD_log_out;
+		properties
+			CASE_Scheduling::Domain => 8;
 		annex agree {**
 			lift contract;
 		**};				
@@ -308,6 +337,10 @@ public
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;
 		flows
 			f1: flow path analysis_report_in -> analysis_report_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 		annex agree {**
 			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
 				analysis_report_out.payload != analysis_report_in.payload;
@@ -332,6 +365,8 @@ public
 		connections
 			c1: port analysis_report_in -> encryptor.analysis_report_in;
 			c2: port encryptor.analysis_report_out -> analysis_report_out;
+		properties
+			CASE_Scheduling::Domain => 9;
 		annex agree {**
 			lift contract;
 		**};			
@@ -344,6 +379,10 @@ public
 			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
 		flows
 			f1: flow path analysis_request_in -> analysis_request_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
 		annex agree {**
 			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
 				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.src)
@@ -368,6 +407,8 @@ public
 		connections
 			c1: port analysis_request_in -> firewall.analysis_request_in;
 			c2: port firewall.analysis_request_out -> analysis_request_out;
+		properties
+			CASE_Scheduling::Domain => 10;
 		annex agree {**
 			lift contract;
 		**};			
@@ -376,14 +417,14 @@ public
 	-- Hardened Software System
 	system SW_seL4
 		features
-			wifiRecv: in event data port;
-			wifiSend: out event data port;
+			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::DummyMessage.Impl;
 			--
-			btRecv: in event data port;			
-			btSend: out event data port;
+			btRecv: in event data port Common::DummyMessage.Impl;			
+			btSend: out event data port Common::DummyMessage.Impl;
 			--
-			usbRecv: in event data port;			
-			usbSend: out event data port;
+			usbRecv: in event data port Common::DummyMessage.Impl;			
+			usbSend: out event data port Common::DummyMessage.Impl;
 		flows
 			f1: flow sink wifiRecv;	
 	end SW_seL4;
@@ -431,7 +472,7 @@ public
 			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
 		flows
 			-- HMD log flow path
-			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;			
+			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;		
 	end SW_seL4.hardened;
 	
 end Hardened_SW;
