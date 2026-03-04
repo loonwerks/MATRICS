@@ -1,0 +1,202 @@
+package GroundStation
+public
+	with Common;
+	with AGREE_PLTL;
+	renames AGREE_PLTL::all;	
+	with MATRICS_Properties;
+	with MATRICS_Model_Transformations;
+	renames MATRICS_Model_Transformations::all;
+	with Hardened_SW;
+	
+	-- Processor for Ground Station communication system
+	processor Proc
+		features
+			sera: requires bus access Common::Serial_Bus;			
+	end Proc;
+	
+	processor implementation Proc.Impl
+	end Proc.Impl;
+	
+	
+	-- Memory and storage for Ground Station communication system
+	memory Mem
+		features
+			sera: requires bus access Common::Serial_Bus;		
+	end Mem;
+	
+	memory implementation Mem.Impl	
+	end Mem.Impl;
+	
+	memory Storage
+		features
+			sera: requires bus access Common::Serial_Bus;		
+	end Storage;
+	
+	memory implementation Storage.Impl	
+	end Storage.Impl;
+	
+	
+	thread wifiDriver
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			HMD_log: out event data port Common::Log.Impl;
+			analysis_report: in event data port Common::AnalysisReport.Impl;
+			analysis_request: out event data port Common::AnalysisRequest.Impl;
+			alert: in event data port;
+		flows
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;
+			f4: flow sink alert;			
+		annex agree {**
+			assume Alert "A: A report should not be received if an alert is received." :
+				event(alert) => not(event(analysis_report));
+			assume Trusted_Report "A: Reports received are to a trusted destination." :
+				event(analysis_report) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report.header.dst);
+			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
+			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
+				if event(analysis_report) and not(Once(event(alert)))
+				then event(wifiSend)
+				else not(event(wifiSend));
+		**};
+	end wifiDriver;
+	
+	thread dataManager
+		features
+			HMD_log: in event data port Common::Log.Impl;
+			request_log: in event data port Common::Request.Impl;
+			response_log: out event data port Common::ResponseLog.Impl;
+			zeroize: in event port;
+			log_data: requires data access Common::Log.Impl[100] {Access_Right => read_write;};
+		flows
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+			f3: flow sink zeroize;		
+		annex agree {**
+			eq cache: Common::LogArray.Impl;			
+				
+			fun IS_ZEROIZED(logs: Common::LogArray.Impl): bool = 
+				forall i in indices(logs), logs[i] = NULL_LOG;
+				
+			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
+			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
+				Once(event(zeroize)) => IS_ZEROIZED(cache);
+		**};
+	end dataManager;
+	
+	thread dataAnalysis
+		features
+			request_log: out event data port Common::Request.Impl;
+			response_log: in event data port Common::ResponseLog.Impl;
+			analysis_report: out event data port Common::AnalysisReport.Impl;
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request -> request_log;
+			f2: flow path response_log -> analysis_report;
+		annex agree {**
+			assume Trusted_Request "A: Requests received are from a trusted source." :
+				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.src);
+		**};
+	end dataAnalysis;
+
+	thread btDriver
+		features
+			btRecv: in event data port;			
+			btSend: out event data port;
+		flows
+			f1: flow path btRecv -> btSend;
+	end btDriver;
+	
+	thread usbDriver
+		features
+			usbRecv: in event data port;
+			usbSend: out event data port;
+		flows
+			f1: flow path usbRecv -> usbSend;
+	end usbDriver;
+	
+
+	-- The Ground Station communication system
+	system GroundStation
+		features
+			wifiRecv: in event data port;
+			wifiSend: out event data port;
+			btSend: out event data port;
+			btRecv: in event data port;
+			usbRecv: in event data port;
+			usbSend: out event data port;
+			wfa: requires bus access Common::WF_Bus;
+			bta: requires bus access Common::BT_Bus;					
+		flows
+			f1: flow sink wifiRecv;
+	end GroundStation;
+	
+	system implementation GroundStation.Impl
+		subcomponents
+			wifi: device Common::Wifi.Impl;
+			bluetooth: device Common::Bluetooth.Impl;
+			usb: device Common::USB.Impl;
+			cpu: processor Proc.Impl;
+			mem: memory Mem.Impl;
+			storage: memory Storage.Impl;
+			ser1: bus Common::Serial_Bus.Impl;
+			ser2: bus Common::Serial_Bus.Impl;
+			ser3: bus Common::Serial_Bus.Impl;
+			ser4: bus Common::Serial_Bus.Impl;			
+			cpuSw: system Hardened_SW::SW_seL4.hardened;
+		connections
+			-- Processor connected to memory and storage
+			bac1: bus access mem.sera <-> ser1;
+			bac2: bus access cpu.sera <-> ser1;
+			bac3: bus access storage.sera <-> ser1;			
+			-- Wi-Fi connected to CPU
+			bac4: bus access wifi.sera <-> ser2;
+			bac5: bus access cpu.sera <-> ser2;
+			-- Bluetooth connected to CPU
+			bac6: bus access bluetooth.sera <-> ser3;
+			bac7: bus access cpu.sera <-> ser3;			
+			-- USB connected to CPU
+			bac8: bus access usb.sera <-> ser4;
+			bac9: bus access cpu.sera <-> ser4;
+			-- Wi-Fi connected to the outside			
+			bac10: bus access wifi.wfa <-> wfa;
+			-- Bluetooth connected to the outside			
+			bac11: bus access bluetooth.bta <-> bta;
+			--
+			c1: port cpuSw.wifiSend -> wifi.sendIn;
+			c2: port wifi.sendOut -> wifiSend;
+			c3: port wifiRecv -> wifi.recvIn;
+			c4: port wifi.recvOut -> cpuSw.wifiRecv;
+			c5: port bluetooth.recvOut -> cpuSw.btRecv;
+			c6: port cpuSW.btSend -> bluetooth.sendIn;
+			c7: port bluetooth.sendOut -> btSend;
+			c8: port btRecv -> bluetooth.recvIn; 
+			c9: port usb.recvOut -> cpuSW.usbRecv;
+			c10: port cpuSW.usbSend -> usb.sendIn;
+			c11: port usbRecv -> usb.recvIn;
+			c12: port usb.sendOut -> usbSend;	
+		flows
+			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
+		properties
+			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
+			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
+			MATRICS_Properties::Memory_Type => RAM applies to mem;
+			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			
+			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.logs;			
+			
+			-- present in hardened system
+			MATRICS_Properties::OS => "seL4" applies to cpu;
+		annex resolute {**
+			argue is_seL4_compliant(this.cpuSW)
+			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c23, Common::AnalysisRequest.Impl)
+			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)		
+			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriver)
+			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataManager)
+		**};
+	end GroundStation.Impl;
+	
+end GroundStation;

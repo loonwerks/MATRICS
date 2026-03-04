@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="6a7a2392-5e73-4119-b53f-b1b363750c9b" manual="true" fontSize="16.0">
+    <element uuid="86925842-0708-4527-8a61-c399c863a9c5" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bac1</seg>
+      </bo>
+    </element>
+    <element uuid="c8570071-bbe7-46ab-9ba6-6fe17fc9940f" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bac2</seg>
+      </bo>
+    </element>
+    <element uuid="7c121b9c-f741-4648-bebf-7a5c2f957e16" manual="true">
+      <element uuid="179e05d4-753a-4edd-b5f0-0894ae77bff0" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+    </element>
+    <element uuid="c2462f63-57b8-41b5-bb03-8560857862e2" manual="true" background="#e0e0e0" fontColor="#000000" fontSize="16.0">
+      <element uuid="efb4e46d-be63-49b1-87ee-395339788434" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>bta</seg>
+        </bo>
+        <position x="313.9270782470703" y="205.0"/>
+      </element>
+      <element uuid="9f10bf6f-fab4-459d-b4bd-f2781d985d43" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>btRecv</seg>
+        </bo>
+        <position y="212.0"/>
+      </element>
+      <element uuid="ef284020-dea6-430f-8e29-f8e26f798b97" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>btSend</seg>
+        </bo>
+        <position x="290.203125" y="160.0"/>
+      </element>
+      <element uuid="678025d1-2fc4-4a09-a958-d70f08e6b87b" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wfa</seg>
+        </bo>
+        <position y="130.0"/>
+      </element>
+      <element uuid="fc317911-3358-4b6f-b2d4-4aed29885e7a" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiRecv</seg>
+        </bo>
+        <position y="70.0"/>
+      </element>
+      <element uuid="90891f0d-fa7d-43fe-839e-a65fca10170e" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiSend</seg>
+        </bo>
+        <position x="282.06510162353516" y="98.0"/>
+      </element>
+      <element uuid="ceb23ff9-56e2-443e-8ce0-ff6e6b6192ba" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f1</seg>
+        </bo>
+        <position x="188.0" y="103.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>groundStation</seg>
+      </bo>
+      <position x="650.0" y="50.0"/>
+      <size width="344.4622344970703" height="270.0"/>
+    </element>
+    <element uuid="88a08967-daa4-4573-a62f-4893e59fa30a" manual="true" background="#e0e0e0" fontColor="#000000" fontSize="16.0">
+      <element uuid="e6883a55-a72c-4d94-a74f-ff0f536fcc1e" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>bta</seg>
+        </bo>
+        <position y="200.0"/>
+      </element>
+      <element uuid="68987fd2-53eb-47cb-9251-22dedc3bd611" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>btRecv</seg>
+        </bo>
+        <position y="155.0"/>
+      </element>
+      <element uuid="33c027c3-868f-44e6-bae3-27ca5ad0bd49" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>btSend</seg>
+        </bo>
+        <position x="310.96483993530273" y="210.0"/>
+      </element>
+      <element uuid="d9b28ebf-c978-4826-a745-ac6186372844" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wfa</seg>
+        </bo>
+        <position x="332.47525215148926" y="128.0"/>
+      </element>
+      <element uuid="e914a2b9-7981-4e34-ace3-2e3d9b4858d2" manual="true" dockArea="left" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiRecv</seg>
+        </bo>
+        <position y="110.0"/>
+      </element>
+      <element uuid="948c0468-b37b-4dee-a100-520e1803c364" manual="true" dockArea="right" fontColor="#000000">
+        <bo>
+          <seg>feature</seg>
+          <seg>wifiSend</seg>
+        </bo>
+        <position x="302.8268165588379" y="70.0"/>
+      </element>
+      <element uuid="047002e4-b3ce-47ed-81b6-1dd8f9c86e56" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f1</seg>
+        </bo>
+        <position x="210.0" y="101.0"/>
+      </element>
+      <element uuid="903e16e5-60b5-4743-9333-f36698ac45ee" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>f2</seg>
+        </bo>
+        <position x="210.0156021118164" y="78.5"/>
+        <bendpoints>
+          <point x="263.0" y="150.0"/>
+          <point x="263.0" y="128.5"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>hmd</seg>
+      </bo>
+      <position x="60.0" y="50.0"/>
+      <size width="365.22394943237305" height="270.0"/>
+    </element>
+    <element uuid="6a1b1178-3e57-4f2e-b7b2-aa32818a43f9" manual="true" fontColor="#000000" fontSize="16.0">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>tcp</seg>
+      </bo>
+      <position x="490.0" y="240.0"/>
+      <size width="74.97525787353516" height="37.0"/>
+    </element>
+    <element uuid="0a307aea-508d-4f7a-8550-c7372ee90c16" manual="true" fontColor="#000000" fontSize="16.0">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>wf</seg>
+      </bo>
+      <position x="490.0" y="190.0"/>
+      <size width="70.52213478088379" height="37.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>Checkpoint.Impl</seg>
+    </bo>
+    <position/>
+    <size width="1080.0" height="380.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Status_v1::Checkpoint.Impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>
