@@ -17,7 +17,7 @@ verus! {
     }
 
     #[verifier::external_body]
-    fn unverified_put_alert()
+    fn unverified_put_alert(&mut self)
     {
       extern_api::unsafe_put_alert();
     }
@@ -53,7 +53,7 @@ verus! {
     pub ghost request_log: Option<Common::Request_Impl>,
     pub ghost response_log_in: Option<Common::ResponseLog_Impl>,
     pub ghost response_log_out: Option<Common::ResponseLog_Impl>,
-    pub ghost alert: u8
+    pub ghost alert: bool
   }
 
   impl<API: cpuSw_logMonitor_logMonitor_Put_Api> cpuSw_logMonitor_logMonitor_Application_Api<API> {
@@ -70,16 +70,15 @@ verus! {
       self.response_log_out = Some(value);
     }
     pub fn put_alert(
-      &mut self,
-      value: u8)
+      &mut self)
       ensures
         old(self).request_log == self.request_log,
         old(self).response_log_in == self.response_log_in,
         old(self).response_log_out == self.response_log_out,
-        self.alert == value,
+        self.alert == true,
     {
-      self.api.unverified_put_alert(value);
-      self.alert = Some(value);
+      self.api.unverified_put_alert();
+      self.alert = true;
     }
   }
 
@@ -117,7 +116,7 @@ verus! {
       request_log: None,
       response_log_in: None,
       response_log_out: None,
-      alert: None
+      alert: false
     }
   }
 
@@ -134,7 +133,7 @@ verus! {
       request_log: None,
       response_log_in: None,
       response_log_out: None,
-      alert: None
+      alert: false
     }
   }
 }

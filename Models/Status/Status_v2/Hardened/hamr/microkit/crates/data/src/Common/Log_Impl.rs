@@ -6,7 +6,7 @@ use super::*;
 
 verus! {
   #[repr(C)]
-  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+  #[derive(Debug, Clone, Copy, PartialEq)]
   pub struct Log_Impl {
     pub timestamp: i32,
     pub userID: i32,

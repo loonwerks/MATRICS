@@ -51,7 +51,7 @@ pub fn unsafe_put_response_log_out(value: &Common::ResponseLog_Impl) -> bool
 pub fn unsafe_put_alert() -> bool
 {
   unsafe {
-    return put_alert(value as *const u8 as *mut u8);
+    return put_alert();
   }
 }
 
