@@ -6,21 +6,21 @@ use super::*;
 
 verus! {
   #[repr(C)]
-  #[derive(Debug, Clone, Copy, PartialEq)]
+  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct Log_Impl {
-    pub timestamp: i32,
-    pub userID: i32,
-    pub numSuspects: i32,
-    pub numSuspectsFlagged: i32,
-    pub yaw: f32,
-    pub pitch: f32,
-    pub roll: f32
+    pub timestamp: u32,
+    pub userID: u32,
+    pub numSuspects: u32,
+    pub numSuspectsFlagged: u32,
+    pub yaw: i32,
+    pub pitch: i32,
+    pub roll: i32
   }
 
   impl Default for Log_Impl {
     fn default() -> Self
     {
-      Self { timestamp: 0, userID: 0, numSuspects: 0, numSuspectsFlagged: 0, yaw: 0.0, pitch: 0.0, roll: 0.0 }
+      Self { timestamp: 0, userID: 0, numSuspects: 0, numSuspectsFlagged: 0, yaw: 0, pitch: 0, roll: 0 }
     }
   }
 }

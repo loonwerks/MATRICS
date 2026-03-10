@@ -128,13 +128,13 @@ public
 	-- NOTE: need to define sizes for these data elements
 	data implementation Log.Impl
 		subcomponents
-			timestamp: data Base_Types::Integer_32;
-			userID: data Base_Types::Integer_32;
-			numSuspects: data Base_Types::Integer_32;
-			numSuspectsFlagged: data Base_Types::Integer_32;
-			yaw: data Base_Types::Float_32;
-			pitch: data Base_Types::Float_32;
-			roll: data Base_Types::Float_32;
+			timestamp: data Base_Types::Unsigned_32;
+			userID: data Base_Types::Unsigned_32;
+			numSuspects: data Base_Types::Unsigned_32;
+			numSuspectsFlagged: data Base_Types::Unsigned_32;
+			yaw: data Base_Types::Integer_32;
+			pitch: data Base_Types::Integer_32;
+			roll: data Base_Types::Integer_32;
 	end Log.Impl;
 
 	-- Analysis request message structure

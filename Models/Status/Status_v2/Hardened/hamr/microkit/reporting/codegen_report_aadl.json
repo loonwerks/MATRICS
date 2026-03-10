@@ -535,6 +535,16 @@
             },
             {
               "type" : "ResourceReport",
+              "path" : "crates\/data\/src\/Common\/MsgHeader_Impl.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/data\/src\/Common\/Log_Impl.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
               "path" : "crates\/data\/src\/Common\/Request_Impl.rs",
               "overwrittenIfExists" : true
             },
@@ -545,22 +555,12 @@
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/data\/src\/Common\/Log_Impl.rs",
-              "overwrittenIfExists" : true
-            },
-            {
-              "type" : "ResourceReport",
-              "path" : "crates\/data\/src\/Common\/MsgHeader_Impl.rs",
+              "path" : "crates\/data\/src\/Common\/AnalysisReport_Impl.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
               "path" : "crates\/data\/src\/Common\/LogArray_Impl.rs",
-              "overwrittenIfExists" : true
-            },
-            {
-              "type" : "ResourceReport",
-              "path" : "crates\/data\/src\/Common\/AnalysisReport_Impl.rs",
               "overwrittenIfExists" : true
             },
             {
@@ -4051,10 +4051,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 43,
+                              "endLine" : 39,
                               "endColumn" : 5,
                               "offset" : 677,
-                              "length" : 435
+                              "length" : 345
                             }
                           ]
                         ]
@@ -5682,10 +5682,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 50,
                               "endColumn" : 5,
                               "offset" : 657,
-                              "length" : 337
+                              "length" : 911
                             }
                           ]
                         ]
@@ -5708,7 +5708,80 @@
                     "type" : "None"
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 4,
+                        "entries" : [
+                          [
+                            "compute_spec_Payload_Encrypted_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_encryptor_encryptor\/src\/bridge\/cpuSw_encryptor_encryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 24,
+                              "beginColumn" : 1,
+                              "endLine" : 29,
+                              "endColumn" : 1,
+                              "offset" : 480,
+                              "length" : 272
+                            }
+                          ],
+                          [
+                            "compute_spec_Header_Unencrypted_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_encryptor_encryptor\/src\/bridge\/cpuSw_encryptor_encryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 38,
+                              "beginColumn" : 1,
+                              "endLine" : 43,
+                              "endColumn" : 1,
+                              "offset" : 991,
+                              "length" : 271
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_encryptor_encryptor\/src\/bridge\/cpuSw_encryptor_encryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 50,
+                              "beginColumn" : 1,
+                              "endLine" : 58,
+                              "endColumn" : 1,
+                              "offset" : 1474,
+                              "length" : 401
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_encryptor_encryptor\/src\/bridge\/cpuSw_encryptor_encryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 65,
+                              "beginColumn" : 1,
+                              "endLine" : 73,
+                              "endColumn" : 1,
+                              "offset" : 2068,
+                              "length" : 329
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -6442,10 +6515,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 45,
+                              "endLine" : 39,
                               "endColumn" : 5,
                               "offset" : 667,
-                              "length" : 544
+                              "length" : 341
                             }
                           ]
                         ]

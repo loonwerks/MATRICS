@@ -10,6 +10,21 @@
 
 typedef uint8_t Common_DummyMessage_Impl [Common_DummyMessage_Impl_DIM_0];
 
+typedef struct Common_MsgHeader_Impl {
+  uint32_t src;
+  uint32_t dst;
+} Common_MsgHeader_Impl;
+
+typedef struct Common_Log_Impl {
+  uint32_t timestamp;
+  uint32_t userID;
+  uint32_t numSuspects;
+  uint32_t numSuspectsFlagged;
+  int32_t yaw;
+  int32_t pitch;
+  int32_t roll;
+} Common_Log_Impl;
+
 typedef struct Common_Request_Impl {
   int32_t requestID;
   int32_t analysisType;
@@ -24,30 +39,15 @@ typedef struct Common_ResponseHeader_Impl {
   int32_t totalParts;
 } Common_ResponseHeader_Impl;
 
-typedef struct Common_Log_Impl {
-  int32_t timestamp;
-  int32_t userID;
-  int32_t numSuspects;
-  int32_t numSuspectsFlagged;
-  float yaw;
-  float pitch;
-  float roll;
-} Common_Log_Impl;
-
-typedef struct Common_MsgHeader_Impl {
-  uint32_t src;
-  uint32_t dst;
-} Common_MsgHeader_Impl;
+typedef struct Common_AnalysisReport_Impl {
+  Common_MsgHeader_Impl header;
+  uint8_t payload;
+} Common_AnalysisReport_Impl;
 
 #define Common_LogArray_Impl_BYTE_SIZE 100
 #define Common_LogArray_Impl_DIM_0 100
 
 typedef Common_Log_Impl Common_LogArray_Impl [Common_LogArray_Impl_DIM_0];
-
-typedef struct Common_AnalysisReport_Impl {
-  Common_MsgHeader_Impl header;
-  uint8_t payload;
-} Common_AnalysisReport_Impl;
 
 typedef struct Common_AnalysisRequest_Impl {
   Common_MsgHeader_Impl header;

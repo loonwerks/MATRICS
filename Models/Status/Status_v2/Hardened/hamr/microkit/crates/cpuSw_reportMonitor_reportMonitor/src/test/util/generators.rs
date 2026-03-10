@@ -37,6 +37,59 @@ pub fn Common_DummyMessage_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>>
   })
 }
 
+pub fn Common_MsgHeader_Impl_strategy_default() -> impl Strategy<Value = Common::MsgHeader_Impl>
+{
+  Common_MsgHeader_Impl_strategy_cust(
+    any::<u32>(),
+    any::<u32>()
+  )
+}
+
+pub fn Common_MsgHeader_Impl_strategy_cust
+  <src_u32_strategy: Strategy<Value = u32>, 
+   dst_u32_strategy: Strategy<Value = u32>> (
+  src_strategy: src_u32_strategy,
+  dst_strategy: dst_u32_strategy) -> impl Strategy<Value = Common::MsgHeader_Impl>
+{
+  (src_strategy, dst_strategy).prop_map(|(src, dst)| {
+    Common::MsgHeader_Impl { src, dst }
+  })
+}
+
+pub fn Common_Log_Impl_strategy_default() -> impl Strategy<Value = Common::Log_Impl>
+{
+  Common_Log_Impl_strategy_cust(
+    any::<u32>(),
+    any::<u32>(),
+    any::<u32>(),
+    any::<u32>(),
+    any::<i32>(),
+    any::<i32>(),
+    any::<i32>()
+  )
+}
+
+pub fn Common_Log_Impl_strategy_cust
+  <timestamp_u32_strategy: Strategy<Value = u32>, 
+   userID_u32_strategy: Strategy<Value = u32>, 
+   numSuspects_u32_strategy: Strategy<Value = u32>, 
+   numSuspectsFlagged_u32_strategy: Strategy<Value = u32>, 
+   yaw_i32_strategy: Strategy<Value = i32>, 
+   pitch_i32_strategy: Strategy<Value = i32>, 
+   roll_i32_strategy: Strategy<Value = i32>> (
+  timestamp_strategy: timestamp_u32_strategy,
+  userID_strategy: userID_u32_strategy,
+  numSuspects_strategy: numSuspects_u32_strategy,
+  numSuspectsFlagged_strategy: numSuspectsFlagged_u32_strategy,
+  yaw_strategy: yaw_i32_strategy,
+  pitch_strategy: pitch_i32_strategy,
+  roll_strategy: roll_i32_strategy) -> impl Strategy<Value = Common::Log_Impl>
+{
+  (timestamp_strategy, userID_strategy, numSuspects_strategy, numSuspectsFlagged_strategy, yaw_strategy, pitch_strategy, roll_strategy).prop_map(|(timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll)| {
+    Common::Log_Impl { timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll }
+  })
+}
+
 pub fn Common_Request_Impl_strategy_default() -> impl Strategy<Value = Common::Request_Impl>
 {
   Common_Request_Impl_strategy_cust(
@@ -87,73 +140,6 @@ pub fn Common_ResponseHeader_Impl_strategy_cust
   })
 }
 
-pub fn Common_Log_Impl_strategy_default() -> impl Strategy<Value = Common::Log_Impl>
-{
-  Common_Log_Impl_strategy_cust(
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>(),
-    any::<f32>(),
-    any::<f32>(),
-    any::<f32>()
-  )
-}
-
-pub fn Common_Log_Impl_strategy_cust
-  <timestamp_i32_strategy: Strategy<Value = i32>, 
-   userID_i32_strategy: Strategy<Value = i32>, 
-   numSuspects_i32_strategy: Strategy<Value = i32>, 
-   numSuspectsFlagged_i32_strategy: Strategy<Value = i32>, 
-   yaw_f32_strategy: Strategy<Value = f32>, 
-   pitch_f32_strategy: Strategy<Value = f32>, 
-   roll_f32_strategy: Strategy<Value = f32>> (
-  timestamp_strategy: timestamp_i32_strategy,
-  userID_strategy: userID_i32_strategy,
-  numSuspects_strategy: numSuspects_i32_strategy,
-  numSuspectsFlagged_strategy: numSuspectsFlagged_i32_strategy,
-  yaw_strategy: yaw_f32_strategy,
-  pitch_strategy: pitch_f32_strategy,
-  roll_strategy: roll_f32_strategy) -> impl Strategy<Value = Common::Log_Impl>
-{
-  (timestamp_strategy, userID_strategy, numSuspects_strategy, numSuspectsFlagged_strategy, yaw_strategy, pitch_strategy, roll_strategy).prop_map(|(timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll)| {
-    Common::Log_Impl { timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll }
-  })
-}
-
-pub fn Common_MsgHeader_Impl_strategy_default() -> impl Strategy<Value = Common::MsgHeader_Impl>
-{
-  Common_MsgHeader_Impl_strategy_cust(
-    any::<u32>(),
-    any::<u32>()
-  )
-}
-
-pub fn Common_MsgHeader_Impl_strategy_cust
-  <src_u32_strategy: Strategy<Value = u32>, 
-   dst_u32_strategy: Strategy<Value = u32>> (
-  src_strategy: src_u32_strategy,
-  dst_strategy: dst_u32_strategy) -> impl Strategy<Value = Common::MsgHeader_Impl>
-{
-  (src_strategy, dst_strategy).prop_map(|(src, dst)| {
-    Common::MsgHeader_Impl { src, dst }
-  })
-}
-
-pub fn Common_LogArray_Impl_strategy_default() -> impl Strategy<Value = Common::LogArray_Impl>
-{
-  Common_LogArray_Impl_strategy_cust(Common_Log_Impl_strategy_default())
-}
-
-pub fn Common_LogArray_Impl_strategy_cust<Common_Log_Impl_strategy: Strategy<Value = Common::Log_Impl>> (base_strategy: Common_Log_Impl_strategy) -> impl Strategy<Value = Common::LogArray_Impl>
-{
-  proptest::collection::vec(base_strategy, Common::Common_LogArray_Impl_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[Common::Log_Impl; Common::Common_LogArray_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
-  })
-}
-
 pub fn Common_AnalysisReport_Impl_strategy_default() -> impl Strategy<Value = Common::AnalysisReport_Impl>
 {
   Common_AnalysisReport_Impl_strategy_cust(
@@ -170,6 +156,20 @@ pub fn Common_AnalysisReport_Impl_strategy_cust
 {
   (header_strategy, payload_strategy).prop_map(|(header, payload)| {
     Common::AnalysisReport_Impl { header, payload }
+  })
+}
+
+pub fn Common_LogArray_Impl_strategy_default() -> impl Strategy<Value = Common::LogArray_Impl>
+{
+  Common_LogArray_Impl_strategy_cust(Common_Log_Impl_strategy_default())
+}
+
+pub fn Common_LogArray_Impl_strategy_cust<Common_Log_Impl_strategy: Strategy<Value = Common::Log_Impl>> (base_strategy: Common_Log_Impl_strategy) -> impl Strategy<Value = Common::LogArray_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_LogArray_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[Common::Log_Impl; Common::Common_LogArray_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
   })
 }
 

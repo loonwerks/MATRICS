@@ -31,9 +31,20 @@ verus! {
       &mut self,
       api: &mut cpuSw_encryptor_encryptor_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).analysis_report_out.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee Payload_Encrypted
+        //   G: Outgoing payload is encrypted.
+        api.analysis_report_out.unwrap().payload != api.analysis_report_in.unwrap().payload,
+        // guarantee Header_Unencrypted
+        //   G: Outgoing header is not encrypted.
+        api.analysis_report_out.unwrap().header == api.analysis_report_in.unwrap().header,
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }

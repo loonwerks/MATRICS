@@ -6,7 +6,7 @@ use super::*;
 
 verus! {
   #[repr(C)]
-  #[derive(Debug, Clone, Copy, PartialEq)]
+  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct ResponseLog_Impl {
     pub header: ResponseHeader_Impl,
     pub payload: LogArray_Impl
