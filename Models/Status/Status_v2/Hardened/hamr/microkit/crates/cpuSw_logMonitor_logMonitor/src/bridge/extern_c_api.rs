@@ -73,10 +73,10 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_request_log.lock().unwrap() = None;
-    *IN_response_log_in.lock().unwrap() = None;
-    *OUT_response_log_out.lock().unwrap() = None;
-    *OUT_alert.lock().unwrap() = None;
+    *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -84,7 +84,7 @@ pub fn initialize_test_globals() {
 pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
 {
   unsafe {
-    match *IN_request_log.lock().unwrap() {
+    match *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -98,7 +98,7 @@ pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
 pub fn get_response_log_in(value: *mut Common::ResponseLog_Impl) -> bool
 {
   unsafe {
-    match *IN_response_log_in.lock().unwrap() {
+    match *IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -112,16 +112,16 @@ pub fn get_response_log_in(value: *mut Common::ResponseLog_Impl) -> bool
 pub fn put_response_log_out(value: *mut Common::ResponseLog_Impl) -> bool
 {
   unsafe {
-    *OUT_response_log_out.lock().unwrap() = Some(*value);
+    *OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }
 
 #[cfg(test)]
-pub fn put_alert(value: *mut u8) -> bool
+pub fn put_alert() -> bool
 {
   unsafe {
-    *OUT_alert.lock().unwrap() = Some(*value);
+    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
 }

@@ -34,35 +34,35 @@ pub fn put_concrete_inputs(
 /// setter for IN EventDataPort
 pub fn put_wifiRecv(value: Option<Common::DummyMessage_Impl>)
 {
-  *extern_api::IN_wifiRecv.lock().unwrap() = value
+  *extern_api::IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_wifiSend() -> Option<Common::DummyMessage_Impl>
 {
-  return extern_api::OUT_wifiSend.lock().unwrap().clone()
+  return extern_api::OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for OUT EventDataPort
 pub fn get_HMD_log() -> Option<Common::Log_Impl>
 {
-  return extern_api::OUT_HMD_log.lock().unwrap().clone()
+  return extern_api::OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventDataPort
 pub fn put_analysis_report(value: Option<Common::AnalysisReport_Impl>)
 {
-  *extern_api::IN_analysis_report.lock().unwrap() = value
+  *extern_api::IN_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
 {
-  return extern_api::OUT_analysis_request.lock().unwrap().clone()
+  return extern_api::OUT_analysis_request.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventDataPort
 pub fn put_alert(value: Option<Common::DummyMessage_Impl>)
 {
-  *extern_api::IN_alert.lock().unwrap() = value
+  *extern_api::IN_alert.lock().unwrap_or_else(|e| e.into_inner()) = value
 }

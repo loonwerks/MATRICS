@@ -73,10 +73,10 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_analysis_request.lock().unwrap() = None;
-    *IN_analysis_report_in.lock().unwrap() = None;
-    *OUT_analysis_report_out.lock().unwrap() = None;
-    *OUT_alert.lock().unwrap() = None;
+    *IN_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -84,7 +84,7 @@ pub fn initialize_test_globals() {
 pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
-    match *IN_analysis_request.lock().unwrap() {
+    match *IN_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -98,7 +98,7 @@ pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 pub fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool
 {
   unsafe {
-    match *IN_analysis_report_in.lock().unwrap() {
+    match *IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -112,7 +112,7 @@ pub fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool
 pub fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool
 {
   unsafe {
-    *OUT_analysis_report_out.lock().unwrap() = Some(*value);
+    *OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }
@@ -121,7 +121,7 @@ pub fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool
 pub fn put_alert(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    *OUT_alert.lock().unwrap() = Some(*value);
+    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }

@@ -73,10 +73,10 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_HMD_log.lock().unwrap() = None;
-    *IN_request_log.lock().unwrap() = None;
-    *IN_zeroize.lock().unwrap() = None;
-    *OUT_response_log.lock().unwrap() = None;
+    *IN_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_zeroize.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_response_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -84,7 +84,7 @@ pub fn initialize_test_globals() {
 pub fn get_HMD_log(value: *mut Common::Log_Impl) -> bool
 {
   unsafe {
-    match *IN_HMD_log.lock().unwrap() {
+    match *IN_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -98,7 +98,7 @@ pub fn get_HMD_log(value: *mut Common::Log_Impl) -> bool
 pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
 {
   unsafe {
-    match *IN_request_log.lock().unwrap() {
+    match *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -109,12 +109,11 @@ pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn get_zeroize(value: *mut u8) -> bool
+pub fn get_zeroize() -> bool
 {
   unsafe {
-    match *IN_zeroize.lock().unwrap() {
+    match *IN_zeroize.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
-        *value = v;
         return true;
       },
       None => return false,
@@ -126,7 +125,7 @@ pub fn get_zeroize(value: *mut u8) -> bool
 pub fn put_response_log(value: *mut Common::ResponseLog_Impl) -> bool
 {
   unsafe {
-    *OUT_response_log.lock().unwrap() = Some(*value);
+    *OUT_response_log.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }

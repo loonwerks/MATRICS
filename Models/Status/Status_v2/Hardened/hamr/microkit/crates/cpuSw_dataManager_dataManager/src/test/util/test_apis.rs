@@ -34,23 +34,23 @@ pub fn put_concrete_inputs(
 /// setter for IN EventDataPort
 pub fn put_HMD_log(value: Option<Common::Log_Impl>)
 {
-  *extern_api::IN_HMD_log.lock().unwrap() = value
+  *extern_api::IN_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// setter for IN EventDataPort
 pub fn put_request_log(value: Option<Common::Request_Impl>)
 {
-  *extern_api::IN_request_log.lock().unwrap() = value
+  *extern_api::IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_response_log() -> Option<Common::ResponseLog_Impl>
 {
-  return extern_api::OUT_response_log.lock().unwrap().clone()
+  return extern_api::OUT_response_log.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventPort
 pub fn put_zeroize(value: Option<u8>)
 {
-  *extern_api::IN_zeroize.lock().unwrap() = value
+  *extern_api::IN_zeroize.lock().unwrap_or_else(|e| e.into_inner()) = value
 }

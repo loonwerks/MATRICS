@@ -25,11 +25,11 @@ pub fn put_concrete_inputs(HMD_log_in: Option<Common::Log_Impl>)
 /// setter for IN EventDataPort
 pub fn put_HMD_log_in(value: Option<Common::Log_Impl>)
 {
-  *extern_api::IN_HMD_log_in.lock().unwrap() = value
+  *extern_api::IN_HMD_log_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_HMD_log_out() -> Option<Common::Log_Impl>
 {
-  return extern_api::OUT_HMD_log_out.lock().unwrap().clone()
+  return extern_api::OUT_HMD_log_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

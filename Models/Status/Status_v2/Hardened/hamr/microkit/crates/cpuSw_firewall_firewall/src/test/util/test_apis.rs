@@ -25,11 +25,11 @@ pub fn put_concrete_inputs(analysis_request_in: Option<Common::AnalysisRequest_I
 /// setter for IN EventDataPort
 pub fn put_analysis_request_in(value: Option<Common::AnalysisRequest_Impl>)
 {
-  *extern_api::IN_analysis_request_in.lock().unwrap() = value
+  *extern_api::IN_analysis_request_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_analysis_request_out() -> Option<Common::AnalysisRequest_Impl>
 {
-  return extern_api::OUT_analysis_request_out.lock().unwrap().clone()
+  return extern_api::OUT_analysis_request_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

@@ -30,23 +30,23 @@ pub fn put_concrete_inputs(
 /// setter for IN EventDataPort
 pub fn put_request_log(value: Option<Common::Request_Impl>)
 {
-  *extern_api::IN_request_log.lock().unwrap() = value
+  *extern_api::IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// setter for IN EventDataPort
 pub fn put_response_log_in(value: Option<Common::ResponseLog_Impl>)
 {
-  *extern_api::IN_response_log_in.lock().unwrap() = value
+  *extern_api::IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_response_log_out() -> Option<Common::ResponseLog_Impl>
 {
-  return extern_api::OUT_response_log_out.lock().unwrap().clone()
+  return extern_api::OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for OUT EventPort
 pub fn get_alert() -> Option<u8>
 {
-  return extern_api::OUT_alert.lock().unwrap().clone()
+  return extern_api::OUT_alert.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

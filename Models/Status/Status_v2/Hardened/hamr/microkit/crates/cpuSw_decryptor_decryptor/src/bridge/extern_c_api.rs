@@ -50,8 +50,8 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_HMD_log_in.lock().unwrap() = None;
-    *OUT_HMD_log_out.lock().unwrap() = None;
+    *IN_HMD_log_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_HMD_log_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -59,7 +59,7 @@ pub fn initialize_test_globals() {
 pub fn get_HMD_log_in(value: *mut Common::Log_Impl) -> bool
 {
   unsafe {
-    match *IN_HMD_log_in.lock().unwrap() {
+    match *IN_HMD_log_in.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -73,7 +73,7 @@ pub fn get_HMD_log_in(value: *mut Common::Log_Impl) -> bool
 pub fn put_HMD_log_out(value: *mut Common::Log_Impl) -> bool
 {
   unsafe {
-    *OUT_HMD_log_out.lock().unwrap() = Some(*value);
+    *OUT_HMD_log_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }

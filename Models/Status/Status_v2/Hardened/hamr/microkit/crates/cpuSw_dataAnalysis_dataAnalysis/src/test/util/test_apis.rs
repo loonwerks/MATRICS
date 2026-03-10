@@ -30,23 +30,23 @@ pub fn put_concrete_inputs(
 /// getter for OUT EventDataPort
 pub fn get_request_log() -> Option<Common::Request_Impl>
 {
-  return extern_api::OUT_request_log.lock().unwrap().clone()
+  return extern_api::OUT_request_log.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventDataPort
 pub fn put_response_log(value: Option<Common::ResponseLog_Impl>)
 {
-  *extern_api::IN_response_log.lock().unwrap() = value
+  *extern_api::IN_response_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_analysis_report() -> Option<Common::AnalysisReport_Impl>
 {
-  return extern_api::OUT_analysis_report.lock().unwrap().clone()
+  return extern_api::OUT_analysis_report.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventDataPort
 pub fn put_analysis_request(value: Option<Common::AnalysisRequest_Impl>)
 {
-  *extern_api::IN_analysis_request.lock().unwrap() = value
+  *extern_api::IN_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = value
 }

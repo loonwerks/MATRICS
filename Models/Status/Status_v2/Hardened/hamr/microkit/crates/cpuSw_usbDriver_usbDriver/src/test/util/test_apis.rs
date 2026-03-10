@@ -25,11 +25,11 @@ pub fn put_concrete_inputs(usbRecv: Option<Common::DummyMessage_Impl>)
 /// setter for IN EventDataPort
 pub fn put_usbRecv(value: Option<Common::DummyMessage_Impl>)
 {
-  *extern_api::IN_usbRecv.lock().unwrap() = value
+  *extern_api::IN_usbRecv.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
 pub fn get_usbSend() -> Option<Common::DummyMessage_Impl>
 {
-  return extern_api::OUT_usbSend.lock().unwrap().clone()
+  return extern_api::OUT_usbSend.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

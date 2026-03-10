@@ -50,8 +50,8 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_btRecv.lock().unwrap() = None;
-    *OUT_btSend.lock().unwrap() = None;
+    *IN_btRecv.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_btSend.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -59,7 +59,7 @@ pub fn initialize_test_globals() {
 pub fn get_btRecv(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    match *IN_btRecv.lock().unwrap() {
+    match *IN_btRecv.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -73,7 +73,7 @@ pub fn get_btRecv(value: *mut Common::DummyMessage_Impl) -> bool
 pub fn put_btSend(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    *OUT_btSend.lock().unwrap() = Some(*value);
+    *OUT_btSend.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }

@@ -39,10 +39,11 @@ verus! {
     }
 
     #[verifier::external_body]
-    fn unverified_get_zeroize(&mut self,
-      value: &Ghost<bool>) -> (res : bool)
+    fn unverified_get_zeroize(
+      &mut self,
+      value: &Ghost<Option<u8>>) -> (res : bool)
       ensures
-        res == value@,
+        res == value@.is_some(),
     {
       return extern_api::unsafe_get_zeroize();
     }
@@ -55,7 +56,7 @@ verus! {
 
     pub ghost HMD_log: Option<Common::Log_Impl>,
     pub ghost request_log: Option<Common::Request_Impl>,
-    pub ghost zeroize: bool,
+    pub ghost zeroize: Option<u8>,
     pub ghost response_log: Option<Common::ResponseLog_Impl>
   }
 
@@ -101,7 +102,7 @@ verus! {
         old(self).request_log == self.request_log,
         old(self).response_log == self.response_log,
         old(self).zeroize == self.zeroize,
-        res == self.zeroize,
+        res == self.zeroize.is_some(),
     {
       self.api.unverified_get_zeroize(&Ghost(self.zeroize))
     }
@@ -117,7 +118,7 @@ verus! {
 
       HMD_log: None,
       request_log: None,
-      zeroize: false,
+      zeroize: None,
       response_log: None
     }
   }
@@ -134,7 +135,7 @@ verus! {
 
       HMD_log: None,
       request_log: None,
-      zeroize: false,
+      zeroize: None,
       response_log: None
     }
   }

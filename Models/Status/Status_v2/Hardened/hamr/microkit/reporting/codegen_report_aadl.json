@@ -25,11 +25,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 163,
+                  "beginLine" : 193,
                   "beginColumn" : 4,
-                  "endLine" : 163,
+                  "endLine" : 193,
                   "endColumn" : 35,
-                  "offset" : 5257,
+                  "offset" : 6362,
                   "length" : 31
                 }
               },
@@ -47,11 +47,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 164,
+                  "beginLine" : 194,
                   "beginColumn" : 4,
-                  "endLine" : 164,
+                  "endLine" : 194,
                   "endColumn" : 45,
-                  "offset" : 5292,
+                  "offset" : 6397,
                   "length" : 41
                 }
               },
@@ -69,11 +69,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 165,
+                  "beginLine" : 195,
                   "beginColumn" : 4,
-                  "endLine" : 165,
+                  "endLine" : 195,
                   "endColumn" : 33,
-                  "offset" : 5337,
+                  "offset" : 6442,
                   "length" : 29
                 }
               },
@@ -1430,11 +1430,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 47,
+                            "beginLine" : 48,
                             "beginColumn" : 4,
-                            "endLine" : 47,
+                            "endLine" : 48,
                             "endColumn" : 59,
-                            "offset" : 943,
+                            "offset" : 961,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -1593,11 +1593,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 50,
+                            "beginLine" : 51,
                             "beginColumn" : 4,
-                            "endLine" : 50,
+                            "endLine" : 51,
                             "endColumn" : 68,
-                            "offset" : 1112,
+                            "offset" : 1130,
                             "length" : 64
                           },
                           "languageRealizations" : [
@@ -1756,11 +1756,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 52,
+                            "beginLine" : 53,
                             "beginColumn" : 4,
-                            "endLine" : 52,
+                            "endLine" : 53,
                             "endColumn" : 56,
-                            "offset" : 1251,
+                            "offset" : 1269,
                             "length" : 52
                           },
                           "languageRealizations" : [
@@ -1919,11 +1919,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 48,
+                            "beginLine" : 49,
                             "beginColumn" : 4,
-                            "endLine" : 48,
+                            "endLine" : 49,
                             "endColumn" : 60,
-                            "offset" : 1002,
+                            "offset" : 1020,
                             "length" : 56
                           },
                           "languageRealizations" : [
@@ -2082,11 +2082,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 49,
+                            "beginLine" : 50,
                             "beginColumn" : 4,
-                            "endLine" : 49,
+                            "endLine" : 50,
                             "endColumn" : 50,
-                            "offset" : 1062,
+                            "offset" : 1080,
                             "length" : 46
                           },
                           "languageRealizations" : [
@@ -2245,11 +2245,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 51,
+                            "beginLine" : 52,
                             "beginColumn" : 4,
-                            "endLine" : 51,
+                            "endLine" : 52,
                             "endColumn" : 71,
-                            "offset" : 1180,
+                            "offset" : 1198,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -2517,11 +2517,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 124,
+                            "beginLine" : 154,
                             "beginColumn" : 4,
-                            "endLine" : 124,
+                            "endLine" : 154,
                             "endColumn" : 57,
-                            "offset" : 4035,
+                            "offset" : 5140,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -2680,11 +2680,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 125,
+                            "beginLine" : 155,
                             "beginColumn" : 4,
-                            "endLine" : 125,
+                            "endLine" : 155,
                             "endColumn" : 58,
-                            "offset" : 4095,
+                            "offset" : 5200,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -2952,11 +2952,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 136,
+                            "beginLine" : 166,
                             "beginColumn" : 4,
-                            "endLine" : 136,
+                            "endLine" : 166,
                             "endColumn" : 58,
-                            "offset" : 4342,
+                            "offset" : 5447,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3115,11 +3115,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 137,
+                            "beginLine" : 167,
                             "beginColumn" : 4,
-                            "endLine" : 137,
+                            "endLine" : 167,
                             "endColumn" : 59,
-                            "offset" : 4400,
+                            "offset" : 5505,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -3387,11 +3387,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 77,
+                            "beginLine" : 78,
                             "beginColumn" : 4,
-                            "endLine" : 77,
+                            "endLine" : 78,
                             "endColumn" : 49,
-                            "offset" : 2272,
+                            "offset" : 2290,
                             "length" : 45
                           },
                           "languageRealizations" : [
@@ -3405,11 +3405,11 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_api.rs"
                                 },
-                                "beginLine" : 77,
+                                "beginLine" : 79,
                                 "beginColumn" : 5,
-                                "endLine" : 86,
+                                "endLine" : 88,
                                 "endColumn" : 5,
-                                "offset" : 2328,
+                                "offset" : 2402,
                                 "length" : 369
                               }
                             },
@@ -3550,11 +3550,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 78,
+                            "beginLine" : 79,
                             "beginColumn" : 4,
-                            "endLine" : 78,
+                            "endLine" : 79,
                             "endColumn" : 57,
-                            "offset" : 2321,
+                            "offset" : 2339,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -3568,11 +3568,11 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_api.rs"
                                 },
-                                "beginLine" : 87,
+                                "beginLine" : 89,
                                 "beginColumn" : 5,
-                                "endLine" : 96,
+                                "endLine" : 98,
                                 "endColumn" : 5,
-                                "offset" : 2703,
+                                "offset" : 2777,
                                 "length" : 389
                               }
                             },
@@ -3712,11 +3712,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 80,
+                            "beginLine" : 81,
                             "beginColumn" : 4,
-                            "endLine" : 80,
+                            "endLine" : 81,
                             "endColumn" : 27,
-                            "offset" : 2441,
+                            "offset" : 2459,
                             "length" : 23
                           },
                           "languageRealizations" : [
@@ -3730,12 +3730,12 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_api.rs"
                                 },
-                                "beginLine" : 97,
+                                "beginLine" : 99,
                                 "beginColumn" : 5,
-                                "endLine" : 106,
+                                "endLine" : 108,
                                 "endColumn" : 5,
-                                "offset" : 3098,
-                                "length" : 347
+                                "offset" : 3172,
+                                "length" : 359
                               }
                             },
                             {
@@ -3750,10 +3750,10 @@
                                 },
                                 "beginLine" : 42,
                                 "beginColumn" : 5,
-                                "endLine" : 47,
+                                "endLine" : 49,
                                 "endColumn" : 5,
                                 "offset" : 1140,
-                                "length" : 131
+                                "length" : 197
                               }
                             },
                             {
@@ -3875,11 +3875,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 79,
+                            "beginLine" : 80,
                             "beginColumn" : 4,
-                            "endLine" : 79,
+                            "endLine" : 80,
                             "endColumn" : 63,
-                            "offset" : 2378,
+                            "offset" : 2396,
                             "length" : 59
                           },
                           "languageRealizations" : [
@@ -3893,11 +3893,11 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_api.rs"
                                 },
-                                "beginLine" : 62,
+                                "beginLine" : 64,
                                 "beginColumn" : 5,
-                                "endLine" : 73,
+                                "endLine" : 75,
                                 "endColumn" : 5,
-                                "offset" : 1839,
+                                "offset" : 1913,
                                 "length" : 374
                               }
                             },
@@ -4051,10 +4051,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 43,
                               "endColumn" : 5,
                               "offset" : 677,
-                              "length" : 345
+                              "length" : 435
                             }
                           ]
                         ]
@@ -4147,11 +4147,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 106,
+                            "beginLine" : 136,
                             "beginColumn" : 4,
-                            "endLine" : 106,
+                            "endLine" : 136,
                             "endColumn" : 62,
-                            "offset" : 3382,
+                            "offset" : 4487,
                             "length" : 58
                           },
                           "languageRealizations" : [
@@ -4310,11 +4310,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 108,
+                            "beginLine" : 138,
                             "beginColumn" : 4,
-                            "endLine" : 108,
+                            "endLine" : 138,
                             "endColumn" : 70,
-                            "offset" : 3513,
+                            "offset" : 4618,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -4473,11 +4473,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 105,
+                            "beginLine" : 135,
                             "beginColumn" : 4,
-                            "endLine" : 105,
+                            "endLine" : 135,
                             "endColumn" : 58,
-                            "offset" : 3324,
+                            "offset" : 4429,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -4636,11 +4636,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 107,
+                            "beginLine" : 137,
                             "beginColumn" : 4,
-                            "endLine" : 107,
+                            "endLine" : 137,
                             "endColumn" : 69,
-                            "offset" : 3444,
+                            "offset" : 4549,
                             "length" : 65
                           },
                           "languageRealizations" : [
@@ -5301,11 +5301,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 364,
+                      "beginLine" : 371,
                       "beginColumn" : 4,
-                      "endLine" : 364,
+                      "endLine" : 371,
                       "endColumn" : 32,
-                      "offset" : 12377,
+                      "offset" : 12700,
                       "length" : 28
                     }
                   },
@@ -5796,11 +5796,11 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_api.rs"
                                 },
-                                "beginLine" : 87,
+                                "beginLine" : 85,
                                 "beginColumn" : 5,
-                                "endLine" : 96,
+                                "endLine" : 94,
                                 "endColumn" : 5,
-                                "offset" : 2687,
+                                "offset" : 2677,
                                 "length" : 409
                               }
                             },
@@ -5818,7 +5818,7 @@
                                 "beginColumn" : 5,
                                 "endLine" : 35,
                                 "endColumn" : 5,
-                                "offset" : 716,
+                                "offset" : 725,
                                 "length" : 237
                               }
                             },
@@ -5959,11 +5959,11 @@
                                   "type" : "Some",
                                   "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_api.rs"
                                 },
-                                "beginLine" : 97,
+                                "beginLine" : 95,
                                 "beginColumn" : 5,
-                                "endLine" : 106,
+                                "endLine" : 104,
                                 "endColumn" : 5,
-                                "offset" : 3102,
+                                "offset" : 3092,
                                 "length" : 429
                               }
                             },
@@ -5981,7 +5981,7 @@
                                 "beginColumn" : 5,
                                 "endLine" : 45,
                                 "endColumn" : 5,
-                                "offset" : 991,
+                                "offset" : 1000,
                                 "length" : 253
                               }
                             },
@@ -6126,7 +6126,7 @@
                                 "beginColumn" : 5,
                                 "endLine" : 71,
                                 "endColumn" : 5,
-                                "offset" : 1816,
+                                "offset" : 1833,
                                 "length" : 402
                               }
                             },
@@ -6286,10 +6286,10 @@
                                 },
                                 "beginLine" : 72,
                                 "beginColumn" : 5,
-                                "endLine" : 83,
+                                "endLine" : 81,
                                 "endColumn" : 5,
-                                "offset" : 2224,
-                                "length" : 352
+                                "offset" : 2241,
+                                "length" : 325
                               }
                             },
                             {
@@ -6307,7 +6307,7 @@
                                 "endLine" : 23,
                                 "endColumn" : 5,
                                 "offset" : 517,
-                                "length" : 74
+                                "length" : 83
                               }
                             },
                             {
@@ -6325,7 +6325,7 @@
                                 "endLine" : 56,
                                 "endColumn" : 1,
                                 "offset" : 1299,
-                                "length" : 104
+                                "length" : 75
                               }
                             },
                             {
@@ -6442,10 +6442,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 45,
                               "endColumn" : 5,
                               "offset" : 667,
-                              "length" : 341
+                              "length" : 544
                             }
                           ]
                         ]
@@ -7257,11 +7257,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 406,
+                      "beginLine" : 413,
                       "beginColumn" : 4,
-                      "endLine" : 406,
+                      "endLine" : 413,
                       "endColumn" : 30,
-                      "offset" : 13853,
+                      "offset" : 14176,
                       "length" : 26
                     }
                   },
@@ -7299,11 +7299,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 378,
+                            "beginLine" : 385,
                             "beginColumn" : 4,
-                            "endLine" : 378,
+                            "endLine" : 385,
                             "endColumn" : 73,
-                            "offset" : 12775,
+                            "offset" : 13098,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -7462,11 +7462,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 379,
+                            "beginLine" : 386,
                             "beginColumn" : 4,
-                            "endLine" : 379,
+                            "endLine" : 386,
                             "endColumn" : 75,
-                            "offset" : 12848,
+                            "offset" : 13171,
                             "length" : 71
                           },
                           "languageRealizations" : [

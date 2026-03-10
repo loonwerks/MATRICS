@@ -50,8 +50,8 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_usbRecv.lock().unwrap() = None;
-    *OUT_usbSend.lock().unwrap() = None;
+    *IN_usbRecv.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_usbSend.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -59,7 +59,7 @@ pub fn initialize_test_globals() {
 pub fn get_usbRecv(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    match *IN_usbRecv.lock().unwrap() {
+    match *IN_usbRecv.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -73,7 +73,7 @@ pub fn get_usbRecv(value: *mut Common::DummyMessage_Impl) -> bool
 pub fn put_usbSend(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    *OUT_usbSend.lock().unwrap() = Some(*value);
+    *OUT_usbSend.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }

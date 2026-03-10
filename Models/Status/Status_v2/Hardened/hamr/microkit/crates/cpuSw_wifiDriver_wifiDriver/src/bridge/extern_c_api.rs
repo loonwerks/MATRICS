@@ -96,12 +96,12 @@ lazy_static::lazy_static! {
 #[cfg(test)]
 pub fn initialize_test_globals() {
   unsafe {
-    *IN_wifiRecv.lock().unwrap() = None;
-    *IN_analysis_report.lock().unwrap() = None;
-    *IN_alert.lock().unwrap() = None;
-    *OUT_wifiSend.lock().unwrap() = None;
-    *OUT_HMD_log.lock().unwrap() = None;
-    *OUT_analysis_request.lock().unwrap() = None;
+    *IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -109,7 +109,7 @@ pub fn initialize_test_globals() {
 pub fn get_wifiRecv(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    match *IN_wifiRecv.lock().unwrap() {
+    match *IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -123,7 +123,7 @@ pub fn get_wifiRecv(value: *mut Common::DummyMessage_Impl) -> bool
 pub fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool
 {
   unsafe {
-    match *IN_analysis_report.lock().unwrap() {
+    match *IN_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -137,7 +137,7 @@ pub fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool
 pub fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    match *IN_alert.lock().unwrap() {
+    match *IN_alert.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         *value = v;
         return true;
@@ -151,7 +151,7 @@ pub fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool
 pub fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool
 {
   unsafe {
-    *OUT_wifiSend.lock().unwrap() = Some(*value);
+    *OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }
@@ -160,7 +160,7 @@ pub fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool
 pub fn put_HMD_log(value: *mut Common::Log_Impl) -> bool
 {
   unsafe {
-    *OUT_HMD_log.lock().unwrap() = Some(*value);
+    *OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }
@@ -169,7 +169,7 @@ pub fn put_HMD_log(value: *mut Common::Log_Impl) -> bool
 pub fn put_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
-    *OUT_analysis_request.lock().unwrap() = Some(*value);
+    *OUT_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
     return true;
   }
 }
