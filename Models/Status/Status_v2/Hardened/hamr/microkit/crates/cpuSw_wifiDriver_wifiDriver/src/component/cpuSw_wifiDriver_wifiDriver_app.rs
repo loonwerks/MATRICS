@@ -7,14 +7,18 @@ use vstd::prelude::*;
 verus! {
 
   pub struct cpuSw_wifiDriver_wifiDriver {
-    // PLACEHOLDER MARKER STATE VARS
+    // BEGIN MARKER STATE VARS
+    pub alert_cmd: bool,
+    // END MARKER STATE VARS
   }
 
   impl cpuSw_wifiDriver_wifiDriver {
     pub fn new() -> Self
     {
       Self {
-        // PLACEHOLDER MARKER STATE VAR INIT
+        // BEGIN MARKER STATE VAR INIT
+        alert_cmd: false,
+        // END MARKER STATE VAR INIT
       }
     }
 
@@ -22,7 +26,10 @@ verus! {
       &mut self,
       api: &mut cpuSw_wifiDriver_wifiDriver_Application_Api<API>)
       ensures
-        // PLACEHOLDER MARKER INITIALIZATION ENSURES
+        // BEGIN MARKER INITIALIZATION ENSURES
+        // guarantee defaultAlert
+        self.alert_cmd == false,
+        // END MARKER INITIALIZATION ENSURES
     {
       log_info("initialize entrypoint invoked");
     }
@@ -31,9 +38,29 @@ verus! {
       &mut self,
       api: &mut cpuSw_wifiDriver_wifiDriver_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).wifiSend.is_none(),
+        old(api).HMD_log.is_none(),
+        old(api).analysis_request.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee alert_cmd_variable
+        //   G: Once an alert command is seen, always stay alerted.
+        (api.alert.is_some() ==>
+          (self.alert_cmd == true)) &&
+          ((old(self).alert_cmd == true) ==>
+            (self.alert_cmd == true)),
+        // guarantee Process_Report
+        //   G: Stop outgoing communication once an alert has been received.
+        if (api.analysis_report.is_some() && !self.alert_cmd) {
+          api.wifiSend.is_some()
+        } else {
+          api.wifiSend.is_none()
+        },
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }

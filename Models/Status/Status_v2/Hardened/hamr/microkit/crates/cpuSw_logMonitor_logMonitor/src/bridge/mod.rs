@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_logMonitor_logMonitor_api;
+pub mod cpuSw_logMonitor_logMonitor_GUMBOX;

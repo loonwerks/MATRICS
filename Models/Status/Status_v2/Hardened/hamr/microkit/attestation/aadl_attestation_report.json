@@ -1,5 +1,1998 @@
 {
   "type": "AttestationReport",
   "reports": [
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver"],
+      "classifier": ["GroundStation", "wifiDriver"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "defaultAlert",
+          "kind": "Initialize",
+          "meta": "Initializes contract for GroundStation::wifiDriver",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 80,
+                  "beginCol": 5,
+                  "endLine": 81,
+                  "endCol": 25,
+                  "offset": 2346,
+                  "length": 48
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 76,
+                  "beginCol": 5,
+                  "endLine": 76,
+                  "endCol": 36,
+                  "offset": 2267,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 30,
+                  "beginCol": 11,
+                  "endLine": 31,
+                  "endCol": 31,
+                  "offset": 732,
+                  "length": 32
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 237,
+                  "length": 18
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "alert_cmd_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::wifiDriver",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 86,
+                  "beginCol": 5,
+                  "endLine": 87,
+                  "endCol": 94,
+                  "offset": 2443,
+                  "length": 180
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 76,
+                  "beginCol": 5,
+                  "endLine": 76,
+                  "endCol": 36,
+                  "offset": 2267,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 50,
+                  "beginCol": 11,
+                  "endLine": 55,
+                  "endCol": 37,
+                  "offset": 1440,
+                  "length": 223
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 237,
+                  "length": 18
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Process_Report",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::wifiDriver",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 89,
+                  "beginCol": 5,
+                  "endLine": 92,
+                  "endCol": 48,
+                  "offset": 2633,
+                  "length": 237
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 76,
+                  "beginCol": 5,
+                  "endLine": 76,
+                  "endCol": 36,
+                  "offset": 2267,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 56,
+                  "beginCol": 11,
+                  "endLine": 58,
+                  "endCol": 9,
+                  "offset": 1700,
+                  "length": 87
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 237,
+                  "length": 18
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "dataManager", "dataManager"],
+      "classifier": ["GroundStation", "dataManager"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "defaultZeroize",
+          "kind": "Initialize",
+          "meta": "Initializes contract for GroundStation::dataManager",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 140,
+                  "beginCol": 5,
+                  "endLine": 141,
+                  "endCol": 27,
+                  "offset": 4456,
+                  "length": 52
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 125,
+                  "beginCol": 5,
+                  "endLine": 125,
+                  "endCol": 38,
+                  "offset": 3992,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 32,
+                  "beginCol": 11,
+                  "endLine": 33,
+                  "endCol": 33,
+                  "offset": 868,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 25,
+                  "offset": 279,
+                  "length": 20
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "zeroize_cmd_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::dataManager",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 146,
+                  "beginCol": 5,
+                  "endLine": 147,
+                  "endCol": 102,
+                  "offset": 4567,
+                  "length": 186
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 125,
+                  "beginCol": 5,
+                  "endLine": 125,
+                  "endCol": 38,
+                  "offset": 3992,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 50,
+                  "beginCol": 11,
+                  "endLine": 55,
+                  "endCol": 39,
+                  "offset": 1507,
+                  "length": 227
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 25,
+                  "offset": 279,
+                  "length": 20
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Zeroize_Payload",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::dataManager",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 149,
+                  "beginCol": 5,
+                  "endLine": 150,
+                  "endCol": 82,
+                  "offset": 4759,
+                  "length": 201
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 125,
+                  "beginCol": 5,
+                  "endLine": 125,
+                  "endCol": 38,
+                  "offset": 3992,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: IS_ZEROIZED",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 127,
+                  "beginCol": 5,
+                  "endLine": 136,
+                  "endCol": 10,
+                  "offset": 4043,
+                  "length": 363
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 56,
+                  "beginCol": 11,
+                  "endLine": 59,
+                  "endCol": 56,
+                  "offset": 1772,
+                  "length": 220
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 25,
+                  "offset": 279,
+                  "length": 20
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: IS_ZEROIZED",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 94,
+                  "beginCol": 3,
+                  "endLine": 103,
+                  "endCol": 3,
+                  "offset": 2767,
+                  "length": 383
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Zeroize_Cache",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::dataManager",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 151,
+                  "beginCol": 5,
+                  "endLine": 152,
+                  "endCol": 41,
+                  "offset": 4965,
+                  "length": 112
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 125,
+                  "beginCol": 5,
+                  "endLine": 125,
+                  "endCol": 38,
+                  "offset": 3992,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: IS_ZEROIZED",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 127,
+                  "beginCol": 5,
+                  "endLine": 136,
+                  "endCol": 10,
+                  "offset": 4043,
+                  "length": 363
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: cache",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 124,
+                  "beginCol": 5,
+                  "endLine": 124,
+                  "endCol": 34,
+                  "offset": 3958,
+                  "length": 29
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 60,
+                  "beginCol": 11,
+                  "endLine": 62,
+                  "endCol": 52,
+                  "offset": 2028,
+                  "length": 110
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: zeroize_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 25,
+                  "offset": 279,
+                  "length": 20
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: IS_ZEROIZED",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 94,
+                  "beginCol": 3,
+                  "endLine": 103,
+                  "endCol": 3,
+                  "offset": 2767,
+                  "length": 383
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: cache",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 36,
+                  "offset": 241,
+                  "length": 31
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "decryptor", "decryptor"],
+      "classifier": ["Hardened_SW", "decryptor"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "Payload_Decrypted",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::decryptor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 399,
+                  "beginCol": 5,
+                  "endLine": 400,
+                  "endCol": 32,
+                  "offset": 14433,
+                  "length": 98
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_decryptor_decryptor\/src\/component\/cpuSw_decryptor_decryptor_app.rs",
+                  "beginLine": 41,
+                  "beginCol": 11,
+                  "endLine": 43,
+                  "endCol": 59,
+                  "offset": 1136,
+                  "length": 107
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "encryptor", "encryptor"],
+      "classifier": ["Hardened_SW", "encryptor"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "Payload_Encrypted",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::encryptor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 447,
+                  "beginCol": 5,
+                  "endLine": 448,
+                  "endCol": 64,
+                  "offset": 15902,
+                  "length": 130
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_encryptor_encryptor\/src\/component\/cpuSw_encryptor_encryptor_app.rs",
+                  "beginLine": 41,
+                  "beginCol": 11,
+                  "endLine": 43,
+                  "endCol": 91,
+                  "offset": 1144,
+                  "length": 139
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Header_Unencrypted",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::encryptor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 449,
+                  "beginCol": 5,
+                  "endLine": 450,
+                  "endCol": 62,
+                  "offset": 16037,
+                  "length": 132
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_encryptor_encryptor\/src\/component\/cpuSw_encryptor_encryptor_app.rs",
+                  "beginLine": 44,
+                  "beginCol": 11,
+                  "endLine": 46,
+                  "endCol": 89,
+                  "offset": 1324,
+                  "length": 140
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "logMonitor", "logMonitor"],
+      "classifier": ["Hardened_SW", "logMonitor"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "defaultSince",
+          "kind": "Initialize",
+          "meta": "Initializes contract for Hardened_SW::logMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 202,
+                  "beginCol": 5,
+                  "endLine": 203,
+                  "endCol": 28,
+                  "offset": 6480,
+                  "length": 51
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 197,
+                  "beginCol": 5,
+                  "endLine": 197,
+                  "endCol": 39,
+                  "offset": 6360,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 32,
+                  "beginCol": 11,
+                  "endLine": 33,
+                  "endCol": 34,
+                  "offset": 787,
+                  "length": 35
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 26,
+                  "offset": 237,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "is_valid_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::logMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 208,
+                  "beginCol": 5,
+                  "endLine": 211,
+                  "endCol": 60,
+                  "offset": 6594,
+                  "length": 201
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 198,
+                  "beginCol": 5,
+                  "endLine": 198,
+                  "endCol": 35,
+                  "offset": 6399,
+                  "length": 30
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 197,
+                  "beginCol": 5,
+                  "endLine": 197,
+                  "endCol": 39,
+                  "offset": 6360,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 51,
+                  "beginCol": 11,
+                  "endLine": 53,
+                  "endCol": 9,
+                  "offset": 1458,
+                  "length": 49
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 22,
+                  "offset": 265,
+                  "length": 17
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 26,
+                  "offset": 237,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "since_result_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::logMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 214,
+                  "beginCol": 5,
+                  "endLine": 215,
+                  "endCol": 109,
+                  "offset": 6810,
+                  "length": 230
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 197,
+                  "beginCol": 5,
+                  "endLine": 197,
+                  "endCol": 39,
+                  "offset": 6360,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Annex Library Method: GUMBO_PLTL::Since",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GUMBO_PLTL.aadl",
+                  "beginLine": 8,
+                  "beginCol": 4,
+                  "endLine": 9,
+                  "endCol": 27,
+                  "offset": 176,
+                  "length": 142
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 58,
+                  "beginCol": 11,
+                  "endLine": 60,
+                  "endCol": 84,
+                  "offset": 1741,
+                  "length": 185
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 26,
+                  "offset": 237,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Alert",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::logMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 217,
+                  "beginCol": 21,
+                  "endLine": 220,
+                  "endCol": 27,
+                  "offset": 7066,
+                  "length": 193
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 198,
+                  "beginCol": 5,
+                  "endLine": 198,
+                  "endCol": 35,
+                  "offset": 6399,
+                  "length": 30
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 61,
+                  "beginCol": 11,
+                  "endLine": 63,
+                  "endCol": 9,
+                  "offset": 2006,
+                  "length": 97
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 22,
+                  "offset": 265,
+                  "length": 17
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Forward_Response",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::logMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 221,
+                  "beginCol": 5,
+                  "endLine": 224,
+                  "endCol": 36,
+                  "offset": 7264,
+                  "length": 248
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 198,
+                  "beginCol": 5,
+                  "endLine": 198,
+                  "endCol": 35,
+                  "offset": 6399,
+                  "length": 30
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 68,
+                  "beginCol": 11,
+                  "endLine": 70,
+                  "endCol": 9,
+                  "offset": 2282,
+                  "length": 84
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 22,
+                  "offset": 265,
+                  "length": 17
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "reportMonitor", "reportMonitor"],
+      "classifier": ["Hardened_SW", "reportMonitor"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "defaultCounterAndSince",
+          "kind": "Initialize",
+          "meta": "Initializes contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 321,
+                  "beginCol": 5,
+                  "endLine": 323,
+                  "endCol": 28,
+                  "offset": 11385,
+                  "length": 87
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 302,
+                  "beginCol": 5,
+                  "endLine": 302,
+                  "endCol": 38,
+                  "offset": 10423,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 303,
+                  "beginCol": 5,
+                  "endLine": 303,
+                  "endCol": 39,
+                  "offset": 10461,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 36,
+                  "beginCol": 11,
+                  "endLine": 38,
+                  "endCol": 38,
+                  "offset": 926,
+                  "length": 73
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 20,
+                  "offset": 249,
+                  "length": 15
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 26,
+                  "offset": 271,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "since_result_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 327,
+                  "beginCol": 5,
+                  "endLine": 328,
+                  "endCol": 117,
+                  "offset": 11499,
+                  "length": 256
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 303,
+                  "beginCol": 5,
+                  "endLine": 303,
+                  "endCol": 39,
+                  "offset": 10461,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Annex Library Method: GUMBO_PLTL::Since",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GUMBO_PLTL.aadl",
+                  "beginLine": 8,
+                  "beginCol": 4,
+                  "endLine": 9,
+                  "endCol": 27,
+                  "offset": 176,
+                  "length": 142
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 56,
+                  "beginCol": 11,
+                  "endLine": 58,
+                  "endCol": 87,
+                  "offset": 1654,
+                  "length": 206
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 26,
+                  "offset": 271,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "valid1",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 330,
+                  "beginCol": 5,
+                  "endLine": 333,
+                  "endCol": 76,
+                  "offset": 11765,
+                  "length": 215
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 304,
+                  "beginCol": 5,
+                  "endLine": 304,
+                  "endCol": 36,
+                  "offset": 10500,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 303,
+                  "beginCol": 5,
+                  "endLine": 303,
+                  "endCol": 39,
+                  "offset": 10461,
+                  "length": 34
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 59,
+                  "beginCol": 11,
+                  "endLine": 61,
+                  "endCol": 9,
+                  "offset": 1946,
+                  "length": 50
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 13,
+                  "beginCol": 5,
+                  "endLine": 13,
+                  "endCol": 23,
+                  "offset": 299,
+                  "length": 18
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: since_result",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 12,
+                  "beginCol": 5,
+                  "endLine": 12,
+                  "endCol": 26,
+                  "offset": 271,
+                  "length": 21
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "invalid2",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 335,
+                  "beginCol": 5,
+                  "endLine": 336,
+                  "endCol": 91,
+                  "offset": 11991,
+                  "length": 143
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: Counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 307,
+                  "beginCol": 5,
+                  "endLine": 314,
+                  "endCol": 28,
+                  "offset": 10587,
+                  "length": 376
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 302,
+                  "beginCol": 5,
+                  "endLine": 302,
+                  "endCol": 38,
+                  "offset": 10423,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 66,
+                  "beginCol": 11,
+                  "endLine": 68,
+                  "endCol": 46,
+                  "offset": 2249,
+                  "length": 89
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: Counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 124,
+                  "beginCol": 3,
+                  "endLine": 138,
+                  "endCol": 3,
+                  "offset": 4059,
+                  "length": 230
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: counter",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 20,
+                  "offset": 249,
+                  "length": 15
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Alert1",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 338,
+                  "beginCol": 5,
+                  "endLine": 341,
+                  "endCol": 25,
+                  "offset": 12149,
+                  "length": 192
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 304,
+                  "beginCol": 5,
+                  "endLine": 304,
+                  "endCol": 36,
+                  "offset": 10500,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 69,
+                  "beginCol": 11,
+                  "endLine": 71,
+                  "endCol": 9,
+                  "offset": 2424,
+                  "length": 95
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 13,
+                  "beginCol": 5,
+                  "endLine": 13,
+                  "endCol": 23,
+                  "offset": 299,
+                  "length": 18
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Alert2",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 342,
+                  "beginCol": 5,
+                  "endLine": 345,
+                  "endCol": 25,
+                  "offset": 12346,
+                  "length": 158
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_invalid2",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 305,
+                  "beginCol": 5,
+                  "endLine": 305,
+                  "endCol": 38,
+                  "offset": 10536,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 76,
+                  "beginCol": 11,
+                  "endLine": 78,
+                  "endCol": 9,
+                  "offset": 2692,
+                  "length": 93
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_invalid2",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 14,
+                  "beginCol": 5,
+                  "endLine": 14,
+                  "endCol": 25,
+                  "offset": 324,
+                  "length": 20
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Forward_Report",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::reportMonitor",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 346,
+                  "beginCol": 5,
+                  "endLine": 349,
+                  "endCol": 39,
+                  "offset": 12509,
+                  "length": 377
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 304,
+                  "beginCol": 5,
+                  "endLine": 304,
+                  "endCol": 36,
+                  "offset": 10500,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: is_invalid2",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 305,
+                  "beginCol": 5,
+                  "endLine": 305,
+                  "endCol": 38,
+                  "offset": 10536,
+                  "length": 33
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: FOUND_IN_ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 316,
+                  "beginCol": 5,
+                  "endLine": 317,
+                  "endCol": 67,
+                  "offset": 11118,
+                  "length": 203
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 315,
+                  "beginCol": 5,
+                  "endLine": 315,
+                  "endCol": 150,
+                  "offset": 10968,
+                  "length": 145
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 83,
+                  "beginCol": 11,
+                  "endLine": 85,
+                  "endCol": 9,
+                  "offset": 2931,
+                  "length": 117
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_valid1",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 13,
+                  "beginCol": 5,
+                  "endLine": 13,
+                  "endCol": 23,
+                  "offset": 299,
+                  "length": 18
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: is_invalid2",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 14,
+                  "beginCol": 5,
+                  "endLine": 14,
+                  "endCol": 25,
+                  "offset": 324,
+                  "length": 20
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: FOUND_IN_ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 145,
+                  "beginCol": 3,
+                  "endLine": 150,
+                  "endCol": 3,
+                  "offset": 4413,
+                  "length": 208
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs",
+                  "beginLine": 140,
+                  "beginCol": 3,
+                  "endLine": 143,
+                  "endCol": 3,
+                  "offset": 4294,
+                  "length": 114
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "firewall", "firewall"],
+      "classifier": ["Hardened_SW", "firewall"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "Forward_Request",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for Hardened_SW::firewall",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 501,
+                  "beginCol": 5,
+                  "endLine": 504,
+                  "endCol": 40,
+                  "offset": 18065,
+                  "length": 319
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: FOUND_IN_ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 497,
+                  "beginCol": 5,
+                  "endLine": 498,
+                  "endCol": 67,
+                  "offset": 17838,
+                  "length": 203
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked GUMBO Subclause Method: ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/Hardened_SW.aadl",
+                  "beginLine": 496,
+                  "beginCol": 5,
+                  "endLine": 496,
+                  "endCol": 150,
+                  "offset": 17688,
+                  "length": 145
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs",
+                  "beginLine": 41,
+                  "beginCol": 11,
+                  "endLine": 43,
+                  "endCol": 9,
+                  "offset": 1129,
+                  "length": 81
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: FOUND_IN_ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs",
+                  "beginLine": 85,
+                  "beginCol": 3,
+                  "endLine": 90,
+                  "endCol": 3,
+                  "offset": 2283,
+                  "length": 208
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Invoked Verus Method: ALLOW_LIST",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs",
+                  "beginLine": 80,
+                  "beginCol": 3,
+                  "endLine": 83,
+                  "endCol": 3,
+                  "offset": 2164,
+                  "length": 114
+                }
+            }
+          ]
+        }
+       ]
+    }
   ]
 }

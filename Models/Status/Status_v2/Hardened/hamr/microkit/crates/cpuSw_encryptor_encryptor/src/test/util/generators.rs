@@ -56,6 +56,20 @@ pub fn Common_MsgHeader_Impl_strategy_cust
   })
 }
 
+pub fn MATRICS_Model_Transformations_AllowList_Impl_strategy_default() -> impl Strategy<Value = MATRICS_Model_Transformations::AllowList_Impl>
+{
+  MATRICS_Model_Transformations_AllowList_Impl_strategy_cust(any::<u32>())
+}
+
+pub fn MATRICS_Model_Transformations_AllowList_Impl_strategy_cust<u32_strategy: Strategy<Value = u32>> (base_strategy: u32_strategy) -> impl Strategy<Value = MATRICS_Model_Transformations::AllowList_Impl>
+{
+  proptest::collection::vec(base_strategy, MATRICS_Model_Transformations::MATRICS_Model_Transformations_AllowList_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[u32; MATRICS_Model_Transformations::MATRICS_Model_Transformations_AllowList_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
 pub fn Common_Log_Impl_strategy_default() -> impl Strategy<Value = Common::Log_Impl>
 {
   Common_Log_Impl_strategy_cust(

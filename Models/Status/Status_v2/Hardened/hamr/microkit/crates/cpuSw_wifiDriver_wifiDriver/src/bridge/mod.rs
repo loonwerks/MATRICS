@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_wifiDriver_wifiDriver_api;
+pub mod cpuSw_wifiDriver_wifiDriver_GUMBOX;

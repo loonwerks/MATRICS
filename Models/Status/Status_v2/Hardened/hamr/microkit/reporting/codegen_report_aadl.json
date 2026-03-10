@@ -25,11 +25,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 193,
+                  "beginLine" : 217,
                   "beginColumn" : 4,
-                  "endLine" : 193,
+                  "endLine" : 217,
                   "endColumn" : 35,
-                  "offset" : 6362,
+                  "offset" : 7077,
                   "length" : 31
                 }
               },
@@ -47,11 +47,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 194,
+                  "beginLine" : 218,
                   "beginColumn" : 4,
-                  "endLine" : 194,
+                  "endLine" : 218,
                   "endColumn" : 45,
-                  "offset" : 6397,
+                  "offset" : 7112,
                   "length" : 41
                 }
               },
@@ -69,11 +69,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 195,
+                  "beginLine" : 219,
                   "beginColumn" : 4,
-                  "endLine" : 195,
+                  "endLine" : 219,
                   "endColumn" : 33,
-                  "offset" : 6442,
+                  "offset" : 7157,
                   "length" : 29
                 }
               },
@@ -540,6 +540,11 @@
             },
             {
               "type" : "ResourceReport",
+              "path" : "crates\/data\/src\/MATRICS_Model_Transformations\/AllowList_Impl.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
               "path" : "crates\/data\/src\/Common\/Log_Impl.rs",
               "overwrittenIfExists" : true
             },
@@ -576,6 +581,11 @@
             {
               "type" : "ResourceReport",
               "path" : "crates\/data\/src\/Common\/mod.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/data\/src\/MATRICS_Model_Transformations\/mod.rs",
               "overwrittenIfExists" : true
             },
             {
@@ -1352,6 +1362,91 @@
               "type" : "ResourceReport",
               "path" : "crates\/cpuSw_firewall_firewall\/src\/test\/util\/test_apis.rs",
               "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/GUMBO_PLTL\/src\/lib.rs",
+              "overwrittenIfExists" : false
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/GUMBO_PLTL\/Cargo.toml",
+              "overwrittenIfExists" : false
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/GUMBO_PLTL\/rust-toolchain.toml",
+              "overwrittenIfExists" : false
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_dataManager_dataManager\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_decryptor_decryptor\/src\/bridge\/cpuSw_decryptor_decryptor_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_decryptor_decryptor\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_encryptor_encryptor\/src\/bridge\/cpuSw_encryptor_encryptor_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_encryptor_encryptor\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_logMonitor_logMonitor\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "crates\/cpuSw_firewall_firewall\/src\/test\/util\/cb_apis.rs",
+              "overwrittenIfExists" : true
             }
           ]
         }
@@ -1388,11 +1483,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 34,
+                      "beginLine" : 36,
                       "beginColumn" : 4,
-                      "endLine" : 34,
+                      "endLine" : 36,
                       "endColumn" : 34,
-                      "offset" : 1044,
+                      "offset" : 1080,
                       "length" : 30
                     }
                   },
@@ -2403,12 +2498,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
                               },
-                              "beginLine" : 21,
+                              "beginLine" : 25,
                               "beginColumn" : 5,
-                              "endLine" : 28,
+                              "endLine" : 35,
                               "endColumn" : 5,
-                              "offset" : 389,
-                              "length" : 271
+                              "offset" : 494,
+                              "length" : 377
                             }
                           ],
                           [
@@ -2419,12 +2514,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
                               },
-                              "beginLine" : 30,
+                              "beginLine" : 37,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 66,
                               "endColumn" : 5,
-                              "offset" : 667,
-                              "length" : 341
+                              "offset" : 878,
+                              "length" : 1160
                             }
                           ]
                         ]
@@ -2444,10 +2539,255 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "alert_cmd",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                              },
+                              "beginLine" : 11,
+                              "beginColumn" : 5,
+                              "endLine" : 11,
+                              "endColumn" : 23,
+                              "offset" : 237,
+                              "length" : 18
+                            }
+                          ]
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "defaultAlert",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                              },
+                              "beginLine" : 30,
+                              "beginColumn" : 11,
+                              "endLine" : 31,
+                              "endColumn" : 31,
+                              "offset" : 732,
+                              "length" : 32
+                            }
+                          ]
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 2,
+                            "entries" : [
+                              [
+                                "alert_cmd_variable",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                  },
+                                  "beginLine" : 50,
+                                  "beginColumn" : 11,
+                                  "endLine" : 55,
+                                  "endColumn" : 37,
+                                  "offset" : 1440,
+                                  "length" : 223
+                                }
+                              ],
+                              [
+                                "Process_Report",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                  },
+                                  "beginLine" : 56,
+                                  "beginColumn" : 11,
+                                  "endLine" : 58,
+                                  "endColumn" : 9,
+                                  "offset" : 1700,
+                                  "length" : 87
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 7,
+                        "entries" : [
+                          [
+                            "initialize_defaultAlert",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 22,
+                              "beginColumn" : 1,
+                              "endLine" : 25,
+                              "endColumn" : 1,
+                              "offset" : 365,
+                              "length" : 79
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 34,
+                              "beginColumn" : 1,
+                              "endLine" : 41,
+                              "endColumn" : 1,
+                              "offset" : 708,
+                              "length" : 248
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 50,
+                              "beginColumn" : 1,
+                              "endLine" : 57,
+                              "endColumn" : 1,
+                              "offset" : 1220,
+                              "length" : 293
+                            }
+                          ],
+                          [
+                            "compute_spec_alert_cmd_variable_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 67,
+                              "beginColumn" : 1,
+                              "endLine" : 78,
+                              "endColumn" : 1,
+                              "offset" : 1793,
+                              "length" : 290
+                            }
+                          ],
+                          [
+                            "compute_spec_Process_Report_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 88,
+                              "beginColumn" : 1,
+                              "endLine" : 98,
+                              "endColumn" : 1,
+                              "offset" : 2378,
+                              "length" : 307
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 108,
+                              "beginColumn" : 1,
+                              "endLine" : 119,
+                              "endColumn" : 1,
+                              "offset" : 3026,
+                              "length" : 455
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                              },
+                              "beginLine" : 132,
+                              "beginColumn" : 1,
+                              "endLine" : 146,
+                              "endColumn" : 1,
+                              "offset" : 3957,
+                              "length" : 579
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -2475,11 +2815,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 128,
+                      "beginLine" : 130,
                       "beginColumn" : 4,
-                      "endLine" : 128,
+                      "endLine" : 130,
                       "endColumn" : 30,
-                      "offset" : 4275,
+                      "offset" : 4311,
                       "length" : 26
                     }
                   },
@@ -2517,11 +2857,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 154,
+                            "beginLine" : 178,
                             "beginColumn" : 4,
-                            "endLine" : 154,
+                            "endLine" : 178,
                             "endColumn" : 57,
-                            "offset" : 5140,
+                            "offset" : 5855,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -2680,11 +3020,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 155,
+                            "beginLine" : 179,
                             "beginColumn" : 4,
-                            "endLine" : 155,
+                            "endLine" : 179,
                             "endColumn" : 58,
-                            "offset" : 5200,
+                            "offset" : 5915,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -2910,11 +3250,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 148,
+                      "beginLine" : 150,
                       "beginColumn" : 4,
-                      "endLine" : 148,
+                      "endLine" : 150,
                       "endColumn" : 32,
-                      "offset" : 4817,
+                      "offset" : 4853,
                       "length" : 28
                     }
                   },
@@ -2952,11 +3292,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 166,
+                            "beginLine" : 190,
                             "beginColumn" : 4,
-                            "endLine" : 166,
+                            "endLine" : 190,
                             "endColumn" : 58,
-                            "offset" : 5447,
+                            "offset" : 6162,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3115,11 +3455,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 167,
+                            "beginLine" : 191,
                             "beginColumn" : 4,
-                            "endLine" : 167,
+                            "endLine" : 191,
                             "endColumn" : 59,
-                            "offset" : 5505,
+                            "offset" : 6220,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -3345,11 +3685,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 74,
+                      "beginLine" : 76,
                       "beginColumn" : 4,
-                      "endLine" : 74,
+                      "endLine" : 76,
                       "endColumn" : 36,
-                      "offset" : 2446,
+                      "offset" : 2482,
                       "length" : 32
                     }
                   },
@@ -3387,11 +3727,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 78,
+                            "beginLine" : 98,
                             "beginColumn" : 4,
-                            "endLine" : 78,
+                            "endLine" : 98,
                             "endColumn" : 49,
-                            "offset" : 2290,
+                            "offset" : 2931,
                             "length" : 45
                           },
                           "languageRealizations" : [
@@ -3550,11 +3890,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 79,
+                            "beginLine" : 99,
                             "beginColumn" : 4,
-                            "endLine" : 79,
+                            "endLine" : 99,
                             "endColumn" : 57,
-                            "offset" : 2339,
+                            "offset" : 2980,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -3712,11 +4052,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 81,
+                            "beginLine" : 101,
                             "beginColumn" : 4,
-                            "endLine" : 81,
+                            "endLine" : 101,
                             "endColumn" : 27,
-                            "offset" : 2459,
+                            "offset" : 3100,
                             "length" : 23
                           },
                           "languageRealizations" : [
@@ -3875,11 +4215,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 80,
+                            "beginLine" : 100,
                             "beginColumn" : 4,
-                            "endLine" : 80,
+                            "endLine" : 100,
                             "endColumn" : 63,
-                            "offset" : 2396,
+                            "offset" : 3037,
                             "length" : 59
                           },
                           "languageRealizations" : [
@@ -4033,12 +4373,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
                               },
-                              "beginLine" : 21,
+                              "beginLine" : 27,
                               "beginColumn" : 5,
-                              "endLine" : 28,
+                              "endLine" : 37,
                               "endColumn" : 5,
-                              "offset" : 395,
-                              "length" : 275
+                              "offset" : 624,
+                              "length" : 385
                             }
                           ],
                           [
@@ -4049,12 +4389,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
                               },
-                              "beginLine" : 30,
+                              "beginLine" : 39,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 66,
                               "endColumn" : 5,
-                              "offset" : 677,
-                              "length" : 345
+                              "offset" : 1016,
+                              "length" : 1226
                             }
                           ]
                         ]
@@ -4074,10 +4414,335 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 2,
+                        "entries" : [
+                          [
+                            "cache",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                              },
+                              "beginLine" : 11,
+                              "beginColumn" : 5,
+                              "endLine" : 11,
+                              "endColumn" : 36,
+                              "offset" : 241,
+                              "length" : 31
+                            }
+                          ],
+                          [
+                            "zeroize_cmd",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                              },
+                              "beginLine" : 12,
+                              "beginColumn" : 5,
+                              "endLine" : 12,
+                              "endColumn" : 25,
+                              "offset" : 279,
+                              "length" : 20
+                            }
+                          ]
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "IS_ZEROIZED",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                              },
+                              "beginLine" : 94,
+                              "beginColumn" : 3,
+                              "endLine" : 103,
+                              "endColumn" : 3,
+                              "offset" : 2767,
+                              "length" : 383
+                            }
+                          ]
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "defaultZeroize",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                              },
+                              "beginLine" : 32,
+                              "beginColumn" : 11,
+                              "endLine" : 33,
+                              "endColumn" : 33,
+                              "offset" : 868,
+                              "length" : 34
+                            }
+                          ]
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 3,
+                            "entries" : [
+                              [
+                                "zeroize_cmd_variable",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                                  },
+                                  "beginLine" : 50,
+                                  "beginColumn" : 11,
+                                  "endLine" : 55,
+                                  "endColumn" : 39,
+                                  "offset" : 1507,
+                                  "length" : 227
+                                }
+                              ],
+                              [
+                                "Zeroize_Payload",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                                  },
+                                  "beginLine" : 56,
+                                  "beginColumn" : 11,
+                                  "endLine" : 59,
+                                  "endColumn" : 56,
+                                  "offset" : 1772,
+                                  "length" : 220
+                                }
+                              ],
+                              [
+                                "Zeroize_Cache",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_dataManager_dataManager\/src\/component\/cpuSw_dataManager_dataManager_app.rs"
+                                  },
+                                  "beginLine" : 60,
+                                  "beginColumn" : 11,
+                                  "endLine" : 62,
+                                  "endColumn" : 52,
+                                  "offset" : 2028,
+                                  "length" : 110
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 9,
+                        "entries" : [
+                          [
+                            "IS_ZEROIZED",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 17,
+                              "beginColumn" : 1,
+                              "endLine" : 26,
+                              "endColumn" : 1,
+                              "offset" : 248,
+                              "length" : 315
+                            }
+                          ],
+                          [
+                            "initialize_defaultZeroize",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 33,
+                              "beginColumn" : 1,
+                              "endLine" : 36,
+                              "endColumn" : 1,
+                              "offset" : 687,
+                              "length" : 85
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 44,
+                              "beginColumn" : 1,
+                              "endLine" : 50,
+                              "endColumn" : 1,
+                              "offset" : 981,
+                              "length" : 186
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 58,
+                              "beginColumn" : 1,
+                              "endLine" : 64,
+                              "endColumn" : 1,
+                              "offset" : 1375,
+                              "length" : 205
+                            }
+                          ],
+                          [
+                            "compute_spec_zeroize_cmd_variable_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 74,
+                              "beginColumn" : 1,
+                              "endLine" : 85,
+                              "endColumn" : 1,
+                              "offset" : 1859,
+                              "length" : 283
+                            }
+                          ],
+                          [
+                            "compute_spec_Zeroize_Payload_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 95,
+                              "beginColumn" : 1,
+                              "endLine" : 103,
+                              "endColumn" : 1,
+                              "offset" : 2466,
+                              "length" : 291
+                            }
+                          ],
+                          [
+                            "compute_spec_Zeroize_Cache_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 112,
+                              "beginColumn" : 1,
+                              "endLine" : 119,
+                              "endColumn" : 1,
+                              "offset" : 2971,
+                              "length" : 162
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 130,
+                              "beginColumn" : 1,
+                              "endLine" : 143,
+                              "endColumn" : 1,
+                              "offset" : 3519,
+                              "length" : 554
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_dataManager_dataManager\/src\/bridge\/cpuSw_dataManager_dataManager_GUMBOX.rs"
+                              },
+                              "beginLine" : 156,
+                              "beginColumn" : 1,
+                              "endLine" : 170,
+                              "endColumn" : 1,
+                              "offset" : 4533,
+                              "length" : 522
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -4105,11 +4770,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 103,
+                      "beginLine" : 105,
                       "beginColumn" : 4,
-                      "endLine" : 103,
+                      "endLine" : 105,
                       "endColumn" : 38,
-                      "offset" : 3526,
+                      "offset" : 3562,
                       "length" : 34
                     }
                   },
@@ -4147,11 +4812,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 136,
+                            "beginLine" : 160,
                             "beginColumn" : 4,
-                            "endLine" : 136,
+                            "endLine" : 160,
                             "endColumn" : 62,
-                            "offset" : 4487,
+                            "offset" : 5202,
                             "length" : 58
                           },
                           "languageRealizations" : [
@@ -4310,11 +4975,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 138,
+                            "beginLine" : 162,
                             "beginColumn" : 4,
-                            "endLine" : 138,
+                            "endLine" : 162,
                             "endColumn" : 70,
-                            "offset" : 4618,
+                            "offset" : 5333,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -4473,11 +5138,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 135,
+                            "beginLine" : 159,
                             "beginColumn" : 4,
-                            "endLine" : 135,
+                            "endLine" : 159,
                             "endColumn" : 58,
-                            "offset" : 4429,
+                            "offset" : 5144,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -4636,11 +5301,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 137,
+                            "beginLine" : 161,
                             "beginColumn" : 4,
-                            "endLine" : 137,
+                            "endLine" : 161,
                             "endColumn" : 69,
-                            "offset" : 4549,
+                            "offset" : 5264,
                             "length" : 65
                           },
                           "languageRealizations" : [
@@ -4866,11 +5531,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 321,
+                      "beginLine" : 416,
                       "beginColumn" : 4,
-                      "endLine" : 321,
+                      "endLine" : 416,
                       "endColumn" : 32,
-                      "offset" : 10996,
+                      "offset" : 14904,
                       "length" : 28
                     }
                   },
@@ -4908,11 +5573,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 295,
+                            "beginLine" : 385,
                             "beginColumn" : 4,
-                            "endLine" : 295,
+                            "endLine" : 385,
                             "endColumn" : 52,
-                            "offset" : 10249,
+                            "offset" : 14017,
                             "length" : 48
                           },
                           "languageRealizations" : [
@@ -5071,11 +5736,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 296,
+                            "beginLine" : 386,
                             "beginColumn" : 4,
-                            "endLine" : 296,
+                            "endLine" : 386,
                             "endColumn" : 54,
-                            "offset" : 10301,
+                            "offset" : 14069,
                             "length" : 50
                           },
                           "languageRealizations" : [
@@ -5247,10 +5912,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 47,
                               "endColumn" : 5,
                               "offset" : 657,
-                              "length" : 337
+                              "length" : 690
                             }
                           ]
                         ]
@@ -5270,10 +5935,143 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 1,
+                            "entries" : [
+                              [
+                                "Payload_Decrypted",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_decryptor_decryptor\/src\/component\/cpuSw_decryptor_decryptor_app.rs"
+                                  },
+                                  "beginLine" : 41,
+                                  "beginColumn" : 11,
+                                  "endLine" : 43,
+                                  "endColumn" : 59,
+                                  "offset" : 1136,
+                                  "length" : 107
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 3,
+                        "entries" : [
+                          [
+                            "compute_spec_Payload_Decrypted_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_decryptor_decryptor\/src\/bridge\/cpuSw_decryptor_decryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 24,
+                              "beginColumn" : 1,
+                              "endLine" : 29,
+                              "endColumn" : 1,
+                              "offset" : 464,
+                              "length" : 202
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_decryptor_decryptor\/src\/bridge\/cpuSw_decryptor_decryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 36,
+                              "beginColumn" : 1,
+                              "endLine" : 43,
+                              "endColumn" : 1,
+                              "offset" : 862,
+                              "length" : 232
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_decryptor_decryptor\/src\/bridge\/cpuSw_decryptor_decryptor_GUMBOX.rs"
+                              },
+                              "beginLine" : 50,
+                              "beginColumn" : 1,
+                              "endLine" : 58,
+                              "endColumn" : 1,
+                              "offset" : 1271,
+                              "length" : 275
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -5301,11 +6099,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 371,
+                      "beginLine" : 466,
                       "beginColumn" : 4,
-                      "endLine" : 371,
+                      "endLine" : 466,
                       "endColumn" : 32,
-                      "offset" : 12700,
+                      "offset" : 16594,
                       "length" : 28
                     }
                   },
@@ -5343,11 +6141,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 336,
+                            "beginLine" : 431,
                             "beginColumn" : 4,
-                            "endLine" : 336,
+                            "endLine" : 431,
                             "endColumn" : 71,
-                            "offset" : 11358,
+                            "offset" : 15266,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -5506,11 +6304,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 337,
+                            "beginLine" : 432,
                             "beginColumn" : 4,
-                            "endLine" : 337,
+                            "endLine" : 432,
                             "endColumn" : 73,
-                            "offset" : 11429,
+                            "offset" : 15337,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -5705,7 +6503,99 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 2,
+                            "entries" : [
+                              [
+                                "Payload_Encrypted",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_encryptor_encryptor\/src\/component\/cpuSw_encryptor_encryptor_app.rs"
+                                  },
+                                  "beginLine" : 41,
+                                  "beginColumn" : 11,
+                                  "endLine" : 43,
+                                  "endColumn" : 91,
+                                  "offset" : 1144,
+                                  "length" : 139
+                                }
+                              ],
+                              [
+                                "Header_Unencrypted",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_encryptor_encryptor\/src\/component\/cpuSw_encryptor_encryptor_app.rs"
+                                  },
+                                  "beginLine" : 44,
+                                  "beginColumn" : 11,
+                                  "endLine" : 46,
+                                  "endColumn" : 89,
+                                  "offset" : 1324,
+                                  "length" : 140
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
                     "type" : "Some",
@@ -5809,11 +6699,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 205,
+                      "beginLine" : 244,
                       "beginColumn" : 4,
-                      "endLine" : 205,
+                      "endLine" : 244,
                       "endColumn" : 34,
-                      "offset" : 6814,
+                      "offset" : 8079,
                       "length" : 30
                     }
                   },
@@ -5851,11 +6741,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 160,
+                            "beginLine" : 162,
                             "beginColumn" : 4,
-                            "endLine" : 160,
+                            "endLine" : 162,
                             "endColumn" : 57,
-                            "offset" : 5137,
+                            "offset" : 5173,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -6014,11 +6904,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 161,
+                            "beginLine" : 163,
                             "beginColumn" : 4,
-                            "endLine" : 161,
+                            "endLine" : 163,
                             "endColumn" : 65,
-                            "offset" : 5194,
+                            "offset" : 5230,
                             "length" : 61
                           },
                           "languageRealizations" : [
@@ -6177,11 +7067,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 162,
+                            "beginLine" : 164,
                             "beginColumn" : 4,
-                            "endLine" : 162,
+                            "endLine" : 164,
                             "endColumn" : 67,
-                            "offset" : 5259,
+                            "offset" : 5295,
                             "length" : 63
                           },
                           "languageRealizations" : [
@@ -6339,11 +7229,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 163,
+                            "beginLine" : 165,
                             "beginColumn" : 4,
-                            "endLine" : 163,
+                            "endLine" : 165,
                             "endColumn" : 26,
-                            "offset" : 5329,
+                            "offset" : 5365,
                             "length" : 22
                           },
                           "languageRealizations" : [
@@ -6497,12 +7387,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                               },
-                              "beginLine" : 21,
+                              "beginLine" : 27,
                               "beginColumn" : 5,
-                              "endLine" : 28,
+                              "endLine" : 37,
                               "endColumn" : 5,
-                              "offset" : 389,
-                              "length" : 271
+                              "offset" : 549,
+                              "length" : 380
                             }
                           ],
                           [
@@ -6513,12 +7403,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                               },
-                              "beginLine" : 30,
+                              "beginLine" : 39,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 79,
                               "endColumn" : 5,
-                              "offset" : 667,
-                              "length" : 341
+                              "offset" : 936,
+                              "length" : 1774
                             }
                           ]
                         ]
@@ -6538,10 +7428,335 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 2,
+                        "entries" : [
+                          [
+                            "since_result",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                              },
+                              "beginLine" : 11,
+                              "beginColumn" : 5,
+                              "endLine" : 11,
+                              "endColumn" : 26,
+                              "offset" : 237,
+                              "length" : 21
+                            }
+                          ],
+                          [
+                            "is_valid",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                              },
+                              "beginLine" : 12,
+                              "beginColumn" : 5,
+                              "endLine" : 12,
+                              "endColumn" : 22,
+                              "offset" : 265,
+                              "length" : 17
+                            }
+                          ]
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "defaultSince",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                              },
+                              "beginLine" : 32,
+                              "beginColumn" : 11,
+                              "endLine" : 33,
+                              "endColumn" : 34,
+                              "offset" : 787,
+                              "length" : 35
+                            }
+                          ]
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 4,
+                            "entries" : [
+                              [
+                                "is_valid_variable",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                                  },
+                                  "beginLine" : 51,
+                                  "beginColumn" : 11,
+                                  "endLine" : 53,
+                                  "endColumn" : 9,
+                                  "offset" : 1458,
+                                  "length" : 49
+                                }
+                              ],
+                              [
+                                "since_result_variable",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                                  },
+                                  "beginLine" : 58,
+                                  "beginColumn" : 11,
+                                  "endLine" : 60,
+                                  "endColumn" : 84,
+                                  "offset" : 1741,
+                                  "length" : 185
+                                }
+                              ],
+                              [
+                                "Alert",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                                  },
+                                  "beginLine" : 61,
+                                  "beginColumn" : 11,
+                                  "endLine" : 63,
+                                  "endColumn" : 9,
+                                  "offset" : 2006,
+                                  "length" : 97
+                                }
+                              ],
+                              [
+                                "Forward_Response",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                                  },
+                                  "beginLine" : 68,
+                                  "beginColumn" : 11,
+                                  "endLine" : 70,
+                                  "endColumn" : 9,
+                                  "offset" : 2282,
+                                  "length" : 84
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 9,
+                        "entries" : [
+                          [
+                            "initialize_defaultSince",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 22,
+                              "beginColumn" : 1,
+                              "endLine" : 25,
+                              "endColumn" : 1,
+                              "offset" : 368,
+                              "length" : 85
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 34,
+                              "beginColumn" : 1,
+                              "endLine" : 41,
+                              "endColumn" : 1,
+                              "offset" : 710,
+                              "length" : 201
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 50,
+                              "beginColumn" : 1,
+                              "endLine" : 57,
+                              "endColumn" : 1,
+                              "offset" : 1168,
+                              "length" : 240
+                            }
+                          ],
+                          [
+                            "compute_spec_is_valid_variable_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 68,
+                              "beginColumn" : 1,
+                              "endLine" : 81,
+                              "endColumn" : 1,
+                              "offset" : 1722,
+                              "length" : 386
+                            }
+                          ],
+                          [
+                            "compute_spec_since_result_variable_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 92,
+                              "beginColumn" : 1,
+                              "endLine" : 99,
+                              "endColumn" : 1,
+                              "offset" : 2491,
+                              "length" : 330
+                            }
+                          ],
+                          [
+                            "compute_spec_Alert_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 109,
+                              "beginColumn" : 1,
+                              "endLine" : 119,
+                              "endColumn" : 1,
+                              "offset" : 3108,
+                              "length" : 261
+                            }
+                          ],
+                          [
+                            "compute_spec_Forward_Response_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 129,
+                              "beginColumn" : 1,
+                              "endLine" : 140,
+                              "endColumn" : 1,
+                              "offset" : 3670,
+                              "length" : 398
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 152,
+                              "beginColumn" : 1,
+                              "endLine" : 167,
+                              "endColumn" : 1,
+                              "offset" : 4516,
+                              "length" : 779
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 180,
+                              "beginColumn" : 1,
+                              "endLine" : 194,
+                              "endColumn" : 1,
+                              "offset" : 5772,
+                              "length" : 541
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -6569,11 +7784,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 279,
+                      "beginLine" : 369,
                       "beginColumn" : 4,
-                      "endLine" : 279,
+                      "endLine" : 369,
                       "endColumn" : 40,
-                      "offset" : 9778,
+                      "offset" : 13546,
                       "length" : 36
                     }
                   },
@@ -6611,11 +7826,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 221,
+                            "beginLine" : 260,
                             "beginColumn" : 4,
-                            "endLine" : 221,
+                            "endLine" : 260,
                             "endColumn" : 70,
-                            "offset" : 7300,
+                            "offset" : 8565,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -6774,11 +7989,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 222,
+                            "beginLine" : 261,
                             "beginColumn" : 4,
-                            "endLine" : 222,
+                            "endLine" : 261,
                             "endColumn" : 71,
-                            "offset" : 7370,
+                            "offset" : 8635,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -6937,11 +8152,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 223,
+                            "beginLine" : 262,
                             "beginColumn" : 4,
-                            "endLine" : 223,
+                            "endLine" : 262,
                             "endColumn" : 73,
-                            "offset" : 7441,
+                            "offset" : 8706,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -7100,11 +8315,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 224,
+                            "beginLine" : 263,
                             "beginColumn" : 4,
-                            "endLine" : 224,
+                            "endLine" : 263,
                             "endColumn" : 57,
-                            "offset" : 7514,
+                            "offset" : 8779,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -7258,12 +8473,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
                               },
-                              "beginLine" : 21,
+                              "beginLine" : 31,
                               "beginColumn" : 5,
-                              "endLine" : 28,
+                              "endLine" : 42,
                               "endColumn" : 5,
-                              "offset" : 407,
-                              "length" : 283
+                              "offset" : 666,
+                              "length" : 440
                             }
                           ],
                           [
@@ -7274,12 +8489,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
                               },
-                              "beginLine" : 30,
+                              "beginLine" : 44,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 96,
                               "endColumn" : 5,
-                              "offset" : 697,
-                              "length" : 353
+                              "offset" : 1113,
+                              "length" : 2421
                             }
                           ]
                         ]
@@ -7299,10 +8514,527 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 4,
+                        "entries" : [
+                          [
+                            "counter",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 11,
+                              "beginColumn" : 5,
+                              "endLine" : 11,
+                              "endColumn" : 20,
+                              "offset" : 249,
+                              "length" : 15
+                            }
+                          ],
+                          [
+                            "since_result",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 12,
+                              "beginColumn" : 5,
+                              "endLine" : 12,
+                              "endColumn" : 26,
+                              "offset" : 271,
+                              "length" : 21
+                            }
+                          ],
+                          [
+                            "is_valid1",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 13,
+                              "beginColumn" : 5,
+                              "endLine" : 13,
+                              "endColumn" : 23,
+                              "offset" : 299,
+                              "length" : 18
+                            }
+                          ],
+                          [
+                            "is_invalid2",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 14,
+                              "beginColumn" : 5,
+                              "endLine" : 14,
+                              "endColumn" : 25,
+                              "offset" : 324,
+                              "length" : 20
+                            }
+                          ]
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 3,
+                        "entries" : [
+                          [
+                            "Counter",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 124,
+                              "beginColumn" : 3,
+                              "endLine" : 138,
+                              "endColumn" : 3,
+                              "offset" : 4059,
+                              "length" : 230
+                            }
+                          ],
+                          [
+                            "ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 140,
+                              "beginColumn" : 3,
+                              "endLine" : 143,
+                              "endColumn" : 3,
+                              "offset" : 4294,
+                              "length" : 114
+                            }
+                          ],
+                          [
+                            "FOUND_IN_ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 145,
+                              "beginColumn" : 3,
+                              "endLine" : 150,
+                              "endColumn" : 3,
+                              "offset" : 4413,
+                              "length" : 208
+                            }
+                          ]
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 1,
+                        "entries" : [
+                          [
+                            "defaultCounterAndSince",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                              },
+                              "beginLine" : 36,
+                              "beginColumn" : 11,
+                              "endLine" : 38,
+                              "endColumn" : 38,
+                              "offset" : 926,
+                              "length" : 73
+                            }
+                          ]
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 6,
+                            "entries" : [
+                              [
+                                "since_result_variable",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 56,
+                                  "beginColumn" : 11,
+                                  "endLine" : 58,
+                                  "endColumn" : 87,
+                                  "offset" : 1654,
+                                  "length" : 206
+                                }
+                              ],
+                              [
+                                "valid1",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 59,
+                                  "beginColumn" : 11,
+                                  "endLine" : 61,
+                                  "endColumn" : 9,
+                                  "offset" : 1946,
+                                  "length" : 50
+                                }
+                              ],
+                              [
+                                "invalid2",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 66,
+                                  "beginColumn" : 11,
+                                  "endLine" : 68,
+                                  "endColumn" : 46,
+                                  "offset" : 2249,
+                                  "length" : 89
+                                }
+                              ],
+                              [
+                                "Alert1",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 69,
+                                  "beginColumn" : 11,
+                                  "endLine" : 71,
+                                  "endColumn" : 9,
+                                  "offset" : 2424,
+                                  "length" : 95
+                                }
+                              ],
+                              [
+                                "Alert2",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 76,
+                                  "beginColumn" : 11,
+                                  "endLine" : 78,
+                                  "endColumn" : 9,
+                                  "offset" : 2692,
+                                  "length" : 93
+                                }
+                              ],
+                              [
+                                "Forward_Report",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/component\/cpuSw_reportMonitor_reportMonitor_app.rs"
+                                  },
+                                  "beginLine" : 83,
+                                  "beginColumn" : 11,
+                                  "endLine" : 85,
+                                  "endColumn" : 9,
+                                  "offset" : 2931,
+                                  "length" : 117
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 14,
+                        "entries" : [
+                          [
+                            "Counter",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 17,
+                              "beginColumn" : 1,
+                              "endLine" : 31,
+                              "endColumn" : 1,
+                              "offset" : 248,
+                              "length" : 183
+                            }
+                          ],
+                          [
+                            "ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 33,
+                              "beginColumn" : 1,
+                              "endLine" : 36,
+                              "endColumn" : 1,
+                              "offset" : 434,
+                              "length" : 98
+                            }
+                          ],
+                          [
+                            "FOUND_IN_ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 38,
+                              "beginColumn" : 1,
+                              "endLine" : 43,
+                              "endColumn" : 1,
+                              "offset" : 535,
+                              "length" : 165
+                            }
+                          ],
+                          [
+                            "initialize_defaultCounterAndSince",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 51,
+                              "beginColumn" : 1,
+                              "endLine" : 57,
+                              "endColumn" : 1,
+                              "offset" : 878,
+                              "length" : 140
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 68,
+                              "beginColumn" : 1,
+                              "endLine" : 77,
+                              "endColumn" : 1,
+                              "offset" : 1381,
+                              "length" : 287
+                            }
+                          ],
+                          [
+                            "initialize_IEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 88,
+                              "beginColumn" : 1,
+                              "endLine" : 97,
+                              "endColumn" : 1,
+                              "offset" : 2028,
+                              "length" : 333
+                            }
+                          ],
+                          [
+                            "compute_spec_since_result_variable_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 108,
+                              "beginColumn" : 1,
+                              "endLine" : 115,
+                              "endColumn" : 1,
+                              "offset" : 2770,
+                              "length" : 357
+                            }
+                          ],
+                          [
+                            "compute_spec_valid1_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 126,
+                              "beginColumn" : 1,
+                              "endLine" : 139,
+                              "endColumn" : 1,
+                              "offset" : 3440,
+                              "length" : 422
+                            }
+                          ],
+                          [
+                            "compute_spec_invalid2_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 149,
+                              "beginColumn" : 1,
+                              "endLine" : 155,
+                              "endColumn" : 1,
+                              "offset" : 4125,
+                              "length" : 284
+                            }
+                          ],
+                          [
+                            "compute_spec_Alert1_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 165,
+                              "beginColumn" : 1,
+                              "endLine" : 175,
+                              "endColumn" : 1,
+                              "offset" : 4704,
+                              "length" : 296
+                            }
+                          ],
+                          [
+                            "compute_spec_Alert2_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 184,
+                              "beginColumn" : 1,
+                              "endLine" : 193,
+                              "endColumn" : 1,
+                              "offset" : 5236,
+                              "length" : 201
+                            }
+                          ],
+                          [
+                            "compute_spec_Forward_Report_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 204,
+                              "beginColumn" : 1,
+                              "endLine" : 218,
+                              "endColumn" : 1,
+                              "offset" : 5825,
+                              "length" : 549
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 232,
+                              "beginColumn" : 1,
+                              "endLine" : 251,
+                              "endColumn" : 1,
+                              "offset" : 6936,
+                              "length" : 1083
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_reportMonitor_reportMonitor\/src\/bridge\/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 268,
+                              "beginColumn" : 1,
+                              "endLine" : 286,
+                              "endColumn" : 1,
+                              "offset" : 8709,
+                              "length" : 708
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ],
@@ -7330,11 +9062,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 413,
+                      "beginLine" : 520,
                       "beginColumn" : 4,
-                      "endLine" : 413,
+                      "endLine" : 520,
                       "endColumn" : 30,
-                      "offset" : 14176,
+                      "offset" : 18809,
                       "length" : 26
                     }
                   },
@@ -7372,11 +9104,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 385,
+                            "beginLine" : 480,
                             "beginColumn" : 4,
-                            "endLine" : 385,
+                            "endLine" : 480,
                             "endColumn" : 73,
-                            "offset" : 13098,
+                            "offset" : 16992,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -7535,11 +9267,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 386,
+                            "beginLine" : 481,
                             "beginColumn" : 4,
-                            "endLine" : 386,
+                            "endLine" : 481,
                             "endColumn" : 75,
-                            "offset" : 13171,
+                            "offset" : 17065,
                             "length" : 71
                           },
                           "languageRealizations" : [
@@ -7711,10 +9443,10 @@
                               },
                               "beginLine" : 30,
                               "beginColumn" : 5,
-                              "endLine" : 39,
+                              "endLine" : 52,
                               "endColumn" : 5,
                               "offset" : 647,
-                              "length" : 333
+                              "length" : 992
                             }
                           ]
                         ]
@@ -7734,10 +9466,207 @@
                     }
                   },
                   "gumboReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
+                      "stateReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "methodsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 2,
+                        "entries" : [
+                          [
+                            "ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs"
+                              },
+                              "beginLine" : 80,
+                              "beginColumn" : 3,
+                              "endLine" : 83,
+                              "endColumn" : 3,
+                              "offset" : 2164,
+                              "length" : 114
+                            }
+                          ],
+                          [
+                            "FOUND_IN_ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs"
+                              },
+                              "beginLine" : 85,
+                              "beginColumn" : 3,
+                              "endLine" : 90,
+                              "endColumn" : 3,
+                              "offset" : 2283,
+                              "length" : 208
+                            }
+                          ]
+                        ]
+                      },
+                      "invariantsReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "integrationReport" : {
+                        "type" : "None"
+                      },
+                      "initializeReport" : {
+                        "type" : "HashSMap",
+                        "size" : 0,
+                        "entries" : [
+                        ]
+                      },
+                      "computeReport" : {
+                        "type" : "Some",
+                        "value" : {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboComputeReport",
+                          "assumesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "guaranteesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 1,
+                            "entries" : [
+                              [
+                                "Forward_Request",
+                                {
+                                  "type" : "Position",
+                                  "uriOpt" : {
+                                    "type" : "Some",
+                                    "value" : "crates\/cpuSw_firewall_firewall\/src\/component\/cpuSw_firewall_firewall_app.rs"
+                                  },
+                                  "beginLine" : 41,
+                                  "beginColumn" : 11,
+                                  "endLine" : 43,
+                                  "endColumn" : 9,
+                                  "offset" : 1129,
+                                  "length" : 81
+                                }
+                              ]
+                            ]
+                          },
+                          "casesReport" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          },
+                          "handlers" : {
+                            "type" : "HashSMap",
+                            "size" : 0,
+                            "entries" : [
+                            ]
+                          }
+                        }
+                      }
+                    }
                   },
                   "gumboXReport" : {
-                    "type" : "None"
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
+                      "gumboxMethods" : {
+                        "type" : "HashSMap",
+                        "size" : 5,
+                        "entries" : [
+                          [
+                            "ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs"
+                              },
+                              "beginLine" : 17,
+                              "beginColumn" : 1,
+                              "endLine" : 20,
+                              "endColumn" : 1,
+                              "offset" : 248,
+                              "length" : 98
+                            }
+                          ],
+                          [
+                            "FOUND_IN_ALLOW_LIST",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs"
+                              },
+                              "beginLine" : 22,
+                              "beginColumn" : 1,
+                              "endLine" : 27,
+                              "endColumn" : 1,
+                              "offset" : 349,
+                              "length" : 165
+                            }
+                          ],
+                          [
+                            "compute_spec_Forward_Request_guarantee",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs"
+                              },
+                              "beginLine" : 36,
+                              "beginColumn" : 1,
+                              "endLine" : 46,
+                              "endColumn" : 1,
+                              "offset" : 773,
+                              "length" : 485
+                            }
+                          ],
+                          [
+                            "compute_CEP_T_Guar",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs"
+                              },
+                              "beginLine" : 53,
+                              "beginColumn" : 1,
+                              "endLine" : 60,
+                              "endColumn" : 1,
+                              "offset" : 1471,
+                              "length" : 290
+                            }
+                          ],
+                          [
+                            "compute_CEP_Post",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_firewall_firewall\/src\/bridge\/cpuSw_firewall_firewall_GUMBOX.rs"
+                              },
+                              "beginLine" : 67,
+                              "beginColumn" : 1,
+                              "endLine" : 75,
+                              "endColumn" : 1,
+                              "offset" : 1955,
+                              "length" : 334
+                            }
+                          ]
+                        ]
+                      }
+                    }
                   }
                 }
               ]

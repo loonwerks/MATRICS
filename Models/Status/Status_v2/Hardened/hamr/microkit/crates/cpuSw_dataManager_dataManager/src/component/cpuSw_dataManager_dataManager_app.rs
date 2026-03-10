@@ -7,14 +7,20 @@ use vstd::prelude::*;
 verus! {
 
   pub struct cpuSw_dataManager_dataManager {
-    // PLACEHOLDER MARKER STATE VARS
+    // BEGIN MARKER STATE VARS
+    pub cache: Common::LogArray_Impl,
+    pub zeroize_cmd: bool,
+    // END MARKER STATE VARS
   }
 
   impl cpuSw_dataManager_dataManager {
     pub fn new() -> Self
     {
       Self {
-        // PLACEHOLDER MARKER STATE VAR INIT
+        // BEGIN MARKER STATE VAR INIT
+        cache: [Common::Log_Impl::default(); Common::Common_LogArray_Impl_DIM_0],
+        zeroize_cmd: false,
+        // END MARKER STATE VAR INIT
       }
     }
 
@@ -22,7 +28,10 @@ verus! {
       &mut self,
       api: &mut cpuSw_dataManager_dataManager_Application_Api<API>)
       ensures
-        // PLACEHOLDER MARKER INITIALIZATION ENSURES
+        // BEGIN MARKER INITIALIZATION ENSURES
+        // guarantee defaultZeroize
+        self.zeroize_cmd == false,
+        // END MARKER INITIALIZATION ENSURES
     {
       log_info("initialize entrypoint invoked");
     }
@@ -31,9 +40,27 @@ verus! {
       &mut self,
       api: &mut cpuSw_dataManager_dataManager_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).response_log.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee zeroize_cmd_variable
+        //   G: Once a zeroize command is seen, always zeroize.
+        (api.zeroize.is_some() ==>
+          (self.zeroize_cmd == true)) &&
+          ((old(self).zeroize_cmd == true) ==>
+            (self.zeroize_cmd == true)),
+        // guarantee Zeroize_Payload
+        //   G: Zeroize outgoing responses once an alert is received and when a request has been made.
+        (self.zeroize_cmd && api.request_log.is_some()) ==>
+          IS_ZEROIZED(api.response_log.unwrap().payload),
+        // guarantee Zeroize_Cache
+        //   G: Zeroize cache once an alert is received.
+        self.zeroize_cmd ==> IS_ZEROIZED(self.cache),
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }
@@ -63,6 +90,17 @@ verus! {
     log::warn!("Unexpected channel: {0}", channel);
   }
 
-  // PLACEHOLDER MARKER GUMBO METHODS
+  // BEGIN MARKER GUMBO METHODS
+  pub open spec fn IS_ZEROIZED(logs: Common::LogArray_Impl) -> bool
+  {
+    forall|i:int| 0 <= i <= logs.len() - 1 ==> ((((((#[trigger] logs[i].timestamp == 0u32) &&
+      (logs[i].userID == 0u32)) &&
+      (logs[i].numSuspects == 0u32)) &&
+      (logs[i].numSuspectsFlagged == 0u32)) &&
+      (logs[i].yaw == 0i32)) &&
+      (logs[i].pitch == 0i32)) &&
+      (logs[i].roll == 0i32)
+  }
+  // END MARKER GUMBO METHODS
 
 }

@@ -12,9 +12,26 @@ pub struct PreStateContainer {
   pub api_alert: Option<Common::DummyMessage_Impl>
 }
 
+/// container for component's incoming port values and GUMBO state variables
+pub struct PreStateContainer_wGSV {
+  pub In_alert_cmd: bool,
+  pub api_wifiRecv: Option<Common::DummyMessage_Impl>,
+  pub api_analysis_report: Option<Common::AnalysisReport_Impl>,
+  pub api_alert: Option<Common::DummyMessage_Impl>
+}
+
 /// setter for component's incoming port values
 pub fn put_concrete_inputs_container(container: PreStateContainer)
 {
+  put_wifiRecv(container.api_wifiRecv);
+  put_analysis_report(container.api_analysis_report);
+  put_alert(container.api_alert);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
+{
+  put_alert_cmd(container.In_alert_cmd);
   put_wifiRecv(container.api_wifiRecv);
   put_analysis_report(container.api_analysis_report);
   put_alert(container.api_alert);
@@ -26,6 +43,19 @@ pub fn put_concrete_inputs(
   analysis_report: Option<Common::AnalysisReport_Impl>,
   alert: Option<Common::DummyMessage_Impl>)
 {
+  put_wifiRecv(wifiRecv);
+  put_analysis_report(analysis_report);
+  put_alert(alert);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_wGSV(
+  In_alert_cmd: bool,
+  wifiRecv: Option<Common::DummyMessage_Impl>,
+  analysis_report: Option<Common::AnalysisReport_Impl>,
+  alert: Option<Common::DummyMessage_Impl>)
+{
+  put_alert_cmd(In_alert_cmd);
   put_wifiRecv(wifiRecv);
   put_analysis_report(analysis_report);
   put_alert(alert);
@@ -65,4 +95,26 @@ pub fn get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
 pub fn put_alert(value: Option<Common::DummyMessage_Impl>)
 {
   *extern_api::IN_alert.lock().unwrap_or_else(|e| e.into_inner()) = value
+}
+
+/// getter for GUMBO State Variable
+pub fn get_alert_cmd() -> bool
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.alert_cmd,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_alert_cmd(value: bool)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.alert_cmd = value,
+      None => panic!("The app is None")
+    }
+  }
 }

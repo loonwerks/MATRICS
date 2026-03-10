@@ -12,9 +12,28 @@ pub struct PreStateContainer {
   pub api_zeroize: Option<u8>
 }
 
+/// container for component's incoming port values and GUMBO state variables
+pub struct PreStateContainer_wGSV {
+  pub In_cache: Common::LogArray_Impl,
+  pub In_zeroize_cmd: bool,
+  pub api_HMD_log: Option<Common::Log_Impl>,
+  pub api_request_log: Option<Common::Request_Impl>,
+  pub api_zeroize: Option<u8>
+}
+
 /// setter for component's incoming port values
 pub fn put_concrete_inputs_container(container: PreStateContainer)
 {
+  put_HMD_log(container.api_HMD_log);
+  put_request_log(container.api_request_log);
+  put_zeroize(container.api_zeroize);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
+{
+  put_zeroize_cmd(container.In_zeroize_cmd);
+  put_cache(container.In_cache);
   put_HMD_log(container.api_HMD_log);
   put_request_log(container.api_request_log);
   put_zeroize(container.api_zeroize);
@@ -26,6 +45,21 @@ pub fn put_concrete_inputs(
   request_log: Option<Common::Request_Impl>,
   zeroize: Option<u8>)
 {
+  put_HMD_log(HMD_log);
+  put_request_log(request_log);
+  put_zeroize(zeroize);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_wGSV(
+  In_cache: Common::LogArray_Impl,
+  In_zeroize_cmd: bool,
+  HMD_log: Option<Common::Log_Impl>,
+  request_log: Option<Common::Request_Impl>,
+  zeroize: Option<u8>)
+{
+  put_zeroize_cmd(In_zeroize_cmd);
+  put_cache(In_cache);
   put_HMD_log(HMD_log);
   put_request_log(request_log);
   put_zeroize(zeroize);
@@ -53,4 +87,48 @@ pub fn get_response_log() -> Option<Common::ResponseLog_Impl>
 pub fn put_zeroize(value: Option<u8>)
 {
   *extern_api::IN_zeroize.lock().unwrap_or_else(|e| e.into_inner()) = value
+}
+
+/// getter for GUMBO State Variable
+pub fn get_cache() -> Common::LogArray_Impl
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.cache,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_cache(value: Common::LogArray_Impl)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.cache = value,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// getter for GUMBO State Variable
+pub fn get_zeroize_cmd() -> bool
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.zeroize_cmd,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_zeroize_cmd(value: bool)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.zeroize_cmd = value,
+      None => panic!("The app is None")
+    }
+  }
 }

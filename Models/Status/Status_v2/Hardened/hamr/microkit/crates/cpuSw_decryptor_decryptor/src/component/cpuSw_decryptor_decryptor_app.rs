@@ -31,9 +31,17 @@ verus! {
       &mut self,
       api: &mut cpuSw_decryptor_decryptor_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).HMD_log_out.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee Payload_Decrypted
+        //   G: Outgoing payload is decrypted.
+        api.HMD_log_out.unwrap() != api.HMD_log_in.unwrap(),
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }

@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_dataManager_dataManager_api;
+pub mod cpuSw_dataManager_dataManager_GUMBOX;

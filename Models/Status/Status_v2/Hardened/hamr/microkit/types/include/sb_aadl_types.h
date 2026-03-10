@@ -15,6 +15,11 @@ typedef struct Common_MsgHeader_Impl {
   uint32_t dst;
 } Common_MsgHeader_Impl;
 
+#define MATRICS_Model_Transformations_AllowList_Impl_BYTE_SIZE 16
+#define MATRICS_Model_Transformations_AllowList_Impl_DIM_0 4
+
+typedef uint32_t MATRICS_Model_Transformations_AllowList_Impl [MATRICS_Model_Transformations_AllowList_Impl_DIM_0];
+
 typedef struct Common_Log_Impl {
   uint32_t timestamp;
   uint32_t userID;

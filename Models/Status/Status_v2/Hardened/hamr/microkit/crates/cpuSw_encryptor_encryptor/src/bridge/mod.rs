@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_encryptor_encryptor_api;
+pub mod cpuSw_encryptor_encryptor_GUMBOX;

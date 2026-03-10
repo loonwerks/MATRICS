@@ -11,9 +11,26 @@ pub struct PreStateContainer {
   pub api_response_log_in: Option<Common::ResponseLog_Impl>
 }
 
+/// container for component's incoming port values and GUMBO state variables
+pub struct PreStateContainer_wGSV {
+  pub In_since_result: bool,
+  pub In_is_valid: bool,
+  pub api_request_log: Option<Common::Request_Impl>,
+  pub api_response_log_in: Option<Common::ResponseLog_Impl>
+}
+
 /// setter for component's incoming port values
 pub fn put_concrete_inputs_container(container: PreStateContainer)
 {
+  put_request_log(container.api_request_log);
+  put_response_log_in(container.api_response_log_in);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
+{
+  put_is_valid(container.In_is_valid);
+  put_since_result(container.In_since_result);
   put_request_log(container.api_request_log);
   put_response_log_in(container.api_response_log_in);
 }
@@ -23,6 +40,19 @@ pub fn put_concrete_inputs(
   request_log: Option<Common::Request_Impl>,
   response_log_in: Option<Common::ResponseLog_Impl>)
 {
+  put_request_log(request_log);
+  put_response_log_in(response_log_in);
+}
+
+/// setter for component's incoming port values and GUMBO state variables
+pub fn put_concrete_inputs_wGSV(
+  In_since_result: bool,
+  In_is_valid: bool,
+  request_log: Option<Common::Request_Impl>,
+  response_log_in: Option<Common::ResponseLog_Impl>)
+{
+  put_is_valid(In_is_valid);
+  put_since_result(In_since_result);
   put_request_log(request_log);
   put_response_log_in(response_log_in);
 }
@@ -49,4 +79,48 @@ pub fn get_response_log_out() -> Option<Common::ResponseLog_Impl>
 pub fn get_alert() -> Option<u8>
 {
   return extern_api::OUT_alert.lock().unwrap_or_else(|e| e.into_inner()).clone()
+}
+
+/// getter for GUMBO State Variable
+pub fn get_since_result() -> bool
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.since_result,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_since_result(value: bool)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.since_result = value,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// getter for GUMBO State Variable
+pub fn get_is_valid() -> bool
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.is_valid,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_is_valid(value: bool)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.is_valid = value,
+      None => panic!("The app is None")
+    }
+  }
 }

@@ -7,14 +7,20 @@ use vstd::prelude::*;
 verus! {
 
   pub struct cpuSw_logMonitor_logMonitor {
-    // PLACEHOLDER MARKER STATE VARS
+    // BEGIN MARKER STATE VARS
+    pub since_result: bool,
+    pub is_valid: bool,
+    // END MARKER STATE VARS
   }
 
   impl cpuSw_logMonitor_logMonitor {
     pub fn new() -> Self
     {
       Self {
-        // PLACEHOLDER MARKER STATE VAR INIT
+        // BEGIN MARKER STATE VAR INIT
+        since_result: false,
+        is_valid: false,
+        // END MARKER STATE VAR INIT
       }
     }
 
@@ -22,7 +28,10 @@ verus! {
       &mut self,
       api: &mut cpuSw_logMonitor_logMonitor_Application_Api<API>)
       ensures
-        // PLACEHOLDER MARKER INITIALIZATION ENSURES
+        // BEGIN MARKER INITIALIZATION ENSURES
+        // guarantee defaultSince
+        self.since_result == false,
+        // END MARKER INITIALIZATION ENSURES
     {
       log_info("initialize entrypoint invoked");
     }
@@ -31,9 +40,40 @@ verus! {
       &mut self,
       api: &mut cpuSw_logMonitor_logMonitor_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).response_log_out.is_none(),
+        old(api).alert.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee is_valid_variable
+        //   G: is_valid set correctly
+        if (api.request_log.is_some() && api.response_log_in.is_some()) {
+          self.is_valid == true
+        } else {
+          api.response_log_in.is_some() ==> old(self).since_result
+        },
+        // guarantee since_result_variable
+        //   G: since_result is equivalent to (not response_log_in event) Since (request_log event)
+        self.since_result == GUMBO_PLTL::Since_spec(!(api.response_log_in.is_some()), api.request_log.is_some(), old(self).since_result),
+        // guarantee Alert
+        //   G: Send an alert if more than one response is received without a request.
+        if (api.response_log_in.is_some() && !self.is_valid) {
+          api.alert.is_some()
+        } else {
+          api.alert.is_none()
+        },
+        // guarantee Forward_Response
+        //   G: Only forward a response if a valid request has been made.
+        if (api.response_log_in.is_some() && self.is_valid) {
+          api.response_log_out.is_some() &&
+            (api.response_log_out.unwrap() == api.response_log_in.unwrap())
+        } else {
+          api.response_log_out.is_none()
+        },
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }

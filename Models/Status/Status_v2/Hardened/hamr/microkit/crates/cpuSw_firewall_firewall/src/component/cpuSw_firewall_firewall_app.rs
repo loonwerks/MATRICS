@@ -31,9 +31,22 @@ verus! {
       &mut self,
       api: &mut cpuSw_firewall_firewall_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).analysis_request_out.is_none(),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
-        // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
+        // BEGIN MARKER TIME TRIGGERED ENSURES
+        // guarantee Forward_Request
+        //   G: Only forward a request if it is from a trusted source.
+        if (api.analysis_request_in.is_some() && FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_request_in.unwrap().header.src)) {
+          api.analysis_request_out.is_some() &&
+            (api.analysis_request_out.unwrap() == api.analysis_request_in.unwrap())
+        } else {
+          api.analysis_request_out.is_none()
+        },
+        // END MARKER TIME TRIGGERED ENSURES
     {
       log_info("compute entrypoint invoked");
     }
@@ -63,6 +76,18 @@ verus! {
     log::warn!("Unexpected channel: {0}", channel);
   }
 
-  // PLACEHOLDER MARKER GUMBO METHODS
+  // BEGIN MARKER GUMBO METHODS
+  pub open spec fn ALLOW_LIST() -> MATRICS_Model_Transformations::AllowList_Impl
+  {
+    [1u32, 2u32, 3u32, 4u32]
+  }
+
+  pub open spec fn FOUND_IN_ALLOW_LIST(
+    allow_list: MATRICS_Model_Transformations::AllowList_Impl,
+    src: u32) -> bool
+  {
+    exists|i:int| 0 <= i < allow_list.len() && #[trigger] allow_list[i] == src
+  }
+  // END MARKER GUMBO METHODS
 
 }

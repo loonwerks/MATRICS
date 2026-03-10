@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_firewall_firewall_api;
+pub mod cpuSw_firewall_firewall_GUMBOX;
