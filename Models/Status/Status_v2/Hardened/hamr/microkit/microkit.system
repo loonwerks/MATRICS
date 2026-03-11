@@ -40,6 +40,7 @@
       />
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriver -->
+      <map mr="uart" vaddr="0x4000000" perms="rw" cached="false" setvar_vaddr="uart_base_vaddr" />
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriver -->
     </protection_domain>
 
@@ -456,5 +457,6 @@
   </channel>
 
   <!-- BEGIN MSD CONTENT MARKER -->
+  <memory_region name="uart" size="0x1000" phys_addr="0x09000000" />
   <!-- END MSD CONTENT MARKER -->
 </system>
