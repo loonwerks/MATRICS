@@ -1,0 +1,3 @@
+[submodule "Models/Status/Status_v2/Hardened/hamr/microkit/libvmm"]
+	path = Models/Status/Status_v2/Hardened/hamr/microkit/libvmm
+	url = https://github.com/au-ts/libvmm.git
