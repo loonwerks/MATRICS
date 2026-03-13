@@ -252,12 +252,14 @@ $(IMAGE_FILE): $(IMAGES) $(SYSTEM_FILE)
 
 
 qemu: $(IMAGE_FILE)
-	$(QEMU) -machine virt,virtualization=on \
+	$(QEMU) -machine virt,virtualization=on,highmem=off,secure=off \
 			-cpu cortex-a53 \
 			-serial mon:stdio \
 			-device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
 			-m size=2G \
-			-nographic
+			-nographic 
+# 			-device virtio-net-device,netdev=netdev0 \
+# 			-netdev user,id=netdev0,hostfwd=tcp::8080-:80,hostfwd=tcp::8443-:443 \
 
 clean::
 	rm -f *.o
