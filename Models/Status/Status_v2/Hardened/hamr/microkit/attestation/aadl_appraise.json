@@ -63,6 +63,8 @@
           "%%codegen_dir%%/types/include/sb_queue_Common_AnalysisRequest_Impl_1.h",
           "%%codegen_dir%%/types/src/sb_queue_Common_AnalysisRequest_Impl_1.c",
           "%%codegen_dir%%/types/include/sb_types.h",
+          "%%codegen_dir%%/components/cpuSw_wifiDriver_wifiDriver/board/qemu_virt_aarch64/Makefile",
+          "%%codegen_dir%%/components/cpuSw_wifiDriver_wifiDriver/include/cpuSw_wifiDriver_wifiDriver_user.h",
           "%%codegen_dir%%/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_MON.c",
           "%%codegen_dir%%/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver.c",
           "%%codegen_dir%%/components/cpuSw_wifiDriver_wifiDriver/include/cpuSw_wifiDriver_wifiDriver.h",

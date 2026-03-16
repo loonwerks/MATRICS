@@ -1,7 +1,7 @@
 #pragma once
 
-#include <printf.h>
-#include <util.h>
+#include <libvmm/util/printf.h>
+#include <libvmm/util/util.h>
 #include <stdint.h>
 #include <microkit.h>
 #include <sb_types.h>

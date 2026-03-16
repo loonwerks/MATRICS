@@ -24,6 +24,10 @@ public
 	processor implementation Proc.Impl
 	end Proc.Impl;
 	
+	-- Virtual Processor for Ground Station communication system
+	virtual processor virt_proc
+	end virt_proc;
+	
 	
 	-- Memory and storage for Ground Station communication system
 	memory Mem
@@ -218,6 +222,7 @@ public
 			bluetooth: device Common::Bluetooth.Impl;
 			usb: device Common::USB.Impl;
 			cpu: processor Proc.Impl;
+			vcpu: virtual processor virt_proc;
 			mem: memory Mem.Impl;
 			storage: memory Storage.Impl;
 			ser1: bus Common::Serial_Bus.Impl;
@@ -259,7 +264,8 @@ public
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
-			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw;
+			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver;
+			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw, vcpu;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 			MATRICS_Properties::Memory_Type => RAM applies to mem;
 			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			

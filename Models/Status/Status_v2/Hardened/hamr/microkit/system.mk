@@ -74,12 +74,16 @@ $(TOP_DIR)/build/sb_queue_uint8_t_1.o: $(TOP_DIR)/types/src/sb_queue_uint8_t_1.c
 cpuSw_wifiDriver_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_MON.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/include
 
-# user code
-cpuSw_wifiDriver_wifiDriver_rust:
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
+# cpuSw_wifiDriver_wifiDriver.a contains a VM
+.PHONY: cpuSw_wifiDriver_wifiDriver.a
+cpuSw_wifiDriver_wifiDriver.a:
+ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
+	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile);
+endif
+	mkdir -p $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/build
+	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/board/${MICROKIT_BOARD}/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/build
+	make -C $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/build
 
-cpuSw_wifiDriver_wifiDriver.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver.c Makefile
-	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/include
 
 # monitor
 cpuSw_btDriver_btDriver_MON.o: $(TOP_DIR)/components/cpuSw_btDriver_btDriver/src/cpuSw_btDriver_btDriver_MON.c Makefile
@@ -186,8 +190,8 @@ pacer.o: $(TOP_DIR)/components/pacer/src/pacer.c Makefile
 cpuSw_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiDriver -o $@
+cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a
+	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
@@ -252,14 +256,12 @@ $(IMAGE_FILE): $(IMAGES) $(SYSTEM_FILE)
 
 
 qemu: $(IMAGE_FILE)
-	$(QEMU) -machine virt,virtualization=on,highmem=off,secure=off \
+	$(QEMU) -machine virt,virtualization=on \
 			-cpu cortex-a53 \
 			-serial mon:stdio \
 			-device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
 			-m size=2G \
-			-nographic 
-# 			-device virtio-net-device,netdev=netdev0 \
-# 			-netdev user,id=netdev0,hostfwd=tcp::8080-:80,hostfwd=tcp::8443-:443 \
+			-nographic
 
 clean::
 	rm -f *.o

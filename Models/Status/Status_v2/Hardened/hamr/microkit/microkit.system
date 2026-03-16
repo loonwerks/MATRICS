@@ -6,61 +6,63 @@
 
   <protection_domain name="cpuSw_wifiDriver_wifiDriver_MON" domain="domain_11">
     <program_image path="cpuSw_wifiDriver_wifiDriver_MON.elf" />
-    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_11" id="1" stack_size="0x1_000_000">
+    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_11" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_wifiDriver_wifiDriver.elf" />
-      <!-- <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
-           vaddr="0x10_000_000"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM"
+           vaddr="0x40_000_000"
+           perms="rw"
+           setvar_vaddr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM_vaddr"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
+           vaddr="0x20_000_000"
            perms="rw"
            setvar_vaddr="HMD_log_queue_1"
       />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_analysis_request_1_Memory_Region"
-           vaddr="0x10_001_000"
+           vaddr="0x20_001_000"
            perms="rw"
            setvar_vaddr="analysis_request_queue_1"
       />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecv_1_Memory_Region"
-           vaddr="0x10_002_000"
+           vaddr="0x20_002_000"
            perms="r"
            setvar_vaddr="wifiRecv_queue_1"
       />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiSend_1_Memory_Region"
-           vaddr="0x10_003_000"
+           vaddr="0x20_003_000"
            perms="rw"
            setvar_vaddr="wifiSend_queue_1"
       />
       <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region"
-           vaddr="0x10_004_000"
+           vaddr="0x20_004_000"
            perms="r"
            setvar_vaddr="analysis_report_queue_1"
       />
       <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region"
-           vaddr="0x10_005_000"
+           vaddr="0x20_005_000"
            perms="r"
            setvar_vaddr="alert_queue_1"
-      /> -->
+      />
+      <irq irq="33" id="1" />
+      <virtual_machine name="cpuSw_wifiDriver_wifiDriver">
+        <vcpu id="0" />
+        <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM"
+             vaddr="0x40_000_000"
+             perms="rwx"
+        />
+        <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_GIC"
+             vaddr="0x8_010_000"
+             perms="rw"
+             cached="false"
+        />
+        <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Serial"
+             vaddr="0x9_000_000"
+             perms="rw"
+             cached="false"
+        />
+      </virtual_machine>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriver -->
-      <!-- <map mr="uart" vaddr="0x4000000" perms="rw" cached="false" setvar_vaddr="uart_base_vaddr" /> -->
-      <!--
-        Map in the virtual machine's RAM region as the VMM needs
-        access to it as well for starting and setting up the VM.
-      -->
-      <map mr="guest_ram" vaddr="0x40000000" perms="rw"/>
-      <!--
-        Create the virtual machine, the vCPU `id` is used for the
-        VMM to refer to the VM. Similar to channels and IRQs.
-      -->
-      <virtual_machine name="linux">
-            <vcpu id="0" />
-            <map mr="guest_ram" vaddr="0x40000000" perms="rwx" />
-            <map mr="serial" vaddr="0x9000000" perms="rw" cached="false" />
-            <map mr="gic_vcpu" vaddr="0x8010000" perms="rw" cached="false" />
-        </virtual_machine>
-      <!--
-        We want the VMM to receive the uart interrupts, which it
-        will then deliver to the VM.
-      -->
-      <irq irq="33" id="1" /> 
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriver -->
     </protection_domain>
 
@@ -322,6 +324,17 @@
     <!-- END CONTENT MARKER pacer -->
   </protection_domain>
 
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM"
+                 size="0x10_000_000" />
+
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_GIC"
+                 size="0x1_000"
+                 phys_addr="0x8_040_000" />
+
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Serial"
+                 size="0x1_000"
+                 phys_addr="0x9_000_000" />
+
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
                  size="0x1_000" />
 
@@ -477,8 +490,5 @@
   </channel>
 
   <!-- BEGIN MSD CONTENT MARKER -->
-    <memory_region name="guest_ram" size="0x10_000_000" page_size="0x200_000" />
-    <memory_region name="serial" size="0x1_000" phys_addr="0x9000000" />
-    <memory_region name="gic_vcpu" size="0x1_000" phys_addr="0x8040000" />
   <!-- END MSD CONTENT MARKER -->
 </system>

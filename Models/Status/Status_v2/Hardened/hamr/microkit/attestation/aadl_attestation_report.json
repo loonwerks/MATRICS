@@ -20,11 +20,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 80,
+                  "beginLine": 84,
                   "beginCol": 5,
-                  "endLine": 81,
+                  "endLine": 85,
                   "endCol": 25,
-                  "offset": 2346,
+                  "offset": 2455,
                   "length": 48
                 }
             },
@@ -36,11 +36,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 76,
+                  "beginLine": 80,
                   "beginCol": 5,
-                  "endLine": 76,
+                  "endLine": 80,
                   "endCol": 36,
-                  "offset": 2267,
+                  "offset": 2376,
                   "length": 31
                 }
             },
@@ -92,11 +92,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 86,
+                  "beginLine": 90,
                   "beginCol": 5,
-                  "endLine": 87,
+                  "endLine": 91,
                   "endCol": 94,
-                  "offset": 2443,
+                  "offset": 2552,
                   "length": 180
                 }
             },
@@ -108,11 +108,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 76,
+                  "beginLine": 80,
                   "beginCol": 5,
-                  "endLine": 76,
+                  "endLine": 80,
                   "endCol": 36,
-                  "offset": 2267,
+                  "offset": 2376,
                   "length": 31
                 }
             },
@@ -164,11 +164,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 89,
+                  "beginLine": 93,
                   "beginCol": 5,
-                  "endLine": 92,
+                  "endLine": 96,
                   "endCol": 48,
-                  "offset": 2633,
+                  "offset": 2742,
                   "length": 237
                 }
             },
@@ -180,11 +180,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 76,
+                  "beginLine": 80,
                   "beginCol": 5,
-                  "endLine": 76,
+                  "endLine": 80,
                   "endCol": 36,
-                  "offset": 2267,
+                  "offset": 2376,
                   "length": 31
                 }
             },
@@ -243,11 +243,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 140,
+                  "beginLine": 144,
                   "beginCol": 5,
-                  "endLine": 141,
+                  "endLine": 145,
                   "endCol": 27,
-                  "offset": 4456,
+                  "offset": 4565,
                   "length": 52
                 }
             },
@@ -259,11 +259,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 125,
+                  "beginLine": 129,
                   "beginCol": 5,
-                  "endLine": 125,
+                  "endLine": 129,
                   "endCol": 38,
-                  "offset": 3992,
+                  "offset": 4101,
                   "length": 33
                 }
             },
@@ -315,11 +315,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 146,
+                  "beginLine": 150,
                   "beginCol": 5,
-                  "endLine": 147,
+                  "endLine": 151,
                   "endCol": 102,
-                  "offset": 4567,
+                  "offset": 4676,
                   "length": 186
                 }
             },
@@ -331,11 +331,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 125,
+                  "beginLine": 129,
                   "beginCol": 5,
-                  "endLine": 125,
+                  "endLine": 129,
                   "endCol": 38,
-                  "offset": 3992,
+                  "offset": 4101,
                   "length": 33
                 }
             },
@@ -387,11 +387,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 149,
+                  "beginLine": 153,
                   "beginCol": 5,
-                  "endLine": 150,
+                  "endLine": 154,
                   "endCol": 82,
-                  "offset": 4759,
+                  "offset": 4868,
                   "length": 201
                 }
             },
@@ -403,11 +403,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 125,
+                  "beginLine": 129,
                   "beginCol": 5,
-                  "endLine": 125,
+                  "endLine": 129,
                   "endCol": 38,
-                  "offset": 3992,
+                  "offset": 4101,
                   "length": 33
                 }
             },
@@ -419,11 +419,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 127,
+                  "beginLine": 131,
                   "beginCol": 5,
-                  "endLine": 136,
+                  "endLine": 140,
                   "endCol": 10,
-                  "offset": 4043,
+                  "offset": 4152,
                   "length": 363
                 }
             },
@@ -491,11 +491,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 151,
+                  "beginLine": 155,
                   "beginCol": 5,
-                  "endLine": 152,
+                  "endLine": 156,
                   "endCol": 41,
-                  "offset": 4965,
+                  "offset": 5074,
                   "length": 112
                 }
             },
@@ -507,11 +507,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 125,
+                  "beginLine": 129,
                   "beginCol": 5,
-                  "endLine": 125,
+                  "endLine": 129,
                   "endCol": 38,
-                  "offset": 3992,
+                  "offset": 4101,
                   "length": 33
                 }
             },
@@ -523,11 +523,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 127,
+                  "beginLine": 131,
                   "beginCol": 5,
-                  "endLine": 136,
+                  "endLine": 140,
                   "endCol": 10,
-                  "offset": 4043,
+                  "offset": 4152,
                   "length": 363
                 }
             },
@@ -539,11 +539,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 124,
+                  "beginLine": 128,
                   "beginCol": 5,
-                  "endLine": 124,
+                  "endLine": 128,
                   "endCol": 34,
-                  "offset": 3958,
+                  "offset": 4067,
                   "length": 29
                 }
             },

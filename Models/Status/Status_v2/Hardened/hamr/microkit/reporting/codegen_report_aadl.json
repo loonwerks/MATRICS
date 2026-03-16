@@ -25,11 +25,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 217,
+                  "beginLine" : 221,
                   "beginColumn" : 4,
-                  "endLine" : 217,
+                  "endLine" : 221,
                   "endColumn" : 35,
-                  "offset" : 7077,
+                  "offset" : 7186,
                   "length" : 31
                 }
               },
@@ -47,11 +47,11 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 218,
+                  "beginLine" : 222,
                   "beginColumn" : 4,
-                  "endLine" : 218,
+                  "endLine" : 222,
                   "endColumn" : 45,
-                  "offset" : 7112,
+                  "offset" : 7221,
                   "length" : 41
                 }
               },
@@ -69,12 +69,34 @@
                     "type" : "Some",
                     "value" : "\/Status_Hardened\/GroundStation.aadl"
                   },
-                  "beginLine" : 219,
+                  "beginLine" : 223,
                   "beginColumn" : 4,
-                  "endLine" : 219,
+                  "endLine" : 223,
                   "endColumn" : 33,
-                  "offset" : 7157,
+                  "offset" : 7266,
                   "length" : 29
+                }
+              },
+              "kind" : "HAMR Codegen"
+            },
+            {
+              "type" : "Message",
+              "level" : 2,
+              "message" : "CASE_Properties::OS not provided for virtual processor vcpu.  Assuming Linux",
+              "posOpt" : {
+                "type" : "Some",
+                "value" : {
+                  "type" : "Position",
+                  "uriOpt" : {
+                    "type" : "Some",
+                    "value" : "\/Status_Hardened\/GroundStation.aadl"
+                  },
+                  "beginLine" : 225,
+                  "beginColumn" : 4,
+                  "endLine" : 225,
+                  "endColumn" : 38,
+                  "offset" : 7328,
+                  "length" : 34
                 }
               },
               "kind" : "HAMR Codegen"
@@ -276,6 +298,16 @@
             {
               "type" : "ResourceReport",
               "path" : "types\/include\/sb_types.h",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiDriver_wifiDriver\/board\/qemu_virt_aarch64\/Makefile",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiDriver_wifiDriver\/include\/cpuSw_wifiDriver_wifiDriver_user.h",
               "overwrittenIfExists" : true
             },
             {
@@ -1525,11 +1557,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 48,
+                            "beginLine" : 52,
                             "beginColumn" : 4,
-                            "endLine" : 48,
+                            "endLine" : 52,
                             "endColumn" : 59,
-                            "offset" : 961,
+                            "offset" : 1070,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -1651,9 +1683,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 21,
+                                "beginLine" : 26,
                                 "beginColumn" : 7,
-                                "endLine" : 25,
+                                "endLine" : 30,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -1688,11 +1720,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 51,
+                            "beginLine" : 55,
                             "beginColumn" : 4,
-                            "endLine" : 51,
+                            "endLine" : 55,
                             "endColumn" : 68,
-                            "offset" : 1130,
+                            "offset" : 1239,
                             "length" : 64
                           },
                           "languageRealizations" : [
@@ -1814,9 +1846,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 31,
+                                "beginLine" : 36,
                                 "beginColumn" : 7,
-                                "endLine" : 35,
+                                "endLine" : 40,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -1851,11 +1883,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 53,
+                            "beginLine" : 57,
                             "beginColumn" : 4,
-                            "endLine" : 53,
+                            "endLine" : 57,
                             "endColumn" : 56,
-                            "offset" : 1269,
+                            "offset" : 1378,
                             "length" : 52
                           },
                           "languageRealizations" : [
@@ -1977,9 +2009,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 36,
+                                "beginLine" : 41,
                                 "beginColumn" : 7,
-                                "endLine" : 40,
+                                "endLine" : 45,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -2014,11 +2046,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 49,
+                            "beginLine" : 53,
                             "beginColumn" : 4,
-                            "endLine" : 49,
+                            "endLine" : 53,
                             "endColumn" : 60,
-                            "offset" : 1020,
+                            "offset" : 1129,
                             "length" : 56
                           },
                           "languageRealizations" : [
@@ -2140,9 +2172,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 26,
+                                "beginLine" : 31,
                                 "beginColumn" : 7,
-                                "endLine" : 30,
+                                "endLine" : 35,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -2177,11 +2209,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 50,
+                            "beginLine" : 54,
                             "beginColumn" : 4,
-                            "endLine" : 50,
+                            "endLine" : 54,
                             "endColumn" : 50,
-                            "offset" : 1080,
+                            "offset" : 1189,
                             "length" : 46
                           },
                           "languageRealizations" : [
@@ -2303,9 +2335,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 11,
+                                "beginLine" : 16,
                                 "beginColumn" : 7,
-                                "endLine" : 15,
+                                "endLine" : 20,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -2340,11 +2372,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 52,
+                            "beginLine" : 56,
                             "beginColumn" : 4,
-                            "endLine" : 52,
+                            "endLine" : 56,
                             "endColumn" : 71,
-                            "offset" : 1198,
+                            "offset" : 1307,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -2466,9 +2498,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 16,
+                                "beginLine" : 21,
                                 "beginColumn" : 7,
-                                "endLine" : 20,
+                                "endLine" : 25,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -2857,11 +2889,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 178,
+                            "beginLine" : 182,
                             "beginColumn" : 4,
-                            "endLine" : 178,
+                            "endLine" : 182,
                             "endColumn" : 57,
-                            "offset" : 5855,
+                            "offset" : 5964,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -2983,9 +3015,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 54,
+                                "beginLine" : 77,
                                 "beginColumn" : 7,
-                                "endLine" : 58,
+                                "endLine" : 81,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3020,11 +3052,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 179,
+                            "beginLine" : 183,
                             "beginColumn" : 4,
-                            "endLine" : 179,
+                            "endLine" : 183,
                             "endColumn" : 58,
-                            "offset" : 5915,
+                            "offset" : 6024,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3146,9 +3178,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 59,
+                                "beginLine" : 82,
                                 "beginColumn" : 7,
-                                "endLine" : 63,
+                                "endLine" : 86,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3292,11 +3324,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 190,
+                            "beginLine" : 194,
                             "beginColumn" : 4,
-                            "endLine" : 190,
+                            "endLine" : 194,
                             "endColumn" : 58,
-                            "offset" : 6162,
+                            "offset" : 6271,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3418,9 +3450,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 77,
+                                "beginLine" : 100,
                                 "beginColumn" : 7,
-                                "endLine" : 81,
+                                "endLine" : 104,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3455,11 +3487,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 191,
+                            "beginLine" : 195,
                             "beginColumn" : 4,
-                            "endLine" : 191,
+                            "endLine" : 195,
                             "endColumn" : 59,
-                            "offset" : 6220,
+                            "offset" : 6329,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -3581,9 +3613,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 82,
+                                "beginLine" : 105,
                                 "beginColumn" : 7,
-                                "endLine" : 86,
+                                "endLine" : 109,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3727,11 +3759,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 98,
+                            "beginLine" : 102,
                             "beginColumn" : 4,
-                            "endLine" : 98,
+                            "endLine" : 102,
                             "endColumn" : 49,
-                            "offset" : 2931,
+                            "offset" : 3040,
                             "length" : 45
                           },
                           "languageRealizations" : [
@@ -3853,9 +3885,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 110,
+                                "beginLine" : 133,
                                 "beginColumn" : 7,
-                                "endLine" : 114,
+                                "endLine" : 137,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3890,11 +3922,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 99,
+                            "beginLine" : 103,
                             "beginColumn" : 4,
-                            "endLine" : 99,
+                            "endLine" : 103,
                             "endColumn" : 57,
-                            "offset" : 2980,
+                            "offset" : 3089,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -4016,9 +4048,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 105,
+                                "beginLine" : 128,
                                 "beginColumn" : 7,
-                                "endLine" : 109,
+                                "endLine" : 132,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4052,11 +4084,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 101,
+                            "beginLine" : 105,
                             "beginColumn" : 4,
-                            "endLine" : 101,
+                            "endLine" : 105,
                             "endColumn" : 27,
-                            "offset" : 3100,
+                            "offset" : 3209,
                             "length" : 23
                           },
                           "languageRealizations" : [
@@ -4178,9 +4210,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 115,
+                                "beginLine" : 138,
                                 "beginColumn" : 7,
-                                "endLine" : 119,
+                                "endLine" : 142,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4215,11 +4247,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 100,
+                            "beginLine" : 104,
                             "beginColumn" : 4,
-                            "endLine" : 100,
+                            "endLine" : 104,
                             "endColumn" : 63,
-                            "offset" : 3037,
+                            "offset" : 3146,
                             "length" : 59
                           },
                           "languageRealizations" : [
@@ -4341,9 +4373,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 100,
+                                "beginLine" : 123,
                                 "beginColumn" : 7,
-                                "endLine" : 104,
+                                "endLine" : 127,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4812,11 +4844,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 160,
+                            "beginLine" : 164,
                             "beginColumn" : 4,
-                            "endLine" : 160,
+                            "endLine" : 164,
                             "endColumn" : 62,
-                            "offset" : 5202,
+                            "offset" : 5311,
                             "length" : 58
                           },
                           "languageRealizations" : [
@@ -4938,9 +4970,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 143,
+                                "beginLine" : 166,
                                 "beginColumn" : 7,
-                                "endLine" : 147,
+                                "endLine" : 170,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4975,11 +5007,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 162,
+                            "beginLine" : 166,
                             "beginColumn" : 4,
-                            "endLine" : 162,
+                            "endLine" : 166,
                             "endColumn" : 70,
-                            "offset" : 5333,
+                            "offset" : 5442,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -5101,9 +5133,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 148,
+                                "beginLine" : 171,
                                 "beginColumn" : 7,
-                                "endLine" : 152,
+                                "endLine" : 175,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5138,11 +5170,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 159,
+                            "beginLine" : 163,
                             "beginColumn" : 4,
-                            "endLine" : 159,
+                            "endLine" : 163,
                             "endColumn" : 58,
-                            "offset" : 5144,
+                            "offset" : 5253,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -5264,9 +5296,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 133,
+                                "beginLine" : 156,
                                 "beginColumn" : 7,
-                                "endLine" : 137,
+                                "endLine" : 160,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5301,11 +5333,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/GroundStation.aadl"
                             },
-                            "beginLine" : 161,
+                            "beginLine" : 165,
                             "beginColumn" : 4,
-                            "endLine" : 161,
+                            "endLine" : 165,
                             "endColumn" : 69,
-                            "offset" : 5264,
+                            "offset" : 5373,
                             "length" : 65
                           },
                           "languageRealizations" : [
@@ -5427,9 +5459,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 138,
+                                "beginLine" : 161,
                                 "beginColumn" : 7,
-                                "endLine" : 142,
+                                "endLine" : 165,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5699,9 +5731,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 166,
+                                "beginLine" : 189,
                                 "beginColumn" : 7,
-                                "endLine" : 170,
+                                "endLine" : 193,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5862,9 +5894,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 171,
+                                "beginLine" : 194,
                                 "beginColumn" : 7,
-                                "endLine" : 175,
+                                "endLine" : 198,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6267,9 +6299,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 189,
+                                "beginLine" : 212,
                                 "beginColumn" : 7,
-                                "endLine" : 193,
+                                "endLine" : 216,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6430,9 +6462,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 194,
+                                "beginLine" : 217,
                                 "beginColumn" : 7,
-                                "endLine" : 198,
+                                "endLine" : 221,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6867,9 +6899,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 217,
+                                "beginLine" : 240,
                                 "beginColumn" : 7,
-                                "endLine" : 221,
+                                "endLine" : 244,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7030,9 +7062,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 212,
+                                "beginLine" : 235,
                                 "beginColumn" : 7,
-                                "endLine" : 216,
+                                "endLine" : 239,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7193,9 +7225,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 222,
+                                "beginLine" : 245,
                                 "beginColumn" : 7,
-                                "endLine" : 226,
+                                "endLine" : 249,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7355,9 +7387,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 227,
+                                "beginLine" : 250,
                                 "beginColumn" : 7,
-                                "endLine" : 231,
+                                "endLine" : 254,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7952,9 +7984,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 245,
+                                "beginLine" : 268,
                                 "beginColumn" : 7,
-                                "endLine" : 249,
+                                "endLine" : 272,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8115,9 +8147,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 250,
+                                "beginLine" : 273,
                                 "beginColumn" : 7,
-                                "endLine" : 254,
+                                "endLine" : 277,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8278,9 +8310,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 255,
+                                "beginLine" : 278,
                                 "beginColumn" : 7,
-                                "endLine" : 259,
+                                "endLine" : 282,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8441,9 +8473,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 260,
+                                "beginLine" : 283,
                                 "beginColumn" : 7,
-                                "endLine" : 264,
+                                "endLine" : 287,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -9230,9 +9262,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 278,
+                                "beginLine" : 301,
                                 "beginColumn" : 7,
-                                "endLine" : 282,
+                                "endLine" : 305,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -9393,9 +9425,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 283,
+                                "beginLine" : 306,
                                 "beginColumn" : 7,
-                                "endLine" : 287,
+                                "endLine" : 310,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
