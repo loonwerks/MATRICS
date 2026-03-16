@@ -11,7 +11,7 @@ export WIFI_LIBVMM_DIR := $(CRATES_DIR)/cpuSw_wifiDriver_wifiDriver/build
 
 ENV_VARS = RUSTC_BOOTSTRAP=1
 
-VM_IMAGES := $(CRATES_DIR)/cpuSw_wifiDriver_wifiDriver/images/
+VM_IMAGES := $(CRATES_DIR)/cpuSw_wifiDriver_wifiDriver/images
 
 DTS := $(VM_IMAGES)/linux.dts
 DTB := $(VM_IMAGES)/linux.dtb
@@ -22,10 +22,12 @@ BUILD_ENV_VARS = $(ENV_VARS) \
 			  INITRD_PATH=$(VM_IMAGES)/rootfs.cpio.gz \
 			  DTB_PATH=$(VM_IMAGES)/linux.dtb 
 
-CARGO_FLAGS = -Z build-std=core,alloc,compiler_builtins \
+CARGO_FLAGS = -Z unstable-options \
+			-Zjson-target-spec \
+			-Z build-std=core,alloc,compiler_builtins \
               -Z build-std-features=compiler-builtins-mem \
 		    -Z bindeps \
-              --target aarch64-unknown-none \
+              --target aarch64-unknown-none
 
 all: build-verus-release
 
