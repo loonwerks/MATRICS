@@ -14,7 +14,7 @@ sb_queue_Common_Log_Impl_1_Recv_t HMD_log_recv_queue;
 volatile sb_queue_uint8_t_1_t *zeroize_queue_1;
 sb_queue_uint8_t_1_Recv_t zeroize_recv_queue;
 
-#define PORT_FROM_MON 54
+#define PORT_FROM_MON 52
 
 bool put_response_log(const Common_ResponseLog_Impl *data) {
   sb_queue_Common_ResponseLog_Impl_1_enqueue((sb_queue_Common_ResponseLog_Impl_1_t *) response_log_queue_1, (Common_ResponseLog_Impl *) data);

@@ -21,30 +21,30 @@ mod logging;
 #[cfg(test)]
 mod test;
 
-use crate::bridge::cpuSw_wifiDriver_wifiDriver_api::{self as api, *};
-use crate::component::cpuSw_wifiDriver_wifiDriver_app::*;
+use crate::bridge::cpuSw_wifiGate_wifiGate_api::{self as api, *};
+use crate::component::cpuSw_wifiGate_wifiGate_app::*;
 use data::*;
 
-static mut app: Option<cpuSw_wifiDriver_wifiDriver> = None;
-static mut init_api: cpuSw_wifiDriver_wifiDriver_Application_Api<cpuSw_wifiDriver_wifiDriver_Initialization_Api> = api::init_api();
-static mut compute_api: cpuSw_wifiDriver_wifiDriver_Application_Api<cpuSw_wifiDriver_wifiDriver_Compute_Api> = api::compute_api();
+static mut app: Option<cpuSw_wifiGate_wifiGate> = None;
+static mut init_api: cpuSw_wifiGate_wifiGate_Application_Api<cpuSw_wifiGate_wifiGate_Initialization_Api> = api::init_api();
+static mut compute_api: cpuSw_wifiGate_wifiGate_Application_Api<cpuSw_wifiGate_wifiGate_Compute_Api> = api::compute_api();
 
 #[no_mangle]
-pub extern "C" fn cpuSw_wifiDriver_wifiDriver_initialize() {
+pub extern "C" fn cpuSw_wifiGate_wifiGate_initialize() {
   logging::init_logging();
 
   unsafe {
     #[cfg(test)]
     crate::bridge::extern_c_api::initialize_test_globals();
 
-    let mut _app = cpuSw_wifiDriver_wifiDriver::new();
+    let mut _app = cpuSw_wifiGate_wifiGate::new();
     _app.initialize(&mut init_api);
     app = Some(_app);
   }
 }
 
 #[no_mangle]
-pub extern "C" fn cpuSw_wifiDriver_wifiDriver_timeTriggered() {
+pub extern "C" fn cpuSw_wifiGate_wifiGate_timeTriggered() {
   unsafe {
     if let Some(_app) = app.as_mut() {
       _app.timeTriggered(&mut compute_api);
@@ -55,7 +55,7 @@ pub extern "C" fn cpuSw_wifiDriver_wifiDriver_timeTriggered() {
 }
 
 #[no_mangle]
-pub extern "C" fn cpuSw_wifiDriver_wifiDriver_notify(channel: microkit_channel) {
+pub extern "C" fn cpuSw_wifiGate_wifiGate_notify(channel: microkit_channel) {
   unsafe {
     if let Some(_app) = app.as_mut() {
       _app.notify(channel);

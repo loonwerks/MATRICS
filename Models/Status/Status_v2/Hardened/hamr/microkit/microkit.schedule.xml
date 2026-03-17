@@ -21,5 +21,7 @@
   <domain name="domain_10" length="50" />
   <domain name="domain_1" length="10" />
   <domain name="domain_11" length="50" />
-  <domain name="domain_0" length="400" />
+  <domain name="domain_1" length="10" />
+  <domain name="domain_12" length="50" />
+  <domain name="domain_0" length="340" />
 </domain_schedule>

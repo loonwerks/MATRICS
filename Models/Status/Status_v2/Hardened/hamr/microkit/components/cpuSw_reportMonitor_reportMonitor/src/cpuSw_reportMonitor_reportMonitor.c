@@ -13,7 +13,7 @@ sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_in_recv_queue;
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_out_queue_1;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
 
-#define PORT_FROM_MON 44
+#define PORT_FROM_MON 42
 
 bool analysis_request_is_empty(void) {
   return sb_queue_Common_AnalysisRequest_Impl_1_is_empty(&analysis_request_recv_queue);

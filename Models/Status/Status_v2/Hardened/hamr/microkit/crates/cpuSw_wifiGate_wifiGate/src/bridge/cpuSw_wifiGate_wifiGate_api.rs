@@ -5,9 +5,9 @@ use data::*;
 use super::extern_c_api as extern_api;
 
 verus! {
-  pub trait cpuSw_wifiDriver_wifiDriver_Api {}
+  pub trait cpuSw_wifiGate_wifiGate_Api {}
 
-  pub trait cpuSw_wifiDriver_wifiDriver_Put_Api: cpuSw_wifiDriver_wifiDriver_Api {
+  pub trait cpuSw_wifiGate_wifiGate_Put_Api: cpuSw_wifiGate_wifiGate_Api {
     #[verifier::external_body]
     fn unverified_put_wifiSend(
       &mut self,
@@ -33,7 +33,7 @@ verus! {
     }
   }
 
-  pub trait cpuSw_wifiDriver_wifiDriver_Get_Api: cpuSw_wifiDriver_wifiDriver_Api {
+  pub trait cpuSw_wifiGate_wifiGate_Get_Api: cpuSw_wifiGate_wifiGate_Api {
     #[verifier::external_body]
     fn unverified_get_wifiRecv(
       &mut self,
@@ -65,9 +65,9 @@ verus! {
     }
   }
 
-  pub trait cpuSw_wifiDriver_wifiDriver_Full_Api: cpuSw_wifiDriver_wifiDriver_Put_Api + cpuSw_wifiDriver_wifiDriver_Get_Api {}
+  pub trait cpuSw_wifiGate_wifiGate_Full_Api: cpuSw_wifiGate_wifiGate_Put_Api + cpuSw_wifiGate_wifiGate_Get_Api {}
 
-  pub struct cpuSw_wifiDriver_wifiDriver_Application_Api<API: cpuSw_wifiDriver_wifiDriver_Api> {
+  pub struct cpuSw_wifiGate_wifiGate_Application_Api<API: cpuSw_wifiGate_wifiGate_Api> {
     pub api: API,
 
     pub ghost wifiRecv: Option<Common::DummyMessage_Impl>,
@@ -78,7 +78,7 @@ verus! {
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>
   }
 
-  impl<API: cpuSw_wifiDriver_wifiDriver_Put_Api> cpuSw_wifiDriver_wifiDriver_Application_Api<API> {
+  impl<API: cpuSw_wifiGate_wifiGate_Put_Api> cpuSw_wifiGate_wifiGate_Application_Api<API> {
     pub fn put_wifiSend(
       &mut self,
       value: Common::DummyMessage_Impl)
@@ -123,7 +123,7 @@ verus! {
     }
   }
 
-  impl<API: cpuSw_wifiDriver_wifiDriver_Get_Api> cpuSw_wifiDriver_wifiDriver_Application_Api<API> {
+  impl<API: cpuSw_wifiGate_wifiGate_Get_Api> cpuSw_wifiGate_wifiGate_Application_Api<API> {
     pub fn get_wifiRecv(&mut self) -> (res : Option<Common::DummyMessage_Impl>)
       ensures
         old(self).wifiRecv == self.wifiRecv,
@@ -162,13 +162,13 @@ verus! {
     }
   }
 
-  pub struct cpuSw_wifiDriver_wifiDriver_Initialization_Api;
-  impl cpuSw_wifiDriver_wifiDriver_Api for cpuSw_wifiDriver_wifiDriver_Initialization_Api {}
-  impl cpuSw_wifiDriver_wifiDriver_Put_Api for cpuSw_wifiDriver_wifiDriver_Initialization_Api {}
+  pub struct cpuSw_wifiGate_wifiGate_Initialization_Api;
+  impl cpuSw_wifiGate_wifiGate_Api for cpuSw_wifiGate_wifiGate_Initialization_Api {}
+  impl cpuSw_wifiGate_wifiGate_Put_Api for cpuSw_wifiGate_wifiGate_Initialization_Api {}
 
-  pub const fn init_api() -> cpuSw_wifiDriver_wifiDriver_Application_Api<cpuSw_wifiDriver_wifiDriver_Initialization_Api> {
-    return cpuSw_wifiDriver_wifiDriver_Application_Api {
-      api: cpuSw_wifiDriver_wifiDriver_Initialization_Api {},
+  pub const fn init_api() -> cpuSw_wifiGate_wifiGate_Application_Api<cpuSw_wifiGate_wifiGate_Initialization_Api> {
+    return cpuSw_wifiGate_wifiGate_Application_Api {
+      api: cpuSw_wifiGate_wifiGate_Initialization_Api {},
 
       wifiRecv: None,
       analysis_report: None,
@@ -179,15 +179,15 @@ verus! {
     }
   }
 
-  pub struct cpuSw_wifiDriver_wifiDriver_Compute_Api;
-  impl cpuSw_wifiDriver_wifiDriver_Api for cpuSw_wifiDriver_wifiDriver_Compute_Api {}
-  impl cpuSw_wifiDriver_wifiDriver_Put_Api for cpuSw_wifiDriver_wifiDriver_Compute_Api {}
-  impl cpuSw_wifiDriver_wifiDriver_Get_Api for cpuSw_wifiDriver_wifiDriver_Compute_Api {}
-  impl cpuSw_wifiDriver_wifiDriver_Full_Api for cpuSw_wifiDriver_wifiDriver_Compute_Api {}
+  pub struct cpuSw_wifiGate_wifiGate_Compute_Api;
+  impl cpuSw_wifiGate_wifiGate_Api for cpuSw_wifiGate_wifiGate_Compute_Api {}
+  impl cpuSw_wifiGate_wifiGate_Put_Api for cpuSw_wifiGate_wifiGate_Compute_Api {}
+  impl cpuSw_wifiGate_wifiGate_Get_Api for cpuSw_wifiGate_wifiGate_Compute_Api {}
+  impl cpuSw_wifiGate_wifiGate_Full_Api for cpuSw_wifiGate_wifiGate_Compute_Api {}
 
-  pub const fn compute_api() -> cpuSw_wifiDriver_wifiDriver_Application_Api<cpuSw_wifiDriver_wifiDriver_Compute_Api> {
-    return cpuSw_wifiDriver_wifiDriver_Application_Api {
-      api: cpuSw_wifiDriver_wifiDriver_Compute_Api {},
+  pub const fn compute_api() -> cpuSw_wifiGate_wifiGate_Application_Api<cpuSw_wifiGate_wifiGate_Compute_Api> {
+    return cpuSw_wifiGate_wifiGate_Application_Api {
+      api: cpuSw_wifiGate_wifiGate_Compute_Api {},
 
       wifiRecv: None,
       analysis_report: None,

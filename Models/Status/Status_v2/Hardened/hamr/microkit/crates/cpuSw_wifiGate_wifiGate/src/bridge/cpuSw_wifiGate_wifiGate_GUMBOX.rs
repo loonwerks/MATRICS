@@ -24,7 +24,7 @@ pub fn initialize_defaultAlert(alert_cmd: bool) -> bool
   alert_cmd == false
 }
 
-/** IEP-Guar: Initialize Entrypoint for wifiDriver
+/** IEP-Guar: Initialize Entrypoint for wifiGate
   *
   * @param alert_cmd post-state state variable
   * @param api_HMD_log outgoing event data port
@@ -97,7 +97,7 @@ pub fn compute_spec_Process_Report_guarantee(
   }
 }
 
-/** CEP-T-Guar: Top-level guarantee contracts for wifiDriver's compute entrypoint
+/** CEP-T-Guar: Top-level guarantee contracts for wifiGate's compute entrypoint
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
@@ -118,7 +118,7 @@ pub fn compute_CEP_T_Guar(
   return r0 && r1;
 }
 
-/** CEP-Post: Compute Entrypoint Post-Condition for wifiDriver
+/** CEP-Post: Compute Entrypoint Post-Condition for wifiGate
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
@@ -139,7 +139,7 @@ pub fn compute_CEP_Post(
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
 {
-  // CEP-Guar: guarantee clauses of wifiDriver's compute entrypoint
+  // CEP-Guar: guarantee clauses of wifiGate's compute entrypoint
   let r0: bool = compute_CEP_T_Guar(In_alert_cmd, alert_cmd, api_alert, api_analysis_report, api_wifiSend);
 
   return r0;

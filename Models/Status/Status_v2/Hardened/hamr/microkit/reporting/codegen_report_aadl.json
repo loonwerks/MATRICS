@@ -29,7 +29,7 @@
                   "beginColumn" : 4,
                   "endLine" : 221,
                   "endColumn" : 35,
-                  "offset" : 7186,
+                  "offset" : 7182,
                   "length" : 31
                 }
               },
@@ -51,7 +51,7 @@
                   "beginColumn" : 4,
                   "endLine" : 222,
                   "endColumn" : 45,
-                  "offset" : 7221,
+                  "offset" : 7217,
                   "length" : 41
                 }
               },
@@ -73,7 +73,7 @@
                   "beginColumn" : 4,
                   "endLine" : 223,
                   "endColumn" : 33,
-                  "offset" : 7266,
+                  "offset" : 7262,
                   "length" : 29
                 }
               },
@@ -95,7 +95,7 @@
                   "beginColumn" : 4,
                   "endLine" : 225,
                   "endColumn" : 38,
-                  "offset" : 7328,
+                  "offset" : 7324,
                   "length" : 34
                 }
               },
@@ -117,6 +117,16 @@
             },
             {
               "type" : "ResourceReport",
+              "path" : "types\/include\/sb_queue_Common_DummyMessage_Impl_1.h",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "types\/src\/sb_queue_Common_DummyMessage_Impl_1.c",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
               "path" : "types\/include\/sb_queue_Common_Log_Impl_1.h",
               "overwrittenIfExists" : true
             },
@@ -133,6 +143,16 @@
             {
               "type" : "ResourceReport",
               "path" : "types\/src\/sb_queue_Common_AnalysisRequest_Impl_1.c",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "types\/include\/sb_queue_Common_DummyMessage_Impl_1.h",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "types\/src\/sb_queue_Common_DummyMessage_Impl_1.c",
               "overwrittenIfExists" : true
             },
             {
@@ -298,6 +318,26 @@
             {
               "type" : "ResourceReport",
               "path" : "types\/include\/sb_types.h",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate_MON.c",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate_user.c",
+              "overwrittenIfExists" : false
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiGate_wifiGate\/include\/cpuSw_wifiGate_wifiGate.h",
               "overwrittenIfExists" : true
             },
             {
@@ -647,17 +687,17 @@
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/mod.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/mod.rs",
               "overwrittenIfExists" : true
             },
             {
@@ -797,37 +837,37 @@
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/lib.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/lib.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/logging.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/logging.rs",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/mod.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/mod.rs",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/Cargo.toml",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/Cargo.toml",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/Makefile",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/Makefile",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/rust-toolchain.toml",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/rust-toolchain.toml",
               "overwrittenIfExists" : false
             },
             {
@@ -1147,27 +1187,27 @@
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/mod.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/mod.rs",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/tests.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/tests.rs",
               "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/mod.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/util\/mod.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/generators.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/util\/generators.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/test_apis.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/util\/test_apis.rs",
               "overwrittenIfExists" : true
             },
             {
@@ -1412,12 +1452,12 @@
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs",
               "overwrittenIfExists" : true
             },
             {
               "type" : "ResourceReport",
-              "path" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/cb_apis.rs",
+              "path" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/util\/cb_apis.rs",
               "overwrittenIfExists" : true
             },
             {
@@ -1489,16 +1529,16 @@
           "type" : "org.sireum.hamr.codegen.microkit.reporting.MicrokitReport",
           "componentReport" : {
             "type" : "HashSMap",
-            "size" : 10,
+            "size" : 11,
             "entries" : [
               [
                 {
                   "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                  "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver"]
+                  "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate"]
                 },
                 {
                   "type" : "org.sireum.hamr.codegen.microkit.reporting.ComponentReport",
-                  "path" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver"],
+                  "path" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate"],
                   "kind" : {
                     "type" : "org.sireum.hamr.codegen.microkit.reporting.ComponentKind",
                     "value" : "Thread"
@@ -1508,19 +1548,19 @@
                   },
                   "modelImplementation" : {
                     "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPos",
-                    "id" : "GroundStation::wifiDriver",
+                    "id" : "GroundStation::wifiGate",
                     "pos" : {
                       "type" : "Position",
                       "uriOpt" : {
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 36,
+                      "beginLine" : 81,
                       "beginColumn" : 4,
-                      "endLine" : 36,
-                      "endColumn" : 34,
-                      "offset" : 1080,
-                      "length" : 30
+                      "endLine" : 81,
+                      "endColumn" : 30,
+                      "offset" : 2523,
+                      "length" : 26
                     }
                   },
                   "modelProperties" : [
@@ -1534,11 +1574,11 @@
                       [
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecv"]
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "wifiRecv"]
                         },
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecv"],
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "wifiRecv"],
                           "kind" : {
                             "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
                             "value" : "EventData"
@@ -1561,7 +1601,7 @@
                             "beginColumn" : 4,
                             "endLine" : 52,
                             "endColumn" : 59,
-                            "offset" : 1070,
+                            "offset" : 1068,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -1573,13 +1613,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 127,
                                 "beginColumn" : 5,
                                 "endLine" : 138,
                                 "endColumn" : 5,
-                                "offset" : 4026,
+                                "offset" : 3970,
                                 "length" : 484
                               }
                             },
@@ -1591,13 +1631,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 38,
                                 "beginColumn" : 5,
                                 "endLine" : 45,
                                 "endColumn" : 5,
-                                "offset" : 957,
+                                "offset" : 937,
                                 "length" : 241
                               }
                             },
@@ -1609,7 +1649,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 22,
                                 "beginColumn" : 1,
@@ -1627,7 +1667,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 14,
                                 "beginColumn" : 3,
@@ -1645,13 +1685,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 41,
+                                "beginLine" : 47,
                                 "beginColumn" : 1,
-                                "endLine" : 44,
+                                "endLine" : 50,
                                 "endColumn" : 1,
-                                "offset" : 1687,
+                                "offset" : 1890,
                                 "length" : 133
                               }
                             },
@@ -1663,13 +1703,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 11,
+                                "beginLine" : 12,
                                 "beginColumn" : 1,
-                                "endLine" : 11,
+                                "endLine" : 12,
                                 "endColumn" : 65,
-                                "offset" : 420,
+                                "offset" : 470,
                                 "length" : 64
                               }
                             },
@@ -1697,11 +1737,11 @@
                       [
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "analysis_report"]
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "analysis_report"]
                         },
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "analysis_report"],
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "analysis_report"],
                           "kind" : {
                             "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
                             "value" : "EventData"
@@ -1724,7 +1764,7 @@
                             "beginColumn" : 4,
                             "endLine" : 55,
                             "endColumn" : 68,
-                            "offset" : 1239,
+                            "offset" : 1237,
                             "length" : 64
                           },
                           "languageRealizations" : [
@@ -1736,13 +1776,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 139,
                                 "beginColumn" : 5,
                                 "endLine" : 150,
                                 "endColumn" : 5,
-                                "offset" : 4516,
+                                "offset" : 4460,
                                 "length" : 514
                               }
                             },
@@ -1754,13 +1794,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 48,
                                 "beginColumn" : 5,
                                 "endLine" : 55,
                                 "endColumn" : 5,
-                                "offset" : 1236,
+                                "offset" : 1216,
                                 "length" : 259
                               }
                             },
@@ -1772,7 +1812,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 34,
                                 "beginColumn" : 1,
@@ -1790,7 +1830,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 15,
                                 "beginColumn" : 3,
@@ -1808,13 +1848,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
                                 "beginLine" : 60,
                                 "beginColumn" : 1,
                                 "endLine" : 63,
                                 "endColumn" : 1,
-                                "offset" : 2422,
+                                "offset" : 2406,
                                 "length" : 149
                               }
                             },
@@ -1826,340 +1866,14 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
                                 "beginLine" : 14,
                                 "beginColumn" : 1,
                                 "endLine" : 14,
                                 "endColumn" : 74,
-                                "offset" : 616,
+                                "offset" : 600,
                                 "length" : 73
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Memory Map",
-                              "title" : "Memory Map",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "microkit.system"
-                                },
-                                "beginLine" : 36,
-                                "beginColumn" : 7,
-                                "endLine" : 40,
-                                "endColumn" : 9,
-                                "offset" : 0,
-                                "length" : 0
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "alert"]
-                        },
-                        {
-                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "alert"],
-                          "kind" : {
-                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
-                            "value" : "EventData"
-                          },
-                          "direction" : {
-                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
-                            "value" : "In"
-                          },
-                          "payload" : {
-                            "type" : "Some",
-                            "value" : "Common::DummyMessage.Impl"
-                          },
-                          "modelPos" : {
-                            "type" : "Position",
-                            "uriOpt" : {
-                              "type" : "Some",
-                              "value" : "..\/..\/GroundStation.aadl"
-                            },
-                            "beginLine" : 57,
-                            "beginColumn" : 4,
-                            "endLine" : 57,
-                            "endColumn" : 56,
-                            "offset" : 1378,
-                            "length" : 52
-                          },
-                          "languageRealizations" : [
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Rust\/Verus API",
-                              "title" : "Rust\/Verus API",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
-                                },
-                                "beginLine" : 151,
-                                "beginColumn" : 5,
-                                "endLine" : 162,
-                                "endColumn" : 5,
-                                "offset" : 5036,
-                                "length" : 472
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Unverified Rust Interface",
-                              "title" : "Unverified Rust Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
-                                },
-                                "beginLine" : 58,
-                                "beginColumn" : 5,
-                                "endLine" : 65,
-                                "endColumn" : 5,
-                                "offset" : 1533,
-                                "length" : 235
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Rust\/C Interface",
-                              "title" : "Rust\/C Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
-                                },
-                                "beginLine" : 46,
-                                "beginColumn" : 1,
-                                "endLine" : 56,
-                                "endColumn" : 1,
-                                "offset" : 1287,
-                                "length" : 271
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C Extern",
-                              "title" : "C Extern",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
-                                },
-                                "beginLine" : 16,
-                                "beginColumn" : 3,
-                                "endLine" : 16,
-                                "endColumn" : 62,
-                                "offset" : 451,
-                                "length" : 59
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C Interface",
-                              "title" : "C Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
-                                },
-                                "beginLine" : 73,
-                                "beginColumn" : 1,
-                                "endLine" : 76,
-                                "endColumn" : 1,
-                                "offset" : 2906,
-                                "length" : 127
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C var_addr",
-                              "title" : "C Shared Memory Variable",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
-                                },
-                                "beginLine" : 16,
-                                "beginColumn" : 1,
-                                "endLine" : 16,
-                                "endColumn" : 62,
-                                "offset" : 764,
-                                "length" : 61
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Memory Map",
-                              "title" : "Memory Map",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "microkit.system"
-                                },
-                                "beginLine" : 41,
-                                "beginColumn" : 7,
-                                "endLine" : 45,
-                                "endColumn" : 9,
-                                "offset" : 0,
-                                "length" : 0
-                              }
-                            }
-                          ]
-                        }
-                      ],
-                      [
-                        {
-                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSend"]
-                        },
-                        {
-                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSend"],
-                          "kind" : {
-                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
-                            "value" : "EventData"
-                          },
-                          "direction" : {
-                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
-                            "value" : "Out"
-                          },
-                          "payload" : {
-                            "type" : "Some",
-                            "value" : "Common::DummyMessage.Impl"
-                          },
-                          "modelPos" : {
-                            "type" : "Position",
-                            "uriOpt" : {
-                              "type" : "Some",
-                              "value" : "..\/..\/GroundStation.aadl"
-                            },
-                            "beginLine" : 53,
-                            "beginColumn" : 4,
-                            "endLine" : 53,
-                            "endColumn" : 60,
-                            "offset" : 1129,
-                            "length" : 56
-                          },
-                          "languageRealizations" : [
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Rust\/Verus API",
-                              "title" : "Rust\/Verus API",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
-                                },
-                                "beginLine" : 82,
-                                "beginColumn" : 5,
-                                "endLine" : 95,
-                                "endColumn" : 5,
-                                "offset" : 2488,
-                                "length" : 469
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Unverified Rust Interface",
-                              "title" : "Unverified Rust Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
-                                },
-                                "beginLine" : 12,
-                                "beginColumn" : 5,
-                                "endLine" : 17,
-                                "endColumn" : 5,
-                                "offset" : 322,
-                                "length" : 142
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "Rust\/C Interface",
-                              "title" : "Rust\/C Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
-                                },
-                                "beginLine" : 58,
-                                "beginColumn" : 1,
-                                "endLine" : 63,
-                                "endColumn" : 1,
-                                "offset" : 1561,
-                                "length" : 189
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C Extern",
-                              "title" : "C Extern",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
-                                },
-                                "beginLine" : 17,
-                                "beginColumn" : 3,
-                                "endLine" : 17,
-                                "endColumn" : 65,
-                                "offset" : 514,
-                                "length" : 62
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C Interface",
-                              "title" : "C Interface",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
-                                },
-                                "beginLine" : 46,
-                                "beginColumn" : 1,
-                                "endLine" : 50,
-                                "endColumn" : 1,
-                                "offset" : 1823,
-                                "length" : 216
-                              }
-                            },
-                            {
-                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
-                              "name" : "C var_addr",
-                              "title" : "C Shared Memory Variable",
-                              "pos" : {
-                                "type" : "Position",
-                                "uriOpt" : {
-                                  "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
-                                },
-                                "beginLine" : 13,
-                                "beginColumn" : 1,
-                                "endLine" : 13,
-                                "endColumn" : 65,
-                                "offset" : 550,
-                                "length" : 64
                               }
                             },
                             {
@@ -2186,11 +1900,337 @@
                       [
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "HMD_log"]
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "alert"]
                         },
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "HMD_log"],
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "alert"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "In"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/GroundStation.aadl"
+                            },
+                            "beginLine" : 57,
+                            "beginColumn" : 4,
+                            "endLine" : 57,
+                            "endColumn" : 56,
+                            "offset" : 1376,
+                            "length" : 52
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Rust\/Verus API",
+                              "title" : "Rust\/Verus API",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
+                                },
+                                "beginLine" : 151,
+                                "beginColumn" : 5,
+                                "endLine" : 162,
+                                "endColumn" : 5,
+                                "offset" : 4980,
+                                "length" : 472
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Unverified Rust Interface",
+                              "title" : "Unverified Rust Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
+                                },
+                                "beginLine" : 58,
+                                "beginColumn" : 5,
+                                "endLine" : 65,
+                                "endColumn" : 5,
+                                "offset" : 1513,
+                                "length" : 235
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Rust\/C Interface",
+                              "title" : "Rust\/C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
+                                },
+                                "beginLine" : 46,
+                                "beginColumn" : 1,
+                                "endLine" : 56,
+                                "endColumn" : 1,
+                                "offset" : 1287,
+                                "length" : 271
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Extern",
+                              "title" : "C Extern",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
+                                },
+                                "beginLine" : 16,
+                                "beginColumn" : 3,
+                                "endLine" : 16,
+                                "endColumn" : 62,
+                                "offset" : 451,
+                                "length" : 59
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
+                                },
+                                "beginLine" : 73,
+                                "beginColumn" : 1,
+                                "endLine" : 76,
+                                "endColumn" : 1,
+                                "offset" : 2890,
+                                "length" : 127
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
+                                },
+                                "beginLine" : 16,
+                                "beginColumn" : 1,
+                                "endLine" : 16,
+                                "endColumn" : 62,
+                                "offset" : 748,
+                                "length" : 61
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 36,
+                                "beginColumn" : 7,
+                                "endLine" : 40,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "wifiSend"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "wifiSend"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "Out"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/GroundStation.aadl"
+                            },
+                            "beginLine" : 53,
+                            "beginColumn" : 4,
+                            "endLine" : 53,
+                            "endColumn" : 60,
+                            "offset" : 1127,
+                            "length" : 56
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Rust\/Verus API",
+                              "title" : "Rust\/Verus API",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
+                                },
+                                "beginLine" : 82,
+                                "beginColumn" : 5,
+                                "endLine" : 95,
+                                "endColumn" : 5,
+                                "offset" : 2440,
+                                "length" : 469
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Unverified Rust Interface",
+                              "title" : "Unverified Rust Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
+                                },
+                                "beginLine" : 12,
+                                "beginColumn" : 5,
+                                "endLine" : 17,
+                                "endColumn" : 5,
+                                "offset" : 310,
+                                "length" : 142
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Rust\/C Interface",
+                              "title" : "Rust\/C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
+                                },
+                                "beginLine" : 58,
+                                "beginColumn" : 1,
+                                "endLine" : 63,
+                                "endColumn" : 1,
+                                "offset" : 1561,
+                                "length" : 189
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Extern",
+                              "title" : "C Extern",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
+                                },
+                                "beginLine" : 17,
+                                "beginColumn" : 3,
+                                "endLine" : 17,
+                                "endColumn" : 65,
+                                "offset" : 514,
+                                "length" : 62
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
+                                },
+                                "beginLine" : 21,
+                                "beginColumn" : 1,
+                                "endLine" : 25,
+                                "endColumn" : 1,
+                                "offset" : 899,
+                                "length" : 216
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
+                                },
+                                "beginLine" : 9,
+                                "beginColumn" : 1,
+                                "endLine" : 9,
+                                "endColumn" : 65,
+                                "offset" : 271,
+                                "length" : 64
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 11,
+                                "beginColumn" : 7,
+                                "endLine" : 15,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "HMD_log"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "HMD_log"],
                           "kind" : {
                             "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
                             "value" : "EventData"
@@ -2213,7 +2253,7 @@
                             "beginColumn" : 4,
                             "endLine" : 54,
                             "endColumn" : 50,
-                            "offset" : 1189,
+                            "offset" : 1187,
                             "length" : 46
                           },
                           "languageRealizations" : [
@@ -2225,13 +2265,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 96,
                                 "beginColumn" : 5,
                                 "endLine" : 109,
                                 "endColumn" : 5,
-                                "offset" : 2963,
+                                "offset" : 2915,
                                 "length" : 458
                               }
                             },
@@ -2243,13 +2283,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 20,
                                 "beginColumn" : 5,
                                 "endLine" : 25,
                                 "endColumn" : 5,
-                                "offset" : 502,
+                                "offset" : 490,
                                 "length" : 131
                               }
                             },
@@ -2261,7 +2301,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 65,
                                 "beginColumn" : 1,
@@ -2279,7 +2319,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 18,
                                 "beginColumn" : 3,
@@ -2297,13 +2337,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 21,
+                                "beginLine" : 27,
                                 "beginColumn" : 1,
-                                "endLine" : 25,
+                                "endLine" : 31,
                                 "endColumn" : 1,
-                                "offset" : 915,
+                                "offset" : 1118,
                                 "length" : 178
                               }
                             },
@@ -2315,13 +2355,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 9,
+                                "beginLine" : 10,
                                 "beginColumn" : 1,
-                                "endLine" : 9,
+                                "endLine" : 10,
                                 "endColumn" : 55,
-                                "offset" : 287,
+                                "offset" : 337,
                                 "length" : 54
                               }
                             },
@@ -2349,11 +2389,11 @@
                       [
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
-                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "analysis_request"]
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "analysis_request"]
                         },
                         {
                           "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
-                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "analysis_request"],
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate", "analysis_request"],
                           "kind" : {
                             "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
                             "value" : "EventData"
@@ -2376,7 +2416,7 @@
                             "beginColumn" : 4,
                             "endLine" : 56,
                             "endColumn" : 71,
-                            "offset" : 1307,
+                            "offset" : 1305,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -2388,13 +2428,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 110,
                                 "beginColumn" : 5,
                                 "endLine" : 123,
                                 "endColumn" : 5,
-                                "offset" : 3427,
+                                "offset" : 3379,
                                 "length" : 488
                               }
                             },
@@ -2406,13 +2446,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs"
                                 },
                                 "beginLine" : 28,
                                 "beginColumn" : 5,
                                 "endLine" : 33,
                                 "endColumn" : 5,
-                                "offset" : 671,
+                                "offset" : 659,
                                 "length" : 161
                               }
                             },
@@ -2424,7 +2464,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 72,
                                 "beginColumn" : 1,
@@ -2442,7 +2482,7 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs"
+                                  "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs"
                                 },
                                 "beginLine" : 19,
                                 "beginColumn" : 3,
@@ -2460,13 +2500,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 27,
+                                "beginLine" : 33,
                                 "beginColumn" : 1,
-                                "endLine" : 31,
+                                "endLine" : 37,
                                 "endColumn" : 1,
-                                "offset" : 1096,
+                                "offset" : 1299,
                                 "length" : 244
                               }
                             },
@@ -2478,13 +2518,13 @@
                                 "type" : "Position",
                                 "uriOpt" : {
                                   "type" : "Some",
-                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                  "value" : "components\/cpuSw_wifiGate_wifiGate\/src\/cpuSw_wifiGate_wifiGate.c"
                                 },
-                                "beginLine" : 10,
+                                "beginLine" : 11,
                                 "beginColumn" : 1,
-                                "endLine" : 10,
+                                "endLine" : 11,
                                 "endColumn" : 76,
-                                "offset" : 343,
+                                "offset" : 393,
                                 "length" : 75
                               }
                             },
@@ -2528,14 +2568,14 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                               },
                               "beginLine" : 25,
                               "beginColumn" : 5,
                               "endLine" : 35,
                               "endColumn" : 5,
-                              "offset" : 494,
-                              "length" : 377
+                              "offset" : 482,
+                              "length" : 369
                             }
                           ],
                           [
@@ -2544,29 +2584,29 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                               },
                               "beginLine" : 37,
                               "beginColumn" : 5,
                               "endLine" : 66,
                               "endColumn" : 5,
-                              "offset" : 878,
-                              "length" : 1160
+                              "offset" : 858,
+                              "length" : 1152
                             }
                           ]
                         ]
                       },
                       "apiReport" : {
                         "type" : "org.sireum.hamr.codegen.microkit.reporting.RustApiReport",
-                        "extern_c_apiPath" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/extern_c_api.rs",
-                        "developerApiPath" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_api.rs",
+                        "extern_c_apiPath" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/extern_c_api.rs",
+                        "developerApiPath" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_api.rs",
                         "developerApiReport" : {
                           "type" : "HashSMap",
                           "size" : 0,
                           "entries" : [
                           ]
                         },
-                        "testApiPath" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/test\/util\/test_apis.rs"
+                        "testApiPath" : "crates\/cpuSw_wifiGate_wifiGate\/src\/test\/util\/test_apis.rs"
                       }
                     }
                   },
@@ -2584,13 +2624,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                               },
                               "beginLine" : 11,
                               "beginColumn" : 5,
                               "endLine" : 11,
                               "endColumn" : 23,
-                              "offset" : 237,
+                              "offset" : 229,
                               "length" : 18
                             }
                           ]
@@ -2621,13 +2661,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                               },
                               "beginLine" : 30,
                               "beginColumn" : 11,
                               "endLine" : 31,
                               "endColumn" : 31,
-                              "offset" : 732,
+                              "offset" : 712,
                               "length" : 32
                             }
                           ]
@@ -2653,13 +2693,13 @@
                                   "type" : "Position",
                                   "uriOpt" : {
                                     "type" : "Some",
-                                    "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                    "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                                   },
                                   "beginLine" : 50,
                                   "beginColumn" : 11,
                                   "endLine" : 55,
                                   "endColumn" : 37,
-                                  "offset" : 1440,
+                                  "offset" : 1412,
                                   "length" : 223
                                 }
                               ],
@@ -2669,13 +2709,13 @@
                                   "type" : "Position",
                                   "uriOpt" : {
                                     "type" : "Some",
-                                    "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/component\/cpuSw_wifiDriver_wifiDriver_app.rs"
+                                    "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs"
                                   },
                                   "beginLine" : 56,
                                   "beginColumn" : 11,
                                   "endLine" : 58,
                                   "endColumn" : 9,
-                                  "offset" : 1700,
+                                  "offset" : 1672,
                                   "length" : 87
                                 }
                               ]
@@ -2711,7 +2751,7 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 22,
                               "beginColumn" : 1,
@@ -2727,13 +2767,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 34,
                               "beginColumn" : 1,
                               "endLine" : 41,
                               "endColumn" : 1,
-                              "offset" : 708,
+                              "offset" : 706,
                               "length" : 248
                             }
                           ],
@@ -2743,13 +2783,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 50,
                               "beginColumn" : 1,
                               "endLine" : 57,
                               "endColumn" : 1,
-                              "offset" : 1220,
+                              "offset" : 1218,
                               "length" : 293
                             }
                           ],
@@ -2759,13 +2799,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 67,
                               "beginColumn" : 1,
                               "endLine" : 78,
                               "endColumn" : 1,
-                              "offset" : 1793,
+                              "offset" : 1791,
                               "length" : 290
                             }
                           ],
@@ -2775,13 +2815,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 88,
                               "beginColumn" : 1,
                               "endLine" : 98,
                               "endColumn" : 1,
-                              "offset" : 2378,
+                              "offset" : 2376,
                               "length" : 307
                             }
                           ],
@@ -2791,13 +2831,13 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 108,
                               "beginColumn" : 1,
                               "endLine" : 119,
                               "endColumn" : 1,
-                              "offset" : 3026,
+                              "offset" : 3022,
                               "length" : 455
                             }
                           ],
@@ -2807,19 +2847,439 @@
                               "type" : "Position",
                               "uriOpt" : {
                                 "type" : "Some",
-                                "value" : "crates\/cpuSw_wifiDriver_wifiDriver\/src\/bridge\/cpuSw_wifiDriver_wifiDriver_GUMBOX.rs"
+                                "value" : "crates\/cpuSw_wifiGate_wifiGate\/src\/bridge\/cpuSw_wifiGate_wifiGate_GUMBOX.rs"
                               },
                               "beginLine" : 132,
                               "beginColumn" : 1,
                               "endLine" : 146,
                               "endColumn" : 1,
-                              "offset" : 3957,
-                              "length" : 579
+                              "offset" : 3951,
+                              "length" : 577
                             }
                           ]
                         ]
                       }
                     }
+                  }
+                }
+              ],
+              [
+                {
+                  "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                  "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver"]
+                },
+                {
+                  "type" : "org.sireum.hamr.codegen.microkit.reporting.ComponentReport",
+                  "path" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver"],
+                  "kind" : {
+                    "type" : "org.sireum.hamr.codegen.microkit.reporting.ComponentKind",
+                    "value" : "Thread"
+                  },
+                  "optModelType" : {
+                    "type" : "None"
+                  },
+                  "modelImplementation" : {
+                    "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPos",
+                    "id" : "Hardened_SW::wifiDriverVM",
+                    "pos" : {
+                      "type" : "Position",
+                      "uriOpt" : {
+                        "type" : "Some",
+                        "value" : "\/Status_Hardened\/Hardened_SW.aadl"
+                      },
+                      "beginLine" : 48,
+                      "beginColumn" : 4,
+                      "endLine" : 48,
+                      "endColumn" : 36,
+                      "offset" : 1404,
+                      "length" : 32
+                    }
+                  },
+                  "modelProperties" : [
+                  ],
+                  "subcomponents" : [
+                  ],
+                  "ports" : {
+                    "type" : "HashSMap",
+                    "size" : 4,
+                    "entries" : [
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecvIn"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecvIn"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "In"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/Hardened_SW.aadl"
+                            },
+                            "beginLine" : 20,
+                            "beginColumn" : 4,
+                            "endLine" : 20,
+                            "endColumn" : 61,
+                            "offset" : 397,
+                            "length" : 57
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 45,
+                                "beginColumn" : 1,
+                                "endLine" : 48,
+                                "endColumn" : 1,
+                                "offset" : 1789,
+                                "length" : 137
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 12,
+                                "beginColumn" : 1,
+                                "endLine" : 12,
+                                "endColumn" : 67,
+                                "offset" : 490,
+                                "length" : 66
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 69,
+                                "beginColumn" : 7,
+                                "endLine" : 73,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSendIn"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSendIn"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "In"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/Hardened_SW.aadl"
+                            },
+                            "beginLine" : 22,
+                            "beginColumn" : 4,
+                            "endLine" : 22,
+                            "endColumn" : 61,
+                            "offset" : 521,
+                            "length" : 57
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 26,
+                                "beginColumn" : 1,
+                                "endLine" : 29,
+                                "endColumn" : 1,
+                                "offset" : 1072,
+                                "length" : 137
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 9,
+                                "beginColumn" : 1,
+                                "endLine" : 9,
+                                "endColumn" : 67,
+                                "offset" : 287,
+                                "length" : 66
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 59,
+                                "beginColumn" : 7,
+                                "endLine" : 63,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecvOut"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiRecvOut"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "Out"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/Hardened_SW.aadl"
+                            },
+                            "beginLine" : 21,
+                            "beginColumn" : 4,
+                            "endLine" : 21,
+                            "endColumn" : 63,
+                            "offset" : 458,
+                            "length" : 59
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 31,
+                                "beginColumn" : 1,
+                                "endLine" : 35,
+                                "endColumn" : 1,
+                                "offset" : 1212,
+                                "length" : 222
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 11,
+                                "beginColumn" : 1,
+                                "endLine" : 11,
+                                "endColumn" : 68,
+                                "offset" : 421,
+                                "length" : 67
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 64,
+                                "beginColumn" : 7,
+                                "endLine" : 68,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      [
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.IdPathR",
+                          "idPath" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSendOut"]
+                        },
+                        {
+                          "type" : "org.sireum.hamr.codegen.microkit.reporting.PortReport",
+                          "name" : ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiDriver", "wifiSendOut"],
+                          "kind" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortKind",
+                            "value" : "EventData"
+                          },
+                          "direction" : {
+                            "type" : "org.sireum.hamr.codegen.microkit.reporting.PortDirection",
+                            "value" : "Out"
+                          },
+                          "payload" : {
+                            "type" : "Some",
+                            "value" : "Common::DummyMessage.Impl"
+                          },
+                          "modelPos" : {
+                            "type" : "Position",
+                            "uriOpt" : {
+                              "type" : "Some",
+                              "value" : "..\/..\/Hardened_SW.aadl"
+                            },
+                            "beginLine" : 23,
+                            "beginColumn" : 4,
+                            "endLine" : 23,
+                            "endColumn" : 63,
+                            "offset" : 582,
+                            "length" : 59
+                          },
+                          "languageRealizations" : [
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C Interface",
+                              "title" : "C Interface",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 50,
+                                "beginColumn" : 1,
+                                "endLine" : 54,
+                                "endColumn" : 1,
+                                "offset" : 1929,
+                                "length" : 222
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "C var_addr",
+                              "title" : "C Shared Memory Variable",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "components\/cpuSw_wifiDriver_wifiDriver\/src\/cpuSw_wifiDriver_wifiDriver.c"
+                                },
+                                "beginLine" : 14,
+                                "beginColumn" : 1,
+                                "endLine" : 14,
+                                "endColumn" : 68,
+                                "offset" : 624,
+                                "length" : 67
+                              }
+                            },
+                            {
+                              "type" : "org.sireum.hamr.codegen.microkit.reporting.PortLanguageArtifact",
+                              "name" : "Memory Map",
+                              "title" : "Memory Map",
+                              "pos" : {
+                                "type" : "Position",
+                                "uriOpt" : {
+                                  "type" : "Some",
+                                  "value" : "microkit.system"
+                                },
+                                "beginLine" : 74,
+                                "beginColumn" : 7,
+                                "endLine" : 78,
+                                "endColumn" : 9,
+                                "offset" : 0,
+                                "length" : 0
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    ]
+                  },
+                  "cCodeReport" : {
+                    "type" : "None"
+                  },
+                  "rustReport" : {
+                    "type" : "None"
+                  },
+                  "gumboReport" : {
+                    "type" : "None"
+                  },
+                  "gumboXReport" : {
+                    "type" : "None"
                   }
                 }
               ],
@@ -2847,11 +3307,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 130,
+                      "beginLine" : 175,
                       "beginColumn" : 4,
-                      "endLine" : 130,
+                      "endLine" : 175,
                       "endColumn" : 30,
-                      "offset" : 4311,
+                      "offset" : 5736,
                       "length" : 26
                     }
                   },
@@ -2893,7 +3353,7 @@
                             "beginColumn" : 4,
                             "endLine" : 182,
                             "endColumn" : 57,
-                            "offset" : 5964,
+                            "offset" : 5960,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -3015,9 +3475,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 77,
+                                "beginLine" : 110,
                                 "beginColumn" : 7,
-                                "endLine" : 81,
+                                "endLine" : 114,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3056,7 +3516,7 @@
                             "beginColumn" : 4,
                             "endLine" : 183,
                             "endColumn" : 58,
-                            "offset" : 6024,
+                            "offset" : 6020,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3178,9 +3638,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 82,
+                                "beginLine" : 115,
                                 "beginColumn" : 7,
-                                "endLine" : 86,
+                                "endLine" : 119,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3282,11 +3742,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 150,
+                      "beginLine" : 195,
                       "beginColumn" : 4,
-                      "endLine" : 150,
+                      "endLine" : 195,
                       "endColumn" : 32,
-                      "offset" : 4853,
+                      "offset" : 6278,
                       "length" : 28
                     }
                   },
@@ -3328,7 +3788,7 @@
                             "beginColumn" : 4,
                             "endLine" : 194,
                             "endColumn" : 58,
-                            "offset" : 6271,
+                            "offset" : 6267,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -3450,9 +3910,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 100,
+                                "beginLine" : 133,
                                 "beginColumn" : 7,
-                                "endLine" : 104,
+                                "endLine" : 137,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3491,7 +3951,7 @@
                             "beginColumn" : 4,
                             "endLine" : 195,
                             "endColumn" : 59,
-                            "offset" : 6329,
+                            "offset" : 6325,
                             "length" : 55
                           },
                           "languageRealizations" : [
@@ -3613,9 +4073,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 105,
+                                "beginLine" : 138,
                                 "beginColumn" : 7,
-                                "endLine" : 109,
+                                "endLine" : 142,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3717,11 +4177,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 76,
+                      "beginLine" : 121,
                       "beginColumn" : 4,
-                      "endLine" : 76,
+                      "endLine" : 121,
                       "endColumn" : 36,
-                      "offset" : 2482,
+                      "offset" : 3907,
                       "length" : 32
                     }
                   },
@@ -3763,7 +4223,7 @@
                             "beginColumn" : 4,
                             "endLine" : 102,
                             "endColumn" : 49,
-                            "offset" : 3040,
+                            "offset" : 3036,
                             "length" : 45
                           },
                           "languageRealizations" : [
@@ -3885,9 +4345,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 133,
+                                "beginLine" : 166,
                                 "beginColumn" : 7,
-                                "endLine" : 137,
+                                "endLine" : 170,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -3926,7 +4386,7 @@
                             "beginColumn" : 4,
                             "endLine" : 103,
                             "endColumn" : 57,
-                            "offset" : 3089,
+                            "offset" : 3085,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -4048,9 +4508,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 128,
+                                "beginLine" : 161,
                                 "beginColumn" : 7,
-                                "endLine" : 132,
+                                "endLine" : 165,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4088,7 +4548,7 @@
                             "beginColumn" : 4,
                             "endLine" : 105,
                             "endColumn" : 27,
-                            "offset" : 3209,
+                            "offset" : 3205,
                             "length" : 23
                           },
                           "languageRealizations" : [
@@ -4210,9 +4670,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 138,
+                                "beginLine" : 171,
                                 "beginColumn" : 7,
-                                "endLine" : 142,
+                                "endLine" : 175,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4251,7 +4711,7 @@
                             "beginColumn" : 4,
                             "endLine" : 104,
                             "endColumn" : 63,
-                            "offset" : 3146,
+                            "offset" : 3142,
                             "length" : 59
                           },
                           "languageRealizations" : [
@@ -4373,9 +4833,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 123,
+                                "beginLine" : 156,
                                 "beginColumn" : 7,
-                                "endLine" : 127,
+                                "endLine" : 160,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -4802,11 +5262,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 105,
+                      "beginLine" : 150,
                       "beginColumn" : 4,
-                      "endLine" : 105,
+                      "endLine" : 150,
                       "endColumn" : 38,
-                      "offset" : 3562,
+                      "offset" : 4987,
                       "length" : 34
                     }
                   },
@@ -4848,7 +5308,7 @@
                             "beginColumn" : 4,
                             "endLine" : 164,
                             "endColumn" : 62,
-                            "offset" : 5311,
+                            "offset" : 5307,
                             "length" : 58
                           },
                           "languageRealizations" : [
@@ -4970,9 +5430,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 166,
+                                "beginLine" : 199,
                                 "beginColumn" : 7,
-                                "endLine" : 170,
+                                "endLine" : 203,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5011,7 +5471,7 @@
                             "beginColumn" : 4,
                             "endLine" : 166,
                             "endColumn" : 70,
-                            "offset" : 5442,
+                            "offset" : 5438,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -5133,9 +5593,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 171,
+                                "beginLine" : 204,
                                 "beginColumn" : 7,
-                                "endLine" : 175,
+                                "endLine" : 208,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5174,7 +5634,7 @@
                             "beginColumn" : 4,
                             "endLine" : 163,
                             "endColumn" : 58,
-                            "offset" : 5253,
+                            "offset" : 5249,
                             "length" : 54
                           },
                           "languageRealizations" : [
@@ -5296,9 +5756,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 156,
+                                "beginLine" : 189,
                                 "beginColumn" : 7,
-                                "endLine" : 160,
+                                "endLine" : 193,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5337,7 +5797,7 @@
                             "beginColumn" : 4,
                             "endLine" : 165,
                             "endColumn" : 69,
-                            "offset" : 5373,
+                            "offset" : 5369,
                             "length" : 65
                           },
                           "languageRealizations" : [
@@ -5459,9 +5919,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 161,
+                                "beginLine" : 194,
                                 "beginColumn" : 7,
-                                "endLine" : 165,
+                                "endLine" : 198,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5563,11 +6023,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 416,
+                      "beginLine" : 461,
                       "beginColumn" : 4,
-                      "endLine" : 416,
+                      "endLine" : 461,
                       "endColumn" : 32,
-                      "offset" : 14904,
+                      "offset" : 16329,
                       "length" : 28
                     }
                   },
@@ -5605,11 +6065,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 385,
+                            "beginLine" : 430,
                             "beginColumn" : 4,
-                            "endLine" : 385,
+                            "endLine" : 430,
                             "endColumn" : 52,
-                            "offset" : 14017,
+                            "offset" : 15442,
                             "length" : 48
                           },
                           "languageRealizations" : [
@@ -5731,9 +6191,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 189,
+                                "beginLine" : 222,
                                 "beginColumn" : 7,
-                                "endLine" : 193,
+                                "endLine" : 226,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -5768,11 +6228,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 386,
+                            "beginLine" : 431,
                             "beginColumn" : 4,
-                            "endLine" : 386,
+                            "endLine" : 431,
                             "endColumn" : 54,
-                            "offset" : 14069,
+                            "offset" : 15494,
                             "length" : 50
                           },
                           "languageRealizations" : [
@@ -5894,9 +6354,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 194,
+                                "beginLine" : 227,
                                 "beginColumn" : 7,
-                                "endLine" : 198,
+                                "endLine" : 231,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6131,11 +6591,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 466,
+                      "beginLine" : 511,
                       "beginColumn" : 4,
-                      "endLine" : 466,
+                      "endLine" : 511,
                       "endColumn" : 32,
-                      "offset" : 16594,
+                      "offset" : 18019,
                       "length" : 28
                     }
                   },
@@ -6173,11 +6633,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 431,
+                            "beginLine" : 476,
                             "beginColumn" : 4,
-                            "endLine" : 431,
+                            "endLine" : 476,
                             "endColumn" : 71,
-                            "offset" : 15266,
+                            "offset" : 16691,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -6299,9 +6759,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 212,
+                                "beginLine" : 245,
                                 "beginColumn" : 7,
-                                "endLine" : 216,
+                                "endLine" : 249,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6336,11 +6796,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 432,
+                            "beginLine" : 477,
                             "beginColumn" : 4,
-                            "endLine" : 432,
+                            "endLine" : 477,
                             "endColumn" : 73,
-                            "offset" : 15337,
+                            "offset" : 16762,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -6462,9 +6922,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 217,
+                                "beginLine" : 250,
                                 "beginColumn" : 7,
-                                "endLine" : 221,
+                                "endLine" : 254,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6731,11 +7191,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 244,
+                      "beginLine" : 289,
                       "beginColumn" : 4,
-                      "endLine" : 244,
+                      "endLine" : 289,
                       "endColumn" : 34,
-                      "offset" : 8079,
+                      "offset" : 9504,
                       "length" : 30
                     }
                   },
@@ -6773,11 +7233,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 162,
+                            "beginLine" : 207,
                             "beginColumn" : 4,
-                            "endLine" : 162,
+                            "endLine" : 207,
                             "endColumn" : 57,
-                            "offset" : 5173,
+                            "offset" : 6598,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -6899,9 +7359,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 240,
+                                "beginLine" : 273,
                                 "beginColumn" : 7,
-                                "endLine" : 244,
+                                "endLine" : 277,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -6936,11 +7396,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 163,
+                            "beginLine" : 208,
                             "beginColumn" : 4,
-                            "endLine" : 163,
+                            "endLine" : 208,
                             "endColumn" : 65,
-                            "offset" : 5230,
+                            "offset" : 6655,
                             "length" : 61
                           },
                           "languageRealizations" : [
@@ -7062,9 +7522,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 235,
+                                "beginLine" : 268,
                                 "beginColumn" : 7,
-                                "endLine" : 239,
+                                "endLine" : 272,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7099,11 +7559,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 164,
+                            "beginLine" : 209,
                             "beginColumn" : 4,
-                            "endLine" : 164,
+                            "endLine" : 209,
                             "endColumn" : 67,
-                            "offset" : 5295,
+                            "offset" : 6720,
                             "length" : 63
                           },
                           "languageRealizations" : [
@@ -7225,9 +7685,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 245,
+                                "beginLine" : 278,
                                 "beginColumn" : 7,
-                                "endLine" : 249,
+                                "endLine" : 282,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7261,11 +7721,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 165,
+                            "beginLine" : 210,
                             "beginColumn" : 4,
-                            "endLine" : 165,
+                            "endLine" : 210,
                             "endColumn" : 26,
-                            "offset" : 5365,
+                            "offset" : 6790,
                             "length" : 22
                           },
                           "languageRealizations" : [
@@ -7387,9 +7847,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 250,
+                                "beginLine" : 283,
                                 "beginColumn" : 7,
-                                "endLine" : 254,
+                                "endLine" : 287,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -7816,11 +8276,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 369,
+                      "beginLine" : 414,
                       "beginColumn" : 4,
-                      "endLine" : 369,
+                      "endLine" : 414,
                       "endColumn" : 40,
-                      "offset" : 13546,
+                      "offset" : 14971,
                       "length" : 36
                     }
                   },
@@ -7858,11 +8318,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 260,
+                            "beginLine" : 305,
                             "beginColumn" : 4,
-                            "endLine" : 260,
+                            "endLine" : 305,
                             "endColumn" : 70,
-                            "offset" : 8565,
+                            "offset" : 9990,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -7984,9 +8444,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 268,
+                                "beginLine" : 301,
                                 "beginColumn" : 7,
-                                "endLine" : 272,
+                                "endLine" : 305,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8021,11 +8481,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 261,
+                            "beginLine" : 306,
                             "beginColumn" : 4,
-                            "endLine" : 261,
+                            "endLine" : 306,
                             "endColumn" : 71,
-                            "offset" : 8635,
+                            "offset" : 10060,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -8147,9 +8607,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 273,
+                                "beginLine" : 306,
                                 "beginColumn" : 7,
-                                "endLine" : 277,
+                                "endLine" : 310,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8184,11 +8644,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 262,
+                            "beginLine" : 307,
                             "beginColumn" : 4,
-                            "endLine" : 262,
+                            "endLine" : 307,
                             "endColumn" : 73,
-                            "offset" : 8706,
+                            "offset" : 10131,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -8310,9 +8770,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 278,
+                                "beginLine" : 311,
                                 "beginColumn" : 7,
-                                "endLine" : 282,
+                                "endLine" : 315,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -8347,11 +8807,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 263,
+                            "beginLine" : 308,
                             "beginColumn" : 4,
-                            "endLine" : 263,
+                            "endLine" : 308,
                             "endColumn" : 57,
-                            "offset" : 8779,
+                            "offset" : 10204,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -8473,9 +8933,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 283,
+                                "beginLine" : 316,
                                 "beginColumn" : 7,
-                                "endLine" : 287,
+                                "endLine" : 320,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -9094,11 +9554,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 520,
+                      "beginLine" : 565,
                       "beginColumn" : 4,
-                      "endLine" : 520,
+                      "endLine" : 565,
                       "endColumn" : 30,
-                      "offset" : 18809,
+                      "offset" : 20234,
                       "length" : 26
                     }
                   },
@@ -9136,11 +9596,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 480,
+                            "beginLine" : 525,
                             "beginColumn" : 4,
-                            "endLine" : 480,
+                            "endLine" : 525,
                             "endColumn" : 73,
-                            "offset" : 16992,
+                            "offset" : 18417,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -9262,9 +9722,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 301,
+                                "beginLine" : 334,
                                 "beginColumn" : 7,
-                                "endLine" : 305,
+                                "endLine" : 338,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0
@@ -9299,11 +9759,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 481,
+                            "beginLine" : 526,
                             "beginColumn" : 4,
-                            "endLine" : 481,
+                            "endLine" : 526,
                             "endColumn" : 75,
-                            "offset" : 17065,
+                            "offset" : 18490,
                             "length" : 71
                           },
                           "languageRealizations" : [
@@ -9425,9 +9885,9 @@
                                   "type" : "Some",
                                   "value" : "microkit.system"
                                 },
-                                "beginLine" : 306,
+                                "beginLine" : 339,
                                 "beginColumn" : 7,
-                                "endLine" : 310,
+                                "endLine" : 343,
                                 "endColumn" : 9,
                                 "offset" : 0,
                                 "length" : 0

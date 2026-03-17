@@ -18,14 +18,14 @@ LIBS := --start-group -lmicrokit -Tmicrokit.ld --end-group
 SYSTEM_FILE := $(TOP_DIR)/microkit.system
 SCHEDULE_FILE := $(TOP_DIR)/microkit.schedule.xml
 
-IMAGES := cpuSw_wifiDriver_wifiDriver.elf cpuSw_wifiDriver_wifiDriver_MON.elf cpuSw_btDriver_btDriver.elf cpuSw_btDriver_btDriver_MON.elf cpuSw_usbDriver_usbDriver.elf cpuSw_usbDriver_usbDriver_MON.elf cpuSw_dataManager_dataManager.elf cpuSw_dataManager_dataManager_MON.elf cpuSw_dataAnalysis_dataAnalysis.elf cpuSw_dataAnalysis_dataAnalysis_MON.elf cpuSw_decryptor_decryptor.elf cpuSw_decryptor_decryptor_MON.elf cpuSw_encryptor_encryptor.elf cpuSw_encryptor_encryptor_MON.elf cpuSw_logMonitor_logMonitor.elf cpuSw_logMonitor_logMonitor_MON.elf cpuSw_reportMonitor_reportMonitor.elf cpuSw_reportMonitor_reportMonitor_MON.elf cpuSw_firewall_firewall.elf cpuSw_firewall_firewall_MON.elf pacer.elf
+IMAGES := cpuSw_wifiGate_wifiGate.elf cpuSw_wifiGate_wifiGate_MON.elf cpuSw_wifiDriver_wifiDriver.elf cpuSw_wifiDriver_wifiDriver_MON.elf cpuSw_btDriver_btDriver.elf cpuSw_btDriver_btDriver_MON.elf cpuSw_usbDriver_usbDriver.elf cpuSw_usbDriver_usbDriver_MON.elf cpuSw_dataManager_dataManager.elf cpuSw_dataManager_dataManager_MON.elf cpuSw_dataAnalysis_dataAnalysis.elf cpuSw_dataAnalysis_dataAnalysis_MON.elf cpuSw_decryptor_decryptor.elf cpuSw_decryptor_decryptor_MON.elf cpuSw_encryptor_encryptor.elf cpuSw_encryptor_encryptor_MON.elf cpuSw_logMonitor_logMonitor.elf cpuSw_logMonitor_logMonitor_MON.elf cpuSw_reportMonitor_reportMonitor.elf cpuSw_reportMonitor_reportMonitor_MON.elf cpuSw_firewall_firewall.elf cpuSw_firewall_firewall_MON.elf pacer.elf
 IMAGE_FILE = loader.img
 REPORT_FILE = report.txt
 
 UTIL_OBJS = printf.o util.o
 
 TYPES_DIR = $(TOP_DIR)/types
-TYPE_OBJS := $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Request_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_uint8_t_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o
+TYPE_OBJS := $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Request_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_uint8_t_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o
 
 # exporting TOP_TYPES_INCLUDE in case other makefiles need it
 export TOP_TYPES_INCLUDE = -I$(TYPES_DIR)/include
@@ -42,15 +42,15 @@ ${CHECK_FLAGS_BOARD_MD5}:
 %.o: ${TOP_DIR}/util/src/%.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ -I$(TOP_DIR)/util/include
 
+$(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o: $(TOP_DIR)/types/src/sb_queue_Common_DummyMessage_Impl_1.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE)
+
+
 $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o: $(TOP_DIR)/types/src/sb_queue_Common_Log_Impl_1.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE)
 
 
 $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o: $(TOP_DIR)/types/src/sb_queue_Common_AnalysisRequest_Impl_1.c Makefile
-	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE)
-
-
-$(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o: $(TOP_DIR)/types/src/sb_queue_Common_DummyMessage_Impl_1.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE)
 
 
@@ -71,13 +71,21 @@ $(TOP_DIR)/build/sb_queue_uint8_t_1.o: $(TOP_DIR)/types/src/sb_queue_uint8_t_1.c
 
 
 # monitor
+cpuSw_wifiGate_wifiGate_MON.o: $(TOP_DIR)/components/cpuSw_wifiGate_wifiGate/src/cpuSw_wifiGate_wifiGate_MON.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiGate_wifiGate/include
+
+# user code
+cpuSw_wifiGate_wifiGate_rust:
+	make -C ${CRATES_DIR}/cpuSw_wifiGate_wifiGate $(RUST_MAKE_TARGET)
+
+cpuSw_wifiGate_wifiGate.o: $(TOP_DIR)/components/cpuSw_wifiGate_wifiGate/src/cpuSw_wifiGate_wifiGate.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiGate_wifiGate/include
+
+# monitor
 cpuSw_wifiDriver_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_MON.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/include
 
-cpuSw_wifiDriver_wifiDriver_rust:
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
-
-# cpuSw_wifiDriver_wifiDriver.o contains a VM
+# cpuSw_wifiDriver_wifiDriver.a contains a VM
 .PHONY: cpuSw_wifiDriver_wifiDriver.a
 cpuSw_wifiDriver_wifiDriver.a:
 ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
@@ -190,11 +198,17 @@ cpuSw_firewall_firewall.o: $(TOP_DIR)/components/cpuSw_firewall_firewall/src/cpu
 pacer.o: $(TOP_DIR)/components/pacer/src/pacer.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ -I$(TOP_INCLUDE)
 
+cpuSw_wifiGate_wifiGate_MON.elf: cpuSw_wifiGate_wifiGate_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_wifiGate_wifiGate.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiGate_wifiGate_rust cpuSw_wifiGate_wifiGate.o
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiGate_wifiGate/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiGate_wifiGate -o $@
+
 cpuSw_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver.a
-	$(LD) $(LDFLAGS)  -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriver.a --end-group -lcpuSw_wifiDriver_wifiDriver -o $@
+cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a
+	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
@@ -270,7 +284,7 @@ clean::
 	rm -f *.o
 
 test:: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver test
+	make -C ${CRATES_DIR}/cpuSw_wifiGate_wifiGate test
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver test
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver test
 	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager test
@@ -282,7 +296,7 @@ test::
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall test
 
 clean:: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver clean
+	make -C ${CRATES_DIR}/cpuSw_wifiGate_wifiGate clean
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver clean
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver clean
 	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager clean
@@ -294,7 +308,7 @@ clean::
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall clean
 
 verus: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver verus
+	make -C ${CRATES_DIR}/cpuSw_wifiGate_wifiGate verus
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver verus
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver verus
 	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager verus

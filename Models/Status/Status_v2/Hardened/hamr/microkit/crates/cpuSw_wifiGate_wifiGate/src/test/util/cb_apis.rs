@@ -6,7 +6,7 @@ use proptest::prelude::*;
 
 use super::test_apis::*;
 
-use crate::bridge::cpuSw_wifiDriver_wifiDriver_GUMBOX as GUMBOX;
+use crate::bridge::cpuSw_wifiGate_wifiGate_GUMBOX as GUMBOX;
 
 pub enum HarnessResult {
   RejectedPrecondition,
@@ -19,7 +19,7 @@ pub enum HarnessResult {
 pub fn testInitializeCB() -> HarnessResult
 {
   // [InvokeEntryPoint]: Invoke the entry point
-  crate::cpuSw_wifiDriver_wifiDriver_initialize();
+  crate::cpuSw_wifiGate_wifiGate_initialize();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let alert_cmd = get_alert_cmd();
@@ -75,7 +75,7 @@ pub fn testComputeCB(
   api_wifiRecv: Option<Common::DummyMessage_Impl>) -> HarnessResult
 {
   // Initialize the app
-  crate::cpuSw_wifiDriver_wifiDriver_initialize();
+  crate::cpuSw_wifiGate_wifiGate_initialize();
 
   // [SaveInLocal]: retrieve and save the current (input) values of GUMBO-declared local state variables as retrieved
   //                from the component state
@@ -87,7 +87,7 @@ pub fn testComputeCB(
   put_wifiRecv(api_wifiRecv);
 
   // [InvokeEntryPoint]: Invoke the entry point
-  crate::cpuSw_wifiDriver_wifiDriver_timeTriggered();
+  crate::cpuSw_wifiGate_wifiGate_timeTriggered();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let alert_cmd = get_alert_cmd();
@@ -158,7 +158,7 @@ pub fn testComputeCBwGSV(
   api_wifiRecv: Option<Common::DummyMessage_Impl>) -> HarnessResult
 {
   // Initialize the app
-  crate::cpuSw_wifiDriver_wifiDriver_initialize();
+  crate::cpuSw_wifiGate_wifiGate_initialize();
 
   // [PutInPorts]: Set values on the input ports
   put_alert(api_alert);
@@ -169,7 +169,7 @@ pub fn testComputeCBwGSV(
   put_alert_cmd(In_alert_cmd);
 
   // [InvokeEntryPoint]: Invoke the entry point
-  crate::cpuSw_wifiDriver_wifiDriver_timeTriggered();
+  crate::cpuSw_wifiGate_wifiGate_timeTriggered();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let alert_cmd = get_alert_cmd();

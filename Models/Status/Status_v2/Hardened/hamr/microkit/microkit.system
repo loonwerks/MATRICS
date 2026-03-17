@@ -4,44 +4,77 @@
 
   <xi:include href="microkit.schedule.xml" />
 
-  <protection_domain name="cpuSw_wifiDriver_wifiDriver_MON" domain="domain_11">
+  <protection_domain name="cpuSw_wifiGate_wifiGate_MON" domain="domain_11">
+    <program_image path="cpuSw_wifiGate_wifiGate_MON.elf" />
+    <protection_domain name="cpuSw_wifiGate_wifiGate" domain="domain_11" id="1" stack_size="0x100_000">
+      <program_image path="cpuSw_wifiGate_wifiGate.elf" />
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_wifiSend_1_Memory_Region"
+           vaddr="0x10_000_000"
+           perms="rw"
+           setvar_vaddr="wifiSend_queue_1"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_HMD_log_1_Memory_Region"
+           vaddr="0x10_001_000"
+           perms="rw"
+           setvar_vaddr="HMD_log_queue_1"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
+           vaddr="0x10_002_000"
+           perms="rw"
+           setvar_vaddr="analysis_request_queue_1"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecvOut_1_Memory_Region"
+           vaddr="0x10_003_000"
+           perms="r"
+           setvar_vaddr="wifiRecv_queue_1"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region"
+           vaddr="0x10_004_000"
+           perms="r"
+           setvar_vaddr="analysis_report_queue_1"
+      />
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region"
+           vaddr="0x10_005_000"
+           perms="r"
+           setvar_vaddr="alert_queue_1"
+      />
+
+      <!-- BEGIN CONTENT MARKER cpuSw_wifiGate_wifiGate -->
+      <!-- END CONTENT MARKER cpuSw_wifiGate_wifiGate -->
+    </protection_domain>
+
+    <!-- BEGIN CONTENT MARKER cpuSw_wifiGate_wifiGate_MON -->
+    <!-- END CONTENT MARKER cpuSw_wifiGate_wifiGate_MON -->
+  </protection_domain>
+
+  <protection_domain name="cpuSw_wifiDriver_wifiDriver_MON" domain="domain_12">
     <program_image path="cpuSw_wifiDriver_wifiDriver_MON.elf" />
-    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_11" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_12" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_wifiDriver_wifiDriver.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM"
            vaddr="0x40_000_000"
            perms="rw"
            setvar_vaddr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM_vaddr"
       />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_wifiSend_1_Memory_Region"
            vaddr="0x20_000_000"
-           perms="rw"
-           setvar_vaddr="HMD_log_queue_1"
+           perms="r"
+           setvar_vaddr="wifiSendIn_queue_1"
       />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_analysis_request_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecvOut_1_Memory_Region"
            vaddr="0x20_001_000"
            perms="rw"
-           setvar_vaddr="analysis_request_queue_1"
+           setvar_vaddr="wifiRecvOut_queue_1"
       />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecv_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecvIn_1_Memory_Region"
            vaddr="0x20_002_000"
            perms="r"
-           setvar_vaddr="wifiRecv_queue_1"
+           setvar_vaddr="wifiRecvIn_queue_1"
       />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiSend_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiSendOut_1_Memory_Region"
            vaddr="0x20_003_000"
            perms="rw"
-           setvar_vaddr="wifiSend_queue_1"
-      />
-      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region"
-           vaddr="0x20_004_000"
-           perms="r"
-           setvar_vaddr="analysis_report_queue_1"
-      />
-      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region"
-           vaddr="0x20_005_000"
-           perms="r"
-           setvar_vaddr="alert_queue_1"
+           setvar_vaddr="wifiSendOut_queue_1"
       />
       <irq irq="33" id="1" />
       <virtual_machine name="cpuSw_wifiDriver_wifiDriver">
@@ -186,7 +219,7 @@
     <program_image path="cpuSw_decryptor_decryptor_MON.elf" />
     <protection_domain name="cpuSw_decryptor_decryptor" domain="domain_8" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_decryptor_decryptor.elf" />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_HMD_log_1_Memory_Region"
            vaddr="0x10_000_000"
            perms="r"
            setvar_vaddr="HMD_log_in_queue_1"
@@ -265,7 +298,7 @@
     <program_image path="cpuSw_reportMonitor_reportMonitor_MON.elf" />
     <protection_domain name="cpuSw_reportMonitor_reportMonitor" domain="domain_7" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_reportMonitor_reportMonitor.elf" />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_analysis_request_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
            vaddr="0x10_000_000"
            perms="r"
            setvar_vaddr="analysis_request_queue_1"
@@ -298,7 +331,7 @@
     <program_image path="cpuSw_firewall_firewall_MON.elf" />
     <protection_domain name="cpuSw_firewall_firewall" domain="domain_10" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_firewall_firewall.elf" />
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_analysis_request_1_Memory_Region"
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
            vaddr="0x10_000_000"
            perms="r"
            setvar_vaddr="analysis_request_in_queue_1"
@@ -335,16 +368,22 @@
                  size="0x1_000"
                  phys_addr="0x9_000_000" />
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_HMD_log_1_Memory_Region"
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_wifiSend_1_Memory_Region"
                  size="0x1_000" />
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_analysis_request_1_Memory_Region"
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_HMD_log_1_Memory_Region"
                  size="0x1_000" />
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecv_1_Memory_Region"
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
                  size="0x1_000" />
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiSend_1_Memory_Region"
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecvOut_1_Memory_Region"
+                 size="0x1_000" />
+
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiRecvIn_1_Memory_Region"
+                 size="0x1_000" />
+
+  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiSendOut_1_Memory_Region"
                  size="0x1_000" />
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region"
@@ -391,102 +430,112 @@
 
   <channel>
     <end pd="pacer" id="61" />
-    <end pd="cpuSw_wifiDriver_wifiDriver_MON" id="61" />
+    <end pd="cpuSw_wifiGate_wifiGate_MON" id="61" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_wifiDriver_wifiDriver_MON" id="60" />
-    <end pd="cpuSw_wifiDriver_wifiDriver" id="60" />
+    <end pd="cpuSw_wifiGate_wifiGate_MON" id="60" />
+    <end pd="cpuSw_wifiGate_wifiGate" id="60" />
   </channel>
 
   <channel>
     <end pd="pacer" id="59" />
-    <end pd="cpuSw_btDriver_btDriver_MON" id="59" />
+    <end pd="cpuSw_wifiDriver_wifiDriver_MON" id="59" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_btDriver_btDriver_MON" id="58" />
-    <end pd="cpuSw_btDriver_btDriver" id="58" />
+    <end pd="cpuSw_wifiDriver_wifiDriver_MON" id="58" />
+    <end pd="cpuSw_wifiDriver_wifiDriver" id="58" />
   </channel>
 
   <channel>
     <end pd="pacer" id="57" />
-    <end pd="cpuSw_usbDriver_usbDriver_MON" id="57" />
+    <end pd="cpuSw_btDriver_btDriver_MON" id="57" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_usbDriver_usbDriver_MON" id="56" />
-    <end pd="cpuSw_usbDriver_usbDriver" id="56" />
+    <end pd="cpuSw_btDriver_btDriver_MON" id="56" />
+    <end pd="cpuSw_btDriver_btDriver" id="56" />
   </channel>
 
   <channel>
     <end pd="pacer" id="55" />
-    <end pd="cpuSw_dataManager_dataManager_MON" id="55" />
+    <end pd="cpuSw_usbDriver_usbDriver_MON" id="55" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_dataManager_dataManager_MON" id="54" />
-    <end pd="cpuSw_dataManager_dataManager" id="54" />
+    <end pd="cpuSw_usbDriver_usbDriver_MON" id="54" />
+    <end pd="cpuSw_usbDriver_usbDriver" id="54" />
   </channel>
 
   <channel>
     <end pd="pacer" id="53" />
-    <end pd="cpuSw_dataAnalysis_dataAnalysis_MON" id="53" />
+    <end pd="cpuSw_dataManager_dataManager_MON" id="53" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_dataAnalysis_dataAnalysis_MON" id="52" />
-    <end pd="cpuSw_dataAnalysis_dataAnalysis" id="52" />
+    <end pd="cpuSw_dataManager_dataManager_MON" id="52" />
+    <end pd="cpuSw_dataManager_dataManager" id="52" />
   </channel>
 
   <channel>
     <end pd="pacer" id="51" />
-    <end pd="cpuSw_decryptor_decryptor_MON" id="51" />
+    <end pd="cpuSw_dataAnalysis_dataAnalysis_MON" id="51" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_decryptor_decryptor_MON" id="50" />
-    <end pd="cpuSw_decryptor_decryptor" id="50" />
+    <end pd="cpuSw_dataAnalysis_dataAnalysis_MON" id="50" />
+    <end pd="cpuSw_dataAnalysis_dataAnalysis" id="50" />
   </channel>
 
   <channel>
     <end pd="pacer" id="49" />
-    <end pd="cpuSw_encryptor_encryptor_MON" id="49" />
+    <end pd="cpuSw_decryptor_decryptor_MON" id="49" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_encryptor_encryptor_MON" id="48" />
-    <end pd="cpuSw_encryptor_encryptor" id="48" />
+    <end pd="cpuSw_decryptor_decryptor_MON" id="48" />
+    <end pd="cpuSw_decryptor_decryptor" id="48" />
   </channel>
 
   <channel>
     <end pd="pacer" id="47" />
-    <end pd="cpuSw_logMonitor_logMonitor_MON" id="47" />
+    <end pd="cpuSw_encryptor_encryptor_MON" id="47" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_logMonitor_logMonitor_MON" id="46" />
-    <end pd="cpuSw_logMonitor_logMonitor" id="46" />
+    <end pd="cpuSw_encryptor_encryptor_MON" id="46" />
+    <end pd="cpuSw_encryptor_encryptor" id="46" />
   </channel>
 
   <channel>
     <end pd="pacer" id="45" />
-    <end pd="cpuSw_reportMonitor_reportMonitor_MON" id="45" />
+    <end pd="cpuSw_logMonitor_logMonitor_MON" id="45" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_reportMonitor_reportMonitor_MON" id="44" />
-    <end pd="cpuSw_reportMonitor_reportMonitor" id="44" />
+    <end pd="cpuSw_logMonitor_logMonitor_MON" id="44" />
+    <end pd="cpuSw_logMonitor_logMonitor" id="44" />
   </channel>
 
   <channel>
     <end pd="pacer" id="43" />
-    <end pd="cpuSw_firewall_firewall_MON" id="43" />
+    <end pd="cpuSw_reportMonitor_reportMonitor_MON" id="43" />
   </channel>
 
   <channel>
-    <end pd="cpuSw_firewall_firewall_MON" id="42" />
-    <end pd="cpuSw_firewall_firewall" id="42" />
+    <end pd="cpuSw_reportMonitor_reportMonitor_MON" id="42" />
+    <end pd="cpuSw_reportMonitor_reportMonitor" id="42" />
+  </channel>
+
+  <channel>
+    <end pd="pacer" id="41" />
+    <end pd="cpuSw_firewall_firewall_MON" id="41" />
+  </channel>
+
+  <channel>
+    <end pd="cpuSw_firewall_firewall_MON" id="40" />
+    <end pd="cpuSw_firewall_firewall" id="40" />
   </channel>
 
   <!-- BEGIN MSD CONTENT MARKER -->

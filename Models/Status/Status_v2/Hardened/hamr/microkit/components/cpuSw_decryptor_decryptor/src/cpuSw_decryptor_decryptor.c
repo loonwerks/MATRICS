@@ -10,7 +10,7 @@ volatile sb_queue_Common_Log_Impl_1_t *HMD_log_in_queue_1;
 sb_queue_Common_Log_Impl_1_Recv_t HMD_log_in_recv_queue;
 volatile sb_queue_Common_Log_Impl_1_t *HMD_log_out_queue_1;
 
-#define PORT_FROM_MON 50
+#define PORT_FROM_MON 48
 
 bool HMD_log_in_is_empty(void) {
   return sb_queue_Common_Log_Impl_1_is_empty(&HMD_log_in_recv_queue);
