@@ -1194,7 +1194,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="11"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="3"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -1562,7 +1562,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="12"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="2"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -1770,7 +1770,7 @@
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Period"/>
             <ownedValue>
-              <ownedValue xsi:type="aadl2:IntegerLiteral" value="1000">
+              <ownedValue xsi:type="aadl2:IntegerLiteral" value="500">
                 <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
               </ownedValue>
             </ownedValue>
@@ -1793,6 +1793,20 @@
               </ownedValue>
             </ownedValue>
             <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+          </ownedPropertyAssociation>
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Compute_Execution_Time"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:RangeValue">
+                <minimum xsi:type="aadl2:IntegerLiteral" value="200">
+                  <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+                </minimum>
+                <maximum xsi:type="aadl2:IntegerLiteral" value="200">
+                  <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+                </maximum>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.3"/>
           </ownedPropertyAssociation>
           <featureInstance name="wifiRecvIn" category="eventDataPort" type="/1">
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -2000,7 +2014,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="11"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -2268,7 +2282,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="5"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="12"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.12/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -2536,7 +2550,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="2"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="7"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
@@ -2795,7 +2809,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="3"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="6"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -2911,7 +2925,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="8"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.21/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -3143,7 +3157,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="6"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="8"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -3283,7 +3297,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="7"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="10"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.18/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>
@@ -3499,7 +3513,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="10"/>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="5"/>
           </ownedValue>
           <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.27/@ownedPropertyAssociation.0"/>
         </ownedPropertyAssociation>

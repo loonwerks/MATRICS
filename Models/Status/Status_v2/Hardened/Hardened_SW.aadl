@@ -27,7 +27,8 @@ public
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;			
+			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 150ms .. 150ms;			
 	end wifiDriverVM;
 	
 	process wifiDriverVM_seL4
@@ -52,7 +53,7 @@ public
 			c3: port wifiSendIn -> wifiDriver.wifiSendIn;
 			c4: port wifiDriver.wifiSendOut -> wifiSendOut;
 		properties
-			CASE_Scheduling::Domain => 12;
+			CASE_Scheduling::Domain => 2;
 			HAMR::Microkit_Language => C;
 		annex agree {**
 			lift contract;
@@ -87,7 +88,7 @@ public
 			c5: port wifiGate.analysis_request -> analysis_request;
 			c6: port alert -> wifiGate.alert;
 		properties
-			CASE_Scheduling::Domain => 11;
+			CASE_Scheduling::Domain => 3;
 		annex agree {**
 			lift contract;
 		**};
@@ -131,7 +132,7 @@ public
 			
 			-- present in hardened system			
 			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
-			CASE_Scheduling::Domain => 2;		
+			CASE_Scheduling::Domain => 7;		
 	end dataManager_seL4.Impl;
 	
 	process dataAnalysis_seL4
@@ -154,7 +155,7 @@ public
 			c3: port dataAnalysis.request_log -> request_log;
 			c4: port dataAnalysis.analysis_report -> analysis_report;
 		properties
-			CASE_Scheduling::Domain => 3;
+			CASE_Scheduling::Domain => 6;
 		annex agree {**
 			lift contract;
 		**};			
@@ -177,7 +178,7 @@ public
 			c1: port btRecv -> btDriver.btRecv;
 			c2: port btDriver.btSend -> btSend;
 		properties
-			CASE_Scheduling::Domain => 4;
+			CASE_Scheduling::Domain => 11;
 	end btDriver_seL4.Impl;
 	
 	process usbDriver_seL4
@@ -197,7 +198,7 @@ public
 			c1: port usbRecv -> usbDriver.usbRecv;
 			c2: port usbDriver.usbSend -> usbSend;
 		properties
-			CASE_Scheduling::Domain => 5;
+			CASE_Scheduling::Domain => 12;
 	end usbDriver_seL4.Impl;
 	
 	-- High-Assurance Components
@@ -293,7 +294,7 @@ public
 			c3: port logMonitor.response_log_out -> response_log_out;
 			c4: port logMonitor.alert -> alert;
 		properties
-			CASE_Scheduling::Domain => 6;
+			CASE_Scheduling::Domain => 8;
 		annex agree {**
 			lift contract;
 		**};
@@ -418,7 +419,7 @@ public
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
 			c4: port reportMonitor.alert -> alert;
 		properties
-			CASE_Scheduling::Domain => 7;
+			CASE_Scheduling::Domain => 10;
 		annex agree {**
 			lift contract;
 		**};
@@ -463,7 +464,7 @@ public
 			c1: port HMD_log_in -> decryptor.HMD_log_in;
 			c2: port decryptor.HMD_log_out -> HMD_log_out;
 		properties
-			CASE_Scheduling::Domain => 8;
+			CASE_Scheduling::Domain => 4;
 		annex agree {**
 			lift contract;
 		**};				
@@ -567,7 +568,7 @@ public
 			c1: port analysis_request_in -> firewall.analysis_request_in;
 			c2: port firewall.analysis_request_out -> analysis_request_out;
 		properties
-			CASE_Scheduling::Domain => 10;
+			CASE_Scheduling::Domain => 5;
 		annex agree {**
 			lift contract;
 		**};			

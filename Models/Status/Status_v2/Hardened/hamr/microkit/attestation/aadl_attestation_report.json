@@ -634,11 +634,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 444,
+                  "beginLine": 445,
                   "beginCol": 5,
-                  "endLine": 445,
+                  "endLine": 446,
                   "endCol": 32,
-                  "offset": 15858,
+                  "offset": 15903,
                   "length": 98
                 }
             },
@@ -681,11 +681,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 492,
+                  "beginLine": 493,
                   "beginCol": 5,
-                  "endLine": 493,
+                  "endLine": 494,
                   "endCol": 64,
-                  "offset": 17327,
+                  "offset": 17372,
                   "length": 130
                 }
             },
@@ -721,11 +721,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 494,
+                  "beginLine": 495,
                   "beginCol": 5,
-                  "endLine": 495,
+                  "endLine": 496,
                   "endCol": 62,
-                  "offset": 17462,
+                  "offset": 17507,
                   "length": 132
                 }
             },
@@ -768,11 +768,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 247,
+                  "beginLine": 248,
                   "beginCol": 5,
-                  "endLine": 248,
+                  "endLine": 249,
                   "endCol": 28,
-                  "offset": 7905,
+                  "offset": 7949,
                   "length": 51
                 }
             },
@@ -784,11 +784,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 242,
+                  "beginLine": 243,
                   "beginCol": 5,
-                  "endLine": 242,
+                  "endLine": 243,
                   "endCol": 39,
-                  "offset": 7785,
+                  "offset": 7829,
                   "length": 34
                 }
             },
@@ -840,11 +840,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 253,
+                  "beginLine": 254,
                   "beginCol": 5,
-                  "endLine": 256,
+                  "endLine": 257,
                   "endCol": 60,
-                  "offset": 8019,
+                  "offset": 8063,
                   "length": 201
                 }
             },
@@ -856,11 +856,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 243,
+                  "beginLine": 244,
                   "beginCol": 5,
-                  "endLine": 243,
+                  "endLine": 244,
                   "endCol": 35,
-                  "offset": 7824,
+                  "offset": 7868,
                   "length": 30
                 }
             },
@@ -872,11 +872,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 242,
+                  "beginLine": 243,
                   "beginCol": 5,
-                  "endLine": 242,
+                  "endLine": 243,
                   "endCol": 39,
-                  "offset": 7785,
+                  "offset": 7829,
                   "length": 34
                 }
             },
@@ -944,11 +944,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 259,
+                  "beginLine": 260,
                   "beginCol": 5,
-                  "endLine": 260,
+                  "endLine": 261,
                   "endCol": 109,
-                  "offset": 8235,
+                  "offset": 8279,
                   "length": 230
                 }
             },
@@ -960,11 +960,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 242,
+                  "beginLine": 243,
                   "beginCol": 5,
-                  "endLine": 242,
+                  "endLine": 243,
                   "endCol": 39,
-                  "offset": 7785,
+                  "offset": 7829,
                   "length": 34
                 }
             },
@@ -1032,11 +1032,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 262,
+                  "beginLine": 263,
                   "beginCol": 21,
-                  "endLine": 265,
+                  "endLine": 266,
                   "endCol": 27,
-                  "offset": 8491,
+                  "offset": 8535,
                   "length": 193
                 }
             },
@@ -1048,11 +1048,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 243,
+                  "beginLine": 244,
                   "beginCol": 5,
-                  "endLine": 243,
+                  "endLine": 244,
                   "endCol": 35,
-                  "offset": 7824,
+                  "offset": 7868,
                   "length": 30
                 }
             },
@@ -1104,11 +1104,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 266,
+                  "beginLine": 267,
                   "beginCol": 5,
-                  "endLine": 269,
+                  "endLine": 270,
                   "endCol": 36,
-                  "offset": 8689,
+                  "offset": 8733,
                   "length": 248
                 }
             },
@@ -1120,11 +1120,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 243,
+                  "beginLine": 244,
                   "beginCol": 5,
-                  "endLine": 243,
+                  "endLine": 244,
                   "endCol": 35,
-                  "offset": 7824,
+                  "offset": 7868,
                   "length": 30
                 }
             },
@@ -1183,11 +1183,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 366,
+                  "beginLine": 367,
                   "beginCol": 5,
-                  "endLine": 368,
+                  "endLine": 369,
                   "endCol": 28,
-                  "offset": 12810,
+                  "offset": 12854,
                   "length": 87
                 }
             },
@@ -1199,11 +1199,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 347,
+                  "beginLine": 348,
                   "beginCol": 5,
-                  "endLine": 347,
+                  "endLine": 348,
                   "endCol": 38,
-                  "offset": 11848,
+                  "offset": 11892,
                   "length": 33
                 }
             },
@@ -1215,11 +1215,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 348,
+                  "beginLine": 349,
                   "beginCol": 5,
-                  "endLine": 348,
+                  "endLine": 349,
                   "endCol": 39,
-                  "offset": 11886,
+                  "offset": 11930,
                   "length": 34
                 }
             },
@@ -1287,11 +1287,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 372,
+                  "beginLine": 373,
                   "beginCol": 5,
-                  "endLine": 373,
+                  "endLine": 374,
                   "endCol": 117,
-                  "offset": 12924,
+                  "offset": 12968,
                   "length": 256
                 }
             },
@@ -1303,11 +1303,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 348,
+                  "beginLine": 349,
                   "beginCol": 5,
-                  "endLine": 348,
+                  "endLine": 349,
                   "endCol": 39,
-                  "offset": 11886,
+                  "offset": 11930,
                   "length": 34
                 }
             },
@@ -1375,11 +1375,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 375,
+                  "beginLine": 376,
                   "beginCol": 5,
-                  "endLine": 378,
+                  "endLine": 379,
                   "endCol": 76,
-                  "offset": 13190,
+                  "offset": 13234,
                   "length": 215
                 }
             },
@@ -1391,11 +1391,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 349,
+                  "beginLine": 350,
                   "beginCol": 5,
-                  "endLine": 349,
+                  "endLine": 350,
                   "endCol": 36,
-                  "offset": 11925,
+                  "offset": 11969,
                   "length": 31
                 }
             },
@@ -1407,11 +1407,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 348,
+                  "beginLine": 349,
                   "beginCol": 5,
-                  "endLine": 348,
+                  "endLine": 349,
                   "endCol": 39,
-                  "offset": 11886,
+                  "offset": 11930,
                   "length": 34
                 }
             },
@@ -1479,11 +1479,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 380,
+                  "beginLine": 381,
                   "beginCol": 5,
-                  "endLine": 381,
+                  "endLine": 382,
                   "endCol": 91,
-                  "offset": 13416,
+                  "offset": 13460,
                   "length": 143
                 }
             },
@@ -1495,11 +1495,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 352,
+                  "beginLine": 353,
                   "beginCol": 5,
-                  "endLine": 359,
+                  "endLine": 360,
                   "endCol": 28,
-                  "offset": 12012,
+                  "offset": 12056,
                   "length": 376
                 }
             },
@@ -1511,11 +1511,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 347,
+                  "beginLine": 348,
                   "beginCol": 5,
-                  "endLine": 347,
+                  "endLine": 348,
                   "endCol": 38,
-                  "offset": 11848,
+                  "offset": 11892,
                   "length": 33
                 }
             },
@@ -1583,11 +1583,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 383,
+                  "beginLine": 384,
                   "beginCol": 5,
-                  "endLine": 386,
+                  "endLine": 387,
                   "endCol": 25,
-                  "offset": 13574,
+                  "offset": 13618,
                   "length": 192
                 }
             },
@@ -1599,11 +1599,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 349,
+                  "beginLine": 350,
                   "beginCol": 5,
-                  "endLine": 349,
+                  "endLine": 350,
                   "endCol": 36,
-                  "offset": 11925,
+                  "offset": 11969,
                   "length": 31
                 }
             },
@@ -1655,11 +1655,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 387,
+                  "beginLine": 388,
                   "beginCol": 5,
-                  "endLine": 390,
+                  "endLine": 391,
                   "endCol": 25,
-                  "offset": 13771,
+                  "offset": 13815,
                   "length": 158
                 }
             },
@@ -1671,11 +1671,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 350,
+                  "beginLine": 351,
                   "beginCol": 5,
-                  "endLine": 350,
+                  "endLine": 351,
                   "endCol": 38,
-                  "offset": 11961,
+                  "offset": 12005,
                   "length": 33
                 }
             },
@@ -1727,11 +1727,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 391,
+                  "beginLine": 392,
                   "beginCol": 5,
-                  "endLine": 394,
+                  "endLine": 395,
                   "endCol": 39,
-                  "offset": 13934,
+                  "offset": 13978,
                   "length": 377
                 }
             },
@@ -1743,11 +1743,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 349,
+                  "beginLine": 350,
                   "beginCol": 5,
-                  "endLine": 349,
+                  "endLine": 350,
                   "endCol": 36,
-                  "offset": 11925,
+                  "offset": 11969,
                   "length": 31
                 }
             },
@@ -1759,11 +1759,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 350,
+                  "beginLine": 351,
                   "beginCol": 5,
-                  "endLine": 350,
+                  "endLine": 351,
                   "endCol": 38,
-                  "offset": 11961,
+                  "offset": 12005,
                   "length": 33
                 }
             },
@@ -1775,11 +1775,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 361,
+                  "beginLine": 362,
                   "beginCol": 5,
-                  "endLine": 362,
+                  "endLine": 363,
                   "endCol": 67,
-                  "offset": 12543,
+                  "offset": 12587,
                   "length": 203
                 }
             },
@@ -1791,11 +1791,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 360,
+                  "beginLine": 361,
                   "beginCol": 5,
-                  "endLine": 360,
+                  "endLine": 361,
                   "endCol": 150,
-                  "offset": 12393,
+                  "offset": 12437,
                   "length": 145
                 }
             },
@@ -1902,11 +1902,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 546,
+                  "beginLine": 547,
                   "beginCol": 5,
-                  "endLine": 549,
+                  "endLine": 550,
                   "endCol": 40,
-                  "offset": 19490,
+                  "offset": 19535,
                   "length": 319
                 }
             },
@@ -1918,11 +1918,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 542,
+                  "beginLine": 543,
                   "beginCol": 5,
-                  "endLine": 543,
+                  "endLine": 544,
                   "endCol": 67,
-                  "offset": 19263,
+                  "offset": 19308,
                   "length": 203
                 }
             },
@@ -1934,11 +1934,11 @@
                 {
                   "type": "Position",
                   "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 541,
+                  "beginLine": 542,
                   "beginCol": 5,
-                  "endLine": 541,
+                  "endLine": 542,
                   "endCol": 150,
-                  "offset": 19113,
+                  "offset": 19158,
                   "length": 145
                 }
             },

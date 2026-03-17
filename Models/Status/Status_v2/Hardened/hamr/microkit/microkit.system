@@ -4,9 +4,9 @@
 
   <xi:include href="microkit.schedule.xml" />
 
-  <protection_domain name="cpuSw_wifiGate_wifiGate_MON" domain="domain_11">
+  <protection_domain name="cpuSw_wifiGate_wifiGate_MON" domain="domain_3">
     <program_image path="cpuSw_wifiGate_wifiGate_MON.elf" />
-    <protection_domain name="cpuSw_wifiGate_wifiGate" domain="domain_11" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_wifiGate_wifiGate" domain="domain_3" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_wifiGate_wifiGate.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_wifiSend_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -47,9 +47,9 @@
     <!-- END CONTENT MARKER cpuSw_wifiGate_wifiGate_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_wifiDriver_wifiDriver_MON" domain="domain_12">
+  <protection_domain name="cpuSw_wifiDriver_wifiDriver_MON" domain="domain_2">
     <program_image path="cpuSw_wifiDriver_wifiDriver_MON.elf" />
-    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_12" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_wifiDriver_wifiDriver" domain="domain_2" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_wifiDriver_wifiDriver.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM"
            vaddr="0x40_000_000"
@@ -103,9 +103,9 @@
     <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriver_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_btDriver_btDriver_MON" domain="domain_4">
+  <protection_domain name="cpuSw_btDriver_btDriver_MON" domain="domain_11">
     <program_image path="cpuSw_btDriver_btDriver_MON.elf" />
-    <protection_domain name="cpuSw_btDriver_btDriver" domain="domain_4" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_btDriver_btDriver" domain="domain_11" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_btDriver_btDriver.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -126,9 +126,9 @@
     <!-- END CONTENT MARKER cpuSw_btDriver_btDriver_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_usbDriver_usbDriver_MON" domain="domain_5">
+  <protection_domain name="cpuSw_usbDriver_usbDriver_MON" domain="domain_12">
     <program_image path="cpuSw_usbDriver_usbDriver_MON.elf" />
-    <protection_domain name="cpuSw_usbDriver_usbDriver" domain="domain_5" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_usbDriver_usbDriver" domain="domain_12" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_usbDriver_usbDriver.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbRecv_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -149,9 +149,9 @@
     <!-- END CONTENT MARKER cpuSw_usbDriver_usbDriver_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_dataManager_dataManager_MON" domain="domain_2">
+  <protection_domain name="cpuSw_dataManager_dataManager_MON" domain="domain_7">
     <program_image path="cpuSw_dataManager_dataManager_MON.elf" />
-    <protection_domain name="cpuSw_dataManager_dataManager" domain="domain_2" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_dataManager_dataManager" domain="domain_7" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_dataManager_dataManager.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_response_log_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -182,9 +182,9 @@
     <!-- END CONTENT MARKER cpuSw_dataManager_dataManager_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_dataAnalysis_dataAnalysis_MON" domain="domain_3">
+  <protection_domain name="cpuSw_dataAnalysis_dataAnalysis_MON" domain="domain_6">
     <program_image path="cpuSw_dataAnalysis_dataAnalysis_MON.elf" />
-    <protection_domain name="cpuSw_dataAnalysis_dataAnalysis" domain="domain_3" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_dataAnalysis_dataAnalysis" domain="domain_6" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_dataAnalysis_dataAnalysis.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -215,9 +215,9 @@
     <!-- END CONTENT MARKER cpuSw_dataAnalysis_dataAnalysis_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_decryptor_decryptor_MON" domain="domain_8">
+  <protection_domain name="cpuSw_decryptor_decryptor_MON" domain="domain_4">
     <program_image path="cpuSw_decryptor_decryptor_MON.elf" />
-    <protection_domain name="cpuSw_decryptor_decryptor" domain="domain_8" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_decryptor_decryptor" domain="domain_4" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_decryptor_decryptor.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_HMD_log_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -261,9 +261,9 @@
     <!-- END CONTENT MARKER cpuSw_encryptor_encryptor_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_logMonitor_logMonitor_MON" domain="domain_6">
+  <protection_domain name="cpuSw_logMonitor_logMonitor_MON" domain="domain_8">
     <program_image path="cpuSw_logMonitor_logMonitor_MON.elf" />
-    <protection_domain name="cpuSw_logMonitor_logMonitor" domain="domain_6" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_logMonitor_logMonitor" domain="domain_8" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_logMonitor_logMonitor.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_response_log_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -294,9 +294,9 @@
     <!-- END CONTENT MARKER cpuSw_logMonitor_logMonitor_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_reportMonitor_reportMonitor_MON" domain="domain_7">
+  <protection_domain name="cpuSw_reportMonitor_reportMonitor_MON" domain="domain_10">
     <program_image path="cpuSw_reportMonitor_reportMonitor_MON.elf" />
-    <protection_domain name="cpuSw_reportMonitor_reportMonitor" domain="domain_7" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_reportMonitor_reportMonitor" domain="domain_10" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_reportMonitor_reportMonitor.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
            vaddr="0x10_000_000"
@@ -327,9 +327,9 @@
     <!-- END CONTENT MARKER cpuSw_reportMonitor_reportMonitor_MON -->
   </protection_domain>
 
-  <protection_domain name="cpuSw_firewall_firewall_MON" domain="domain_10">
+  <protection_domain name="cpuSw_firewall_firewall_MON" domain="domain_5">
     <program_image path="cpuSw_firewall_firewall_MON.elf" />
-    <protection_domain name="cpuSw_firewall_firewall" domain="domain_10" id="1" stack_size="0x100_000">
+    <protection_domain name="cpuSw_firewall_firewall" domain="domain_5" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_firewall_firewall.elf" />
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiGate_wifiGate_analysis_request_1_Memory_Region"
            vaddr="0x10_000_000"
