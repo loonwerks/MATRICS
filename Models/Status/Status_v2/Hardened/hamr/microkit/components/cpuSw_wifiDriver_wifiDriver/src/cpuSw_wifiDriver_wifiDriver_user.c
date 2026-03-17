@@ -38,7 +38,7 @@ void cpuSw_wifiDriver_wifiDriver_initialize(void) {
 
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/arch/aarch64/linux.h#L37
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/arch/aarch64/linux.c#L11
-  uintptr_t kernel_pc = linux_setup_images(top_impl_Instance_consumer_p_p_consumer_VM_Guest_RAM_vaddr,
+  uintptr_t kernel_pc = linux_setup_images(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_VM_Guest_RAM_vaddr,
                                           (uintptr_t) _guest_kernel_image,
                                           kernel_size,
                                           (uintptr_t) _guest_dtb_image,
@@ -54,7 +54,7 @@ void cpuSw_wifiDriver_wifiDriver_initialize(void) {
   }
 
   // Initialise the virtual GIC driver
-  bool success = virq_controller_init(GUEST_VCPU_ID);
+  bool success = virq_controller_init();
   if (!success) {
     LOG_VMM_ERR("Failed to initialise emulated interrupt controller\n");
     return;
@@ -62,7 +62,7 @@ void cpuSw_wifiDriver_wifiDriver_initialize(void) {
 
   // Register Pass-through device IRQs
   for(int i=0; i < MAX_IRQS; i++) {
-    success = virq_register(GUEST_VCPU_ID, mk_irqs[i].irq, &pt_dev_ack, NULL);
+    success = virq_register(GUEST_BOOT_VCPU_ID, mk_irqs[i].irq, &pt_dev_ack, NULL);
     // Just in case there are already interrupts available to handle, we ack them here.
     microkit_irq_ack(mk_irqs[i].channel);
   }
@@ -70,7 +70,7 @@ void cpuSw_wifiDriver_wifiDriver_initialize(void) {
   // Finally start the guest /
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/guest.h#L10
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/guest.c#L11
-  guest_start(GUEST_VCPU_ID, kernel_pc, GUEST_DTB_VADDR, GUEST_INIT_RAM_DISK_VADDR);
+  guest_start(kernel_pc, GUEST_DTB_VADDR, GUEST_INIT_RAM_DISK_VADDR);
 
   LOG_VMM("Guest started, leaving cpuSw_wifiDriver_wifiDriver_initialize");
 }
@@ -82,9 +82,9 @@ void cpuSw_wifiDriver_wifiDriver_timeTriggered(void) {
 void cpuSw_wifiDriver_wifiDriver_notify(microkit_channel ch) {
   switch (ch) {
     case SERIAL_IRQ_CH: {
-      bool success = virq_inject(GUEST_VCPU_ID, SERIAL_IRQ);
+      bool success = virq_inject(SERIAL_IRQ);
       if (!success) {
-        LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_VCPU_ID);
+        LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_BOOT_VCPU_ID);
       }
       break;
     }

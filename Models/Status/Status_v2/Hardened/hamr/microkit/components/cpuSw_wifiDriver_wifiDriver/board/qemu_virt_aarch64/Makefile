@@ -30,6 +30,8 @@ endif
 LIB_VMM_TOOLS_DIR := $(LIB_VMM_DIR)/tools
 LIB_VMM_SRC_DIR := $(LIB_VMM_DIR)/src
 export SDDF=$(LIB_VMM_DIR)/dep/sddf
+ARCH := aarch64
+SDDF_CUSTOM_LIBC := 1
 
 LINUX_IMAGE_DIR := $(cpuSw_wifiDriver_wifiDriver_DIR)/board/$(MICROKIT_BOARD)
 LINUX := $(LINUX_IMAGE_DIR)/linux
@@ -56,12 +58,12 @@ CFLAGS := \
 		-I$(LIB_VMM_DIR)/include \
 		-I$(MICROKIT_BOARD_DIR)/include \
 		-I$(SDDF)/include \
+		-I$(SDDF)/include/sddf/util \
+		-I$(SDDF)/include/sddf/util/custom_libc \
+		-I$(SDDF)/include/microkit \
 		-MD \
 		-MP \
 		-target $(TARGET)
-
-LDFLAGS := -L$(MICROKIT_BOARD_DIR)/lib
-LIBS := --start-group -lmicrokit -Tmicrokit.ld libvmm.a --end-group
 
 CHECK_FLAGS_BOARD_MD5:=.board_cflags-$(shell echo -- $(CFLAGS) $(MICROKIT_BOARD) $(MICROKIT_CONFIG) | shasum | sed 's/ *-//')
 
@@ -98,10 +100,12 @@ $(TOP_BUILD_DIR)/%.o: $(cpuSw_wifiDriver_wifiDriver_DIR)/src/%.c $(TOP_BUILD_DIR
 
 -include vmm.d
 include $(LIB_VMM_DIR)/vmm.mk
+include ${SDDF}/util/util.mk
 vpath %.c $(LIB_VMM_DIR)
 
-$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.a: libvmm.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
-	$(AR) r libvmm.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o
+$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.a: libvmm.a libsddf_util.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
+	mkdir -p libsddf_util; cd libsddf_util; $(AR) -x ../libsddf_util.a
+	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o
 	cp libvmm.a $@
 
 clean::

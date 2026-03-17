@@ -208,7 +208,7 @@ cpuSw_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
 cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a
-	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
