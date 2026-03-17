@@ -74,7 +74,10 @@ $(TOP_DIR)/build/sb_queue_uint8_t_1.o: $(TOP_DIR)/types/src/sb_queue_uint8_t_1.c
 cpuSw_wifiDriver_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_MON.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/include
 
-# cpuSw_wifiDriver_wifiDriver.a contains a VM
+cpuSw_wifiDriver_wifiDriver_rust:
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
+
+# cpuSw_wifiDriver_wifiDriver.o contains a VM
 .PHONY: cpuSw_wifiDriver_wifiDriver.a
 cpuSw_wifiDriver_wifiDriver.a:
 ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
@@ -190,8 +193,8 @@ pacer.o: $(TOP_DIR)/components/pacer/src/pacer.c Makefile
 cpuSw_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a
-	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
+cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver.a
+	$(LD) $(LDFLAGS)  -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriver.a --end-group -lcpuSw_wifiDriver_wifiDriver -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@

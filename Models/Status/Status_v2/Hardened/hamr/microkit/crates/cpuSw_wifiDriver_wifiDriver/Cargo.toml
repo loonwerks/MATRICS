@@ -16,6 +16,9 @@ GUMBO_PLTL = { path = "../GUMBO_PLTL" }
 # -----------------------------------------------------------------------------
 sel4 = { git = "https://github.com/seL4/rust-sel4", features = ["single-threaded"], optional = true, tag="v2.0.0" }
 sel4-logging = { git = "https://github.com/seL4/rust-sel4", optional = true, tag="v2.0.0" }
+sel4-microkit-base = { git = "https://github.com/seL4/rust-sel4", tag="v2.0.0" }
+sel4-pl011-driver = { git = "https://github.com/seL4/rust-sel4", tag="v2.0.0" }
+embedded-hal-nb = "1.0.0"
 
 # -----------------------------------------------------------------------------
 # Verus crate dependencies
