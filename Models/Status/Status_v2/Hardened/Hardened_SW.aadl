@@ -14,7 +14,52 @@ public
 	with GUMBO_PLTL;
 	
 	-- Processes introduced to isolate threads
-	process wifiDriver_seL4
+	
+	thread wifiDriverVM
+		features
+			wifiRecvIn: in event data port Common::DummyMessage.Impl;
+			wifiRecvOut: out event data port Common::DummyMessage.Impl;
+			wifiSendIn: in event data port Common::DummyMessage.Impl;
+			wifiSendOut: out event data port Common::DummyMessage.Impl;
+		flows
+			f1: flow path wifiRecvIn-> wifiRecvOut;
+			f2: flow path wifiSendIn -> wifiSendOut;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;			
+	end wifiDriverVM;
+	
+	process wifiDriverVM_seL4
+		features
+			wifiRecvIn: in event data port Common::DummyMessage.Impl;
+			wifiRecvOut: out event data port Common::DummyMessage.Impl;
+			wifiSendIn: in event data port Common::DummyMessage.Impl;
+			wifiSendOut: out event data port Common::DummyMessage.Impl;
+		flows
+			f1: flow path wifiRecvIn-> wifiRecvOut;
+			f2: flow path wifiSendIn -> wifiSendOut;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;			
+	end wifiDriverVM_seL4;
+	
+	process implementation wifiDriverVM_seL4.Impl
+		subcomponents
+			wifiDriver: thread wifiDriverVM;
+		connections
+			c1: port wifiRecvIn -> wifiDriver.wifiRecvIn;
+			c2: port wifiDriver.wifiRecvOut -> wifiRecvOut;
+			c3: port wifiSendIn -> wifiDriver.wifiSendIn;
+			c4: port wifiDriver.wifiSendOut -> wifiSendOut;
+		properties
+			CASE_Scheduling::Domain => 12;
+			HAMR::Microkit_Language => C;
+		annex agree {**
+			lift contract;
+		**};
+	end wifiDriverVM_seL4.Impl;
+	
+	process wifiGate_seL4
 		features
 			wifiRecv: in event data port Common::DummyMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
@@ -27,26 +72,26 @@ public
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
 			f4: flow sink alert;
-		properties
-			MATRICS_Properties::Component_Type => COMM_DRIVER;	
-	end wifiDriver_seL4;
+--		properties
+--			MATRICS_Properties::Component_Type => COMM_DRIVER;	
+	end wifiGate_seL4;
 	
-	process implementation wifiDriver_seL4.Impl
+	process implementation wifiGate_seL4.Impl
 		subcomponents
-			wifiDriver: thread wifiDriver;
+			wifiGate: thread wifiGate;
 		connections
-			c1: port wifiRecv -> wifiDriver.wifiRecv;
-			c2: port analysis_report -> wifiDriver.analysis_report;
-			c3: port wifiDriver.wifiSend -> wifiSend;
-			c4: port wifiDriver.HMD_log -> HMD_log;
-			c5: port wifiDriver.analysis_request -> analysis_request;
-			c6: port alert -> wifiDriver.alert;
+			c1: port wifiRecv -> wifiGate.wifiRecv;
+			c2: port analysis_report -> wifiGate.analysis_report;
+			c3: port wifiGate.wifiSend -> wifiSend;
+			c4: port wifiGate.HMD_log -> HMD_log;
+			c5: port wifiGate.analysis_request -> analysis_request;
+			c6: port alert -> wifiGate.alert;
 		properties
 			CASE_Scheduling::Domain => 11;
 		annex agree {**
 			lift contract;
 		**};
-	end wifiDriver_seL4.Impl;
+	end wifiGate_seL4.Impl;
 	
 	process dataManager_seL4
 		features
@@ -545,7 +590,8 @@ public
 	
 	system implementation SW_seL4.hardened
 		subcomponents
-			wifiDriver: process wifiDriver_seL4.Impl;
+			wifiGate: process wifiGate_seL4.Impl;
+			wifiDriver: process wifiDriverVM_seL4.Impl;
 			btDriver: process btDriver_seL4.Impl;
 			usbDriver: process usbDriver_seL4.Impl;
 			dataManager: process dataManager_seL4.Impl;
@@ -557,36 +603,38 @@ public
 			firewall: process firewall_seL4.Impl;
 		connections
 			-- Wi-Fi exchange with outside
-			c1: port wifiRecv -> wifiDriver.wifiRecv;
-			c2: port wifiDriver.wifiSend -> wifiSend;
+			c1: port wifiRecv -> wifiDriver.wifiRecvIn;
+			c2: port wifiDriver.wifiRecvOut -> wifiGate.wifiRecv;
+			c3: port wifiGate.wifiSend -> wifiDriver.wifiSendIn;
+			c4: port wifiDriver.wifiSendOut -> wifiSend;
 			-- Bluetooth exchange with outside
-			c9: port btRecv -> btDriver.btRecv;
-			c10: port btDriver.btSend -> btSend;
+			c5: port btRecv -> btDriver.btRecv;
+			c6: port btDriver.btSend -> btSend;
 			-- USB exchange with outside
-			c11: port usbRecv -> usbDriver.usbRecv;
-			c12: port usbDriver.usbSend -> usbSend;
+			c7: port usbRecv -> usbDriver.usbRecv;
+			c8: port usbDriver.usbSend -> usbSend;
 			-- internal data communication
-			c4: port dataAnalysis.request_log -> dataManager.request_log;
+			c9: port dataAnalysis.request_log -> dataManager.request_log;
 			-- decryption connections
-			c19: port wifiDriver.HMD_log -> decryptor.HMD_log_in;
-			c21: port decryptor.HMD_log_out -> dataManager.HMD_log;
+			c10: port wifiGate.HMD_log -> decryptor.HMD_log_in;
+			c11: port decryptor.HMD_log_out -> dataManager.HMD_log;
 			-- encryption connections
-			c24: port dataAnalysis.analysis_report -> encryptor.analysis_report_in;
-			c25: port reportMonitor.analysis_report_out -> wifiDriver.analysis_report;			
+			c12: port dataAnalysis.analysis_report -> encryptor.analysis_report_in;
+			c13: port reportMonitor.analysis_report_out -> wifiGate.analysis_report;			
 			-- monitor connections
-			c13: port dataAnalysis.request_log -> logMonitor.request_log;
-			c14: port dataManager.response_log -> logMonitor.response_log_in;
-			c5: port logMonitor.response_log_out -> dataAnalysis.response_log;
+			c14: port dataAnalysis.request_log -> logMonitor.request_log;
+			c15: port dataManager.response_log -> logMonitor.response_log_in;
+			c16: port logMonitor.response_log_out -> dataAnalysis.response_log;
 			c17: port logMonitor.alert -> dataManager.zeroize;
-			c15: port wifiDriver.analysis_request -> reportMonitor.analysis_request;
-			c16: port encryptor.analysis_report_out -> reportMonitor.analysis_report_in;
-			c18: port reportMonitor.alert -> wifiDriver.alert;
+			c18: port wifiGate.analysis_request -> reportMonitor.analysis_request;
+			c19: port encryptor.analysis_report_out -> reportMonitor.analysis_report_in;
+			c20: port reportMonitor.alert -> wifiGate.alert;
 			--firewall connections
-			c22: port wifiDriver.analysis_request -> firewall.analysis_request_in;
-			c23: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
+			c21: port wifiGate.analysis_request -> firewall.analysis_request_in;
+			c22: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
 		flows
 			-- HMD log flow path
-			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c19 -> decryptor.f1 -> c21 -> dataManager.f1;		
+			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c2 -> wifiGate.f1 -> c10 -> decryptor.f1 -> c11 -> dataManager.f1;		
 	end SW_seL4.hardened;
 	
 end Hardened_SW;
