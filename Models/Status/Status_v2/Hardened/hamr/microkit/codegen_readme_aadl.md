@@ -27,32 +27,32 @@ GUMBO: [Subclause](../../GroundStation.aadl#L126)|
 
 |Thread: Hardened_SW::decryptor |
 |:--|
-|Implementation: [decryptor](../../Hardened_SW.aadl#L424)<br>
-GUMBO: [Subclause](../../Hardened_SW.aadl#L439)|
+|Implementation: [decryptor](../../Hardened_SW.aadl#L425)<br>
+GUMBO: [Subclause](../../Hardened_SW.aadl#L440)|
 |Periodic |
 
 |Thread: Hardened_SW::encryptor |
 |:--|
-|Implementation: [encryptor](../../Hardened_SW.aadl#L470)<br>
-GUMBO: [Subclause](../../Hardened_SW.aadl#L487)|
+|Implementation: [encryptor](../../Hardened_SW.aadl#L471)<br>
+GUMBO: [Subclause](../../Hardened_SW.aadl#L488)|
 |Periodic |
 
 |Thread: Hardened_SW::logMonitor |
 |:--|
-|Implementation: [logMonitor](../../Hardened_SW.aadl#L201)<br>
-GUMBO: [Subclause](../../Hardened_SW.aadl#L237)|
+|Implementation: [logMonitor](../../Hardened_SW.aadl#L202)<br>
+GUMBO: [Subclause](../../Hardened_SW.aadl#L238)|
 |Periodic |
 
 |Thread: Hardened_SW::reportMonitor |
 |:--|
-|Implementation: [reportMonitor](../../Hardened_SW.aadl#L299)<br>
-GUMBO: [Subclause](../../Hardened_SW.aadl#L342)|
+|Implementation: [reportMonitor](../../Hardened_SW.aadl#L300)<br>
+GUMBO: [Subclause](../../Hardened_SW.aadl#L343)|
 |Periodic |
 
 |Thread: Hardened_SW::firewall |
 |:--|
-|Implementation: [firewall](../../Hardened_SW.aadl#L519)<br>
-GUMBO: [Subclause](../../Hardened_SW.aadl#L536)|
+|Implementation: [firewall](../../Hardened_SW.aadl#L520)<br>
+GUMBO: [Subclause](../../Hardened_SW.aadl#L537)|
 |Periodic |
 
 |Thread: GroundStation::wifiDriver |
@@ -230,10 +230,10 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 
     <table>
     <tr><th>Port Name</th><th>Direction</th><th>Kind</th><th>Payload</th><th>Realizations</th></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L427'>HMD_log_in</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L428'>HMD_log_in</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::Log.Impl</td><td><a title='Memory Map: Lines 128-132' href='microkit.system#L128'>Memory Map</a> → <a title='C Shared Memory Variable: Line 10' href='components/cpuSw_decryptor_decryptor/src/cpuSw_decryptor_decryptor.c#L10'>C var_addr</a> → <a title='C Interface: Lines 29-32' href='components/cpuSw_decryptor_decryptor/src/cpuSw_decryptor_decryptor.c#L29'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_decryptor_decryptor/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 18-28' href='crates/cpuSw_decryptor_decryptor/src/bridge/extern_c_api.rs#L18'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 22-29' href='crates/cpuSw_decryptor_decryptor/src/bridge/cpuSw_decryptor_decryptor_api.rs#L22'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 55-62' href='crates/cpuSw_decryptor_decryptor/src/bridge/cpuSw_decryptor_decryptor_api.rs#L55'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L428'>HMD_log_out</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L429'>HMD_log_out</a></td>
         <td>Out</td><td>Event Data</td>
         <td>Common::Log.Impl</td><td><a title='Rust/Verus API: Lines 42-51' href='crates/cpuSw_decryptor_decryptor/src/bridge/cpuSw_decryptor_decryptor_api.rs#L42'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_decryptor_decryptor/src/bridge/cpuSw_decryptor_decryptor_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 30-35' href='crates/cpuSw_decryptor_decryptor/src/bridge/extern_c_api.rs#L30'>Rust/C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_decryptor_decryptor/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='C Interface: Lines 15-19' href='components/cpuSw_decryptor_decryptor/src/cpuSw_decryptor_decryptor.c#L15'>C Interface</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_decryptor_decryptor/src/cpuSw_decryptor_decryptor.c#L9'>C var_addr</a> → <a title='Memory Map: Lines 123-127' href='microkit.system#L123'>Memory Map</a></td></tr>
     </table>
@@ -242,7 +242,7 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
     <table>
     <tr><th colspan=4>Compute</th></tr>
     <tr><td>guarantee Payload_Decrypted</td>
-    <td><a href=../../Hardened_SW.aadl#L441>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L442>GUMBO</a></td>
     <td><a href=crates/cpuSw_decryptor_decryptor/src/component/cpuSw_decryptor_decryptor_app.rs#L41>Verus</a></td>
     <td><a href=crates/cpuSw_decryptor_decryptor/src/bridge/cpuSw_decryptor_decryptor_GUMBOX.rs#L24>GUMBOX</a></td>
     </tr></table>
@@ -262,10 +262,10 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 
     <table>
     <tr><th>Port Name</th><th>Direction</th><th>Kind</th><th>Payload</th><th>Realizations</th></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L473'>analysis_report_in</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L474'>analysis_report_in</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::AnalysisReport.Impl</td><td><a title='Memory Map: Lines 146-150' href='microkit.system#L146'>Memory Map</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_encryptor_encryptor/src/cpuSw_encryptor_encryptor.c#L9'>C var_addr</a> → <a title='C Interface: Lines 23-26' href='components/cpuSw_encryptor_encryptor/src/cpuSw_encryptor_encryptor.c#L23'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_encryptor_encryptor/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 18-28' href='crates/cpuSw_encryptor_encryptor/src/bridge/extern_c_api.rs#L18'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 22-29' href='crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_api.rs#L22'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 55-62' href='crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_api.rs#L55'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L474'>analysis_report_out</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L475'>analysis_report_out</a></td>
         <td>Out</td><td>Event Data</td>
         <td>Common::AnalysisReport.Impl</td><td><a title='Rust/Verus API: Lines 42-51' href='crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_api.rs#L42'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 30-35' href='crates/cpuSw_encryptor_encryptor/src/bridge/extern_c_api.rs#L30'>Rust/C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_encryptor_encryptor/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='C Interface: Lines 28-32' href='components/cpuSw_encryptor_encryptor/src/cpuSw_encryptor_encryptor.c#L28'>C Interface</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_encryptor_encryptor/src/cpuSw_encryptor_encryptor.c#L11'>C var_addr</a> → <a title='Memory Map: Lines 151-155' href='microkit.system#L151'>Memory Map</a></td></tr>
     </table>
@@ -274,12 +274,12 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
     <table>
     <tr><th colspan=4>Compute</th></tr>
     <tr><td>guarantee Payload_Encrypted</td>
-    <td><a href=../../Hardened_SW.aadl#L489>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L490>GUMBO</a></td>
     <td><a href=crates/cpuSw_encryptor_encryptor/src/component/cpuSw_encryptor_encryptor_app.rs#L41>Verus</a></td>
     <td><a href=crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_GUMBOX.rs#L24>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Header_Unencrypted</td>
-    <td><a href=../../Hardened_SW.aadl#L491>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L492>GUMBO</a></td>
     <td><a href=crates/cpuSw_encryptor_encryptor/src/component/cpuSw_encryptor_encryptor_app.rs#L44>Verus</a></td>
     <td><a href=crates/cpuSw_encryptor_encryptor/src/bridge/cpuSw_encryptor_encryptor_GUMBOX.rs#L38>GUMBOX</a></td>
     </tr></table>
@@ -299,16 +299,16 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 
     <table>
     <tr><th>Port Name</th><th>Direction</th><th>Kind</th><th>Payload</th><th>Realizations</th></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L204'>request_log</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L205'>request_log</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::Request.Impl</td><td><a title='Memory Map: Lines 174-178' href='microkit.system#L174'>Memory Map</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L11'>C var_addr</a> → <a title='C Interface: Lines 39-42' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L39'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 20-30' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L20'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 28-35' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L28'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 85-94' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L85'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L205'>response_log_in</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L206'>response_log_in</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::ResponseLog.Impl</td><td><a title='Memory Map: Lines 169-173' href='microkit.system#L169'>Memory Map</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L9'>C var_addr</a> → <a title='C Interface: Lines 26-29' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L26'>C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='Rust/C Interface: Lines 32-42' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L32'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 38-45' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L38'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 95-104' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L95'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L206'>response_log_out</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L207'>response_log_out</a></td>
         <td>Out</td><td>Event Data</td>
         <td>Common::ResponseLog.Impl</td><td><a title='Rust/Verus API: Lines 60-71' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L60'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 44-49' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L44'>Rust/C Interface</a> → <a title='C Extern: Line 16' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L16'>C Extern</a> → <a title='C Interface: Lines 44-48' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L44'>C Interface</a> → <a title='C Shared Memory Variable: Line 13' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L13'>C var_addr</a> → <a title='Memory Map: Lines 179-183' href='microkit.system#L179'>Memory Map</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L207'>alert</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L208'>alert</a></td>
         <td>Out</td><td>Event</td>
         <td></td><td><a title='Rust/Verus API: Lines 72-81' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L72'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 20-23' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_api.rs#L20'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 51-56' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L51'>Rust/C Interface</a> → <a title='C Extern: Line 17' href='crates/cpuSw_logMonitor_logMonitor/src/bridge/extern_c_api.rs#L17'>C Extern</a> → <a title='C Interface: Lines 50-56' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L50'>C Interface</a> → <a title='C Shared Memory Variable: Line 14' href='components/cpuSw_logMonitor_logMonitor/src/cpuSw_logMonitor_logMonitor.c#L14'>C var_addr</a> → <a title='Memory Map: Lines 184-188' href='microkit.system#L184'>Memory Map</a></td></tr>
     </table>
@@ -317,37 +317,37 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
     <table>
     <tr><th colspan=3>State Variables</th></tr>
     <tr><td>since_result</td>
-    <td><a href=../../Hardened_SW.aadl#L239>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L240>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L11>Verus</a></td></tr>
     <tr><td>is_valid</td>
-    <td><a href=../../Hardened_SW.aadl#L240>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L241>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L12>Verus</a></td></tr></table>
     <table>
     <tr><th colspan=4>Initialize</th></tr>
     <tr><td>guarantee defaultSince</td>
-    <td><a href=../../Hardened_SW.aadl#L244>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L245>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L32>Verus</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_GUMBOX.rs#L22>GUMBOX</a></td>
     </tr></table>
     <table>
     <tr><th colspan=4>Compute</th></tr>
     <tr><td>guarantee is_valid_variable</td>
-    <td><a href=../../Hardened_SW.aadl#L250>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L251>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L51>Verus</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_GUMBOX.rs#L68>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee since_result_variable</td>
-    <td><a href=../../Hardened_SW.aadl#L256>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L257>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L58>Verus</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_GUMBOX.rs#L92>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Alert</td>
-    <td><a href=../../Hardened_SW.aadl#L259>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L260>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L61>Verus</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_GUMBOX.rs#L109>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Forward_Response</td>
-    <td><a href=../../Hardened_SW.aadl#L263>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L264>GUMBO</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/component/cpuSw_logMonitor_logMonitor_app.rs#L68>Verus</a></td>
     <td><a href=crates/cpuSw_logMonitor_logMonitor/src/bridge/cpuSw_logMonitor_logMonitor_GUMBOX.rs#L129>GUMBOX</a></td>
     </tr></table>
@@ -367,88 +367,88 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 
     <table>
     <tr><th>Port Name</th><th>Direction</th><th>Kind</th><th>Payload</th><th>Realizations</th></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L302'>analysis_request</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L303'>analysis_request</a></td>
         <td>In</td><td>Event Data</td>
-        <td>Common::AnalysisRequest.Impl</td><td><a title='Memory Map: Lines 207-211' href='microkit.system#L207'>Memory Map</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L11'>C var_addr</a> → <a title='C Interface: Lines 39-42' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L39'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 20-30' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L20'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 30-37' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L30'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 89-98' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L89'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L303'>analysis_report_in</a></td>
+        <td>Common::AnalysisRequest.Impl</td><td><a title='Memory Map: Lines 217-221' href='microkit.system#L217'>Memory Map</a> → <a title='C Shared Memory Variable: Line 13' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L13'>C var_addr</a> → <a title='C Interface: Lines 51-54' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L51'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 20-30' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L20'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 30-37' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L30'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 89-98' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L89'>Rust/Verus API</a></td></tr>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L304'>analysis_report_in</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::AnalysisReport.Impl</td><td><a title='Memory Map: Lines 202-206' href='microkit.system#L202'>Memory Map</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L9'>C var_addr</a> → <a title='C Interface: Lines 26-29' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L26'>C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='Rust/C Interface: Lines 32-42' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L32'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 40-47' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L40'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 99-108' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L99'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L304'>analysis_report_out</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L305'>analysis_report_out</a></td>
         <td>Out</td><td>Event Data</td>
-        <td>Common::AnalysisReport.Impl</td><td><a title='Rust/Verus API: Lines 62-73' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L62'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 44-49' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L44'>Rust/C Interface</a> → <a title='C Extern: Line 16' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L16'>C Extern</a> → <a title='C Interface: Lines 44-48' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L44'>C Interface</a> → <a title='C Shared Memory Variable: Line 13' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L13'>C var_addr</a> → <a title='Memory Map: Lines 212-216' href='microkit.system#L212'>Memory Map</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L305'>alert</a></td>
+        <td>Common::AnalysisReport.Impl</td><td><a title='Rust/Verus API: Lines 62-73' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L62'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 44-49' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L44'>Rust/C Interface</a> → <a title='C Extern: Line 16' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L16'>C Extern</a> → <a title='C Interface: Lines 31-35' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L31'>C Interface</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L11'>C var_addr</a> → <a title='Memory Map: Lines 207-211' href='microkit.system#L207'>Memory Map</a></td></tr>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L306'>alert</a></td>
         <td>Out</td><td>Event Data</td>
-        <td>Common::DummyMessage.Impl</td><td><a title='Rust/Verus API: Lines 74-85' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L74'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 20-25' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L20'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 51-56' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L51'>Rust/C Interface</a> → <a title='C Extern: Line 17' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L17'>C Extern</a> → <a title='C Interface: Lines 50-54' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L50'>C Interface</a> → <a title='C Shared Memory Variable: Line 14' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L14'>C var_addr</a> → <a title='Memory Map: Lines 217-221' href='microkit.system#L217'>Memory Map</a></td></tr>
+        <td>Common::DummyMessage.Impl</td><td><a title='Rust/Verus API: Lines 74-85' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L74'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 20-25' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_api.rs#L20'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 51-56' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L51'>Rust/C Interface</a> → <a title='C Extern: Line 17' href='crates/cpuSw_reportMonitor_reportMonitor/src/bridge/extern_c_api.rs#L17'>C Extern</a> → <a title='C Interface: Lines 37-41' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L37'>C Interface</a> → <a title='C Shared Memory Variable: Line 12' href='components/cpuSw_reportMonitor_reportMonitor/src/cpuSw_reportMonitor_reportMonitor.c#L12'>C var_addr</a> → <a title='Memory Map: Lines 212-216' href='microkit.system#L212'>Memory Map</a></td></tr>
     </table>
 - **GUMBO**
 
     <table>
     <tr><th colspan=3>State Variables</th></tr>
     <tr><td>counter</td>
-    <td><a href=../../Hardened_SW.aadl#L344>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L345>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L11>Verus</a></td></tr>
     <tr><td>since_result</td>
-    <td><a href=../../Hardened_SW.aadl#L345>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L346>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L12>Verus</a></td></tr>
     <tr><td>is_valid1</td>
-    <td><a href=../../Hardened_SW.aadl#L346>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L347>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L13>Verus</a></td></tr>
     <tr><td>is_invalid2</td>
-    <td><a href=../../Hardened_SW.aadl#L347>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L348>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L14>Verus</a></td></tr></table>
     <table>
     <tr><th colspan=4>Initialize</th></tr>
     <tr><td>guarantee defaultCounterAndSince</td>
-    <td><a href=../../Hardened_SW.aadl#L363>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L364>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L36>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L51>GUMBOX</a></td>
     </tr></table>
     <table>
     <tr><th colspan=4>Compute</th></tr>
     <tr><td>guarantee since_result_variable</td>
-    <td><a href=../../Hardened_SW.aadl#L369>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L370>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L56>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L108>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee valid1</td>
-    <td><a href=../../Hardened_SW.aadl#L372>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L373>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L59>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L126>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee invalid2</td>
-    <td><a href=../../Hardened_SW.aadl#L377>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L378>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L66>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L149>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Alert1</td>
-    <td><a href=../../Hardened_SW.aadl#L380>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L381>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L69>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L165>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Alert2</td>
-    <td><a href=../../Hardened_SW.aadl#L384>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L385>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L76>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L184>GUMBOX</a></td>
     </tr>
     <tr><td>guarantee Forward_Report</td>
-    <td><a href=../../Hardened_SW.aadl#L388>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L389>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L83>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L204>GUMBOX</a></td>
     </tr></table>
     <table>
     <tr><th colspan=4>GUMBO Methods</th></tr>
     <tr><td>Counter</td>
-    <td><a href=../../Hardened_SW.aadl#L349>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L350>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L124>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L17>GUMBOX</a></td>
     </tr>
     <tr><td>ALLOW_LIST</td>
-    <td><a href=../../Hardened_SW.aadl#L357>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L358>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L140>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L33>GUMBOX</a></td>
     </tr>
     <tr><td>FOUND_IN_ALLOW_LIST</td>
-    <td><a href=../../Hardened_SW.aadl#L358>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L359>GUMBO</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/component/cpuSw_reportMonitor_reportMonitor_app.rs#L145>Verus</a></td>
     <td><a href=crates/cpuSw_reportMonitor_reportMonitor/src/bridge/cpuSw_reportMonitor_reportMonitor_GUMBOX.rs#L38>GUMBOX</a></td>
     </tr></table>
@@ -468,10 +468,10 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 
     <table>
     <tr><th>Port Name</th><th>Direction</th><th>Kind</th><th>Payload</th><th>Realizations</th></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L522'>analysis_request_in</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L523'>analysis_request_in</a></td>
         <td>In</td><td>Event Data</td>
         <td>Common::AnalysisRequest.Impl</td><td><a title='Memory Map: Lines 240-244' href='microkit.system#L240'>Memory Map</a> → <a title='C Shared Memory Variable: Line 10' href='components/cpuSw_firewall_firewall/src/cpuSw_firewall_firewall.c#L10'>C var_addr</a> → <a title='C Interface: Lines 29-32' href='components/cpuSw_firewall_firewall/src/cpuSw_firewall_firewall.c#L29'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_firewall_firewall/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 18-28' href='crates/cpuSw_firewall_firewall/src/bridge/extern_c_api.rs#L18'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 22-29' href='crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_api.rs#L22'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 55-62' href='crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_api.rs#L55'>Rust/Verus API</a></td></tr>
-    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L523'>analysis_request_out</a></td>
+    <tr><td><a title='Model' href='../../Hardened_SW.aadl#L524'>analysis_request_out</a></td>
         <td>Out</td><td>Event Data</td>
         <td>Common::AnalysisRequest.Impl</td><td><a title='Rust/Verus API: Lines 42-51' href='crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_api.rs#L42'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 30-35' href='crates/cpuSw_firewall_firewall/src/bridge/extern_c_api.rs#L30'>Rust/C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_firewall_firewall/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='C Interface: Lines 15-19' href='components/cpuSw_firewall_firewall/src/cpuSw_firewall_firewall.c#L15'>C Interface</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_firewall_firewall/src/cpuSw_firewall_firewall.c#L9'>C var_addr</a> → <a title='Memory Map: Lines 235-239' href='microkit.system#L235'>Memory Map</a></td></tr>
     </table>
@@ -480,19 +480,19 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
     <table>
     <tr><th colspan=4>Compute</th></tr>
     <tr><td>guarantee Forward_Request</td>
-    <td><a href=../../Hardened_SW.aadl#L543>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L544>GUMBO</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/component/cpuSw_firewall_firewall_app.rs#L41>Verus</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_GUMBOX.rs#L36>GUMBOX</a></td>
     </tr></table>
     <table>
     <tr><th colspan=4>GUMBO Methods</th></tr>
     <tr><td>ALLOW_LIST</td>
-    <td><a href=../../Hardened_SW.aadl#L538>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L539>GUMBO</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/component/cpuSw_firewall_firewall_app.rs#L80>Verus</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_GUMBOX.rs#L17>GUMBOX</a></td>
     </tr>
     <tr><td>FOUND_IN_ALLOW_LIST</td>
-    <td><a href=../../Hardened_SW.aadl#L539>GUMBO</a></td>
+    <td><a href=../../Hardened_SW.aadl#L540>GUMBO</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/component/cpuSw_firewall_firewall_app.rs#L85>Verus</a></td>
     <td><a href=crates/cpuSw_firewall_firewall/src/bridge/cpuSw_firewall_firewall_GUMBOX.rs#L22>GUMBOX</a></td>
     </tr></table>
@@ -517,19 +517,19 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
         <td>Common::DummyMessage.Impl</td><td><a title='Memory Map: Lines 283-287' href='microkit.system#L283'>Memory Map</a> → <a title='C Shared Memory Variable: Line 16' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L16'>C var_addr</a> → <a title='C Interface: Lines 73-76' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L73'>C Interface</a> → <a title='C Extern: Line 14' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L14'>C Extern</a> → <a title='Rust/C Interface: Lines 22-32' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L22'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 38-45' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L38'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 127-138' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L127'>Rust/Verus API</a></td></tr>
     <tr><td><a title='Model' href='../../GroundStation.aadl#L55'>analysis_report</a></td>
         <td>In</td><td>Event Data</td>
-        <td>Common::AnalysisReport.Impl</td><td><a title='Memory Map: Lines 268-272' href='microkit.system#L268'>Memory Map</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L11'>C var_addr</a> → <a title='C Interface: Lines 41-44' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L41'>C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='Rust/C Interface: Lines 34-44' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L34'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 48-55' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L48'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 139-150' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L139'>Rust/Verus API</a></td></tr>
+        <td>Common::AnalysisReport.Impl</td><td><a title='Memory Map: Lines 258-262' href='microkit.system#L258'>Memory Map</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L9'>C var_addr</a> → <a title='C Interface: Lines 29-32' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L29'>C Interface</a> → <a title='C Extern: Line 15' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L15'>C Extern</a> → <a title='Rust/C Interface: Lines 34-44' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L34'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 48-55' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L48'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 139-150' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L139'>Rust/Verus API</a></td></tr>
     <tr><td><a title='Model' href='../../GroundStation.aadl#L57'>alert</a></td>
         <td>In</td><td>Event Data</td>
-        <td>Common::DummyMessage.Impl</td><td><a title='Memory Map: Lines 278-282' href='microkit.system#L278'>Memory Map</a> → <a title='C Shared Memory Variable: Line 14' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L14'>C var_addr</a> → <a title='C Interface: Lines 60-63' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L60'>C Interface</a> → <a title='C Extern: Line 16' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L16'>C Extern</a> → <a title='Rust/C Interface: Lines 46-56' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L46'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 58-65' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L58'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 151-162' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L151'>Rust/Verus API</a></td></tr>
+        <td>Common::DummyMessage.Impl</td><td><a title='Memory Map: Lines 263-267' href='microkit.system#L263'>Memory Map</a> → <a title='C Shared Memory Variable: Line 11' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L11'>C var_addr</a> → <a title='C Interface: Lines 42-45' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L42'>C Interface</a> → <a title='C Extern: Line 16' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L16'>C Extern</a> → <a title='Rust/C Interface: Lines 46-56' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L46'>Rust/C Interface</a> → <a title='Unverified Rust Interface: Lines 58-65' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L58'>Unverified Rust Interface</a> → <a title='Rust/Verus API: Lines 151-162' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L151'>Rust/Verus API</a></td></tr>
     <tr><td><a title='Model' href='../../GroundStation.aadl#L53'>wifiSend</a></td>
         <td>Out</td><td>Event Data</td>
-        <td>Common::DummyMessage.Impl</td><td><a title='Rust/Verus API: Lines 82-95' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L82'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 58-63' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L58'>Rust/C Interface</a> → <a title='C Extern: Line 17' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L17'>C Extern</a> → <a title='C Interface: Lines 21-25' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L21'>C Interface</a> → <a title='C Shared Memory Variable: Line 9' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L9'>C var_addr</a> → <a title='Memory Map: Lines 258-262' href='microkit.system#L258'>Memory Map</a></td></tr>
+        <td>Common::DummyMessage.Impl</td><td><a title='Rust/Verus API: Lines 82-95' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L82'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 12-17' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L12'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 58-63' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L58'>Rust/C Interface</a> → <a title='C Extern: Line 17' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L17'>C Extern</a> → <a title='C Interface: Lines 47-51' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L47'>C Interface</a> → <a title='C Shared Memory Variable: Line 13' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L13'>C var_addr</a> → <a title='Memory Map: Lines 268-272' href='microkit.system#L268'>Memory Map</a></td></tr>
     <tr><td><a title='Model' href='../../GroundStation.aadl#L54'>HMD_log</a></td>
         <td>Out</td><td>Event Data</td>
-        <td>Common::Log.Impl</td><td><a title='Rust/Verus API: Lines 96-109' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L96'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 20-25' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L20'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 65-70' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L65'>Rust/C Interface</a> → <a title='C Extern: Line 18' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L18'>C Extern</a> → <a title='C Interface: Lines 27-31' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L27'>C Interface</a> → <a title='C Shared Memory Variable: Line 10' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L10'>C var_addr</a> → <a title='Memory Map: Lines 263-267' href='microkit.system#L263'>Memory Map</a></td></tr>
+        <td>Common::Log.Impl</td><td><a title='Rust/Verus API: Lines 96-109' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L96'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 20-25' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L20'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 65-70' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L65'>Rust/C Interface</a> → <a title='C Extern: Line 18' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L18'>C Extern</a> → <a title='C Interface: Lines 53-57' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L53'>C Interface</a> → <a title='C Shared Memory Variable: Line 14' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L14'>C var_addr</a> → <a title='Memory Map: Lines 273-277' href='microkit.system#L273'>Memory Map</a></td></tr>
     <tr><td><a title='Model' href='../../GroundStation.aadl#L56'>analysis_request</a></td>
         <td>Out</td><td>Event Data</td>
-        <td>Common::AnalysisRequest.Impl</td><td><a title='Rust/Verus API: Lines 110-123' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L110'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 28-33' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L28'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 72-77' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L72'>Rust/C Interface</a> → <a title='C Extern: Line 19' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L19'>C Extern</a> → <a title='C Interface: Lines 46-50' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L46'>C Interface</a> → <a title='C Shared Memory Variable: Line 13' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L13'>C var_addr</a> → <a title='Memory Map: Lines 273-277' href='microkit.system#L273'>Memory Map</a></td></tr>
+        <td>Common::AnalysisRequest.Impl</td><td><a title='Rust/Verus API: Lines 110-123' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L110'>Rust/Verus API</a> → <a title='Unverified Rust Interface: Lines 28-33' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/cpuSw_wifiDriver_wifiDriver_wifiDriver_api.rs#L28'>Unverified Rust Interface</a> → <a title='Rust/C Interface: Lines 72-77' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L72'>Rust/C Interface</a> → <a title='C Extern: Line 19' href='crates/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/bridge/extern_c_api.rs#L19'>C Extern</a> → <a title='C Interface: Lines 59-63' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L59'>C Interface</a> → <a title='C Shared Memory Variable: Line 15' href='components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c#L15'>C var_addr</a> → <a title='Memory Map: Lines 278-282' href='microkit.system#L278'>Memory Map</a></td></tr>
     </table>
 - **GUMBO**
 

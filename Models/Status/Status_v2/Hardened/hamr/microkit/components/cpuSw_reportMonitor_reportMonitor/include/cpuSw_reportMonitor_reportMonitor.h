@@ -12,8 +12,8 @@
 bool analysis_report_in_is_empty(void);
 bool get_analysis_report_in_poll(sb_event_counter_t *numDropped, Common_AnalysisReport_Impl *data);
 bool get_analysis_report_in(Common_AnalysisReport_Impl *data);
+bool put_analysis_report_out(const Common_AnalysisReport_Impl *data);
+bool put_alert(const Common_DummyMessage_Impl *data);
 bool analysis_request_is_empty(void);
 bool get_analysis_request_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data);
 bool get_analysis_request(Common_AnalysisRequest_Impl *data);
-bool put_analysis_report_out(const Common_AnalysisReport_Impl *data);
-bool put_alert(const Common_DummyMessage_Impl *data);

@@ -124,9 +124,9 @@ digraph microkit {
       cpuSw_reportMonitor_reportMonitor_INVIS [label="", style=invis, width=.5, height=.5, fixedsize=true]
 
       pd_cpuSw_reportMonitor_reportMonitor_analysis_report_in_queue_1 [label=analysis_report_in_queue_1];
-      pd_cpuSw_reportMonitor_reportMonitor_analysis_request_queue_1 [label=analysis_request_queue_1];
       pd_cpuSw_reportMonitor_reportMonitor_analysis_report_out_queue_1 [label=analysis_report_out_queue_1];
       pd_cpuSw_reportMonitor_reportMonitor_alert_queue_1 [label=alert_queue_1];
+      pd_cpuSw_reportMonitor_reportMonitor_analysis_request_queue_1 [label=analysis_request_queue_1];
     }
   }
 
@@ -155,11 +155,11 @@ digraph microkit {
       label = "cpuSw_wifiDriver_wifiDriver_wifiDriver";
       cpuSw_wifiDriver_wifiDriver_wifiDriver_INVIS [label="", style=invis, width=.5, height=.5, fixedsize=true]
 
+      pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_queue_1 [label=analysis_report_queue_1];
+      pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_queue_1 [label=alert_queue_1];
       pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_queue_1 [label=wifiSend_queue_1];
       pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_queue_1 [label=HMD_log_queue_1];
-      pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_queue_1 [label=analysis_report_queue_1];
       pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_queue_1 [label=analysis_request_queue_1];
-      pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_queue_1 [label=alert_queue_1];
       pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiRecv_queue_1 [label=wifiRecv_queue_1];
     }
   }
@@ -213,15 +213,11 @@ digraph microkit {
 
   GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region;
 
-  GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_in_1_Memory_Region;
-
   GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region;
 
   GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region;
 
   GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_1_Memory_Region;
-
-  GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_request_1_Memory_Region;
 
   GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region;
 
@@ -229,17 +225,11 @@ digraph microkit {
 
   GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region;
 
-  GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_in_1_Memory_Region;
-
   GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region;
 
   GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region;
 
-  GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_1_Memory_Region;
-
   GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region;
-
-  GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_1_Memory_Region;
 
   GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region;
 
@@ -285,7 +275,7 @@ digraph microkit {
   pd_cpuSw_dataAnalysis_dataAnalysis_response_log_queue_1 -> GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_dataAnalysis_dataAnalysis_analysis_request_queue_1 -> GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_decryptor_decryptor_HMD_log_out_queue_1 -> GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region [dir=both, style=dashed];
-  pd_cpuSw_decryptor_decryptor_HMD_log_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_in_1_Memory_Region [dir=back, style=dashed];
+  pd_cpuSw_decryptor_decryptor_HMD_log_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_encryptor_encryptor_analysis_report_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_analysis_report_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_encryptor_encryptor_analysis_report_out_queue_1 -> GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region [dir=both, style=dashed];
   pd_cpuSw_logMonitor_logMonitor_response_log_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_response_log_1_Memory_Region [dir=back, style=dashed];
@@ -293,16 +283,16 @@ digraph microkit {
   pd_cpuSw_logMonitor_logMonitor_response_log_out_queue_1 -> GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region [dir=both, style=dashed];
   pd_cpuSw_logMonitor_logMonitor_alert_queue_1 -> GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_1_Memory_Region [dir=both, style=dashed];
   pd_cpuSw_reportMonitor_reportMonitor_analysis_report_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region [dir=back, style=dashed];
-  pd_cpuSw_reportMonitor_reportMonitor_analysis_request_queue_1 -> GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_request_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_reportMonitor_reportMonitor_analysis_report_out_queue_1 -> GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region [dir=both, style=dashed];
   pd_cpuSw_reportMonitor_reportMonitor_alert_queue_1 -> GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region [dir=both, style=dashed];
+  pd_cpuSw_reportMonitor_reportMonitor_analysis_request_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_firewall_firewall_analysis_request_out_queue_1 -> GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region [dir=both, style=dashed];
-  pd_cpuSw_firewall_firewall_analysis_request_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_in_1_Memory_Region [dir=back, style=dashed];
+  pd_cpuSw_firewall_firewall_analysis_request_in_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region [dir=back, style=dashed];
+  pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_queue_1 -> GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region [dir=back, style=dashed];
+  pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_queue_1 -> GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region [dir=both, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region [dir=both, style=dashed];
-  pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region [dir=both, style=dashed];
-  pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiRecv_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region [dir=back, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM [dir=both, style=dashed];
   pd_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendIn_queue_1 -> GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region [dir=back, style=dashed];
