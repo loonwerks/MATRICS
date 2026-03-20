@@ -8,7 +8,7 @@ ifeq ($(strip $(MICROKIT_BOARD)),)
 $(error MICROKIT_BOARD must be specified)
 endif
 
-cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR := $(shell dirname $(shell pwd))
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR := $(shell dirname $(shell pwd))
 
 # @ivanv: need to have a step for putting in the initrd node into the DTB,
 # 		  right now it is unfortunately hard-coded.
@@ -21,7 +21,7 @@ cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR := $(shell dirname $(shell pwd))
 
 LIB_VMM_DIR ?= $(VMM_DIR)
 ifeq ("$(wildcard $(LIB_VMM_DIR)/tools)","")
-LIB_VMM_DIR := $(cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR)/libvmm
+LIB_VMM_DIR := $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/libvmm
 ifeq ("$(wildcard $(LIB_VMM_DIR)/tools)","")
 $(error Set VMM_DIR to point to a copy of https://github.com/au-ts/libvmm")
 endif
@@ -34,7 +34,7 @@ export SDDF=$(LIB_VMM_DIR)/dep/sddf
 ARCH := aarch64
 SDDF_CUSTOM_LIBC := 1
 
-LINUX_IMAGE_DIR := $(cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR)/board/$(MICROKIT_BOARD)
+LINUX_IMAGE_DIR := $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/board/$(MICROKIT_BOARD)
 LINUX := $(LINUX_IMAGE_DIR)/linux
 DTS := $(LINUX_IMAGE_DIR)/linux.dts
 DTB := $(TOP_BUILD_DIR)/linux.dtb
@@ -75,9 +75,9 @@ $(CHECK_FLAGS_BOARD_MD5):
 	-rm -f .board_cflags-*
 	touch $@
 
-cpuSw_wifiDriver_wifiDriver_wifiDriver_INCLUDE = -I$(cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR)/include
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_INCLUDE = -I$(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/include
 
-all: $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver.a
+all: $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
 
 $(LINUX):
 	curl -L https://trustworthy.systems/Downloads/libvmm/images/${LINUX_VER}.tar.gz -o $@.tar.gz
@@ -109,15 +109,15 @@ $(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_imag
 
 # NOTE: the type libraries will be linked in via the top level makefile so here
 # we just need to include $(TOP_TYPES_INCLUDE)
-$(TOP_BUILD_DIR)/%.o: $(cpuSw_wifiDriver_wifiDriver_wifiDriver_DIR)/src/%.c $(TOP_BUILD_DIR)/Makefile
-	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_TYPES_INCLUDE) $(cpuSw_wifiDriver_wifiDriver_wifiDriver_INCLUDE)
+$(TOP_BUILD_DIR)/%.o: $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/src/%.c $(TOP_BUILD_DIR)/Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_TYPES_INCLUDE) $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_INCLUDE)
 
 -include vmm.d
 include $(LIB_VMM_DIR)/vmm.mk
 include $(SDDF)/util/util.mk
 vpath %.c $(LIB_VMM_DIR)
 
-$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver.a: libvmm.a libsddf_util.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
+$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a: libvmm.a libsddf_util.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
 	mkdir -p libsddf_util; cd libsddf_util; $(AR) -x ../libsddf_util.a
-	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriver_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o
+	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o
 	cp libvmm.a $@

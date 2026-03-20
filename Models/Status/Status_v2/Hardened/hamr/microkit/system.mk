@@ -18,7 +18,7 @@ LIBS := --start-group -lmicrokit -Tmicrokit.ld --end-group
 SYSTEM_FILE := $(TOP_DIR)/microkit.system
 SCHEDULE_FILE := $(TOP_DIR)/microkit.schedule.xml
 
-IMAGES := cpuSw_btDriver_btDriver.elf cpuSw_btDriver_btDriver_MON.elf cpuSw_usbDriver_usbDriver.elf cpuSw_usbDriver_usbDriver_MON.elf cpuSw_dataManager_dataManager.elf cpuSw_dataManager_dataManager_MON.elf cpuSw_dataAnalysis_dataAnalysis.elf cpuSw_dataAnalysis_dataAnalysis_MON.elf cpuSw_decryptor_decryptor.elf cpuSw_decryptor_decryptor_MON.elf cpuSw_encryptor_encryptor.elf cpuSw_encryptor_encryptor_MON.elf cpuSw_logMonitor_logMonitor.elf cpuSw_logMonitor_logMonitor_MON.elf cpuSw_reportMonitor_reportMonitor.elf cpuSw_reportMonitor_reportMonitor_MON.elf cpuSw_firewall_firewall.elf cpuSw_firewall_firewall_MON.elf cpuSw_wifiDriver_wifiGate_wifiGate.elf cpuSw_wifiDriver_wifiGate_wifiGate_MON.elf cpuSw_wifiDriver_wifiDriver_wifiDriver.elf cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf pacer.elf
+IMAGES := cpuSw_btDriver_btDriver.elf cpuSw_btDriver_btDriver_MON.elf cpuSw_usbDriver_usbDriver.elf cpuSw_usbDriver_usbDriver_MON.elf cpuSw_dataManager_dataManager.elf cpuSw_dataManager_dataManager_MON.elf cpuSw_dataAnalysis_dataAnalysis.elf cpuSw_dataAnalysis_dataAnalysis_MON.elf cpuSw_decryptor_decryptor.elf cpuSw_decryptor_decryptor_MON.elf cpuSw_encryptor_encryptor.elf cpuSw_encryptor_encryptor_MON.elf cpuSw_logMonitor_logMonitor.elf cpuSw_logMonitor_logMonitor_MON.elf cpuSw_reportMonitor_reportMonitor.elf cpuSw_reportMonitor_reportMonitor_MON.elf cpuSw_firewall_firewall.elf cpuSw_firewall_firewall_MON.elf cpuSw_wifiDriver_wifiDriver_wifiDriver.elf cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf pacer.elf
 IMAGE_FILE = loader.img
 REPORT_FILE = report.txt
 
@@ -170,29 +170,29 @@ cpuSw_firewall_firewall.o: $(TOP_DIR)/components/cpuSw_firewall_firewall/src/cpu
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_firewall_firewall/include
 
 # monitor
-cpuSw_wifiDriver_wifiGate_wifiGate_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiGate_wifiGate/src/cpuSw_wifiDriver_wifiGate_wifiGate_MON.c Makefile
-	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiGate_wifiGate/include
-
-# user code
-cpuSw_wifiDriver_wifiGate_wifiGate_rust:
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiGate_wifiGate $(RUST_MAKE_TARGET)
-
-cpuSw_wifiDriver_wifiGate_wifiGate.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiGate_wifiGate/src/cpuSw_wifiDriver_wifiGate_wifiGate.c Makefile
-	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiGate_wifiGate/include
-
-# monitor
 cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.c Makefile
 	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/include
 
-# cpuSw_wifiDriver_wifiDriver_wifiDriver.a contains a VM
-.PHONY: cpuSw_wifiDriver_wifiDriver_wifiDriver.a
-cpuSw_wifiDriver_wifiDriver_wifiDriver.a:
-ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
-	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/board/$(MICROKIT_BOARD)/Makefile);
+# user code
+cpuSw_wifiDriver_wifiDriver_wifiDriver_rust:
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
+
+cpuSw_wifiDriver_wifiDriver_wifiDriver.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src/cpuSw_wifiDriver_wifiDriver_wifiDriver.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/include
+
+# monitor
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/src/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@ $(TOP_INCLUDE) -I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/include
+
+# cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a contains a VM
+.PHONY: cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a:
+ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
+	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile);
 endif
-	mkdir -p $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/build
-	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/board/${MICROKIT_BOARD}/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/build
-	make -C $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/build
+	mkdir -p $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/${MICROKIT_BOARD}/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+	make -C $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 
 
 pacer.o: $(TOP_DIR)/components/pacer/src/pacer.c Makefile
@@ -252,17 +252,17 @@ cpuSw_firewall_firewall_MON.elf: cpuSw_firewall_firewall_MON.o
 cpuSw_firewall_firewall.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_firewall_firewall_rust cpuSw_firewall_firewall.o
 	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_firewall_firewall/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_firewall_firewall -o $@
 
-cpuSw_wifiDriver_wifiGate_wifiGate_MON.elf: cpuSw_wifiDriver_wifiGate_wifiGate_MON.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
-
-cpuSw_wifiDriver_wifiGate_wifiGate.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiGate_wifiGate_rust cpuSw_wifiDriver_wifiGate_wifiGate.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiGate_wifiGate/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiGate_wifiGate -o $@
-
 cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver.a
-	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver.a --end-group -o $@
+cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
+
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a --end-group -o $@
 
 pacer.elf: $(UTIL_OBJS) $(TYPE_OBJS) pacer.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
@@ -293,7 +293,7 @@ test::
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor test
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor test
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall test
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiGate_wifiGate test
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver test
 
 clean:: 
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver clean
@@ -305,10 +305,10 @@ clean::
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall clean
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiGate_wifiGate clean
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver clean
 
 clean:: 
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/build
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 
 verus: 
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver verus
@@ -320,4 +320,4 @@ verus:
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall verus
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiGate_wifiGate verus
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver verus

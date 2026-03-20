@@ -6,61 +6,87 @@ void cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize(void);
 void cpuSw_wifiDriver_wifiDriver_wifiDriver_notify(microkit_channel channel);
 void cpuSw_wifiDriver_wifiDriver_wifiDriver_timeTriggered(void);
 
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSendIn_queue_1;
-sb_queue_Common_DummyMessage_Impl_1_Recv_t wifiSendIn_recv_queue;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiRecvOut_queue_1;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiRecvIn_queue_1;
-sb_queue_Common_DummyMessage_Impl_1_Recv_t wifiRecvIn_recv_queue;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSendOut_queue_1;
+volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSend_queue_1;
+volatile sb_queue_Common_Log_Impl_1_t *HMD_log_queue_1;
+volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_queue_1;
+sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_recv_queue;
+volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
+volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
+sb_queue_Common_DummyMessage_Impl_1_Recv_t alert_recv_queue;
+volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiRecv_queue_1;
+sb_queue_Common_DummyMessage_Impl_1_Recv_t wifiRecv_recv_queue;
 
-#define PORT_FROM_MON 40
+#define PORT_FROM_MON 42
 
-bool wifiSendIn_is_empty(void) {
-  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&wifiSendIn_recv_queue);
-}
-
-bool get_wifiSendIn_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
-  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &wifiSendIn_recv_queue, numDropped, data);
-}
-
-bool get_wifiSendIn(Common_DummyMessage_Impl *data) {
-  sb_event_counter_t numDropped;
-  return get_wifiSendIn_poll (&numDropped, data);
-}
-
-bool put_wifiRecvOut(const Common_DummyMessage_Impl *data) {
-  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) wifiRecvOut_queue_1, (Common_DummyMessage_Impl *) data);
+bool put_wifiSend(const Common_DummyMessage_Impl *data) {
+  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSend_queue_1, (Common_DummyMessage_Impl *) data);
 
   return true;
 }
 
-bool wifiRecvIn_is_empty(void) {
-  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&wifiRecvIn_recv_queue);
-}
-
-bool get_wifiRecvIn_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
-  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &wifiRecvIn_recv_queue, numDropped, data);
-}
-
-bool get_wifiRecvIn(Common_DummyMessage_Impl *data) {
-  sb_event_counter_t numDropped;
-  return get_wifiRecvIn_poll (&numDropped, data);
-}
-
-bool put_wifiSendOut(const Common_DummyMessage_Impl *data) {
-  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendOut_queue_1, (Common_DummyMessage_Impl *) data);
+bool put_HMD_log(const Common_Log_Impl *data) {
+  sb_queue_Common_Log_Impl_1_enqueue((sb_queue_Common_Log_Impl_1_t *) HMD_log_queue_1, (Common_Log_Impl *) data);
 
   return true;
+}
+
+bool analysis_report_is_empty(void) {
+  return sb_queue_Common_AnalysisReport_Impl_1_is_empty(&analysis_report_recv_queue);
+}
+
+bool get_analysis_report_poll(sb_event_counter_t *numDropped, Common_AnalysisReport_Impl *data) {
+  return sb_queue_Common_AnalysisReport_Impl_1_dequeue((sb_queue_Common_AnalysisReport_Impl_1_Recv_t *) &analysis_report_recv_queue, numDropped, data);
+}
+
+bool get_analysis_report(Common_AnalysisReport_Impl *data) {
+  sb_event_counter_t numDropped;
+  return get_analysis_report_poll (&numDropped, data);
+}
+
+bool put_analysis_request(const Common_AnalysisRequest_Impl *data) {
+  sb_queue_Common_AnalysisRequest_Impl_1_enqueue((sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1, (Common_AnalysisRequest_Impl *) data);
+
+  return true;
+}
+
+bool alert_is_empty(void) {
+  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&alert_recv_queue);
+}
+
+bool get_alert_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
+  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &alert_recv_queue, numDropped, data);
+}
+
+bool get_alert(Common_DummyMessage_Impl *data) {
+  sb_event_counter_t numDropped;
+  return get_alert_poll (&numDropped, data);
+}
+
+bool wifiRecv_is_empty(void) {
+  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&wifiRecv_recv_queue);
+}
+
+bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
+  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &wifiRecv_recv_queue, numDropped, data);
+}
+
+bool get_wifiRecv(Common_DummyMessage_Impl *data) {
+  sb_event_counter_t numDropped;
+  return get_wifiRecv_poll (&numDropped, data);
 }
 
 void init(void) {
-  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&wifiSendIn_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendIn_queue_1);
+  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSend_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiRecvOut_queue_1);
+  sb_queue_Common_Log_Impl_1_init((sb_queue_Common_Log_Impl_1_t *) HMD_log_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&wifiRecvIn_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) wifiRecvIn_queue_1);
+  sb_queue_Common_AnalysisReport_Impl_1_Recv_init(&analysis_report_recv_queue, (sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendOut_queue_1);
+  sb_queue_Common_AnalysisRequest_Impl_1_init((sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
+
+  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&alert_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) alert_queue_1);
+
+  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&wifiRecv_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) wifiRecv_queue_1);
 
   cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize();
 }
