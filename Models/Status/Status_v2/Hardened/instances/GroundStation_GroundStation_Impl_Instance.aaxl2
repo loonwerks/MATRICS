@@ -2806,15 +2806,6 @@
           </ownedValue>
           <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.13/@ownedPropertyAssociation.8"/>
         </ownedPropertyAssociation>
-        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-          <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
-          <ownedValue>
-            <ownedValue xsi:type="aadl2:NamedValue">
-              <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.2/@ownedPropertyType/@ownedLiteral.5"/>
-            </ownedValue>
-          </ownedValue>
-          <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPropertyAssociation.0"/>
-        </ownedPropertyAssociation>
         <featureInstance name="wifiRecv" category="eventDataPort" type="/1">
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
@@ -2973,15 +2964,6 @@
             </ownedValue>
             <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPropertyAssociation.0"/>
           </ownedPropertyAssociation>
-          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-            <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
-            <ownedValue>
-              <ownedValue xsi:type="aadl2:NamedValue">
-                <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.2/@ownedPropertyType/@ownedLiteral.5"/>
-              </ownedValue>
-            </ownedValue>
-            <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPropertyAssociation.0"/>
-          </ownedPropertyAssociation>
           <featureInstance name="wifiRecv" category="eventDataPort" type="/1">
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
@@ -3132,15 +3114,6 @@
                 </ownedValue>
               </ownedValue>
               <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.13/@ownedPropertyAssociation.8"/>
-            </ownedPropertyAssociation>
-            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-              <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
-              <ownedValue>
-                <ownedValue xsi:type="aadl2:NamedValue">
-                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.2/@ownedPropertyType/@ownedLiteral.5"/>
-                </ownedValue>
-              </ownedValue>
-              <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPropertyAssociation.0"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
@@ -3366,7 +3339,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.2/@ownedPropertyType/@ownedLiteral.5"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPropertyAssociation.0"/>
+            <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <featureInstance name="wifiRecvIn" category="eventDataPort" type="/1">
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -3558,7 +3531,7 @@
                   <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.2/@ownedPropertyType/@ownedLiteral.5"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPropertyAssociation.0"/>
+              <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPropertyAssociation.2"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
@@ -3914,20 +3887,32 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedPortConnection.3"/>
         </connectionReference>
       </connectionInstance>
-      <connectionInstance name="reportMonitor.reportMonitor.analysis_report_out -> wifiDriver.analysis_report" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.2">
+      <connectionInstance name="reportMonitor.reportMonitor.analysis_report_out -> wifiDriver.wifiDriver.wifiDriver.analysis_report" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.2">
         <connectionReference context="/0/@componentInstance.10/@componentInstance.7" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.7/@featureInstance.2">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.18/@ownedPortConnection.2"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.7/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.10"/>
         </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.3">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.5"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.3">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.1"/>
+        </connectionReference>
       </connectionInstance>
-      <connectionInstance name="reportMonitor.reportMonitor.alert -> wifiDriver.alert" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.5" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.3">
+      <connectionInstance name="reportMonitor.reportMonitor.alert -> wifiDriver.wifiDriver.wifiDriver.alert" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.5" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.3">
         <connectionReference context="/0/@componentInstance.10/@componentInstance.7" source="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.7/@featureInstance.3">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.18/@ownedPortConnection.3"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.7/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.5">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.17"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.5">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.7"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.5">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.5"/>
         </connectionReference>
       </connectionInstance>
       <connectionInstance name="firewall.firewall.analysis_request_out -> dataAnalysis.dataAnalysis.analysis_request" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.3/@componentInstance.0/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.8/@componentInstance.0/@featureInstance.1">
@@ -3941,7 +3926,13 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPortConnection.1"/>
         </connectionReference>
       </connectionInstance>
-      <connectionInstance name="wifiDriver.HMD_log -> decryptor.decryptor.HMD_log_in" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.4/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2">
+      <connectionInstance name="wifiDriver.wifiDriver.wifiDriver.HMD_log -> decryptor.decryptor.HMD_log_in" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.4/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.2">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.3"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.4"/>
+        </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.4/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.7"/>
         </connectionReference>
@@ -3949,7 +3940,13 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.21/@ownedPortConnection.0"/>
         </connectionReference>
       </connectionInstance>
-      <connectionInstance name="wifiDriver.analysis_request -> reportMonitor.reportMonitor.analysis_request" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
+      <connectionInstance name="wifiDriver.wifiDriver.wifiDriver.analysis_request -> reportMonitor.reportMonitor.analysis_request" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.4">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.4">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.4"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.6"/>
+        </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.7/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.15"/>
         </connectionReference>
@@ -3957,7 +3954,13 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.18/@ownedPortConnection.0"/>
         </connectionReference>
       </connectionInstance>
-      <connectionInstance name="wifiDriver.analysis_request -> firewall.firewall.analysis_request_in" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.8/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
+      <connectionInstance name="wifiDriver.wifiDriver.wifiDriver.analysis_request -> firewall.firewall.analysis_request_in" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.8/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.4">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.4">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.4"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.6"/>
+        </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.8/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.18"/>
         </connectionReference>

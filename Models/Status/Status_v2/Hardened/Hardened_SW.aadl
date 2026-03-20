@@ -53,6 +53,7 @@ public
 		properties
 			CASE_Scheduling::Domain => 2;
 			HAMR::Microkit_Language => C;
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
 		annex agree {**
 			lift contract;
 		**};
@@ -594,9 +595,11 @@ public
 			c1: port wifiRecv -> wifiDriverVM.wifiRecvIn;
 			c2: port wifiDriverVM.wifiRecvOut -> wifiDriver.wifiRecv;
 			c3: port wifiDriver.wifiSend -> wifiDriverVM.wifiSendIn;
-			c4: port wifiDriverVM.wifiSendOut -> wifiSend;	
-		properties
-			MATRICS_Properties::Component_Type => COMM_DRIVER;	
+			c4: port wifiDriverVM.wifiSendOut -> wifiSend;
+			c5: port wifiDriver.HMD_log -> HMD_log;
+			c6: port analysis_report -> wifiDriver.analysis_report;
+			c7: port wifiDriver.analysis_request -> analysis_request;
+			c8: port alert -> wifiDriver.alert;	
 	end wifiDriver_sys.Impl;
 	
 	-- Hardened Software System
