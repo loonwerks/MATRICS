@@ -47,7 +47,7 @@ public
 	end Storage.Impl;
 	
 	
-	thread wifiGate
+	thread wifiDriver
 		features
 			wifiRecv: in event data port Common::DummyMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
@@ -95,7 +95,7 @@ public
                          MustSend(wifiSend) 
                          else NoSend(wifiSend);
 		**};
-	end wifiGate;
+	end wifiDriver;
 	
 	thread dataManager
 		features
@@ -279,9 +279,9 @@ public
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c22, Common::AnalysisRequest.Impl)
 			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)		
-			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
-			argue is_message_encrypted(this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
-			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver)
+			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriver)
 			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataManager)
 		**};
 	end GroundStation.Impl;

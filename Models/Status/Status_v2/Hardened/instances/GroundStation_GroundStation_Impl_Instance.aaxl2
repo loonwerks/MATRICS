@@ -2947,7 +2947,7 @@
           </ownedPropertyAssociation>
           <feature xsi:type="aadl2:EventDataPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.28/@ownedEventDataPort.5"/>
         </featureInstance>
-        <componentInstance name="wifiGate" category="process">
+        <componentInstance name="wifiDriver" category="process">
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
             <ownedValue>
@@ -3114,7 +3114,7 @@
             </ownedPropertyAssociation>
             <feature xsi:type="aadl2:EventDataPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedEventDataPort.5"/>
           </featureInstance>
-          <componentInstance name="wifiGate" category="thread">
+          <componentInstance name="wifiDriver" category="thread">
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
               <ownedValue>
@@ -3315,7 +3315,7 @@
             </flowSpecification>
             <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedThreadSubcomponent.0"/>
             <index>0</index>
-            <classifier xsi:type="aadl2:ThreadType" href="../GroundStation.aadl#GroundStation.wifiGate"/>
+            <classifier xsi:type="aadl2:ThreadType" href="../GroundStation.aadl#GroundStation.wifiDriver"/>
           </componentInstance>
           <flowSpecification name="f1" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2">
             <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFlowSpecification.0"/>
@@ -3331,7 +3331,7 @@
           </flowSpecification>
           <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedProcessSubcomponent.0"/>
           <index>0</index>
-          <classifier xsi:type="aadl2:ProcessImplementation" href="../Hardened_SW.aadl#Hardened_SW.wifiGate_seL4.Impl"/>
+          <classifier xsi:type="aadl2:ProcessImplementation" href="../Hardened_SW.aadl#Hardened_SW.wifiDriver_seL4.Impl"/>
         </componentInstance>
         <componentInstance name="wifiDriverVM" category="process">
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -3797,7 +3797,7 @@
         <flowSpecification name="f4" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.5">
           <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.28/@ownedFlowSpecification.3"/>
         </flowSpecification>
-        <connectionInstance name="wifiGate.wifiGate.wifiSend -> wifiDriverVM.wifiDriver.wifiSendIn" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.0/@featureInstance.2" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.1">
+        <connectionInstance name="wifiDriver.wifiDriver.wifiSend -> wifiDriverVM.wifiDriver.wifiSendIn" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.0/@featureInstance.2" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.1">
           <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.1">
             <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPortConnection.2"/>
           </connectionReference>
@@ -3808,7 +3808,7 @@
             <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPortConnection.2"/>
           </connectionReference>
         </connectionInstance>
-        <connectionInstance name="wifiDriverVM.wifiDriver.wifiRecvOut -> wifiGate.wifiGate.wifiRecv" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.0/@featureInstance.1">
+        <connectionInstance name="wifiDriverVM.wifiDriver.wifiRecvOut -> wifiDriver.wifiDriver.wifiRecv" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.0/@featureInstance.1">
           <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.0/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@featureInstance.1">
             <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPortConnection.1"/>
           </connectionReference>
@@ -3821,7 +3821,7 @@
         </connectionInstance>
         <subcomponent xsi:type="aadl2:SystemSubcomponent" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedSystemSubcomponent.0"/>
         <index>0</index>
-        <classifier xsi:type="aadl2:SystemImplementation" href="../Hardened_SW.aadl#Hardened_SW.wifiDriver_seL4.Impl"/>
+        <classifier xsi:type="aadl2:SystemImplementation" href="../Hardened_SW.aadl#Hardened_SW.wifiDriver_sys.Impl"/>
       </componentInstance>
       <flowSpecification name="f1" source="/0/@componentInstance.10/@featureInstance.0">
         <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.30/@ownedFlowSpecification.0"/>

@@ -58,7 +58,7 @@ public
 		**};
 	end wifiDriverVM_seL4.Impl;
 	
-	process wifiGate_seL4
+	process wifiDriver_seL4
 		features
 			wifiRecv: in event data port Common::DummyMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
@@ -71,26 +71,24 @@ public
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
 			f4: flow sink alert;
---		properties
---			MATRICS_Properties::Component_Type => COMM_DRIVER;	
-	end wifiGate_seL4;
+	end wifiDriver_seL4;
 	
-	process implementation wifiGate_seL4.Impl
+	process implementation wifiDriver_seL4.Impl
 		subcomponents
-			wifiGate: thread wifiGate;
+			wifiDriver: thread wifiDriver;
 		connections
-			c1: port wifiRecv -> wifiGate.wifiRecv;
-			c2: port analysis_report -> wifiGate.analysis_report;
-			c3: port wifiGate.wifiSend -> wifiSend;
-			c4: port wifiGate.HMD_log -> HMD_log;
-			c5: port wifiGate.analysis_request -> analysis_request;
-			c6: port alert -> wifiGate.alert;
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port analysis_report -> wifiDriver.analysis_report;
+			c3: port wifiDriver.wifiSend -> wifiSend;
+			c4: port wifiDriver.HMD_log -> HMD_log;
+			c5: port wifiDriver.analysis_request -> analysis_request;
+			c6: port alert -> wifiDriver.alert;
 		properties
 			CASE_Scheduling::Domain => 3;
 		annex agree {**
 			lift contract;
 		**};
-	end wifiGate_seL4.Impl;
+	end wifiDriver_seL4.Impl;
 	
 	process dataManager_seL4
 		features
@@ -572,7 +570,7 @@ public
 		**};			
 	end firewall_seL4.impl;
 	
-	system wifiDriver_seL4
+	system wifiDriver_sys
 		features
 			wifiRecv: in event data port Common::DummyMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
@@ -585,21 +583,21 @@ public
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
 			f4: flow sink alert;
-	end wifiDriver_seL4;
+	end wifiDriver_sys;
 	
-	system implementation wifiDriver_seL4.Impl
+	system implementation wifiDriver_sys.Impl
 		subcomponents
-			wifiGate: process wifiGate_seL4.Impl;
+			wifiDriver: process wifiDriver_seL4.Impl;
 			wifiDriverVM: process wifiDriverVM_seL4.Impl;
 		connections
 			-- Wi-Fi exchange with outside
 			c1: port wifiRecv -> wifiDriverVM.wifiRecvIn;
-			c2: port wifiDriverVM.wifiRecvOut -> wifiGate.wifiRecv;
-			c3: port wifiGate.wifiSend -> wifiDriverVM.wifiSendIn;
+			c2: port wifiDriverVM.wifiRecvOut -> wifiDriver.wifiRecv;
+			c3: port wifiDriver.wifiSend -> wifiDriverVM.wifiSendIn;
 			c4: port wifiDriverVM.wifiSendOut -> wifiSend;	
 		properties
 			MATRICS_Properties::Component_Type => COMM_DRIVER;	
-	end wifiDriver_seL4.Impl;
+	end wifiDriver_sys.Impl;
 	
 	-- Hardened Software System
 	system SW_seL4
@@ -618,7 +616,7 @@ public
 	
 	system implementation SW_seL4.hardened
 		subcomponents
-			wifiDriver: system wifiDriver_seL4.Impl;
+			wifiDriver: system wifiDriver_sys.Impl;
 			btDriver: process btDriver_seL4.Impl;
 			usbDriver: process usbDriver_seL4.Impl;
 			dataManager: process dataManager_seL4.Impl;
