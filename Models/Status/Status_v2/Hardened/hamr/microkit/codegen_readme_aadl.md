@@ -13,7 +13,7 @@ GUMBO: [Subclause](../../GroundStation.aadl#L78)|
 |Thread: Hardened_SW::wifiDriverVM |
 |:--|
 |Implementation: [wifiDriverVM](../../Hardened_SW.aadl#L17)|
-|Periodic : 200 ms|
+|Periodic : 150 ms|
 
 |Thread: GroundStation::btDriver |
 |:--|

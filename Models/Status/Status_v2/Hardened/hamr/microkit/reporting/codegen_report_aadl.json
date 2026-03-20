@@ -347,6 +347,21 @@
             },
             {
               "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiDriver_wifiDriver\/board\/qemu_virt_aarch64\/linux.dts",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiDriver_wifiDriver\/board\/qemu_virt_aarch64\/overlay.dts",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
+              "path" : "components\/cpuSw_wifiDriver_wifiDriver\/board\/qemu_virt_aarch64\/simple.system",
+              "overwrittenIfExists" : true
+            },
+            {
+              "type" : "ResourceReport",
               "path" : "components\/cpuSw_wifiDriver_wifiDriver\/include\/cpuSw_wifiDriver_wifiDriver_user.h",
               "overwrittenIfExists" : true
             },
@@ -1559,7 +1574,7 @@
                       "beginColumn" : 4,
                       "endLine" : 82,
                       "endColumn" : 30,
-                      "offset" : 2566,
+                      "offset" : 2567,
                       "length" : 26
                     }
                   },
@@ -2891,7 +2906,7 @@
                       "beginColumn" : 4,
                       "endLine" : 49,
                       "endColumn" : 36,
-                      "offset" : 1448,
+                      "offset" : 1449,
                       "length" : 32
                     }
                   },
@@ -3311,7 +3326,7 @@
                       "beginColumn" : 4,
                       "endLine" : 176,
                       "endColumn" : 30,
-                      "offset" : 5778,
+                      "offset" : 5779,
                       "length" : 26
                     }
                   },
@@ -3746,7 +3761,7 @@
                       "beginColumn" : 4,
                       "endLine" : 196,
                       "endColumn" : 32,
-                      "offset" : 6321,
+                      "offset" : 6322,
                       "length" : 28
                     }
                   },
@@ -4181,7 +4196,7 @@
                       "beginColumn" : 4,
                       "endLine" : 122,
                       "endColumn" : 36,
-                      "offset" : 3949,
+                      "offset" : 3950,
                       "length" : 32
                     }
                   },
@@ -5266,7 +5281,7 @@
                       "beginColumn" : 4,
                       "endLine" : 151,
                       "endColumn" : 38,
-                      "offset" : 5029,
+                      "offset" : 5030,
                       "length" : 34
                     }
                   },
@@ -6027,7 +6042,7 @@
                       "beginColumn" : 4,
                       "endLine" : 462,
                       "endColumn" : 32,
-                      "offset" : 16374,
+                      "offset" : 16375,
                       "length" : 28
                     }
                   },
@@ -6069,7 +6084,7 @@
                             "beginColumn" : 4,
                             "endLine" : 431,
                             "endColumn" : 52,
-                            "offset" : 15487,
+                            "offset" : 15488,
                             "length" : 48
                           },
                           "languageRealizations" : [
@@ -6232,7 +6247,7 @@
                             "beginColumn" : 4,
                             "endLine" : 432,
                             "endColumn" : 54,
-                            "offset" : 15539,
+                            "offset" : 15540,
                             "length" : 50
                           },
                           "languageRealizations" : [
@@ -6595,7 +6610,7 @@
                       "beginColumn" : 4,
                       "endLine" : 512,
                       "endColumn" : 32,
-                      "offset" : 18064,
+                      "offset" : 18065,
                       "length" : 28
                     }
                   },
@@ -6637,7 +6652,7 @@
                             "beginColumn" : 4,
                             "endLine" : 477,
                             "endColumn" : 71,
-                            "offset" : 16736,
+                            "offset" : 16737,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -6800,7 +6815,7 @@
                             "beginColumn" : 4,
                             "endLine" : 478,
                             "endColumn" : 73,
-                            "offset" : 16807,
+                            "offset" : 16808,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -7195,7 +7210,7 @@
                       "beginColumn" : 4,
                       "endLine" : 290,
                       "endColumn" : 34,
-                      "offset" : 9548,
+                      "offset" : 9549,
                       "length" : 30
                     }
                   },
@@ -7237,7 +7252,7 @@
                             "beginColumn" : 4,
                             "endLine" : 208,
                             "endColumn" : 57,
-                            "offset" : 6642,
+                            "offset" : 6643,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -7400,7 +7415,7 @@
                             "beginColumn" : 4,
                             "endLine" : 209,
                             "endColumn" : 65,
-                            "offset" : 6699,
+                            "offset" : 6700,
                             "length" : 61
                           },
                           "languageRealizations" : [
@@ -7563,7 +7578,7 @@
                             "beginColumn" : 4,
                             "endLine" : 210,
                             "endColumn" : 67,
-                            "offset" : 6764,
+                            "offset" : 6765,
                             "length" : 63
                           },
                           "languageRealizations" : [
@@ -7725,7 +7740,7 @@
                             "beginColumn" : 4,
                             "endLine" : 211,
                             "endColumn" : 26,
-                            "offset" : 6834,
+                            "offset" : 6835,
                             "length" : 22
                           },
                           "languageRealizations" : [
@@ -8280,7 +8295,7 @@
                       "beginColumn" : 4,
                       "endLine" : 415,
                       "endColumn" : 40,
-                      "offset" : 15015,
+                      "offset" : 15016,
                       "length" : 36
                     }
                   },
@@ -8322,7 +8337,7 @@
                             "beginColumn" : 4,
                             "endLine" : 306,
                             "endColumn" : 70,
-                            "offset" : 10034,
+                            "offset" : 10035,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -8485,7 +8500,7 @@
                             "beginColumn" : 4,
                             "endLine" : 307,
                             "endColumn" : 71,
-                            "offset" : 10104,
+                            "offset" : 10105,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -8648,7 +8663,7 @@
                             "beginColumn" : 4,
                             "endLine" : 308,
                             "endColumn" : 73,
-                            "offset" : 10175,
+                            "offset" : 10176,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -8811,7 +8826,7 @@
                             "beginColumn" : 4,
                             "endLine" : 309,
                             "endColumn" : 57,
-                            "offset" : 10248,
+                            "offset" : 10249,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -9558,7 +9573,7 @@
                       "beginColumn" : 4,
                       "endLine" : 566,
                       "endColumn" : 30,
-                      "offset" : 20279,
+                      "offset" : 20280,
                       "length" : 26
                     }
                   },
@@ -9600,7 +9615,7 @@
                             "beginColumn" : 4,
                             "endLine" : 526,
                             "endColumn" : 73,
-                            "offset" : 18462,
+                            "offset" : 18463,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -9763,7 +9778,7 @@
                             "beginColumn" : 4,
                             "endLine" : 527,
                             "endColumn" : 75,
-                            "offset" : 18535,
+                            "offset" : 18536,
                             "length" : 71
                           },
                           "languageRealizations" : [

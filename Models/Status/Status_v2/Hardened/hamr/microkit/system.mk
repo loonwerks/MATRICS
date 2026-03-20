@@ -208,7 +208,7 @@ cpuSw_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
 cpuSw_wifiDriver_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a
-	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
+	$(LD) $(LDFLAGS)  --start-group -lmicrokit -Tmicrokit.ld $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver.a --end-group -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
@@ -306,6 +306,36 @@ clean::
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall clean
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
+
+clean:: 
+	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriver/build
 
 verus: 
 	make -C ${CRATES_DIR}/cpuSw_wifiGate_wifiGate verus
