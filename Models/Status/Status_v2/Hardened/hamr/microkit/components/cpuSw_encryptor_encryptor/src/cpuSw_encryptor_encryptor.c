@@ -10,7 +10,7 @@ volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_in_queue_1;
 sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_in_recv_queue;
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_out_queue_1;
 
-#define PORT_FROM_MON 46
+#define PORT_FROM_MON 50
 
 bool analysis_report_in_is_empty(void) {
   return sb_queue_Common_AnalysisReport_Impl_1_is_empty(&analysis_report_in_recv_queue);

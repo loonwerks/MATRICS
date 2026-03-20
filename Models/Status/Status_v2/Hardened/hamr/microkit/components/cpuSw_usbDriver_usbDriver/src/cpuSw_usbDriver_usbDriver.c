@@ -10,7 +10,7 @@ volatile sb_queue_Common_DummyMessage_Impl_1_t *usbRecv_queue_1;
 sb_queue_Common_DummyMessage_Impl_1_Recv_t usbRecv_recv_queue;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *usbSend_queue_1;
 
-#define PORT_FROM_MON 54
+#define PORT_FROM_MON 58
 
 bool usbRecv_is_empty(void) {
   return sb_queue_Common_DummyMessage_Impl_1_is_empty(&usbRecv_recv_queue);

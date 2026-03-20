@@ -13,7 +13,7 @@ sb_queue_Common_ResponseLog_Impl_1_Recv_t response_log_recv_queue;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
 sb_queue_Common_AnalysisRequest_Impl_1_Recv_t analysis_request_recv_queue;
 
-#define PORT_FROM_MON 50
+#define PORT_FROM_MON 54
 
 bool put_request_log(const Common_Request_Impl *data) {
   sb_queue_Common_Request_Impl_1_enqueue((sb_queue_Common_Request_Impl_1_t *) request_log_queue_1, (Common_Request_Impl *) data);

@@ -13,7 +13,7 @@ sb_queue_Common_Request_Impl_1_Recv_t request_log_recv_queue;
 volatile sb_queue_Common_ResponseLog_Impl_1_t *response_log_out_queue_1;
 volatile sb_queue_uint8_t_1_t *alert_queue_1;
 
-#define PORT_FROM_MON 44
+#define PORT_FROM_MON 48
 
 bool response_log_in_is_empty(void) {
   return sb_queue_Common_ResponseLog_Impl_1_is_empty(&response_log_in_recv_queue);

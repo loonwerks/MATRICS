@@ -6,11 +6,17 @@ void cpuSw_decryptor_decryptor_initialize(void);
 void cpuSw_decryptor_decryptor_notify(microkit_channel channel);
 void cpuSw_decryptor_decryptor_timeTriggered(void);
 
+volatile sb_queue_Common_Log_Impl_1_t *HMD_log_out_queue_1;
 volatile sb_queue_Common_Log_Impl_1_t *HMD_log_in_queue_1;
 sb_queue_Common_Log_Impl_1_Recv_t HMD_log_in_recv_queue;
-volatile sb_queue_Common_Log_Impl_1_t *HMD_log_out_queue_1;
 
-#define PORT_FROM_MON 48
+#define PORT_FROM_MON 52
+
+bool put_HMD_log_out(const Common_Log_Impl *data) {
+  sb_queue_Common_Log_Impl_1_enqueue((sb_queue_Common_Log_Impl_1_t *) HMD_log_out_queue_1, (Common_Log_Impl *) data);
+
+  return true;
+}
 
 bool HMD_log_in_is_empty(void) {
   return sb_queue_Common_Log_Impl_1_is_empty(&HMD_log_in_recv_queue);
@@ -25,16 +31,10 @@ bool get_HMD_log_in(Common_Log_Impl *data) {
   return get_HMD_log_in_poll (&numDropped, data);
 }
 
-bool put_HMD_log_out(const Common_Log_Impl *data) {
-  sb_queue_Common_Log_Impl_1_enqueue((sb_queue_Common_Log_Impl_1_t *) HMD_log_out_queue_1, (Common_Log_Impl *) data);
-
-  return true;
-}
-
 void init(void) {
-  sb_queue_Common_Log_Impl_1_Recv_init(&HMD_log_in_recv_queue, (sb_queue_Common_Log_Impl_1_t *) HMD_log_in_queue_1);
-
   sb_queue_Common_Log_Impl_1_init((sb_queue_Common_Log_Impl_1_t *) HMD_log_out_queue_1);
+
+  sb_queue_Common_Log_Impl_1_Recv_init(&HMD_log_in_recv_queue, (sb_queue_Common_Log_Impl_1_t *) HMD_log_in_queue_1);
 
   cpuSw_decryptor_decryptor_initialize();
 }

@@ -6,27 +6,14 @@ void cpuSw_reportMonitor_reportMonitor_initialize(void);
 void cpuSw_reportMonitor_reportMonitor_notify(microkit_channel channel);
 void cpuSw_reportMonitor_reportMonitor_timeTriggered(void);
 
-volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
-sb_queue_Common_AnalysisRequest_Impl_1_Recv_t analysis_request_recv_queue;
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_in_queue_1;
 sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_in_recv_queue;
+volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
+sb_queue_Common_AnalysisRequest_Impl_1_Recv_t analysis_request_recv_queue;
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_out_queue_1;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
 
-#define PORT_FROM_MON 42
-
-bool analysis_request_is_empty(void) {
-  return sb_queue_Common_AnalysisRequest_Impl_1_is_empty(&analysis_request_recv_queue);
-}
-
-bool get_analysis_request_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data) {
-  return sb_queue_Common_AnalysisRequest_Impl_1_dequeue((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue, numDropped, data);
-}
-
-bool get_analysis_request(Common_AnalysisRequest_Impl *data) {
-  sb_event_counter_t numDropped;
-  return get_analysis_request_poll (&numDropped, data);
-}
+#define PORT_FROM_MON 46
 
 bool analysis_report_in_is_empty(void) {
   return sb_queue_Common_AnalysisReport_Impl_1_is_empty(&analysis_report_in_recv_queue);
@@ -39,6 +26,19 @@ bool get_analysis_report_in_poll(sb_event_counter_t *numDropped, Common_Analysis
 bool get_analysis_report_in(Common_AnalysisReport_Impl *data) {
   sb_event_counter_t numDropped;
   return get_analysis_report_in_poll (&numDropped, data);
+}
+
+bool analysis_request_is_empty(void) {
+  return sb_queue_Common_AnalysisRequest_Impl_1_is_empty(&analysis_request_recv_queue);
+}
+
+bool get_analysis_request_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data) {
+  return sb_queue_Common_AnalysisRequest_Impl_1_dequeue((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue, numDropped, data);
+}
+
+bool get_analysis_request(Common_AnalysisRequest_Impl *data) {
+  sb_event_counter_t numDropped;
+  return get_analysis_request_poll (&numDropped, data);
 }
 
 bool put_analysis_report_out(const Common_AnalysisReport_Impl *data) {
@@ -54,9 +54,9 @@ bool put_alert(const Common_DummyMessage_Impl *data) {
 }
 
 void init(void) {
-  sb_queue_Common_AnalysisRequest_Impl_1_Recv_init(&analysis_request_recv_queue, (sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
-
   sb_queue_Common_AnalysisReport_Impl_1_Recv_init(&analysis_report_in_recv_queue, (sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_in_queue_1);
+
+  sb_queue_Common_AnalysisRequest_Impl_1_Recv_init(&analysis_request_recv_queue, (sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
 
   sb_queue_Common_AnalysisReport_Impl_1_init((sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_out_queue_1);
 

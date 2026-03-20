@@ -1,7 +1,7 @@
 # This file will not be overwritten if codegen is rerun
 
 [package]
-name = "cpuSw_wifiGate_wifiGate"
+name = "cpuSw_wifiDriver_wifiGate_wifiGate"
 version = "0.1.0"
 edition = "2021"
 

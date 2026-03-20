@@ -11,14 +11,14 @@ mod tests {
   #[test]
   #[serial]
   fn test_initialization() {
-    crate::cpuSw_wifiGate_wifiGate_initialize();
+    crate::cpuSw_wifiDriver_wifiGate_wifiGate_initialize();
 }
 
   #[test]
   #[serial]
   fn test_compute() {
-    crate::cpuSw_wifiGate_wifiGate_initialize();
-    crate::cpuSw_wifiGate_wifiGate_timeTriggered();
+    crate::cpuSw_wifiDriver_wifiGate_wifiGate_initialize();
+    crate::cpuSw_wifiDriver_wifiGate_wifiGate_timeTriggered();
   }
 }
 

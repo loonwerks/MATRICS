@@ -264,7 +264,7 @@ public
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
-			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver;
+			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver.wifiDriverVM;
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw, vcpu;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 			MATRICS_Properties::Memory_Type => RAM applies to mem;
@@ -279,9 +279,9 @@ public
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c22, Common::AnalysisRequest.Impl)
 			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)		
-			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiGate.wifiGate, Common::AnalysisReport.Impl)
-			argue is_message_encrypted(this.cpuSW.wifiGate.wifiGate, Common::AnalysisReport.Impl)
-			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriver)
+			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver, Common::AnalysisReport.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver)
 			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataManager)
 		**};
 	end GroundStation.Impl;

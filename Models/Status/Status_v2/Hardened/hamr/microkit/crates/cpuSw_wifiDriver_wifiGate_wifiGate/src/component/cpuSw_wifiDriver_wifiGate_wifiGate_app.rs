@@ -1,18 +1,18 @@
 // This file will not be overwritten if codegen is rerun
 
 use data::*;
-use crate::bridge::cpuSw_wifiGate_wifiGate_api::*;
+use crate::bridge::cpuSw_wifiDriver_wifiGate_wifiGate_api::*;
 use vstd::prelude::*;
 
 verus! {
 
-  pub struct cpuSw_wifiGate_wifiGate {
+  pub struct cpuSw_wifiDriver_wifiGate_wifiGate {
     // BEGIN MARKER STATE VARS
     pub alert_cmd: bool,
     // END MARKER STATE VARS
   }
 
-  impl cpuSw_wifiGate_wifiGate {
+  impl cpuSw_wifiDriver_wifiGate_wifiGate {
     pub fn new() -> Self
     {
       Self {
@@ -22,9 +22,9 @@ verus! {
       }
     }
 
-    pub fn initialize<API: cpuSw_wifiGate_wifiGate_Put_Api> (
+    pub fn initialize<API: cpuSw_wifiDriver_wifiGate_wifiGate_Put_Api> (
       &mut self,
-      api: &mut cpuSw_wifiGate_wifiGate_Application_Api<API>)
+      api: &mut cpuSw_wifiDriver_wifiGate_wifiGate_Application_Api<API>)
       ensures
         // BEGIN MARKER INITIALIZATION ENSURES
         // guarantee defaultAlert
@@ -34,9 +34,9 @@ verus! {
       log_info("initialize entrypoint invoked");
     }
 
-    pub fn timeTriggered<API: cpuSw_wifiGate_wifiGate_Full_Api> (
+    pub fn timeTriggered<API: cpuSw_wifiDriver_wifiGate_wifiGate_Full_Api> (
       &mut self,
-      api: &mut cpuSw_wifiGate_wifiGate_Application_Api<API>)
+      api: &mut cpuSw_wifiDriver_wifiGate_wifiGate_Application_Api<API>)
       requires
         // BEGIN MARKER TIME TRIGGERED REQUIRES
         // assume AADL_Requirement

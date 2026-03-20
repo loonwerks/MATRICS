@@ -3,229 +3,6 @@
   "reports": [
     {
       "type": "ComponentReport",
-      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "wifiGate", "wifiGate"],
-      "classifier": ["GroundStation", "wifiGate"],
-      "reports": [
-        {
-          "type": "ComponentContractReport",
-          "id": "defaultAlert",
-          "kind": "Initialize",
-          "meta": "Initializes contract for GroundStation::wifiGate",
-          "slices": [
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "GUMBO initializes contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 84,
-                  "beginCol": 5,
-                  "endLine": 85,
-                  "endCol": 25,
-                  "offset": 2453,
-                  "length": 48
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "Touched GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 80,
-                  "beginCol": 5,
-                  "endLine": 80,
-                  "endCol": 36,
-                  "offset": 2374,
-                  "length": 31
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Verus",
-              "meta": "Verus realization of GUMBO initializes contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 30,
-                  "beginCol": 11,
-                  "endLine": 31,
-                  "endCol": 31,
-                  "offset": 712,
-                  "length": 32
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Rust",
-              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 11,
-                  "beginCol": 5,
-                  "endLine": 11,
-                  "endCol": 23,
-                  "offset": 229,
-                  "length": 18
-                }
-            }
-          ]
-        },
-        {
-          "type": "ComponentContractReport",
-          "id": "alert_cmd_variable",
-          "kind": "Guarantee",
-          "meta": "General guarantee contract for GroundStation::wifiGate",
-          "slices": [
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 90,
-                  "beginCol": 5,
-                  "endLine": 91,
-                  "endCol": 94,
-                  "offset": 2550,
-                  "length": 180
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "Touched GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 80,
-                  "beginCol": 5,
-                  "endLine": 80,
-                  "endCol": 36,
-                  "offset": 2374,
-                  "length": 31
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Verus",
-              "meta": "Verus realization of GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 50,
-                  "beginCol": 11,
-                  "endLine": 55,
-                  "endCol": 37,
-                  "offset": 1412,
-                  "length": 223
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Rust",
-              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 11,
-                  "beginCol": 5,
-                  "endLine": 11,
-                  "endCol": 23,
-                  "offset": 229,
-                  "length": 18
-                }
-            }
-          ]
-        },
-        {
-          "type": "ComponentContractReport",
-          "id": "Process_Report",
-          "kind": "Guarantee",
-          "meta": "General guarantee contract for GroundStation::wifiGate",
-          "slices": [
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 93,
-                  "beginCol": 5,
-                  "endLine": 96,
-                  "endCol": 48,
-                  "offset": 2740,
-                  "length": 237
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "Touched GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/GroundStation.aadl",
-                  "beginLine": 80,
-                  "beginCol": 5,
-                  "endLine": 80,
-                  "endCol": 36,
-                  "offset": 2374,
-                  "length": 31
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Verus",
-              "meta": "Verus realization of GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 56,
-                  "beginCol": 11,
-                  "endLine": 58,
-                  "endCol": 9,
-                  "offset": 1672,
-                  "length": 87
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Rust",
-              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_wifiGate_wifiGate\/src\/component\/cpuSw_wifiGate_wifiGate_app.rs",
-                  "beginLine": 11,
-                  "beginCol": 5,
-                  "endLine": 11,
-                  "endCol": 23,
-                  "offset": 229,
-                  "length": 18
-                }
-            }
-          ]
-        }
-       ]
-    },
-    {
-      "type": "ComponentReport",
       "idPath": ["GroundStation_Impl_Instance", "cpuSw", "dataManager", "dataManager"],
       "classifier": ["GroundStation", "dataManager"],
       "reports": [
@@ -1988,6 +1765,229 @@
                   "endCol": 3,
                   "offset": 2164,
                   "length": 114
+                }
+            }
+          ]
+        }
+       ]
+    },
+    {
+      "type": "ComponentReport",
+      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "wifiDriver", "wifiGate", "wifiGate"],
+      "classifier": ["GroundStation", "wifiGate"],
+      "reports": [
+        {
+          "type": "ComponentContractReport",
+          "id": "defaultAlert",
+          "kind": "Initialize",
+          "meta": "Initializes contract for GroundStation::wifiGate",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 84,
+                  "beginCol": 5,
+                  "endLine": 85,
+                  "endCol": 25,
+                  "offset": 2453,
+                  "length": 48
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 80,
+                  "beginCol": 5,
+                  "endLine": 80,
+                  "endCol": 36,
+                  "offset": 2374,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO initializes contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 30,
+                  "beginCol": 11,
+                  "endLine": 31,
+                  "endCol": 31,
+                  "offset": 767,
+                  "length": 32
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 251,
+                  "length": 18
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "alert_cmd_variable",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::wifiGate",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 90,
+                  "beginCol": 5,
+                  "endLine": 91,
+                  "endCol": 94,
+                  "offset": 2550,
+                  "length": 180
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 80,
+                  "beginCol": 5,
+                  "endLine": 80,
+                  "endCol": 36,
+                  "offset": 2374,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 50,
+                  "beginCol": 11,
+                  "endLine": 55,
+                  "endCol": 37,
+                  "offset": 1489,
+                  "length": 223
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 251,
+                  "length": 18
+                }
+            }
+          ]
+        },
+        {
+          "type": "ComponentContractReport",
+          "id": "Process_Report",
+          "kind": "Guarantee",
+          "meta": "General guarantee contract for GroundStation::wifiGate",
+          "slices": [
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 93,
+                  "beginCol": 5,
+                  "endLine": 96,
+                  "endCol": 48,
+                  "offset": 2740,
+                  "length": 237
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Model",
+              "meta": "Touched GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/..\/..\/GroundStation.aadl",
+                  "beginLine": 80,
+                  "beginCol": 5,
+                  "endLine": 80,
+                  "endCol": 36,
+                  "offset": 2374,
+                  "length": 31
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Verus",
+              "meta": "Verus realization of GUMBO general guarantees contract",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 56,
+                  "beginCol": 11,
+                  "endLine": 58,
+                  "endCol": 9,
+                  "offset": 1749,
+                  "length": 87
+                }
+            },
+            {
+              "type": "Slice",
+              "kind": "Rust",
+              "meta": "Touched Rust realization of GUMBO state variable: alert_cmd",
+              "pos":
+                {
+                  "type": "Position",
+                  "uri": "..\/crates\/cpuSw_wifiDriver_wifiGate_wifiGate\/src\/component\/cpuSw_wifiDriver_wifiGate_wifiGate_app.rs",
+                  "beginLine": 11,
+                  "beginCol": 5,
+                  "endLine": 11,
+                  "endCol": 23,
+                  "offset": 251,
+                  "length": 18
                 }
             }
           ]
