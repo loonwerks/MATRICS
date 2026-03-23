@@ -340,6 +340,7 @@
              perms="rw"
              cached="false"
         />
+        <map mr="ethernet" vaddr="0xa003000" perms="rw" cached="false" />
       </virtual_machine>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
@@ -347,6 +348,7 @@
     </protection_domain>
 
     <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON -->
+    <irq irq="79" id="2" trigger="edge" />
     <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON -->
   </protection_domain>
 
@@ -539,5 +541,7 @@
   </channel>
 
   <!-- BEGIN MSD CONTENT MARKER -->
+  <!-- Create a memory region for the ethernet device -->
+    <memory_region name="ethernet" size="0x1000" phys_addr="0xa003000" />
   <!-- END MSD CONTENT MARKER -->
 </system>
