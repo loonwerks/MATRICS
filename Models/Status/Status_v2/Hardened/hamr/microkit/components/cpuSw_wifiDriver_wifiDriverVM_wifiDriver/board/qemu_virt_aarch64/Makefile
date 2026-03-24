@@ -89,6 +89,11 @@ $(INITRD):
 	tar xf $@.tar.gz -C $(LINUX_IMAGE_DIR)
 	cp $(LINUX_IMAGE_DIR)/$(INITRD_VER)/rootfs.cpio.gz $@
 
+$(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
+	$(LIB_VMM_TOOLS_DIR)/packrootfs ${INITRD} \
+		$(TOP_BUILD_DIR)/rootfs_staging -o $@ \
+		--startup $(LIB_VMM_TOOLS_DIR)/linux/net/net_client_init
+
 $(DTB):
 ifeq ("", "$(shell which $(DTC))")
 	$(error "Could not find dependency: Device Tree Compiler (dtc)")
@@ -98,11 +103,11 @@ endif
 	$(DTC) -q -I dts -O dtb $(TOP_BUILD_DIR)/linux.dts > $@
 
 #$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX_IMAGE_DIR) $(LINUX) $(INITRD) $(DTB)
-$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(INITRD) $(DTB)
+$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(TOP_BUILD_DIR)/rootfs.cpio.gz $(DTB)
 	$(CC) -c -g3 -x assembler-with-cpp \
 		-DGUEST_KERNEL_IMAGE_PATH=\"$(LINUX)\" \
 		-DGUEST_DTB_IMAGE_PATH=\"$(DTB)\" \
-		-DGUEST_INITRD_IMAGE_PATH=\"$(INITRD)\" \
+		-DGUEST_INITRD_IMAGE_PATH=\"$(TOP_BUILD_DIR)/rootfs.cpio.gz\" \
 		-target $(TARGET) \
 		$< \
 		-o $@
