@@ -21,4 +21,10 @@
         linux,initrd-start = <0x4d000000>;
         linux,initrd-end = <0x4d800000>;
     };
+
+    virtio-net@0xa003e00 {
+		compatible = "virtio,mmio";
+		reg = <0x00 0xa003e00 0x00 0x1000>;
+		interrupts = <0x00 0x2f 0x04>;
+	};
 };

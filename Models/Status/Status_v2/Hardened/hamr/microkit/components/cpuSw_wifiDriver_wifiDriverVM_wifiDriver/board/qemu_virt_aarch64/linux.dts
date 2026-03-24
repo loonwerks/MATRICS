@@ -6,6 +6,10 @@
 	#address-cells = <0x02>;
 	compatible = "linux,dummy-virt";
 
+	aliases {
+		serial0 = "/pl011@9000000";
+	};
+
 	psci {
 		migrate = <0xc4000005>;
 		cpu_on = <0xc4000003>;

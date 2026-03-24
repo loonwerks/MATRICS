@@ -278,7 +278,10 @@ qemu: $(IMAGE_FILE)
 			-serial mon:stdio \
 			-device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
 			-m size=2G \
-			-nographic
+			-nographic \
+			-device virtio-net-device,netdev=netdev0 \
+			-netdev user,id=netdev0,hostfwd=tcp::1919-:22 \
+			-global virtio-mmio.force-legacy=false \
 
 clean::
 	rm -f *.o
