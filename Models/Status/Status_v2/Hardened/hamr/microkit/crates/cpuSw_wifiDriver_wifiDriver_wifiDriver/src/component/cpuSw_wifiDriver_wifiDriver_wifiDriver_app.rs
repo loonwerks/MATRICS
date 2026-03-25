@@ -31,7 +31,7 @@ verus! {
         self.alert_cmd == false,
         // END MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      // log_info("initialize entrypoint invoked");
     }
 
     pub fn timeTriggered<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Full_Api> (
@@ -62,7 +62,7 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      log_info("compute entrypoint invoked");
+      // log_info("compute entrypoint invoked");
     }
 
     pub fn notify(

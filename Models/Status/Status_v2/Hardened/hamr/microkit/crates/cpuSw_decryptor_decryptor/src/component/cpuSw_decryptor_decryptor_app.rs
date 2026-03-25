@@ -24,7 +24,7 @@ verus! {
       ensures
         // PLACEHOLDER MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      // log_info("initialize entrypoint invoked");
     }
 
     pub fn timeTriggered<API: cpuSw_decryptor_decryptor_Full_Api> (
@@ -43,7 +43,7 @@ verus! {
         api.HMD_log_out.unwrap() != api.HMD_log_in.unwrap(),
         // END MARKER TIME TRIGGERED ENSURES
     {
-      log_info("compute entrypoint invoked");
+      // log_info("compute entrypoint invoked");
     }
 
     pub fn notify(

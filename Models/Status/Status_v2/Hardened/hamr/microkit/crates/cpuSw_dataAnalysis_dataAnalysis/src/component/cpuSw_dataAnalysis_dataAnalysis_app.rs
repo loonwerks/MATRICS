@@ -24,7 +24,7 @@ verus! {
       ensures
         // PLACEHOLDER MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      // log_info("initialize entrypoint invoked");
     }
 
     pub fn timeTriggered<API: cpuSw_dataAnalysis_dataAnalysis_Full_Api> (
@@ -35,7 +35,7 @@ verus! {
       ensures
         // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
     {
-      log_info("compute entrypoint invoked");
+      // log_info("compute entrypoint invoked");
     }
 
     pub fn notify(

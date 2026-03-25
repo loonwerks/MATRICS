@@ -24,7 +24,7 @@ verus! {
       ensures
         // PLACEHOLDER MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      // log_info("initialize entrypoint invoked");
     }
 
     pub fn timeTriggered<API: cpuSw_firewall_firewall_Full_Api> (
@@ -48,7 +48,7 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      log_info("compute entrypoint invoked");
+      // log_info("compute entrypoint invoked");
     }
 
     pub fn notify(
