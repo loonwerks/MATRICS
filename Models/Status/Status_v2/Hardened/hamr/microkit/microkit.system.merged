@@ -104,7 +104,7 @@
     <protection_domain name="cpuSw_decryptor_decryptor" domain="domain_4" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_decryptor_decryptor.elf"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region" vaddr="0x10_000_000" perms="rw" setvar_vaddr="HMD_log_out_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_in_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="HMD_log_in_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="HMD_log_in_queue_1"/>
 
       <!-- BEGIN CONTENT MARKER cpuSw_decryptor_decryptor -->
       <!-- END CONTENT MARKER cpuSw_decryptor_decryptor -->
@@ -151,9 +151,9 @@
     <protection_domain name="cpuSw_reportMonitor_reportMonitor" domain="domain_10" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_reportMonitor_reportMonitor.elf"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region" vaddr="0x10_000_000" perms="r" setvar_vaddr="analysis_report_in_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_request_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="analysis_request_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region" vaddr="0x10_002_000" perms="rw" setvar_vaddr="analysis_report_out_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region" vaddr="0x10_003_000" perms="rw" setvar_vaddr="alert_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region" vaddr="0x10_001_000" perms="rw" setvar_vaddr="analysis_report_out_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region" vaddr="0x10_002_000" perms="rw" setvar_vaddr="alert_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region" vaddr="0x10_003_000" perms="r" setvar_vaddr="analysis_request_queue_1"/>
 
       <!-- BEGIN CONTENT MARKER cpuSw_reportMonitor_reportMonitor -->
       <!-- END CONTENT MARKER cpuSw_reportMonitor_reportMonitor -->
@@ -168,7 +168,7 @@
     <protection_domain name="cpuSw_firewall_firewall" domain="domain_5" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_firewall_firewall.elf"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region" vaddr="0x10_000_000" perms="rw" setvar_vaddr="analysis_request_out_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_in_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="analysis_request_in_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="analysis_request_in_queue_1"/>
 
       <!-- BEGIN CONTENT MARKER cpuSw_firewall_firewall -->
       <!-- END CONTENT MARKER cpuSw_firewall_firewall -->
@@ -182,11 +182,11 @@
     <program_image path="cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf"/>
     <protection_domain name="cpuSw_wifiDriver_wifiDriver_wifiDriver" domain="domain_3" id="1" stack_size="0x100_000">
       <program_image path="cpuSw_wifiDriver_wifiDriver_wifiDriver.elf"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region" vaddr="0x10_000_000" perms="rw" setvar_vaddr="wifiSend_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region" vaddr="0x10_001_000" perms="rw" setvar_vaddr="HMD_log_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_1_Memory_Region" vaddr="0x10_002_000" perms="r" setvar_vaddr="analysis_report_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region" vaddr="0x10_003_000" perms="rw" setvar_vaddr="analysis_request_queue_1"/>
-      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_1_Memory_Region" vaddr="0x10_004_000" perms="r" setvar_vaddr="alert_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region" vaddr="0x10_000_000" perms="r" setvar_vaddr="analysis_report_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_1_Memory_Region" vaddr="0x10_001_000" perms="r" setvar_vaddr="alert_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region" vaddr="0x10_002_000" perms="rw" setvar_vaddr="wifiSend_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region" vaddr="0x10_003_000" perms="rw" setvar_vaddr="HMD_log_queue_1"/>
+      <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region" vaddr="0x10_004_000" perms="rw" setvar_vaddr="analysis_request_queue_1"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region" vaddr="0x10_005_000" perms="r" setvar_vaddr="wifiRecv_queue_1"/>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriver_wifiDriver -->
@@ -206,15 +206,20 @@
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region" vaddr="0x20_001_000" perms="rw" setvar_vaddr="wifiRecvOut_queue_1"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region" vaddr="0x20_002_000" perms="r" setvar_vaddr="wifiRecvIn_queue_1"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region" vaddr="0x20_003_000" perms="rw" setvar_vaddr="wifiSendOut_queue_1"/>
-      <irq irq="33" id="1"/>
       <virtual_machine name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver">
         <vcpu id="0"/>
         <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM" vaddr="0x40_000_000" perms="rwx"/>
         <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_GIC" vaddr="0x8_010_000" perms="rw" cached="false"/>
         <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Serial" vaddr="0x9_000_000" perms="rw" cached="false"/>
+        <map mr="ethernet" vaddr="0xa000000" perms="rw" cached="false"/>
       </virtual_machine>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
+          <!--
+               We want the VMM to receive the ethernet interrupts, which it
+               will then deliver to the VM.
+          -->
+          <irq irq="48" id="2" trigger="edge"/> <!-- Ethernet interrupt -->
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
     </protection_domain>
 
@@ -251,15 +256,11 @@
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region" size="0x1_000"/>
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_in_1_Memory_Region" size="0x1_000"/>
-
   <memory_region name="GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region" size="0x1_000"/>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region" size="0x1_000"/>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_1_Memory_Region" size="0x1_000"/>
-
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_request_1_Memory_Region" size="0x1_000"/>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region" size="0x1_000"/>
 
@@ -267,17 +268,11 @@
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region" size="0x1_000"/>
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_in_1_Memory_Region" size="0x1_000"/>
-
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region" size="0x1_000"/>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region" size="0x1_000"/>
 
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_report_1_Memory_Region" size="0x1_000"/>
-
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region" size="0x1_000"/>
-
-  <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_alert_1_Memory_Region" size="0x1_000"/>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region" size="0x1_000"/>
 
@@ -396,5 +391,7 @@
   </channel>
 
   <!-- BEGIN MSD CONTENT MARKER -->
+  <!-- Create a memory region for the ethernet device -->
+   <memory_region name="ethernet" size="0x1000" phys_addr="0xa003000"/>
   <!-- END MSD CONTENT MARKER -->
 </system>

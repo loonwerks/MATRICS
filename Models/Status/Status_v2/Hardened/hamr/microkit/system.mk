@@ -273,15 +273,21 @@ $(IMAGE_FILE): $(IMAGES) $(SYSTEM_FILE)
 
 
 qemu: $(IMAGE_FILE)
-	$(QEMU) -machine virt,virtualization=on \
-			-cpu cortex-a53 \
-			-serial mon:stdio \
-			-device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
-			-m size=2G \
-			-nographic \
-			-device virtio-net-device,netdev=netdev0 \
-			-netdev user,id=netdev0,hostfwd=tcp::1919-:22 \
-			-global virtio-mmio.force-legacy=false \
+	$(QEMU) -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
+                -cpu cortex-a53 \
+                -serial mon:stdio \
+                -device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
+                -m size=2G \
+                -nographic \
+			 -netdev user,id=mynet0  \
+ 			 -device virtio-net-device,netdev=mynet0
+
+#                 -global virtio-mmio.force-legacy=false \
+#                 -device virtio-net-device,netdev=netdev0,bus=virtio-mmio-bus.0 \
+#                 -netdev user,id=netdev0,hostfwd=tcp::1236-:1236,hostfwd=tcp::1237-:1237,hostfwd=udp::1235-:1235 \
+
+# 			-netdev user,id=mynet0  \
+# 			-device virtio-net-device,netdev=mynet0,mac=52:55:00:d1:55:01
 
 clean::
 	rm -f *.o
