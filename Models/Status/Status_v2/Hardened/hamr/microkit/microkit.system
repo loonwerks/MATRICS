@@ -339,7 +339,7 @@
              perms="rw"
              cached="false"
         />
-        <map mr="ethernet" vaddr="0xa000000" perms="rw" cached="false" />
+        <map mr="ethernet" vaddr="0xa003000" perms="rw" cached="false" />
       </virtual_machine>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
@@ -347,7 +347,8 @@
                We want the VMM to receive the ethernet interrupts, which it
                will then deliver to the VM.
           -->
-          <irq irq="48" id="2" trigger="edge"/> <!-- Ethernet interrupt -->
+          <irq irq="33" id="1"/> <!-- Serial interrupt -->
+          <irq irq="79" id="2" trigger="edge"/> <!-- Ethernet interrupt -->
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
     </protection_domain>
 

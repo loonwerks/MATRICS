@@ -16,13 +16,13 @@
 #error Need to define guest kernel image address and DTB address
 #endif
 
-#define MAX_IRQS 1
+#define MAX_IRQS 2
 
 #if defined(BOARD_qemu_virt_aarch64)
 #define SERIAL_IRQ_CH 1
 #define SERIAL_IRQ 33
 #define ETHERNET_IRQ_CH 2
-#define ETHERNET_IRQ 48
+#define ETHERNET_IRQ 79
 #else
 #error Need to define IRQs
 #endif
@@ -33,10 +33,10 @@ struct mk_irq {
 };
 
 struct mk_irq mk_irqs[MAX_IRQS] = {
-//   { // Serial
-//     .irq = SERIAL_IRQ,
-//     .channel = SERIAL_IRQ_CH,
-//   },
+  { // Serial
+    .irq = SERIAL_IRQ,
+    .channel = SERIAL_IRQ_CH,
+  },
   // Ethernet
   {
      .irq = ETHERNET_IRQ,

@@ -24,34 +24,9 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
-// Microkit will set these variables.
-// uintptr_t wifiRecvIn_queue_1; // RX from VM to VMM
-// uintptr_t wifiSendOut_queue_1; // TX from VMM to VM
-
 static int get_dev_irq_by_ch(microkit_channel ch);
 static int get_dev_ch_by_irq(int irq, microkit_channel *ch);
 static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie);
-
-/* Virtio Net */
-net_queue_handle_t net_rx_queue;
-net_queue_handle_t net_tx_queue;
-net_queue_t rx_free;
-net_queue_t rx_active;
-net_queue_t tx_free;
-net_queue_t tx_active;
-
-uintptr_t net_rx_data;
-uintptr_t net_tx_data;
-
-static struct virtio_net_device virtio_net;
-
-#define NET_VIRT_RX_CH 12 
-#define NET_VIRT_TX_CH 13 
-
-// Interrupts offset by 32
-#define VIRTIO_NET_IRQ (79)
-#define VIRTIO_NET_BASE (0xa003e00)
-#define VIRTIO_NET_SIZE (0x1000)
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -94,35 +69,6 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
     microkit_irq_ack(mk_irqs[i].channel);
   }
 
-  LOG_VMM_ERR("Starting to initialize virtIO device\n");
-
-    /* Initialise virtIO net device */
-    uint8_t mac[VIRTIO_NET_CONFIG_MAC_SZ] = {0xAE, 0xFF, 0xF7, 0xAE, 0xF9, 0x2F};
-
-    net_queue_init(&net_rx_queue, &rx_free, &rx_active, 10);
-    LOG_VMM_ERR("Initialized RX Queue\n");
-    net_queue_init(&net_tx_queue, &tx_free, &tx_active, 10);
-    LOG_VMM_ERR("Initialized TX Queue\n");
-    net_buffers_init(&net_tx_queue, 0);
-    LOG_VMM_ERR("Initialized TX Queue\n");
-    success = virtio_mmio_net_init(&virtio_net,
-                                   VIRTIO_NET_BASE,
-                                   VIRTIO_NET_SIZE,
-                                   VIRTIO_NET_IRQ,
-                                   &net_rx_queue, 
-                                   &net_tx_queue,
-                                   net_rx_data, 
-                                   net_tx_data,
-                                   NET_VIRT_RX_CH,
-                                   NET_VIRT_TX_CH,
-                                   mac
-                                  );
-     LOG_VMM_ERR("Initialized MMIO Net\n");
-    if (!success) {
-        LOG_VMM_ERR("Failed to initialise virtio_net\n");
-        return;
-    }
-
   // Finally start the guest /
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/guest.h#L10
   // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/guest.c#L11
@@ -144,14 +90,13 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
       }
       break;
     }
-    case NET_VIRT_RX_CH: {
-      LOG_VMM_ERR("NET VIRT RX CHANNEL \n", SERIAL_IRQ);
-        //virtio_net_handle_rx(&virtio_net);
-        break;
-    }
-    case NET_VIRT_TX_CH: {
-        LOG_VMM_ERR("NET VIRT TX CHANNEL \n", SERIAL_IRQ);
-        break;
+    case ETHERNET_IRQ_CH: {
+     LOG_VMM("I see you!!!");
+      bool success = virq_inject(ETHERNET_IRQ);
+      if (!success) {
+        LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_BOOT_VCPU_ID);
+      }
+      break;
     }
     default:
       printf("Unexpected channel, ch: 0x%lx\n", ch);
