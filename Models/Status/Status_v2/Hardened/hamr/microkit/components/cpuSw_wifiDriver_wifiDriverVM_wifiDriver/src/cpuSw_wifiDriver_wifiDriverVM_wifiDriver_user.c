@@ -24,9 +24,8 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
-static int get_dev_irq_by_ch(microkit_channel ch);
-static int get_dev_ch_by_irq(int irq, microkit_channel *ch);
-static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie);
+static void serial_ack(size_t vcpu_id, int irq, void *cookie);
+static void print_virtio_registers();
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -62,19 +61,20 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
     return;
   }
 
-  // Register Pass-through device IRQs
-  for(int i=0; i < MAX_IRQS; i++) {
-    success = virq_register_passthrough(GUEST_BOOT_VCPU_ID, mk_irqs[i].irq, mk_irqs[i].channel);
-    if (!success){
-     LOG_VMM_ERR("Failed to register interrupt %d\n", mk_irqs[i].irq);
-    }
-    // Just in case there are already interrupts available to handle, we ack them here.
-    microkit_irq_ack(mk_irqs[i].channel);
+  // Register Serial Interrupt
+  success = virq_register(GUEST_BOOT_VCPU_ID, SERIAL_IRQ, &serial_ack, NULL);
+  if (!success){
+     LOG_VMM_ERR("Failed to register serial interrupt.\n");
+  }
+
+  // Register Ethernet Interrupt
+  success = virq_register_passthrough(GUEST_BOOT_VCPU_ID, ETHERNET_IRQ, ETHERNET_IRQ_CH);
+  if (!success){
+     LOG_VMM_ERR("Failed to register ethernet interrupt %d\n");
   }
 
   // Finally start the guest /
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/guest.h#L10
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/guest.c#L11
+
   guest_start(kernel_pc, GUEST_DTB_VADDR, GUEST_INIT_RAM_DISK_VADDR);
 
   LOG_VMM("Guest started, leaving cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize");
@@ -90,12 +90,13 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
       bool success = virq_inject(SERIAL_IRQ);
       if (!success) {
         LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_BOOT_VCPU_ID);
-      }
+      }   
+     //  print_virtio_registers(); 
       break;
     }
     case ETHERNET_IRQ_CH: {
      LOG_VMM("I see you!!!");
-      bool success = virq_inject(ETHERNET_IRQ);
+      bool success = virq_handle_passthrough(ETHERNET_IRQ_CH);
       if (!success) {
         LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_BOOT_VCPU_ID);
       }
@@ -112,7 +113,6 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
  * the VMM to handle.
  */
 seL4_Bool fault(microkit_child child, microkit_msginfo msginfo, microkit_msginfo *reply_msginfo) {
-    // https://github.com/au-ts/libvmm/blob/29aceb2acb7611cc5678d6fc235913684af7893e/src/arch/aarch64/fault.c#L436
     bool success = fault_handle(child, msginfo);
     if (success) {
         // Now that we have handled the fault successfully, we reply to it so
@@ -124,33 +124,53 @@ seL4_Bool fault(microkit_child child, microkit_msginfo msginfo, microkit_msginfo
     return seL4_False;
 }
 
-static int get_dev_irq_by_ch(microkit_channel ch) {
-  for(int i=0; i < MAX_IRQS; i++) {
-    if (mk_irqs[i].channel == ch) {
-      return mk_irqs[i].irq;
-    }
-  }
-
-  return -1;
+static void serial_ack(uint64_t vcpu_id, int irq, void *cookie){
+     /*
+     * For now we by default simply ack the serial IRQ, we have not
+     * come across a case yet where more than this needs to be done.
+     */
+     microkit_irq_ack(SERIAL_IRQ_CH);
 }
 
-static int get_dev_ch_by_irq(int irq, microkit_channel *ch) {
-  for(int i=0; i < MAX_IRQS; i++) {
-    if (mk_irqs[i].irq == irq) {
-      *ch = mk_irqs[i].channel;
-      return 0;
-    }
-  }
+static void print_virtio_registers(){
+     microkit_dbg_puts("--- VirtIO Device Dump ---\n");
+     microkit_dbg_puts("MagicValue: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x0)); // Should be 0x74726976
+     microkit_dbg_puts("\nVersion: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x4)); // 0x1 or 0x2
+     microkit_dbg_puts("\nDeviceID: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x8)); // 0x1 for Network
+     microkit_dbg_puts("\nQueueReady: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x44)); // 0x0 for notifying queue
+     microkit_dbg_puts("\nQueueNotify: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x50)); // 0x0 for notifying queue
+     microkit_dbg_puts("\nInterrupt Status Register: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x60));
+     microkit_dbg_puts("\nStatus: ");
+     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x70));
+     microkit_dbg_puts("\n------------------------\n");
 
-  return -1;
-}
+     // VirtIO Network Device Configuration (Starting at 0x100)
+     microkit_dbg_puts("--- VirtIO Network Config ---\n");
+     // MAC Address (6 bytes)
+     microkit_dbg_puts("MAC: ");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x100));
+     microkit_dbg_puts(":");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x101));
+     microkit_dbg_puts(":");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x102));
+     microkit_dbg_puts(":");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x103));
+     microkit_dbg_puts(":");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x104));
+     microkit_dbg_puts(":");
+     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x105));
 
-static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie) {
-  // For now we by default simply ack the IRQ, we have not
-  // come across a case yet where more than this needs to be done.
-  microkit_channel ch = 0;
-  int status = get_dev_ch_by_irq(irq, &ch);
-  if (!status) {
-    microkit_irq_ack(ch);
-  }
+     // Status Field (2 bytes) - Bit 0 is VIRTIO_NET_S_LINK_UP
+     uint16_t net_status = *(volatile uint16_t *)(0xa003e00 + 0x106);
+     microkit_dbg_puts("\nNet Status: ");
+     LOG_VMM("0x%08X", net_status);
+     microkit_dbg_puts("\nMax Virtqueue Pairs: ");
+     LOG_VMM("0x%08X", *(uint16_t *)(0xa003e00 + 0x108));
+     microkit_dbg_puts("\n---------------------------\n");
 }

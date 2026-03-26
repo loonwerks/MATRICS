@@ -206,6 +206,7 @@
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region" vaddr="0x20_001_000" perms="rw" setvar_vaddr="wifiRecvOut_queue_1"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region" vaddr="0x20_002_000" perms="r" setvar_vaddr="wifiRecvIn_queue_1"/>
       <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region" vaddr="0x20_003_000" perms="rw" setvar_vaddr="wifiSendOut_queue_1"/>
+      <irq irq="33" id="1"/>
       <virtual_machine name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver">
         <vcpu id="0"/>
         <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM" vaddr="0x40_000_000" perms="rwx"/>
@@ -219,7 +220,7 @@
                We want the VMM to receive the ethernet interrupts, which it
                will then deliver to the VM.
           -->
-          <irq irq="33" id="1"/> <!-- Serial interrupt -->
+          <map mr="ethernet" vaddr="0xa003000" perms="rw" cached="false"/>
           <irq irq="79" id="2" trigger="edge"/> <!-- Ethernet interrupt -->
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
     </protection_domain>
