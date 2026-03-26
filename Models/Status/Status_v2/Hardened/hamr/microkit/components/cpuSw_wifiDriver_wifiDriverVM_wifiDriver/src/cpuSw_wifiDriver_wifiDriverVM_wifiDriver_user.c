@@ -64,7 +64,10 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 
   // Register Pass-through device IRQs
   for(int i=0; i < MAX_IRQS; i++) {
-    success = virq_register(GUEST_BOOT_VCPU_ID, mk_irqs[i].irq, &pt_dev_ack, NULL);
+    success = virq_register_passthrough(GUEST_BOOT_VCPU_ID, mk_irqs[i].irq, mk_irqs[i].channel);
+    if (!success){
+     LOG_VMM_ERR("Failed to register interrupt %d\n", mk_irqs[i].irq);
+    }
     // Just in case there are already interrupts available to handle, we ack them here.
     microkit_irq_ack(mk_irqs[i].channel);
   }
