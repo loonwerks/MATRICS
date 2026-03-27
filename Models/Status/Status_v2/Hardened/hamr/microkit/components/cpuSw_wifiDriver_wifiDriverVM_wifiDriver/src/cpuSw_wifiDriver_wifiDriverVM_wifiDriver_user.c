@@ -66,12 +66,14 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   if (!success){
      LOG_VMM_ERR("Failed to register serial interrupt.\n");
   }
+  microkit_irq_ack(SERIAL_IRQ_CH);
 
   // Register Ethernet Interrupt
   success = virq_register_passthrough(GUEST_BOOT_VCPU_ID, ETHERNET_IRQ, ETHERNET_IRQ_CH);
   if (!success){
      LOG_VMM_ERR("Failed to register ethernet interrupt %d\n");
   }
+  microkit_irq_ack(ETHERNET_IRQ_CH);
 
   // Finally start the guest /
 

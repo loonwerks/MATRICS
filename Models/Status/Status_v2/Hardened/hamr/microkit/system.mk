@@ -277,7 +277,7 @@ qemu: $(IMAGE_FILE)
                 -cpu cortex-a53 \
                 -serial mon:stdio \
                 -device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
-                -m size=2G \
+                -m 2G \
                 -nographic \
 			 -global virtio-mmio.force-legacy=false \
 			 -netdev user,id=mynet0  \
