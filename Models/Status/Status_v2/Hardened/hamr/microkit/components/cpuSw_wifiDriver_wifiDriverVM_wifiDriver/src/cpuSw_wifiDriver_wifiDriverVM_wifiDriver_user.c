@@ -25,7 +25,6 @@ extern char _guest_initrd_image_end[];
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
 static void serial_ack(size_t vcpu_id, int irq, void *cookie);
-static void print_virtio_registers();
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -66,14 +65,12 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   if (!success){
      LOG_VMM_ERR("Failed to register serial interrupt.\n");
   }
-  microkit_irq_ack(SERIAL_IRQ_CH);
 
   // Register Ethernet Interrupt
   success = virq_register_passthrough(GUEST_BOOT_VCPU_ID, ETHERNET_IRQ, ETHERNET_IRQ_CH);
   if (!success){
      LOG_VMM_ERR("Failed to register ethernet interrupt %d\n");
   }
-  microkit_irq_ack(ETHERNET_IRQ_CH);
 
   // Finally start the guest /
 
@@ -92,12 +89,10 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
       bool success = virq_inject(SERIAL_IRQ);
       if (!success) {
         LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_BOOT_VCPU_ID);
-      }   
-     //  print_virtio_registers(); 
+      }    
       break;
     }
     case ETHERNET_IRQ_CH: {
-     LOG_VMM("I see you!!!");
       bool success = virq_handle_passthrough(ETHERNET_IRQ_CH);
       if (!success) {
         LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_BOOT_VCPU_ID);
@@ -132,47 +127,4 @@ static void serial_ack(uint64_t vcpu_id, int irq, void *cookie){
      * come across a case yet where more than this needs to be done.
      */
      microkit_irq_ack(SERIAL_IRQ_CH);
-}
-
-static void print_virtio_registers(){
-     microkit_dbg_puts("--- VirtIO Device Dump ---\n");
-     microkit_dbg_puts("MagicValue: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x0)); // Should be 0x74726976
-     microkit_dbg_puts("\nVersion: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x4)); // 0x1 or 0x2
-     microkit_dbg_puts("\nDeviceID: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x8)); // 0x1 for Network
-     microkit_dbg_puts("\nQueueReady: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x44)); // 0x0 for notifying queue
-     microkit_dbg_puts("\nQueueNotify: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x50)); // 0x0 for notifying queue
-     microkit_dbg_puts("\nInterrupt Status Register: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x60));
-     microkit_dbg_puts("\nStatus: ");
-     LOG_VMM("0x%08X", *(volatile uint32_t *)(0xa003e00 + 0x70));
-     microkit_dbg_puts("\n------------------------\n");
-
-     // VirtIO Network Device Configuration (Starting at 0x100)
-     microkit_dbg_puts("--- VirtIO Network Config ---\n");
-     // MAC Address (6 bytes)
-     microkit_dbg_puts("MAC: ");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x100));
-     microkit_dbg_puts(":");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x101));
-     microkit_dbg_puts(":");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x102));
-     microkit_dbg_puts(":");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x103));
-     microkit_dbg_puts(":");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x104));
-     microkit_dbg_puts(":");
-     LOG_VMM("0x%08X\n", *(volatile uint8_t *)(0xa003e00 + 0x105));
-
-     // Status Field (2 bytes) - Bit 0 is VIRTIO_NET_S_LINK_UP
-     uint16_t net_status = *(volatile uint16_t *)(0xa003e00 + 0x106);
-     microkit_dbg_puts("\nNet Status: ");
-     LOG_VMM("0x%08X", net_status);
-     microkit_dbg_puts("\nMax Virtqueue Pairs: ");
-     LOG_VMM("0x%08X", *(uint16_t *)(0xa003e00 + 0x108));
-     microkit_dbg_puts("\n---------------------------\n");
 }

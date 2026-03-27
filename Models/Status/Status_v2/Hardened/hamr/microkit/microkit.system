@@ -348,7 +348,6 @@
                We want the VMM to receive the ethernet interrupts, which it
                will then deliver to the VM.
           -->
-          <map mr="ethernet" vaddr="0xa003000" perms="rw" cached="false" />
           <irq irq="79" id="2" trigger="edge"/> <!-- Ethernet interrupt -->
       <!-- END CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
     </protection_domain>
