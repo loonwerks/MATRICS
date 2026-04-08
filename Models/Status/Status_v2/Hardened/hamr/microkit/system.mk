@@ -15,8 +15,7 @@ CFLAGS := -mcpu=$(CPU) \
 LDFLAGS := -L$(MICROKIT_BOARD_DIR)/lib
 LIBS := --start-group -lmicrokit -Tmicrokit.ld --end-group
 
-SYSTEM_FILE := $(TOP_DIR)/microkit.system
-SCHEDULE_FILE := $(TOP_DIR)/microkit.schedule.xml
+MSD ?= microkit.system
 
 IMAGES := cpuSw_btDriver_btDriver.elf cpuSw_btDriver_btDriver_MON.elf cpuSw_usbDriver_usbDriver.elf cpuSw_usbDriver_usbDriver_MON.elf cpuSw_dataManager_dataManager.elf cpuSw_dataManager_dataManager_MON.elf cpuSw_dataAnalysis_dataAnalysis.elf cpuSw_dataAnalysis_dataAnalysis_MON.elf cpuSw_decryptor_decryptor.elf cpuSw_decryptor_decryptor_MON.elf cpuSw_encryptor_encryptor.elf cpuSw_encryptor_encryptor_MON.elf cpuSw_logMonitor_logMonitor.elf cpuSw_logMonitor_logMonitor_MON.elf cpuSw_reportMonitor_reportMonitor.elf cpuSw_reportMonitor_reportMonitor_MON.elf cpuSw_firewall_firewall.elf cpuSw_firewall_firewall_MON.elf cpuSw_wifiDriver_wifiDriver_wifiDriver.elf cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf pacer.elf
 IMAGE_FILE = loader.img
@@ -25,7 +24,7 @@ REPORT_FILE = report.txt
 UTIL_OBJS = printf.o util.o
 
 TYPES_DIR = $(TOP_DIR)/types
-TYPE_OBJS := $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Request_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_uint8_t_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o
+TYPE_OBJS := $(TOP_DIR)/build/sb_queue_Common_DummyMessage_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_ResponseLog_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Request_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisReport_Impl_1.o $(TOP_DIR)/build/sb_queue_Common_Log_Impl_1.o $(TOP_DIR)/build/sb_queue_uint8_t_1.o $(TOP_DIR)/build/sb_queue_Common_AnalysisRequest_Impl_1.o
 
 # exporting TOP_TYPES_INCLUDE in case other makefiles need it
 export TOP_TYPES_INCLUDE = -I$(TYPES_DIR)/include
@@ -267,9 +266,9 @@ cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifi
 pacer.elf: $(UTIL_OBJS) $(TYPE_OBJS) pacer.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-$(IMAGE_FILE): $(IMAGES) $(SYSTEM_FILE)
-	xmllint --xinclude $(SYSTEM_FILE) -o $(SYSTEM_FILE).merged
-	$(MICROKIT_TOOL) $(SYSTEM_FILE).merged --search-path $(TOP_BUILD_DIR) --board $(MICROKIT_BOARD) --config $(MICROKIT_CONFIG) -o $(IMAGE_FILE) -r $(REPORT_FILE)
+$(IMAGE_FILE): $(IMAGES) $(TOP_DIR)/$(MSD)
+	xmllint --xinclude $(TOP_DIR)/$(MSD) -o $(TOP_BUILD_DIR)/$(MSD).merged
+	$(MICROKIT_TOOL) $(TOP_BUILD_DIR)/$(MSD).merged --search-path $(TOP_BUILD_DIR) --board $(MICROKIT_BOARD) --config $(MICROKIT_CONFIG) -o $(IMAGE_FILE) -r $(REPORT_FILE)
 
 
 qemu: $(IMAGE_FILE)
@@ -282,13 +281,6 @@ qemu: $(IMAGE_FILE)
 			 -global virtio-mmio.force-legacy=false \
 			 -netdev user,id=mynet0  \
  			 -device virtio-net-device,netdev=mynet0
-
-#                 -global virtio-mmio.force-legacy=false \
-#                 -device virtio-net-device,netdev=netdev0,bus=virtio-mmio-bus.0 \
-#                 -netdev user,id=netdev0,hostfwd=tcp::1236-:1236,hostfwd=tcp::1237-:1237,hostfwd=udp::1235-:1235 \
-
-# 			-netdev user,id=mynet0  \
-# 			-device virtio-net-device,netdev=mynet0,mac=52:55:00:d1:55:01
 
 clean::
 	rm -f *.o

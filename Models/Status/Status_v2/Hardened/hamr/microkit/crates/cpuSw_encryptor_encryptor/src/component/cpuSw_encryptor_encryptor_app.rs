@@ -46,7 +46,7 @@ verus! {
         api.analysis_report_out.unwrap().header == api.analysis_report_in.unwrap().header,
         // END MARKER TIME TRIGGERED ENSURES
     {
-      // log_info("compute entrypoint invoked");
+      // TO-DO: Add Application Code
     }
 
     pub fn notify(

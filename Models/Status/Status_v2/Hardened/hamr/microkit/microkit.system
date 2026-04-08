@@ -323,9 +323,9 @@
            perms="rw"
            setvar_vaddr="wifiSendOut_queue_1"
       />
-      <irq irq="33" id="1"/>
-      <virtual_machine name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver" priority="254" budget="10000" period="10000">
-        <vcpu id="0" /> 
+      <irq irq="33" id="1" />
+      <virtual_machine name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver">
+        <vcpu id="0" />
         <map mr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM"
              vaddr="0x40_000_000"
              perms="rwx"
@@ -340,7 +340,10 @@
              perms="rw"
              cached="false"
         />
+
+        <!-- BEGIN CONTENT MARKER vmm__cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
         <map mr="ethernet" vaddr="0xa003000" perms="rw" cached="false" />
+        <!-- END CONTENT MARKER vmm__cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
       </virtual_machine>
 
       <!-- BEGIN CONTENT MARKER cpuSw_wifiDriver_wifiDriverVM_wifiDriver -->
@@ -364,8 +367,8 @@
   </protection_domain>
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM"
-                 size="0x10_000_000" 
-                 page_size="0x200_000" 
+                 size="0x10_000_000"
+                 page_size="0x200_000"
                  phys_addr="0x40_000_000" />
 
   <memory_region name="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_GIC"

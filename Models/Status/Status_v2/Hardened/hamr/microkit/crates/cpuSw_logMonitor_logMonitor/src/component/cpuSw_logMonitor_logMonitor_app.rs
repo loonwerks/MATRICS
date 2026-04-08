@@ -10,6 +10,7 @@ verus! {
     // BEGIN MARKER STATE VARS
     pub since_result: bool,
     pub is_valid: bool,
+    pub historically_no_alert_cmd: bool,
     // END MARKER STATE VARS
   }
 
@@ -20,6 +21,7 @@ verus! {
         // BEGIN MARKER STATE VAR INIT
         since_result: false,
         is_valid: false,
+        historically_no_alert_cmd: false,
         // END MARKER STATE VAR INIT
       }
     }
@@ -31,6 +33,8 @@ verus! {
         // BEGIN MARKER INITIALIZATION ENSURES
         // guarantee defaultSince
         self.since_result == false,
+        // guarantee defaultIsValid
+        self.historically_no_alert_cmd == true,
         // END MARKER INITIALIZATION ENSURES
     {
       // log_info("initialize entrypoint invoked");
@@ -61,13 +65,15 @@ verus! {
         // guarantee Alert
         //   G: Send an alert if more than one response is received without a request.
         if (api.response_log_in.is_some() && !self.is_valid) {
-          api.alert.is_some()
+          api.alert.is_some() &&
+            (self.historically_no_alert_cmd == false)
         } else {
-          api.alert.is_none()
+          api.alert.is_none() &&
+            (old(self).historically_no_alert_cmd == self.historically_no_alert_cmd)
         },
         // guarantee Forward_Response
         //   G: Only forward a response if a valid request has been made.
-        if (api.response_log_in.is_some() && self.is_valid) {
+        if (api.response_log_in.is_some() && self.historically_no_alert_cmd) {
           api.response_log_out.is_some() &&
             (api.response_log_out.unwrap() == api.response_log_in.unwrap())
         } else {

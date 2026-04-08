@@ -22,13 +22,14 @@ pub fn testInitializeCB() -> HarnessResult
   crate::cpuSw_logMonitor_logMonitor_initialize();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
+  let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
   let api_alert = get_alert();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::initialize_IEP_Post (is_valid, since_result, api_alert, api_response_log_out) {
+  if !GUMBOX::initialize_IEP_Post (historically_no_alert_cmd, is_valid, since_result, api_alert, api_response_log_out) {
     return HarnessResult::FailedPostcondition(
       TestCaseError::Fail("Postcondition failed: incorrect output behavior".into())
     );
@@ -77,6 +78,7 @@ pub fn testComputeCB(
 
   // [SaveInLocal]: retrieve and save the current (input) values of GUMBO-declared local state variables as retrieved
   //                from the component state
+  let In_historically_no_alert_cmd: bool = get_historically_no_alert_cmd();
   let In_is_valid: bool = get_is_valid();
   let In_since_result: bool = get_since_result();
 
@@ -88,13 +90,14 @@ pub fn testComputeCB(
   crate::cpuSw_logMonitor_logMonitor_timeTriggered();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
+  let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
   let api_alert = get_alert();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_is_valid, In_since_result, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
+  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -143,12 +146,14 @@ testComputeCB_macro {
 
 /** Contract-based test harness for the compute entry point
   *
+  * @param In_historically_no_alert_cmd pre-state state variable
   * @param In_is_valid pre-state state variable
   * @param In_since_result pre-state state variable
   * @param api_request_log incoming event data port
   * @param api_response_log_in incoming event data port
   */
 pub fn testComputeCBwGSV(
+  In_historically_no_alert_cmd: bool,
   In_is_valid: bool,
   In_since_result: bool,
   api_request_log: Option<Common::Request_Impl>,
@@ -162,6 +167,7 @@ pub fn testComputeCBwGSV(
   put_response_log_in(api_response_log_in);
 
   // [SetInStateVars]: set the pre-state values of state variables
+  put_historically_no_alert_cmd(In_historically_no_alert_cmd);
   put_is_valid(In_is_valid);
   put_since_result(In_since_result);
 
@@ -169,13 +175,14 @@ pub fn testComputeCBwGSV(
   crate::cpuSw_logMonitor_logMonitor_timeTriggered();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
+  let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
   let api_alert = get_alert();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_is_valid, In_since_result, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
+  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -186,7 +193,7 @@ pub fn testComputeCBwGSV(
   */
 pub fn testComputeCBwGSV_container(container: PreStateContainer_wGSV) -> HarnessResult
 {
-  return testComputeCBwGSV(container.In_is_valid, container.In_since_result, container.api_request_log, container.api_response_log_in)
+  return testComputeCBwGSV(container.In_historically_no_alert_cmd, container.In_is_valid, container.In_since_result, container.api_request_log, container.api_response_log_in)
 }
 
 #[macro_export]
@@ -195,6 +202,7 @@ testComputeCBwGSV_macro {
   (
     $test_name: ident,
     config: $config:expr,
+    In_historically_no_alert_cmd: $In_historically_no_alert_cmd_strat:expr,
     In_is_valid: $In_is_valid_strat:expr,
     In_since_result: $In_since_result_strat:expr,
     api_request_log: $api_request_log_strat:expr,
@@ -205,10 +213,10 @@ testComputeCBwGSV_macro {
       #[test]
       #[serial]
       fn $test_name(
-        (In_is_valid, In_since_result, api_request_log, api_response_log_in)
-            in ($In_is_valid_strat, $In_since_result_strat, $api_request_log_strat, $api_response_log_in_strat)
+        (In_historically_no_alert_cmd, In_is_valid, In_since_result, api_request_log, api_response_log_in)
+            in ($In_historically_no_alert_cmd_strat, $In_is_valid_strat, $In_since_result_strat, $api_request_log_strat, $api_response_log_in_strat)
       ) {
-        match $crate::test::util::cb_apis::testComputeCBwGSV(In_is_valid, In_since_result, api_request_log, api_response_log_in) {
+        match $crate::test::util::cb_apis::testComputeCBwGSV(In_historically_no_alert_cmd, In_is_valid, In_since_result, api_request_log, api_response_log_in) {
           $crate::test::util::cb_apis::HarnessResult::RejectedPrecondition => {
             return Err(proptest::test_runner::TestCaseError::reject(
               "Precondition failed: invalid input combination",

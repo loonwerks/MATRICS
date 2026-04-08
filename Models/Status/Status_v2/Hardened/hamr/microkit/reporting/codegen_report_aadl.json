@@ -523,22 +523,22 @@
             {
               "type" : "ResourceReport",
               "path" : "components\/cpuSw_wifiDriver_wifiDriverVM_wifiDriver\/board\/qemu_virt_aarch64\/Makefile",
-              "overwrittenIfExists" : true
+              "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
               "path" : "components\/cpuSw_wifiDriver_wifiDriverVM_wifiDriver\/board\/qemu_virt_aarch64\/linux.dts",
-              "overwrittenIfExists" : true
+              "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
               "path" : "components\/cpuSw_wifiDriver_wifiDriverVM_wifiDriver\/board\/qemu_virt_aarch64\/overlay.dts",
-              "overwrittenIfExists" : true
+              "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
               "path" : "components\/cpuSw_wifiDriver_wifiDriverVM_wifiDriver\/board\/qemu_virt_aarch64\/simple.system",
-              "overwrittenIfExists" : true
+              "overwrittenIfExists" : false
             },
             {
               "type" : "ResourceReport",
@@ -4286,11 +4286,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 459,
+                      "beginLine" : 462,
                       "beginColumn" : 4,
-                      "endLine" : 459,
+                      "endLine" : 462,
                       "endColumn" : 32,
-                      "offset" : 16313,
+                      "offset" : 16626,
                       "length" : 28
                     }
                   },
@@ -4328,11 +4328,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 428,
+                            "beginLine" : 431,
                             "beginColumn" : 4,
-                            "endLine" : 428,
+                            "endLine" : 431,
                             "endColumn" : 52,
-                            "offset" : 15426,
+                            "offset" : 15739,
                             "length" : 48
                           },
                           "languageRealizations" : [
@@ -4491,11 +4491,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 429,
+                            "beginLine" : 432,
                             "beginColumn" : 4,
-                            "endLine" : 429,
+                            "endLine" : 432,
                             "endColumn" : 54,
-                            "offset" : 15478,
+                            "offset" : 15791,
                             "length" : 50
                           },
                           "languageRealizations" : [
@@ -4854,11 +4854,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 509,
+                      "beginLine" : 512,
                       "beginColumn" : 4,
-                      "endLine" : 509,
+                      "endLine" : 512,
                       "endColumn" : 32,
-                      "offset" : 18003,
+                      "offset" : 18316,
                       "length" : 28
                     }
                   },
@@ -4896,11 +4896,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 474,
+                            "beginLine" : 477,
                             "beginColumn" : 4,
-                            "endLine" : 474,
+                            "endLine" : 477,
                             "endColumn" : 71,
-                            "offset" : 16675,
+                            "offset" : 16988,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -5059,11 +5059,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 475,
+                            "beginLine" : 478,
                             "beginColumn" : 4,
-                            "endLine" : 475,
+                            "endLine" : 478,
                             "endColumn" : 73,
-                            "offset" : 16746,
+                            "offset" : 17059,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -5238,7 +5238,7 @@
                               "endLine" : 50,
                               "endColumn" : 5,
                               "offset" : 660,
-                              "length" : 914
+                              "length" : 902
                             }
                           ]
                         ]
@@ -5454,11 +5454,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 287,
+                      "beginLine" : 290,
                       "beginColumn" : 4,
-                      "endLine" : 287,
+                      "endLine" : 290,
                       "endColumn" : 34,
-                      "offset" : 9487,
+                      "offset" : 9800,
                       "length" : 30
                     }
                   },
@@ -6142,12 +6142,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                               },
-                              "beginLine" : 27,
+                              "beginLine" : 29,
                               "beginColumn" : 5,
-                              "endLine" : 37,
+                              "endLine" : 41,
                               "endColumn" : 5,
-                              "offset" : 549,
-                              "length" : 383
+                              "offset" : 632,
+                              "length" : 467
                             }
                           ],
                           [
@@ -6158,12 +6158,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                               },
-                              "beginLine" : 39,
+                              "beginLine" : 43,
                               "beginColumn" : 5,
-                              "endLine" : 79,
+                              "endLine" : 85,
                               "endColumn" : 5,
-                              "offset" : 939,
-                              "length" : 1777
+                              "offset" : 1106,
+                              "length" : 1938
                             }
                           ]
                         ]
@@ -6188,7 +6188,7 @@
                       "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboReport",
                       "stateReport" : {
                         "type" : "HashSMap",
-                        "size" : 2,
+                        "size" : 3,
                         "entries" : [
                           [
                             "since_result",
@@ -6221,6 +6221,22 @@
                               "offset" : 265,
                               "length" : 17
                             }
+                          ],
+                          [
+                            "historically_no_alert_cmd",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                              },
+                              "beginLine" : 13,
+                              "beginColumn" : 5,
+                              "endLine" : 13,
+                              "endColumn" : 39,
+                              "offset" : 289,
+                              "length" : 34
+                            }
                           ]
                         ]
                       },
@@ -6241,7 +6257,7 @@
                       },
                       "initializeReport" : {
                         "type" : "HashSMap",
-                        "size" : 1,
+                        "size" : 2,
                         "entries" : [
                           [
                             "defaultSince",
@@ -6251,12 +6267,28 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                               },
-                              "beginLine" : 32,
+                              "beginLine" : 34,
                               "beginColumn" : 11,
-                              "endLine" : 33,
+                              "endLine" : 35,
                               "endColumn" : 34,
-                              "offset" : 787,
+                              "offset" : 870,
                               "length" : 35
+                            }
+                          ],
+                          [
+                            "defaultIsValid",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
+                              },
+                              "beginLine" : 36,
+                              "beginColumn" : 11,
+                              "endLine" : 37,
+                              "endColumn" : 46,
+                              "offset" : 942,
+                              "length" : 47
                             }
                           ]
                         ]
@@ -6283,11 +6315,11 @@
                                     "type" : "Some",
                                     "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                                   },
-                                  "beginLine" : 51,
+                                  "beginLine" : 55,
                                   "beginColumn" : 11,
-                                  "endLine" : 53,
+                                  "endLine" : 57,
                                   "endColumn" : 9,
-                                  "offset" : 1461,
+                                  "offset" : 1628,
                                   "length" : 49
                                 }
                               ],
@@ -6299,11 +6331,11 @@
                                     "type" : "Some",
                                     "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                                   },
-                                  "beginLine" : 58,
+                                  "beginLine" : 62,
                                   "beginColumn" : 11,
-                                  "endLine" : 60,
+                                  "endLine" : 64,
                                   "endColumn" : 84,
-                                  "offset" : 1744,
+                                  "offset" : 1911,
                                   "length" : 185
                                 }
                               ],
@@ -6315,11 +6347,11 @@
                                     "type" : "Some",
                                     "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                                   },
-                                  "beginLine" : 61,
+                                  "beginLine" : 65,
                                   "beginColumn" : 11,
-                                  "endLine" : 63,
+                                  "endLine" : 67,
                                   "endColumn" : 9,
-                                  "offset" : 2009,
+                                  "offset" : 2176,
                                   "length" : 97
                                 }
                               ],
@@ -6331,11 +6363,11 @@
                                     "type" : "Some",
                                     "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/component\/cpuSw_logMonitor_logMonitor_app.rs"
                                   },
-                                  "beginLine" : 68,
+                                  "beginLine" : 74,
                                   "beginColumn" : 11,
-                                  "endLine" : 70,
+                                  "endLine" : 76,
                                   "endColumn" : 9,
-                                  "offset" : 2285,
+                                  "offset" : 2596,
                                   "length" : 84
                                 }
                               ]
@@ -6363,7 +6395,7 @@
                       "type" : "org.sireum.hamr.codegen.microkit.reporting.GumboXReport",
                       "gumboxMethods" : {
                         "type" : "HashSMap",
-                        "size" : 9,
+                        "size" : 10,
                         "entries" : [
                           [
                             "initialize_defaultSince",
@@ -6382,6 +6414,22 @@
                             }
                           ],
                           [
+                            "initialize_defaultIsValid",
+                            {
+                              "type" : "Position",
+                              "uriOpt" : {
+                                "type" : "Some",
+                                "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
+                              },
+                              "beginLine" : 32,
+                              "beginColumn" : 1,
+                              "endLine" : 35,
+                              "endColumn" : 1,
+                              "offset" : 591,
+                              "length" : 112
+                            }
+                          ],
+                          [
                             "initialize_IEP_Guar",
                             {
                               "type" : "Position",
@@ -6389,12 +6437,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 34,
+                              "beginLine" : 45,
                               "beginColumn" : 1,
-                              "endLine" : 41,
+                              "endLine" : 54,
                               "endColumn" : 1,
-                              "offset" : 710,
-                              "length" : 201
+                              "offset" : 1023,
+                              "length" : 294
                             }
                           ],
                           [
@@ -6405,12 +6453,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 50,
+                              "beginLine" : 64,
                               "beginColumn" : 1,
-                              "endLine" : 57,
+                              "endLine" : 72,
                               "endColumn" : 1,
-                              "offset" : 1168,
-                              "length" : 240
+                              "offset" : 1637,
+                              "length" : 302
                             }
                           ],
                           [
@@ -6421,11 +6469,11 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 68,
+                              "beginLine" : 83,
                               "beginColumn" : 1,
-                              "endLine" : 81,
+                              "endLine" : 96,
                               "endColumn" : 1,
-                              "offset" : 1722,
+                              "offset" : 2253,
                               "length" : 386
                             }
                           ],
@@ -6437,11 +6485,11 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 92,
+                              "beginLine" : 107,
                               "beginColumn" : 1,
-                              "endLine" : 99,
+                              "endLine" : 114,
                               "endColumn" : 1,
-                              "offset" : 2491,
+                              "offset" : 3022,
                               "length" : 330
                             }
                           ],
@@ -6453,12 +6501,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 109,
+                              "beginLine" : 126,
                               "beginColumn" : 1,
-                              "endLine" : 119,
+                              "endLine" : 140,
                               "endColumn" : 1,
-                              "offset" : 3108,
-                              "length" : 261
+                              "offset" : 3767,
+                              "length" : 447
                             }
                           ],
                           [
@@ -6469,12 +6517,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 129,
+                              "beginLine" : 150,
                               "beginColumn" : 1,
-                              "endLine" : 140,
+                              "endLine" : 161,
                               "endColumn" : 1,
-                              "offset" : 3670,
-                              "length" : 398
+                              "offset" : 4532,
+                              "length" : 432
                             }
                           ],
                           [
@@ -6485,12 +6533,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 152,
+                              "beginLine" : 175,
                               "beginColumn" : 1,
-                              "endLine" : 167,
+                              "endLine" : 192,
                               "endColumn" : 1,
-                              "offset" : 4516,
-                              "length" : 779
+                              "offset" : 5540,
+                              "length" : 926
                             }
                           ],
                           [
@@ -6501,12 +6549,12 @@
                                 "type" : "Some",
                                 "value" : "crates\/cpuSw_logMonitor_logMonitor\/src\/bridge\/cpuSw_logMonitor_logMonitor_GUMBOX.rs"
                               },
-                              "beginLine" : 180,
+                              "beginLine" : 207,
                               "beginColumn" : 1,
-                              "endLine" : 194,
+                              "endLine" : 223,
                               "endColumn" : 1,
-                              "offset" : 5772,
-                              "length" : 541
+                              "offset" : 7071,
+                              "length" : 671
                             }
                           ]
                         ]
@@ -6539,11 +6587,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 412,
+                      "beginLine" : 415,
                       "beginColumn" : 4,
-                      "endLine" : 412,
+                      "endLine" : 415,
                       "endColumn" : 40,
-                      "offset" : 14954,
+                      "offset" : 15267,
                       "length" : 36
                     }
                   },
@@ -6581,11 +6629,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 303,
+                            "beginLine" : 306,
                             "beginColumn" : 4,
-                            "endLine" : 303,
+                            "endLine" : 306,
                             "endColumn" : 70,
-                            "offset" : 9973,
+                            "offset" : 10286,
                             "length" : 66
                           },
                           "languageRealizations" : [
@@ -6744,11 +6792,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 304,
+                            "beginLine" : 307,
                             "beginColumn" : 4,
-                            "endLine" : 304,
+                            "endLine" : 307,
                             "endColumn" : 71,
-                            "offset" : 10043,
+                            "offset" : 10356,
                             "length" : 67
                           },
                           "languageRealizations" : [
@@ -6907,11 +6955,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 305,
+                            "beginLine" : 308,
                             "beginColumn" : 4,
-                            "endLine" : 305,
+                            "endLine" : 308,
                             "endColumn" : 73,
-                            "offset" : 10114,
+                            "offset" : 10427,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -7070,11 +7118,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 306,
+                            "beginLine" : 309,
                             "beginColumn" : 4,
-                            "endLine" : 306,
+                            "endLine" : 309,
                             "endColumn" : 57,
-                            "offset" : 10187,
+                            "offset" : 10500,
                             "length" : 53
                           },
                           "languageRealizations" : [
@@ -7817,11 +7865,11 @@
                         "type" : "Some",
                         "value" : "\/Status_Hardened\/Hardened_SW.aadl"
                       },
-                      "beginLine" : 563,
+                      "beginLine" : 566,
                       "beginColumn" : 4,
-                      "endLine" : 563,
+                      "endLine" : 566,
                       "endColumn" : 30,
-                      "offset" : 20218,
+                      "offset" : 20531,
                       "length" : 26
                     }
                   },
@@ -7859,11 +7907,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 523,
+                            "beginLine" : 526,
                             "beginColumn" : 4,
-                            "endLine" : 523,
+                            "endLine" : 526,
                             "endColumn" : 73,
-                            "offset" : 18401,
+                            "offset" : 18714,
                             "length" : 69
                           },
                           "languageRealizations" : [
@@ -8022,11 +8070,11 @@
                               "type" : "Some",
                               "value" : "..\/..\/Hardened_SW.aadl"
                             },
-                            "beginLine" : 524,
+                            "beginLine" : 527,
                             "beginColumn" : 4,
-                            "endLine" : 524,
+                            "endLine" : 527,
                             "endColumn" : 75,
-                            "offset" : 18474,
+                            "offset" : 18787,
                             "length" : 71
                           },
                           "languageRealizations" : [

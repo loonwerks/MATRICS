@@ -24,36 +24,51 @@ pub fn initialize_defaultSince(since_result: bool) -> bool
   since_result == false
 }
 
+/** Initialize EntryPointContract
+  *
+  * guarantee defaultIsValid
+  * @param historically_no_alert_cmd post-state state variable
+  */
+pub fn initialize_defaultIsValid(historically_no_alert_cmd: bool) -> bool
+{
+  historically_no_alert_cmd == true
+}
+
 /** IEP-Guar: Initialize Entrypoint for logMonitor
   *
+  * @param historically_no_alert_cmd post-state state variable
   * @param is_valid post-state state variable
   * @param since_result post-state state variable
   * @param api_alert outgoing event port
   * @param api_response_log_out outgoing event data port
   */
 pub fn initialize_IEP_Guar(
+  historically_no_alert_cmd: bool,
   is_valid: bool,
   since_result: bool,
   api_alert: Option<u8>,
   api_response_log_out: Option<Common::ResponseLog_Impl>) -> bool
 {
-  initialize_defaultSince(since_result)
+  initialize_defaultSince(since_result) &&
+  initialize_defaultIsValid(historically_no_alert_cmd)
 }
 
 /** IEP-Post: Initialize Entrypoint Post-Condition
   *
+  * @param historically_no_alert_cmd post-state state variable
   * @param is_valid post-state state variable
   * @param since_result post-state state variable
   * @param api_alert outgoing event port
   * @param api_response_log_out outgoing event data port
   */
 pub fn initialize_IEP_Post(
+  historically_no_alert_cmd: bool,
   is_valid: bool,
   since_result: bool,
   api_alert: Option<u8>,
   api_response_log_out: Option<Common::ResponseLog_Impl>) -> bool
 {
-  initialize_IEP_Guar(is_valid, since_result, api_alert, api_response_log_out)
+  initialize_IEP_Guar(historically_no_alert_cmd, is_valid, since_result, api_alert, api_response_log_out)
 }
 
 /** Compute Entrypoint Contract
@@ -102,19 +117,25 @@ pub fn compute_spec_since_result_variable_guarantee(
   *
   * guarantee Alert
   *   G: Send an alert if more than one response is received without a request.
+  * @param In_historically_no_alert_cmd pre-state state variable
+  * @param historically_no_alert_cmd post-state state variable
   * @param is_valid post-state state variable
   * @param api_response_log_in incoming event data port
   * @param api_alert outgoing event port
   */
 pub fn compute_spec_Alert_guarantee(
+  In_historically_no_alert_cmd: bool,
+  historically_no_alert_cmd: bool,
   is_valid: bool,
   api_response_log_in: Option<Common::ResponseLog_Impl>,
   api_alert: Option<u8>) -> bool
 {
   if (api_response_log_in.is_some() & !is_valid) {
-    api_alert.is_some()
+    api_alert.is_some() &
+      (historically_no_alert_cmd == false)
   } else {
-    api_alert.is_none()
+    api_alert.is_none() &
+      (In_historically_no_alert_cmd == historically_no_alert_cmd)
   }
 }
 
@@ -122,16 +143,16 @@ pub fn compute_spec_Alert_guarantee(
   *
   * guarantee Forward_Response
   *   G: Only forward a response if a valid request has been made.
-  * @param is_valid post-state state variable
+  * @param historically_no_alert_cmd post-state state variable
   * @param api_response_log_in incoming event data port
   * @param api_response_log_out outgoing event data port
   */
 pub fn compute_spec_Forward_Response_guarantee(
-  is_valid: bool,
+  historically_no_alert_cmd: bool,
   api_response_log_in: Option<Common::ResponseLog_Impl>,
   api_response_log_out: Option<Common::ResponseLog_Impl>) -> bool
 {
-  if (api_response_log_in.is_some() & is_valid) {
+  if (api_response_log_in.is_some() & historically_no_alert_cmd) {
     api_response_log_out.is_some() &
       (api_response_log_out.unwrap() == api_response_log_in.unwrap())
   } else {
@@ -141,7 +162,9 @@ pub fn compute_spec_Forward_Response_guarantee(
 
 /** CEP-T-Guar: Top-level guarantee contracts for logMonitor's compute entrypoint
   *
+  * @param In_historically_no_alert_cmd pre-state state variable
   * @param In_since_result pre-state state variable
+  * @param historically_no_alert_cmd post-state state variable
   * @param is_valid post-state state variable
   * @param since_result post-state state variable
   * @param api_request_log incoming event data port
@@ -150,7 +173,9 @@ pub fn compute_spec_Forward_Response_guarantee(
   * @param api_response_log_out outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
+  In_historically_no_alert_cmd: bool,
   In_since_result: bool,
+  historically_no_alert_cmd: bool,
   is_valid: bool,
   since_result: bool,
   api_request_log: Option<Common::Request_Impl>,
@@ -160,16 +185,18 @@ pub fn compute_CEP_T_Guar(
 {
   let r0: bool = compute_spec_is_valid_variable_guarantee(In_since_result, is_valid, api_request_log, api_response_log_in);
   let r1: bool = compute_spec_since_result_variable_guarantee(In_since_result, since_result, api_request_log, api_response_log_in);
-  let r2: bool = compute_spec_Alert_guarantee(is_valid, api_response_log_in, api_alert);
-  let r3: bool = compute_spec_Forward_Response_guarantee(is_valid, api_response_log_in, api_response_log_out);
+  let r2: bool = compute_spec_Alert_guarantee(In_historically_no_alert_cmd, historically_no_alert_cmd, is_valid, api_response_log_in, api_alert);
+  let r3: bool = compute_spec_Forward_Response_guarantee(historically_no_alert_cmd, api_response_log_in, api_response_log_out);
 
   return r0 && r1 && r2 && r3;
 }
 
 /** CEP-Post: Compute Entrypoint Post-Condition for logMonitor
   *
+  * @param In_historically_no_alert_cmd pre-state state variable
   * @param In_is_valid pre-state state variable
   * @param In_since_result pre-state state variable
+  * @param historically_no_alert_cmd post-state state variable
   * @param is_valid post-state state variable
   * @param since_result post-state state variable
   * @param api_request_log incoming event data port
@@ -178,8 +205,10 @@ pub fn compute_CEP_T_Guar(
   * @param api_response_log_out outgoing event data port
   */
 pub fn compute_CEP_Post(
+  In_historically_no_alert_cmd: bool,
   In_is_valid: bool,
   In_since_result: bool,
+  historically_no_alert_cmd: bool,
   is_valid: bool,
   since_result: bool,
   api_request_log: Option<Common::Request_Impl>,
@@ -188,7 +217,7 @@ pub fn compute_CEP_Post(
   api_response_log_out: Option<Common::ResponseLog_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of logMonitor's compute entrypoint
-  let r0: bool = compute_CEP_T_Guar(In_since_result, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out);
+  let r0: bool = compute_CEP_T_Guar(In_historically_no_alert_cmd, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out);
 
   return r0;
 }

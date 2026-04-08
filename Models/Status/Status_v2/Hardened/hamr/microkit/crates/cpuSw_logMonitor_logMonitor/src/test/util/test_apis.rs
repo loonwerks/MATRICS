@@ -15,6 +15,7 @@ pub struct PreStateContainer {
 pub struct PreStateContainer_wGSV {
   pub In_since_result: bool,
   pub In_is_valid: bool,
+  pub In_historically_no_alert_cmd: bool,
   pub api_request_log: Option<Common::Request_Impl>,
   pub api_response_log_in: Option<Common::ResponseLog_Impl>
 }
@@ -29,6 +30,7 @@ pub fn put_concrete_inputs_container(container: PreStateContainer)
 /// setter for component's incoming port values and GUMBO state variables
 pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
 {
+  put_historically_no_alert_cmd(container.In_historically_no_alert_cmd);
   put_is_valid(container.In_is_valid);
   put_since_result(container.In_since_result);
   put_request_log(container.api_request_log);
@@ -48,9 +50,11 @@ pub fn put_concrete_inputs(
 pub fn put_concrete_inputs_wGSV(
   In_since_result: bool,
   In_is_valid: bool,
+  In_historically_no_alert_cmd: bool,
   request_log: Option<Common::Request_Impl>,
   response_log_in: Option<Common::ResponseLog_Impl>)
 {
+  put_historically_no_alert_cmd(In_historically_no_alert_cmd);
   put_is_valid(In_is_valid);
   put_since_result(In_since_result);
   put_request_log(request_log);
@@ -120,6 +124,28 @@ pub fn put_is_valid(value: bool)
   unsafe {
     match &mut crate::app {
       Some(inner) => inner.is_valid = value,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// getter for GUMBO State Variable
+pub fn get_historically_no_alert_cmd() -> bool
+{
+  unsafe {
+    match &crate::app {
+      Some(inner) => inner.historically_no_alert_cmd,
+      None => panic!("The app is None")
+    }
+  }
+}
+
+/// setter for GUMBO State Variable
+pub fn put_historically_no_alert_cmd(value: bool)
+{
+  unsafe {
+    match &mut crate::app {
+      Some(inner) => inner.historically_no_alert_cmd = value,
       None => panic!("The app is None")
     }
   }
