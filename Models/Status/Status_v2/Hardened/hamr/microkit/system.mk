@@ -279,7 +279,7 @@ qemu: $(IMAGE_FILE)
                 -m 2G \
                 -nographic \
 			 -global virtio-mmio.force-legacy=false \
-			 -netdev user,id=mynet0  \
+			 -netdev user,id=mynet0,hostfwd=tcp::8080-:80,hostfwd=tcp::8443-:443 \
  			 -device virtio-net-device,netdev=mynet0
 
 clean::
