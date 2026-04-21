@@ -49,7 +49,7 @@ public
 	
 	thread wifiDriver
 		features
-			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
 			HMD_log: out event data port Common::Log.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
@@ -204,7 +204,7 @@ public
 	-- The Ground Station communication system
 	system GroundStation
 		features
-			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
 			btSend: out event data port Common::DummyMessage.Impl;
 			btRecv: in event data port Common::DummyMessage.Impl;

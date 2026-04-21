@@ -12,8 +12,8 @@
 bool wifiSendIn_is_empty(void);
 bool get_wifiSendIn_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data);
 bool get_wifiSendIn(Common_DummyMessage_Impl *data);
-bool put_wifiRecvOut(const Common_DummyMessage_Impl *data);
+bool put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
 bool wifiRecvIn_is_empty(void);
-bool get_wifiRecvIn_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data);
-bool get_wifiRecvIn(Common_DummyMessage_Impl *data);
+bool get_wifiRecvIn_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMessage_Impl *data);
+bool get_wifiRecvIn(Common_IncomingWifiMessage_Impl *data);
 bool put_wifiSendOut(const Common_DummyMessage_Impl *data);

@@ -37,7 +37,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_wifiRecv(
       &mut self,
-      value: &Ghost<Option<Common::DummyMessage_Impl>>) -> (res : Option<Common::DummyMessage_Impl>)
+      value: &Ghost<Option<Common::IncomingWifiMessage_Impl>>) -> (res : Option<Common::IncomingWifiMessage_Impl>)
       ensures
         res == value@,
     {
@@ -70,7 +70,7 @@ verus! {
   pub struct cpuSw_wifiDriver_wifiDriver_wifiDriver_Application_Api<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Api> {
     pub api: API,
 
-    pub ghost wifiRecv: Option<Common::DummyMessage_Impl>,
+    pub ghost wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
     pub ghost analysis_report: Option<Common::AnalysisReport_Impl>,
     pub ghost alert: Option<Common::DummyMessage_Impl>,
     pub ghost wifiSend: Option<Common::DummyMessage_Impl>,
@@ -124,7 +124,7 @@ verus! {
   }
 
   impl<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Get_Api> cpuSw_wifiDriver_wifiDriver_wifiDriver_Application_Api<API> {
-    pub fn get_wifiRecv(&mut self) -> (res : Option<Common::DummyMessage_Impl>)
+    pub fn get_wifiRecv(&mut self) -> (res : Option<Common::IncomingWifiMessage_Impl>)
       ensures
         old(self).wifiRecv == self.wifiRecv,
         res == self.wifiRecv,

@@ -30,8 +30,8 @@ public
 		features
 			sera: requires bus access Serial_Bus;
 			wfa: requires bus access WF_Bus;
-			recvIn: in event data port Common::DummyMessage.Impl;
-			recvOut: out event data port Common::DummyMessage.Impl;
+			recvIn: in event data port Common::IncomingWifiMessage.Impl;
+			recvOut: out event data port Common::IncomingWifiMessage.Impl;
 			sendIn: in event data port Common::DummyMessage.Impl;
 			sendOut: out event data port Common::DummyMessage.Impl;
 		flows
@@ -212,5 +212,63 @@ public
 	
 	data implementation DummyMessage.Impl
 	end DummyMessage.Impl;
+	
+	data WifiHeader
+	end WifiHeader;
+	
+	data ip_address
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (4);
+			Memory_Properties::Data_Size => 4 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end ip_address;
+	
+	data implementation ip_address.Impl
+	end ip_address.Impl;
+	
+	data encryptedPayload
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (1024);
+			Memory_Properties::Data_Size => 1024 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end encryptedPayload;
+	
+	data implementation encryptedPayload.Impl
+	end encryptedPayload.Impl;
+	
+	data shortText
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Character));
+			Data_Model::Dimension => (64);
+			Memory_Properties::Data_Size => 64 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end shortText;
+	
+	data implementation shortText.Impl
+	end shortText.Impl;
+
+	data implementation WifiHeader.Impl
+		subcomponents
+			Host: data shortText;
+			UserAgent: data shortText;
+			ContentLength: data Base_Types::Unsigned_32;
+			XForwardedProto: data shortText;
+			XForwardedFor: data ip_address[8];
+			XRealIP: data ip_address;
+	end WifiHeader.Impl;
+	
+	data IncomingWifiMessage
+	end IncomingWifiMessage;
+	
+	data implementation IncomingWifiMessage.Impl
+		subcomponents
+			header: data WifiHeader.Impl;
+			payload: data encryptedPayload.Impl;
+	end IncomingWifiMessage.Impl;
 	
 end Common;

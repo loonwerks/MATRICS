@@ -17,8 +17,8 @@ public
 	
 	thread wifiDriverVM
 		features
-			wifiRecvIn: in event data port Common::DummyMessage.Impl;
-			wifiRecvOut: out event data port Common::DummyMessage.Impl;
+			wifiRecvIn: in event data port Common::IncomingWifiMessage.Impl;
+			wifiRecvOut: out event data port Common::IncomingWifiMessage.Impl;
 			wifiSendIn: in event data port Common::DummyMessage.Impl;
 			wifiSendOut: out event data port Common::DummyMessage.Impl;
 		flows
@@ -33,8 +33,8 @@ public
 	
 	process wifiDriverVM_seL4
 		features
-			wifiRecvIn: in event data port Common::DummyMessage.Impl;
-			wifiRecvOut: out event data port Common::DummyMessage.Impl;
+			wifiRecvIn: in event data port Common::IncomingWifiMessage.Impl;
+			wifiRecvOut: out event data port Common::IncomingWifiMessage.Impl;
 			wifiSendIn: in event data port Common::DummyMessage.Impl;
 			wifiSendOut: out event data port Common::DummyMessage.Impl;
 		flows
@@ -61,7 +61,7 @@ public
 	
 	process wifiDriver_seL4
 		features
-			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
 			HMD_log: out event data port Common::Log.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
@@ -576,7 +576,7 @@ public
 	
 	system wifiDriver_sys
 		features
-			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
 			HMD_log: out event data port Common::Log.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
@@ -608,7 +608,7 @@ public
 	-- Hardened Software System
 	system SW_seL4
 		features
-			wifiRecv: in event data port Common::DummyMessage.Impl;
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
 			--
 			btRecv: in event data port Common::DummyMessage.Impl;			

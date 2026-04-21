@@ -11,7 +11,7 @@ use std::sync::Mutex;
 
 #[cfg(not(test))]
 extern "C" {
-  fn get_wifiRecv(value: *mut Common::DummyMessage_Impl) -> bool;
+  fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool;
   fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool;
   fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool;
   fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool;
@@ -19,10 +19,10 @@ extern "C" {
   fn put_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
 }
 
-pub fn unsafe_get_wifiRecv() -> Option<Common::DummyMessage_Impl>
+pub fn unsafe_get_wifiRecv() -> Option<Common::IncomingWifiMessage_Impl>
 {
   unsafe {
-    let value: *mut Common::DummyMessage_Impl = &mut [0; Common::Common_DummyMessage_Impl_DIM_0];
+    let value: *mut Common::IncomingWifiMessage_Impl = &mut Common::IncomingWifiMessage_Impl::default();
     if (get_wifiRecv(value)) {
       return Some(*value);
     } else {
@@ -85,7 +85,7 @@ lazy_static::lazy_static! {
   // simulate the global C variables that point to the microkit shared memory regions.  In a full
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
-  pub static ref IN_wifiRecv: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
+  pub static ref IN_wifiRecv: Mutex<Option<Common::IncomingWifiMessage_Impl>> = Mutex::new(None);
   pub static ref IN_analysis_report: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
   pub static ref IN_alert: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
   pub static ref OUT_wifiSend: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
@@ -106,7 +106,7 @@ pub fn initialize_test_globals() {
 }
 
 #[cfg(test)]
-pub fn get_wifiRecv(value: *mut Common::DummyMessage_Impl) -> bool
+pub fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool
 {
   unsafe {
     match *IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) {

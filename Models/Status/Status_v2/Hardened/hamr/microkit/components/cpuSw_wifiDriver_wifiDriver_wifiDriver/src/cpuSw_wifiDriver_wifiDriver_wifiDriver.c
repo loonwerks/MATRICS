@@ -13,8 +13,8 @@ sb_queue_Common_DummyMessage_Impl_1_Recv_t alert_recv_queue;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSend_queue_1;
 volatile sb_queue_Common_Log_Impl_1_t *HMD_log_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiRecv_queue_1;
-sb_queue_Common_DummyMessage_Impl_1_Recv_t wifiRecv_recv_queue;
+volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecv_queue_1;
+sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t wifiRecv_recv_queue;
 
 #define PORT_FROM_MON 42
 
@@ -63,14 +63,14 @@ bool put_analysis_request(const Common_AnalysisRequest_Impl *data) {
 }
 
 bool wifiRecv_is_empty(void) {
-  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&wifiRecv_recv_queue);
+  return sb_queue_Common_IncomingWifiMessage_Impl_1_is_empty(&wifiRecv_recv_queue);
 }
 
-bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
-  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &wifiRecv_recv_queue, numDropped, data);
+bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMessage_Impl *data) {
+  return sb_queue_Common_IncomingWifiMessage_Impl_1_dequeue((sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t *) &wifiRecv_recv_queue, numDropped, data);
 }
 
-bool get_wifiRecv(Common_DummyMessage_Impl *data) {
+bool get_wifiRecv(Common_IncomingWifiMessage_Impl *data) {
   sb_event_counter_t numDropped;
   return get_wifiRecv_poll (&numDropped, data);
 }
@@ -86,7 +86,7 @@ void init(void) {
 
   sb_queue_Common_AnalysisRequest_Impl_1_init((sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&wifiRecv_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) wifiRecv_queue_1);
+  sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_init(&wifiRecv_recv_queue, (sb_queue_Common_IncomingWifiMessage_Impl_1_t *) wifiRecv_queue_1);
 
   cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize();
 }

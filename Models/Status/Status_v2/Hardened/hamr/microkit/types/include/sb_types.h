@@ -20,6 +20,6 @@
 #include <sb_queue_Common_DummyMessage_Impl_1.h>
 #include <sb_queue_Common_Log_Impl_1.h>
 #include <sb_queue_Common_AnalysisRequest_Impl_1.h>
-#include <sb_queue_Common_DummyMessage_Impl_1.h>
-#include <sb_queue_Common_DummyMessage_Impl_1.h>
+#include <sb_queue_Common_IncomingWifiMessage_Impl_1.h>
+#include <sb_queue_Common_IncomingWifiMessage_Impl_1.h>
 #include <sb_queue_Common_DummyMessage_Impl_1.h>

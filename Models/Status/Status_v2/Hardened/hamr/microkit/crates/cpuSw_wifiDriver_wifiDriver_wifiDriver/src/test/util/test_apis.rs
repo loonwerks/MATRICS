@@ -7,7 +7,7 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_wifiRecv: Option<Common::DummyMessage_Impl>,
+  pub api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   pub api_analysis_report: Option<Common::AnalysisReport_Impl>,
   pub api_alert: Option<Common::DummyMessage_Impl>
 }
@@ -15,7 +15,7 @@ pub struct PreStateContainer {
 /// container for component's incoming port values and GUMBO state variables
 pub struct PreStateContainer_wGSV {
   pub In_alert_cmd: bool,
-  pub api_wifiRecv: Option<Common::DummyMessage_Impl>,
+  pub api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   pub api_analysis_report: Option<Common::AnalysisReport_Impl>,
   pub api_alert: Option<Common::DummyMessage_Impl>
 }
@@ -39,7 +39,7 @@ pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
 
 /// setter for component's incoming port values
 pub fn put_concrete_inputs(
-  wifiRecv: Option<Common::DummyMessage_Impl>,
+  wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   analysis_report: Option<Common::AnalysisReport_Impl>,
   alert: Option<Common::DummyMessage_Impl>)
 {
@@ -51,7 +51,7 @@ pub fn put_concrete_inputs(
 /// setter for component's incoming port values and GUMBO state variables
 pub fn put_concrete_inputs_wGSV(
   In_alert_cmd: bool,
-  wifiRecv: Option<Common::DummyMessage_Impl>,
+  wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   analysis_report: Option<Common::AnalysisReport_Impl>,
   alert: Option<Common::DummyMessage_Impl>)
 {
@@ -62,7 +62,7 @@ pub fn put_concrete_inputs_wGSV(
 }
 
 /// setter for IN EventDataPort
-pub fn put_wifiRecv(value: Option<Common::DummyMessage_Impl>)
+pub fn put_wifiRecv(value: Option<Common::IncomingWifiMessage_Impl>)
 {
   *extern_api::IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) = value
 }

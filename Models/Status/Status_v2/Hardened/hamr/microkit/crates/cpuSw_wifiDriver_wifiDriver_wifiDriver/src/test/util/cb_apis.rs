@@ -72,7 +72,7 @@ testInitializeCB_macro {
 pub fn testComputeCB(
   api_alert: Option<Common::DummyMessage_Impl>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
-  api_wifiRecv: Option<Common::DummyMessage_Impl>) -> HarnessResult
+  api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>) -> HarnessResult
 {
   // Initialize the app
   crate::cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize();
@@ -155,7 +155,7 @@ pub fn testComputeCBwGSV(
   In_alert_cmd: bool,
   api_alert: Option<Common::DummyMessage_Impl>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
-  api_wifiRecv: Option<Common::DummyMessage_Impl>) -> HarnessResult
+  api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>) -> HarnessResult
 {
   // Initialize the app
   crate::cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize();

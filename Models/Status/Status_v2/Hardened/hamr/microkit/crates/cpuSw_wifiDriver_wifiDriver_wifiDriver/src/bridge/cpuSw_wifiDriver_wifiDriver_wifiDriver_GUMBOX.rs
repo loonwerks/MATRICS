@@ -134,7 +134,7 @@ pub fn compute_CEP_Post(
   alert_cmd: bool,
   api_alert: Option<Common::DummyMessage_Impl>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
-  api_wifiRecv: Option<Common::DummyMessage_Impl>,
+  api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   api_HMD_log: Option<Common::Log_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool

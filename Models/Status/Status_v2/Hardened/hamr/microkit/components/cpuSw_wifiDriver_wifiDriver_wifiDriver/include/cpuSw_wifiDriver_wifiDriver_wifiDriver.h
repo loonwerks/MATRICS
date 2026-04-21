@@ -19,5 +19,5 @@ bool put_wifiSend(const Common_DummyMessage_Impl *data);
 bool put_HMD_log(const Common_Log_Impl *data);
 bool put_analysis_request(const Common_AnalysisRequest_Impl *data);
 bool wifiRecv_is_empty(void);
-bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data);
-bool get_wifiRecv(Common_DummyMessage_Impl *data);
+bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMessage_Impl *data);
+bool get_wifiRecv(Common_IncomingWifiMessage_Impl *data);
