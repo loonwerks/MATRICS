@@ -6,6 +6,7 @@
 #include <libvmm/virq.h>
 #include <libvmm/virtio/virtio.h>
 #include <libvmm/virtio/net.h>
+#include <string.h>
 
 // This file will not be overwritten if codegen is rerun
 
@@ -31,6 +32,8 @@ uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_V
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_TX_Buffer_vaddr;
 
 static void serial_ack(size_t vcpu_id, int irq, void *cookie);
+
+static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -92,31 +95,19 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
      uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr;
      if (rx_ready == 1){
-          // Common_IncomingWifiMessage_Impl message;
-          // Common_WifiHeader_Impl {
-          //      Common_shortText Host;
-          //      Common_shortText UserAgent;
-          //      uint32_t ContentLength;
-          //      Common_shortText XForwardedProto;
-          //      Common_ip_address XForwardedFor;
-          //      Common_ip_address XRealIP;
-          // }
-          // message.header = 
-          // message.body = 
-          // put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
+          Common_IncomingWifiMessage_Impl message;
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr + 0x04);
-          while(*data != '\0'){
-               printf("%c", *data);
-               data++;
+          if (parse_message(data, &message)){
+               printf("HOST: %s\n", message.header.Host);
+               printf("UserAgent: %s\n", message.header.UserAgent);
+               printf("XForwardedProto: %s\n", message.header.XForwardedProto);
+               printf("Payload: %s\n", message.payload);
           }
-          printf("\n");
-          // int i;
-          // for (i = 0; i < 20; i++){
-          //      printf("%d: %c\n", i, *data);
-          //      data++;
-          // }
-          // printf("\n");
-          // LOG_VMM("Here is the data of length %d: %s\n", i, data);
+          else{
+               printf("Error!");
+          }
+          // put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
+
           // Reset RX flag
           *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
           LOG_VMM("Received RX flag!\n");
@@ -171,4 +162,108 @@ static void serial_ack(uint64_t vcpu_id, int irq, void *cookie){
      * come across a case yet where more than this needs to be done.
      */
      microkit_irq_ack(SERIAL_IRQ_CH);
+}
+
+void skip_whitespace(const char **str) {
+     while(**str == ' '){
+          (*str)++;
+     }
+}
+
+void parse_string(const char **str, char *dest, size_t dest_size){
+     (*str)++; // Skip openning quote
+     size_t i = 0;
+
+     while (**str != '"' && **str != '\0' && i < dest_size){
+          dest[i++] = **str;
+          (*str)++;
+     }
+
+     dest[i] = '\0'; // Null-terminate the string
+
+     if(**str == '"')
+          (*str)++; // Skip ending quote
+     printf("String: %s\n", dest);
+}
+
+static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message){
+     Common_WifiHeader_Impl header;
+     skip_whitespace(&str);
+     if(*str != '{'){
+          return false; // Invalid JSON
+     }
+     str++; // Skip '{'
+
+     while(1) {
+          skip_whitespace(&str);
+          printf("%s\n", str);
+          if (*str == '}'){
+               str++; // Skip '}'
+               break;
+          }
+
+          // Parse key
+          char key[64];
+          parse_string(&str, key, sizeof(key));
+          skip_whitespace(&str);
+          if (*str != ':'){
+               return false; // Invalid JSON
+          }
+          str++; // Skip ':'
+          skip_whitespace(&str);
+          printf("Key: %s\n", key);
+          if(strcmp(key, "headers") == 0){
+               if(*str != '{'){
+                    return false; // Invalid JSON
+               }
+               str++; // Skip '{'
+               while(1){
+                    skip_whitespace(&str);
+                    if (*str == '}'){
+                         str++; // Skip '}'
+                         break;
+                    }
+                    // Parse key
+                    char header_key[64];
+                    parse_string(&str, header_key, sizeof(header_key));
+                    skip_whitespace(&str);
+                    if (*str != ':'){
+                         return false; // Invalid JSON
+                    }
+                    str++; // Skip ':'
+                    skip_whitespace(&str);
+                    char value[64];
+                    if(strcmp(header_key, "Host") == 0){
+                         parse_string(&str, value, sizeof(value));
+                         strcpy(header.Host, value);
+                    } else if(strcmp(header_key, "User-Agent") == 0){
+                         parse_string(&str, value, sizeof(value));
+                         strcpy(header.UserAgent, value);
+                    } else if(strcmp(header_key, "X-Forwarded-Proto") == 0){
+                         parse_string(&str, value, sizeof(value));
+                         strcpy(header.XForwardedProto, value);
+                    }
+                    else {
+                         parse_string(&str, value, sizeof(value));
+                    }
+                    skip_whitespace(&str);
+                    if (*str == ','){
+                         str++;
+                         skip_whitespace(&str);
+                    }
+               }
+          } else if(strcmp(key, "body") == 0){
+               char value[1024];
+               parse_string(&str, value, sizeof(value));
+               strcpy((char*)(*message).payload, value);
+          } else {
+               return false; // Unexpected JSON member
+          }
+          if (*str == ','){ // More members
+               str++; // Skip ','
+               skip_whitespace(&str);
+          }
+     }
+     (*message).header = header;
+     return true;
 }
