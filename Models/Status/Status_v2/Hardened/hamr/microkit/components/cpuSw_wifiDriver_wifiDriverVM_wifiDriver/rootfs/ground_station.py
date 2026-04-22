@@ -23,15 +23,24 @@ def hello_world():
     memory_size = 0x1000
     with open("/dev/mem", "r+b") as f:
           mm = mmap.mmap(f.fileno(), memory_size, offset=memory_addr, flags = mmap.MAP_SHARED | mmap.MAP_POPULATE)
-          data = json.dumps(result)
+          data = json.dumps(result).encode('utf-8')
           ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
-          ctypes.memmove(ptr, data, len(data))
+          flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
+          if flag != 0x1:
+               ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer ready flag
+               ctypes.memmove(ptr+0x04, data + b"\x00", len(data)+1) # manually add null terminated byte
           mm.close()
+
     return json.dumps(result)
 
 @app.route("/hmd", methods=["POST"])
 def store_hmd_data():
-     return {"status": "success", "message": "Data received"}
+    headers = dict(request.headers)
+    body = request.get_data().decode('utf-8')
+    result = {"headers": headers,
+               "body": body}
+     # return {"status": "success", "message": "Data received"}
+    return json.dumps(result)
 
 @app.route("/request", methods=["GET"])
 def request_hmd_data():

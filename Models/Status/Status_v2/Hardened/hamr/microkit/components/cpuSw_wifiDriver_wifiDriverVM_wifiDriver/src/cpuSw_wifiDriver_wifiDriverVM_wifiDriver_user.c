@@ -24,8 +24,13 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
+// Microkit will set this variable to the start of the RX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr;
+
+// Microkit will set this variable to the start of the TX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_TX_Buffer_vaddr;
+
 static void serial_ack(size_t vcpu_id, int irq, void *cookie);
-static bool rx_memory_fault_handle(size_t vcpu_id, size_t offset, size_t fsr, seL4_UserContext *regs, void *data);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -73,9 +78,6 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
      LOG_VMM_ERR("Failed to register ethernet interrupt %d\n");
   }
 
-  // Register RX Memory Exception
-  success = fault_register_vm_exception_handler(RX_MEM_ADDR, RX_MEM_SIZE, &rx_memory_fault_handle, NULL);
-
   if (!success) {
      LOG_VMM_ERR("Could not register virtual memory fault handler for RX wifi buffer");
   }
@@ -88,6 +90,40 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
+     uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr;
+     if (rx_ready == 1){
+          // Common_IncomingWifiMessage_Impl message;
+          // Common_WifiHeader_Impl {
+          //      Common_shortText Host;
+          //      Common_shortText UserAgent;
+          //      uint32_t ContentLength;
+          //      Common_shortText XForwardedProto;
+          //      Common_ip_address XForwardedFor;
+          //      Common_ip_address XRealIP;
+          // }
+          // message.header = 
+          // message.body = 
+          // put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
+          char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr + 0x04);
+          while(*data != '\0'){
+               printf("%c", *data);
+               data++;
+          }
+          printf("\n");
+          // int i;
+          // for (i = 0; i < 20; i++){
+          //      printf("%d: %c\n", i, *data);
+          //      data++;
+          // }
+          // printf("\n");
+          // LOG_VMM("Here is the data of length %d: %s\n", i, data);
+          // Reset RX flag
+          *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
+          LOG_VMM("Received RX flag!\n");
+     } else {
+          LOG_VMM("RX flag: 0x%08x\n", rx_ready);
+     }
+
   //printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
 }
 
@@ -135,12 +171,4 @@ static void serial_ack(uint64_t vcpu_id, int irq, void *cookie){
      * come across a case yet where more than this needs to be done.
      */
      microkit_irq_ack(SERIAL_IRQ_CH);
-}
-
-static bool rx_memory_fault_handle(size_t vcpu_id, size_t offset, size_t fsr, seL4_UserContext *regs, void *data)
-{
-    uintptr_t vmm_addr = offset + RX_MEM_ADDR;
-
-    LOG_VMM("RX Memory Fault at 0x%08x\n", vmm_addr);
-    return true;
 }
