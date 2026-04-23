@@ -36,9 +36,12 @@ static void serial_ack(size_t vcpu_id, int irq, void *cookie);
 
 static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
 
+uint32_t index;
+
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
   LOG_VMM("starting \"%s\"\n", microkit_name);
+  index = 0;
 
   // Place all the binaries in the right locations before starting the guest
 
@@ -94,17 +97,25 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
+     index++;
      uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr;
      if (rx_ready == 1){
+          printf("RX is ready from VMM\n");
           Common_IncomingWifiMessage_Impl message;
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr + 0x04);
           if (parse_message(data, &message)){
+               printf("Parsed message!");
                if (put_wifiRecvOut(&message)){
                     // Reset RX flag
                     *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
                     printf("reset rx flag\n");
                }
+          } else { // Message is not of correct format
+               // Reset RX flag
+               *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
           }
+     } else {
+          printf("VMM is waiting at %d\n", index);
      }
 
 //   printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);

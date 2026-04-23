@@ -68,8 +68,9 @@ verus! {
           let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
           match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[..len]) {
                Ok(v) => {
-                    // v is a &str
-                    //let my_str: &str = v;
+                    if v == "localhost/hmd"{
+                         api.put_HMD_log(wifi_rx_message.unwrap().payload);
+                    }
                     log::info!("Route: {}", v);
                },
                Err(e) => panic!("Invalid UTF-8: {}", e),

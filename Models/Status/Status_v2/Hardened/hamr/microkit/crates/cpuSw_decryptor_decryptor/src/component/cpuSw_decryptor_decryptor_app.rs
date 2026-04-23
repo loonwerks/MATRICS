@@ -43,6 +43,16 @@ verus! {
         api.HMD_log_out.unwrap() != api.HMD_log_in.unwrap(),
         // END MARKER TIME TRIGGERED ENSURES
     {
+          let hmd_log = api.get_HMD_log_in();
+          if hmd_log.is_some() {
+               let len = hmd_log.unwrap().iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
+               match core::str::from_utf8(&hmd_log.unwrap()[..len]) {
+                    Ok(v) => {
+                         log::info!("Encrypted Payload: {}", v);
+                    },
+                    Err(e) => panic!("Invalid UTF-8: {}", e),
+               };
+          }
       // log_info("compute entrypoint invoked");
     }
 
