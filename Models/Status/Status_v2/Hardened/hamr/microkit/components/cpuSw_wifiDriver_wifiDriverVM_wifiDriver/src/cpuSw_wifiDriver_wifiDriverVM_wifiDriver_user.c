@@ -7,6 +7,7 @@
 #include <libvmm/virtio/virtio.h>
 #include <libvmm/virtio/net.h>
 #include <string.h>
+#include <stdlib.h>
 
 // This file will not be overwritten if codegen is rerun
 
@@ -98,24 +99,15 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
           Common_IncomingWifiMessage_Impl message;
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr + 0x04);
           if (parse_message(data, &message)){
-               printf("HOST: %s\n", message.header.Host);
-               printf("UserAgent: %s\n", message.header.UserAgent);
-               printf("XForwardedProto: %s\n", message.header.XForwardedProto);
-               printf("Payload: %s\n", message.payload);
+               if (put_wifiRecvOut(&message)){
+                    // Reset RX flag
+                    *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
+                    printf("reset rx flag\n");
+               }
           }
-          else{
-               printf("Error!");
-          }
-          // put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
-
-          // Reset RX flag
-          *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
-          LOG_VMM("Received RX flag!\n");
-     } else {
-          LOG_VMM("RX flag: 0x%08x\n", rx_ready);
      }
 
-  //printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
+//   printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
@@ -164,6 +156,25 @@ static void serial_ack(uint64_t vcpu_id, int irq, void *cookie){
      microkit_irq_ack(SERIAL_IRQ_CH);
 }
 
+uint32_t string_to_ip(const char** str){
+     uint32_t ip = 0;
+     char value[4];
+     size_t i;
+     for (int j = 24; j >= 0; j=j-8){
+          i = 0;
+          while(**str != '.' && i < 3){
+               value[i++] = **str;
+               (*str)++;
+          }
+          if(**str == '.'){
+               (*str)++; // skip dot
+          }
+          value[i] = '\0'; // Null-terminate the string
+          ip = ip | ((uint32_t)atoi(value) << j);
+     }
+     return ip;
+} 
+
 void skip_whitespace(const char **str) {
      while(**str == ' '){
           (*str)++;
@@ -174,8 +185,10 @@ void parse_string(const char **str, char *dest, size_t dest_size){
      (*str)++; // Skip openning quote
      size_t i = 0;
 
-     while (**str != '"' && **str != '\0' && i < dest_size){
-          dest[i++] = **str;
+     while (**str != '"' && **str != '\0'){
+          if (i < dest_size){
+               dest[i++] = **str;
+          }
           (*str)++;
      }
 
@@ -183,7 +196,27 @@ void parse_string(const char **str, char *dest, size_t dest_size){
 
      if(**str == '"')
           (*str)++; // Skip ending quote
-     printf("String: %s\n", dest);
+}
+
+void parse_string_first_item(const char **str, char *dest, size_t dest_size){
+     (*str)++; // Skip openning quote
+     size_t i = 0;
+
+     while (**str != '"' && **str != '\0' && **str != ','){
+          if (i < dest_size){
+               dest[i++] = **str;
+          }
+          (*str)++;
+     }
+     
+     dest[i] = '\0'; // Null-terminate the string
+
+     while (**str != '"' && **str != '\0'){ // Ignore rest of list
+          (*str)++;
+     }
+
+     if(**str == '"')
+          (*str)++; // Skip ending quote
 }
 
 static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message){
@@ -196,7 +229,6 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
 
      while(1) {
           skip_whitespace(&str);
-          printf("%s\n", str);
           if (*str == '}'){
                str++; // Skip '}'
                break;
@@ -211,7 +243,6 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
           }
           str++; // Skip ':'
           skip_whitespace(&str);
-          printf("Key: %s\n", key);
           if(strcmp(key, "headers") == 0){
                if(*str != '{'){
                     return false; // Invalid JSON
@@ -235,13 +266,11 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     char value[64];
                     if(strcmp(header_key, "Host") == 0){
                          parse_string(&str, value, sizeof(value));
-                         strcpy(header.Host, value);
-                    } else if(strcmp(header_key, "User-Agent") == 0){
-                         parse_string(&str, value, sizeof(value));
-                         strcpy(header.UserAgent, value);
-                    } else if(strcmp(header_key, "X-Forwarded-Proto") == 0){
-                         parse_string(&str, value, sizeof(value));
-                         strcpy(header.XForwardedProto, value);
+                         strcpy(header.route, value);
+                    } else if(strcmp(header_key, "X-Forwarded-For") == 0){
+                         parse_string_first_item(&str, value, sizeof(value));
+                         const char *temp_ptr = value;
+                         header.client = string_to_ip(&temp_ptr);
                     }
                     else {
                          parse_string(&str, value, sizeof(value));

@@ -62,7 +62,19 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      // log_info("compute entrypoint invoked");
+      let wifi_rx_message = api.get_wifiRecv();
+      if wifi_rx_message.is_some() {
+          log::info!("Client: 0x{:08x}", wifi_rx_message.unwrap().header.client);
+          let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
+          match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[..len]) {
+               Ok(v) => {
+                    // v is a &str
+                    //let my_str: &str = v;
+                    log::info!("Route: {}", v);
+               },
+               Err(e) => panic!("Invalid UTF-8: {}", e),
+          };
+      }
     }
 
     pub fn notify(
