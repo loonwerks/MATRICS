@@ -37,7 +37,7 @@ pub fn compute_spec_Forward_Request_guarantee(
   api_analysis_request_in: Option<Common::AnalysisRequest_Impl>,
   api_analysis_request_out: Option<Common::AnalysisRequest_Impl>) -> bool
 {
-  if (api_analysis_request_in.is_some() & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_request_in.unwrap().header.src)) {
+  if (api_analysis_request_in.is_some() & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_request_in.unwrap().header.client)) {
     api_analysis_request_out.is_some() &
       (api_analysis_request_out.unwrap() == api_analysis_request_in.unwrap())
   } else {

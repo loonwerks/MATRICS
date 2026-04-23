@@ -40,7 +40,7 @@ verus! {
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee Forward_Request
         //   G: Only forward a request if it is from a trusted source.
-        if (api.analysis_request_in.is_some() && FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_request_in.unwrap().header.src)) {
+        if (api.analysis_request_in.is_some() && FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_request_in.unwrap().header.client)) {
           api.analysis_request_out.is_some() &&
             (api.analysis_request_out.unwrap() == api.analysis_request_in.unwrap())
         } else {

@@ -117,8 +117,7 @@ public
 
 	data implementation MsgHeader.Impl
 		subcomponents
-			src: data Base_Types::Unsigned_32;
-			dst: data Base_Types::Unsigned_32;
+			client: data Base_Types::Unsigned_32;
 	end MsgHeader.Impl;
 	
 	-- HMD log message structure
@@ -254,12 +253,8 @@ public
 
 	data implementation WifiHeader.Impl
 		subcomponents
-			Host: data shortText;
-			UserAgent: data shortText;
-			ContentLength: data Base_Types::Unsigned_32;
-			XForwardedProto: data shortText;
-			XForwardedFor: data ip_address[8];
-			XRealIP: data ip_address;
+			route: data shortText;
+			client: data Base_Types::Unsigned_32;
 	end WifiHeader.Impl;
 	
 	data IncomingWifiMessage

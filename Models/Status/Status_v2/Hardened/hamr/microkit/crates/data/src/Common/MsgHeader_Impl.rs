@@ -8,14 +8,13 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct MsgHeader_Impl {
-    pub src: u32,
-    pub dst: u32
+    pub client: u32
   }
 
   impl Default for MsgHeader_Impl {
     fn default() -> Self
     {
-      Self { src: 0, dst: 0 }
+      Self { client: 0 }
     }
   }
 }

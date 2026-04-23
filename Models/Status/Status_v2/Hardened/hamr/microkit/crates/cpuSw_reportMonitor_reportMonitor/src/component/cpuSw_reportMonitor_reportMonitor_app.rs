@@ -84,7 +84,7 @@ verus! {
         //   G: Only forward a report if a valid request has been made and it is to a trusted destination.
         if (((api.analysis_report_in.is_some() && self.is_valid1) &&
           !self.is_invalid2) &&
-          FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_report_in.unwrap().header.dst)) {
+          FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_report_in.unwrap().header.client)) {
           api.analysis_report_out.is_some() &&
             (api.analysis_report_out.unwrap() == api.analysis_report_in.unwrap())
         } else {

@@ -111,7 +111,6 @@
           "%%codegen_dir%%/util/include/util.h",
           "%%codegen_dir%%/util/src/util.c",
           "%%codegen_dir%%/crates/data/src/Common/DummyMessage_Impl.rs",
-          "%%codegen_dir%%/crates/data/src/Common/ip_address.rs",
           "%%codegen_dir%%/crates/data/src/Common/encryptedPayload_Impl.rs",
           "%%codegen_dir%%/crates/data/src/Common/MsgHeader_Impl.rs",
           "%%codegen_dir%%/crates/data/src/MATRICS_Model_Transformations/AllowList_Impl.rs",

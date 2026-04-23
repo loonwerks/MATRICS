@@ -173,7 +173,7 @@ public
 			Stack_size => 1048576 Bytes;
 		annex agree {**
 			assume Trusted_Request "A: Requests received are from a trusted source." :
-				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.src);
+				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.client);
 		**};
 	end dataAnalysis;
 

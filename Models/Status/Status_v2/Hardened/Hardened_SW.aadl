@@ -339,7 +339,7 @@ public
 				then event(alert)
 				else not(event(alert));
 			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
-				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.dst)
+				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.client)
 				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
 				else not(event(analysis_report_out));	
 		**};
@@ -390,7 +390,7 @@ public
 					MustSend(alert)
 					else NoSend(alert);
 				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
-					if (HasEvent(analysis_report_in) & is_valid1 & !(is_invalid2) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_report_in.header.dst))
+					if (HasEvent(analysis_report_in) & is_valid1 & !(is_invalid2) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_report_in.header.client))
 					MustSend(analysis_report_out) & (analysis_report_out == analysis_report_in)
 					else NoSend(analysis_report_out);	
 		**};
@@ -533,7 +533,7 @@ public
 			Stack_size => 1048576 Bytes;
 		annex agree {**
 			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
-				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.src)
+				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.client)
 				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
 				else not event(analysis_request_out);
 		**};
@@ -545,7 +545,7 @@ public
 			
 			compute
 				guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
-					if (HasEvent(analysis_request_in) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_request_in.header.src))
+					if (HasEvent(analysis_request_in) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_request_in.header.client))
 					MustSend(analysis_request_out) & (analysis_request_out == analysis_request_in)
 					else NoSend(analysis_request_out);
 		**};

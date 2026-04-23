@@ -8,18 +8,14 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct WifiHeader_Impl {
-    pub Host: shortText,
-    pub UserAgent: shortText,
-    pub ContentLength: u32,
-    pub XForwardedProto: shortText,
-    pub XForwardedFor: ip_address,
-    pub XRealIP: ip_address
+    pub route: shortText,
+    pub client: u32
   }
 
   impl Default for WifiHeader_Impl {
     fn default() -> Self
     {
-      Self { Host: [0; Common::Common_shortText_DIM_0], UserAgent: [0; Common::Common_shortText_DIM_0], ContentLength: 0, XForwardedProto: [0; Common::Common_shortText_DIM_0], XForwardedFor: [0; Common::Common_ip_address_DIM_0], XRealIP: [0; Common::Common_ip_address_DIM_0] }
+      Self { route: [0; Common::Common_shortText_DIM_0], client: 0 }
     }
   }
 }

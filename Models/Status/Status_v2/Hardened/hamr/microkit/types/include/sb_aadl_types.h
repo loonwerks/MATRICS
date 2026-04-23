@@ -10,19 +10,13 @@
 
 typedef uint8_t Common_DummyMessage_Impl [Common_DummyMessage_Impl_DIM_0];
 
-#define Common_ip_address_BYTE_SIZE 4
-#define Common_ip_address_DIM_0 4
-
-typedef uint8_t Common_ip_address [Common_ip_address_DIM_0];
-
 #define Common_encryptedPayload_Impl_BYTE_SIZE 1024
 #define Common_encryptedPayload_Impl_DIM_0 1024
 
 typedef uint8_t Common_encryptedPayload_Impl [Common_encryptedPayload_Impl_DIM_0];
 
 typedef struct Common_MsgHeader_Impl {
-  uint32_t src;
-  uint32_t dst;
+  uint32_t client;
 } Common_MsgHeader_Impl;
 
 #define MATRICS_Model_Transformations_AllowList_Impl_BYTE_SIZE 16
@@ -75,12 +69,8 @@ typedef struct Common_AnalysisRequest_Impl {
 } Common_AnalysisRequest_Impl;
 
 typedef struct Common_WifiHeader_Impl {
-  Common_shortText Host;
-  Common_shortText UserAgent;
-  uint32_t ContentLength;
-  Common_shortText XForwardedProto;
-  Common_ip_address XForwardedFor;
-  Common_ip_address XRealIP;
+  Common_shortText route;
+  uint32_t client;
 } Common_WifiHeader_Impl;
 
 typedef struct Common_ResponseLog_Impl {

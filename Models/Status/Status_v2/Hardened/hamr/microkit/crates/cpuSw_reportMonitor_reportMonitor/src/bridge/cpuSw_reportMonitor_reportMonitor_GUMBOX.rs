@@ -209,7 +209,7 @@ pub fn compute_spec_Forward_Report_guarantee(
 {
   if (api_analysis_report_in.is_some() & is_valid1 &
     !is_invalid2 &
-    FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_report_in.unwrap().header.dst)) {
+    FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_report_in.unwrap().header.client)) {
     api_analysis_report_out.is_some() &
       (api_analysis_report_out.unwrap() == api_analysis_report_in.unwrap())
   } else {

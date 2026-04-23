@@ -27,11 +27,6 @@
 #error Need to define IRQs
 #endif
 
-#define RX_MEM_ADDR 0x50000000
-#define RX_MEM_SIZE 0x1000
-#define TX_MEM_ADDR 0x50001000
-#define TX_MEM_SIZE 0x1000
-
 struct mk_irq {
   int irq;
   microkit_channel channel;
