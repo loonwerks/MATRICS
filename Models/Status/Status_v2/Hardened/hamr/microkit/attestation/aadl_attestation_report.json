@@ -24,7 +24,7 @@
                   "beginCol": 5,
                   "endLine": 145,
                   "endCol": 27,
-                  "offset": 4572,
+                  "offset": 4588,
                   "length": 52
                 }
             },
@@ -40,7 +40,7 @@
                   "beginCol": 5,
                   "endLine": 129,
                   "endCol": 38,
-                  "offset": 4108,
+                  "offset": 4124,
                   "length": 33
                 }
             },
@@ -96,7 +96,7 @@
                   "beginCol": 5,
                   "endLine": 151,
                   "endCol": 102,
-                  "offset": 4683,
+                  "offset": 4699,
                   "length": 186
                 }
             },
@@ -112,7 +112,7 @@
                   "beginCol": 5,
                   "endLine": 129,
                   "endCol": 38,
-                  "offset": 4108,
+                  "offset": 4124,
                   "length": 33
                 }
             },
@@ -168,7 +168,7 @@
                   "beginCol": 5,
                   "endLine": 154,
                   "endCol": 82,
-                  "offset": 4875,
+                  "offset": 4891,
                   "length": 201
                 }
             },
@@ -184,7 +184,7 @@
                   "beginCol": 5,
                   "endLine": 129,
                   "endCol": 38,
-                  "offset": 4108,
+                  "offset": 4124,
                   "length": 33
                 }
             },
@@ -200,7 +200,7 @@
                   "beginCol": 5,
                   "endLine": 140,
                   "endCol": 10,
-                  "offset": 4159,
+                  "offset": 4175,
                   "length": 363
                 }
             },
@@ -272,7 +272,7 @@
                   "beginCol": 5,
                   "endLine": 156,
                   "endCol": 41,
-                  "offset": 5081,
+                  "offset": 5097,
                   "length": 112
                 }
             },
@@ -288,7 +288,7 @@
                   "beginCol": 5,
                   "endLine": 129,
                   "endCol": 38,
-                  "offset": 4108,
+                  "offset": 4124,
                   "length": 33
                 }
             },
@@ -304,7 +304,7 @@
                   "beginCol": 5,
                   "endLine": 140,
                   "endCol": 10,
-                  "offset": 4159,
+                  "offset": 4175,
                   "length": 363
                 }
             },
@@ -320,7 +320,7 @@
                   "beginCol": 5,
                   "endLine": 128,
                   "endCol": 34,
-                  "offset": 4074,
+                  "offset": 4090,
                   "length": 29
                 }
             },
@@ -394,53 +394,6 @@
     },
     {
       "type": "ComponentReport",
-      "idPath": ["GroundStation_Impl_Instance", "cpuSw", "decryptor", "decryptor"],
-      "classifier": ["Hardened_SW", "decryptor"],
-      "reports": [
-        {
-          "type": "ComponentContractReport",
-          "id": "Payload_Decrypted",
-          "kind": "Guarantee",
-          "meta": "General guarantee contract for Hardened_SW::decryptor",
-          "slices": [
-            {
-              "type": "Slice",
-              "kind": "Model",
-              "meta": "GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/..\/..\/Hardened_SW.aadl",
-                  "beginLine": 445,
-                  "beginCol": 5,
-                  "endLine": 446,
-                  "endCol": 32,
-                  "offset": 16197,
-                  "length": 98
-                }
-            },
-            {
-              "type": "Slice",
-              "kind": "Verus",
-              "meta": "Verus realization of GUMBO general guarantees contract",
-              "pos":
-                {
-                  "type": "Position",
-                  "uri": "..\/crates\/cpuSw_decryptor_decryptor\/src\/component\/cpuSw_decryptor_decryptor_app.rs",
-                  "beginLine": 41,
-                  "beginCol": 11,
-                  "endLine": 43,
-                  "endCol": 59,
-                  "offset": 1139,
-                  "length": 107
-                }
-            }
-          ]
-        }
-       ]
-    },
-    {
-      "type": "ComponentReport",
       "idPath": ["GroundStation_Impl_Instance", "cpuSw", "encryptor", "encryptor"],
       "classifier": ["Hardened_SW", "encryptor"],
       "reports": [
@@ -462,7 +415,7 @@
                   "beginCol": 5,
                   "endLine": 494,
                   "endCol": 64,
-                  "offset": 17666,
+                  "offset": 17723,
                   "length": 130
                 }
             },
@@ -502,7 +455,7 @@
                   "beginCol": 5,
                   "endLine": 496,
                   "endCol": 62,
-                  "offset": 17801,
+                  "offset": 17858,
                   "length": 132
                 }
             },
@@ -549,7 +502,7 @@
                   "beginCol": 5,
                   "endLine": 246,
                   "endCol": 28,
-                  "offset": 8020,
+                  "offset": 8033,
                   "length": 51
                 }
             },
@@ -565,7 +518,7 @@
                   "beginCol": 5,
                   "endLine": 240,
                   "endCol": 39,
-                  "offset": 7826,
+                  "offset": 7839,
                   "length": 34
                 }
             },
@@ -621,7 +574,7 @@
                   "beginCol": 5,
                   "endLine": 248,
                   "endCol": 40,
-                  "offset": 8076,
+                  "offset": 8089,
                   "length": 65
                 }
             },
@@ -637,7 +590,7 @@
                   "beginCol": 5,
                   "endLine": 242,
                   "endCol": 52,
-                  "offset": 7900,
+                  "offset": 7913,
                   "length": 47
                 }
             },
@@ -693,7 +646,7 @@
                   "beginCol": 5,
                   "endLine": 256,
                   "endCol": 60,
-                  "offset": 8231,
+                  "offset": 8244,
                   "length": 201
                 }
             },
@@ -709,7 +662,7 @@
                   "beginCol": 5,
                   "endLine": 241,
                   "endCol": 35,
-                  "offset": 7865,
+                  "offset": 7878,
                   "length": 30
                 }
             },
@@ -725,7 +678,7 @@
                   "beginCol": 5,
                   "endLine": 240,
                   "endCol": 39,
-                  "offset": 7826,
+                  "offset": 7839,
                   "length": 34
                 }
             },
@@ -797,7 +750,7 @@
                   "beginCol": 5,
                   "endLine": 260,
                   "endCol": 109,
-                  "offset": 8447,
+                  "offset": 8460,
                   "length": 230
                 }
             },
@@ -813,7 +766,7 @@
                   "beginCol": 5,
                   "endLine": 240,
                   "endCol": 39,
-                  "offset": 7826,
+                  "offset": 7839,
                   "length": 34
                 }
             },
@@ -885,7 +838,7 @@
                   "beginCol": 17,
                   "endLine": 266,
                   "endCol": 90,
-                  "offset": 8705,
+                  "offset": 8718,
                   "length": 294
                 }
             },
@@ -901,7 +854,7 @@
                   "beginCol": 5,
                   "endLine": 241,
                   "endCol": 35,
-                  "offset": 7865,
+                  "offset": 7878,
                   "length": 30
                 }
             },
@@ -917,7 +870,7 @@
                   "beginCol": 5,
                   "endLine": 242,
                   "endCol": 52,
-                  "offset": 7900,
+                  "offset": 7913,
                   "length": 47
                 }
             },
@@ -989,7 +942,7 @@
                   "beginCol": 5,
                   "endLine": 270,
                   "endCol": 36,
-                  "offset": 9004,
+                  "offset": 9017,
                   "length": 265
                 }
             },
@@ -1005,7 +958,7 @@
                   "beginCol": 5,
                   "endLine": 242,
                   "endCol": 52,
-                  "offset": 7900,
+                  "offset": 7913,
                   "length": 47
                 }
             },
@@ -1068,7 +1021,7 @@
                   "beginCol": 5,
                   "endLine": 369,
                   "endCol": 28,
-                  "offset": 13145,
+                  "offset": 13158,
                   "length": 87
                 }
             },
@@ -1084,7 +1037,7 @@
                   "beginCol": 5,
                   "endLine": 348,
                   "endCol": 38,
-                  "offset": 12183,
+                  "offset": 12196,
                   "length": 33
                 }
             },
@@ -1100,7 +1053,7 @@
                   "beginCol": 5,
                   "endLine": 349,
                   "endCol": 39,
-                  "offset": 12221,
+                  "offset": 12234,
                   "length": 34
                 }
             },
@@ -1172,7 +1125,7 @@
                   "beginCol": 5,
                   "endLine": 374,
                   "endCol": 117,
-                  "offset": 13259,
+                  "offset": 13272,
                   "length": 256
                 }
             },
@@ -1188,7 +1141,7 @@
                   "beginCol": 5,
                   "endLine": 349,
                   "endCol": 39,
-                  "offset": 12221,
+                  "offset": 12234,
                   "length": 34
                 }
             },
@@ -1260,7 +1213,7 @@
                   "beginCol": 5,
                   "endLine": 379,
                   "endCol": 76,
-                  "offset": 13525,
+                  "offset": 13538,
                   "length": 215
                 }
             },
@@ -1276,7 +1229,7 @@
                   "beginCol": 5,
                   "endLine": 350,
                   "endCol": 36,
-                  "offset": 12260,
+                  "offset": 12273,
                   "length": 31
                 }
             },
@@ -1292,7 +1245,7 @@
                   "beginCol": 5,
                   "endLine": 349,
                   "endCol": 39,
-                  "offset": 12221,
+                  "offset": 12234,
                   "length": 34
                 }
             },
@@ -1364,7 +1317,7 @@
                   "beginCol": 5,
                   "endLine": 382,
                   "endCol": 91,
-                  "offset": 13751,
+                  "offset": 13764,
                   "length": 143
                 }
             },
@@ -1380,7 +1333,7 @@
                   "beginCol": 5,
                   "endLine": 360,
                   "endCol": 28,
-                  "offset": 12347,
+                  "offset": 12360,
                   "length": 376
                 }
             },
@@ -1396,7 +1349,7 @@
                   "beginCol": 5,
                   "endLine": 348,
                   "endCol": 38,
-                  "offset": 12183,
+                  "offset": 12196,
                   "length": 33
                 }
             },
@@ -1468,7 +1421,7 @@
                   "beginCol": 5,
                   "endLine": 387,
                   "endCol": 25,
-                  "offset": 13909,
+                  "offset": 13922,
                   "length": 192
                 }
             },
@@ -1484,7 +1437,7 @@
                   "beginCol": 5,
                   "endLine": 350,
                   "endCol": 36,
-                  "offset": 12260,
+                  "offset": 12273,
                   "length": 31
                 }
             },
@@ -1540,7 +1493,7 @@
                   "beginCol": 5,
                   "endLine": 391,
                   "endCol": 25,
-                  "offset": 14106,
+                  "offset": 14119,
                   "length": 158
                 }
             },
@@ -1556,7 +1509,7 @@
                   "beginCol": 5,
                   "endLine": 351,
                   "endCol": 38,
-                  "offset": 12296,
+                  "offset": 12309,
                   "length": 33
                 }
             },
@@ -1612,7 +1565,7 @@
                   "beginCol": 5,
                   "endLine": 395,
                   "endCol": 39,
-                  "offset": 14269,
+                  "offset": 14282,
                   "length": 380
                 }
             },
@@ -1628,7 +1581,7 @@
                   "beginCol": 5,
                   "endLine": 350,
                   "endCol": 36,
-                  "offset": 12260,
+                  "offset": 12273,
                   "length": 31
                 }
             },
@@ -1644,7 +1597,7 @@
                   "beginCol": 5,
                   "endLine": 351,
                   "endCol": 38,
-                  "offset": 12296,
+                  "offset": 12309,
                   "length": 33
                 }
             },
@@ -1660,7 +1613,7 @@
                   "beginCol": 5,
                   "endLine": 363,
                   "endCol": 67,
-                  "offset": 12878,
+                  "offset": 12891,
                   "length": 203
                 }
             },
@@ -1676,7 +1629,7 @@
                   "beginCol": 5,
                   "endLine": 361,
                   "endCol": 150,
-                  "offset": 12728,
+                  "offset": 12741,
                   "length": 145
                 }
             },
@@ -1787,7 +1740,7 @@
                   "beginCol": 5,
                   "endLine": 550,
                   "endCol": 40,
-                  "offset": 19832,
+                  "offset": 19889,
                   "length": 322
                 }
             },
@@ -1803,7 +1756,7 @@
                   "beginCol": 5,
                   "endLine": 544,
                   "endCol": 67,
-                  "offset": 19605,
+                  "offset": 19662,
                   "length": 203
                 }
             },
@@ -1819,7 +1772,7 @@
                   "beginCol": 5,
                   "endLine": 542,
                   "endCol": 150,
-                  "offset": 19455,
+                  "offset": 19512,
                   "length": 145
                 }
             },
@@ -1898,7 +1851,7 @@
                   "beginCol": 5,
                   "endLine": 85,
                   "endCol": 25,
-                  "offset": 2462,
+                  "offset": 2478,
                   "length": 48
                 }
             },
@@ -1914,7 +1867,7 @@
                   "beginCol": 5,
                   "endLine": 80,
                   "endCol": 36,
-                  "offset": 2383,
+                  "offset": 2399,
                   "length": 31
                 }
             },
@@ -1970,7 +1923,7 @@
                   "beginCol": 5,
                   "endLine": 91,
                   "endCol": 94,
-                  "offset": 2559,
+                  "offset": 2575,
                   "length": 180
                 }
             },
@@ -1986,7 +1939,7 @@
                   "beginCol": 5,
                   "endLine": 80,
                   "endCol": 36,
-                  "offset": 2383,
+                  "offset": 2399,
                   "length": 31
                 }
             },
@@ -2042,7 +1995,7 @@
                   "beginCol": 5,
                   "endLine": 96,
                   "endCol": 48,
-                  "offset": 2749,
+                  "offset": 2765,
                   "length": 237
                 }
             },
@@ -2058,7 +2011,7 @@
                   "beginCol": 5,
                   "endLine": 80,
                   "endCol": 36,
-                  "offset": 2383,
+                  "offset": 2399,
                   "length": 31
                 }
             },

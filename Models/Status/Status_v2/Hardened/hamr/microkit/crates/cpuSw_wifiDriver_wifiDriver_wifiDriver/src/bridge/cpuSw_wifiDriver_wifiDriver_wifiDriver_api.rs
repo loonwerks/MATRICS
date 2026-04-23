@@ -19,7 +19,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_HMD_log(
       &mut self,
-      value: Common::Log_Impl)
+      value: Common::encryptedPayload_Impl)
     {
       extern_api::unsafe_put_HMD_log(&value);
     }
@@ -74,7 +74,7 @@ verus! {
     pub ghost analysis_report: Option<Common::AnalysisReport_Impl>,
     pub ghost alert: Option<Common::DummyMessage_Impl>,
     pub ghost wifiSend: Option<Common::DummyMessage_Impl>,
-    pub ghost HMD_log: Option<Common::Log_Impl>,
+    pub ghost HMD_log: Option<Common::encryptedPayload_Impl>,
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>
   }
 
@@ -95,7 +95,7 @@ verus! {
     }
     pub fn put_HMD_log(
       &mut self,
-      value: Common::Log_Impl)
+      value: Common::encryptedPayload_Impl)
       ensures
         old(self).wifiRecv == self.wifiRecv,
         old(self).wifiSend == self.wifiSend,

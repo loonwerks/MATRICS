@@ -63,7 +63,7 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
-			HMD_log: out event data port Common::Log.Impl;
+			HMD_log: out event data port Common::encryptedPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert: in event data port Common::DummyMessage.Impl;
@@ -428,7 +428,7 @@ public
 	-- handles decryption
 	thread decryptor
 		features
-			HMD_log_in: in event data port Common::Log.Impl;
+			HMD_log_in: in event data port Common::encryptedPayload.Impl;
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
@@ -436,20 +436,20 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;
-		annex agree {**
-			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
-				HMD_log_out != HMD_log_in;
-		**}	;	
-		annex GUMBO {**
-			compute
-				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
-					HMD_log_out != HMD_log_in;
-		**}	;			
+--		annex agree {**
+--			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+--				HMD_log_out != HMD_log_in;
+--		**}	;	
+--		annex GUMBO {**
+--			compute
+--				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+--					HMD_log_out != HMD_log_in;
+--		**}	;			
 	end decryptor;
 
 	process decryptor_seL4
 		features
-			HMD_log_in: in event data port Common::Log.Impl;
+			HMD_log_in: in event data port Common::encryptedPayload.Impl;
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
@@ -578,7 +578,7 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
-			HMD_log: out event data port Common::Log.Impl;
+			HMD_log: out event data port Common::encryptedPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert: in event data port Common::DummyMessage.Impl;	

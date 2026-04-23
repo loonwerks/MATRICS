@@ -2,4 +2,3 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_decryptor_decryptor_api;
-pub mod cpuSw_decryptor_decryptor_GUMBOX;
