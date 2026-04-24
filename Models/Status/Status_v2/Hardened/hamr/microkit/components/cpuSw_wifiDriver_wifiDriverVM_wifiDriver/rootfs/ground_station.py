@@ -47,7 +47,6 @@ def store_hmd_data():
           ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
           flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
           if flag != 0x1:
-               print("Setting RX flag")
                ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer ready flag
                ctypes.memmove(ptr+0x04, data + b"\x00", len(data)+1) # manually add null terminated byte
           mm.close()

@@ -100,15 +100,12 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
      index++;
      uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr;
      if (rx_ready == 1){
-          printf("RX is ready from VMM\n");
           Common_IncomingWifiMessage_Impl message;
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr + 0x04);
           if (parse_message(data, &message)){
-               printf("Parsed message!");
                if (put_wifiRecvOut(&message)){
                     // Reset RX flag
                     *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_RX_Buffer_vaddr = 0;
-                    printf("reset rx flag\n");
                }
           } else { // Message is not of correct format
                // Reset RX flag
