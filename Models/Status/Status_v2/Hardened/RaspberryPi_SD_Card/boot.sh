@@ -1,0 +1,1 @@
+mkimage -A arm -T script -C none -n "seL4 Boot Script" -d boot.cmd boot.scr

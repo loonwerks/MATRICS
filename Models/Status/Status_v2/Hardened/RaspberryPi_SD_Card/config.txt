@@ -1,0 +1,5 @@
+# Load U-Boot
+arm_64bit=1
+kernel=u-boot.bin
+enable_uart=1
+core_freq=250
