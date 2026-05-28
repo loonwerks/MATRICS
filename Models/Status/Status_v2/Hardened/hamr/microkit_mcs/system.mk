@@ -258,11 +258,11 @@ cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifi
 cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o
 	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
 
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a --end-group -o $@
 
 
 
