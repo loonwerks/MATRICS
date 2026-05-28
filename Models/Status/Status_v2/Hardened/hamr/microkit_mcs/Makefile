@@ -60,6 +60,8 @@ check_microkit:
 
 ${IMAGE_FILE}: check_microkit ${TOP_BUILD_DIR}/Makefile FORCE
 	${MAKE} -C ${TOP_BUILD_DIR} $(notdir $@)
+	
+release: ${IMAGE_FILE}
 
 qemu ${REPORT_FILE}: $(IMAGE_FILE)
 	${MAKE} -C ${TOP_BUILD_DIR} $(notdir $@)

@@ -28,7 +28,8 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;
-			Compute_Execution_Time => 150ms .. 150ms;			
+			Compute_Execution_Time => 150ms .. 150ms;	
+			HAMR::Microkit_Language => C;		
 	end wifiDriverVM;
 	
 	process wifiDriverVM_seL4
