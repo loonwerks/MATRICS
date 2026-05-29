@@ -91,6 +91,8 @@ TYPE_OBJS := \
 	sb_queue_hamr_SchedState_1.o \
 	sb_queue_hamr_Schedule_1.o
 
+# exporting TOP_TYPES_INCLUDE in case other makefiles need it
+export TOP_TYPES_INCLUDE = -I$(TOP_DIR)/types/include
 
 all: cache.o
 
@@ -195,6 +197,16 @@ SCHEDULER_OBJ := $(notdir $(basename $(SCHEDULER_C))).o
 $(SCHEDULER_OBJ): $(SCHEDULER_C) ${SDDF}/include
 	${CC} ${CFLAGS} -c -o $@ $<
 
+# cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a contains a VM
+.PHONY: cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a:
+ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
+	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile);
+endif
+	mkdir -p $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/${MICROKIT_BOARD}/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+	make -C $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+
 scheduler.elf: $(UTIL_OBJS) $(TYPE_OBJS) $(SCHEDULER_OBJ)
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
@@ -258,10 +270,10 @@ cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifi
 cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o
 	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
 
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
 	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a --end-group -o $@
 
 

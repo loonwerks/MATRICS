@@ -1,15 +1,6 @@
 #pragma once
 
-#if __has_include("util.h")
-#include <util.h>
-#elif __has_include("libvmm/util/util.h")
 #include <libvmm/util/util.h>
-#elif __has_include("sddf/util/util.h")
-#include <sddf/util/printf.h>
-#include <sddf/util/util.h>
-#define printf sddf_dprintf
-#endif
-
 #include <stdint.h>
 #include <microkit.h>
 #include <sb_types.h>
