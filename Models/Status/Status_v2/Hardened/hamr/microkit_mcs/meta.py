@@ -126,6 +126,20 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
 
     scheduler = ProtectionDomain("scheduler", "scheduler.elf", priority=200)
 
+    if board.name == "qemu_virt_aarch64":
+        RAM = 0x40_000_000
+        GIC_VM = 0x8_010_000
+        GIC_VMM = 0x8_040_000
+        Serial = 0x9_000_000
+    elif board.name == "rpi4b_4gb":
+        RAM = 0x40_000_000
+        GIC_VM = 0x8_010_000
+        GIC_VMM = 0x8_040_000
+        Serial = 0x9_000_000
+    else:
+        assert False
+
+
 
     # BEGIN META MARKER
 
@@ -181,11 +195,11 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # MEMORY REGIONS
     #######################################
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM", size=0x10_000_000, paddr=0x40_000_000)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM", size=0x10_000_000, paddr=RAM)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC", size=0x1_000, paddr=0x8_040_000)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC", size=0x1_000, paddr=GIC_VMM)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial", size=0x1_000, paddr=0x9_000_000)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial", size=0x1_000, paddr=Serial)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial)
     GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region)
@@ -275,9 +289,9 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     # Virtual Machines
     #######################################
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM = VirtualMachine("cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM", [VirtualMachine.Vcpu(id=0)])
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, 0x40_000_000, perms="rwx"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC, 0x8_010_000, cached=False, perms="rw"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial, 0x9_000_000, cached=False, perms="rw"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, RAM, perms="rwx"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC, GIC_VM, cached=False, perms="rw"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial, Serial, cached=False, perms="rw"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver.set_virtual_machine(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM)
 
     #######################################

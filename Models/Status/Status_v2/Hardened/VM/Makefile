@@ -1,7 +1,7 @@
 
 CPU := cortex-a72
 
-VM_DIR = QEMU-VM
+VM_DIR = RPI4B-VM
 IMAGE_FILE = $(VM_DIR)/linux
 LINUX_DTS = $(VM_DIR)/linux.dts
 OVERLAY_DTS = $(VM_DIR)/overlay.dts
@@ -18,16 +18,15 @@ $(DTB_FILE): $(LINUX_DTS) $(OVERLAY_DTS)
 	rm -f $(TEMP_DTS)
 
 
-run: $(IMAGE_FILE)
-	qemu-system-aarch64 -machine raspi4b \
-		-cpu $(CPU) \
-		-smp 4 -m 2G \
+qemu_rpi: $(IMAGE_FILE) $(DTB_FILE)
+	qemu-system-aarch64 -machine virt \
+		-cpu cortex-a72 \
+		-smp 4 -m 4G \
 		-dtb $(DTB_FILE) \
 		-kernel $(IMAGE_FILE) \
 		-initrd $(INITRAMFS_FILE) \
-		-drive file=sd.img,if=sd,format=raw \
 		-serial mon:stdio \
-		-usb -device usb-kbd -device usb-mouse \
+		-nographic \
 		-monitor telnet::45454,server,nowait \
 		-append "earlycon=pl011,mmio32,0xfe201000 console=ttyAMA0,115200"
 
