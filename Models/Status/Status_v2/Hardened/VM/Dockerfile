@@ -29,6 +29,7 @@ RUN apt-get update -q \
         cpio \
         curl \
         cvs \
+        device-tree-compiler \
         file \
         flake8 \
         flex \
@@ -66,7 +67,7 @@ ENV LC_ALL=en_US.UTF-8
 
 WORKDIR /home
 
-RUN git clone --depth=1 --branch rpi-6.12.y https://github.com/raspberrypi/linux.git /home/rpi-linux-src
+RUN git clone --depth=1 --branch rpi-6.13.y https://github.com/raspberrypi/linux.git /home/rpi-linux-src
 
 RUN git clone --depth=1 --branch v6.13 https://github.com/torvalds/linux.git /home/linux-src
 

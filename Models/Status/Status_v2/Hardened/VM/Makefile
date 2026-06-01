@@ -1,10 +1,22 @@
 
 CPU := cortex-a72
 
-VM_DIR = Test-VM
+VM_DIR = QEMU-VM
 IMAGE_FILE = $(VM_DIR)/linux
-DTB_FILE = Microkit-VM/linux.dtb
+LINUX_DTS = $(VM_DIR)/linux.dts
+OVERLAY_DTS = $(VM_DIR)/overlay.dts
+DTB_FILE = $(VM_DIR)/linux_combined.dtb
 INITRAMFS_FILE = $(VM_DIR)/rootfs.cpio.gz
+
+TEMP_DTS = combined_overlay.dts
+
+$(DTB_FILE): $(LINUX_DTS) $(OVERLAY_DTS)
+	@echo "Concatenating DTS files into $(TEMP_DTS)..."
+	cat $^ > $(TEMP_DTS)
+	@echo "Compiling $(TEMP_DTS) into $(DTB_FILE)..."
+	dtc -@ -I dts -O dtb -o $@ $(TEMP_DTS)
+	rm -f $(TEMP_DTS)
+
 
 run: $(IMAGE_FILE)
 	qemu-system-aarch64 -machine raspi4b \
@@ -19,7 +31,7 @@ run: $(IMAGE_FILE)
 		-monitor telnet::45454,server,nowait \
 		-append "earlycon=pl011,mmio32,0xfe201000 console=ttyAMA0,115200"
 
-qemu: $(IMAGE_FILE)
+qemu: $(IMAGE_FILE) $(DTB_FILE)
 	qemu-system-aarch64 -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
 			-cpu cortex-a53 \
 			-serial mon:stdio \
