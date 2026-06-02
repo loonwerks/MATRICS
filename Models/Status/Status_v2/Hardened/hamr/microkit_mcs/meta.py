@@ -136,11 +136,9 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         OFFSET = 0
     elif board.name == "rpi4b_4gb":
         RAM = 0x2000_0000
-        RAM_SIZE = 0x1000_0000 # NEED TO FIX THIS!!!
-     #    GIC_VM = 0x40046000 # vCPU interface
-     #    GIC_VMM = 0x40042000 # CPU interface
-        GIC_VM = 0xFF84_6000 # vCPU interface
-        GIC_VMM = 0xff84_0000 # CPU Interface
+        RAM_SIZE = 0x1000_0000
+        GIC_VM = 0xFF84_2000 # CPU Interface
+        GIC_VMM = 0xFF84_6000 # vCPU interface
         Serial = 0xFE21_5000
         Serial_IRQ = 57
         OFFSET = 0
