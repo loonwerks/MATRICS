@@ -13,7 +13,7 @@
 
      memory@0 {
 		device_type = "memory";
-		reg = <0x00 0x00 0x00>;
+		reg = <0x00 0x10000000 0x00 0x10000000>;
 	};
 
      pmu {
@@ -127,13 +127,13 @@
 			skip-init;
 			phandle = <0x44>;
 		};
-     }
+     };
 
      chosen {
 		stdout-path = "serial0:115200n8";
 		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0 cgroup_disable=memory numa_policy=interleave nvme.max_host_mem_size_mb=0";
 		phandle = <0x54>;
-          linux,initrd-start = <0x07000000>;
-		linux,initrd-end = <0x07f00000>;
+          linux,initrd-start = <0x1d700000>;
+		linux,initrd-end = <0x1f000000>;
 	};
 };

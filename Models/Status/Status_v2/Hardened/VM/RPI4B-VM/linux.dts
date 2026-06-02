@@ -1,0 +1,151 @@
+/dts-v1/;
+
+/ {
+     compatible = "raspberrypi,4-model-b", "brcm,bcm2711";
+	model = "Raspberry Pi 4 Model B";
+	#address-cells = <0x02>;
+	#size-cells = <0x02>;
+	interrupt-parent = <0x01>;
+
+     aliases {
+		serial0 = "/soc/serial@7e215040";
+	};
+
+     memory@0 {
+		device_type = "memory";
+		reg = <0x00 0x10000000 0x01 0x000000000>;
+	};
+
+     pmu {
+		compatible = "arm,cortex-a72-pmu";
+		interrupts = <0x00 0x10 0x04 0x00 0x11 0x04 0x00 0x12 0x04 0x00 0x13 0x04>;
+		interrupt-affinity = <0x39 0x3a 0x3b 0x3c>;
+	};
+
+	timer {
+		compatible = "arm,armv8-timer";
+		interrupts = <0x01 0x0d 0xf08 0x01 0x0e 0xf08 0x01 0x0b 0xf08 0x01 0x0a 0xf08>;
+	};
+
+	cpus {
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+		enable-method = "brcm,bcm2836-smp";
+		phandle = <0xe7>;
+
+		cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a72";
+			reg = <0x00>;
+			enable-method = "spin-table";
+			cpu-release-addr = <0x00 0xd8>;
+			d-cache-size = <0x8000>;
+			d-cache-line-size = <0x40>;
+			d-cache-sets = <0x100>;
+			i-cache-size = <0xc000>;
+			i-cache-line-size = <0x40>;
+			i-cache-sets = <0x100>;
+			next-level-cache = <0x3d>;
+			phandle = <0x39>;
+		};
+
+		cpu@1 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a72";
+			reg = <0x01>;
+			enable-method = "spin-table";
+			cpu-release-addr = <0x00 0xe0>;
+			d-cache-size = <0x8000>;
+			d-cache-line-size = <0x40>;
+			d-cache-sets = <0x100>;
+			i-cache-size = <0xc000>;
+			i-cache-line-size = <0x40>;
+			i-cache-sets = <0x100>;
+			next-level-cache = <0x3d>;
+			phandle = <0x3a>;
+		};
+
+		cpu@2 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a72";
+			reg = <0x02>;
+			enable-method = "spin-table";
+			cpu-release-addr = <0x00 0xe8>;
+			d-cache-size = <0x8000>;
+			d-cache-line-size = <0x40>;
+			d-cache-sets = <0x100>;
+			i-cache-size = <0xc000>;
+			i-cache-line-size = <0x40>;
+			i-cache-sets = <0x100>;
+			next-level-cache = <0x3d>;
+			phandle = <0x3b>;
+		};
+
+		cpu@3 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a72";
+			reg = <0x03>;
+			enable-method = "spin-table";
+			cpu-release-addr = <0x00 0xf0>;
+			d-cache-size = <0x8000>;
+			d-cache-line-size = <0x40>;
+			d-cache-sets = <0x100>;
+			i-cache-size = <0xc000>;
+			i-cache-line-size = <0x40>;
+			i-cache-sets = <0x100>;
+			next-level-cache = <0x3d>;
+			phandle = <0x3c>;
+		};
+
+		l2-cache0 {
+			compatible = "cache";
+			cache-unified;
+			cache-size = <0x100000>;
+			cache-line-size = <0x40>;
+			cache-sets = <0x400>;
+			cache-level = <0x02>;
+			phandle = <0x3d>;
+		};
+	};
+
+     soc {
+          compatible = "simple-bus";
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		ranges = <0x7e000000 0x00 0xfe000000 0x1800000 0x7c000000 0x00 0xfc000000 0x2000000 0x40000000 0x00 0xff800000 0x800000>;
+		dma-ranges = <0xc0000000 0x00 0x00 0x40000000 0x7c000000 0x00 0xfc000000 0x3800000>;
+		phandle = <0x63>;
+
+          serial@7e215040 {
+			compatible = "brcm,bcm2835-aux-uart";
+			reg = <0x7e215040 0x40>;
+			interrupts = <0x00 0x5d 0x04>;
+			clocks = <0x11 0x00>;
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 = <0x12>;
+			skip-init;
+			phandle = <0x44>;
+		};
+     };
+
+     chosen {
+		stdout-path = "serial0:115200n8";
+		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0 cgroup_disable=memory numa_policy=interleave nvme.max_host_mem_size_mb=0";
+		phandle = <0x54>;
+          linux,initrd-start = <0x1d700000>;
+		linux,initrd-end = <0x1e000000>;
+	};
+};
+/ {
+     soc{
+          interrupt-controller@40041000 {
+			interrupt-controller;
+			#interrupt-cells = <0x03>;
+			compatible = "arm,gic-400";
+			reg = <0x40041000 0x1000 0x40042000 0x2000 0x40044000 0x2000 0x40046000 0x2000>;
+			interrupts = <0x01 0x09 0xf04>;
+			phandle = <0x01>;
+		};
+     };
+};

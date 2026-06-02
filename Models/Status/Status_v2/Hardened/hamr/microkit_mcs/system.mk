@@ -200,11 +200,11 @@ $(SCHEDULER_OBJ): $(SCHEDULER_C) ${SDDF}/include
 # cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a contains a VM
 .PHONY: cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
 cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a:
-ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile))
-	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/$(MICROKIT_BOARD)/Makefile);
+ifeq (, $(wildcard $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/Makefile))
+	$(error Didn't find: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/Makefile);
 endif
 	mkdir -p $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/board/${MICROKIT_BOARD}/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
+	cp $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/Makefile $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 	make -C $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 
 scheduler.elf: $(UTIL_OBJS) $(TYPE_OBJS) $(SCHEDULER_OBJ)

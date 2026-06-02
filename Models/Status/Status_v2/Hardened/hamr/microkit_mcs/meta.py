@@ -128,14 +128,20 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
 
     if board.name == "qemu_virt_aarch64":
         RAM = 0x40_000_000
+        RAM_SIZE = 0x10_000_000
         GIC_VM = 0x8_010_000
         GIC_VMM = 0x8_040_000
         Serial = 0x9_000_000
+        Serial_IRQ = 33
     elif board.name == "rpi4b_4gb":
-        RAM = 0x40_000_000
-        GIC_VM = 0x8_010_000
-        GIC_VMM = 0x8_040_000
-        Serial = 0x9_000_000
+        RAM = 0x1000_0000 
+        RAM_SIZE = 0x1000_0000 # NEED TO FIX THIS!!!
+        GIC_VM = 0x40046000 # vCPU interface
+        GIC_VMM = 0x40042000 # CPU interface
+     #    GIC_VM = 0xFF84_6000 # vCPU interface
+     #    GIC_VMM = 0xFF84_2000 # CPU Interface
+        Serial = 0xFE21_5000
+        Serial_IRQ = 0x7D
     else:
         assert False
 
@@ -195,7 +201,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # MEMORY REGIONS
     #######################################
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM", size=0x10_000_000, paddr=RAM)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM", size=RAM_SIZE, paddr=RAM)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM)
     GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC", size=0x1_000, paddr=GIC_VMM)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC)
@@ -242,7 +248,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region)
 
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, 0x40_000_000, perms="rw"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, RAM, perms="rw"))
     cpuSw_btDriver_btDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region, 0x10_000_000, perms="r"))
     cpuSw_btDriver_btDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btSend_1_Memory_Region, 0x10_001_000, perms="rw"))
     cpuSw_usbDriver_usbDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbRecv_1_Memory_Region, 0x10_000_000, perms="r"))
@@ -283,7 +289,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # Interrupts
     #######################################
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=33,id=1))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=Serial_IRQ,id=1))
 
     #######################################
     # Virtual Machines
