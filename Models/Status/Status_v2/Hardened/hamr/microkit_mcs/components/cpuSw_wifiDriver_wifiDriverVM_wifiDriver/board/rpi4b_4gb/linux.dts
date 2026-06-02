@@ -13,7 +13,8 @@
 
      memory@0 {
 		device_type = "memory";
-		reg = <0x00 0x10000000 0x00 0x10000000>;
+          /* Tell Linux that only 256MiB of RAM is available. */
+		reg = <0x00 0x00 0x10000000>;
 	};
 
      pmu {
@@ -130,10 +131,9 @@
      };
 
      chosen {
-		stdout-path = "serial0:115200n8";
-		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0 cgroup_disable=memory numa_policy=interleave nvme.max_host_mem_size_mb=0";
-		phandle = <0x54>;
-          linux,initrd-start = <0x1d700000>;
-		linux,initrd-end = <0x1f000000>;
+		stdout-path = "/soc/serial@7e215040";
+		bootargs = "console=ttyS0,115200 earlycon=uart8250,mmio32,0xfe215040 8250.nr_uarts=1 rw debug loglevel=8 pci=nomsi initcall_debug initcall_blacklist=clk_disable_unused";
+          linux,initrd-end = <0x00000000 0x2f000000>;
+          linux,initrd-start = <0x00000000 0x2d700000>;
 	};
 };

@@ -13,8 +13,8 @@
 #define GUEST_DTB_VADDR           0x4f000000
 #define GUEST_INIT_RAM_DISK_VADDR 0x4d700000
 #elif defined(BOARD_rpi4b_4gb)
-#define GUEST_DTB_VADDR           0x1f000000
-#define GUEST_INIT_RAM_DISK_VADDR 0x1d700000
+#define GUEST_DTB_VADDR           0x2f000000
+#define GUEST_INIT_RAM_DISK_VADDR 0x2d700000
 #else
 #error Need to define guest kernel image address and DTB address
 #endif
@@ -26,7 +26,7 @@
 #define SERIAL_IRQ 33
 #elif defined(BOARD_rpi4b_4gb)
 #define SERIAL_IRQ_CH 1
-#define SERIAL_IRQ 97
+#define SERIAL_IRQ 57
 #else
 #error Need to define IRQs
 #endif

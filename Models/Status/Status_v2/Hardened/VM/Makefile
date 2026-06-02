@@ -1,7 +1,7 @@
 
 CPU := cortex-a72
 
-VM_DIR = QEMU-VM
+VM_DIR = RPI4B-VM
 IMAGE_FILE = $(VM_DIR)/linux
 LINUX_DTS = $(VM_DIR)/linux.dts
 OVERLAY_DTS = $(VM_DIR)/overlay.dts
@@ -28,7 +28,21 @@ qemu_rpi: $(IMAGE_FILE) $(DTB_FILE)
 		-serial mon:stdio \
 		-nographic \
 		-monitor telnet::45454,server,nowait \
-		-append "earlycon=pl011,mmio32,0xfe215040 console=ttyAMA0,115200"
+		-append "earlycon=pl011,mmio32,0xfe201000 console=ttyAMA0,115200"
+
+qemu_rpi4b: $(IMAGE_FILE) $(DTB_FILE)
+	qemu-system-aarch64 -machine raspi4b \
+		-cpu cortex-a72 \
+		-dtb $(DTB_FILE) \
+		-kernel $(IMAGE_FILE) \
+		-initrd $(INITRAMFS_FILE) \
+		-serial mon:stdio \
+		-smp 4 -m 2G \
+		-display none \
+		-nographic \
+		-append "earlycon=pl011,mmio32,0xfe201000 console=ttyAMA0,115200" \
+		-netdev user,id=net0 \
+    		-device usb-net,netdev=net0
 
 qemu: $(IMAGE_FILE) $(DTB_FILE)
 	qemu-system-aarch64 -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
