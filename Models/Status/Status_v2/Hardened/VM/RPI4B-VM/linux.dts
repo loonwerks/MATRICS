@@ -31,81 +31,12 @@
 	cpus {
 		#address-cells = <0x01>;
 		#size-cells = <0x00>;
-		enable-method = "brcm,bcm2836-smp";
-		phandle = <0xe7>;
 
 		cpu@0 {
 			device_type = "cpu";
 			compatible = "arm,cortex-a72";
 			reg = <0x00>;
-			enable-method = "spin-table";
-			cpu-release-addr = <0x00 0xd8>;
-			d-cache-size = <0x8000>;
-			d-cache-line-size = <0x40>;
-			d-cache-sets = <0x100>;
-			i-cache-size = <0xc000>;
-			i-cache-line-size = <0x40>;
-			i-cache-sets = <0x100>;
-			next-level-cache = <0x3d>;
-			phandle = <0x39>;
-		};
-
-		cpu@1 {
-			device_type = "cpu";
-			compatible = "arm,cortex-a72";
-			reg = <0x01>;
-			enable-method = "spin-table";
-			cpu-release-addr = <0x00 0xe0>;
-			d-cache-size = <0x8000>;
-			d-cache-line-size = <0x40>;
-			d-cache-sets = <0x100>;
-			i-cache-size = <0xc000>;
-			i-cache-line-size = <0x40>;
-			i-cache-sets = <0x100>;
-			next-level-cache = <0x3d>;
-			phandle = <0x3a>;
-		};
-
-		cpu@2 {
-			device_type = "cpu";
-			compatible = "arm,cortex-a72";
-			reg = <0x02>;
-			enable-method = "spin-table";
-			cpu-release-addr = <0x00 0xe8>;
-			d-cache-size = <0x8000>;
-			d-cache-line-size = <0x40>;
-			d-cache-sets = <0x100>;
-			i-cache-size = <0xc000>;
-			i-cache-line-size = <0x40>;
-			i-cache-sets = <0x100>;
-			next-level-cache = <0x3d>;
-			phandle = <0x3b>;
-		};
-
-		cpu@3 {
-			device_type = "cpu";
-			compatible = "arm,cortex-a72";
-			reg = <0x03>;
-			enable-method = "spin-table";
-			cpu-release-addr = <0x00 0xf0>;
-			d-cache-size = <0x8000>;
-			d-cache-line-size = <0x40>;
-			d-cache-sets = <0x100>;
-			i-cache-size = <0xc000>;
-			i-cache-line-size = <0x40>;
-			i-cache-sets = <0x100>;
-			next-level-cache = <0x3d>;
-			phandle = <0x3c>;
-		};
-
-		l2-cache0 {
-			compatible = "cache";
-			cache-unified;
-			cache-size = <0x100000>;
-			cache-line-size = <0x40>;
-			cache-sets = <0x400>;
-			cache-level = <0x02>;
-			phandle = <0x3d>;
+			enable-method = "psci";
 		};
 	};
 
@@ -132,7 +63,7 @@
 
      chosen {
 		stdout-path = "/soc/serial@7e215040";
-		bootargs = "console=ttyS0,115200 earlycon=uart8250,mmio32,0xfe215040 8250.nr_uarts=1 rw debug loglevel=8 pci=nomsi initcall_debug initcall_blacklist=clk_disable_unused";
+		bootargs = "console=ttyS0,115200 earlycon=uart8250,mmio32,0xfe215040 8250.nr_uarts=1 rw debug loglevel=8 pci=nomsi initcall_debug initcall_blacklist=clk_disable_unused maxcpus=1";
           linux,initrd-end = <0x00000000 0x2f000000>;
           linux,initrd-start = <0x00000000 0x2d700000>;
 	};
