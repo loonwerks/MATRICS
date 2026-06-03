@@ -9,4 +9,12 @@
 			phandle = <0x01>;
 		};
      };
+
+     chosen {
+		stdout-path = "serial0:115200n8";
+		bootargs = "console=ttyS0,115200 earlycon=uart8250,mmio32,0xfe215040 debug loglevel=8";
+          linux,stdout-path = "serial0:115200n8";
+          linux,initrd-start = <0x2d700000>;
+          linux,initrd-end = <0x2f000000>;
+	};
 };
