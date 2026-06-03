@@ -127,8 +127,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     scheduler = ProtectionDomain("scheduler", "scheduler.elf", priority=200)
 
     if board.name == "qemu_virt_aarch64":
-        RAM = 0x40_000_000
-        RAM_SIZE = 0x10_000_000
+        RAM = 0x4000_0000
+        RAM_SIZE = 0x1000_0000
         GIC_VM = 0x8_010_000
         GIC_VMM = 0x8_040_000
         Serial = 0x9_000_000
@@ -140,9 +140,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         GIC_VM = 0xFF84_2000 # CPU Interface
         GIC_VMM = 0xFF84_6000 # vCPU interface
         Serial = 0xFE21_5000
-        Serial_IRQ = 57
+        Serial_IRQ = 125
         OFFSET = 0
-     #    Serial_IRQ = 0x7D
     else:
         assert False
 

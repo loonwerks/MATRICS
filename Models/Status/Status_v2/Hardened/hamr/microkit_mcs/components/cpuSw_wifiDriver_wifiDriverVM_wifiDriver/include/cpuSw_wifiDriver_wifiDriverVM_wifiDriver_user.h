@@ -26,7 +26,7 @@
 #define SERIAL_IRQ 33
 #elif defined(BOARD_rpi4b_4gb)
 #define SERIAL_IRQ_CH 1
-#define SERIAL_IRQ 57
+#define SERIAL_IRQ 125
 #else
 #error Need to define IRQs
 #endif
