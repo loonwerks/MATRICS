@@ -39,6 +39,7 @@ LINUX := $(LINUX_IMAGE_DIR)/linux
 DTS := $(LINUX_IMAGE_DIR)/linux.dts
 DTB := $(TOP_BUILD_DIR)/linux.dtb
 INITRD := $(LINUX_IMAGE_DIR)/rootfs.cpio.gz
+ROOTFS_PACKAGING_DIR := $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/rootfs
 
 LINUX_VER ?= 85000f3f42a882e4476e57003d53f2bbec8262b0-linux
 INITRD_VER ?= 6dcd1debf64e6d69b178cd0f46b8c4ae7cebe2a5-rootfs.cpio.gz
@@ -89,6 +90,14 @@ $(INITRD):
 	tar xf $@.tar.gz -C $(LINUX_IMAGE_DIR)
 	cp $(LINUX_IMAGE_DIR)/$(INITRD_VER)/rootfs.cpio.gz $@
 
+$(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
+	$(ROOTFS_PACKAGING_DIR)/packrootfs ${INITRD} \
+		$(TOP_BUILD_DIR)/rootfs_staging -o $@ \
+		--early_startup $(ROOTFS_PACKAGING_DIR)/ssl_cert_init \
+		--startup $(ROOTFS_PACKAGING_DIR)/gunicorn_init \
+		--nginx $(ROOTFS_PACKAGING_DIR)/nginx/nginx.conf $(ROOTFS_PACKAGING_DIR)/nginx/server.cnf \
+		--home $(ROOTFS_PACKAGING_DIR)/ground_station.py
+
 $(DTB):
 ifeq ("", "$(shell which $(DTC))")
 	$(error "Could not find dependency: Device Tree Compiler (dtc)")
@@ -98,11 +107,11 @@ endif
 	$(DTC) -q -I dts -O dtb $(TOP_BUILD_DIR)/linux.dts > $@
 
 #$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX_IMAGE_DIR) $(LINUX) $(INITRD) $(DTB)
-$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(INITRD) $(DTB)
+$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(TOP_BUILD_DIR)/rootfs.cpio.gz $(DTB)
 	$(CC) -c -g3 -x assembler-with-cpp \
 		-DGUEST_KERNEL_IMAGE_PATH=\"$(LINUX)\" \
 		-DGUEST_DTB_IMAGE_PATH=\"$(DTB)\" \
-		-DGUEST_INITRD_IMAGE_PATH=\"$(INITRD)\" \
+		-DGUEST_INITRD_IMAGE_PATH=\"$(TOP_BUILD_DIR)/rootfs.cpio.gz\" \
 		-target $(TARGET) \
 		$< \
 		-o $@
