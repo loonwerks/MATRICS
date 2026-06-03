@@ -291,7 +291,15 @@ $(IMAGE_FILE) $(REPORT_FILE): $(IMAGES) $(SYSTEM_FILE)
 FORCE:
 
 qemu:
-	$(QEMU) -nographic $(QEMU_ARCH_ARGS)
+	$(QEMU) -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
+                -cpu cortex-a53 \
+                -serial mon:stdio \
+                -device loader,file=$(IMAGE_FILE),addr=0x70000000,cpu-num=0 \
+                -m 2G \
+                -nographic \
+			 -global virtio-mmio.force-legacy=false \
+			 -netdev user,id=mynet0,hostfwd=tcp::8080-:80,hostfwd=tcp::8443-:443 \
+ 			 -device virtio-net-device,netdev=mynet0
 
 clean::
 	${RM} -f *.elf .depend* $

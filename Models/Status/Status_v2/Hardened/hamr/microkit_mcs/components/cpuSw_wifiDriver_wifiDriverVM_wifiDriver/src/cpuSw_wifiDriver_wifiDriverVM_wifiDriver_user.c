@@ -4,6 +4,8 @@
 #include <libvmm/arch/aarch64/fault.h>
 #include <libvmm/guest.h>
 #include <libvmm/virq.h>
+#include <string.h>
+#include <stdlib.h>
 
 // This file will not be overwritten if HAMR codegen is rerun
 
@@ -22,9 +24,16 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
+// Microkit will set this variable to the start of the RX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
+
+// Microkit will set this variable to the start of the TX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
+
 static int get_dev_irq_by_ch(microkit_channel ch);
 static int get_dev_ch_by_irq(int irq, microkit_channel *ch);
 static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie);
+static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -76,17 +85,39 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
-  printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
+     uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
+     if (rx_ready == 1){
+          Common_IncomingWifiMessage_Impl message;
+          char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr + 0x04);
+          if (parse_message(data, &message)){
+               if (put_wifiRecvOut(&message)){
+                    // Reset RX flag
+                    *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
+               }
+          } else { // Message is not of correct format
+               // Reset RX flag
+               *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
+          }
+     } else {
+          printf("VMM is waiting.\n");
+     }
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
   switch (ch) {
     case SERIAL_IRQ_CH: {
-      bool success = virq_inject(GUEST_VCPU_ID, SERIAL_IRQ);
-      if (!success) {
-        LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_VCPU_ID);
-      }
-      break;
+          bool success = virq_inject(GUEST_VCPU_ID, SERIAL_IRQ);
+          if (!success) {
+          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_VCPU_ID);
+          }
+          break;
+    }
+    case ETHERNET_IRQ_CH: {
+          bool success = virq_inject(GUEST_VCPU_ID, ETHERNET_IRQ);
+          if (!success) {
+          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_VCPU_ID);
+          }
+          break;
     }
     default:
       printf("Unexpected channel, ch: 0x%lx\n", ch);
@@ -140,4 +171,145 @@ static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie) {
   if (!status) {
     microkit_irq_ack(ch);
   }
+}
+
+uint32_t string_to_ip(const char** str){
+     uint32_t ip = 0;
+     char value[4];
+     size_t i;
+     for (int j = 24; j >= 0; j=j-8){
+          i = 0;
+          while(**str != '.' && i < 3){
+               value[i++] = **str;
+               (*str)++;
+          }
+          if(**str == '.'){
+               (*str)++; // skip dot
+          }
+          value[i] = '\0'; // Null-terminate the string
+          ip = ip | ((uint32_t)atoi(value) << j);
+     }
+     return ip;
+} 
+
+void skip_whitespace(const char **str) {
+     while(**str == ' '){
+          (*str)++;
+     }
+}
+
+void parse_string(const char **str, char *dest, size_t dest_size){
+     (*str)++; // Skip openning quote
+     size_t i = 0;
+
+     while (**str != '"' && **str != '\0'){
+          if (i < dest_size){
+               dest[i++] = **str;
+          }
+          (*str)++;
+     }
+
+     dest[i] = '\0'; // Null-terminate the string
+
+     if(**str == '"')
+          (*str)++; // Skip ending quote
+}
+
+void parse_string_first_item(const char **str, char *dest, size_t dest_size){
+     (*str)++; // Skip openning quote
+     size_t i = 0;
+
+     while (**str != '"' && **str != '\0' && **str != ','){
+          if (i < dest_size){
+               dest[i++] = **str;
+          }
+          (*str)++;
+     }
+     
+     dest[i] = '\0'; // Null-terminate the string
+
+     while (**str != '"' && **str != '\0'){ // Ignore rest of list
+          (*str)++;
+     }
+
+     if(**str == '"')
+          (*str)++; // Skip ending quote
+}
+
+static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message){
+     Common_WifiHeader_Impl header;
+     skip_whitespace(&str);
+     if(*str != '{'){
+          return false; // Invalid JSON
+     }
+     str++; // Skip '{'
+
+     while(1) {
+          skip_whitespace(&str);
+          if (*str == '}'){
+               str++; // Skip '}'
+               break;
+          }
+
+          // Parse key
+          char key[64];
+          parse_string(&str, key, sizeof(key));
+          skip_whitespace(&str);
+          if (*str != ':'){
+               return false; // Invalid JSON
+          }
+          str++; // Skip ':'
+          skip_whitespace(&str);
+          if(strcmp(key, "headers") == 0){
+               if(*str != '{'){
+                    return false; // Invalid JSON
+               }
+               str++; // Skip '{'
+               while(1){
+                    skip_whitespace(&str);
+                    if (*str == '}'){
+                         str++; // Skip '}'
+                         break;
+                    }
+                    // Parse key
+                    char header_key[64];
+                    parse_string(&str, header_key, sizeof(header_key));
+                    skip_whitespace(&str);
+                    if (*str != ':'){
+                         return false; // Invalid JSON
+                    }
+                    str++; // Skip ':'
+                    skip_whitespace(&str);
+                    char value[64];
+                    if(strcmp(header_key, "Host") == 0){
+                         parse_string(&str, value, sizeof(value));
+                         strcpy(header.route, value);
+                    } else if(strcmp(header_key, "X-Forwarded-For") == 0){
+                         parse_string_first_item(&str, value, sizeof(value));
+                         const char *temp_ptr = value;
+                         header.client = string_to_ip(&temp_ptr);
+                    }
+                    else {
+                         parse_string(&str, value, sizeof(value));
+                    }
+                    skip_whitespace(&str);
+                    if (*str == ','){
+                         str++;
+                         skip_whitespace(&str);
+                    }
+               }
+          } else if(strcmp(key, "body") == 0){
+               char value[1024];
+               parse_string(&str, value, sizeof(value));
+               strcpy((char*)(*message).payload, value);
+          } else {
+               return false; // Unexpected JSON member
+          }
+          if (*str == ','){ // More members
+               str++; // Skip ','
+               skip_whitespace(&str);
+          }
+     }
+     (*message).header = header;
+     return true;
 }
