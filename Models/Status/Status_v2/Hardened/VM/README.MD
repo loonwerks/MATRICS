@@ -56,6 +56,21 @@ We must compile a linux kernel image from source for each platform.
 
           make ARCH=arm64 CROSS_COMPILE=aarch64-none-elf- menuconfig
 
+     <!-- **NOTE:** To enable virtio, enable `Device Drivers` >> `Virtio drivers`: `PCI driver for virtio devices` and `Virtio balloon driver` and `Platform bus driver for memory mapped virtio devices`.
+
+     **NOTE:** To enable virtio-net, `Device Drivers` >> `Network device support` >> `Virtio network driver`. 
+
+     **NOTE:** To enable virtio-console, `Device Drivers` >> `Character devices` >> `Virtio console`.  -->
+
+     **NOTE:** To ensure WiFi driver is built-in, enable the following in `Networking support`:
+     
+     - `RF switch subsystem support`
+     - `Wireless` >> `cfg80211 - wireless configuration API`
+  
+     and enable the following in `Device Drivers` >> `Network Device Support` >> `Wireless LAN` :
+
+     - `Broadcam FullMAC WLAN driver`
+
      <u>Option 2:</u> Utilize already created .config:
      
           cp ../linux/RPI4B-VM/.linuxconfig .config
@@ -136,8 +151,6 @@ We must create and compress an initial root file system.
 
      - `openssl binary`
 
-
-
      <u>Option 2:</u> Utilize already created .config:
      
           cp ../linux/QEMU-VM/.buildrootconfig .config
@@ -172,6 +185,11 @@ We must create and compress an initial root file system.
 
      **NOTE:** You will want to deselect `Kernel` >> `Linux Kernel` so Buildroot doesn't compile a linux kernel (because we already did that above).
 
+     **NOTE:** To connect to WiFi, select the following:
+     
+     - `System Configuration` >> `/dev managment` >> `Dynamic using devtempfs + eudev)`
+     - `Target Packages` >> `Networking Applications` >> `network-manager` >> `nmcli support`
+
      **NOTE:** For nginx webserver, enable `Target Packages` >> `Networking applications` >> `nginx` and enable the following modules:
 
      - `ngx_http_ssl_module`
@@ -187,7 +205,7 @@ We must create and compress an initial root file system.
 
      - `openssl binary`
 
-
+     **NOTE:** To enable WiFi, go to `System Configuration` >> `/dev management` and select `Dynamic using devtmpfs + mdev`. Then go to `Target Packages` >> `Networking Applications` and select `network-manager`.
 
      <u>Option 2:</u> Utilize already created .config:
      
@@ -196,7 +214,7 @@ We must create and compress an initial root file system.
 3. Make root filesystem:
 
           make
-          cp output/images/rootfs.cpio.gz ../linux/QEMU-VM/
+          cp output/images/rootfs.cpio.gz ../linux/RPI4B-VM/
 
 **NOTE:** This will take a while to build.
 

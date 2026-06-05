@@ -41,8 +41,6 @@ qemu_rpi4b: $(IMAGE_FILE) $(DTB_FILE)
 		-display none \
 		-nographic \
 		-append "earlycon=pl011,mmio32,0xfe201000 console=ttyAMA0,115200" \
-		-netdev user,id=net0 \
-    		-device usb-net,netdev=net0
 
 qemu: $(IMAGE_FILE) $(DTB_FILE)
 	qemu-system-aarch64 -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
