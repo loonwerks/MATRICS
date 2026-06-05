@@ -1,0 +1,10 @@
+#!/bin/sh
+# Redirect standard input, output, and error directly to the kernel printk buffer
+exec 0</dev/kmsg
+exec 1>/dev/kmsg
+exec 2>/dev/kmsg
+
+echo "This user space text will now print directly via earlycon!"
+
+echo "Linux user-space: Writing to memory"
+busybox devmem 0x50000000 8 0xFF

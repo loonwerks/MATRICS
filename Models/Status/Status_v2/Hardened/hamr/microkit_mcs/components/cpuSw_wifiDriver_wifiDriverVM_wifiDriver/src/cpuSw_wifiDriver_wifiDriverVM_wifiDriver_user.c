@@ -71,6 +71,7 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 
   // Register Pass-through device IRQs
   for(int i=0; i < MAX_IRQS; i++) {
+     printf("Registering pass-through device interrupt %d on channel %d\n", mk_irqs[i].irq, mk_irqs[i].channel);
     success = virq_register(GUEST_VCPU_ID, mk_irqs[i].irq, &pt_dev_ack, NULL);
     // Just in case there are already interrupts available to handle, we ack them here.
     microkit_irq_ack(mk_irqs[i].channel);
@@ -98,8 +99,6 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
                // Reset RX flag
                *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
           }
-     } else {
-          printf("VMM is waiting.\n");
      }
 }
 
@@ -116,6 +115,14 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
           bool success = virq_inject(GUEST_VCPU_ID, ETHERNET_IRQ);
           if (!success) {
           LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_VCPU_ID);
+          }
+          break;
+    }
+    case MAILBOX_IRQ_CH: {
+          printf("Received mailbox interrupt!");
+          bool success = virq_inject(GUEST_VCPU_ID, MAILBOX_IRQ);
+          if (!success) {
+          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", MAILBOX_IRQ, GUEST_VCPU_ID);
           }
           break;
     }

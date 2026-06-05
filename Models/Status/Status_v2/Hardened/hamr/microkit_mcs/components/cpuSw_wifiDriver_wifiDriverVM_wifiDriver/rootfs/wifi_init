@@ -1,0 +1,17 @@
+#!/bin/sh
+# Redirect standard input, output, and error directly to the kernel printk buffer
+exec 0</dev/kmsg
+exec 1>/dev/kmsg
+exec 2>/dev/kmsg
+
+# Manually load the Broadcom wireless driver
+modprobe brcmfmac
+
+# Force the interface up manually
+echo "View interfaces"
+ip link
+# ip link set wlan0 up
+
+# Connect directly via wpa_supplicant using a configuration file
+wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+udhcpc -i wlan0
