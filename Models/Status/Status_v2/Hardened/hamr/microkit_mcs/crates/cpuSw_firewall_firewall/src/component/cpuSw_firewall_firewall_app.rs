@@ -48,7 +48,7 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      log_info("compute entrypoint invoked");
+      // log_info("compute entrypoint invoked");
     }
 
     pub fn notify(
