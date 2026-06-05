@@ -1,4 +1,9 @@
 #!/bin/sh
+# Redirect standard input, output, and error directly to the kernel printk buffer
+exec 0</dev/kmsg
+exec 1>/dev/kmsg
+exec 2>/dev/kmsg
+
 
 echo "Binding to Flask App with Gunicorn"
 gunicorn --bind unix:/root/ground_station.sock --chdir /root ground_station:app

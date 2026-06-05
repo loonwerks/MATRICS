@@ -19,18 +19,20 @@
 #error Need to define guest kernel image address and DTB address
 #endif
 
-#define MAX_IRQS 2
-
 #if defined(BOARD_qemu_virt_aarch64)
+#define MAX_IRQS 2
 #define SERIAL_IRQ_CH 1
 #define SERIAL_IRQ 33
 #define ETHERNET_IRQ_CH 2
 #define ETHERNET_IRQ 79
 #elif defined(BOARD_rpi4b_4gb)
+#define MAX_IRQS 3
 #define SERIAL_IRQ_CH 1
 #define SERIAL_IRQ 125
 #define ETHERNET_IRQ_CH 2
-#define ETHERNET_IRQ 0
+#define ETHERNET_IRQ 158
+#define MAILBOX_IRQ_CH 3
+#define MAILBOX_IRQ 65
 #else
 #error Need to define IRQs
 #endif
@@ -49,6 +51,11 @@ struct mk_irq mk_irqs[MAX_IRQS] = {
   {
      .irq = ETHERNET_IRQ,
      .channel = ETHERNET_IRQ_CH,
+  },
+  // Mailbox
+  {
+     .irq = MAILBOX_IRQ,
+     .channel = MAILBOX_IRQ_CH,
   },
 };
 

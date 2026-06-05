@@ -147,6 +147,10 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         GIC_VMM = 0xFF84_6000 # vCPU interface
         Serial = 0xFE21_5000
         Serial_IRQ = 125
+        RX_Buffer = 0x50_000_000
+        TX_Buffer = 0x50_001_000
+        Ethernet = 0xFE30_0000
+        Ethernet_IRQ = 158
         OFFSET = 0
     else:
         assert False
@@ -305,6 +309,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=Serial_IRQ,id=1))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=Ethernet_IRQ,id=2))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=65,id=3))
 
     #######################################
     # Virtual Machines
@@ -316,6 +321,20 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Ethernet, Ethernet, cached=False, perms="rw"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer, RX_Buffer, cached=False, perms="rw"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer, TX_Buffer, cached=False, perms="rw"))
+    if board.name == "rpi4b_4gb":
+          GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Cache = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Cache", size=0x1000, paddr=0x0)
+          sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Cache)
+          cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Cache, 0x0, cached=False, perms="rw"))
+          GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager", size=0x2000, paddr=0xFE101000)
+          sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager)
+          cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager, 0xFE101000, cached=False, perms="rw"))
+          GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GPIO = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GPIO", size=0x1000, paddr=0xFE200000)
+          sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GPIO)
+          cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GPIO, 0xFE200000, cached=False, perms="rw"))
+          GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Mailbox = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Mailbox", size=0x1000, paddr=0xFE00B000)
+          sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Mailbox)
+          cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Mailbox, 0xFE00B000, cached=False, perms="rw"))
+
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver.set_virtual_machine(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM)
 
     #######################################
