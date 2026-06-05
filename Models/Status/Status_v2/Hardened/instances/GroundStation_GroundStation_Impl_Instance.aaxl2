@@ -3370,7 +3370,7 @@
                   <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.0"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPropertyAssociation.1"/>
+              <propertyAssociation href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.4"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>

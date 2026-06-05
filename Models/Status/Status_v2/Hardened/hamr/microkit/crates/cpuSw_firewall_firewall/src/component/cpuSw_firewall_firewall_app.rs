@@ -40,15 +40,14 @@ verus! {
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee Forward_Request
         //   G: Only forward a request if it is from a trusted source.
-        if (api.analysis_request_in.is_some() && FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_request_in.unwrap().header.client)) {
-          api.analysis_request_out.is_some() &&
-            (api.analysis_request_out.unwrap() == api.analysis_request_in.unwrap())
+        if (event(api.analysis_request_in) && FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api.analysis_request_in.unwrap().header.client)) {
+          event(api.analysis_request_out) && (api.analysis_request_out.unwrap() == api.analysis_request_in.unwrap())
         } else {
-          api.analysis_request_out.is_none()
+          !event(api.analysis_request_out)
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      // log_info("compute entrypoint invoked");
+      // To-Do: Provide Implementation
     }
 
     pub fn notify(
@@ -77,9 +76,14 @@ verus! {
   }
 
   // BEGIN MARKER GUMBO METHODS
+   pub open spec fn event(request: Option<Common::AnalysisRequest_Impl>) -> bool
+  {
+    request.is_some()
+  }
+
   pub open spec fn ALLOW_LIST() -> MATRICS_Model_Transformations::AllowList_Impl
   {
-    [1u32, 2u32, 3u32, 4u32]
+    [3232235877u32, 3232235878u32, 3232235879u32, 3232235880u32]
   }
 
   pub open spec fn FOUND_IN_ALLOW_LIST(

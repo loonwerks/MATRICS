@@ -20,7 +20,8 @@ public
 	end AllowList.Impl;
 	
 	annex agree {**
-		const ALLOW_LIST: AllowList.Impl = [| 1, 2, 3, 4 |];
+		-- Allow 192.168.1.101, 192.168.1.102, 192.168.1.103, and 192.168.1.104,
+		const ALLOW_LIST: AllowList.Impl = [| 3232235877, 3232235878, 3232235879, 3232235880 |];
 			
 		fun FOUND_IN_ALLOW_LIST(allow_list: AllowList.Impl, src: Base_Types::Unsigned_32): bool = 
 			exists i in allow_list, i = src;
