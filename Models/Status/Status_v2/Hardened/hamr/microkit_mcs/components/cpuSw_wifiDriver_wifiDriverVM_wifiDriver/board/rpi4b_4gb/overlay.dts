@@ -1,64 +1,202 @@
 / {
-    soc {
-        interrupt-controller@40041000 {
-            interrupt-controller;
-            #interrupt-cells = <0x03>;
-            compatible = "arm,gic-400";
-            reg = <0x40041000 0x1000 0x40042000 0x2000 0x40044000 0x2000 0x40046000 0x2000>;
-            interrupts = <0x01 0x09 0xf04>;
-            phandle = <0x01>;
-        };
+     memory@0 {
+		device_type = "memory";
+          /* Tell Linux that only 256MiB of RAM is available starting at 0x20000000 (to avoid collision). */
+		reg = <0x00 0x20000000 0x10000000>;
+     };
 
-        mailbox@7e00b880 {
-            compatible = "brcm,bcm2835-mbox";
-            reg = <0x7e00b880 0x40>;
-            interrupts = <0x00 0x21 0x04>;
-            #mbox-cells = <0x01>;
-            status = "okay";
-            phandle = <0x31>;
-        };
+     soc {
+          cprman@7e101000 {
+               status = "disabled";
+          };
 
-        firmware {
-            compatible = "raspberrypi,bcm2835-firmware", "simple-bus";
-            mboxes = <0x31 0x08>;
-            status = "okay";
-            phandle = <0x06>;
+          mailbox@7e00b880 {
+			status = "disabled";
+		};
 
-            power {
-                compatible = "raspberrypi,bcm2835-power";
-                firmware = <0x06>;
-                #power-domain-cells = <0x01>;
-                status = "okay";
-                phandle = <0x10>;
-            };
-        };
+          gpio@7e200000 {
+               status = "disabled";
+          };
 
-        mmcnr@7e300000 {
-            compatible = "brcm,bcm2835-mmc", "brcm,bcm2835-sdhci";
-            reg = <0x7e300000 0x100>;
-            interrupts = <0x00 0x7e 0x04>;
-            clocks = <0x40>;
-            brcm,overclock-50 = <0x00>;
-            non-removable;
-            status = "okay";
-            power-domains = <0x10 0x00>;
-            #address-cells = <0x01>;
-            #size-cells = <0x00>;
-            bus-width = <0x04>;
+		serial@7e201000 {
+			status = "disabled";
+		};
 
-            wifi@1 {
-                reg = <0x01>;
-                compatible = "brcm,bcm43455-fmac", "brcm,bcm4329-fmac";
-                status = "okay";
-            };
-        };
-    };
+		usb@7e980000 {
+			status = "disabled";
+		};
 
-    chosen {
-        stdout-path = "serial0:115200n8";
-        bootargs = "console=ttyS0,115200 earlycon=uart8250,mmio32,0xfe215040 debug loglevel=8";
-        linux,stdout-path = "serial0:115200n8";
-        linux,initrd-start = <0x2d700000>;
-        linux,initrd-end = <0x2f000000>;
-    };
+		interrupt-controller@40000000 {
+			status = "disabled";
+		};
+
+		avs-monitor@7d5d2000 {
+			status = "disabled";
+		};
+
+		dma-controller@7e007000 {
+			status = "disabled";
+		};
+
+		watchdog@7e100000 {
+			status = "disabled";
+		};
+
+		rng@7e104000 {
+			status = "disabled";
+		};
+
+          firmware {
+			status = "disabled";
+
+			clocks {
+				status = "disabled";
+			};
+
+			gpio {
+				status = "disabled";
+			};
+
+			reset {
+				status = "disabled";
+			};
+
+			vcio {
+				status = "disabled";
+			};
+		};
+
+		mailbox@7e00b840 {
+			status = "disabled";
+		};
+
+		gpiomem {
+			status = "disabled";
+		};
+
+          fb {
+			status = "disabled";
+		};
+
+		nvmem {
+			status = "disabled";
+			nvmem_otp {
+				status = "disabled";
+			};
+			nvmem_cust {
+				status = "disabled";
+			};
+			nvmem_priv {
+				status = "disabled";
+			};
+		};
+     };
+
+	emmc2bus {
+		status = "disabled";
+		mmc@7e340000 {
+			status = "disabled";
+		};
+	};
+
+     cpus {
+
+		cpu@1 {
+			status = "disabled";
+		};
+
+		cpu@2 {
+			status = "disabled";
+		};
+
+		cpu@3 {
+			status = "disabled";
+		};
+
+		l2-cache0 {
+			status = "disabled";
+		};
+	};
+
+     scb {
+		pcie@7d500000 {
+			status = "disabled";
+			pci@0,0 {
+				status = "disabled";
+
+				usb@0,0 {
+					status = "disabled";
+				};
+			};
+		};
+		ethernet@7d580000 {
+			status = "disabled";
+			mdio@e14 {
+				status = "disabled";
+				ethernet-phy@1 {
+					status = "disabled";
+				};
+			};
+		};
+		codec@7eb10000 {
+			status = "disabled";
+		};
+		dma@7e007b00 {
+			status = "disabled";
+		};
+	};
+
+     leds {
+		status = "disabled";
+		led-act {
+			status = "disabled";
+		};
+		led-pwr {
+			status = "disabled";
+		};
+	};
+
+	cam_dummy_reg {
+          status = "disabled";
+	};
+
+     regulator-cam1 {
+		status = "disabled";
+	};
+
+	regulator-sd-io-1v8 {
+		status = "disabled";
+	};
+
+	regulator-sd-vcc {
+		status = "disabled";
+	};
+
+	fixedregulator_3v3 {
+		status = "disabled";
+	};
+
+	fixedregulator_5v0 {
+		status = "disabled";
+	};
+
+	zone_dma {
+		status = "disabled";
+	};
+
+	v3dbus {
+		status = "disabled";
+		v3d@7ec04000 {
+			status = "disabled";
+		};
+	};
+
+
+     chosen {
+		stdout-path = "serial0:115200n8";
+		bootargs = "earlycon=uart8250,mmio32,0xfe215040 console=serial0,115200 debug loglevel=8 maxcpus=1";
+          linux,stdout-path = "serial0:115200n8";
+          linux,initrd-start = <0x2d700000>;
+          linux,initrd-end = <0x2f000000>;
+	};
 };
