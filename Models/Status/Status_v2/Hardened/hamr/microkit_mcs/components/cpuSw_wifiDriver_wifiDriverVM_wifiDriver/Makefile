@@ -96,7 +96,8 @@ $(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
 		--early_startup $(ROOTFS_PACKAGING_DIR)/ssl_cert_init \
 		--startup $(ROOTFS_PACKAGING_DIR)/gunicorn_init \
 		--nginx $(ROOTFS_PACKAGING_DIR)/nginx/nginx.conf $(ROOTFS_PACKAGING_DIR)/nginx/server.cnf \
-		--home $(ROOTFS_PACKAGING_DIR)/ground_station.py
+		--home $(ROOTFS_PACKAGING_DIR)/ground_station.py \
+		--etc $(ROOTFS_PACKAGING_DIR)/wpa_supplicant.conf
 
 $(DTB):
 ifeq ("", "$(shell which $(DTC))")
