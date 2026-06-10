@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Show connection interfaces:"
+ip a
+
+echo "Set up wlan0"
+ip link set wlan0 up
+
+echo "View available WiFi Connections:"
+iw dev wlan0 scan | grep SSID
+
+echo "View wpa_supplicant.conf:"
+cat /etc/wpa_supplicant.conf

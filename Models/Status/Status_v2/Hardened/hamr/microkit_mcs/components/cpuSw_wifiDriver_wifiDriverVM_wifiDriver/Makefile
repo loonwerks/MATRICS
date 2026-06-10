@@ -91,13 +91,14 @@ $(INITRD):
 	cp $(LINUX_IMAGE_DIR)/$(INITRD_VER)/rootfs.cpio.gz $@
 
 $(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
-	$(ROOTFS_PACKAGING_DIR)/packrootfs ${INITRD} \
-		$(TOP_BUILD_DIR)/rootfs_staging -o $@ \
-		--early_startup $(ROOTFS_PACKAGING_DIR)/ssl_cert_init \
-		--startup $(ROOTFS_PACKAGING_DIR)/gunicorn_init \
-		--nginx $(ROOTFS_PACKAGING_DIR)/nginx/nginx.conf $(ROOTFS_PACKAGING_DIR)/nginx/server.cnf \
-		--home $(ROOTFS_PACKAGING_DIR)/ground_station.py \
-		--etc $(ROOTFS_PACKAGING_DIR)/wpa_supplicant.conf
+
+
+$(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
+	cp -r $(LINUX_IMAGE_DIR)/rootfs $(TOP_BUILD_DIR)/rootfs_staging
+	( \
+    	gunzip -dc $< ; \
+    	cd $(TOP_BUILD_DIR)/rootfs_staging && find . | cpio --quiet -o -H newc \
+	 ) | gzip > $@
 
 $(DTB):
 ifeq ("", "$(shell which $(DTC))")
