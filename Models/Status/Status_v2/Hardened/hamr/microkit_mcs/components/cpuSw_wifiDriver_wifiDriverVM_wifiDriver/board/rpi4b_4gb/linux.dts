@@ -66,12 +66,6 @@
 		phandle = <0x4f>;
 	};
 
-	chosen {
-		stdout-path = "serial0:115200n8";
-		bootargs = "coherent_pool=1M 8250.nr_uarts=1 snd_bcm2835.enable_headphones=0 cgroup_disable=memory numa_policy=interleave nvme.max_host_mem_size_mb=0";
-		phandle = <0x54>;
-	};
-
 	reserved-memory {
 		#address-cells = <0x02>;
 		#size-cells = <0x01>;
@@ -1199,7 +1193,7 @@
 		};
 
 		serial@7e201000 {
-			compatible = "arm,pl011-axi";
+			compatible = "arm,pl011-axi", "arm,pl011", "arm,primecell";
 			reg = <0x7e201000 0x200>;
 			interrupts = <0x00 0x79 0x04>;
 			clocks = <0x08 0x13 0x08 0x14>;
@@ -1482,7 +1476,7 @@
 			phy-names = "usb2-phy";
 			power-domains = <0x10 0x06>;
 			interrupt-names = "usb", "soft";
-			status = "okay";
+			status = "disabled";
 			phandle = <0xc5>;
 		};
 
@@ -1529,7 +1523,7 @@
 			#reset-cells = <0x01>;
 			reg = <0x7e100000 0x114 0x7e00a000 0x24 0x7ec11000 0x20>;
 			reg-names = "pm", "asb", "rpivid_asb";
-			clocks = <0x08 0x15 0x08 0x1d 0x08 0x17 0x08 0x16>;
+			clocks = <0x14 0x05 0x08 0x1d 0x08 0x17 0x08 0x16>;
 			clock-names = "v3d", "peri_image", "h264", "isp";
 			system-power-controller;
 			phandle = <0x49>;
@@ -1543,7 +1537,7 @@
 		};
 
 		serial@7e201400 {
-			compatible = "arm,pl011-axi";
+			compatible = "arm,pl011-axi", "arm,pl011", "arm,primecell";
 			reg = <0x7e201400 0x200>;
 			interrupts = <0x00 0x79 0x04>;
 			clocks = <0x08 0x13 0x08 0x14>;
@@ -1556,7 +1550,7 @@
 		};
 
 		serial@7e201600 {
-			compatible = "arm,pl011-axi";
+			compatible = "arm,pl011-axi", "arm,pl011", "arm,primecell";
 			reg = <0x7e201600 0x200>;
 			interrupts = <0x00 0x79 0x04>;
 			clocks = <0x08 0x13 0x08 0x14>;
@@ -1569,7 +1563,7 @@
 		};
 
 		serial@7e201800 {
-			compatible = "arm,pl011-axi";
+			compatible = "arm,pl011-axi", "arm,pl011", "arm,primecell";
 			reg = <0x7e201800 0x200>;
 			interrupts = <0x00 0x79 0x04>;
 			clocks = <0x08 0x13 0x08 0x14>;
@@ -1582,7 +1576,7 @@
 		};
 
 		serial@7e201a00 {
-			compatible = "arm,pl011-axi";
+			compatible = "arm,pl011-axi", "arm,pl011", "arm,primecell";
 			reg = <0x7e201a00 0x200>;
 			interrupts = <0x00 0x79 0x04>;
 			clocks = <0x08 0x13 0x08 0x14>;
@@ -2237,6 +2231,7 @@
 
 				ethernet-phy@1 {
 					reg = <0x01>;
+					brcm,powerdown-enable;
 					led-modes = <0x00 0x08>;
 					phandle = <0x40>;
 				};
@@ -2270,11 +2265,6 @@
 			power-domains = <0x10 0x06>;
 			phandle = <0xec>;
 		};
-	};
-
-	memory@0 {
-		device_type = "memory";
-		reg = <0x00 0x00 0x00>;
 	};
 
 	leds {
@@ -2371,7 +2361,6 @@
 		cam1_reg_gpio = [00 00 00 53 67 70 69 6f 3a 34 00 00 00 00 53 67 70 69 6f 3a 30 3d 00 00 00 00 07];
 		strict_gpiod = "", "", "", "Tbootargs=pinctrl_bcm2835.persist_gpio_outputs=n";
 		arm_freq;
-		eee = "", "", "", "Tbootargs{on='',off='genet.eee=N'}";
 		hdmi = "", "", "", "Ustatus", "", "", "", "Vstatus";
 		nvmem_cust_rw = "", "", "", "Wrw?";
 		nvmem_priv_rw = "", "", "", "Xrw?";
@@ -2387,6 +2376,7 @@
 		pwr_led_gpio = "", "", "", "[gpios:4";
 		pwr_led_activelow = "", "", "", "[gpios:8";
 		pwr_led_trigger = "", "", "", "[linux,default-trigger";
+		eee = "", "", "", "@eee-broken-1000t!", "", "", "", "@eee-broken-100tx!";
 		eth_led0 = "", "", "", "@led-modes:0";
 		eth_led1 = "", "", "", "@led-modes:4";
 		eth_max_speed = "", "", "", "@max-speed:0";

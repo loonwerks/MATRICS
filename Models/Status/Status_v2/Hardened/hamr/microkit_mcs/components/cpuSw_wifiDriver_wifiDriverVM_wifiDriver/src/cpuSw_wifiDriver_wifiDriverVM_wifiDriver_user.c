@@ -111,18 +111,24 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
           }
           break;
     }
-    case ETHERNET_IRQ_CH: {
-          bool success = virq_inject(GUEST_VCPU_ID, ETHERNET_IRQ);
+    case INTERNET_IRQ_CH: {
+          bool success = virq_inject(GUEST_VCPU_ID, INTERNET_IRQ);
           if (!success) {
-          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", ETHERNET_IRQ, GUEST_VCPU_ID);
+          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", INTERNET_IRQ, GUEST_VCPU_ID);
           }
           break;
     }
     case MAILBOX_IRQ_CH: {
-          printf("Received mailbox interrupt!");
           bool success = virq_inject(GUEST_VCPU_ID, MAILBOX_IRQ);
           if (!success) {
           LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", MAILBOX_IRQ, GUEST_VCPU_ID);
+          }
+          break;
+    }
+    case VCHIQ_IRQ_CH: {
+          bool success = virq_inject(GUEST_VCPU_ID, VCHIQ_IRQ);
+          if (!success) {
+          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", VCHIQ_IRQ, GUEST_VCPU_ID);
           }
           break;
     }

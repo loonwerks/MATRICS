@@ -56,20 +56,24 @@ We must compile a linux kernel image from source for each platform.
 
           make ARCH=arm64 CROSS_COMPILE=aarch64-none-elf- menuconfig
 
-     <!-- **NOTE:** To enable virtio, enable `Device Drivers` >> `Virtio drivers`: `PCI driver for virtio devices` and `Virtio balloon driver` and `Platform bus driver for memory mapped virtio devices`.
-
-     **NOTE:** To enable virtio-net, `Device Drivers` >> `Network device support` >> `Virtio network driver`. 
-
-     **NOTE:** To enable virtio-console, `Device Drivers` >> `Character devices` >> `Virtio console`.  -->
+     **NOTE:** Disable `Virtualization` to remove interrupt error.
 
      **NOTE:** To ensure WiFi driver is built-in, enable the following in `Networking support`:
      
      - `RF switch subsystem support`
-     - `Wireless` >> `cfg80211 - wireless configuration API`
+       - `GPIO RFKILL driver`
+     - `Wireless`
+       - `cfg80211 - wireless configuration API`
+       - `Generic IEEE 802.11 Networking Stack (mac80211)`
   
-     and enable the following in `Device Drivers` >> `Network Device Support` >> `Wireless LAN` :
+     and enable the following in `Device Drivers` >> `Network Device Support` >> `Wireless LAN`:
 
-     - `Broadcam FullMAC WLAN driver`
+     - `Broadcom 43xx wireless support (mac80211 stack)`
+       - `Broadcom 43xx SDIO device support`
+       - `Support for N-PHY (the main 802.11n series) devices`
+       - `Broadcom 43xx debugging`
+       - `Broadcom 43xx-legacy wireless support (mac80211 stack)`
+     - `Broadcom FullMAC WLAN driver`
 
      <u>Option 2:</u> Utilize already created .config:
      
@@ -78,7 +82,7 @@ We must compile a linux kernel image from source for each platform.
 3. Compile Kernel:
 
           make ARCH=arm64 CROSS_COMPILE=aarch64-none-elf- Image -j$(nproc)
-          cp arch/arm64/boot/Image ../linux/QEMU-VM/linux
+          cp arch/arm64/boot/Image ../linux/RPI4B-VM/linux
 
 ## Device Tree Blob (.dtb)
 
@@ -205,7 +209,22 @@ We must create and compress an initial root file system.
 
      - `openssl binary`
 
-     **NOTE:** To enable WiFi, go to `System Configuration` >> `/dev management` and select `Dynamic using devtmpfs + mdev`. Then go to `Target Packages` >> `Networking Applications` and select `network-manager`.
+     **NOTE:** To enable WiFi, enable the following in `Target Packages`:
+     
+     - `Hardware Handling` >> `Firmware`
+       - `brcmfmac-sdio-firmware-rpi`
+       - `brcmfmac-sdio-firmware-rpi-wifi`
+     - `Networking Applications`
+       - `iw`
+       - `wireless-regdb`
+       - `wpa_supplicant`
+         - `Install wpa_cli binary`
+         - `Install wpa_passphrase binary`
+         - `Enable the Unix-socket control interface`
+
+     **NOTE:** To disable ethernet and enable WiFi on bootup, go to `System Configuration` >> `Network interface to configure through DHCP` and change text to `wlan0`.
+
+     **NOTE:** To enable console, go to `System Configuration` >> `Run a getty (login prompt) after boot` and change to `(ttyS0) TTY port`.
 
      <u>Option 2:</u> Utilize already created .config:
      
