@@ -65,9 +65,10 @@ verus! {
       let wifi_rx_message = api.get_wifiRecv();
       if wifi_rx_message.is_some() {
           let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
-          match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[..len]) {
+          let start = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == b'/').unwrap_or(64); // Find first character
+          match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[start..len]) {
                Ok(v) => {
-                    if v == "localhost/hmd"{
+                    if v == "/hmd"{
                          api.put_HMD_log(wifi_rx_message.unwrap().payload);
                     }
                },

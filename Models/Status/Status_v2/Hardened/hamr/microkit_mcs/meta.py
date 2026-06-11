@@ -148,6 +148,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         Serial_IRQ = 125
         Internet = 0xFE30_0000
         Internet_IRQ = 158
+        RX_Buffer = 0x60_000_000
+        TX_Buffer = 0x60_001_000
     else:
         assert False
 
