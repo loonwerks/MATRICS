@@ -137,6 +137,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         Serial_IRQ = 33
         Internet = 0xa_003_000
         Internet_IRQ = 79
+        RX_Buffer = 0x50_000_000
+        TX_Buffer = 0x50_001_000
     elif board.name == "rpi4b_4gb":
         RAM = 0x2000_0000
         RAM_SIZE = 0x4000_0000
@@ -148,9 +150,6 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         Internet_IRQ = 158
     else:
         assert False
-
-    RX_Buffer = 0x10_004_000
-    TX_Buffer = 0x10_005_000
 
     # BEGIN META MARKER
 
@@ -316,8 +315,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, RAM, perms="rwx"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_GIC, GIC_VM, cached=False, perms="rw"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Serial, Serial, cached=False, perms="rw"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer, RX_Buffer, cached=False, perms="rw"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer, TX_Buffer, cached=False, perms="rw"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer, RX_Buffer, perms="rw"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer, TX_Buffer, perms="rw"))
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Internet, Internet, cached=False, perms="rw"))
     if board.name == "rpi4b_4gb":
           GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_Clock_Manager", size=0x2000, paddr=0xFE101000)
