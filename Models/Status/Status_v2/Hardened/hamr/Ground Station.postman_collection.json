@@ -1,0 +1,307 @@
+{
+  "info": {
+    "_postman_id": "d3a6ce0d-7b66-4803-964d-678d80a65694",
+    "name": "Ground Station",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54012407",
+    "_collection_link": "https://go.postman.co/collection/54012407-d3a6ce0d-7b66-4803-964d-678d80a65694?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "HMD Log QEMU",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "function hexToBytes(hex) {",
+              "    const bytes = new Uint8Array(hex.length / 2);",
+              "    for (let i = 0; i < bytes.length; i++) {",
+              "        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);",
+              "    }",
+              "    return bytes;",
+              "}",
+              "",
+              "async function encryptMessage() {",
+              "    const keyBytes = hexToBytes('a8f0e578e826086d3042a05022a78b26'); // 16 bytes",
+              "    const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for GCM",
+              "    const message = \"Hello World! I think I am encrypted...am i?\";",
+              "",
+              "    const key = await crypto.subtle.importKey(",
+              "        'raw',",
+              "        keyBytes,",
+              "        { name: 'AES-GCM' },",
+              "        false,",
+              "        ['encrypt']",
+              "    );",
+              "",
+              "    const encoded = new TextEncoder().encode(message);",
+              "",
+              "    const encryptedBuffer = await crypto.subtle.encrypt(",
+              "        { name: 'AES-GCM', iv },",
+              "        key,",
+              "        encoded",
+              "    );",
+              "",
+              "    // Prepend IV to ciphertext so the server can decrypt it",
+              "    const combined = new Uint8Array(iv.length + encryptedBuffer.byteLength);",
+              "    combined.set(iv, 0);",
+              "    combined.set(new Uint8Array(encryptedBuffer), iv.length);",
+              "",
+              "    // AES-GCM appends a 16-byte authentication tag at the end of the encrypted output",
+              "    const encryptedBytes = new Uint8Array(encryptedBuffer);",
+              "    const ciphertext = encryptedBytes.slice(0, encryptedBytes.length - 16);",
+              "    const tag = encryptedBytes.slice(encryptedBytes.length - 16);",
+              "",
+              "    console.log(\"Ciphertext bytes:\", Array.from(ciphertext));",
+              "    console.log(\"Tag bytes:\", Array.from(tag));",
+              "",
+              "    const encryptedBase64 = btoa(String.fromCharCode(...combined));",
+              "",
+              "    console.log(\"Key bytes:\", Array.from(keyBytes))",
+              "    console.log(\"Nonce bytes:\", Array.from(iv));",
+              "    console.log(\"Ciphertext + Tag bytes:\", Array.from(new Uint8Array(encryptedBuffer)));",
+              "    console.log(\"Full message bytes:\", Array.from(combined));",
+              "    console.log(\"encryptedBase64:\", encryptedBase64);",
+              "",
+              "    pm.collectionVariables.set('encryptedMessage', encryptedBase64);",
+              "}",
+              "",
+              "encryptMessage();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Forwarded-For",
+            "value": "192.168.34.5",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{encryptedMessage}}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/hmd",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "hmd"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Request Log",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "function hexToBytes(hex) {",
+              "    const bytes = new Uint8Array(hex.length / 2);",
+              "    for (let i = 0; i < bytes.length; i++) {",
+              "        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);",
+              "    }",
+              "    return bytes;",
+              "}",
+              "",
+              "async function encryptMessage() {",
+              "    const keyBytes = hexToBytes('a8f0e578e826086d3042a05022a78b26'); // 16 bytes",
+              "    const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for GCM",
+              "    const message = \"Hello World! I am encrypted.\";",
+              "",
+              "    const key = await crypto.subtle.importKey(",
+              "        'raw',",
+              "        keyBytes,",
+              "        { name: 'AES-GCM' },",
+              "        false,",
+              "        ['encrypt']",
+              "    );",
+              "",
+              "    const encoded = new TextEncoder().encode(message);",
+              "",
+              "    const encryptedBuffer = await crypto.subtle.encrypt(",
+              "        { name: 'AES-GCM', iv },",
+              "        key,",
+              "        encoded",
+              "    );",
+              "",
+              "    // Prepend IV to ciphertext so the server can decrypt it",
+              "    const combined = new Uint8Array(iv.length + encryptedBuffer.byteLength);",
+              "    combined.set(iv, 0);",
+              "    combined.set(new Uint8Array(encryptedBuffer), iv.length);",
+              "",
+              "    const encryptedBase64 = btoa(String.fromCharCode(...combined));",
+              "    pm.environment.set('encryptedMessage', encryptedBase64);",
+              "}",
+              "",
+              "encryptMessage();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Forwarded-For",
+            "value": "192.168.34.5",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{encryptedMessage}}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:8443/request",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "8443",
+          "path": [
+            "request"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HMD Log RPI4B",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "function hexToBytes(hex) {",
+              "    const bytes = new Uint8Array(hex.length / 2);",
+              "    for (let i = 0; i < bytes.length; i++) {",
+              "        bytes[i] = parseInt(hex.substr(i * 2, 2), 16);",
+              "    }",
+              "    return bytes;",
+              "}",
+              "",
+              "async function encryptMessage() {",
+              "    const keyBytes = hexToBytes('a8f0e578e826086d3042a05022a78b26'); // 16 bytes",
+              "    const iv = crypto.getRandomValues(new Uint8Array(12)); // 12 bytes for GCM",
+              "    const message = \"Hello World! I think I am encrypted...am i?!\";",
+              "",
+              "    const key = await crypto.subtle.importKey(",
+              "        'raw',",
+              "        keyBytes,",
+              "        { name: 'AES-GCM' },",
+              "        false,",
+              "        ['encrypt']",
+              "    );",
+              "",
+              "    const encoded = new TextEncoder().encode(message);",
+              "",
+              "    const encryptedBuffer = await crypto.subtle.encrypt(",
+              "        { name: 'AES-GCM', iv },",
+              "        key,",
+              "        encoded",
+              "    );",
+              "",
+              "    // Prepend IV to ciphertext so the server can decrypt it",
+              "    const combined = new Uint8Array(iv.length + encryptedBuffer.byteLength);",
+              "    combined.set(iv, 0);",
+              "    combined.set(new Uint8Array(encryptedBuffer), iv.length);",
+              "",
+              "    // AES-GCM appends a 16-byte authentication tag at the end of the encrypted output",
+              "    const encryptedBytes = new Uint8Array(encryptedBuffer);",
+              "    const ciphertext = encryptedBytes.slice(0, encryptedBytes.length - 16);",
+              "    const tag = encryptedBytes.slice(encryptedBytes.length - 16);",
+              "",
+              "    console.log(\"Ciphertext bytes:\", Array.from(ciphertext));",
+              "    console.log(\"Tag bytes:\", Array.from(tag));",
+              "",
+              "    const encryptedBase64 = btoa(String.fromCharCode(...combined));",
+              "",
+              "    console.log(\"Key bytes:\", Array.from(keyBytes))",
+              "    console.log(\"Nonce bytes:\", Array.from(iv));",
+              "    console.log(\"Ciphertext + Tag bytes:\", Array.from(new Uint8Array(encryptedBuffer)));",
+              "    console.log(\"Full message bytes:\", Array.from(combined));",
+              "    console.log(\"encryptedBase64:\", encryptedBase64);",
+              "",
+              "    pm.collectionVariables.set('encryptedMessage', encryptedBase64);",
+              "}",
+              "",
+              "encryptMessage();"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Forwarded-For",
+            "value": "192.168.34.5",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{{encryptedMessage}}",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://192.168.40.6/hmd",
+          "protocol": "https",
+          "host": [
+            "192",
+            "168",
+            "40",
+            "6"
+          ],
+          "path": [
+            "hmd"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "encryptedMessage",
+      "value": ""
+    }
+  ]
+}
