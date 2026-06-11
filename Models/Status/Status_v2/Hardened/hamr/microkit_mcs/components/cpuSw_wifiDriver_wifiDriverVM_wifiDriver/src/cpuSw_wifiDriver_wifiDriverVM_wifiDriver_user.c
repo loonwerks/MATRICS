@@ -103,38 +103,15 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
-  switch (ch) {
-    case SERIAL_IRQ_CH: {
-          bool success = virq_inject(GUEST_VCPU_ID, SERIAL_IRQ);
+     int irq = get_dev_irq_by_ch(ch);
+     if (irq != -1){
+          bool success = virq_inject(GUEST_VCPU_ID, irq);
           if (!success) {
-          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", SERIAL_IRQ, GUEST_VCPU_ID);
+               LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", irq, GUEST_VCPU_ID);
           }
-          break;
-    }
-    case INTERNET_IRQ_CH: {
-          bool success = virq_inject(GUEST_VCPU_ID, INTERNET_IRQ);
-          if (!success) {
-          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", INTERNET_IRQ, GUEST_VCPU_ID);
-          }
-          break;
-    }
-    case MAILBOX_IRQ_CH: {
-          bool success = virq_inject(GUEST_VCPU_ID, MAILBOX_IRQ);
-          if (!success) {
-          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", MAILBOX_IRQ, GUEST_VCPU_ID);
-          }
-          break;
-    }
-    case VCHIQ_IRQ_CH: {
-          bool success = virq_inject(GUEST_VCPU_ID, VCHIQ_IRQ);
-          if (!success) {
-          LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", VCHIQ_IRQ, GUEST_VCPU_ID);
-          }
-          break;
-    }
-    default:
-      printf("Unexpected channel, ch: 0x%lx\n", ch);
-  }
+     } else {
+          printf("Unexpected channel, ch: 0x%lx\n", ch);
+     }
 }
 
 /*
