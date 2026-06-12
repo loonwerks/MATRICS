@@ -67,7 +67,7 @@ public
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event data port Common::DummyMessage.Impl;
+			alert: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
@@ -307,7 +307,7 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;
-			alert: out event data port Common::DummyMessage.Impl;
+			alert: out event port;
 		flows
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
@@ -402,7 +402,7 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;			
-			alert: out event data port Common::DummyMessage.Impl;
+			alert: out event port;
 		flows	
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
@@ -582,7 +582,7 @@ public
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event data port Common::DummyMessage.Impl;	
+			alert: in event port;	
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;

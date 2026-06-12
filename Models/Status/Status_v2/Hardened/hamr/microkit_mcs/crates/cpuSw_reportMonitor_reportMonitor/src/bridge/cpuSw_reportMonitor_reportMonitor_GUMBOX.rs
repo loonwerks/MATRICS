@@ -62,7 +62,7 @@ pub fn initialize_defaultCounterAndSince(
   * @param is_invalid2 post-state state variable
   * @param is_valid1 post-state state variable
   * @param since_result post-state state variable
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn initialize_IEP_Guar(
@@ -70,7 +70,7 @@ pub fn initialize_IEP_Guar(
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
 {
   initialize_defaultCounterAndSince(counter, since_result)
@@ -82,7 +82,7 @@ pub fn initialize_IEP_Guar(
   * @param is_invalid2 post-state state variable
   * @param is_valid1 post-state state variable
   * @param since_result post-state state variable
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn initialize_IEP_Post(
@@ -90,7 +90,7 @@ pub fn initialize_IEP_Post(
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
 {
   initialize_IEP_Guar(counter, is_invalid2, is_valid1, since_result, api_alert, api_analysis_report_out)
@@ -160,12 +160,12 @@ pub fn compute_spec_invalid2_guarantee(
   *   G: Send an alert if more than one report is received without a request.
   * @param is_valid1 post-state state variable
   * @param api_analysis_report_in incoming event data port
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   */
 pub fn compute_spec_Alert1_guarantee(
   is_valid1: bool,
   api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_alert: Option<Common::DummyMessage_Impl>) -> bool
+  api_alert: Option<u8>) -> bool
 {
   if (api_analysis_report_in.is_some() & !is_valid1) {
     api_alert.is_some()
@@ -179,11 +179,11 @@ pub fn compute_spec_Alert1_guarantee(
   * guarantee Alert2
   *   G: Send an alert if 3 or more requests are received without a report.
   * @param is_invalid2 post-state state variable
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   */
 pub fn compute_spec_Alert2_guarantee(
   is_invalid2: bool,
-  api_alert: Option<Common::DummyMessage_Impl>) -> bool
+  api_alert: Option<u8>) -> bool
 {
   if (is_invalid2) {
     api_alert.is_some()
@@ -226,7 +226,7 @@ pub fn compute_spec_Forward_Report_guarantee(
   * @param since_result post-state state variable
   * @param api_analysis_report_in incoming event data port
   * @param api_analysis_request incoming event data port
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
@@ -237,7 +237,7 @@ pub fn compute_CEP_T_Guar(
   since_result: bool,
   api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
 {
   let r0: bool = compute_spec_since_result_variable_guarantee(In_since_result, since_result, api_analysis_report_in, api_analysis_request);
@@ -262,7 +262,7 @@ pub fn compute_CEP_T_Guar(
   * @param since_result post-state state variable
   * @param api_analysis_report_in incoming event data port
   * @param api_analysis_request incoming event data port
-  * @param api_alert outgoing event data port
+  * @param api_alert outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_Post(
@@ -276,7 +276,7 @@ pub fn compute_CEP_Post(
   since_result: bool,
   api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of reportMonitor's compute entrypoint

@@ -9,7 +9,7 @@ void cpuSw_reportMonitor_reportMonitor_timeTriggered(void);
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_in_queue_1;
 sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_in_recv_queue;
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_out_queue_1;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
+volatile sb_queue_uint8_t_1_t *alert_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
 sb_queue_Common_AnalysisRequest_Impl_1_Recv_t analysis_request_recv_queue;
 
@@ -34,8 +34,10 @@ bool put_analysis_report_out(const Common_AnalysisReport_Impl *data) {
   return true;
 }
 
-bool put_alert(const Common_DummyMessage_Impl *data) {
-  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) alert_queue_1, (Common_DummyMessage_Impl *) data);
+bool put_alert() {
+  uint8_t eventPayload = 0; // always send 0 as the event payload
+  uint8_t *data = &eventPayload;
+  sb_queue_uint8_t_1_enqueue((sb_queue_uint8_t_1_t *) alert_queue_1, (uint8_t *) data);
 
   return true;
 }
@@ -60,7 +62,7 @@ void init(void) {
 
   sb_queue_Common_AnalysisReport_Impl_1_init((sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_out_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) alert_queue_1);
+  sb_queue_uint8_t_1_init((sb_queue_uint8_t_1_t *) alert_queue_1);
 
   sb_queue_Common_AnalysisRequest_Impl_1_Recv_init(&analysis_request_recv_queue, (sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
 

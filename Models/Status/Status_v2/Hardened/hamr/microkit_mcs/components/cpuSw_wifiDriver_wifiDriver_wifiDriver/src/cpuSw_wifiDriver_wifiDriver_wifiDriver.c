@@ -8,8 +8,8 @@ void cpuSw_wifiDriver_wifiDriver_wifiDriver_timeTriggered(void);
 
 volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_queue_1;
 sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_recv_queue;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
-sb_queue_Common_DummyMessage_Impl_1_Recv_t alert_recv_queue;
+volatile sb_queue_uint8_t_1_t *alert_queue_1;
+sb_queue_uint8_t_1_Recv_t alert_recv_queue;
 volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *wifiSend_queue_1;
 volatile sb_queue_Common_encryptedIncomingPayload_Impl_1_t *HMD_log_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
@@ -32,16 +32,18 @@ bool get_analysis_report(Common_AnalysisReport_Impl *data) {
 }
 
 bool alert_is_empty(void) {
-  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&alert_recv_queue);
+  return sb_queue_uint8_t_1_is_empty(&alert_recv_queue);
 }
 
-bool get_alert_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
-  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &alert_recv_queue, numDropped, data);
+bool get_alert_poll(sb_event_counter_t *numDropped) {
+  uint8_t eventPortPayload;
+  uint8_t *data = &eventPortPayload;
+  return sb_queue_uint8_t_1_dequeue((sb_queue_uint8_t_1_Recv_t *) &alert_recv_queue, numDropped, data);
 }
 
-bool get_alert(Common_DummyMessage_Impl *data) {
+bool get_alert() {
   sb_event_counter_t numDropped;
-  return get_alert_poll (&numDropped, data);
+  return get_alert_poll (&numDropped);
 }
 
 bool put_wifiSend(const Common_OutgoingWifiMessage_Impl *data) {
@@ -80,7 +82,7 @@ void init(void) {
 
   sb_queue_Common_AnalysisReport_Impl_1_Recv_init(&analysis_report_recv_queue, (sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&alert_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) alert_queue_1);
+  sb_queue_uint8_t_1_Recv_init(&alert_recv_queue, (sb_queue_uint8_t_1_t *) alert_queue_1);
 
   sb_queue_Common_OutgoingWifiMessage_Impl_1_init((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSend_queue_1);
 

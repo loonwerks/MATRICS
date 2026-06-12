@@ -14,7 +14,7 @@ extern "C" {
   fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
   fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool;
   fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool;
-  fn put_alert(value: *mut Common::DummyMessage_Impl) -> bool;
+  fn put_alert() -> bool;
 }
 
 pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
@@ -48,10 +48,10 @@ pub fn unsafe_put_analysis_report_out(value: &Common::AnalysisReport_Impl) -> bo
   }
 }
 
-pub fn unsafe_put_alert(value: &Common::DummyMessage_Impl) -> bool
+pub fn unsafe_put_alert() -> bool
 {
   unsafe {
-    return put_alert(value as *const Common::DummyMessage_Impl as *mut Common::DummyMessage_Impl);
+    return put_alert();
   }
 }
 
@@ -67,7 +67,7 @@ lazy_static::lazy_static! {
   pub static ref IN_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
   pub static ref IN_analysis_report_in: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
   pub static ref OUT_analysis_report_out: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
-  pub static ref OUT_alert: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
+  pub static ref OUT_alert: Mutex<Option<u8>> = Mutex::new(None);
 }
 
 #[cfg(test)]
@@ -118,10 +118,10 @@ pub fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_alert(value: *mut Common::DummyMessage_Impl) -> bool
+pub fn put_alert() -> bool
 {
   unsafe {
-    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
+    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
 }

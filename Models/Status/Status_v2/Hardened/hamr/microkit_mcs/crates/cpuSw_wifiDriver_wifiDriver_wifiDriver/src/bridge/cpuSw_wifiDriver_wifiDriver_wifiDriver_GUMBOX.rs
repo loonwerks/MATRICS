@@ -62,12 +62,12 @@ pub fn initialize_IEP_Post(
   *   G: Once an alert command is seen, always stay alerted.
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event data port
+  * @param api_alert incoming event port
   */
 pub fn compute_spec_alert_cmd_variable_guarantee(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<Common::DummyMessage_Impl>) -> bool
+  api_alert: Option<u8>) -> bool
 {
   (impliesL!(
     api_alert.is_some(),
@@ -101,14 +101,14 @@ pub fn compute_spec_Process_Report_guarantee(
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event data port
+  * @param api_alert incoming event port
   * @param api_analysis_report incoming event data port
   * @param api_wifiSend outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
@@ -122,7 +122,7 @@ pub fn compute_CEP_T_Guar(
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event data port
+  * @param api_alert incoming event port
   * @param api_analysis_report incoming event data port
   * @param api_wifiRecv incoming event data port
   * @param api_HMD_log outgoing event data port
@@ -132,7 +132,7 @@ pub fn compute_CEP_T_Guar(
 pub fn compute_CEP_Post(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<Common::DummyMessage_Impl>,
+  api_alert: Option<u8>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
   api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,

@@ -54,7 +54,7 @@ public
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event data port Common::DummyMessage.Impl;
+			alert: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;

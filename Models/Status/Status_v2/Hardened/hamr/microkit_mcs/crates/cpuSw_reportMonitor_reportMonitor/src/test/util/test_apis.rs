@@ -83,8 +83,8 @@ pub fn get_analysis_report_out() -> Option<Common::AnalysisReport_Impl>
   return extern_api::OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
-/// getter for OUT EventDataPort
-pub fn get_alert() -> Option<Common::DummyMessage_Impl>
+/// getter for OUT EventPort
+pub fn get_alert() -> Option<u8>
 {
   return extern_api::OUT_alert.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

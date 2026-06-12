@@ -58,9 +58,9 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_alert(
       &mut self,
-      value: &Ghost<Option<Common::DummyMessage_Impl>>) -> (res : Option<Common::DummyMessage_Impl>)
+      value: &Ghost<Option<u8>>) -> (res : bool)
       ensures
-        res == value@,
+        res == value@.is_some(),
     {
       return extern_api::unsafe_get_alert();
     }
@@ -73,7 +73,7 @@ verus! {
 
     pub ghost wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
     pub ghost analysis_report: Option<Common::AnalysisReport_Impl>,
-    pub ghost alert: Option<Common::DummyMessage_Impl>,
+    pub ghost alert: Option<u8>,
     pub ghost wifiSend: Option<Common::OutgoingWifiMessage_Impl>,
     pub ghost HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>
@@ -149,7 +149,7 @@ verus! {
     {
       self.api.unverified_get_analysis_report(&Ghost(self.analysis_report))
     }
-    pub fn get_alert(&mut self) -> (res : Option<Common::DummyMessage_Impl>)
+    pub fn get_alert(&mut self) -> (res : bool)
       ensures
         old(self).wifiRecv == self.wifiRecv,
         old(self).wifiSend == self.wifiSend,
@@ -157,7 +157,7 @@ verus! {
         old(self).analysis_report == self.analysis_report,
         old(self).analysis_request == self.analysis_request,
         old(self).alert == self.alert,
-        res == self.alert,
+        res == self.alert.is_some(),
     {
       self.api.unverified_get_alert(&Ghost(self.alert))
     }

@@ -18,11 +18,9 @@ verus! {
     }
 
     #[verifier::external_body]
-    fn unverified_put_alert(
-      &mut self,
-      value: Common::DummyMessage_Impl)
+    fn unverified_put_alert(&mut self)
     {
-      extern_api::unsafe_put_alert(&value);
+      extern_api::unsafe_put_alert();
     }
   }
 
@@ -56,7 +54,7 @@ verus! {
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>,
     pub ghost analysis_report_in: Option<Common::AnalysisReport_Impl>,
     pub ghost analysis_report_out: Option<Common::AnalysisReport_Impl>,
-    pub ghost alert: Option<Common::DummyMessage_Impl>
+    pub ghost alert: Option<u8>
   }
 
   impl<API: cpuSw_reportMonitor_reportMonitor_Put_Api> cpuSw_reportMonitor_reportMonitor_Application_Api<API> {
@@ -72,17 +70,15 @@ verus! {
       self.api.unverified_put_analysis_report_out(value);
       self.analysis_report_out = Some(value);
     }
-    pub fn put_alert(
-      &mut self,
-      value: Common::DummyMessage_Impl)
+    pub fn put_alert(&mut self)
       ensures
         old(self).analysis_request == self.analysis_request,
         old(self).analysis_report_in == self.analysis_report_in,
         old(self).analysis_report_out == self.analysis_report_out,
-        self.alert == Some(value),
+        self.alert == Some(0u8),
     {
-      self.api.unverified_put_alert(value);
-      self.alert = Some(value);
+      self.api.unverified_put_alert();
+      self.alert = Some(0u8);
     }
   }
 
