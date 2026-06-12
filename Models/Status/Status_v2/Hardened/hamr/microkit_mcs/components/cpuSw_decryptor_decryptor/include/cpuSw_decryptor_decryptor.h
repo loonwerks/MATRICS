@@ -19,5 +19,5 @@
 
 bool put_HMD_log_out(const Common_Log_Impl *data);
 bool HMD_log_in_is_empty(void);
-bool get_HMD_log_in_poll(sb_event_counter_t *numDropped, Common_encryptedPayload_Impl *data);
-bool get_HMD_log_in(Common_encryptedPayload_Impl *data);
+bool get_HMD_log_in_poll(sb_event_counter_t *numDropped, Common_encryptedIncomingPayload_Impl *data);
+bool get_HMD_log_in(Common_encryptedIncomingPayload_Impl *data);

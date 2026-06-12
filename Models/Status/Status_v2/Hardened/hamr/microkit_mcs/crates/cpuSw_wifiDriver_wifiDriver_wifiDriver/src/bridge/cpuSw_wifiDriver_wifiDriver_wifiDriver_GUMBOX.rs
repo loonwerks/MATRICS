@@ -33,7 +33,7 @@ pub fn initialize_defaultAlert(alert_cmd: bool) -> bool
   */
 pub fn initialize_IEP_Guar(
   alert_cmd: bool,
-  api_HMD_log: Option<Common::encryptedPayload_Impl>,
+  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
 {
@@ -49,7 +49,7 @@ pub fn initialize_IEP_Guar(
   */
 pub fn initialize_IEP_Post(
   alert_cmd: bool,
-  api_HMD_log: Option<Common::encryptedPayload_Impl>,
+  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
 {
@@ -135,7 +135,7 @@ pub fn compute_CEP_Post(
   api_alert: Option<Common::DummyMessage_Impl>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
   api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
-  api_HMD_log: Option<Common::encryptedPayload_Impl>,
+  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
 {

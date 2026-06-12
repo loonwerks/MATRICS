@@ -51,7 +51,7 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::DummyMessage.Impl;
-			HMD_log: out event data port Common::encryptedPayload.Impl;
+			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert: in event data port Common::DummyMessage.Impl;

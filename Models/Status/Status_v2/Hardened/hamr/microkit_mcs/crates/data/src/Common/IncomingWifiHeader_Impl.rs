@@ -8,12 +8,12 @@ verus! {
 
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-  pub struct WifiHeader_Impl {
+  pub struct IncomingWifiHeader_Impl {
     pub route: shortText,
     pub client: u32
   }
 
-  impl Default for WifiHeader_Impl {
+  impl Default for IncomingWifiHeader_Impl {
     fn default() -> Self
     {
       Self { route: [0; Common::Common_shortText_DIM_0], client: 0 }

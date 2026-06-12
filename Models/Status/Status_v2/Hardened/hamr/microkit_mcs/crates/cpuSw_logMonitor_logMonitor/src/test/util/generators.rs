@@ -37,16 +37,30 @@ pub fn Common_DummyMessage_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>>
   })
 }
 
-pub fn Common_encryptedPayload_Impl_strategy_default() -> impl Strategy<Value = Common::encryptedPayload_Impl>
+pub fn Common_OutgoingPayload_Impl_strategy_default() -> impl Strategy<Value = Common::OutgoingPayload_Impl>
 {
-  Common_encryptedPayload_Impl_strategy_cust(any::<u8>())
+  Common_OutgoingPayload_Impl_strategy_cust(any::<u8>())
 }
 
-pub fn Common_encryptedPayload_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::encryptedPayload_Impl>
+pub fn Common_OutgoingPayload_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::OutgoingPayload_Impl>
 {
-  proptest::collection::vec(base_strategy, Common::Common_encryptedPayload_Impl_DIM_0)
+  proptest::collection::vec(base_strategy, Common::Common_OutgoingPayload_Impl_DIM_0)
     .prop_map(|v| {
-      let boxed: Box<[u8; Common::Common_encryptedPayload_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      let boxed: Box<[u8; Common::Common_OutgoingPayload_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
+pub fn Common_encryptedIncomingPayload_Impl_strategy_default() -> impl Strategy<Value = Common::encryptedIncomingPayload_Impl>
+{
+  Common_encryptedIncomingPayload_Impl_strategy_cust(any::<u8>())
+}
+
+pub fn Common_encryptedIncomingPayload_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::encryptedIncomingPayload_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_encryptedIncomingPayload_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[u8; Common::Common_encryptedIncomingPayload_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
       *boxed
   })
 }
@@ -245,15 +259,15 @@ pub fn Common_AnalysisReport_Impl_strategy_default() -> impl Strategy<Value = Co
 {
   Common_AnalysisReport_Impl_strategy_cust(
     Common_MsgHeader_Impl_strategy_default(),
-    any::<u8>()
+    Common_OutgoingPayload_Impl_strategy_default()
   )
 }
 
 pub fn Common_AnalysisReport_Impl_strategy_cust
   <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
-   payload_u8_strategy: Strategy<Value = u8>> (
+   payload_Common_OutgoingPayload_Impl_strategy: Strategy<Value = Common::OutgoingPayload_Impl>> (
   header_strategy: header_Common_MsgHeader_Impl_strategy,
-  payload_strategy: payload_u8_strategy) -> impl Strategy<Value = Common::AnalysisReport_Impl>
+  payload_strategy: payload_Common_OutgoingPayload_Impl_strategy) -> impl Strategy<Value = Common::AnalysisReport_Impl>
 {
   (header_strategy, payload_strategy).prop_map(|(header, payload)| {
     Common::AnalysisReport_Impl { header, payload }
@@ -293,22 +307,22 @@ pub fn Common_AnalysisRequest_Impl_strategy_cust
   })
 }
 
-pub fn Common_WifiHeader_Impl_strategy_default() -> impl Strategy<Value = Common::WifiHeader_Impl>
+pub fn Common_IncomingWifiHeader_Impl_strategy_default() -> impl Strategy<Value = Common::IncomingWifiHeader_Impl>
 {
-  Common_WifiHeader_Impl_strategy_cust(
+  Common_IncomingWifiHeader_Impl_strategy_cust(
     Common_shortText_strategy_default(),
     any::<u32>()
   )
 }
 
-pub fn Common_WifiHeader_Impl_strategy_cust
+pub fn Common_IncomingWifiHeader_Impl_strategy_cust
   <route_Common_shortText_strategy: Strategy<Value = Common::shortText>, 
    client_u32_strategy: Strategy<Value = u32>> (
   route_strategy: route_Common_shortText_strategy,
-  client_strategy: client_u32_strategy) -> impl Strategy<Value = Common::WifiHeader_Impl>
+  client_strategy: client_u32_strategy) -> impl Strategy<Value = Common::IncomingWifiHeader_Impl>
 {
   (route_strategy, client_strategy).prop_map(|(route, client)| {
-    Common::WifiHeader_Impl { route, client }
+    Common::IncomingWifiHeader_Impl { route, client }
   })
 }
 
@@ -359,16 +373,16 @@ pub fn Common_ResponseLog_Impl_strategy_cust
 pub fn Common_IncomingWifiMessage_Impl_strategy_default() -> impl Strategy<Value = Common::IncomingWifiMessage_Impl>
 {
   Common_IncomingWifiMessage_Impl_strategy_cust(
-    Common_WifiHeader_Impl_strategy_default(),
-    Common_encryptedPayload_Impl_strategy_default()
+    Common_IncomingWifiHeader_Impl_strategy_default(),
+    Common_encryptedIncomingPayload_Impl_strategy_default()
   )
 }
 
 pub fn Common_IncomingWifiMessage_Impl_strategy_cust
-  <header_Common_WifiHeader_Impl_strategy: Strategy<Value = Common::WifiHeader_Impl>, 
-   payload_Common_encryptedPayload_Impl_strategy: Strategy<Value = Common::encryptedPayload_Impl>> (
-  header_strategy: header_Common_WifiHeader_Impl_strategy,
-  payload_strategy: payload_Common_encryptedPayload_Impl_strategy) -> impl Strategy<Value = Common::IncomingWifiMessage_Impl>
+  <header_Common_IncomingWifiHeader_Impl_strategy: Strategy<Value = Common::IncomingWifiHeader_Impl>, 
+   payload_Common_encryptedIncomingPayload_Impl_strategy: Strategy<Value = Common::encryptedIncomingPayload_Impl>> (
+  header_strategy: header_Common_IncomingWifiHeader_Impl_strategy,
+  payload_strategy: payload_Common_encryptedIncomingPayload_Impl_strategy) -> impl Strategy<Value = Common::IncomingWifiMessage_Impl>
 {
   (header_strategy, payload_strategy).prop_map(|(header, payload)| {
     Common::IncomingWifiMessage_Impl { header, payload }

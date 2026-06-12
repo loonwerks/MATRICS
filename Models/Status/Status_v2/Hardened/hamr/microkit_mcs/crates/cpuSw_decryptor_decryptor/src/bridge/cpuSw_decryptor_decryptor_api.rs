@@ -22,7 +22,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_HMD_log_in(
       &mut self,
-      value: &Ghost<Option<Common::encryptedPayload_Impl>>) -> (res : Option<Common::encryptedPayload_Impl>)
+      value: &Ghost<Option<Common::encryptedIncomingPayload_Impl>>) -> (res : Option<Common::encryptedIncomingPayload_Impl>)
       ensures
         res == value@,
     {
@@ -35,7 +35,7 @@ verus! {
   pub struct cpuSw_decryptor_decryptor_Application_Api<API: cpuSw_decryptor_decryptor_Api> {
     pub api: API,
 
-    pub ghost HMD_log_in: Option<Common::encryptedPayload_Impl>,
+    pub ghost HMD_log_in: Option<Common::encryptedIncomingPayload_Impl>,
     pub ghost HMD_log_out: Option<Common::Log_Impl>
   }
 
@@ -53,7 +53,7 @@ verus! {
   }
 
   impl<API: cpuSw_decryptor_decryptor_Get_Api> cpuSw_decryptor_decryptor_Application_Api<API> {
-    pub fn get_HMD_log_in(&mut self) -> (res : Option<Common::encryptedPayload_Impl>)
+    pub fn get_HMD_log_in(&mut self) -> (res : Option<Common::encryptedIncomingPayload_Impl>)
       ensures
         old(self).HMD_log_in == self.HMD_log_in,
         res == self.HMD_log_in,

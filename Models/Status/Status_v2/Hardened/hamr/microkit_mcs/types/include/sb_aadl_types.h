@@ -10,10 +10,15 @@
 
 typedef uint8_t Common_DummyMessage_Impl [Common_DummyMessage_Impl_DIM_0];
 
-#define Common_encryptedPayload_Impl_BYTE_SIZE 1024
-#define Common_encryptedPayload_Impl_DIM_0 1024
+#define Common_OutgoingPayload_Impl_BYTE_SIZE 32768
+#define Common_OutgoingPayload_Impl_DIM_0 32768
 
-typedef uint8_t Common_encryptedPayload_Impl [Common_encryptedPayload_Impl_DIM_0];
+typedef uint8_t Common_OutgoingPayload_Impl [Common_OutgoingPayload_Impl_DIM_0];
+
+#define Common_encryptedIncomingPayload_Impl_BYTE_SIZE 1024
+#define Common_encryptedIncomingPayload_Impl_DIM_0 1024
+
+typedef uint8_t Common_encryptedIncomingPayload_Impl [Common_encryptedIncomingPayload_Impl_DIM_0];
 
 typedef struct Common_MsgHeader_Impl {
   uint32_t client;
@@ -76,7 +81,7 @@ typedef bool hamr_ScheduleUserPartitions [hamr_ScheduleUserPartitions_DIM_0];
 
 typedef struct Common_AnalysisReport_Impl {
   Common_MsgHeader_Impl header;
-  uint8_t payload;
+  Common_OutgoingPayload_Impl payload;
 } Common_AnalysisReport_Impl;
 
 #define Common_LogArray_Impl_BYTE_SIZE 100
@@ -89,10 +94,10 @@ typedef struct Common_AnalysisRequest_Impl {
   Common_Request_Impl payload;
 } Common_AnalysisRequest_Impl;
 
-typedef struct Common_WifiHeader_Impl {
+typedef struct Common_IncomingWifiHeader_Impl {
   Common_shortText route;
   uint32_t client;
-} Common_WifiHeader_Impl;
+} Common_IncomingWifiHeader_Impl;
 
 typedef struct hamr_Schedule {
   hamr_ScheduleTimeslices timeslices;
@@ -107,6 +112,6 @@ typedef struct Common_ResponseLog_Impl {
 } Common_ResponseLog_Impl;
 
 typedef struct Common_IncomingWifiMessage_Impl {
-  Common_WifiHeader_Impl header;
-  Common_encryptedPayload_Impl payload;
+  Common_IncomingWifiHeader_Impl header;
+  Common_encryptedIncomingPayload_Impl payload;
 } Common_IncomingWifiMessage_Impl;

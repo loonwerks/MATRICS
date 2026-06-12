@@ -11,7 +11,7 @@ sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_recv_queue;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
 sb_queue_Common_DummyMessage_Impl_1_Recv_t alert_recv_queue;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSend_queue_1;
-volatile sb_queue_Common_encryptedPayload_Impl_1_t *HMD_log_queue_1;
+volatile sb_queue_Common_encryptedIncomingPayload_Impl_1_t *HMD_log_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
 volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecv_queue_1;
 sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t wifiRecv_recv_queue;
@@ -50,8 +50,8 @@ bool put_wifiSend(const Common_DummyMessage_Impl *data) {
   return true;
 }
 
-bool put_HMD_log(const Common_encryptedPayload_Impl *data) {
-  sb_queue_Common_encryptedPayload_Impl_1_enqueue((sb_queue_Common_encryptedPayload_Impl_1_t *) HMD_log_queue_1, (Common_encryptedPayload_Impl *) data);
+bool put_HMD_log(const Common_encryptedIncomingPayload_Impl *data) {
+  sb_queue_Common_encryptedIncomingPayload_Impl_1_enqueue((sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_queue_1, (Common_encryptedIncomingPayload_Impl *) data);
 
   return true;
 }
@@ -84,7 +84,7 @@ void init(void) {
 
   sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSend_queue_1);
 
-  sb_queue_Common_encryptedPayload_Impl_1_init((sb_queue_Common_encryptedPayload_Impl_1_t *) HMD_log_queue_1);
+  sb_queue_Common_encryptedIncomingPayload_Impl_1_init((sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_queue_1);
 
   sb_queue_Common_AnalysisRequest_Impl_1_init((sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
 

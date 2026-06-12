@@ -10,13 +10,13 @@ verus! {
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct AnalysisReport_Impl {
     pub header: MsgHeader_Impl,
-    pub payload: u8
+    pub payload: OutgoingPayload_Impl
   }
 
   impl Default for AnalysisReport_Impl {
     fn default() -> Self
     {
-      Self { header: Common::MsgHeader_Impl::default(), payload: 0 }
+      Self { header: Common::MsgHeader_Impl::default(), payload: [0; Common::Common_OutgoingPayload_Impl_DIM_0] }
     }
   }
 

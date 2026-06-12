@@ -74,7 +74,7 @@ pub fn get_wifiSend() -> Option<Common::DummyMessage_Impl>
 }
 
 /// getter for OUT EventDataPort
-pub fn get_HMD_log() -> Option<Common::encryptedPayload_Impl>
+pub fn get_HMD_log() -> Option<Common::encryptedIncomingPayload_Impl>
 {
   return extern_api::OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

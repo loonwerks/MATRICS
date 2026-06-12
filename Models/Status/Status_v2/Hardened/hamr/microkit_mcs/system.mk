@@ -86,7 +86,7 @@ TYPE_OBJS := \
 	sb_queue_Common_Log_Impl_1.o \
 	sb_queue_uint8_t_1.o \
 	sb_queue_Common_AnalysisRequest_Impl_1.o \
-	sb_queue_Common_encryptedPayload_Impl_1.o \
+	sb_queue_Common_encryptedIncomingPayload_Impl_1.o \
 	sb_queue_Common_IncomingWifiMessage_Impl_1.o \
 	sb_queue_hamr_SchedState_1.o \
 	sb_queue_hamr_Schedule_1.o

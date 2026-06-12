@@ -7,8 +7,8 @@ void cpuSw_decryptor_decryptor_notify(microkit_channel channel);
 void cpuSw_decryptor_decryptor_timeTriggered(void);
 
 volatile sb_queue_Common_Log_Impl_1_t *HMD_log_out_queue_1;
-volatile sb_queue_Common_encryptedPayload_Impl_1_t *HMD_log_in_queue_1;
-sb_queue_Common_encryptedPayload_Impl_1_Recv_t HMD_log_in_recv_queue;
+volatile sb_queue_Common_encryptedIncomingPayload_Impl_1_t *HMD_log_in_queue_1;
+sb_queue_Common_encryptedIncomingPayload_Impl_1_Recv_t HMD_log_in_recv_queue;
 
 #define PORT_FROM_MON 0
 
@@ -19,14 +19,14 @@ bool put_HMD_log_out(const Common_Log_Impl *data) {
 }
 
 bool HMD_log_in_is_empty(void) {
-  return sb_queue_Common_encryptedPayload_Impl_1_is_empty(&HMD_log_in_recv_queue);
+  return sb_queue_Common_encryptedIncomingPayload_Impl_1_is_empty(&HMD_log_in_recv_queue);
 }
 
-bool get_HMD_log_in_poll(sb_event_counter_t *numDropped, Common_encryptedPayload_Impl *data) {
-  return sb_queue_Common_encryptedPayload_Impl_1_dequeue((sb_queue_Common_encryptedPayload_Impl_1_Recv_t *) &HMD_log_in_recv_queue, numDropped, data);
+bool get_HMD_log_in_poll(sb_event_counter_t *numDropped, Common_encryptedIncomingPayload_Impl *data) {
+  return sb_queue_Common_encryptedIncomingPayload_Impl_1_dequeue((sb_queue_Common_encryptedIncomingPayload_Impl_1_Recv_t *) &HMD_log_in_recv_queue, numDropped, data);
 }
 
-bool get_HMD_log_in(Common_encryptedPayload_Impl *data) {
+bool get_HMD_log_in(Common_encryptedIncomingPayload_Impl *data) {
   sb_event_counter_t numDropped;
   return get_HMD_log_in_poll (&numDropped, data);
 }
@@ -36,7 +36,7 @@ void init(void) {
 
   sb_queue_Common_Log_Impl_1_init((sb_queue_Common_Log_Impl_1_t *) HMD_log_out_queue_1);
 
-  sb_queue_Common_encryptedPayload_Impl_1_Recv_init(&HMD_log_in_recv_queue, (sb_queue_Common_encryptedPayload_Impl_1_t *) HMD_log_in_queue_1);
+  sb_queue_Common_encryptedIncomingPayload_Impl_1_Recv_init(&HMD_log_in_recv_queue, (sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_in_queue_1);
 
   cpuSw_decryptor_decryptor_initialize();
 

@@ -15,7 +15,7 @@ extern "C" {
   fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool;
   fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool;
   fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool;
-  fn put_HMD_log(value: *mut Common::encryptedPayload_Impl) -> bool;
+  fn put_HMD_log(value: *mut Common::encryptedIncomingPayload_Impl) -> bool;
   fn put_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
 }
 
@@ -62,10 +62,10 @@ pub fn unsafe_put_wifiSend(value: &Common::DummyMessage_Impl) -> bool
   }
 }
 
-pub fn unsafe_put_HMD_log(value: &Common::encryptedPayload_Impl) -> bool
+pub fn unsafe_put_HMD_log(value: &Common::encryptedIncomingPayload_Impl) -> bool
 {
   unsafe {
-    return put_HMD_log(value as *const Common::encryptedPayload_Impl as *mut Common::encryptedPayload_Impl);
+    return put_HMD_log(value as *const Common::encryptedIncomingPayload_Impl as *mut Common::encryptedIncomingPayload_Impl);
   }
 }
 
@@ -89,7 +89,7 @@ lazy_static::lazy_static! {
   pub static ref IN_analysis_report: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
   pub static ref IN_alert: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
   pub static ref OUT_wifiSend: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
-  pub static ref OUT_HMD_log: Mutex<Option<Common::encryptedPayload_Impl>> = Mutex::new(None);
+  pub static ref OUT_HMD_log: Mutex<Option<Common::encryptedIncomingPayload_Impl>> = Mutex::new(None);
   pub static ref OUT_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
 }
 
@@ -157,7 +157,7 @@ pub fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_HMD_log(value: *mut Common::encryptedPayload_Impl) -> bool
+pub fn put_HMD_log(value: *mut Common::encryptedIncomingPayload_Impl) -> bool
 {
   unsafe {
     *OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);

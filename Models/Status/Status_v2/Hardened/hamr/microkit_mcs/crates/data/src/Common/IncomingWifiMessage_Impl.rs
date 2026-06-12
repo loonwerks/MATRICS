@@ -9,14 +9,14 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct IncomingWifiMessage_Impl {
-    pub header: WifiHeader_Impl,
-    pub payload: encryptedPayload_Impl
+    pub header: IncomingWifiHeader_Impl,
+    pub payload: encryptedIncomingPayload_Impl
   }
 
   impl Default for IncomingWifiMessage_Impl {
     fn default() -> Self
     {
-      Self { header: Common::WifiHeader_Impl::default(), payload: [0; Common::Common_encryptedPayload_Impl_DIM_0] }
+      Self { header: Common::IncomingWifiHeader_Impl::default(), payload: [0; Common::Common_encryptedIncomingPayload_Impl_DIM_0] }
     }
   }
 

@@ -7,7 +7,7 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_HMD_log_in: Option<Common::encryptedPayload_Impl>
+  pub api_HMD_log_in: Option<Common::encryptedIncomingPayload_Impl>
 }
 
 /// setter for component's incoming port values
@@ -17,13 +17,13 @@ pub fn put_concrete_inputs_container(container: PreStateContainer)
 }
 
 /// setter for component's incoming port values
-pub fn put_concrete_inputs(HMD_log_in: Option<Common::encryptedPayload_Impl>)
+pub fn put_concrete_inputs(HMD_log_in: Option<Common::encryptedIncomingPayload_Impl>)
 {
   put_HMD_log_in(HMD_log_in);
 }
 
 /// setter for IN EventDataPort
-pub fn put_HMD_log_in(value: Option<Common::encryptedPayload_Impl>)
+pub fn put_HMD_log_in(value: Option<Common::encryptedIncomingPayload_Impl>)
 {
   *extern_api::IN_HMD_log_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }

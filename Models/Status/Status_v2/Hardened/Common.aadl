@@ -197,7 +197,7 @@ public
 	data implementation AnalysisReport.Impl
 		subcomponents
 			header: data MsgHeader.Impl;
-			payload: data Base_Types::Unsigned_8[100];
+			payload: data OutgoingPayload.Impl;
 	end AnalysisReport.Impl;
 	
 	data DummyMessage
@@ -212,32 +212,29 @@ public
 	data implementation DummyMessage.Impl
 	end DummyMessage.Impl;
 	
-	data WifiHeader
-	end WifiHeader;
-	
-	data ip_address
-		properties
-			Data_Model::Data_Representation => Array;
-			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
-			Data_Model::Dimension => (4);
-			Memory_Properties::Data_Size => 4 Bytes;
-			HAMR::Array_Size_Kind => Fixed;
-	end ip_address;
-	
-	data implementation ip_address.Impl
-	end ip_address.Impl;
-	
-	data encryptedPayload
+	data encryptedIncomingPayload
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
 			Data_Model::Dimension => (1024);
 			Memory_Properties::Data_Size => 1024 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
-	end encryptedPayload;
+	end encryptedIncomingPayload;
 	
-	data implementation encryptedPayload.Impl
-	end encryptedPayload.Impl;
+	data implementation encryptedIncomingPayload.Impl
+	end encryptedIncomingPayload.Impl;
+	
+	data OutgoingPayload
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (32768);
+			Memory_Properties::Data_Size => 32768 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end OutgoingPayload;
+	
+	data implementation OutgoingPayload.Impl
+	end OutgoingPayload.Impl;
 	
 	data shortText
 		properties
@@ -250,20 +247,24 @@ public
 	
 	data implementation shortText.Impl
 	end shortText.Impl;
+	
+		
+	data IncomingWifiHeader
+	end IncomingWifiHeader;
 
-	data implementation WifiHeader.Impl
+	data implementation IncomingWifiHeader.Impl
 		subcomponents
 			route: data shortText;
 			client: data Base_Types::Unsigned_32;
-	end WifiHeader.Impl;
+	end IncomingWifiHeader.Impl;
 	
 	data IncomingWifiMessage
 	end IncomingWifiMessage;
 	
 	data implementation IncomingWifiMessage.Impl
 		subcomponents
-			header: data WifiHeader.Impl;
-			payload: data encryptedPayload.Impl;
+			header: data IncomingWifiHeader.Impl;
+			payload: data encryptedIncomingPayload.Impl;
 	end IncomingWifiMessage.Impl;
-	
+		
 end Common;

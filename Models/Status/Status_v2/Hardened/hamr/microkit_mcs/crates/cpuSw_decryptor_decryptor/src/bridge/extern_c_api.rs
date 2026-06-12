@@ -11,14 +11,14 @@ use std::sync::Mutex;
 
 #[cfg(not(test))]
 extern "C" {
-  fn get_HMD_log_in(value: *mut Common::encryptedPayload_Impl) -> bool;
+  fn get_HMD_log_in(value: *mut Common::encryptedIncomingPayload_Impl) -> bool;
   fn put_HMD_log_out(value: *mut Common::Log_Impl) -> bool;
 }
 
-pub fn unsafe_get_HMD_log_in() -> Option<Common::encryptedPayload_Impl>
+pub fn unsafe_get_HMD_log_in() -> Option<Common::encryptedIncomingPayload_Impl>
 {
   unsafe {
-    let value: *mut Common::encryptedPayload_Impl = &mut [0; Common::Common_encryptedPayload_Impl_DIM_0];
+    let value: *mut Common::encryptedIncomingPayload_Impl = &mut [0; Common::Common_encryptedIncomingPayload_Impl_DIM_0];
     if (get_HMD_log_in(value)) {
       return Some(*value);
     } else {
@@ -43,7 +43,7 @@ lazy_static::lazy_static! {
   // simulate the global C variables that point to the microkit shared memory regions.  In a full
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
-  pub static ref IN_HMD_log_in: Mutex<Option<Common::encryptedPayload_Impl>> = Mutex::new(None);
+  pub static ref IN_HMD_log_in: Mutex<Option<Common::encryptedIncomingPayload_Impl>> = Mutex::new(None);
   pub static ref OUT_HMD_log_out: Mutex<Option<Common::Log_Impl>> = Mutex::new(None);
 }
 
@@ -56,7 +56,7 @@ pub fn initialize_test_globals() {
 }
 
 #[cfg(test)]
-pub fn get_HMD_log_in(value: *mut Common::encryptedPayload_Impl) -> bool
+pub fn get_HMD_log_in(value: *mut Common::encryptedIncomingPayload_Impl) -> bool
 {
   unsafe {
     match *IN_HMD_log_in.lock().unwrap_or_else(|e| e.into_inner()) {
