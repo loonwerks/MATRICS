@@ -110,7 +110,7 @@ pub fn compute_spec_since_result_variable_guarantee(
   api_request_log: Option<Common::Request_Impl>,
   api_response_log_in: Option<Common::ResponseLog_Impl>) -> bool
 {
-  since_result == GUMBO_PLTL::Since(!(api_response_log_in.is_some()), api_request_log.is_some(), In_since_result)
+  since_result == PastTimeLTL::Since(!(api_response_log_in.is_some()), api_request_log.is_some(), In_since_result)
 }
 
 /** Compute Entrypoint Contract

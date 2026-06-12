@@ -1,7 +1,7 @@
 # This file will not be overwritten if HAMR codegen is rerun
 
 [package]
-name = "GUMBO_PLTL"
+name = "PastTimeLTL"
 version = "0.1.0"
 edition = "2021"
 

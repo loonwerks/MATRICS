@@ -111,7 +111,7 @@ pub fn compute_spec_since_result_variable_guarantee(
   api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
 {
-  since_result == GUMBO_PLTL::Since(!(api_analysis_report_in.is_some()), api_analysis_request.is_some(), In_since_result)
+  since_result == PastTimeLTL::Since(!(api_analysis_report_in.is_some()), api_analysis_request.is_some(), In_since_result)
 }
 
 /** Compute Entrypoint Contract

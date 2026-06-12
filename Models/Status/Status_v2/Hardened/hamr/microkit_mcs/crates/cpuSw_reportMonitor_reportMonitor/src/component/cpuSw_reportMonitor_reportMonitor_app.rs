@@ -55,7 +55,7 @@ verus! {
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee since_result_variable
         //   G: Internal Variable since_result is equivalent to (not response_log_in event) Since (request_log event)
-        self.since_result == GUMBO_PLTL::Since_spec(!(api.analysis_report_in.is_some()), api.analysis_request.is_some(), old(self).since_result),
+        self.since_result == PastTimeLTL::Since_spec(!(api.analysis_report_in.is_some()), api.analysis_request.is_some(), old(self).since_result),
         // guarantee valid1
         //   G: is_valid1 set correctly
         if (api.analysis_report_in.is_some() && api.analysis_request.is_some()) {

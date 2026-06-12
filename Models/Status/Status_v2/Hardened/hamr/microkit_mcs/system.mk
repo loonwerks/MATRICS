@@ -302,8 +302,8 @@ qemu:
  			 -device virtio-net-device,netdev=mynet0
 
 clean::
-	${RM} -f *.elf .depend* $
-	find . -name \*.[do] |xargs --no-run-if-empty rm
+	${RM} -r *.elf .depend* $
+	find . -name \*.[do] |xargs --no-run-if-empty rm -r
 
 clobber:: clean
 	rm -f *.a

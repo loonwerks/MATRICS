@@ -45,7 +45,17 @@ pub fn Since(
 
 verus! {
 
-  // BEGIN MARKER GUMBO VERUS MARKER
+
+  pub open spec fn Once(a: Seq<bool>, time_step: nat) -> bool 
+     decreases time_step
+  {
+     if time_step == 0 {
+          a[0 as int]
+     } else {
+          Once(a, (time_step - 1) as nat) || (time_step < a.len() && a[time_step as int])
+     }
+  }
+
   pub open spec fn Since_spec(
     a: bool,
     b: bool,
@@ -54,6 +64,5 @@ verus! {
     b ||
       (a && prev_result)
   }
-  // END MARKER GUMBO VERUS MARKER
 
 }

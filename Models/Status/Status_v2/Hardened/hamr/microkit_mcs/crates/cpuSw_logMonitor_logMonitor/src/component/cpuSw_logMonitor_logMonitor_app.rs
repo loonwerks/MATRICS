@@ -61,7 +61,7 @@ verus! {
         },
         // guarantee since_result_variable
         //   G: since_result is equivalent to (not response_log_in event) Since (request_log event)
-        self.since_result == GUMBO_PLTL::Since_spec(!(api.response_log_in.is_some()), api.request_log.is_some(), old(self).since_result),
+        self.since_result == PastTimeLTL::Since_spec(!(api.response_log_in.is_some()), api.request_log.is_some(), old(self).since_result),
         // guarantee Alert
         //   G: Send an alert if more than one response is received without a request.
         if (api.response_log_in.is_some() && !self.is_valid) {
