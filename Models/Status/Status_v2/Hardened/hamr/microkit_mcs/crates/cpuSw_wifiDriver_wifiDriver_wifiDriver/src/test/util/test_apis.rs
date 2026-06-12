@@ -68,7 +68,7 @@ pub fn put_wifiRecv(value: Option<Common::IncomingWifiMessage_Impl>)
 }
 
 /// getter for OUT EventDataPort
-pub fn get_wifiSend() -> Option<Common::DummyMessage_Impl>
+pub fn get_wifiSend() -> Option<Common::OutgoingWifiMessage_Impl>
 {
   return extern_api::OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

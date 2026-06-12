@@ -17,11 +17,11 @@
 #include <sb_queue_Common_AnalysisReport_Impl_1.h>
 #include <sb_queue_Common_DummyMessage_Impl_1.h>
 #include <sb_queue_Common_AnalysisRequest_Impl_1.h>
-#include <sb_queue_Common_DummyMessage_Impl_1.h>
+#include <sb_queue_Common_OutgoingWifiMessage_Impl_1.h>
 #include <sb_queue_Common_encryptedIncomingPayload_Impl_1.h>
 #include <sb_queue_Common_AnalysisRequest_Impl_1.h>
 #include <sb_queue_Common_IncomingWifiMessage_Impl_1.h>
 #include <sb_queue_Common_IncomingWifiMessage_Impl_1.h>
-#include <sb_queue_Common_DummyMessage_Impl_1.h>
+#include <sb_queue_Common_OutgoingWifiMessage_Impl_1.h>
 #include <sb_queue_hamr_SchedState_1.h>
 #include <sb_queue_hamr_Schedule_1.h>

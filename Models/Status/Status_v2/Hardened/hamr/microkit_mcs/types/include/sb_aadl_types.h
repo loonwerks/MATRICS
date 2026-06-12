@@ -84,6 +84,11 @@ typedef struct Common_AnalysisReport_Impl {
   Common_OutgoingPayload_Impl payload;
 } Common_AnalysisReport_Impl;
 
+typedef struct Common_OutgoingWifiMessage_Impl {
+  Common_MsgHeader_Impl header;
+  Common_OutgoingPayload_Impl payload;
+} Common_OutgoingWifiMessage_Impl;
+
 #define Common_LogArray_Impl_BYTE_SIZE 100
 #define Common_LogArray_Impl_DIM_0 100
 

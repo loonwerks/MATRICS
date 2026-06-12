@@ -6,24 +6,24 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void);
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel channel);
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void);
 
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSendIn_queue_1;
-sb_queue_Common_DummyMessage_Impl_1_Recv_t wifiSendIn_recv_queue;
+volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *wifiSendIn_queue_1;
+sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t wifiSendIn_recv_queue;
 volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecvOut_queue_1;
 volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecvIn_queue_1;
 sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t wifiRecvIn_recv_queue;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSendOut_queue_1;
+volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *wifiSendOut_queue_1;
 
 #define PORT_FROM_MON 0
 
 bool wifiSendIn_is_empty(void) {
-  return sb_queue_Common_DummyMessage_Impl_1_is_empty(&wifiSendIn_recv_queue);
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_is_empty(&wifiSendIn_recv_queue);
 }
 
-bool get_wifiSendIn_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data) {
-  return sb_queue_Common_DummyMessage_Impl_1_dequeue((sb_queue_Common_DummyMessage_Impl_1_Recv_t *) &wifiSendIn_recv_queue, numDropped, data);
+bool get_wifiSendIn_poll(sb_event_counter_t *numDropped, Common_OutgoingWifiMessage_Impl *data) {
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_dequeue((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &wifiSendIn_recv_queue, numDropped, data);
 }
 
-bool get_wifiSendIn(Common_DummyMessage_Impl *data) {
+bool get_wifiSendIn(Common_OutgoingWifiMessage_Impl *data) {
   sb_event_counter_t numDropped;
   return get_wifiSendIn_poll (&numDropped, data);
 }
@@ -47,8 +47,8 @@ bool get_wifiRecvIn(Common_IncomingWifiMessage_Impl *data) {
   return get_wifiRecvIn_poll (&numDropped, data);
 }
 
-bool put_wifiSendOut(const Common_DummyMessage_Impl *data) {
-  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendOut_queue_1, (Common_DummyMessage_Impl *) data);
+bool put_wifiSendOut(const Common_OutgoingWifiMessage_Impl *data) {
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_enqueue((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSendOut_queue_1, (Common_OutgoingWifiMessage_Impl *) data);
 
   return true;
 }
@@ -56,13 +56,13 @@ bool put_wifiSendOut(const Common_DummyMessage_Impl *data) {
 void init(void) {
   printf("%s | INIT!\n", microkit_name);
 
-  sb_queue_Common_DummyMessage_Impl_1_Recv_init(&wifiSendIn_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendIn_queue_1);
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_init(&wifiSendIn_recv_queue, (sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSendIn_queue_1);
 
   sb_queue_Common_IncomingWifiMessage_Impl_1_init((sb_queue_Common_IncomingWifiMessage_Impl_1_t *) wifiRecvOut_queue_1);
 
   sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_init(&wifiRecvIn_recv_queue, (sb_queue_Common_IncomingWifiMessage_Impl_1_t *) wifiRecvIn_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSendOut_queue_1);
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_init((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSendOut_queue_1);
 
   cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize();
 

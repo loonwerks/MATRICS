@@ -35,7 +35,7 @@ pub fn initialize_IEP_Guar(
   alert_cmd: bool,
   api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
+  api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   initialize_defaultAlert(alert_cmd)
 }
@@ -51,7 +51,7 @@ pub fn initialize_IEP_Post(
   alert_cmd: bool,
   api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
+  api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   initialize_IEP_Guar(alert_cmd, api_HMD_log, api_analysis_request, api_wifiSend)
 }
@@ -88,7 +88,7 @@ pub fn compute_spec_alert_cmd_variable_guarantee(
 pub fn compute_spec_Process_Report_guarantee(
   alert_cmd: bool,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
-  api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
+  api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   if (api_analysis_report.is_some() & !alert_cmd) {
     api_wifiSend.is_some()
@@ -110,7 +110,7 @@ pub fn compute_CEP_T_Guar(
   alert_cmd: bool,
   api_alert: Option<Common::DummyMessage_Impl>,
   api_analysis_report: Option<Common::AnalysisReport_Impl>,
-  api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
+  api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   let r0: bool = compute_spec_alert_cmd_variable_guarantee(In_alert_cmd, alert_cmd, api_alert);
   let r1: bool = compute_spec_Process_Report_guarantee(alert_cmd, api_analysis_report, api_wifiSend);
@@ -137,7 +137,7 @@ pub fn compute_CEP_Post(
   api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
   api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_wifiSend: Option<Common::DummyMessage_Impl>) -> bool
+  api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of wifiDriver's compute entrypoint
   let r0: bool = compute_CEP_T_Guar(In_alert_cmd, alert_cmd, api_alert, api_analysis_report, api_wifiSend);

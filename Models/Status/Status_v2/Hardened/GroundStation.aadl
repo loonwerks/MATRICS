@@ -50,7 +50,7 @@ public
 	thread wifiDriver
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
-			wifiSend: out event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
@@ -205,7 +205,7 @@ public
 	system GroundStation
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
-			wifiSend: out event data port Common::DummyMessage.Impl;
+			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
 			btSend: out event data port Common::DummyMessage.Impl;
 			btRecv: in event data port Common::DummyMessage.Impl;
 			usbRecv: in event data port Common::DummyMessage.Impl;

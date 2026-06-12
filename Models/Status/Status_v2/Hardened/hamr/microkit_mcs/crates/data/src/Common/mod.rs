@@ -9,6 +9,7 @@ include!("Request_Impl.rs");
 include!("ResponseHeader_Impl.rs");
 include!("shortText.rs");
 include!("AnalysisReport_Impl.rs");
+include!("OutgoingWifiMessage_Impl.rs");
 include!("LogArray_Impl.rs");
 include!("AnalysisRequest_Impl.rs");
 include!("IncomingWifiHeader_Impl.rs");

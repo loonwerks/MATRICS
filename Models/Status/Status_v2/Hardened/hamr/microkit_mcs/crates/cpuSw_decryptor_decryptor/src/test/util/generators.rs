@@ -274,6 +274,25 @@ pub fn Common_AnalysisReport_Impl_strategy_cust
   })
 }
 
+pub fn Common_OutgoingWifiMessage_Impl_strategy_default() -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
+{
+  Common_OutgoingWifiMessage_Impl_strategy_cust(
+    Common_MsgHeader_Impl_strategy_default(),
+    Common_OutgoingPayload_Impl_strategy_default()
+  )
+}
+
+pub fn Common_OutgoingWifiMessage_Impl_strategy_cust
+  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
+   payload_Common_OutgoingPayload_Impl_strategy: Strategy<Value = Common::OutgoingPayload_Impl>> (
+  header_strategy: header_Common_MsgHeader_Impl_strategy,
+  payload_strategy: payload_Common_OutgoingPayload_Impl_strategy) -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
+{
+  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
+    Common::OutgoingWifiMessage_Impl { header, payload }
+  })
+}
+
 pub fn Common_LogArray_Impl_strategy_default() -> impl Strategy<Value = Common::LogArray_Impl>
 {
   Common_LogArray_Impl_strategy_cust(Common_Log_Impl_strategy_default())

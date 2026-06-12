@@ -32,8 +32,8 @@ public
 			wfa: requires bus access WF_Bus;
 			recvIn: in event data port Common::IncomingWifiMessage.Impl;
 			recvOut: out event data port Common::IncomingWifiMessage.Impl;
-			sendIn: in event data port Common::DummyMessage.Impl;
-			sendOut: out event data port Common::DummyMessage.Impl;
+			sendIn: in event data port Common::OutgoingWifiMessage.Impl;
+			sendOut: out event data port Common::OutgoingWifiMessage.Impl;
 		flows
 			f1: flow path recvIn -> recvOut;
 			f2: flow path sendIn -> sendOut;
@@ -266,5 +266,11 @@ public
 			header: data IncomingWifiHeader.Impl;
 			payload: data encryptedIncomingPayload.Impl;
 	end IncomingWifiMessage.Impl;
+	
+	data OutgoingWifiMessage extends AnalysisReport
+	end OutgoingWifiMessage;
+	
+	data implementation OutgoingWifiMessage.Impl extends AnalysisReport.impl
+	end OutgoingWifiMessage.Impl;
 		
 end Common;

@@ -10,7 +10,7 @@ volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_queue_1;
 sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_recv_queue;
 volatile sb_queue_Common_DummyMessage_Impl_1_t *alert_queue_1;
 sb_queue_Common_DummyMessage_Impl_1_Recv_t alert_recv_queue;
-volatile sb_queue_Common_DummyMessage_Impl_1_t *wifiSend_queue_1;
+volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *wifiSend_queue_1;
 volatile sb_queue_Common_encryptedIncomingPayload_Impl_1_t *HMD_log_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
 volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecv_queue_1;
@@ -44,8 +44,8 @@ bool get_alert(Common_DummyMessage_Impl *data) {
   return get_alert_poll (&numDropped, data);
 }
 
-bool put_wifiSend(const Common_DummyMessage_Impl *data) {
-  sb_queue_Common_DummyMessage_Impl_1_enqueue((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSend_queue_1, (Common_DummyMessage_Impl *) data);
+bool put_wifiSend(const Common_OutgoingWifiMessage_Impl *data) {
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_enqueue((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSend_queue_1, (Common_OutgoingWifiMessage_Impl *) data);
 
   return true;
 }
@@ -82,7 +82,7 @@ void init(void) {
 
   sb_queue_Common_DummyMessage_Impl_1_Recv_init(&alert_recv_queue, (sb_queue_Common_DummyMessage_Impl_1_t *) alert_queue_1);
 
-  sb_queue_Common_DummyMessage_Impl_1_init((sb_queue_Common_DummyMessage_Impl_1_t *) wifiSend_queue_1);
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_init((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSend_queue_1);
 
   sb_queue_Common_encryptedIncomingPayload_Impl_1_init((sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_queue_1);
 

@@ -14,7 +14,7 @@ extern "C" {
   fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool;
   fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool;
   fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool;
-  fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool;
+  fn put_wifiSend(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
   fn put_HMD_log(value: *mut Common::encryptedIncomingPayload_Impl) -> bool;
   fn put_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
 }
@@ -55,10 +55,10 @@ pub fn unsafe_get_alert() -> Option<Common::DummyMessage_Impl>
   }
 }
 
-pub fn unsafe_put_wifiSend(value: &Common::DummyMessage_Impl) -> bool
+pub fn unsafe_put_wifiSend(value: &Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
-    return put_wifiSend(value as *const Common::DummyMessage_Impl as *mut Common::DummyMessage_Impl);
+    return put_wifiSend(value as *const Common::OutgoingWifiMessage_Impl as *mut Common::OutgoingWifiMessage_Impl);
   }
 }
 
@@ -88,7 +88,7 @@ lazy_static::lazy_static! {
   pub static ref IN_wifiRecv: Mutex<Option<Common::IncomingWifiMessage_Impl>> = Mutex::new(None);
   pub static ref IN_analysis_report: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
   pub static ref IN_alert: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
-  pub static ref OUT_wifiSend: Mutex<Option<Common::DummyMessage_Impl>> = Mutex::new(None);
+  pub static ref OUT_wifiSend: Mutex<Option<Common::OutgoingWifiMessage_Impl>> = Mutex::new(None);
   pub static ref OUT_HMD_log: Mutex<Option<Common::encryptedIncomingPayload_Impl>> = Mutex::new(None);
   pub static ref OUT_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
 }
@@ -148,7 +148,7 @@ pub fn get_alert(value: *mut Common::DummyMessage_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_wifiSend(value: *mut Common::DummyMessage_Impl) -> bool
+pub fn put_wifiSend(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
     *OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);

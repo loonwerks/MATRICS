@@ -12,7 +12,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_wifiSend(
       &mut self,
-      value: Common::DummyMessage_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
     {
       extern_api::unsafe_put_wifiSend(&value);
     }
@@ -74,7 +74,7 @@ verus! {
     pub ghost wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
     pub ghost analysis_report: Option<Common::AnalysisReport_Impl>,
     pub ghost alert: Option<Common::DummyMessage_Impl>,
-    pub ghost wifiSend: Option<Common::DummyMessage_Impl>,
+    pub ghost wifiSend: Option<Common::OutgoingWifiMessage_Impl>,
     pub ghost HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>
   }
@@ -82,7 +82,7 @@ verus! {
   impl<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Put_Api> cpuSw_wifiDriver_wifiDriver_wifiDriver_Application_Api<API> {
     pub fn put_wifiSend(
       &mut self,
-      value: Common::DummyMessage_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
       ensures
         old(self).wifiRecv == self.wifiRecv,
         self.wifiSend == Some(value),
