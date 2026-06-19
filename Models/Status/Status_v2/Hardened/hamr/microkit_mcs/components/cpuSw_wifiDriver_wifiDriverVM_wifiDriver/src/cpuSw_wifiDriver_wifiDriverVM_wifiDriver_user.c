@@ -227,7 +227,7 @@ void parse_string_first_item(const char **str, char *dest, size_t dest_size){
 }
 
 static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message){
-     Common_WifiHeader_Impl header;
+     Common_IncomingWifiHeader_Impl header;
      skip_whitespace(&str);
      if(*str != '{'){
           return false; // Invalid JSON
