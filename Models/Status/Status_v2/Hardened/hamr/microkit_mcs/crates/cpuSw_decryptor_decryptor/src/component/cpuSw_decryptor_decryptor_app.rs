@@ -54,7 +54,7 @@ verus! {
           let encrypted_log = api.get_HMD_log_in();
           if encrypted_log.is_some() {
                let len = encrypted_log.unwrap().iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
-               let mut decoded_encrypted_log: Common::encryptedPayload_Impl =  [0; Common::Common_encryptedPayload_Impl_DIM_0]; // Decoded out of base64
+               let mut decoded_encrypted_log: Common::encryptedIncomingPayload_Impl =  [0; Common::Common_encryptedIncomingPayload_Impl_DIM_0]; // Decoded out of base64
                let parsed_log = Common::Log_Impl::default();
 
                match core::str::from_utf8(&encrypted_log.unwrap()[..len]) {
