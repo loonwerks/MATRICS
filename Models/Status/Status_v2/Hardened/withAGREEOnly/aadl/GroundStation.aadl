@@ -75,26 +75,6 @@ public
 				then event(wifiSend)
 				else not(event(wifiSend));
 		**};
-		annex GUMBO{**
-			state
-				alert_cmd: Base_Types::Boolean;
-			initialize
-				modifies alert_cmd;
-				
-				guarantee defaultAlert:
-					alert_cmd == false;
-				
-			compute
-				modifies alert_cmd;
-			
-				guarantee alert_cmd_variable "G: Once an alert command is seen, always stay alerted.":
-					(HasEvent(alert) ->: alert_cmd == true) & (In(alert_cmd) == true ->: alert_cmd == true);
-				
-				guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
-					if (HasEvent(analysis_report) & !(alert_cmd)) 
-                         MustSend(wifiSend) 
-                         else NoSend(wifiSend);
-		**};
 	end wifiDriver;
 	
 	thread dataManager
@@ -123,39 +103,6 @@ public
 			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
 				Once(event(zeroize)) => IS_ZEROIZED(cache);
 		**};
-		annex GUMBO{**
-			state
-				cache: Common::LogArray.Impl;
-				zeroize_cmd: Base_Types::Boolean;
-			functions
-				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
-					(All(0 to logs.size-1)(i => (
-						logs(i).timestamp == u32"0" & 
-						logs(i).userID == u32"0" & 
-						logs(i).numSuspects == u32"0" & 
-						logs(i).numSuspectsFlagged == u32"0" & 
-						logs(i).yaw == s32"0" & 
-						logs(i).pitch == s32"0" & 
-						logs(i).roll == s32"0"
-					)));
-			initialize
-				modifies zeroize_cmd;
-				
-				guarantee defaultZeroize:
-					zeroize_cmd == false;
-				
-			compute
-				modifies cache, zeroize_cmd;
-				
-				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
-					(HasEvent(zeroize) ->: zeroize_cmd == true) & (In(zeroize_cmd) == true ->: zeroize_cmd == true);
-
-				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
-				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
-					zeroize_cmd ->: IS_ZEROIZED(cache);	
-		**};
-		
 	end dataManager;
 	
 	thread dataAnalysis

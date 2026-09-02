@@ -11,7 +11,6 @@ public
 	with MATRICS_Model_Transformations;
 	renames MATRICS_Model_Transformations::all;
 	with Base_Types;
-	with GUMBO_PLTL;
 	
 	-- Processes introduced to isolate threads
 	
@@ -112,38 +111,6 @@ public
 				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
 			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
 				Once(event(zeroize)) => IS_ZEROIZED(cache);			
-		**};
-          annex GUMBO{**
-			state
-				cache: Common::LogArray.Impl;
-				zeroize_cmd: Base_Types::Boolean;
-			functions
-				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
-					(All(0 to logs.size-1)(i => (
-						logs(i).timestamp == u32"0" & 
-						logs(i).userID == u32"0" & 
-						logs(i).numSuspects == u32"0" & 
-						logs(i).numSuspectsFlagged == u32"0" & 
-						logs(i).yaw == s32"0" & 
-						logs(i).pitch == s32"0" & 
-						logs(i).roll == s32"0"
-					)));
-			initialize
-				modifies zeroize_cmd;
-				
-				guarantee defaultZeroize:
-					zeroize_cmd == false;
-				
-			compute
-				modifies cache, zeroize_cmd;
-				
-				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
-					(HasEvent(zeroize) ->: zeroize_cmd == true) & (In(zeroize_cmd) == true ->: zeroize_cmd == true);
-
-				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
-				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
-					zeroize_cmd ->: IS_ZEROIZED(cache);	
 		**};
 	end dataManager_seL4;
 	
@@ -268,40 +235,6 @@ public
 				then event(response_log_out) and (response_log_out = response_log_in)
 				else not(event(response_log_out));
 		**};
-		annex GUMBO{**
-			state
-				since_result: Base_Types::Boolean;
-				is_valid: Base_Types::Boolean;
-				historically_no_alert_cmd: Base_Types::Boolean;
-			initialize
-				modifies since_result, historically_no_alert_cmd;
-				guarantee defaultSince:
-					since_result == false;
-				guarantee defaultIsValid:
-					historically_no_alert_cmd == true;
-				
-			compute
-				modifies since_result, is_valid, historically_no_alert_cmd;
-				
-				guarantee is_valid_variable "G: is_valid set correctly" :
-					if (HasEvent(request_log) & HasEvent(response_log_in)) 
-					is_valid == true 
-					else (HasEvent(response_log_in) ->: In(since_result));
-				
-				
-				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
-					since_result == GUMBO_PLTL::Since(!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
-				
-					
-                    guarantee Alert "G: Send an alert if more than one response is received without a request." :
-					if (HasEvent(response_log_in) & !(is_valid)) 
-					(MustSend(alert) & historically_no_alert_cmd == false)
-					else (NoSend(alert) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
-				guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
-					if (HasEvent(response_log_in) & historically_no_alert_cmd)
-					(MustSend(response_log_out) & (response_log_out == response_log_in))
-					else NoSend(response_log_out);
-		**};
 	end logMonitor;
 	
 	process logMonitor_seL4
@@ -376,57 +309,6 @@ public
 				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
 				else not(event(analysis_report_out));	
 		**};
-		annex GUMBO {**
-			state
-				counter: Base_Types::Unsigned_32;
-				since_result: Base_Types::Boolean;
-				is_valid1: Base_Types::Boolean;
-				is_invalid2: Base_Types::Boolean;
-			functions
-				def Counter(i: Base_Types::Boolean, reset: Base_Types::Boolean, count: Base_Types::Unsigned_32): Base_Types::Unsigned_32 :=
-					if (reset == true) 
-                         u32"0" 
-                         else (
-                              if (i == true) 
-                              (count + u32"1") 
-                              else count
-                         );
-				def ALLOW_LIST(): MATRICS_MODEL_Transformations::AllowList.Impl := MATRICS_MODEL_Transformations::AllowList.Impl(u32"1", u32"2", u32"3", u32"4");
-				def FOUND_IN_ALLOW_LIST(allow_list: MATRICS_MODEL_Transformations::AllowList.Impl, src: Base_Types::Unsigned_32): Base_Types::Boolean :=
-					(Exists(0 until allow_list.size)(i => allow_list(i) == src));				
-			initialize
-				modifies counter, since_result;
-				
-				guarantee defaultCounterAndSince:
-					counter == u32"0" & 
-					since_result == false;
-					
-			compute
-				
-				guarantee since_result_variable "G: Internal Variable since_result is equivalent to (not response_log_in event) Since (request_log event)":
-					since_result == GUMBO_PLTL::Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
-				
-				guarantee valid1 "G: is_valid1 set correctly" :
-					if (HasEvent(analysis_report_in) & HasEvent(analysis_request))
-					is_valid1 == true 
-					else is_valid1 == (HasEvent(analysis_report_in) ->: In(since_result));
-					
-				guarantee invalid2 "G: is_invalid2 set correctly" : 
-					Counter(HasEvent(analysis_request), HasEvent(analysis_report_in), counter) >= u32"3";
-								 
-				guarantee Alert1 "G: Send an alert if more than one report is received without a request." :
-					if (HasEvent(analysis_report_in) & !(is_valid1))
-					MustSend(alert)
-					else NoSend(alert);
-				guarantee Alert2 "G: Send an alert if 3 or more requests are received without a report." :
-					if (is_invalid2)
-					MustSend(alert)
-					else NoSend(alert);
-				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
-					if (HasEvent(analysis_report_in) & is_valid1 & !(is_invalid2) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_report_in.header.client))
-					MustSend(analysis_report_out) & (analysis_report_out == analysis_report_in)
-					else NoSend(analysis_report_out);	
-		**};
 	end reportMonitor;
 
 	process reportMonitor_seL4
@@ -472,11 +354,6 @@ public
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				HMD_log_out != HMD_log_in;
-		**}	;	
-		annex GUMBO {**
-			compute
-				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
-					HMD_log_out != HMD_log_in;
 		**}	;			
 	end decryptor;
 
@@ -520,14 +397,7 @@ public
 				analysis_report_out.payload != analysis_report_in.payload;
 			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
 				analysis_report_out.header = analysis_report_in.header;
-		**}	;	
-		annex GUMBO {**
-			compute
-				guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
-					analysis_report_out.payload != analysis_report_in.payload;
-				guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
-					analysis_report_out.header == analysis_report_in.header;
-		**}	;
+		**};	
 	end encryptor;
 	
 	process encryptor_seL4
@@ -569,18 +439,6 @@ public
 				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.client)
 				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
 				else not event(analysis_request_out);
-		**};
-		annex GUMBO {**
-			functions
-				def ALLOW_LIST(): MATRICS_MODEL_Transformations::AllowList.Impl := MATRICS_MODEL_Transformations::AllowList.Impl(u32"1", u32"2", u32"3", u32"4");
-				def FOUND_IN_ALLOW_LIST(allow_list: MATRICS_MODEL_Transformations::AllowList.Impl, src: Base_Types::Unsigned_32): Base_Types::Boolean :=
-					(Exists(0 until allow_list.size)(i => allow_list(i) == src));				
-			
-			compute
-				guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
-					if (HasEvent(analysis_request_in) & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), analysis_request_in.header.client))
-					MustSend(analysis_request_out) & (analysis_request_out == analysis_request_in)
-					else NoSend(analysis_request_out);
 		**};
 	end firewall;
 	
