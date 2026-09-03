@@ -1,3 +1,3 @@
 [submodule "Models/Status/Status_v2/Hardened/hamr/microkit/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/libvmm"]
-	path = Models/Status/Status_v2/Hardened/withGumbo/hamr/microkit/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/libvmm
+	path = Models/Status/Status_v2/Hardened/withAGREEAndGumbo/hamr/microkit/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/libvmm
 	url = https://github.com/au-ts/libvmm.git
