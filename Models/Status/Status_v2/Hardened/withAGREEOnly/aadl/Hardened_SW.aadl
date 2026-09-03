@@ -296,12 +296,8 @@ public
 				else event(analysis_report_in) => Yesterday(Since(not(event(analysis_report_in)), event(analysis_request)));
 			eq is_invalid2: bool = Counter(event(analysis_request), event(analysis_report_in)) >= threshold;
 								 
-			guarantee Alert1 "G: Send an alert if more than one report is received without a request." :
-				if event(analysis_report_in) and not(is_valid1)
-				then event(alert)
-				else not(event(alert));
-			guarantee Alert2 "G: Send an alert if 3 or more requests are received without a report." :
-				if is_invalid2
+			guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
+				if (event(analysis_report_in) and not(is_valid1)) or is_invalid2
 				then event(alert)
 				else not(event(alert));
 			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
@@ -354,7 +350,7 @@ public
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				HMD_log_out != HMD_log_in;
-		**}	;			
+		**};				
 	end decryptor;
 
 	process decryptor_seL4
