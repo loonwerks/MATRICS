@@ -47,6 +47,16 @@ public
                     allow_list: MATRICS_Model_Transformations::AllowList.Impl,
                     src: Base_Types::Unsigned_32): Base_Types::Boolean :=
                     (Exists(0 until allow_list.size)(i => allow_list(i) == src));
+                    
+               def NULL_LOG(): Common::Log.Impl := Common::Log.Impl
+					{timestamp = 0;
+					 userID = 0;
+					 numSuspects = 0;
+					 numSuspectsFlagged = 0;
+					 yaw = 0;
+					 pitch = 0;
+					 roll = 0
+					};
 	**};
 
 	annex Resolute {**

@@ -5,7 +5,10 @@ public
 	annex GUMBO{**
 		functions
 			-- prev_result must be initially false at time 0, and then hold the previous result when called
-			def Since(a: Base_Types::Boolean, b: Base_Types::Boolean, prev_result: Base_Types::Boolean): Base_Types::Boolean :=
-				b | (a & prev_result);
+			def AGREE_Since(
+				a: Base_Types::Boolean, 
+				b: Base_Types::Boolean, 
+				prev_result: Base_Types::Boolean): Base_Types::Boolean :=
+				(b | (a & prev_result));
 	**};
 end GUMBO_PLTL;

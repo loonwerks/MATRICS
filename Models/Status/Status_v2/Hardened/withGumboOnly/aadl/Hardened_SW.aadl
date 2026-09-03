@@ -2,8 +2,6 @@ package Hardened_SW
 public
 	with GroundStation;
 	renames Groundstation::all;
-	with AGREE_PLTL;
-	renames AGREE_PLTL::all;
 	with Common;
 	with HAMR;
 	with CASE_Scheduling;
@@ -84,7 +82,7 @@ public
 			c3: port wifiDriver.wifiSend -> wifiSend;
 			c4: port wifiDriver.HMD_log -> HMD_log;
 			c5: port wifiDriver.analysis_request -> analysis_request;
-			c6: port alert -> wifiDriver.alert;
+			c6: port alert -> wifiDriver.alert_in;
 		properties
 			CASE_Scheduling::Domain => 3;
 		annex agree {**
@@ -112,38 +110,6 @@ public
 				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
 			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
 				Once(event(zeroize)) => IS_ZEROIZED(cache);			
-		**};
-          annex GUMBO{**
-			state
-				cache: Common::LogArray.Impl;
-				zeroize_cmd: Base_Types::Boolean;
-			functions
-				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
-					(All(0 to logs.size-1)(i => (
-						logs(i).timestamp == u32"0" & 
-						logs(i).userID == u32"0" & 
-						logs(i).numSuspects == u32"0" & 
-						logs(i).numSuspectsFlagged == u32"0" & 
-						logs(i).yaw == s32"0" & 
-						logs(i).pitch == s32"0" & 
-						logs(i).roll == s32"0"
-					)));
-			initialize
-				modifies zeroize_cmd;
-				
-				guarantee defaultZeroize:
-					zeroize_cmd == false;
-				
-			compute
-				modifies cache, zeroize_cmd;
-				
-				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
-					zeroize_cmd == (HasEvent(zeroize) | In(zeroize_cmd));
-
-				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
-				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
-					zeroize_cmd ->: IS_ZEROIZED(cache);	
 		**};
 	end dataManager_seL4;
 	
@@ -238,11 +204,11 @@ public
 			request_log: in event data port Common::Request.Impl;
 			response_log_in: in event data port Common::ResponseLog.Impl;
 			response_log_out: out event data port Common::ResponseLog.Impl;			
-			alert: out event port;
+			alert_out: out event port;
 		flows
 			f1: flow path request_log -> response_log_out;
 			f2: flow path response_log_in -> response_log_out;
-			f3: flow source alert;
+			f3: flow source alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
@@ -291,14 +257,13 @@ public
 				
 				
 				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
-					since_result == GUMBO_PLTL::Since(
-						!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
+					since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
 				
 
-                    guarantee Alert "G: Send an alert if more than one response is received without a request." :
+                    guarantee Alert_WifiDriver "G: Send an alert if more than one response is received without a request." :
 					if (HasEvent(response_log_in) & !(is_valid)) 
-					(MustSend(alert) & historically_no_alert_cmd == false)
-					else (NoSend(alert) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
+					(MustSend(alert_out) & historically_no_alert_cmd == false)
+					else (NoSend(alert_out) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
 				guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
 					if (HasEvent(response_log_in) & historically_no_alert_cmd)
 					(MustSend(response_log_out) && (response_log_out == response_log_in))
@@ -327,7 +292,7 @@ public
 			c1: port request_log -> logMonitor.request_log;
 			c2: port response_log_in -> logMonitor.response_log_in;
 			c3: port logMonitor.response_log_out -> response_log_out;
-			c4: port logMonitor.alert -> alert;
+			c4: port logMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 8;
 		annex agree {**
@@ -341,11 +306,11 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;
-			alert: out event port;
+			alert_out: out event port;
 		flows
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
-			f3: flow source alert;
+			f3: flow source alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
@@ -402,7 +367,7 @@ public
 
 				
 				guarantee since_result_variable "G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)":
-					since_result == GUMBO_PLTL::Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
+					since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
 				
 				guarantee valid1 "G: is_valid1 set correctly" :
 					if (HasEvent(analysis_report_in) & HasEvent(analysis_request))
@@ -412,10 +377,10 @@ public
 				guarantee invalid2 "G: is_invalid2 set correctly" : 
 					is_invalid2 == (counter >= u32"3");
 								 
-				guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
+				guarantee Send_Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
 					if ((HasEvent(analysis_report_in) & !(is_valid1)) | is_invalid2)
-					MustSend(alert)
-					else NoSend(alert);
+					MustSend(alert_out)
+					else NoSend(alert_out);
 				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
 					if (HasEvent(analysis_report_in) && is_valid1 && !(is_invalid2) &&
 						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
@@ -447,7 +412,7 @@ public
 			c1: port analysis_request -> reportMonitor.analysis_request;
 			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
-			c4: port reportMonitor.alert -> alert;
+			c4: port reportMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 10;
 		annex agree {**
