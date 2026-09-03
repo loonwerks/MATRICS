@@ -54,24 +54,24 @@ public
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event port;
+			alert_in: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
-			f4: flow sink alert;
+			f4: flow sink alert_in;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;			
 		annex agree {**
 			assume Alert "A: A report should not be received if an alert is received." :
-				event(alert) => not(event(analysis_report));
+				event(alert_in) => not(event(analysis_report));
 			assume Trusted_Report "A: Reports received are to a trusted destination." :
 				event(analysis_report) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report.header.client);
 			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
 			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
-				if event(analysis_report) and not(Once(event(alert)))
+				if event(analysis_report) and not(Once(event(alert_in)))
 				then event(wifiSend)
 				else not(event(wifiSend));
 		**};
@@ -86,9 +86,17 @@ public
 				
 			compute
 				modifies alert_cmd;
+
+				assume IncomingAlert "A: A report should not be received if an alert is received." :
+					HasEvent(alert_in) ->: !HasEvent(analysis_report);
+				assume Trusted_Report "A: Reports received are to a trusted destination." :
+					HasEvent(analysis_report) ->:
+						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
+							MATRICS_Model_Transformations::ALLOW_LIST(),
+							analysis_report.header.client);
 			
 				guarantee alert_cmd_variable "G: Once an alert command is seen, always stay alerted.":
-					(HasEvent(alert) ->: alert_cmd == true) & (In(alert_cmd) == true ->: alert_cmd == true);
+					alert_cmd == (HasEvent(alert_in) | In(alert_cmd));
 				
 				guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
 					if (HasEvent(analysis_report) & !(alert_cmd)) 
@@ -130,13 +138,7 @@ public
 			functions
 				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
 					(All(0 to logs.size-1)(i => (
-						logs(i).timestamp == u32"0" & 
-						logs(i).userID == u32"0" & 
-						logs(i).numSuspects == u32"0" & 
-						logs(i).numSuspectsFlagged == u32"0" & 
-						logs(i).yaw == s32"0" & 
-						logs(i).pitch == s32"0" & 
-						logs(i).roll == s32"0"
+						logs(i) == MATRICS_Model_Transformations::NULL_LOG()
 					)));
 			initialize
 				modifies zeroize_cmd;
@@ -148,7 +150,7 @@ public
 				modifies cache, zeroize_cmd;
 				
 				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
-					(HasEvent(zeroize) ->: zeroize_cmd == true) & (In(zeroize_cmd) == true ->: zeroize_cmd == true);
+					zeroize_cmd == (HasEvent(zeroize) | In(zeroize_cmd));
 
 				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
 					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
@@ -174,6 +176,14 @@ public
 		annex agree {**
 			assume Trusted_Request "A: Requests received are from a trusted source." :
 				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.client);
+		**};
+		annex GUMBO {**
+			compute
+				assume Trusted_Request "A: Requests received are from a trusted source." :
+					HasEvent(analysis_request) ->:
+						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
+							MATRICS_Model_Transformations::ALLOW_LIST(),
+							analysis_request.header.client);
 		**};
 	end dataAnalysis;
 
