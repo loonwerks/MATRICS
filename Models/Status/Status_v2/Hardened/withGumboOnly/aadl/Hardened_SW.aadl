@@ -1,0 +1,697 @@
+package Hardened_SW
+public
+	with GroundStation;
+	renames Groundstation::all;
+	with AGREE_PLTL;
+	renames AGREE_PLTL::all;
+	with Common;
+	with HAMR;
+	with CASE_Scheduling;
+	with MATRICS_Properties;
+	with MATRICS_Model_Transformations;
+	renames MATRICS_Model_Transformations::all;
+	with Base_Types;
+	with GUMBO_PLTL;
+	
+	-- Processes introduced to isolate threads
+	
+	thread wifiDriverVM
+		features
+			wifiRecvIn: in event data port Common::IncomingWifiMessage.Impl;
+			wifiRecvOut: out event data port Common::IncomingWifiMessage.Impl;
+			wifiSendIn: in event data port Common::OutgoingWifiMessage.Impl;
+			wifiSendOut: out event data port Common::OutgoingWifiMessage.Impl;
+		flows
+			f1: flow path wifiRecvIn-> wifiRecvOut;
+			f2: flow path wifiSendIn -> wifiSendOut;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 150ms .. 150ms;	
+			HAMR::Microkit_Language => C;		
+	end wifiDriverVM;
+	
+	process wifiDriverVM_seL4
+		features
+			wifiRecvIn: in event data port Common::IncomingWifiMessage.Impl;
+			wifiRecvOut: out event data port Common::IncomingWifiMessage.Impl;
+			wifiSendIn: in event data port Common::OutgoingWifiMessage.Impl;
+			wifiSendOut: out event data port Common::OutgoingWifiMessage.Impl;
+		flows
+			f1: flow path wifiRecvIn-> wifiRecvOut;
+			f2: flow path wifiSendIn -> wifiSendOut;		
+	end wifiDriverVM_seL4;
+	
+	process implementation wifiDriverVM_seL4.Impl
+		subcomponents
+			wifiDriver: thread wifiDriverVM;
+		connections
+			c1: port wifiRecvIn -> wifiDriver.wifiRecvIn;
+			c2: port wifiDriver.wifiRecvOut -> wifiRecvOut;
+			c3: port wifiSendIn -> wifiDriver.wifiSendIn;
+			c4: port wifiDriver.wifiSendOut -> wifiSendOut;
+		properties
+			CASE_Scheduling::Domain => 2;
+			HAMR::Microkit_Language => C;
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
+		annex agree {**
+			lift contract;
+		**};
+	end wifiDriverVM_seL4.Impl;
+	
+	process wifiDriver_seL4
+		features
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
+			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
+			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
+			analysis_report: in event data port Common::AnalysisReport.Impl;
+			analysis_request: out event data port Common::AnalysisRequest.Impl;
+			alert: in event port;
+		flows
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;	
+			f4: flow sink alert;
+	end wifiDriver_seL4;
+	
+	process implementation wifiDriver_seL4.Impl
+		subcomponents
+			wifiDriver: thread wifiDriver;
+		connections
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port analysis_report -> wifiDriver.analysis_report;
+			c3: port wifiDriver.wifiSend -> wifiSend;
+			c4: port wifiDriver.HMD_log -> HMD_log;
+			c5: port wifiDriver.analysis_request -> analysis_request;
+			c6: port alert -> wifiDriver.alert;
+		properties
+			CASE_Scheduling::Domain => 3;
+		annex agree {**
+			lift contract;
+		**};
+	end wifiDriver_seL4.Impl;
+	
+	process dataManager_seL4
+		features
+			HMD_log: in event data port Common::Log.Impl;
+			request_log: in event data port Common::Request.Impl;
+			response_log: out event data port Common::ResponseLog.Impl;
+			zeroize: in event port;
+		flows
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+			f3: flow sink zeroize;
+		annex agree {**
+			eq cache: Common::LogArray.Impl;			
+				
+			fun IS_ZEROIZED(logs: Common::LogArray.Impl): bool = 
+				forall i in indices(logs), logs[i] = NULL_LOG;
+				
+			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
+			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
+				Once(event(zeroize)) => IS_ZEROIZED(cache);			
+		**};
+          annex GUMBO{**
+			state
+				cache: Common::LogArray.Impl;
+				zeroize_cmd: Base_Types::Boolean;
+			functions
+				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
+					(All(0 to logs.size-1)(i => (
+						logs(i).timestamp == u32"0" & 
+						logs(i).userID == u32"0" & 
+						logs(i).numSuspects == u32"0" & 
+						logs(i).numSuspectsFlagged == u32"0" & 
+						logs(i).yaw == s32"0" & 
+						logs(i).pitch == s32"0" & 
+						logs(i).roll == s32"0"
+					)));
+			initialize
+				modifies zeroize_cmd;
+				
+				guarantee defaultZeroize:
+					zeroize_cmd == false;
+				
+			compute
+				modifies cache, zeroize_cmd;
+				
+				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
+					zeroize_cmd == (HasEvent(zeroize) | In(zeroize_cmd));
+
+				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
+				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
+					zeroize_cmd ->: IS_ZEROIZED(cache);	
+		**};
+	end dataManager_seL4;
+	
+	process implementation dataManager_seL4.Impl
+		subcomponents
+			dataManager: thread dataManager;
+			logs: data Common::LogArray;
+		connections
+			c1: port HMD_log -> dataManager.HMD_log;
+			c2: port request_log -> dataManager.request_log;
+			c3: port dataManager.response_log -> response_log;
+			c4: port zeroize -> dataManager.zeroize;	
+			dac1: data access logs <-> dataManager.log_data;
+		properties
+			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
+			
+			-- present in hardened system			
+			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
+			CASE_Scheduling::Domain => 7;		
+	end dataManager_seL4.Impl;
+	
+	process dataAnalysis_seL4
+		features
+			request_log: out event data port Common::Request.Impl;
+			response_log: in event data port Common::ResponseLog.Impl;
+			analysis_report: out event data port Common::AnalysisReport.Impl;
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request -> request_log;
+			f2: flow path response_log -> analysis_report;
+	end dataAnalysis_seL4;
+	
+	process implementation dataAnalysis_seL4.Impl
+		subcomponents
+			dataAnalysis: thread dataAnalysis;
+		connections
+			c1: port response_log -> dataAnalysis.response_log;
+			c2: port analysis_request -> dataAnalysis.analysis_Request;
+			c3: port dataAnalysis.request_log -> request_log;
+			c4: port dataAnalysis.analysis_report -> analysis_report;
+		properties
+			CASE_Scheduling::Domain => 6;
+		annex agree {**
+			lift contract;
+		**};			
+	end dataAnalysis_seL4.Impl;
+
+	process btDriver_seL4
+		features
+			btRecv: in event data port Common::DummyMessage.Impl;			
+			btSend: out event data port Common::DummyMessage.Impl;
+		flows
+			f1: flow path btRecv -> btSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
+	end btDriver_seL4;
+	
+	process implementation btDriver_seL4.Impl
+		subcomponents
+			btDriver: thread btDriver;
+		connections
+			c1: port btRecv -> btDriver.btRecv;
+			c2: port btDriver.btSend -> btSend;
+		properties
+			CASE_Scheduling::Domain => 11;
+	end btDriver_seL4.Impl;
+	
+	process usbDriver_seL4
+		features
+			usbRecv: in event data port Common::DummyMessage.Impl;
+			usbSend: out event data port Common::DummyMessage.Impl;
+		flows
+			f1: flow path usbRecv -> usbSend;
+		properties
+			MATRICS_Properties::Component_Type => COMM_DRIVER;
+	end usbDriver_seL4;
+	
+	process implementation usbDriver_seL4.Impl
+		subcomponents
+			usbDriver: thread usbDriver;
+		connections
+			c1: port usbRecv -> usbDriver.usbRecv;
+			c2: port usbDriver.usbSend -> usbSend;
+		properties
+			CASE_Scheduling::Domain => 12;
+	end usbDriver_seL4.Impl;
+	
+	-- High-Assurance Components
+	-- monitors the behavior of the dataManager component	
+	thread logMonitor
+		features
+			request_log: in event data port Common::Request.Impl;
+			response_log_in: in event data port Common::ResponseLog.Impl;
+			response_log_out: out event data port Common::ResponseLog.Impl;			
+			alert: out event port;
+		flows
+			f1: flow path request_log -> response_log_out;
+			f2: flow path response_log_in -> response_log_out;
+			f3: flow source alert;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+		annex agree {**
+			eq is_valid: bool = 
+				if event(request_log) and event(response_log_in)
+				then true
+				else event(response_log_in) => Yesterday(
+					Since(
+						not(
+							event(response_log_in)
+						), event(request_log)
+					)
+				);
+
+			guarantee Alert "G: Send an alert if more than one response is received without a request." :
+				if event(response_log_in) and not(is_valid)
+				then event(alert)
+				else not(event(alert));
+			guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
+				if event(response_log_in) and Historically(not(event(alert)))
+				then event(response_log_out) and (response_log_out = response_log_in)
+				else not(event(response_log_out));
+		**};
+		annex GUMBO{**
+			state
+				since_result: Base_Types::Boolean;
+				is_valid: Base_Types::Boolean;
+				historically_no_alert_cmd: Base_Types::Boolean;
+			initialize
+				modifies since_result, historically_no_alert_cmd;
+				guarantee defaultSince:
+					since_result == false;
+				guarantee defaultHistorically:
+					historically_no_alert_cmd == true;
+				
+			compute
+				modifies since_result, is_valid, historically_no_alert_cmd;
+				
+				guarantee is_valid_variable "G: is_valid set correctly" :
+					is_valid ==
+						(if (HasEvent(request_log) & HasEvent(response_log_in))
+						 true
+						 else (HasEvent(response_log_in) ->: In(since_result)));
+				
+				
+				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
+					since_result == GUMBO_PLTL::Since(
+						!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
+				
+
+                    guarantee Alert "G: Send an alert if more than one response is received without a request." :
+					if (HasEvent(response_log_in) & !(is_valid)) 
+					(MustSend(alert) & historically_no_alert_cmd == false)
+					else (NoSend(alert) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
+				guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
+					if (HasEvent(response_log_in) & historically_no_alert_cmd)
+					(MustSend(response_log_out) && (response_log_out == response_log_in))
+					else NoSend(response_log_out);
+		**};
+	end logMonitor;
+	
+	process logMonitor_seL4
+		features
+			request_log: in event data port Common::Request.Impl;
+			response_log_in: in event data port Common::ResponseLog.Impl;
+			response_log_out: out event data port Common::ResponseLog.Impl;
+			alert: out event port;
+		flows
+			f1: flow path request_log -> response_log_out;
+			f2: flow path response_log_in -> response_log_out;
+			f3: flow source alert;
+		properties
+			MATRICS_Properties::Component_Type => MONITOR;
+	end logMonitor_seL4;
+	
+	process implementation logMonitor_seL4.Impl
+		subcomponents
+			logMonitor: thread logMonitor;
+		connections
+			c1: port request_log -> logMonitor.request_log;
+			c2: port response_log_in -> logMonitor.response_log_in;
+			c3: port logMonitor.response_log_out -> response_log_out;
+			c4: port logMonitor.alert -> alert;
+		properties
+			CASE_Scheduling::Domain => 8;
+		annex agree {**
+			lift contract;
+		**};
+	end logMonitor_seL4.Impl;
+
+	-- monitors the behavior of the dataAnalysis component and incoming requests
+	thread reportMonitor
+		features
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+			alert: out event port;
+		flows
+			f1: flow path analysis_request -> analysis_report_out;
+			f2: flow path analysis_report_in -> analysis_report_out;
+			f3: flow source alert;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;			
+		annex agree {**
+			node Counter(i: bool, reset: bool) returns (count: int);
+			let
+				count = if reset then 0 
+							else 0 -> if i then pre(count) + 1 
+								else pre(count);
+			tel;
+			
+			const threshold: int = 3;			
+			eq is_valid1: bool = 
+				if event(analysis_request) and event(analysis_report_in)
+				then true
+				else event(analysis_report_in) => Yesterday(Since(not(event(analysis_report_in)), event(analysis_request)));
+			eq is_invalid2: bool = Counter(event(analysis_request), event(analysis_report_in)) >= threshold;
+								 
+			guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
+				if (event(analysis_report_in) and not(is_valid1)) or is_invalid2
+				then event(alert)
+				else not(event(alert));
+			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
+				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.client)
+				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
+				else not(event(analysis_report_out));	
+		**};
+		annex GUMBO {**
+			state
+				counter: Base_Types::Unsigned_32;
+				since_result: Base_Types::Boolean;
+				is_valid1: Base_Types::Boolean;
+				is_invalid2: Base_Types::Boolean;
+			functions
+				def Counter(i: Base_Types::Boolean, reset: Base_Types::Boolean,
+                                   count: Base_Types::Unsigned_32): Base_Types::Unsigned_32 :=
+                         if (reset)
+                         u32"0"
+                         else (if (i) (count + u32"1") else count);
+			initialize
+				modifies counter, since_result;
+				
+				guarantee defaultCounterAndSince:
+					counter == u32"0" & 
+					since_result == false;
+					
+			compute
+                    modifies counter, since_result, is_valid1, is_invalid2;
+
+                    guarantee counter_variable "G: counter set correctly":
+						counter == Counter(HasEvent(analysis_request),
+							HasEvent(analysis_report_in), In(counter));
+
+				
+				guarantee since_result_variable "G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)":
+					since_result == GUMBO_PLTL::Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
+				
+				guarantee valid1 "G: is_valid1 set correctly" :
+					if (HasEvent(analysis_report_in) & HasEvent(analysis_request))
+					is_valid1 == true 
+					else is_valid1 == (HasEvent(analysis_report_in) ->: In(since_result));
+					
+				guarantee invalid2 "G: is_invalid2 set correctly" : 
+					is_invalid2 == (counter >= u32"3");
+								 
+				guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
+					if ((HasEvent(analysis_report_in) & !(is_valid1)) | is_invalid2)
+					MustSend(alert)
+					else NoSend(alert);
+				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
+					if (HasEvent(analysis_report_in) && is_valid1 && !(is_invalid2) &&
+						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
+							MATRICS_Model_Transformations::ALLOW_LIST(),
+							analysis_report_in.header.client))
+					MustSend(analysis_report_out) && (analysis_report_out == analysis_report_in)
+					else NoSend(analysis_report_out);	
+		**};
+	end reportMonitor;
+
+	process reportMonitor_seL4
+		features
+			analysis_request: in event data port Common::AnalysisRequest.Impl;
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;			
+			alert: out event port;
+		flows	
+			f1: flow path analysis_request -> analysis_report_out;
+			f2: flow path analysis_report_in -> analysis_report_out;
+			f3: flow source alert;				
+		properties
+			MATRICS_Properties::Component_Type => MONITOR;			
+	end reportMonitor_seL4;
+	
+	process implementation reportMonitor_seL4.Impl
+		subcomponents
+			reportMonitor: thread reportMonitor;
+		connections
+			c1: port analysis_request -> reportMonitor.analysis_request;
+			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
+			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
+			c4: port reportMonitor.alert -> alert;
+		properties
+			CASE_Scheduling::Domain => 10;
+		annex agree {**
+			lift contract;
+		**};
+	end reportMonitor_seL4.Impl;
+	
+	-- handles decryption
+	thread decryptor
+		features
+			HMD_log_in: in event data port Common::encryptedIncomingPayload.Impl;
+			HMD_log_out: out event data port Common::Log.Impl;
+		flows
+			f1: flow path HMD_log_in -> HMD_log_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+		annex agree {**
+			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+				HMD_log_out != HMD_log_in;
+		**}	;	
+		annex GUMBO {**
+			compute
+				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+					HMD_log_out != HMD_log_in;
+		**}	;			
+	end decryptor;
+
+	process decryptor_seL4
+		features
+			HMD_log_in: in event data port Common::encryptedIncomingPayload.Impl;
+			HMD_log_out: out event data port Common::Log.Impl;
+		flows
+			f1: flow path HMD_log_in -> HMD_log_out;
+		properties
+			MATRICS_Properties::Component_Type => DECRYPTOR;
+	end decryptor_seL4;
+	
+	process implementation decryptor_seL4.Impl
+		subcomponents
+			decryptor: thread decryptor;
+		connections
+			c1: port HMD_log_in -> decryptor.HMD_log_in;
+			c2: port decryptor.HMD_log_out -> HMD_log_out;
+		properties
+			CASE_Scheduling::Domain => 4;
+		annex agree {**
+			lift contract;
+		**};				
+	end decryptor_seL4.Impl;
+	
+	-- handles encryption
+	-- NOTE: Figure out what this change means.
+	thread encryptor
+		features
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+		flows
+			f1: flow path analysis_report_in -> analysis_report_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+		annex agree {**
+			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
+				analysis_report_out.payload != analysis_report_in.payload;
+			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
+				analysis_report_out.header = analysis_report_in.header;
+		**}	;	
+		annex GUMBO {**
+			compute
+				guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
+					analysis_report_out.payload != analysis_report_in.payload;
+				guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
+					analysis_report_out.header == analysis_report_in.header;
+		**}	;
+	end encryptor;
+	
+	process encryptor_seL4
+		features
+			analysis_report_in: in event data port Common::AnalysisReport.Impl;
+			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+		flows
+			f1: flow path analysis_report_in -> analysis_report_out;
+		properties
+			MATRICS_Properties::Component_Type => ENCRYPTOR;
+	end encryptor_seL4;
+	
+	process implementation encryptor_seL4.Impl
+		subcomponents
+			encryptor: thread encryptor;
+		connections
+			c1: port analysis_report_in -> encryptor.analysis_report_in;
+			c2: port encryptor.analysis_report_out -> analysis_report_out;
+		properties
+			CASE_Scheduling::Domain => 9;
+		annex agree {**
+			lift contract;
+		**};			
+	end encryptor_seL4.Impl;
+	
+	-- filters the analysis request to guarantee it is from a trusted device
+	thread firewall
+		features
+			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
+			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request_in -> analysis_request_out;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+		annex agree {**
+			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
+				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.client)
+				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
+				else not event(analysis_request_out);
+		**};
+		annex GUMBO {**
+			compute
+				guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
+					if (HasEvent(analysis_request_in) &&
+						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
+							MATRICS_Model_Transformations::ALLOW_LIST(),
+							analysis_request_in.header.client))
+					MustSend(analysis_request_out) && (analysis_request_out == analysis_request_in)
+					else NoSend(analysis_request_out);
+		**};
+	end firewall;
+	
+	process firewall_seL4
+		features
+			analysis_request_in: in event data port Common::AnalysisRequest.Impl;
+			analysis_request_out: out event data port Common::AnalysisRequest.Impl;
+		flows
+			f1: flow path analysis_request_in -> analysis_request_out;
+		properties
+			MATRICS_Properties::Component_Type => FIREWALL;
+	end firewall_seL4;
+	
+	process implementation firewall_seL4.impl
+		subcomponents
+			firewall: thread firewall;
+		connections
+			c1: port analysis_request_in -> firewall.analysis_request_in;
+			c2: port firewall.analysis_request_out -> analysis_request_out;
+		properties
+			CASE_Scheduling::Domain => 5;
+		annex agree {**
+			lift contract;
+		**};			
+	end firewall_seL4.impl;
+	
+	system wifiDriver_sys
+		features
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
+			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
+			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
+			analysis_report: in event data port Common::AnalysisReport.Impl;
+			analysis_request: out event data port Common::AnalysisRequest.Impl;
+			alert: in event port;	
+		flows
+			f1: flow path wifiRecv -> HMD_log;
+			f2: flow path wifiRecv -> analysis_Request;
+			f3: flow path analysis_report -> wifiSend;	
+			f4: flow sink alert;
+	end wifiDriver_sys;
+	
+	system implementation wifiDriver_sys.Impl
+		subcomponents
+			wifiDriver: process wifiDriver_seL4.Impl;
+			wifiDriverVM: process wifiDriverVM_seL4.Impl;
+		connections
+			-- Wi-Fi exchange with outside
+			c1: port wifiRecv -> wifiDriverVM.wifiRecvIn;
+			c2: port wifiDriverVM.wifiRecvOut -> wifiDriver.wifiRecv;
+			c3: port wifiDriver.wifiSend -> wifiDriverVM.wifiSendIn;
+			c4: port wifiDriverVM.wifiSendOut -> wifiSend;
+			c5: port wifiDriver.HMD_log -> HMD_log;
+			c6: port analysis_report -> wifiDriver.analysis_report;
+			c7: port wifiDriver.analysis_request -> analysis_request;
+			c8: port alert -> wifiDriver.alert;	
+	end wifiDriver_sys.Impl;
+	
+	-- Hardened Software System
+	system SW_seL4
+		features
+			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
+			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
+			--
+			btRecv: in event data port Common::DummyMessage.Impl;			
+			btSend: out event data port Common::DummyMessage.Impl;
+			--
+			usbRecv: in event data port Common::DummyMessage.Impl;			
+			usbSend: out event data port Common::DummyMessage.Impl;
+		flows
+			f1: flow sink wifiRecv;	
+	end SW_seL4;
+	
+	system implementation SW_seL4.hardened
+		subcomponents
+			wifiDriver: system wifiDriver_sys.Impl;
+			btDriver: process btDriver_seL4.Impl;
+			usbDriver: process usbDriver_seL4.Impl;
+			dataManager: process dataManager_seL4.Impl;
+			dataAnalysis: process dataAnalysis_seL4.Impl;
+			decryptor: process decryptor_seL4.Impl;
+			encryptor: process encryptor_seL4.Impl;
+			logMonitor: process logMonitor_seL4.Impl;
+			reportMonitor: process reportMonitor_seL4.Impl;
+			firewall: process firewall_seL4.Impl;
+		connections
+			-- Wi-Fi exchange with outside
+			c1: port wifiRecv -> wifiDriver.wifiRecv;
+			c2: port wifiDriver.wifiSend -> wifiSend;
+			-- Bluetooth exchange with outside
+			c5: port btRecv -> btDriver.btRecv;
+			c6: port btDriver.btSend -> btSend;
+			-- USB exchange with outside
+			c7: port usbRecv -> usbDriver.usbRecv;
+			c8: port usbDriver.usbSend -> usbSend;
+			-- internal data communication
+			c9: port dataAnalysis.request_log -> dataManager.request_log;
+			-- decryption connections
+			c10: port wifiDriver.HMD_log -> decryptor.HMD_log_in;
+			c11: port decryptor.HMD_log_out -> dataManager.HMD_log;
+			-- encryption connections
+			c12: port dataAnalysis.analysis_report -> encryptor.analysis_report_in;
+			c13: port reportMonitor.analysis_report_out -> wifiDriver.analysis_report;			
+			-- monitor connections
+			c14: port dataAnalysis.request_log -> logMonitor.request_log;
+			c15: port dataManager.response_log -> logMonitor.response_log_in;
+			c16: port logMonitor.response_log_out -> dataAnalysis.response_log;
+			c17: port logMonitor.alert -> dataManager.zeroize;
+			c18: port wifiDriver.analysis_request -> reportMonitor.analysis_request;
+			c19: port encryptor.analysis_report_out -> reportMonitor.analysis_report_in;
+			c20: port reportMonitor.alert -> wifiDriver.alert;
+			--firewall connections
+			c21: port wifiDriver.analysis_request -> firewall.analysis_request_in;
+			c22: port firewall.analysis_request_out -> dataAnalysis.analysis_request;
+		flows
+			-- HMD log flow path
+			f1: flow sink wifiRecv -> c1 -> wifiDriver.f1 -> c10 -> decryptor.f1 -> c11 -> dataManager.f1;		
+	end SW_seL4.hardened;
+	
+end Hardened_SW;
