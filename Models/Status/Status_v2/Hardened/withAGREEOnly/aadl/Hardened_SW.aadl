@@ -83,7 +83,7 @@ public
 			c3: port wifiDriver.wifiSend -> wifiSend;
 			c4: port wifiDriver.HMD_log -> HMD_log;
 			c5: port wifiDriver.analysis_request -> analysis_request;
-			c6: port alert -> wifiDriver.alert;
+			c6: port alert -> wifiDriver.alert_in;
 		properties
 			CASE_Scheduling::Domain => 3;
 		annex agree {**
@@ -205,11 +205,11 @@ public
 			request_log: in event data port Common::Request.Impl;
 			response_log_in: in event data port Common::ResponseLog.Impl;
 			response_log_out: out event data port Common::ResponseLog.Impl;			
-			alert: out event port;
+			alert_out: out event port;
 		flows
 			f1: flow path request_log -> response_log_out;
 			f2: flow path response_log_in -> response_log_out;
-			f3: flow source alert;
+			f3: flow source alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
@@ -228,10 +228,10 @@ public
 
 			guarantee Alert "G: Send an alert if more than one response is received without a request." :
 				if event(response_log_in) and not(is_valid)
-				then event(alert)
-				else not(event(alert));
+				then event(alert_out)
+				else not(event(alert_out));
 			guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
-				if event(response_log_in) and Historically(not(event(alert)))
+				if event(response_log_in) and Historically(not(event(alert_out)))
 				then event(response_log_out) and (response_log_out = response_log_in)
 				else not(event(response_log_out));
 		**};
@@ -258,7 +258,7 @@ public
 			c1: port request_log -> logMonitor.request_log;
 			c2: port response_log_in -> logMonitor.response_log_in;
 			c3: port logMonitor.response_log_out -> response_log_out;
-			c4: port logMonitor.alert -> alert;
+			c4: port logMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 8;
 		annex agree {**
@@ -272,11 +272,11 @@ public
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 			analysis_report_in: in event data port Common::AnalysisReport.Impl;
 			analysis_report_out: out event data port Common::AnalysisReport.Impl;
-			alert: out event port;
+			alert_out: out event port;
 		flows
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
-			f3: flow source alert;
+			f3: flow source alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
@@ -298,8 +298,8 @@ public
 								 
 			guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
 				if (event(analysis_report_in) and not(is_valid1)) or is_invalid2
-				then event(alert)
-				else not(event(alert));
+				then event(alert_out)
+				else not(event(alert_out));
 			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
 				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.client)
 				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
@@ -328,7 +328,7 @@ public
 			c1: port analysis_request -> reportMonitor.analysis_request;
 			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
-			c4: port reportMonitor.alert -> alert;
+			c4: port reportMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 10;
 		annex agree {**

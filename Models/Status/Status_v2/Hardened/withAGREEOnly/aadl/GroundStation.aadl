@@ -54,24 +54,24 @@ public
 			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
 			analysis_report: in event data port Common::AnalysisReport.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event port;
+			alert_in: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;
-			f4: flow sink alert;
+			f4: flow sink alert_in;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;			
 		annex agree {**
 			assume Alert "A: A report should not be received if an alert is received." :
-				event(alert) => not(event(analysis_report));
+				event(alert_in) => not(event(analysis_report));
 			assume Trusted_Report "A: Reports received are to a trusted destination." :
 				event(analysis_report) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report.header.client);
 			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
 			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
-				if event(analysis_report) and not(Once(event(alert)))
+				if event(analysis_report) and not(Once(event(alert_in)))
 				then event(wifiSend)
 				else not(event(wifiSend));
 		**};
