@@ -54,7 +54,6 @@ package GroundStation {
                 assume Trusted_Report "A: Reports received are to a trusted destination.":
                     HasEvent(analysis_report) implies
                         MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                            MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                             analysis_report.header.client);
 
                 guarantee alert_cmd_variable "G: Once an alert command is seen, always stay alerted.":
@@ -118,7 +117,6 @@ package GroundStation {
                 assume Trusted_Request "A: Requests received are from a trusted source.":
                     HasEvent(analysis_request) implies
                         MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                            MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                             analysis_request.header.client);
         }*/
     }
@@ -250,7 +248,6 @@ package GroundStation {
                     if (HasEvent(analysis_report_in) and is_valid1 and
                         not is_invalid2 and
                         MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                            MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                             analysis_report_in.header.client))?
                         (MustSend(analysis_report_out) &
                          analysis_report_out == analysis_report_in)
@@ -293,7 +290,6 @@ package GroundStation {
                 guarantee Forward_Request "G: Only forward a request if it is from a trusted source.":
                     if (HasEvent(analysis_request_in) and
                         MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                            MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                             analysis_request_in.header.client))?
                         (MustSend(analysis_request_out) &
                          analysis_request_out == analysis_request_in)
@@ -683,7 +679,6 @@ package GroundStation {
                     after firewall:
                         HasEvent(firewall_request_out) implies
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                                 firewall_request_out.header.client);
 
                     after data_analysis:
@@ -697,28 +692,24 @@ package GroundStation {
                         (HasEvent(report_alert) implies not HasEvent(report_out)) &
                         (HasEvent(report_out) implies
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                                 report_out.header.client));
 
                     after bt_driver:
                         (HasEvent(report_alert) implies not HasEvent(report_out)) &
                         (HasEvent(report_out) implies
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                                 report_out.header.client));
 
                     after usb_driver:
                         (HasEvent(report_alert) implies not HasEvent(report_out)) &
                         (HasEvent(report_out) implies
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                                 report_out.header.client));
 
                     at END:
                         (HasEvent(report_alert) implies not HasEvent(report_out)) &
                         (HasEvent(report_out) implies
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                MATRICS_Model_Transformations::GUMBO__Library::ALLOW_LIST(),
                                 report_out.header.client));
                 }
 

@@ -92,7 +92,6 @@ public
 				assume Trusted_Report "A: Reports received are to a trusted destination." :
 					HasEvent(analysis_report) ->:
 						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
-							MATRICS_Model_Transformations::ALLOW_LIST(),
 							analysis_report.header.client);
 			
 				guarantee alert_cmd_variable "G: Once an alert command is seen, always stay alerted.":
@@ -138,7 +137,7 @@ public
 			functions
 				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
 					(All(0 to logs.size-1)(i => (
-						logs(i) == MATRICS_Model_Transformations::NULL_LOG()
+						MATRICS_Model_Transformations::IS_NULL_LOG(logs(i))
 					)));
 			initialize
 				modifies zeroize_cmd;
@@ -182,7 +181,6 @@ public
 				assume Trusted_Request "A: Requests received are from a trusted source." :
 					HasEvent(analysis_request) ->:
 						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
-							MATRICS_Model_Transformations::ALLOW_LIST(),
 							analysis_request.header.client);
 		**};
 	end dataAnalysis;

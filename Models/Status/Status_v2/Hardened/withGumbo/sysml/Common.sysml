@@ -4,16 +4,6 @@ package Common {
 
     private import HAMR::*;
 
-    // Private support type for the shared GUMBO allow-list functions. Keeping
-    // it outside the library package avoids a Rust namespace collision between
-    // a generated data module and the GUMBO library crate of the same name.
-    part def AllowList_Impl :> Array {
-        part :>> Base_Type : Base_Types::Unsigned_32;
-        attribute :>> Dimensions = 4;
-        attribute :>> Array_Size_Kind = Array_Size_Kinds::Fixed;
-        attribute :>> Data_Size = 16 [byte];
-    }
-
     part def MsgHeader_Impl :> Struct {
         part client: Base_Types::Unsigned_32;
     }

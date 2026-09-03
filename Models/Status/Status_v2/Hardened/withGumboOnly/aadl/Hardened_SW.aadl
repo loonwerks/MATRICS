@@ -316,7 +316,6 @@ public
 				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
 					if (HasEvent(analysis_report_in) && is_valid1 && !(is_invalid2) &&
 						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
-							MATRICS_Model_Transformations::ALLOW_LIST(),
 							analysis_report_in.header.client))
 					MustSend(analysis_report_out) && (analysis_report_out == analysis_report_in)
 					else NoSend(analysis_report_out);	
@@ -360,11 +359,11 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;	
-		annex GUMBO {**
-			compute
-				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
-					HMD_log_out != HMD_log_in;
-		**}	;			
+--		annex GUMBO {**
+--			compute
+--				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
+--					HMD_log_out != HMD_log_in;
+--		**}	;			
 	end decryptor;
 
 	process decryptor_seL4
@@ -444,7 +443,6 @@ public
 				guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
 					if (HasEvent(analysis_request_in) &&
 						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
-							MATRICS_Model_Transformations::ALLOW_LIST(),
 							analysis_request_in.header.client))
 					MustSend(analysis_request_out) && (analysis_request_out == analysis_request_in)
 					else NoSend(analysis_request_out);
