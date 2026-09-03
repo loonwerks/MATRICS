@@ -53,9 +53,6 @@ public
 			CASE_Scheduling::Domain => 2;
 			HAMR::Microkit_Language => C;
 			MATRICS_Properties::Component_Type => COMM_DRIVER;
-		annex agree {**
-			lift contract;
-		**};
 	end wifiDriverVM_seL4.Impl;
 	
 	process wifiDriver_seL4
@@ -85,9 +82,6 @@ public
 			c6: port alert -> wifiDriver.alert_in;
 		properties
 			CASE_Scheduling::Domain => 3;
-		annex agree {**
-			lift contract;
-		**};
 	end wifiDriver_seL4.Impl;
 	
 	process dataManager_seL4
@@ -100,17 +94,6 @@ public
 			f1: flow sink HMD_log;
 			f2: flow path request_log -> response_log;
 			f3: flow sink zeroize;
-		annex agree {**
-			eq cache: Common::LogArray.Impl;			
-				
-			fun IS_ZEROIZED(logs: Common::LogArray.Impl): bool = 
-				forall i in indices(logs), logs[i] = NULL_LOG;
-				
-			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
-			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
-				Once(event(zeroize)) => IS_ZEROIZED(cache);			
-		**};
 	end dataManager_seL4;
 	
 	process implementation dataManager_seL4.Impl
@@ -151,10 +134,7 @@ public
 			c3: port dataAnalysis.request_log -> request_log;
 			c4: port dataAnalysis.analysis_report -> analysis_report;
 		properties
-			CASE_Scheduling::Domain => 6;
-		annex agree {**
-			lift contract;
-		**};			
+			CASE_Scheduling::Domain => 6;		
 	end dataAnalysis_seL4.Impl;
 
 	process btDriver_seL4
@@ -213,27 +193,6 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;
-		annex agree {**
-			eq is_valid: bool = 
-				if event(request_log) and event(response_log_in)
-				then true
-				else event(response_log_in) => Yesterday(
-					Since(
-						not(
-							event(response_log_in)
-						), event(request_log)
-					)
-				);
-
-			guarantee Alert "G: Send an alert if more than one response is received without a request." :
-				if event(response_log_in) and not(is_valid)
-				then event(alert)
-				else not(event(alert));
-			guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
-				if event(response_log_in) and Historically(not(event(alert)))
-				then event(response_log_out) and (response_log_out = response_log_in)
-				else not(event(response_log_out));
-		**};
 		annex GUMBO{**
 			state
 				since_result: Base_Types::Boolean;
@@ -260,7 +219,7 @@ public
 					since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
 				
 
-                    guarantee Alert_WifiDriver "G: Send an alert if more than one response is received without a request." :
+                    guarantee Send_Alert "G: Send an alert if more than one response is received without a request." :
 					if (HasEvent(response_log_in) & !(is_valid)) 
 					(MustSend(alert_out) & historically_no_alert_cmd == false)
 					else (NoSend(alert_out) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
@@ -295,9 +254,6 @@ public
 			c4: port logMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 8;
-		annex agree {**
-			lift contract;
-		**};
 	end logMonitor_seL4.Impl;
 
 	-- monitors the behavior of the dataAnalysis component and incoming requests
@@ -315,30 +271,6 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;			
-		annex agree {**
-			node Counter(i: bool, reset: bool) returns (count: int);
-			let
-				count = if reset then 0 
-							else 0 -> if i then pre(count) + 1 
-								else pre(count);
-			tel;
-			
-			const threshold: int = 3;			
-			eq is_valid1: bool = 
-				if event(analysis_request) and event(analysis_report_in)
-				then true
-				else event(analysis_report_in) => Yesterday(Since(not(event(analysis_report_in)), event(analysis_request)));
-			eq is_invalid2: bool = Counter(event(analysis_request), event(analysis_report_in)) >= threshold;
-								 
-			guarantee Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
-				if (event(analysis_report_in) and not(is_valid1)) or is_invalid2
-				then event(alert)
-				else not(event(alert));
-			guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
-				if event(analysis_report_in) and is_valid1 and not(is_invalid2) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report_in.header.client)
-				then event(analysis_report_out) and (analysis_report_out = analysis_report_in)
-				else not(event(analysis_report_out));	
-		**};
 		annex GUMBO {**
 			state
 				counter: Base_Types::Unsigned_32;
@@ -415,9 +347,6 @@ public
 			c4: port reportMonitor.alert_out -> alert;
 		properties
 			CASE_Scheduling::Domain => 10;
-		annex agree {**
-			lift contract;
-		**};
 	end reportMonitor_seL4.Impl;
 	
 	-- handles decryption
@@ -430,11 +359,7 @@ public
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;
-		annex agree {**
-			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
-				HMD_log_out != HMD_log_in;
-		**}	;	
+			Stack_size => 1048576 Bytes;	
 		annex GUMBO {**
 			compute
 				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
@@ -459,10 +384,7 @@ public
 			c1: port HMD_log_in -> decryptor.HMD_log_in;
 			c2: port decryptor.HMD_log_out -> HMD_log_out;
 		properties
-			CASE_Scheduling::Domain => 4;
-		annex agree {**
-			lift contract;
-		**};				
+			CASE_Scheduling::Domain => 4;			
 	end decryptor_seL4.Impl;
 	
 	-- handles encryption
@@ -476,13 +398,7 @@ public
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;
-		annex agree {**
-			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
-				analysis_report_out.payload != analysis_report_in.payload;
-			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
-				analysis_report_out.header = analysis_report_in.header;
-		**}	;	
+			Stack_size => 1048576 Bytes;	
 		annex GUMBO {**
 			compute
 				guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
@@ -509,10 +425,7 @@ public
 			c1: port analysis_report_in -> encryptor.analysis_report_in;
 			c2: port encryptor.analysis_report_out -> analysis_report_out;
 		properties
-			CASE_Scheduling::Domain => 9;
-		annex agree {**
-			lift contract;
-		**};			
+			CASE_Scheduling::Domain => 9;		
 	end encryptor_seL4.Impl;
 	
 	-- filters the analysis request to guarantee it is from a trusted device
@@ -526,12 +439,6 @@ public
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;
-		annex agree {**
-			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
-				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.client)
-				then event(analysis_request_out) and (analysis_request_out = analysis_request_in)
-				else not event(analysis_request_out);
-		**};
 		annex GUMBO {**
 			compute
 				guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
@@ -561,10 +468,7 @@ public
 			c1: port analysis_request_in -> firewall.analysis_request_in;
 			c2: port firewall.analysis_request_out -> analysis_request_out;
 		properties
-			CASE_Scheduling::Domain => 5;
-		annex agree {**
-			lift contract;
-		**};			
+			CASE_Scheduling::Domain => 5;	
 	end firewall_seL4.impl;
 	
 	system wifiDriver_sys
