@@ -59,15 +59,15 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
-			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
-			analysis_report: in event data port Common::AnalysisReport.Impl;
+			HMD_log: out event data port Common::EncryptedMessage.Impl;
+			analysis_report: in event data port Common::OutgoingWifiMessage.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event port;
+			alert_in: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
-			f4: flow sink alert;
+			f4: flow sink alert_in;
 	end wifiDriver_seL4;
 	
 	process implementation wifiDriver_seL4.Impl
@@ -79,7 +79,7 @@ public
 			c3: port wifiDriver.wifiSend -> wifiSend;
 			c4: port wifiDriver.HMD_log -> HMD_log;
 			c5: port wifiDriver.analysis_request -> analysis_request;
-			c6: port alert -> wifiDriver.alert_in;
+			c6: port alert_in -> wifiDriver.alert_in;
 		properties
 			CASE_Scheduling::Domain => 3;
 	end wifiDriver_seL4.Impl;
@@ -87,38 +87,55 @@ public
 	process dataManager_seL4
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			request_log: in event data port Common::Request.Impl;
-			response_log: out event data port Common::ResponseLog.Impl;
-			zeroize: in event port;
+			encrypted_log: out event data port Common::EncryptedMessage.Impl;
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log: out event data port Common::AnalysisResponse.Impl;
 		flows
-			f1: flow sink HMD_log;
+			f1: flow path HMD_log -> encrypted_log;
 			f2: flow path request_log -> response_log;
-			f3: flow sink zeroize;
 	end dataManager_seL4;
 	
 	process implementation dataManager_seL4.Impl
 		subcomponents
 			dataManager: thread dataManager;
-			logs: data Common::LogArray;
 		connections
 			c1: port HMD_log -> dataManager.HMD_log;
 			c2: port request_log -> dataManager.request_log;
 			c3: port dataManager.response_log -> response_log;
-			c4: port zeroize -> dataManager.zeroize;	
-			dac1: data access logs <-> dataManager.log_data;
+			c4: port dataManager.encrypted_log -> encrypted_log;
 		properties
-			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
-			
-			-- present in hardened system			
-			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
 			CASE_Scheduling::Domain => 7;		
 	end dataManager_seL4.Impl;
+
+	process dataStorage_seL4
+		features
+			encrypted_log: in event data port Common::EncryptedMessage.Impl;
+			zeroize: in event port;
+		flows
+			f1: flow sink encrypted_log;
+			f2: flow sink zeroize;
+	end dataStorage_seL4;
+
+	process implementation dataStorage_seL4.Impl
+		subcomponents
+			dataStorage: thread dataStorage;
+			logs: data Common::EncryptedLogArray;
+		connections
+			c1: port encrypted_log -> dataStorage.encrypted_log;
+			c2: port zeroize -> dataStorage.zeroize;
+			dac1: data access logs <-> dataStorage.log_data;
+		properties
+			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
+			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
+			CASE_Scheduling::Domain => 13;
+			HAMR::Microkit_Language => C;
+	end dataStorage_seL4.Impl;
 	
 	process dataAnalysis_seL4
 		features
-			request_log: out event data port Common::Request.Impl;
-			response_log: in event data port Common::ResponseLog.Impl;
-			analysis_report: out event data port Common::AnalysisReport.Impl;
+			request_log: out event data port Common::AnalysisRequest.Impl;
+			response_log: in event data port Common::AnalysisResponse.Impl;
+			analysis_report: out event data port Common::AnalysisResponse.Impl;
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 		flows
 			f1: flow path analysis_request -> request_log;
@@ -134,7 +151,7 @@ public
 			c3: port dataAnalysis.request_log -> request_log;
 			c4: port dataAnalysis.analysis_report -> analysis_report;
 		properties
-			CASE_Scheduling::Domain => 6;		
+			CASE_Scheduling::Domain => 6;			
 	end dataAnalysis_seL4.Impl;
 
 	process btDriver_seL4
@@ -181,9 +198,9 @@ public
 	-- monitors the behavior of the dataManager component	
 	thread logMonitor
 		features
-			request_log: in event data port Common::Request.Impl;
-			response_log_in: in event data port Common::ResponseLog.Impl;
-			response_log_out: out event data port Common::ResponseLog.Impl;			
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log_in: in event data port Common::AnalysisResponse.Impl;
+			response_log_out: out event data port Common::AnalysisResponse.Impl;
 			alert_out: out event port;
 		flows
 			f1: flow path request_log -> response_log_out;
@@ -216,10 +233,11 @@ public
 				
 				
 				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
-					since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
+				since_result == GUMBO_PLTL::AGREE_Since(
+						!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
 				
 
-                    guarantee Send_Alert "G: Send an alert if more than one response is received without a request." :
+				guarantee Send_Alert "G: Send an alert if more than one response is received without a request." :
 					if (HasEvent(response_log_in) & !(is_valid)) 
 					(MustSend(alert_out) & historically_no_alert_cmd == false)
 					else (NoSend(alert_out) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
@@ -232,14 +250,14 @@ public
 	
 	process logMonitor_seL4
 		features
-			request_log: in event data port Common::Request.Impl;
-			response_log_in: in event data port Common::ResponseLog.Impl;
-			response_log_out: out event data port Common::ResponseLog.Impl;
-			alert: out event port;
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log_in: in event data port Common::AnalysisResponse.Impl;
+			response_log_out: out event data port Common::AnalysisResponse.Impl;
+			alert_out: out event port;
 		flows
 			f1: flow path request_log -> response_log_out;
 			f2: flow path response_log_in -> response_log_out;
-			f3: flow source alert;
+			f3: flow source alert_out;
 		properties
 			MATRICS_Properties::Component_Type => MONITOR;
 	end logMonitor_seL4;
@@ -251,7 +269,7 @@ public
 			c1: port request_log -> logMonitor.request_log;
 			c2: port response_log_in -> logMonitor.response_log_in;
 			c3: port logMonitor.response_log_out -> response_log_out;
-			c4: port logMonitor.alert_out -> alert;
+			c4: port logMonitor.alert_out -> alert_out;
 		properties
 			CASE_Scheduling::Domain => 8;
 	end logMonitor_seL4.Impl;
@@ -260,8 +278,8 @@ public
 	thread reportMonitor
 		features
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
-			analysis_report_in: in event data port Common::AnalysisReport.Impl;
-			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+			analysis_report_in: in event data port Common::OutgoingWifiMessage.Impl;
+			analysis_report_out: out event data port Common::OutgoingWifiMessage.Impl;
 			alert_out: out event port;
 		flows
 			f1: flow path analysis_request -> analysis_report_out;
@@ -299,7 +317,7 @@ public
 
 				
 				guarantee since_result_variable "G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)":
-					since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
+				since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
 				
 				guarantee valid1 "G: is_valid1 set correctly" :
 					if (HasEvent(analysis_report_in) & HasEvent(analysis_request))
@@ -325,13 +343,13 @@ public
 	process reportMonitor_seL4
 		features
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
-			analysis_report_in: in event data port Common::AnalysisReport.Impl;
-			analysis_report_out: out event data port Common::AnalysisReport.Impl;			
-			alert: out event port;
+			analysis_report_in: in event data port Common::OutgoingWifiMessage.Impl;
+			analysis_report_out: out event data port Common::OutgoingWifiMessage.Impl;
+			alert_out: out event port;
 		flows	
 			f1: flow path analysis_request -> analysis_report_out;
 			f2: flow path analysis_report_in -> analysis_report_out;
-			f3: flow source alert;				
+			f3: flow source alert_out;
 		properties
 			MATRICS_Properties::Component_Type => MONITOR;			
 	end reportMonitor_seL4;
@@ -343,7 +361,7 @@ public
 			c1: port analysis_request -> reportMonitor.analysis_request;
 			c2: port analysis_report_in -> reportMonitor.analysis_report_in;
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
-			c4: port reportMonitor.alert_out -> alert;
+			c4: port reportMonitor.alert_out -> alert_out;
 		properties
 			CASE_Scheduling::Domain => 10;
 	end reportMonitor_seL4.Impl;
@@ -351,24 +369,19 @@ public
 	-- handles decryption
 	thread decryptor
 		features
-			HMD_log_in: in event data port Common::encryptedIncomingPayload.Impl;
+			HMD_log_in: in event data port Common::EncryptedMessage.Impl;
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;	
---		annex GUMBO {**
---			compute
---				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
---					HMD_log_out != HMD_log_in;
---		**}	;			
+			Stack_size => 1048576 Bytes;
 	end decryptor;
 
 	process decryptor_seL4
 		features
-			HMD_log_in: in event data port Common::encryptedIncomingPayload.Impl;
+			HMD_log_in: in event data port Common::EncryptedMessage.Impl;
 			HMD_log_out: out event data port Common::Log.Impl;
 		flows
 			f1: flow path HMD_log_in -> HMD_log_out;
@@ -383,34 +396,26 @@ public
 			c1: port HMD_log_in -> decryptor.HMD_log_in;
 			c2: port decryptor.HMD_log_out -> HMD_log_out;
 		properties
-			CASE_Scheduling::Domain => 4;			
+			CASE_Scheduling::Domain => 4;				
 	end decryptor_seL4.Impl;
 	
 	-- handles encryption
-	-- NOTE: Figure out what this change means.
 	thread encryptor
 		features
-			analysis_report_in: in event data port Common::AnalysisReport.Impl;
-			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+			analysis_report_in: in event data port Common::AnalysisResponse.Impl;
+			analysis_report_out: out event data port Common::OutgoingWifiMessage.Impl;
 		flows
 			f1: flow path analysis_report_in -> analysis_report_out;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;	
-		annex GUMBO {**
-			compute
-				guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
-					analysis_report_out.payload != analysis_report_in.payload;
-				guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
-					analysis_report_out.header == analysis_report_in.header;
-		**}	;
+			Stack_size => 1048576 Bytes;
 	end encryptor;
 	
 	process encryptor_seL4
 		features
-			analysis_report_in: in event data port Common::AnalysisReport.Impl;
-			analysis_report_out: out event data port Common::AnalysisReport.Impl;
+			analysis_report_in: in event data port Common::AnalysisResponse.Impl;
+			analysis_report_out: out event data port Common::OutgoingWifiMessage.Impl;
 		flows
 			f1: flow path analysis_report_in -> analysis_report_out;
 		properties
@@ -424,7 +429,7 @@ public
 			c1: port analysis_report_in -> encryptor.analysis_report_in;
 			c2: port encryptor.analysis_report_out -> analysis_report_out;
 		properties
-			CASE_Scheduling::Domain => 9;		
+			CASE_Scheduling::Domain => 9;			
 	end encryptor_seL4.Impl;
 	
 	-- filters the analysis request to guarantee it is from a trusted device
@@ -466,22 +471,22 @@ public
 			c1: port analysis_request_in -> firewall.analysis_request_in;
 			c2: port firewall.analysis_request_out -> analysis_request_out;
 		properties
-			CASE_Scheduling::Domain => 5;	
+			CASE_Scheduling::Domain => 5;			
 	end firewall_seL4.impl;
 	
 	system wifiDriver_sys
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
-			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
-			analysis_report: in event data port Common::AnalysisReport.Impl;
+			HMD_log: out event data port Common::EncryptedMessage.Impl;
+			analysis_report: in event data port Common::OutgoingWifiMessage.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
-			alert: in event port;	
+			alert_in: in event port;
 		flows
 			f1: flow path wifiRecv -> HMD_log;
 			f2: flow path wifiRecv -> analysis_Request;
 			f3: flow path analysis_report -> wifiSend;	
-			f4: flow sink alert;
+			f4: flow sink alert_in;
 	end wifiDriver_sys;
 	
 	system implementation wifiDriver_sys.Impl
@@ -497,9 +502,33 @@ public
 			c5: port wifiDriver.HMD_log -> HMD_log;
 			c6: port analysis_report -> wifiDriver.analysis_report;
 			c7: port wifiDriver.analysis_request -> analysis_request;
-			c8: port alert -> wifiDriver.alert;	
+			c8: port alert_in -> wifiDriver.alert_in;
 	end wifiDriver_sys.Impl;
-	
+
+	system dataManager_sys
+		features
+			HMD_log: in event data port Common::Log.Impl;
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log: out event data port Common::AnalysisResponse.Impl;
+			zeroize: in event port;
+		flows
+			f1: flow sink HMD_log;
+			f2: flow path request_log -> response_log;
+			f3: flow sink zeroize;
+	end dataManager_sys;
+
+	system implementation dataManager_sys.Impl
+		subcomponents
+			dataManager: process dataManager_seL4.Impl;
+			dataStorage: process dataStorage_seL4.Impl;
+		connections
+			c1: port HMD_log -> dataManager.HMD_log;
+			c2: port request_log -> dataManager.request_log;
+			c3: port dataManager.response_log -> response_log;
+			c4: port dataManager.encrypted_log -> dataStorage.encrypted_log;
+			c5: port zeroize -> dataStorage.zeroize;
+	end dataManager_sys.Impl;
+
 	-- Hardened Software System
 	system SW_seL4
 		features
@@ -520,7 +549,7 @@ public
 			wifiDriver: system wifiDriver_sys.Impl;
 			btDriver: process btDriver_seL4.Impl;
 			usbDriver: process usbDriver_seL4.Impl;
-			dataManager: process dataManager_seL4.Impl;
+			dataManager: system dataManager_sys.Impl;
 			dataAnalysis: process dataAnalysis_seL4.Impl;
 			decryptor: process decryptor_seL4.Impl;
 			encryptor: process encryptor_seL4.Impl;
@@ -549,10 +578,10 @@ public
 			c14: port dataAnalysis.request_log -> logMonitor.request_log;
 			c15: port dataManager.response_log -> logMonitor.response_log_in;
 			c16: port logMonitor.response_log_out -> dataAnalysis.response_log;
-			c17: port logMonitor.alert -> dataManager.zeroize;
+			c17: port logMonitor.alert_out -> dataManager.zeroize;
 			c18: port wifiDriver.analysis_request -> reportMonitor.analysis_request;
 			c19: port encryptor.analysis_report_out -> reportMonitor.analysis_report_in;
-			c20: port reportMonitor.alert -> wifiDriver.alert;
+			c20: port reportMonitor.alert_out -> wifiDriver.alert_in;
 			--firewall connections
 			c21: port wifiDriver.analysis_request -> firewall.analysis_request_in;
 			c22: port firewall.analysis_request_out -> dataAnalysis.analysis_request;

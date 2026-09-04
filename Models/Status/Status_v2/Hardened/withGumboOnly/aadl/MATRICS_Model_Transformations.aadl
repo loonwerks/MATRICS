@@ -1,7 +1,24 @@
 package MATRICS_Model_Transformations
 public
+	with Data_Model;
 	with Base_Types;
 	with Common;
+	with HAMR;
+	with MATRICS_Properties;
+	
+	-- Allow list that establishes set of trusted devices
+	data AllowList
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_32));
+			Data_Model::Dimension => (4);
+			Memory_Properties::Data_Size => 16 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end AllowList;
+	
+	data implementation AllowList.Impl
+	end AllowList.Impl;
+	
 	
 	annex GUMBO {**
           functions

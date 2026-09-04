@@ -2,7 +2,7 @@ package GroundStation
 public
 	with Common;
 	with CASE_Scheduling;
-	with HAMR;	
+	with HAMR;
 	with MATRICS_Properties;
 	with MATRICS_Model_Transformations;
 	renames MATRICS_Model_Transformations::all;
@@ -49,8 +49,8 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
-			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
-			analysis_report: in event data port Common::AnalysisReport.Impl;
+			HMD_log: out event data port Common::EncryptedMessage.Impl;
+			analysis_report: in event data port Common::OutgoingWifiMessage.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert_in: in event port;
 		flows
@@ -86,59 +86,47 @@ public
 				
 				guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
 					if (HasEvent(analysis_report) & !(alert_cmd)) 
-                         MustSend(wifiSend) 
-                         else NoSend(wifiSend);
+						 MustSend(wifiSend) && (wifiSend == analysis_report)
+						 else NoSend(wifiSend);
 		**};
 	end wifiDriver;
 	
 	thread dataManager
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			request_log: in event data port Common::Request.Impl;
-			response_log: out event data port Common::ResponseLog.Impl;
-			zeroize: in event port;
-			log_data: requires data access Common::LogArray {Access_Right => read_write;};
+			encrypted_log: out event data port Common::EncryptedMessage.Impl;
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log: out event data port Common::AnalysisResponse.Impl;
 		flows
-			f1: flow sink HMD_log;
+			f1: flow path HMD_log -> encrypted_log;
 			f2: flow path request_log -> response_log;
-			f3: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;		
-		annex GUMBO{**
-			state
-				cache: Common::LogArray.Impl;
-				zeroize_cmd: Base_Types::Boolean;
-			functions
-				def IS_ZEROIZED(logs: Common::LogArray.Impl): Base_Types::Boolean := 
-					(All(0 to logs.size-1)(i => (
-						MATRICS_Model_Transformations::IS_NULL_LOG(logs(i))
-					)));
-			initialize
-				modifies zeroize_cmd;
-				
-				guarantee defaultZeroize:
-					zeroize_cmd == false;
-				
-			compute
-				modifies cache, zeroize_cmd;
-				
-				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
-					zeroize_cmd == (HasEvent(zeroize) | In(zeroize_cmd));
+			Stack_size => 1048576 Bytes;
 
-				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-					(zeroize_cmd & HasEvent(request_log)) ->: IS_ZEROIZED(response_log.payload);
-				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
-					zeroize_cmd ->: IS_ZEROIZED(cache);	
-		**};
 	end dataManager;
+
+	thread dataStorage
+		features
+			encrypted_log: in event data port Common::EncryptedMessage.Impl;
+			zeroize: in event port;
+			log_data: requires data access Common::EncryptedLogArray {Access_Right => read_write;};
+		flows
+			f1: flow sink encrypted_log;
+			f2: flow sink zeroize;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+			HAMR::Microkit_Language => C;
+	end dataStorage;
 	
 	thread dataAnalysis
 		features
-			request_log: out event data port Common::Request.Impl;
-			response_log: in event data port Common::ResponseLog.Impl;
-			analysis_report: out event data port Common::AnalysisReport.Impl;
+			request_log: out event data port Common::AnalysisRequest.Impl;
+			response_log: in event data port Common::AnalysisResponse.Impl;
+			analysis_report: out event data port Common::AnalysisResponse.Impl;
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 		flows
 			f1: flow path analysis_request -> request_log;
@@ -243,12 +231,12 @@ public
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
-			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver.wifiDriverVM;
+			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver.wifiDriverVM, cpuSw.dataManager.dataStorage;
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw, vcpu;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 			MATRICS_Properties::Memory_Type => RAM applies to mem;
 			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			
-			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.logs;			
+			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.dataStorage.logs;
 			
 			-- present in hardened system
 			MATRICS_Properties::OS => "seL4" applies to cpu;

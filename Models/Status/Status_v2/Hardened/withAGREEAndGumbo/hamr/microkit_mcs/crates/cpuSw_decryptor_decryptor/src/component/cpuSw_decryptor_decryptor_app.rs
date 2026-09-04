@@ -67,7 +67,7 @@ verus! {
                          // Decrypted Payload structure:
                          // Nonce/Initialization Vector(IV) first 12 bytes, or 96 bits +
                          // Cypher Text
-                         // Tag/Checksum last 16 btyes
+                         // Tag/Checksum last 16 bytes
                          let (remaining, mut tag_parsed) = decoded_encrypted_log.split_at_mut(len-16);
                          let (nonce_parsed, cyphertext) = remaining.split_at_mut(12);
                          tag_parsed = &mut tag_parsed[..16];

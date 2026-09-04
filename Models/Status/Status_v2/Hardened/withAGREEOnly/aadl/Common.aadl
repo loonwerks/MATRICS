@@ -145,11 +145,11 @@ public
 	
 	data implementation Request.Impl
 		subcomponents
-			requestID: data Base_Types::Integer_32;
-			analysisType: data Base_Types::Integer_32;
-			userID: data Base_Types::Integer_32;
-			startTime: data Base_Types::Integer_32;
-			endTime: data Base_Types::Integer_32;
+			requestID: data Base_Types::Unsigned_32;
+			analysisType: data Base_Types::Unsigned_32;
+			userID: data Base_Types::Unsigned_32;
+			startTime: data Base_Types::Unsigned_32;
+			endTime: data Base_Types::Unsigned_32;
 	end Request.Impl;
 	
 	data implementation AnalysisRequest.Impl
@@ -159,46 +159,38 @@ public
 	end AnalysisRequest.Impl;
 	
 	-- Response log message structure
-	data ResponseLog
-	end ResponseLog;
+	data AnalysisResponse
+	end AnalysisResponse;
 	
-	data ResponseHeader
-	end ResponseHeader;
+	data Response
+	end Response;
 	
-	data implementation ResponseHeader.Impl
+	data implementation Response.Impl
 		subcomponents
-			requestID: data Base_Types::Integer_32;
-			sequenceNumber: data Base_Types::Integer_32;
-			totalParts: data Base_Types::Integer_32;
-	end ResponseHeader.Impl;
+			requestID: data Base_Types::Unsigned_32;
+			sequenceNumber: data Base_Types::Unsigned_32;
+			totalParts: data Base_Types::Unsigned_32;
+			logs: data ResponseLog.Impl;
+	end Response.Impl;
 	
-	data LogArray
+	data ResponseLog
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Log.Impl));
-			Data_Model::Dimension => (100);
-			Memory_Properties::Data_Size => 100 Bytes;
+			Data_Model::Dimension => (10);
+			-- 10 logs * 28 bytes per Log.Impl = 280 bytes (packed, with no padding).
+			Memory_Properties::Data_Size => 280 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
-	end LogArray;
+	end ResponseLog;
 	
-	data implementation LogArray.Impl
-	end LogArray.Impl;
-
 	data implementation ResponseLog.Impl
-		subcomponents
-			header: data ResponseHeader.Impl;
-			payload: data LogArray.Impl;
 	end ResponseLog.Impl;
-	
-	-- Analysis report message structure
-	data AnalysisReport
-	end AnalysisReport;
-	
-	data implementation AnalysisReport.Impl
+
+	data implementation AnalysisResponse.Impl
 		subcomponents
 			header: data MsgHeader.Impl;
-			payload: data OutgoingPayload.Impl;
-	end AnalysisReport.Impl;
+			payload: data Response.Impl;
+	end AnalysisResponse.Impl;
 	
 	data DummyMessage
 		properties
@@ -212,35 +204,79 @@ public
 	data implementation DummyMessage.Impl
 	end DummyMessage.Impl;
 	
-	data encryptedIncomingPayload
+	data Nonce
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
-			Data_Model::Dimension => (1024);
+			Data_Model::Dimension => (12);
+			Memory_Properties::Data_Size => 12 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end Nonce;
+	
+	data implementation Nonce.Impl
+	end Nonce.Impl;
+	
+	data Ciphertext
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (996);
+			-- Fixed 1024-byte encrypted frame minus 12-byte nonce and 16-byte tag:
+			-- 1024 - 12 - 16 = 996 bytes of ciphertext.
+			Memory_Properties::Data_Size => 996 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end Ciphertext;
+	
+	data implementation Ciphertext.Impl
+	end Ciphertext.Impl;
+
+	data AuthenticationTag
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
+			Data_Model::Dimension => (16);
+			Memory_Properties::Data_Size => 16 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end AuthenticationTag;
+
+	data implementation AuthenticationTag.Impl
+	end AuthenticationTag.Impl;
+
+	data EncryptedMessage
+	end EncryptedMessage;
+
+	data implementation EncryptedMessage.Impl
+		subcomponents
+			nonce: data Nonce.Impl;
+			ciphertext: data Ciphertext.Impl;
+			tag: data AuthenticationTag.Impl;
+		properties
+			-- 12-byte nonce + 996-byte ciphertext + 16-byte tag = 1024 bytes.
 			Memory_Properties::Data_Size => 1024 Bytes;
-			HAMR::Array_Size_Kind => Fixed;
-	end encryptedIncomingPayload;
-	
-	data implementation encryptedIncomingPayload.Impl
-	end encryptedIncomingPayload.Impl;
-	
-	data OutgoingPayload
+	end EncryptedMessage.Impl;
+
+	data EncryptedLogArray
 		properties
 			Data_Model::Data_Representation => Array;
-			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
-			Data_Model::Dimension => (32768);
-			Memory_Properties::Data_Size => 32768 Bytes;
+			Data_Model::Base_Type => (classifier (EncryptedMessage.Impl));
+			Data_Model::Dimension => (100);
+			-- Persistent storage capacity: 100 encrypted records * 1024 bytes
+			-- per EncryptedMessage.Impl = 102400 bytes (packed, with no padding).
+			-- This array models on-disk data accessed by dataStorage; it is not
+			-- transmitted as a port message.
+			Memory_Properties::Data_Size => 102400 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
-	end OutgoingPayload;
-	
-	data implementation OutgoingPayload.Impl
-	end OutgoingPayload.Impl;
+	end EncryptedLogArray;
+
+	data implementation EncryptedLogArray.Impl
+	end EncryptedLogArray.Impl;
 	
 	data shortText
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Base_Types::Character));
 			Data_Model::Dimension => (64);
+			-- 64 characters * 1 byte per modeled character = 64 bytes.
 			Memory_Properties::Data_Size => 64 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end shortText;
@@ -264,13 +300,16 @@ public
 	data implementation IncomingWifiMessage.Impl
 		subcomponents
 			header: data IncomingWifiHeader.Impl;
-			payload: data encryptedIncomingPayload.Impl;
+			payload: data EncryptedMessage.Impl;
 	end IncomingWifiMessage.Impl;
 	
-	data OutgoingWifiMessage extends AnalysisReport
+	data OutgoingWifiMessage
 	end OutgoingWifiMessage;
 	
-	data implementation OutgoingWifiMessage.Impl extends AnalysisReport.impl
+	data implementation OutgoingWifiMessage.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data EncryptedMessage.Impl;
 	end OutgoingWifiMessage.Impl;
 		
 end Common;

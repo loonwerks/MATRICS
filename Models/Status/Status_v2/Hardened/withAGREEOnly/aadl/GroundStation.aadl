@@ -51,8 +51,8 @@ public
 		features
 			wifiRecv: in event data port Common::IncomingWifiMessage.Impl;
 			wifiSend: out event data port Common::OutgoingWifiMessage.Impl;
-			HMD_log: out event data port Common::encryptedIncomingPayload.Impl;
-			analysis_report: in event data port Common::AnalysisReport.Impl;
+			HMD_log: out event data port Common::EncryptedMessage.Impl;
+			analysis_report: in event data port Common::OutgoingWifiMessage.Impl;
 			analysis_request: out event data port Common::AnalysisRequest.Impl;
 			alert_in: in event port;
 		flows
@@ -69,10 +69,9 @@ public
 				event(alert_in) => not(event(analysis_report));
 			assume Trusted_Report "A: Reports received are to a trusted destination." :
 				event(analysis_report) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_report.header.client);
-			-- NOTE: Do we care about the structure of wifiSend (e.g. to ensure something like wifiSend = analysis_report)?
 			guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
 				if event(analysis_report) and not(Once(event(alert_in)))
-				then event(wifiSend)
+				then event(wifiSend) and (wifiSend = analysis_report)
 				else not(event(wifiSend));
 		**};
 	end wifiDriver;
@@ -80,36 +79,54 @@ public
 	thread dataManager
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			request_log: in event data port Common::Request.Impl;
-			response_log: out event data port Common::ResponseLog.Impl;
-			zeroize: in event port;
-			log_data: requires data access Common::LogArray {Access_Right => read_write;};
+			encrypted_log: out event data port Common::EncryptedMessage.Impl;
+			request_log: in event data port Common::AnalysisRequest.Impl;
+			response_log: out event data port Common::AnalysisResponse.Impl;
 		flows
-			f1: flow sink HMD_log;
+			f1: flow path HMD_log -> encrypted_log;
 			f2: flow path request_log -> response_log;
-			f3: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
-			Stack_size => 1048576 Bytes;		
+			Stack_size => 1048576 Bytes;
+
+	end dataManager;
+
+	thread dataStorage
+		features
+			encrypted_log: in event data port Common::EncryptedMessage.Impl;
+			zeroize: in event port;
+			log_data: requires data access Common::EncryptedLogArray {Access_Right => read_write;};
+		flows
+			f1: flow sink encrypted_log;
+			f2: flow sink zeroize;
+		properties
+			Dispatch_Protocol => Periodic;
+			Period => 1000ms;
+			Stack_size => 1048576 Bytes;
+			HAMR::Microkit_Language => C;
 		annex agree {**
-			eq cache: Common::LogArray.Impl;			
-				
-			fun IS_ZEROIZED(logs: Common::LogArray.Impl): bool = 
-				forall i in indices(logs), logs[i] = NULL_LOG;
-				
-			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
-				Once(event(zeroize)) and event(request_log) => IS_ZEROIZED(response_log.payload);
-			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received." :
+			-- Abstract view of the persistent encrypted array reached through log_data.
+			eq cache: Common::EncryptedLogArray.Impl;
+			
+			fun IS_ZEROIZED_ENCRYPTED_MESSAGE(message: Common::EncryptedMessage.Impl): bool =
+				(forall i in indices(message.nonce), message.nonce[i] = 0) and
+				(forall i in indices(message.ciphertext), message.ciphertext[i] = 0) and
+				(forall i in indices(message.tag), message.tag[i] = 0);
+
+			fun IS_ZEROIZED(logs: Common::EncryptedLogArray.Impl): bool =
+				forall i in indices(logs), IS_ZEROIZED_ENCRYPTED_MESSAGE(logs[i]);
+
+			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received.":
 				Once(event(zeroize)) => IS_ZEROIZED(cache);
 		**};
-	end dataManager;
+	end dataStorage;
 	
 	thread dataAnalysis
 		features
-			request_log: out event data port Common::Request.Impl;
-			response_log: in event data port Common::ResponseLog.Impl;
-			analysis_report: out event data port Common::AnalysisReport.Impl;
+			request_log: out event data port Common::AnalysisRequest.Impl;
+			response_log: in event data port Common::AnalysisResponse.Impl;
+			analysis_report: out event data port Common::AnalysisResponse.Impl;
 			analysis_request: in event data port Common::AnalysisRequest.Impl;
 		flows
 			f1: flow path analysis_request -> request_log;
@@ -211,12 +228,12 @@ public
 		flows
 			f1: flow sink wifiRecv -> c3 -> wifi.f1 -> c4 -> cpuSw.f1; 
 		properties
-			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver.wifiDriverVM;
+			Actual_Processor_Binding => (reference (vcpu)) applies to cpuSw.wifiDriver.wifiDriverVM, cpuSw.dataManager.dataStorage;
 			Actual_Processor_Binding => (reference (cpu)) applies to cpuSw, vcpu;
 			Actual_Connection_Binding => (reference (ser2)) applies to c1, c4;
 			MATRICS_Properties::Memory_Type => RAM applies to mem;
 			MATRICS_Properties::Memory_Type => ON_DISK applies to storage;			
-			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.logs;			
+			Actual_Memory_Binding => (reference (storage)) applies to cpuSW.dataManager.dataStorage.logs;
 			
 			-- present in hardened system
 			MATRICS_Properties::OS => "seL4" applies to cpu;
@@ -225,11 +242,11 @@ public
 		annex resolute {**
 			argue is_seL4_compliant(this.cpuSW)
 			argue is_firewalled(this.cpuSW.dataAnalysis.dataAnalysis, this.cpuSW.c22, Common::AnalysisRequest.Impl)
-			argue is_monitored_gated(this.cpuSW.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::ResponseLog.Impl)		
-			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
-			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::AnalysisReport.Impl)
-			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriverVM.wifiDriver)
-			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataManager)
+			argue is_monitored_gated(this.cpuSW.dataManager.dataManager.dataManager, this.cpuSW.dataAnalysis.dataAnalysis, Common::AnalysisResponse.Impl)
+			argue is_monitored_gated(this.cpuSW.encryptor.encryptor, this.cpuSW.wifiDriver.wifiDriver.wifiDriver, Common::OutgoingWifiMessage.Impl)
+			argue is_message_encrypted(this.cpuSW.wifiDriver.wifiDriver, Common::OutgoingWifiMessage.Impl)
+			argue uses_authorized_communication(this.cpuSw.dataManager.dataManager.dataManager, this.cpuSW.wifiDriver.wifiDriverVM.wifiDriver)
+			argue confidential_data_secure_storage(this.cpuSw, this.cpuSw.dataManager.dataStorage.dataStorage)
 		**};
 	end GroundStation.Impl;
 	
