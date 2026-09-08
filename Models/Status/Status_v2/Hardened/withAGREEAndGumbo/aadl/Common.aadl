@@ -3,6 +3,7 @@ public
 	with Data_Model;
 	with Base_Types;
 	with HAMR;
+	with MATRICS_Properties;
 
 	-- Wi-Fi: range 150ft, higher data transfer and power consumption than Bluetooth
 	bus WF_Bus
@@ -109,9 +110,7 @@ public
 	virtual bus implementation TCP.Impl
 	end TCP.Impl;
 	
-	
-	-- Message structures used by ground station
-	-- Message header
+
 	data MsgHeader
 	end MsgHeader;
 
@@ -120,36 +119,95 @@ public
 			client: data Base_Types::Unsigned_32;
 	end MsgHeader.Impl;
 	
-	-- HMD log message structure
+	-- Classification assigned by the guard to an HMD target.
+	data TargetAssessment
+		properties
+			Data_Model::Data_Representation => Enum;
+			Data_Model::Enumerators => ("Unreviewed", "Safe", "Threat");
+	end TargetAssessment;
+
+	-- HMD position and orientation. Positions are signed millimeters. Quaternion
+	-- components are signed fixed-point values scaled by 1,000,000.
+	data HMDPosition
+	end HMDPosition;
+
+	data implementation HMDPosition.Impl
+		subcomponents
+			positionX: data Base_Types::Integer_32;
+			positionY: data Base_Types::Integer_32;
+			positionZ: data Base_Types::Integer_32;
+			orientationX: data Base_Types::Integer_32;
+			orientationY: data Base_Types::Integer_32;
+			orientationZ: data Base_Types::Integer_32;
+			orientationW: data Base_Types::Integer_32;
+	end HMDPosition.Impl;
+
+	-- One HMD target observation. Locations are signed millimeters relative to the HMD position.
+	data TargetObservation
+	end TargetObservation;
+
+	data implementation TargetObservation.Impl
+		subcomponents
+			targetID: data Base_Types::Unsigned_32;
+			locationX: data Base_Types::Integer_32;
+			locationY: data Base_Types::Integer_32;
+			locationZ: data Base_Types::Integer_32;
+			assessment: data TargetAssessment;
+	end TargetObservation.Impl;
+
+
+	data TargetObservationArray
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (TargetObservation.Impl));
+			Data_Model::Dimension => (MATRICS_Properties::MAX_TARGETS_PER_LOG);
+			-- TargetObservation.Impl is 20 bytes: four 32-bit integer
+			-- fields plus the 4-byte TargetAssessment enum. Therefore,
+			-- MAX_TARGETS_PER_LOG (15) * 20 bytes = 300 bytes.
+			Memory_Properties::Data_Size => 300 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end TargetObservationArray;
+
+	data implementation TargetObservationArray.Impl
+	end TargetObservationArray.Impl;
+
+	-- One periodically produced HMD observation.
 	data Log
 	end Log;
 	
-	-- NOTE: need to define sizes for these data elements
 	data implementation Log.Impl
 		subcomponents
-			timestamp: data Base_Types::Unsigned_32;
-			userID: data Base_Types::Unsigned_32;
-			numSuspects: data Base_Types::Unsigned_32;
-			numSuspectsFlagged: data Base_Types::Unsigned_32;
-			yaw: data Base_Types::Integer_32;
-			pitch: data Base_Types::Integer_32;
-			roll: data Base_Types::Integer_32;
+			-- Milliseconds in the deployment-defined common time base.
+			timestamp: data Base_Types::Unsigned_64;
+			guardID: data Base_Types::Unsigned_32;
+			deviceID: data Base_Types::Unsigned_32;
+			hmdPosition: data HMDPosition.Impl;
+			targetCount: data Base_Types::Unsigned_32;
+			targets: data TargetObservationArray.Impl;
 	end Log.Impl;
 
-	-- Analysis request message structure
 	data AnalysisRequest
 	end AnalysisRequest;
 	
+	data AnalysisType
+		properties
+			Data_Model::Data_Representation => Enum;
+			Data_Model::Enumerators =>
+				("All_Records", "Threat_Only", "Safe_Only", "Unreviewed_Only", "Target_History");
+	end AnalysisType;
+
 	data Request
 	end Request;
 	
 	data implementation Request.Impl
 		subcomponents
-			requestID: data Base_Types::Unsigned_32;
-			analysisType: data Base_Types::Unsigned_32;
-			userID: data Base_Types::Unsigned_32;
-			startTime: data Base_Types::Unsigned_32;
-			endTime: data Base_Types::Unsigned_32;
+			analysisType: data AnalysisType;
+			guardID: data Base_Types::Unsigned_32;
+			-- Inclusive millisecond bounds in the same time base as Log.timestamp.
+			startTime: data Base_Types::Unsigned_64;
+			endTime: data Base_Types::Unsigned_64;
+			-- Used when analysisType is Target_History.
+			targetID: data Base_Types::Unsigned_32;
 	end Request.Impl;
 	
 	data implementation AnalysisRequest.Impl
@@ -167,9 +225,14 @@ public
 	
 	data implementation Response.Impl
 		subcomponents
-			requestID: data Base_Types::Unsigned_32;
-			sequenceNumber: data Base_Types::Unsigned_32;
-			totalParts: data Base_Types::Unsigned_32;
+			-- Echoes the criteria so the response remains self-contained as it
+			-- traverses separately scheduled components.
+			request: data Request.Impl;
+			validLogCount: data Base_Types::Unsigned_32;
+			-- When true, nextStartTime is the timestamp of the first applicable
+			-- log omitted from this bounded response.
+			moreAvailable: data Base_Types::Boolean;
+			nextStartTime: data Base_Types::Unsigned_64;
 			logs: data ResponseLog.Impl;
 	end Response.Impl;
 	
@@ -177,9 +240,11 @@ public
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Log.Impl));
-			Data_Model::Dimension => (10);
-			-- 10 logs * 28 bytes per Log.Impl = 280 bytes (packed, with no padding).
-			Memory_Properties::Data_Size => 280 Bytes;
+			Data_Model::Dimension => (MATRICS_Properties::MAX_LOGS_PER_RESPONSE);
+			-- Log.Impl is 352 bytes: 348-bytes of fields plus 4 bytes 
+			-- of tail padding for 8-byte alignment. Therefore, 
+			-- MAX_LOGS_PER_RESPONSE (10) * 352 bytes = 3520 bytes.
+			Memory_Properties::Data_Size => 3520 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end ResponseLog;
 	
@@ -220,10 +285,11 @@ public
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Base_Types::Unsigned_8));
-			Data_Model::Dimension => (996);
-			-- Fixed 1024-byte encrypted frame minus 12-byte nonce and 16-byte tag:
-			-- 1024 - 12 - 16 = 996 bytes of ciphertext.
-			Memory_Properties::Data_Size => 996 Bytes;
+			Data_Model::Dimension => (4068);
+			-- Fixed 4096-byte encrypted frame minus 12-byte nonce and 16-byte tag:
+			-- 4096 - 12 - 16 = 4068 bytes of ciphertext. This accommodates the
+			-- bounded Response.Impl payload and its serialization overhead.
+			Memory_Properties::Data_Size => 4068 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end Ciphertext;
 	
@@ -251,25 +317,92 @@ public
 			ciphertext: data Ciphertext.Impl;
 			tag: data AuthenticationTag.Impl;
 		properties
-			-- 12-byte nonce + 996-byte ciphertext + 16-byte tag = 1024 bytes.
-			Memory_Properties::Data_Size => 1024 Bytes;
+			-- 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes.
+			Memory_Properties::Data_Size => 4096 Bytes;
 	end EncryptedMessage.Impl;
+
+	-- Plaintext fields used to construct and index the filename for one encrypted
+	-- HMD log. A representative filename is
+	-- g<guardID>_d<deviceID>_t<timestamp>.hmdlog.
+	-- This tuple is unique when a guard has one active device and that device
+	-- produces at most one log per millisecond in the persistent common time base.
+	-- These fields are indexable by dataStorage without decryption.
+	data LogFileMetadata
+	end LogFileMetadata;
+
+	data implementation LogFileMetadata.Impl
+		subcomponents
+			guardID: data Base_Types::Unsigned_32;
+			deviceID: data Base_Types::Unsigned_32;
+			timestamp: data Base_Types::Unsigned_64;
+	end LogFileMetadata.Impl;
+
+	-- One indexable file containing exactly one encrypted HMD Log.Impl value.
+	data StoredLogFile
+	end StoredLogFile;
+
+	data implementation StoredLogFile.Impl
+		subcomponents
+			metadata: data LogFileMetadata.Impl;
+			encryptedLog: data EncryptedMessage.Impl;
+	end StoredLogFile.Impl;
 
 	data EncryptedLogArray
 		properties
 			Data_Model::Data_Representation => Array;
-			Data_Model::Base_Type => (classifier (EncryptedMessage.Impl));
+			Data_Model::Base_Type => (classifier (StoredLogFile.Impl));
 			Data_Model::Dimension => (100);
-			-- Persistent storage capacity: 100 encrypted records * 1024 bytes
-			-- per EncryptedMessage.Impl = 102400 bytes (packed, with no padding).
+			-- StoredLogFile.Impl is 4112 bytes: 16-byte metadata plus 4096-byte
+			-- encrypted frame. Therefore, 100 files * 4112 bytes = 411200 bytes.
 			-- This array models on-disk data accessed by dataStorage; it is not
 			-- transmitted as a port message.
-			Memory_Properties::Data_Size => 102400 Bytes;
+			Memory_Properties::Data_Size => 411200 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end EncryptedLogArray;
 
 	data implementation EncryptedLogArray.Impl
 	end EncryptedLogArray.Impl;
+
+	-- Indexable encrypted files returned by dataStorage for one analysis response.
+	-- Unlike EncryptedLogArray, this is an event-data message rather than on-disk storage.
+	data EncryptedResponseLog
+		properties
+			Data_Model::Data_Representation => Array;
+			Data_Model::Base_Type => (classifier (StoredLogFile.Impl));
+			Data_Model::Dimension => (MATRICS_Properties::MAX_LOGS_PER_RESPONSE);
+			-- StoredLogFile.Impl records is 4112 bytes: 16-byte metadata
+			-- plus 4096-byte encrypted frame. Therefore, 
+			-- MAX_LOGS_PER_RESPONSE (10) * 4112 bytes = 41120 bytes.
+			Memory_Properties::Data_Size => 41120 Bytes;
+			HAMR::Array_Size_Kind => Fixed;
+	end EncryptedResponseLog;
+
+	data implementation EncryptedResponseLog.Impl
+	end EncryptedResponseLog.Impl;
+
+	-- Self-contained encrypted storage result. The request criteria and client
+	-- header remain plaintext so independently scheduled components do not need
+	-- to retain them as state.
+	data EncryptedResponse
+	end EncryptedResponse;
+
+	data implementation EncryptedResponse.Impl
+		subcomponents
+			request: data Request.Impl;
+			validLogCount: data Base_Types::Unsigned_32;
+			moreAvailable: data Base_Types::Boolean;
+			nextStartTime: data Base_Types::Unsigned_64;
+			logs: data EncryptedResponseLog.Impl;
+	end EncryptedResponse.Impl;
+
+	data EncryptedAnalysisResponse
+	end EncryptedAnalysisResponse;
+
+	data implementation EncryptedAnalysisResponse.Impl
+		subcomponents
+			header: data MsgHeader.Impl;
+			payload: data EncryptedResponse.Impl;
+	end EncryptedAnalysisResponse.Impl;
 	
 	data shortText
 		properties

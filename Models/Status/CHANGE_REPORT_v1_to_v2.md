@@ -6,8 +6,8 @@
 |---|---|
 | Baseline | `Models/Status/Status_v1/Hardened` |
 | Target | `Models/Status/Status_v2/Hardened/withAGREEOnly/aadl` |
-| Report date | 2026-09-04 |
-| Git branch / HEAD | `Status-v2` / `1adacf5` |
+| Report date | 2026-09-08 |
+| Git branch / HEAD | `Status-v2` / `a3d3abe` |
 | Target state | Current working tree, including uncommitted AADL changes |
 
 This is a source-model comparison. It includes AADL structure, types, properties,
@@ -34,15 +34,19 @@ The principal behavioral changes are:
 3. A new `dataManager_sys`, parallel to `wifiDriver_sys`, contains the existing
    `dataManager` and the new `dataStorage` component.
 4. `dataManager` is modeled as accepting each plaintext log and producing an
-   encrypted storage message; the single C `dataStorage` component owns the
-   encrypted on-disk log array. The current contracts do not yet relate those two
-   data-manager ports behaviorally.
-5. Zeroize commands enter `dataManager_sys` from `logMonitor` and terminate at its
-   contained `dataStorage`; `dataManager` does not receive them.
+   encrypted storage message. For reads, it sends the request payload to
+   `dataStorage`, receives at most ten encrypted records plus continuation
+   metadata, decrypts them, and constructs the plaintext analysis response. The
+   current contracts do not yet specify these encryption, storage-access, and
+   decryption transformations.
+5. Zeroize commands enter `dataManager_sys` from `logMonitor` and are delivered to
+   both `dataStorage`, which erases persistent records, and `dataManager`, which
+   zeroizes later response payloads.
 6. The request/response path now carries complete `AnalysisRequest` and
    `AnalysisResponse` messages. Each plaintext response contains routing metadata,
-   response metadata, and ten logs before the encryptor converts it to an
-   `OutgoingWifiMessage` for monitoring and transmission.
+   the echoed request criteria, bounded-result metadata, and at most ten logs before
+   the encryptor converts it to an `OutgoingWifiMessage` for monitoring and
+   transmission.
 7. AGREE monitor and cryptographic contracts were made more precise.
 8. MCS scheduling domains 2 through 13 were assigned, with a maximum domain of 15.
 
@@ -50,7 +54,7 @@ The principal behavioral changes are:
 
 | File | Status | Summary |
 |---|---|---|
-| `Common.aadl` | Changed | Concrete port/message types, fixed-width fields, request/response structures, and AES-GCM framing |
+| `Common.aadl` | Changed | Concrete port/message types, fixed-width fields, request/response structures, AES-GCM framing, and encrypted storage-response records |
 | `GroundStation.aadl` | Changed | MCS/virtual processor, typed interfaces, new storage component, bindings, and AGREE updates |
 | `Hardened_SW.aadl` | Changed | C Wi-Fi VM, `dataManager_sys`, storage process, MCS domains, new data paths, and monitor/crypto contracts |
 | `MATRICS_Model_Transformations.aadl` | Changed | Real allow-list values, fixed array metadata, and abstract AES-GCM AGREE functions |
@@ -58,7 +62,7 @@ The principal behavioral changes are:
 | `HMD.aadl` | Unchanged | Byte-identical |
 | `HMD_Computer.aadl` | Unchanged | Byte-identical |
 | `HMD_HUD.aadl` | Unchanged | Byte-identical |
-| `MATRICS_Properties.aadl` | Unchanged | Byte-identical |
+| `MATRICS_Properties.aadl` | Changed | Named bounds for targets per log and logs per response |
 
 ## Data type and external-interface changes
 
@@ -80,14 +84,16 @@ system boundaries.
 | Type | Status v1 | Status v2 |
 |---|---|---|
 | `MsgHeader.Impl` | `src`, `dst`: `Unsigned_32` | `client`: `Unsigned_32` |
-| `Log.Impl` counters/IDs | Unbounded `Integer` | `Unsigned_32` |
-| `Log.Impl` yaw/pitch/roll | `Float` | `Integer_32` |
-| `Request.Impl` fields | Unbounded `Integer` | `Unsigned_32` |
-| Response metadata fields | `ResponseHeader.Impl`: unbounded `Integer` | Inline in `Response.Impl`: `Unsigned_32` |
-| Response log array | `LogArray`: 60 logs, no fixed-size HAMR metadata | `ResponseLog`: 10 logs, fixed, 280 bytes |
+| `Log.Impl` contents | Timestamp, user ID, suspect counts, and yaw/pitch/roll | Timestamp; guard and device IDs; `HMDPosition`; target count; and up to 15 HMD-relative `TargetObservation` records |
+| HMD orientation | Three floating-point yaw/pitch/roll fields | `HMDPosition.Impl`: signed-millimeter position and fixed-point quaternion orientation |
+| Target observations | Aggregate suspect counters only | Target ID, three-dimensional location, and `Unreviewed`/`Safe`/`Threat` assessment; no confidence field |
+| `Request.Impl` | Unbounded integer fields | Analysis type, guard ID, inclusive time bounds, and optional target ID using fixed-width fields |
+| Response metadata fields | `ResponseHeader.Impl`: unbounded `Integer` | Echoed request criteria, valid-log count, continuation flag, and next-start timestamp inline in `Response.Impl` |
+| Response log array | `LogArray`: 60 logs, no fixed-size HAMR metadata | `ResponseLog`: `MAX_LOGS_PER_RESPONSE` (currently 10) logs, fixed, 3520 bytes |
 
-`NULL_LOG` was updated accordingly: yaw, pitch, and roll now use integer zero rather
-than floating-point zero.
+`NULL_LOG` was rebuilt for the complete v2 schema. It zeroes the timestamp, guard
+and device identifiers, the `HMDPosition`, and all 15 target slots; each null target
+uses the `Unreviewed` assessment.
 
 ### Analysis requests and responses
 
@@ -98,14 +104,23 @@ In v2:
 - Request ports throughout `dataAnalysis`, `dataManager`, and `logMonitor` carry
   complete `AnalysisRequest.Impl` messages, preserving both the client header and
   request payload.
-- `ResponseLog` is a fixed array of 10 `Log.Impl` values (280 bytes).
-- `Response.Impl` contains `requestID`, `sequenceNumber`, `totalParts`, and the
-  `ResponseLog.Impl` array.
+- `ResponseLog` is a fixed array of `MAX_LOGS_PER_RESPONSE` (currently 10)
+  `Log.Impl` values (3520 bytes).
+- `Response.Impl` echoes the original `Request.Impl` criteria and contains
+  `validLogCount`, `moreAvailable`, `nextStartTime`, and the `ResponseLog.Impl`
+  array. It has no request identifier or multipart fields.
 - `AnalysisResponse.Impl` replaces the separate response-log and analysis-report
   envelopes. It contains `header: MsgHeader.Impl` and
   `payload: Response.Impl`.
 - `AnalysisResponse.Impl` is carried from `dataManager` through `logMonitor` and
   `dataAnalysis` to the encryptor.
+
+Each response returns at most ten logs. If additional applicable logs exist,
+`moreAvailable` is true and `nextStartTime` identifies the first omitted log's
+timestamp. The client can repeat the same request criteria with that inclusive
+timestamp as the new `startTime`. A complete response sets `moreAvailable` false;
+an empty complete response has `validLogCount` zero and all log slots set to
+`NULL_LOG`.
 
 ### AES-128-GCM message framing
 
@@ -114,22 +129,43 @@ Status v2 introduces:
 | Type/field | Size calculation | Size |
 |---|---|---:|
 | `Nonce` | 96 bits ÷ 8 | 12 bytes |
-| `Ciphertext` | 1024 − 12-byte nonce − 16-byte tag | 996 bytes |
+| `Ciphertext` | 4096 − 12-byte nonce − 16-byte tag | 4068 bytes |
 | `AuthenticationTag` | 128 bits ÷ 8 | 16 bytes |
-| `EncryptedMessage.Impl` | 12 + 996 + 16 | 1024 bytes total |
-| `EncryptedLogArray` | 100 encrypted records × 1024 bytes | 102400 bytes |
+| `EncryptedMessage.Impl` | 12 + 4068 + 16 | 4096 bytes total |
+| `TargetObservationArray` | 15 target records × 20 bytes | 300 bytes |
+| `ResponseLog` | 10 logs × 352 bytes | 3520 bytes |
+| `StoredLogFile.Impl` | 16-byte plaintext index + 4096-byte encrypted frame | 4112 bytes |
+| `EncryptedLogArray` | 100 stored files × 4112 bytes | 411200 bytes |
+| `EncryptedResponseLog` | 10 stored files × 4112 bytes | 41120 bytes |
 
 `EncryptedMessage.Impl` contains the fields `nonce`, `ciphertext`, and `tag`.
 
-`EncryptedMessage.Impl` is the event-data message carried from `dataManager` to
-`dataStorage`. `EncryptedLogArray` is not transmitted as a message in the current
-architecture. It models persistent on-disk storage: the `logs` data subcomponent of
-`dataStorage_seL4.Impl` has this type and is accessed through
-`dataStorage.log_data`.
+`StoredLogFile.Impl` is the event-data message carried from `dataManager` to
+`dataStorage` when writing one record. It combines an `EncryptedMessage.Impl`
+frame with plaintext, indexable metadata (guard ID, device ID, and
+timestamp). The metadata represents the information encoded in the deterministic
+filename `g<guardID>_d<deviceID>_t<timestamp>.hmdlog` and is intended to be
+authenticated as AES-GCM associated data even though it is not encrypted. The
+combination of guard ID, device ID, and timestamp is the stored-record key; this
+relies on one active device per guard and at most one log from that device at any
+millisecond in the persistent common time base.
 
-All composite sizes assume packed representations with no alignment padding. The
-64-byte `shortText` calculation additionally assumes one byte per modeled
-`Base_Types::Character`.
+`EncryptedResponseLog.Impl` contains at most ten encrypted stored records returned
+by `dataStorage` for one analysis response. The enclosing `EncryptedResponse.Impl`
+also carries the original request criteria, valid-record count, and continuation
+metadata. `EncryptedLogArray` is not transmitted as a message. It models persistent
+on-disk storage: the `logs` data subcomponent of `dataStorage_seL4.Impl` has this
+type and is accessed through `dataStorage.log_data`.
+
+Only array types declare `Memory_Properties::Data_Size`. HAMR turns each value into
+a generated byte-size constant used by array queue copies, while emitting the array
+itself as a native fixed-length C or Rust array. Record elements are ordered C structs
+or Rust `repr(C)` structs. The element-size calculations above use the AArch64 ABI shared
+by the QEMU and RPi4B targets: 32-bit integer fields and C-compatible enumerations
+occupy 4 bytes, 64-bit fields occupy 8 bytes, and ABI padding is included where
+required. In particular, `Log.Impl` has 348 bytes of fields plus 4 bytes of trailing
+alignment padding. The 64-byte `shortText` calculation uses
+HAMR's one-byte C `char` / Rust `u8` representation for `Base_Types::Character`.
 
 ### Wi-Fi messages
 
@@ -168,10 +204,12 @@ dataManager_sys
 ```
 
 The system boundary exposes plaintext `HMD_log`, `request_log`, `response_log`, and
-the `zeroize` event. The encrypted storage message is internal to the system:
+the `zeroize` event. Storage write and read traffic remains internal to the system:
 
 ```text
 dataManager.encrypted_log → dataStorage.encrypted_log
+dataManager.storage_request → dataStorage.storage_request
+dataStorage.encrypted_response → dataManager.encrypted_response
 ```
 
 This grouping does not merge the two HAMR components. Each remains isolated in its
@@ -190,7 +228,7 @@ IncomingWifiMessage
   → Log
   → dataManager_sys
       → dataManager
-      → EncryptedMessage
+      → StoredLogFile
       → dataStorage
   → encrypted on-disk log array
 ```
@@ -200,14 +238,17 @@ Specific changes:
 - `decryptor.HMD_log_in` changed from `Log.Impl` to `EncryptedMessage.Impl`.
 - `dataManager.HMD_log` remains the plaintext `Log.Impl` output of the decryptor.
 - `dataManager` gained `encrypted_log: out event data port
-  EncryptedMessage.Impl`.
-- `dataManager` no longer exposes a data-access feature, owns the persistent log
-  array, or receives `zeroize`.
+  StoredLogFile.Impl`, carrying the encrypted log together with the plaintext
+  metadata needed to select its on-disk filename.
+- `dataManager` no longer exposes a data-access feature or owns the persistent log
+  array. It receives the system's `zeroize` event directly.
 - `dataManager_sys` exposes the plaintext log, request, response, and zeroize
   interfaces required by the rest of `SW_seL4.hardened`.
-- The encrypted connection between `dataManager` and `dataStorage` is internal to
-  `dataManager_sys`.
-- New `dataStorage` inputs are `encrypted_log` and `zeroize`.
+- The encrypted write and read connections between `dataManager` and `dataStorage`
+  are internal to `dataManager_sys`.
+- New `dataStorage` inputs are `encrypted_log`, `storage_request`, and `zeroize`;
+  its new `encrypted_response` output returns at most ten encrypted records with
+  the request and continuation metadata needed downstream.
 - `dataStorage` owns `logs: EncryptedLogArray`, with read/write data access.
 - The stored array retains `Requires_Data_Confidentiality => true` and
   `Encrypted => AES_GCM`.
@@ -223,21 +264,31 @@ logMonitor.alert → dataManager.zeroize
 to:
 
 ```text
-logMonitor.alert_out → dataManager_sys.zeroize → dataStorage.zeroize
+logMonitor.alert_out → dataManager_sys.zeroize
+                                      ├──→ dataStorage.zeroize
+                                      └──→ dataManager.zeroize
 ```
 
 At the `SW_seL4.hardened` level, the `dataManager_sys` instance is named
 `dataManager`; therefore the external connection is written
-`logMonitor.alert_out → dataManager.zeroize`. Inside the system, that port connects
-directly to `dataStorage.zeroize`. This isolates persistent-storage deletion from
-the contained `dataManager` process.
+`logMonitor.alert_out → dataManager.zeroize`. Inside the system, that boundary port
+fans out directly to both contained processes. `dataStorage` owns persistent
+erasure; `dataManager` uses the same command to ensure later requested response
+payloads are zeroized.
 
 ### Analysis response path
 
-The response path now has an explicit plaintext-to-ciphertext type transition:
+The storage read and response path now contains explicit request, encrypted-record,
+plaintext-response, and outbound-ciphertext transitions:
 
 ```text
-dataManager.AnalysisResponse
+dataAnalysis.AnalysisRequest
+  → dataManager
+  → AnalysisRequest
+  → dataStorage
+  → EncryptedAnalysisResponse
+  → dataManager
+  → AnalysisResponse
   → logMonitor
   → dataAnalysis
   → encryptor
@@ -248,9 +299,13 @@ dataManager.AnalysisResponse
   → external Wi-Fi
 ```
 
-The encryptor input is `AnalysisResponse.Impl`. Its output, both report-monitor
-message ports, and the Wi-Fi driver's internal response input are
-`OutgoingWifiMessage.Impl`.
+The storage request is `AnalysisRequest.Impl`, and the storage return is
+`EncryptedAnalysisResponse.Impl`. The return message preserves the client header
+and original `Request.Impl`, then adds the valid-record count, `moreAvailable`,
+`nextStartTime`, and bounded encrypted-record array. `dataManager` converts the
+returned encrypted records into `AnalysisResponse.Impl`. The outbound encryptor
+then converts that response to `OutgoingWifiMessage.Impl`, which is used by both
+report-monitor message ports and the Wi-Fi driver's internal response input.
 
 ### Connection and flow normalization
 
@@ -269,8 +324,11 @@ v2 connection identifiers are:
 | `c22` | `firewall.analysis_request_out` → `dataAnalysis.analysis_request` |
 
 Within `dataManager_sys.Impl`, internal connection `c4` carries
-`dataManager.encrypted_log` to `dataStorage.encrypted_log`, and internal connection
-`c5` carries the system's `zeroize` event to `dataStorage.zeroize`.
+`dataManager.encrypted_log` to `dataStorage.encrypted_log`. Connections `c5` and
+`c6` fan out the system's `zeroize` event to `dataStorage.zeroize` and
+`dataManager.zeroize`, respectively. Connection `c7` carries
+`dataManager.storage_request` to `dataStorage.storage_request`, and `c8` returns
+`dataStorage.encrypted_response` to `dataManager.encrypted_response`.
 
 The `dataManager_sys` type declares `HMD_log` as a flow sink. Internal connections
 route that input to `dataManager` and route `dataManager.encrypted_log` to
@@ -351,19 +409,23 @@ themselves, prove a concrete AES implementation correct.
 
 ### `dataManager`
 
-The v1 zeroize guarantees, which were duplicated on the `dataManager` thread and
-process type, were relocated because `dataManager` no longer owns persistent storage
-or receives the zeroize command. The component now has no component-level AGREE
-guarantees. Its `encrypted_log` output and connection to `dataStorage` express the
-new storage path architecturally without adding a new behavioral guarantee.
+The v1 `Zeroize_Payload` guarantee is retained on the `dataManager` thread. The
+system's `zeroize` event is connected directly to the thread through
+`dataManager_seL4.Impl`; after zeroize, a requested response payload must be
+zero-valued. The thread contract is lifted through the process implementation so it
+is available for compositional reasoning. The storage write/read ports express the
+new encrypted storage path architecturally, but do not yet have behavioral
+encryption, persistence, retrieval, or decryption guarantees.
 
 ### `dataManager_sys`
 
-The v1 `Zeroize_Payload` guarantee moved to `dataManager_sys`, whose boundary can
-observe `zeroize`, `request_log`, and `response_log`. Its obligation is retained
-and strengthened: after zeroize, a requested `AnalysisResponse.payload` must have
-zero-valued `requestID`, `sequenceNumber`, and `totalParts` fields, and every log
-must equal `NULL_LOG`. The local predicate now accepts `Response.Impl`.
+The v1 `Zeroize_Payload` guarantee is also stated at the `dataManager_sys` boundary,
+which can observe `zeroize`, `request_log`, and `response_log`. Its obligation is
+retained and strengthened: after zeroize, a requested `AnalysisResponse.payload`
+must contain a null request, a zero `validLogCount`, a false `moreAvailable` flag, a
+zero `nextStartTime`, and only `NULL_LOG` entries. The boundary guarantee can be
+supported compositionally by the lifted `dataManager` guarantee and the direct
+zeroize, request, and response connections.
 
 ### `dataStorage`
 
@@ -373,9 +435,12 @@ its persistent `EncryptedLogArray`. Once a `zeroize` event has occurred, the
 refined guarantee requires every byte of every record's nonce, ciphertext, and
 authentication tag to remain zero.
 
-The guarantee remains on the `dataStorage` thread. The current
-`dataStorage_seL4.Impl` does not include a contract-lifting clause, so exposing this
-thread guarantee at the process boundary remains outstanding.
+The guarantee remains on the `dataStorage` thread. It is not lifted through
+`dataStorage_seL4.Impl`: that process implementation contains both the thread and
+the persistent `logs` data subcomponent, so a blanket single-subcomponent lift is
+not valid. The `logs` subcomponent remains necessary to represent the persistent
+state, carry the storage confidentiality/encryption properties, and provide the
+explicit data-access connection to the storage thread.
 
 ### `logMonitor`
 
@@ -409,10 +474,11 @@ The encryptor now transforms `AnalysisResponse.Impl` into
 `OutgoingWifiMessage.Impl`. The v1 `Payload_Encrypted` guarantee ID and description
 are retained. On an input event, `AES_128_GCM_ENCRYPTS_RESPONSE` must hold between
 the complete incoming `Response.Impl` payload and the outgoing
-`EncryptedMessage.Impl` payload. The incoming response includes the request ID,
-sequence number, total-part count, and logs. The relational form avoids generating
-a structured 1024-byte function result during AGREE analysis. The guarantee does
-not require an output event or constrain behavior when no input event occurs.
+`EncryptedMessage.Impl` payload. The incoming response includes the echoed request
+criteria, valid-log count,
+continuation metadata, and logs. The relational form avoids generating a structured
+4096-byte function result during AGREE analysis. The guarantee does not require an
+output event or constrain behavior when no input event occurs.
 
 The v1 `Header_Unencrypted` guarantee ID, description, and header-equality
 constraint are also retained.
@@ -448,31 +514,22 @@ Resolute arguments were updated to follow the new architecture and types:
    backing data-access storage is not directly observable in the contract. Proving
    that `cache` denotes the actual `dataStorage.log_data` contents remains an
    implementation-level obligation.
-3. The typed `dataManager.HMD_log` and `dataManager.encrypted_log` ports express an
-   intended plaintext-to-ciphertext transition, but no current component contract
-   constrains the encrypted output to be the AES-128-GCM encryption of the input.
-   Likewise, no contract states that every received `dataStorage.encrypted_log`
-   value is written into the persistent array.
-4. The `dataStorage` thread's `Zeroize_Cache` guarantee is not currently lifted
-   through `dataStorage_seL4.Impl`.
-5. `Zeroize_Payload` is now a `dataManager_sys` obligation. Because the contained
-   `dataManager` does not receive `zeroize`, compositional discharge requires an
-   architectural or implementation argument that establishes the wrapper-level
-   response behavior.
-6. The Resolute storage rule checks that an `Encrypted` property is present on
+3. The typed storage ports express the intended write and read transformations, but
+   no current component contract constrains `dataManager.encrypted_log` to be the
+   AES-128-GCM encryption of `HMD_log`, requires `dataStorage` to persist received
+   records, relates `storage_request` to `encrypted_response` and its continuation
+   metadata, or requires `dataManager` to decrypt the returned records into
+   `response_log`.
+4. The Resolute storage rule checks that an `Encrypted` property is present on
    on-disk confidential data; it does not check that the property's value is
    specifically `AES_GCM` or prove that the stored values are ciphertext.
-7. This comparison is static and source-based. OSATE, AGREE verification, HAMR code
+5. This comparison is static and source-based. OSATE, AGREE verification, HAMR code
    generation, and scheduling analysis were not run while preparing the report.
-8. Generated instance models and diagrams were excluded and may be stale relative
+6. Generated instance models and diagrams were excluded and may be stale relative
    to the current AADL working tree.
 
 ## Maintaining this record
 
-For later changes, append a dated entry below and update the relevant detailed
-section when the model's externally visible behavior, type system, scheduling,
-contracts, or assurance claims change.
-
-| Date | Change |
-|---|---|
-| 2026-09-04 | Current report baseline, revalidated against `withAGREEOnly/aadl` |
+This report is a consolidated snapshot of the current v1-to-v2 differences. When the
+model changes, revise the affected sections directly so the report continues to
+describe the current model rather than accumulating an append-only change log.

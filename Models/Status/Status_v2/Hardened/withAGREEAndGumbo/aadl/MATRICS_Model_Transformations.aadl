@@ -40,14 +40,45 @@ public
 			response: Common::Response.Impl,
 			encrypted: Common::EncryptedMessage.Impl): bool;
 			
+		const NULL_HMD_POSITION: Common::HMDPosition.Impl = Common::HMDPosition.Impl
+			{positionX = 0;
+			 positionY = 0;
+			 positionZ = 0;
+			 orientationX = 0;
+			 orientationY = 0;
+			 orientationZ = 0;
+			 orientationW = 0
+			};
+
+		const NULL_TARGET: Common::TargetObservation.Impl = Common::TargetObservation.Impl
+			{targetID = 0;
+			 locationX = 0;
+			 locationY = 0;
+			 locationZ = 0;
+			 assessment = enum(Common::TargetAssessment, Unreviewed)
+			};
+
+		const NULL_TARGETS: Common::TargetObservationArray.Impl = [|
+			NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET,
+			NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET,
+			NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET, NULL_TARGET
+		|];
+
 		const NULL_LOG: Common::Log.Impl = Common::Log.Impl
 			{timestamp = 0;
-			 userID = 0;
-			 numSuspects = 0;
-			 numSuspectsFlagged = 0;
-			 yaw = 0;
-			 pitch = 0;
-			 roll = 0
+			 guardID = 0;
+			 deviceID = 0;
+			 hmdPosition = NULL_HMD_POSITION;
+			 targetCount = 0;
+			 targets = NULL_TARGETS
+			};
+
+		const NULL_REQUEST: Common::Request.Impl = Common::Request.Impl
+			{analysisType = enum(Common::AnalysisType, All_Records);
+			 guardID = 0;
+			 startTime = 0;
+			 endTime = 0;
+			 targetID = 0
 			};
 	**};
 	
@@ -60,14 +91,46 @@ public
 				src == u32"3232235879" ||
 				src == u32"3232235880";
 
+			def AES_128_GCM_DECRYPT_LOG(
+				message: Common::EncryptedMessage.Impl): Common::Log.Impl;
+
+			def AES_128_GCM_ENCRYPTS_RESPONSE(
+				response: Common::Response.Impl,
+				encrypted: Common::EncryptedMessage.Impl): Base_Types::Boolean;
+
+			def IS_NULL_HMD_POSITION(
+				position: Common::HMDPosition.Impl): Base_Types::Boolean :=
+				position.positionX == s32"0" &&
+				position.positionY == s32"0" &&
+				position.positionZ == s32"0" &&
+				position.orientationX == s32"0" &&
+				position.orientationY == s32"0" &&
+				position.orientationZ == s32"0" &&
+				position.orientationW == s32"0";
+
+			def IS_NULL_TARGET(
+				target: Common::TargetObservation.Impl): Base_Types::Boolean :=
+				target.targetID == u32"0" &&
+				target.locationX == s32"0" &&
+				target.locationY == s32"0" &&
+				target.locationZ == s32"0" &&
+				target.assessment == Common::TargetAssessment.Unreviewed;
+
 			def IS_NULL_LOG(log: Common::Log.Impl): Base_Types::Boolean :=
-				log.timestamp == u32"0" &&
-				log.userID == u32"0" &&
-				log.numSuspects == u32"0" &&
-				log.numSuspectsFlagged == u32"0" &&
-				log.yaw == s32"0" &&
-				log.pitch == s32"0" &&
-				log.roll == s32"0";
+				log.timestamp == u64"0" &&
+				log.guardID == u32"0" &&
+				log.deviceID == u32"0" &&
+				IS_NULL_HMD_POSITION(log.hmdPosition) &&
+				log.targetCount == u32"0" &&
+				(All (0 until log.targets.size)(i => IS_NULL_TARGET(log.targets(i))));
+
+			def IS_NULL_REQUEST(
+				request: Common::Request.Impl): Base_Types::Boolean :=
+				request.analysisType == Common::AnalysisType.All_Records &&
+				request.guardID == u32"0" &&
+				request.startTime == u64"0" &&
+				request.endTime == u64"0" &&
+				request.targetID == u32"0";
 	**};
 
 	annex Resolute {**

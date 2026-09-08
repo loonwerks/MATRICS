@@ -95,12 +95,17 @@ public
 	process dataManager_seL4
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			encrypted_log: out event data port Common::EncryptedMessage.Impl;
+			encrypted_log: out event data port Common::StoredLogFile.Impl;
 			request_log: in event data port Common::AnalysisRequest.Impl;
+			storage_request: out event data port Common::AnalysisRequest.Impl;
+			encrypted_response: in event data port Common::EncryptedAnalysisResponse.Impl;
 			response_log: out event data port Common::AnalysisResponse.Impl;
+			zeroize: in event port;
 		flows
 			f1: flow path HMD_log -> encrypted_log;
-			f2: flow path request_log -> response_log;
+			f2: flow path request_log -> storage_request;
+			f3: flow path encrypted_response -> response_log;
+			f4: flow sink zeroize;
 	end dataManager_seL4;
 	
 	process implementation dataManager_seL4.Impl
@@ -111,26 +116,39 @@ public
 			c2: port request_log -> dataManager.request_log;
 			c3: port dataManager.response_log -> response_log;
 			c4: port dataManager.encrypted_log -> encrypted_log;
+			c5: port dataManager.storage_request -> storage_request;
+			c6: port encrypted_response -> dataManager.encrypted_response;
+			c7: port zeroize -> dataManager.zeroize;
 		properties
-			CASE_Scheduling::Domain => 7;		
+			CASE_Scheduling::Domain => 7;
+		annex agree {**
+			lift contract;
+		**};
 	end dataManager_seL4.Impl;
 
 	process dataStorage_seL4
 		features
-			encrypted_log: in event data port Common::EncryptedMessage.Impl;
+			encrypted_log: in event data port Common::StoredLogFile.Impl;
+			storage_request: in event data port Common::AnalysisRequest.Impl;
+			encrypted_response: out event data port Common::EncryptedAnalysisResponse.Impl;
 			zeroize: in event port;
 		flows
 			f1: flow sink encrypted_log;
-			f2: flow sink zeroize;
+			f2: flow path storage_request -> encrypted_response;
+			f3: flow sink zeroize;
 	end dataStorage_seL4;
 
 	process implementation dataStorage_seL4.Impl
 		subcomponents
 			dataStorage: thread dataStorage;
+			-- Persistent on-disk state. The data subcomponent is retained so the
+			-- storage properties and the thread's data-access path are explicit.
 			logs: data Common::EncryptedLogArray;
 		connections
 			c1: port encrypted_log -> dataStorage.encrypted_log;
-			c2: port zeroize -> dataStorage.zeroize;
+			c2: port storage_request -> dataStorage.storage_request;
+			c3: port dataStorage.encrypted_response -> encrypted_response;
+			c4: port zeroize -> dataStorage.zeroize;
 			dac1: data access logs <-> dataStorage.log_data;
 		properties
 			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
@@ -386,7 +404,7 @@ public
 				guarantee invalid2 "G: is_invalid2 set correctly" : 
 					is_invalid2 == (counter >= u32"3");
 								 
-				guarantee Send_Alert "G: Send an alert if more than one report is received without a request or if 3 or more requests are received without a report." :
+				guarantee Send_Alert "G: Send an alert if a report is received without a valid request or if three or more requests are received without a report." :
 					if ((HasEvent(analysis_report_in) & !(is_valid1)) | is_invalid2)
 					MustSend(alert_out)
 					else NoSend(alert_out);
@@ -444,6 +462,14 @@ public
 				event(HMD_log_in) =>
 					HMD_log_out = AES_128_GCM_DECRYPT_LOG(HMD_log_in);
 		**};
+		annex GUMBO {**
+			compute
+				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." :
+					HasEvent(HMD_log_in) ->:
+						HMD_log_out ==
+							MATRICS_Model_Transformations::AES_128_GCM_DECRYPT_LOG(
+								HMD_log_in);
+		**};
 	end decryptor;
 
 	process decryptor_seL4
@@ -488,6 +514,17 @@ public
 						analysis_report_out.payload);
 			guarantee Header_Unencrypted "G: Outgoing header is not encrypted." : 
 				analysis_report_out.header = analysis_report_in.header;
+		**};
+		annex GUMBO {**
+			compute
+				guarantee Payload_Encrypted "G: Outgoing payload is encrypted." :
+					HasEvent(analysis_report_in) ->:
+						MATRICS_Model_Transformations::AES_128_GCM_ENCRYPTS_RESPONSE(
+							analysis_report_in.payload,
+							analysis_report_out.payload);
+
+				guarantee Header_Unencrypted "G: Outgoing header is not encrypted." :
+					analysis_report_out.header == analysis_report_in.header;
 		**};
 	end encryptor;
 	
@@ -608,9 +645,10 @@ public
 			f3: flow sink zeroize;
 		annex agree {**
 			fun IS_ZEROIZED(response: Common::Response.Impl): bool =
-				response.requestID = 0 and
-				response.sequenceNumber = 0 and
-				response.totalParts = 0 and
+				response.request = NULL_REQUEST and
+				response.validLogCount = 0 and
+				not(response.moreAvailable) and
+				response.nextStartTime = 0 and
 				(forall i in indices(response.logs), response.logs[i] = NULL_LOG);
 
 			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
@@ -629,6 +667,9 @@ public
 			c3: port dataManager.response_log -> response_log;
 			c4: port dataManager.encrypted_log -> dataStorage.encrypted_log;
 			c5: port zeroize -> dataStorage.zeroize;
+			c6: port zeroize -> dataManager.zeroize;
+			c7: port dataManager.storage_request -> dataStorage.storage_request;
+			c8: port dataStorage.encrypted_response -> dataManager.encrypted_response;
 	end dataManager_sys.Impl;
 
 	-- Hardened Software System

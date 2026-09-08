@@ -1,4 +1,8 @@
 property set MATRICS_Properties is
+
+	-- Fixed collection bounds used by the ground-station data model.
+	MAX_TARGETS_PER_LOG: constant aadlinteger => 15;
+	MAX_LOGS_PER_RESPONSE: constant aadlinteger => 10;
 	
 	-- Runtime
 	OS: aadlstring applies to (processor, virtual processor);

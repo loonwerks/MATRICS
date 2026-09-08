@@ -106,27 +106,74 @@ public
 	thread dataManager
 		features
 			HMD_log: in event data port Common::Log.Impl;
-			encrypted_log: out event data port Common::EncryptedMessage.Impl;
+			encrypted_log: out event data port Common::StoredLogFile.Impl;
 			request_log: in event data port Common::AnalysisRequest.Impl;
+			storage_request: out event data port Common::AnalysisRequest.Impl;
+			encrypted_response: in event data port Common::EncryptedAnalysisResponse.Impl;
 			response_log: out event data port Common::AnalysisResponse.Impl;
+			zeroize: in event port;
 		flows
 			f1: flow path HMD_log -> encrypted_log;
-			f2: flow path request_log -> response_log;
+			f2: flow path request_log -> storage_request;
+			f3: flow path encrypted_response -> response_log;
+			f4: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
 			Stack_size => 1048576 Bytes;
+		annex agree {**
+			fun IS_ZEROIZED(response: Common::Response.Impl): bool =
+				response.request = NULL_REQUEST and
+				response.validLogCount = 0 and
+				not(response.moreAvailable) and
+				response.nextStartTime = 0 and
+				(forall i in indices(response.logs), response.logs[i] = NULL_LOG);
 
+			guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+				Once(event(zeroize)) and event(request_log) =>
+					IS_ZEROIZED(response_log.payload);
+		**};
+		annex GUMBO {**
+			state
+				zeroize_cmd: Base_Types::Boolean;
+			functions
+				def IS_ZEROIZED(
+					response: Common::Response.Impl): Base_Types::Boolean :=
+					MATRICS_Model_Transformations::IS_NULL_REQUEST(response.request) &&
+					response.validLogCount == u32"0" &&
+					response.moreAvailable == false &&
+					response.nextStartTime == u64"0" &&
+					(All (0 until response.logs.size)(i =>
+						MATRICS_Model_Transformations::IS_NULL_LOG(response.logs(i))));
+			initialize
+				modifies zeroize_cmd;
+
+				guarantee defaultZeroize:
+					zeroize_cmd == false;
+
+			compute
+				modifies zeroize_cmd;
+
+				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
+					zeroize_cmd == (HasEvent(zeroize) || In(zeroize_cmd));
+
+				guarantee Zeroize_Payload "G: Zeroize outgoing responses once an alert is received and when a request has been made." :
+					(zeroize_cmd && HasEvent(request_log)) ->:
+						IS_ZEROIZED(response_log.payload);
+		**};
 	end dataManager;
 
 	thread dataStorage
 		features
-			encrypted_log: in event data port Common::EncryptedMessage.Impl;
+			encrypted_log: in event data port Common::StoredLogFile.Impl;
+			storage_request: in event data port Common::AnalysisRequest.Impl;
+			encrypted_response: out event data port Common::EncryptedAnalysisResponse.Impl;
 			zeroize: in event port;
 			log_data: requires data access Common::EncryptedLogArray {Access_Right => read_write;};
 		flows
 			f1: flow sink encrypted_log;
-			f2: flow sink zeroize;
+			f2: flow path storage_request -> encrypted_response;
+			f3: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
 			Period => 1000ms;
@@ -141,11 +188,48 @@ public
 				(forall i in indices(message.ciphertext), message.ciphertext[i] = 0) and
 				(forall i in indices(message.tag), message.tag[i] = 0);
 
+			fun IS_ZEROIZED_STORED_LOG_FILE(file: Common::StoredLogFile.Impl): bool =
+				IS_ZEROIZED_ENCRYPTED_MESSAGE(file.encryptedLog);
+
 			fun IS_ZEROIZED(logs: Common::EncryptedLogArray.Impl): bool =
-				forall i in indices(logs), IS_ZEROIZED_ENCRYPTED_MESSAGE(logs[i]);
+				forall i in indices(logs), IS_ZEROIZED_STORED_LOG_FILE(logs[i]);
 
 			guarantee Zeroize_Cache "G: Zeroize cache once an alert is received.":
 				Once(event(zeroize)) => IS_ZEROIZED(cache);
+		**};
+		annex GUMBO {**
+			state
+				cache: Common::EncryptedLogArray.Impl;
+				zeroize_cmd: Base_Types::Boolean;
+			functions
+				def IS_ZEROIZED_ENCRYPTED_MESSAGE(
+					message: Common::EncryptedMessage.Impl): Base_Types::Boolean :=
+					(All (0 until message.nonce.size)(i => message.nonce(i) == u8"0")) &&
+					(All (0 until message.ciphertext.size)(i => message.ciphertext(i) == u8"0")) &&
+					(All (0 until message.tag.size)(i => message.tag(i) == u8"0"));
+
+				def IS_ZEROIZED_STORED_LOG_FILE(
+					file: Common::StoredLogFile.Impl): Base_Types::Boolean :=
+					IS_ZEROIZED_ENCRYPTED_MESSAGE(file.encryptedLog);
+
+				def IS_ZEROIZED(
+					logs: Common::EncryptedLogArray.Impl): Base_Types::Boolean :=
+					(All (0 until logs.size)(i =>
+						IS_ZEROIZED_STORED_LOG_FILE(logs(i))));
+			initialize
+				modifies zeroize_cmd;
+
+				guarantee defaultZeroize:
+					zeroize_cmd == false;
+
+			compute
+				modifies cache, zeroize_cmd;
+
+				guarantee zeroize_cmd_variable "G: Once a zeroize command is seen, always zeroize.":
+					zeroize_cmd == (HasEvent(zeroize) || In(zeroize_cmd));
+
+				guarantee Zeroize_Cache "G: Zeroize cache once an alert is received.":
+					zeroize_cmd ->: IS_ZEROIZED(cache);
 		**};
 	end dataStorage;
 	
