@@ -23,7 +23,7 @@ The following were deliberately excluded:
 
 Status v2 changes the hardened ground station from a mostly abstract, partially
 typed architecture into an explicitly typed HAMR/Microkit model with MCS domains,
-C components on a shared virtual processor, structured Wi-Fi messages, explicit
+C VM processes on separate virtual processors, structured Wi-Fi messages, explicit
 AES-128-GCM framing, and a dedicated encrypted-storage component.
 
 The principal behavioral changes are:
@@ -39,9 +39,10 @@ The principal behavioral changes are:
    metadata, decrypts them, and constructs the plaintext analysis response. The
    current contracts do not yet specify these encryption, storage-access, and
    decryption transformations.
-5. Zeroize commands enter `dataManager_sys` from `logMonitor` and are delivered to
-   both `dataStorage`, which erases persistent records, and `dataManager`, which
-   zeroizes later response payloads.
+5. `logMonitor` emits separate, simultaneous zeroize events for `dataManager` and
+   `dataStorage`. The events enter `dataManager_sys` through distinct boundary
+   ports so persistent erasure and later response-payload zeroization remain
+   separately routed.
 6. The request/response path now carries complete `AnalysisRequest` and
    `AnalysisResponse` messages. Each plaintext response contains routing metadata,
    the echoed request criteria, bounded-result metadata, and at most ten logs before
@@ -204,7 +205,8 @@ dataManager_sys
 ```
 
 The system boundary exposes plaintext `HMD_log`, `request_log`, `response_log`, and
-the `zeroize` event. Storage write and read traffic remains internal to the system:
+the separately routed `zeroize` and `storage_zeroize` events. Storage write and
+read traffic remains internal to the system:
 
 ```text
 dataManager.encrypted_log → dataStorage.encrypted_log
@@ -242,7 +244,7 @@ Specific changes:
   metadata needed to select its on-disk filename.
 - `dataManager` no longer exposes a data-access feature or owns the persistent log
   array. It receives the system's `zeroize` event directly.
-- `dataManager_sys` exposes the plaintext log, request, response, and zeroize
+- `dataManager_sys` exposes the plaintext log, request, response, and two zeroize
   interfaces required by the rest of `SW_seL4.hardened`.
 - The encrypted write and read connections between `dataManager` and `dataStorage`
   are internal to `dataManager_sys`.
@@ -264,17 +266,23 @@ logMonitor.alert → dataManager.zeroize
 to:
 
 ```text
-logMonitor.alert_out → dataManager_sys.zeroize
-                                      ├──→ dataStorage.zeroize
-                                      └──→ dataManager.zeroize
+logMonitor.alert_out
+  → dataManager_sys.zeroize
+  → dataManager.zeroize
+
+logMonitor.storage_alert_out
+  → dataManager_sys.storage_zeroize
+  → dataStorage.zeroize
 ```
 
 At the `SW_seL4.hardened` level, the `dataManager_sys` instance is named
-`dataManager`; therefore the external connection is written
-`logMonitor.alert_out → dataManager.zeroize`. Inside the system, that boundary port
-fans out directly to both contained processes. `dataStorage` owns persistent
-erasure; `dataManager` uses the same command to ensure later requested response
-payloads are zeroized.
+`dataManager`; therefore the external connections terminate at
+`dataManager.zeroize` and `dataManager.storage_zeroize`. The existing `Alert`
+guarantee requires `alert_out` and `storage_alert_out` to occur under the same alert
+condition and requires neither event otherwise. `dataStorage` owns persistent
+erasure; `dataManager` uses its corresponding command to ensure later requested
+response payloads are zeroized. The distinct source ports also avoid unsupported
+HAMR fanout from one event source to both native and VM components.
 
 ### Analysis response path
 
@@ -319,13 +327,14 @@ v2 connection identifiers are:
 | `c12` | `dataAnalysis.analysis_report` → `encryptor.analysis_report_in` |
 | `c13` | `reportMonitor.analysis_report_out` → `wifiDriver.analysis_report` |
 | `c17` | `logMonitor.alert_out` → `dataManager_sys.zeroize` |
+| `c17_storage` | `logMonitor.storage_alert_out` → `dataManager_sys.storage_zeroize` |
 | `c19` | `encryptor.analysis_report_out` → `reportMonitor.analysis_report_in` |
 | `c21` | `wifiDriver.analysis_request` → `firewall.analysis_request_in` |
 | `c22` | `firewall.analysis_request_out` → `dataAnalysis.analysis_request` |
 
 Within `dataManager_sys.Impl`, internal connection `c4` carries
 `dataManager.encrypted_log` to `dataStorage.encrypted_log`. Connections `c5` and
-`c6` fan out the system's `zeroize` event to `dataStorage.zeroize` and
+`c6` route `storage_zeroize` to `dataStorage.zeroize` and `zeroize` to
 `dataManager.zeroize`, respectively. Connection `c7` carries
 `dataManager.storage_request` to `dataStorage.storage_request`, and `c8` returns
 `dataStorage.encrypted_response` to `dataManager.encrypted_response`.
@@ -345,9 +354,10 @@ The ground-station processor now specifies:
 - `HAMR::Platform => (Microkit)`
 - Default `HAMR::Microkit_Language => Rust`
 
-A `virt_proc` virtual processor was added. `wifiDriverVM` and the `dataStorage`
-process nested under `dataManager_sys` are both bound to this existing virtual
-processor and explicitly use C.
+A `virt_proc` virtual processor type was added and instantiated twice. `wifiDriverVM`
+is bound to `vcpu`, while the `dataStorage` process nested under `dataManager_sys` is
+bound to `storage_vcpu`. Both virtual processors are bound to the same physical CPU,
+and both VM processes explicitly use C.
 
 | Domain | Component |
 |---:|---|
@@ -447,6 +457,9 @@ explicit data-access connection to the storage thread.
 
 - The alert output was renamed `alert_out` consistently at the thread and process
   boundaries and corrected to an event port.
+- A separate `storage_alert_out` event port was added. The existing `Alert`
+  guarantee requires it to occur simultaneously with `alert_out`, allowing the
+  data-manager and storage zeroize paths to use distinct event sources.
 - The `Since` expression was reformatted without a semantic change.
 - Response forwarding changed from checking only `is_valid` to requiring that no
   alert has occurred historically. Thus the monitor remains closed after an alert.
@@ -526,8 +539,14 @@ Resolute arguments were updated to follow the new architecture and types:
 4. The Resolute storage rule checks that an `Encrypted` property is present on
    on-disk confidential data; it does not check that the property's value is
    specifically `AES_GCM` or prove that the stored values are ciphertext.
-5. This comparison is static and source-based. OSATE, AGREE verification, HAMR code
-   generation, and scheduling analysis were not run while preparing the report.
+5. Full AADL toolchain verification, AGREE proof, and scheduling analysis were not
+   run while preparing the report. Temporary SysML HAMR checks confirm that the
+   split zeroize paths parse and lower to distinct connections. `wifiDriverVM` and
+   `dataStorage` are assigned separate virtual processors, with both virtual
+   processors bound to the same physical CPU. Temporary HAMR generation produces an
+   MCS target containing two VM declarations. The generated target currently assigns
+   both guests the same default physical RAM and device addresses; distinct physical
+   resource mappings must be supplied before the two-VM target is deployable.
 6. Generated instance models and diagrams were excluded and may be stale relative
    to the current AADL working tree.
 

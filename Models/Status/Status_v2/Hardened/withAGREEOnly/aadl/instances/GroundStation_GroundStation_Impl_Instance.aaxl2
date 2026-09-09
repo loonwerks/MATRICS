@@ -10,7 +10,7 @@
           </ownedListElement>
         </ownedValue>
       </ownedValue>
-      <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.7"/>
+      <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
     </ownedPropertyAssociation>
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
       <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -19,7 +19,7 @@
           <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
         </ownedValue>
       </ownedValue>
-      <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+      <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
     </ownedPropertyAssociation>
     <featureInstance name="wfa" category="busAccess" type="/4">
       <feature xsi:type="aadl2:BusAccess" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.13/@ownedBusAccess.0"/>
@@ -613,7 +613,7 @@
             <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.0"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.3"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.4"/>
       </ownedPropertyAssociation>
       <featureInstance name="sera" category="busAccess" type="/3">
         <feature xsi:type="aadl2:BusAccess" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedBusAccess.0"/>
@@ -630,7 +630,7 @@
             <namedValue xsi:type="aadl2:EnumerationLiteral" href="../MATRICS_Properties.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.4"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.5"/>
       </ownedPropertyAssociation>
       <featureInstance name="sera" category="busAccess" type="/3">
         <feature xsi:type="aadl2:BusAccess" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedBusAccess.0"/>
@@ -645,7 +645,7 @@
         <ownedValue>
           <ownedValue xsi:type="aadl2:StringLiteral" value="seL4"/>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.6"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.7"/>
       </ownedPropertyAssociation>
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
         <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Frame_Period"/>
@@ -687,7 +687,7 @@
             <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
       </ownedPropertyAssociation>
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
         <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -696,7 +696,7 @@
             <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
       </ownedPropertyAssociation>
       <featureInstance name="wifiRecv" category="eventDataPort" type="/1">
         <feature xsi:type="aadl2:EventDataPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.34/@ownedEventDataPort.0"/>
@@ -876,7 +876,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -885,7 +885,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -993,7 +993,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1002,7 +1002,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -1144,7 +1144,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1153,7 +1153,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1261,7 +1261,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1270,7 +1270,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -1412,7 +1412,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1421,7 +1421,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1450,7 +1450,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1459,7 +1459,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
@@ -1528,7 +1528,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1537,7 +1537,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1578,7 +1578,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1587,7 +1587,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -1662,7 +1662,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1671,7 +1671,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1703,7 +1703,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1712,7 +1712,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -1778,7 +1778,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1787,7 +1787,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1817,6 +1817,9 @@
         <featureInstance name="alert_out" category="eventPort" direction="out">
           <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.16/@ownedEventPort.0"/>
         </featureInstance>
+        <featureInstance name="storage_alert_out" category="eventPort" direction="out">
+          <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.16/@ownedEventPort.1"/>
+        </featureInstance>
         <componentInstance name="logMonitor" category="thread">
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
@@ -1825,7 +1828,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1834,7 +1837,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -1884,6 +1887,9 @@
           <featureInstance name="alert_out" category="eventPort" direction="out">
             <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedEventPort.0"/>
           </featureInstance>
+          <featureInstance name="storage_alert_out" category="eventPort" direction="out">
+            <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedEventPort.1"/>
+          </featureInstance>
           <flowSpecification name="f1" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.2">
             <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedFlowSpecification.0"/>
           </flowSpecification>
@@ -1892,6 +1898,9 @@
           </flowSpecification>
           <flowSpecification name="f3" destination="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.3">
             <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedFlowSpecification.2"/>
+          </flowSpecification>
+          <flowSpecification name="f4" destination="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.4">
+            <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedFlowSpecification.3"/>
           </flowSpecification>
           <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.17/@ownedThreadSubcomponent.0"/>
           <index>0</index>
@@ -1906,6 +1915,9 @@
         <flowSpecification name="f3" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.3">
           <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.16/@ownedFlowSpecification.2"/>
         </flowSpecification>
+        <flowSpecification name="f4" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.4">
+          <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.16/@ownedFlowSpecification.3"/>
+        </flowSpecification>
         <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedProcessSubcomponent.5"/>
         <index>0</index>
         <classifier xsi:type="aadl2:ProcessImplementation" href="../Hardened_SW.aadl#Hardened_SW.logMonitor_seL4.Impl"/>
@@ -1918,7 +1930,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1927,7 +1939,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -1965,7 +1977,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -1974,7 +1986,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -2058,7 +2070,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2067,7 +2079,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -2099,7 +2111,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2108,7 +2120,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="../MATRICS_Properties.aadl#MATRICS_Properties.Component_Type"/>
@@ -2174,7 +2186,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2183,7 +2195,7 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <featureInstance name="alert_in" category="eventPort">
           <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.30/@ownedEventPort.0"/>
@@ -2220,7 +2232,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2229,7 +2241,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -2273,7 +2285,7 @@
                   <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2282,7 +2294,7 @@
                   <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
@@ -2564,7 +2576,7 @@
               <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
         </ownedPropertyAssociation>
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2573,10 +2585,13 @@
               <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
-          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+          <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
         </ownedPropertyAssociation>
         <featureInstance name="zeroize" category="eventPort">
           <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedEventPort.0"/>
+        </featureInstance>
+        <featureInstance name="storage_zeroize" category="eventPort">
+          <feature xsi:type="aadl2:EventPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedEventPort.1"/>
         </featureInstance>
         <featureInstance name="HMD_log" category="eventDataPort" type="/10">
           <feature xsi:type="aadl2:EventDataPort" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedEventDataPort.0"/>
@@ -2595,7 +2610,7 @@
                 <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2604,7 +2619,7 @@
                 <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/CASE_Scheduling.aadl#CASE_Scheduling.Domain"/>
@@ -2642,7 +2657,7 @@
                   <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2651,7 +2666,7 @@
                   <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#/0/@ownedProperty.10/@ownedPropertyType/@ownedLiteral.1"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.8"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.9"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
@@ -2738,10 +2753,10 @@
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
             <ownedValue>
               <ownedValue xsi:type="aadl2:ListValue">
-                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.11"/>
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.12"/>
               </ownedValue>
             </ownedValue>
-            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.0"/>
+            <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
           </ownedPropertyAssociation>
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2779,7 +2794,7 @@
                   <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.8"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.5"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.6"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
@@ -2853,10 +2868,10 @@
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
               <ownedValue>
                 <ownedValue xsi:type="aadl2:ListValue">
-                  <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.11"/>
+                  <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.12"/>
                 </ownedValue>
               </ownedValue>
-              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.0"/>
+              <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
             </ownedPropertyAssociation>
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.sireum.aadl.osate.hamr/resources/HAMR.aadl#HAMR.Microkit_Language"/>
@@ -2992,14 +3007,17 @@
           <index>0</index>
           <classifier xsi:type="aadl2:ProcessImplementation" href="../Hardened_SW.aadl#Hardened_SW.dataStorage_seL4.Impl"/>
         </componentInstance>
-        <flowSpecification name="f1" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1">
+        <flowSpecification name="f1" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2">
           <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedFlowSpecification.0"/>
         </flowSpecification>
-        <flowSpecification name="f2" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3">
+        <flowSpecification name="f2" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
           <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedFlowSpecification.1"/>
         </flowSpecification>
         <flowSpecification name="f3" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.0">
           <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedFlowSpecification.2"/>
+        </flowSpecification>
+        <flowSpecification name="f4" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1">
+          <flowSpecification href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.32/@ownedFlowSpecification.3"/>
         </flowSpecification>
         <connectionInstance name="dataManager.dataManager.encrypted_log -> dataStorage.dataStorage.encrypted_log" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.1/@featureInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.1">
           <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.1">
@@ -3045,10 +3063,10 @@
         <connectionReference context="/0/@componentInstance.10/@componentInstance.2" source="/0/@componentInstance.10/@componentInstance.2/@componentInstance.0/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.2/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPortConnection.2"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.2/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2">
+        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.2/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.6"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.33/@ownedPortConnection.1"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.2">
@@ -3081,10 +3099,10 @@
         <connectionReference context="/0/@componentInstance.10/@componentInstance.3" source="/0/@componentInstance.10/@componentInstance.3/@componentInstance.0/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.3/@featureInstance.1">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.23/@ownedPortConnection.1"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.3/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1">
+        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.3/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.8"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.0">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.2" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.33/@ownedPortConnection.0"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.0">
@@ -3096,7 +3114,7 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.26/@ownedPortConnection.1"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.4/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.6/@featureInstance.1">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.16"/>
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.17"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.6" source="/0/@componentInstance.10/@componentInstance.6/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.6/@componentInstance.0/@featureInstance.1">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.20/@ownedPortConnection.1"/>
@@ -3113,20 +3131,6 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPortConnection.0"/>
         </connectionReference>
       </connectionInstance>
-      <connectionInstance name="logMonitor.logMonitor.alert_out -> dataManager.dataStorage.dataStorage.zeroize" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.1/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.3">
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.5" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.3">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.17/@ownedPortConnection.3"/>
-        </connectionReference>
-        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.5/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.0">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.14"/>
-        </connectionReference>
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@featureInstance.3">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.33/@ownedPortConnection.4"/>
-        </connectionReference>
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.1/@featureInstance.3">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPortConnection.3"/>
-        </connectionReference>
-      </connectionInstance>
       <connectionInstance name="logMonitor.logMonitor.alert_out -> dataManager.dataManager.dataManager.zeroize" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.6" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.3">
         <connectionReference context="/0/@componentInstance.10/@componentInstance.5" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.3">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.17/@ownedPortConnection.3"/>
@@ -3139,6 +3143,20 @@
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.6" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.6">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedPortConnection.6"/>
+        </connectionReference>
+      </connectionInstance>
+      <connectionInstance name="logMonitor.logMonitor.storage_alert_out -> dataManager.dataStorage.dataStorage.zeroize" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.1/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.4">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.5" source="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.4">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.17/@ownedPortConnection.4"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.5/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.15"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@featureInstance.3">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.33/@ownedPortConnection.4"/>
+        </connectionReference>
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.1/@componentInstance.1/@featureInstance.3">
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPortConnection.3"/>
         </connectionReference>
       </connectionInstance>
       <connectionInstance name="reportMonitor.reportMonitor.analysis_report_out -> wifiDriver.wifiDriver.wifiDriver.analysis_report" complete="true" kind="portConnection" destination="/0/@componentInstance.10/@componentInstance.8/@componentInstance.0/@componentInstance.0/@featureInstance.3" source="/0/@componentInstance.10/@componentInstance.6/@componentInstance.0/@featureInstance.2">
@@ -3160,7 +3178,7 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.20/@ownedPortConnection.3"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.6/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.8/@featureInstance.0">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.17"/>
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.18"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.8" source="/0/@componentInstance.10/@componentInstance.8/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.8/@componentInstance.0/@featureInstance.5">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.7"/>
@@ -3174,7 +3192,7 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.1"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.7/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.2/@featureInstance.3">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.19"/>
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.20"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.2" source="/0/@componentInstance.10/@componentInstance.2/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.2/@componentInstance.0/@featureInstance.3">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPortConnection.1"/>
@@ -3202,7 +3220,7 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.6"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.8/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.6/@featureInstance.0">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.15"/>
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.16"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.6" source="/0/@componentInstance.10/@componentInstance.6/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.6/@componentInstance.0/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.20/@ownedPortConnection.0"/>
@@ -3216,7 +3234,7 @@
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.31/@ownedPortConnection.6"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.8/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.7/@featureInstance.0">
-          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.18"/>
+          <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.19"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.7" source="/0/@componentInstance.10/@componentInstance.7/@featureInstance.0" destination="/0/@componentInstance.10/@componentInstance.7/@componentInstance.0/@featureInstance.0">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.29/@ownedPortConnection.0"/>
@@ -3226,10 +3244,10 @@
         <connectionReference context="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@componentInstance.0/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.5">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedPortConnection.2"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3">
+        <connectionReference context="/0/@componentInstance.10/@componentInstance.9" source="/0/@componentInstance.10/@componentInstance.9/@componentInstance.0/@featureInstance.5" destination="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.33/@ownedPortConnection.2"/>
         </connectionReference>
-        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.1">
+        <connectionReference context="/0/@componentInstance.10" source="/0/@componentInstance.10/@componentInstance.9/@featureInstance.4" destination="/0/@componentInstance.10/@componentInstance.5/@featureInstance.1">
           <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.35/@ownedPortConnection.12"/>
         </connectionReference>
         <connectionReference context="/0/@componentInstance.10/@componentInstance.5" source="/0/@componentInstance.10/@componentInstance.5/@featureInstance.1" destination="/0/@componentInstance.10/@componentInstance.5/@componentInstance.0/@featureInstance.1">
@@ -3248,9 +3266,23 @@
             <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.1"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
       </ownedPropertyAssociation>
       <subcomponent xsi:type="aadl2:VirtualProcessorSubcomponent" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedVirtualProcessorSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:VirtualProcessorType" href="../GroundStation.aadl#GroundStation.virt_proc"/>
+    </componentInstance>
+    <componentInstance name="storage_vcpu" category="virtual processor">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.9"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <subcomponent xsi:type="aadl2:VirtualProcessorSubcomponent" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedVirtualProcessorSubcomponent.1"/>
       <index>0</index>
       <classifier xsi:type="aadl2:VirtualProcessorType" href="../GroundStation.aadl#GroundStation.virt_proc"/>
     </componentInstance>
@@ -3335,7 +3367,7 @@
             <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.1"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.3"/>
       </ownedPropertyAssociation>
       <connectionReference context="/0" source="/0/@componentInstance.4/@featureInstance.1" destination="/0/@componentInstance.10/@featureInstance.0">
         <connection xsi:type="aadl2:PortConnection" href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPortConnection.3"/>
@@ -3472,7 +3504,7 @@
             <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.1"/>
           </ownedValue>
         </ownedValue>
-        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.2"/>
+        <propertyAssociation href="../GroundStation.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.3"/>
       </ownedPropertyAssociation>
       <connectionReference context="/0/@componentInstance.10/@componentInstance.8/@componentInstance.1" source="/0/@componentInstance.10/@componentInstance.8/@componentInstance.1/@componentInstance.0/@featureInstance.3" destination="/0/@componentInstance.10/@componentInstance.8/@componentInstance.1/@featureInstance.3">
         <connection xsi:type="aadl2:PortConnection" href="../Hardened_SW.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPortConnection.3"/>

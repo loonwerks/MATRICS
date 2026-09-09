@@ -187,6 +187,7 @@ package GroundStation {
         port response_log_in: EventDataPort { in :>> type : Common::AnalysisResponse_Impl; }
         port response_log_out: EventDataPort { out :>> type : Common::AnalysisResponse_Impl; }
         out port alert_out: EventPort;
+        out port storage_alert_out: EventPort;
 
         language "GUMBO" /*{
             state
@@ -224,8 +225,8 @@ package GroundStation {
 
                 guarantee Send_Alert "G: Send an alert if more than one response is received without a request.":
                     if (HasEvent(response_log_in) & not is_valid) ?
-                        MustSend(alert_out) else
-                        NoSend(alert_out);
+                        (MustSend(alert_out) & MustSend(storage_alert_out)) else
+                        (NoSend(alert_out) & NoSend(storage_alert_out));
 
                 guarantee Forward_Response "G: Only forward a response if a valid request has been made.":
                     if (HasEvent(response_log_in) & historically_no_alert_cmd) ?
@@ -450,6 +451,7 @@ package GroundStation {
         port response_log_in: EventDataPort { in :>> type : Common::AnalysisResponse_Impl; }
         port response_log_out: EventDataPort { out :>> type : Common::AnalysisResponse_Impl; }
         out port alert_out: EventPort;
+        out port storage_alert_out: EventPort;
 
         part logMonitor: LogMonitor_t;
 
@@ -457,6 +459,7 @@ package GroundStation {
         connection c2: PortConnection connect response_log_in to logMonitor.response_log_in;
         connection c3: PortConnection connect logMonitor.response_log_out to response_log_out;
         connection c4: PortConnection connect logMonitor.alert_out to alert_out;
+        connection c5: PortConnection connect logMonitor.storage_alert_out to storage_alert_out;
 
         attribute :>> Domain = 8;
     }
@@ -555,6 +558,7 @@ package GroundStation {
         port request_log: EventDataPort { in :>> type : Common::AnalysisRequest_Impl; }
         port response_log: EventDataPort { out :>> type : Common::AnalysisResponse_Impl; }
         in port zeroize: EventPort;
+        in port storage_zeroize: EventPort;
 
         part dataManager: DataManager_p;
         part dataStorage: DataStorage_p;
@@ -563,7 +567,7 @@ package GroundStation {
         connection c2: PortConnection connect request_log to dataManager.request_log;
         connection c3: PortConnection connect dataManager.response_log to response_log;
         connection c4: PortConnection connect dataManager.encrypted_log to dataStorage.encrypted_log;
-        connection c5: PortConnection connect zeroize to dataStorage.zeroize;
+        connection c5: PortConnection connect storage_zeroize to dataStorage.zeroize;
         connection c6: PortConnection connect zeroize to dataManager.zeroize;
         connection c7: PortConnection connect dataManager.storage_request to dataStorage.storage_request;
         connection c8: PortConnection connect dataStorage.encrypted_response to dataManager.encrypted_response;
@@ -603,6 +607,7 @@ package GroundStation {
         connection c15: PortConnection connect dataManager.response_log to logMonitor.response_log_in;
         connection c16: PortConnection connect logMonitor.response_log_out to dataAnalysis.response_log;
         connection c17: PortConnection connect logMonitor.alert_out to dataManager.zeroize;
+        connection c17_storage: PortConnection connect logMonitor.storage_alert_out to dataManager.storage_zeroize;
         connection c18: PortConnection connect wifiDriver.analysis_request to reportMonitor.analysis_request;
         connection c19: PortConnection connect encryptor.analysis_report_out to reportMonitor.analysis_report_in;
         connection c20: PortConnection connect reportMonitor.alert_out to wifiDriver.alert_in;
@@ -628,6 +633,7 @@ package GroundStation {
 
         part cpu: Proc;
         part vcpu: virt_proc;
+        part storage_vcpu: virt_proc;
 
         part cpuSw_wifiDriver_wifiDriver: WifiDriver_p;
         part cpuSw_wifiDriver_wifiDriverVM: WifiDriverVM_p;
@@ -659,7 +665,7 @@ package GroundStation {
         connection c15: PortConnection connect cpuSw_dataManager_dataManager.response_log to cpuSw_logMonitor.response_log_in;
         connection c16: PortConnection connect cpuSw_logMonitor.response_log_out to cpuSw_dataAnalysis.response_log;
         connection c17_dataManager: PortConnection connect cpuSw_logMonitor.alert_out to cpuSw_dataManager_dataManager.zeroize;
-        connection c17_dataStorage: PortConnection connect cpuSw_logMonitor.alert_out to cpuSw_dataManager_dataStorage.zeroize;
+        connection c17_dataStorage: PortConnection connect cpuSw_logMonitor.storage_alert_out to cpuSw_dataManager_dataStorage.zeroize;
         connection c18: PortConnection connect cpuSw_wifiDriver_wifiDriver.analysis_request to cpuSw_reportMonitor.analysis_request;
         connection c19: PortConnection connect cpuSw_encryptor.analysis_report_out to cpuSw_reportMonitor.analysis_report_in;
         connection c20: PortConnection connect cpuSw_reportMonitor.alert_out to cpuSw_wifiDriver_wifiDriver.alert_in;
@@ -672,9 +678,11 @@ package GroundStation {
         allocation vm_binding: Deployment_Properties::Actual_Processor_Binding
             allocate cpuSw_wifiDriver_wifiDriverVM to vcpu;
         allocation data_storage_vm_binding: Deployment_Properties::Actual_Processor_Binding
-            allocate cpuSw_dataManager_dataStorage to vcpu;
+            allocate cpuSw_dataManager_dataStorage to storage_vcpu;
         allocation vcpu_binding: Deployment_Properties::Actual_Processor_Binding
             allocate vcpu to cpu;
+        allocation storage_vcpu_binding: Deployment_Properties::Actual_Processor_Binding
+            allocate storage_vcpu to cpu;
         allocation wifi_driver_binding: Deployment_Properties::Actual_Processor_Binding
             allocate cpuSw_wifiDriver_wifiDriver to cpu;
         allocation bt_driver_binding: Deployment_Properties::Actual_Processor_Binding
