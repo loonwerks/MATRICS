@@ -94,7 +94,7 @@ public
 							analysis_report.header.client);
 			
 				guarantee alert_cmd_variable "G: Once an alert command is seen, always stay alerted.":
-					alert_cmd == (HasEvent(alert_in) | In(alert_cmd));
+					alert_cmd == (HasEvent(alert_in) || In(alert_cmd));
 				
 				guarantee Process_Report "G: Stop outgoing communication once an alert has been received." :
 					if (HasEvent(analysis_report) & !(alert_cmd)) 

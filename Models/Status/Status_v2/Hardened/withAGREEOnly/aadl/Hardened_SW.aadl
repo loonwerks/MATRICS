@@ -373,7 +373,7 @@ public
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				event(HMD_log_in) =>
-					HMD_log_out = AES_128_GCM_DECRYPT_LOG(HMD_log_in);
+					AES_128_GCM_DECRYPTS_LOG(HMD_log_in, HMD_log_out);
 		**};
 	end decryptor;
 

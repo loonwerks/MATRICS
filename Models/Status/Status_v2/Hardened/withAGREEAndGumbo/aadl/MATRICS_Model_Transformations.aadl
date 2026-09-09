@@ -33,8 +33,9 @@ public
 		fun FOUND_IN_ALLOW_LIST(allow_list: AllowList.Impl, src: Base_Types::Unsigned_32): bool = 
 			exists i in allow_list, i = src;
 
-		uninterpreted AES_128_GCM_DECRYPT_LOG(
-			message: Common::EncryptedMessage.Impl): Common::Log.Impl;
+		uninterpreted AES_128_GCM_DECRYPTS_LOG(
+			message: Common::EncryptedMessage.Impl,
+			decrypted: Common::Log.Impl): bool;
 
 		uninterpreted AES_128_GCM_ENCRYPTS_RESPONSE(
 			response: Common::Response.Impl,
@@ -91,8 +92,9 @@ public
 				src == u32"3232235879" ||
 				src == u32"3232235880";
 
-			def AES_128_GCM_DECRYPT_LOG(
-				message: Common::EncryptedMessage.Impl): Common::Log.Impl;
+			def AES_128_GCM_DECRYPTS_LOG(
+				message: Common::EncryptedMessage.Impl,
+				decrypted: Common::Log.Impl): Base_Types::Boolean;
 
 			def AES_128_GCM_ENCRYPTS_RESPONSE(
 				response: Common::Response.Impl,

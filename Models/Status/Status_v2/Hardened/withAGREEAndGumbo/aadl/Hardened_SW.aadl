@@ -285,12 +285,15 @@ public
 				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
 				since_result == GUMBO_PLTL::AGREE_Since(
 						!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
-				
+
+				guarantee historically_no_alert_cmd_variable "G: historically_no_alert_cmd is true if and only if no alert has been sent." :
+					historically_no_alert_cmd ==
+						(In(historically_no_alert_cmd) && !HasEvent(alert_out));
 
 				guarantee Send_Alert "G: Send an alert if more than one response is received without a request." :
 					if (HasEvent(response_log_in) & !(is_valid)) 
-					(MustSend(alert_out) & historically_no_alert_cmd == false)
-					else (NoSend(alert_out) & (In(historically_no_alert_cmd) == historically_no_alert_cmd));
+					MustSend(alert_out)
+					else NoSend(alert_out);
 				guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
 					if (HasEvent(response_log_in) & historically_no_alert_cmd)
 					(MustSend(response_log_out) && (response_log_out == response_log_in))
@@ -460,15 +463,14 @@ public
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				event(HMD_log_in) =>
-					HMD_log_out = AES_128_GCM_DECRYPT_LOG(HMD_log_in);
+					AES_128_GCM_DECRYPTS_LOG(HMD_log_in, HMD_log_out);
 		**};
 		annex GUMBO {**
 			compute
 				guarantee Payload_Decrypted "G: Outgoing payload is decrypted." :
 					HasEvent(HMD_log_in) ->:
-						HMD_log_out ==
-							MATRICS_Model_Transformations::AES_128_GCM_DECRYPT_LOG(
-								HMD_log_in);
+						MATRICS_Model_Transformations::AES_128_GCM_DECRYPTS_LOG(
+							HMD_log_in, HMD_log_out);
 		**};
 	end decryptor;
 

@@ -392,7 +392,8 @@ front end attempts to parse as signed 32-bit integers.
 
 The following uninterpreted AGREE abstractions were added for AES-128-GCM:
 
-- `AES_128_GCM_DECRYPT_LOG`, a deterministic decryption function
+- `AES_128_GCM_DECRYPTS_LOG`, a relation between an encrypted message and a
+  decrypted log
 - `AES_128_GCM_ENCRYPTS_RESPONSE`, a relation between a plaintext response and an
   encrypted message
 
@@ -463,10 +464,12 @@ explicit data-access connection to the storage thread.
 ### `decryptor`
 
 The v1 `Payload_Decrypted` guarantee ID and description are retained. When an
-encrypted input event occurs, the outgoing log value is constrained to equal
-`AES_128_GCM_DECRYPT_LOG(HMD_log_in)`. The contract does not require an output
-event and does not specify authentication, invalid-input handling, or behavior
-when no input event occurs.
+encrypted input event occurs, `AES_128_GCM_DECRYPTS_LOG` must hold between the
+incoming encrypted message and outgoing log. The relational form avoids AGREE's
+restriction against constrained function output types, which applies because
+`Log.Impl` contains the `TargetAssessment` enumeration. The contract does not
+require an output event and does not specify authentication, invalid-input handling,
+or behavior when no input event occurs.
 
 ### `encryptor`
 
