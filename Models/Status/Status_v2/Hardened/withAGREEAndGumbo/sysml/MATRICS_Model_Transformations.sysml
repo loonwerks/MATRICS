@@ -54,5 +54,27 @@ package MATRICS_Model_Transformations {
                     request.startTime == 0 [u64] &
                     request.endTime == 0 [u64] &
                     request.targetID == 0 [u32];
+
+                def IS_ZEROIZED_ENCRYPTED_MESSAGE(
+                    encrypted_message: Common::EncryptedMessage_Impl): Base_Types::Boolean :=
+                    ((0 .. size(encrypted_message.nonce) - 1) -> forAll { in nonce_index;
+                        encrypted_message.nonce#(nonce_index) == 0 [u8]
+                    }) &
+                    ((0 .. size(encrypted_message.ciphertext) - 1) -> forAll { in ciphertext_index;
+                        encrypted_message.ciphertext#(ciphertext_index) == 0 [u8]
+                    }) &
+                    ((0 .. size(encrypted_message.tag) - 1) -> forAll { in tag_index;
+                        encrypted_message.tag#(tag_index) == 0 [u8]
+                    });
+
+                def IS_ZEROIZED_STORED_LOG_FILE(
+                    file: Common::StoredLogFile_Impl): Base_Types::Boolean :=
+                    IS_ZEROIZED_ENCRYPTED_MESSAGE(file.encryptedLog);
+
+                def IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
+                    logs: Common::EncryptedLogArray_Impl): Base_Types::Boolean :=
+                    ((0 .. size(logs) - 1) -> forAll { in stored_log_index;
+                        IS_ZEROIZED_STORED_LOG_FILE(logs#(stored_log_index))
+                    });
     }*/
 }

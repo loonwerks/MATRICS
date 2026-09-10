@@ -1,4 +1,4 @@
-//@ HAMR: --platform Microkit --sel4-output-dir ../hamr/microkit_mcs
+//@ HAMR: --platform Microkit
 
 package GroundStation {
 
@@ -731,8 +731,6 @@ package GroundStation {
                     log_monitor = cpuSw_logMonitor.logMonitor;
                     encryptor = cpuSw_encryptor.encryptor;
                     report_monitor = cpuSw_reportMonitor.reportMonitor;
-                    bt_driver = cpuSw_btDriver.btDriver;
-                    usb_driver = cpuSw_usbDriver.usbDriver;
                     data_storage = cpuSw_dataManager_dataStorage.dataStorage;
 
                 ports
@@ -741,25 +739,34 @@ package GroundStation {
                     report_alert = report_monitor.alert_out;
                     data_manager_request = data_manager.request_log;
                     data_manager_response = data_manager.response_log;
+                    log_response_in = log_monitor.response_log_in;
                     log_response_out = log_monitor.response_log_out;
+                    log_alert = log_monitor.alert_out;
+                    storage_alert = log_monitor.storage_alert_out;
 
                 state
                     data_manager_zeroize_cmd = data_manager.zeroize_cmd;
                     log_historically_no_alert = log_monitor.historically_no_alert_cmd;
+                    log_is_valid = log_monitor.is_valid;
+                    data_storage_cache = data_storage.cache;
+                    data_storage_zeroize_cmd = data_storage.zeroize_cmd;
 
                 schema {
                     wifi_vm;
                     wifi;
                     decryptor;
+                    data_manager @ data_manager_1;
+                    data_storage @ data_storage_1;
                     firewall;
-                    data_analysis;
-                    data_manager;
+                    data_analysis @ data_analysis_1;
+                    data_manager @ data_manager_2;
+                    data_storage @ data_storage_2;
                     log_monitor;
+                    data_storage @ data_storage_3;
+                    data_manager @ data_manager_3;
+                    data_analysis @ data_analysis_2;
                     encryptor;
-                    report_monitor;
-                    bt_driver;
-                    usb_driver;
-                    data_storage
+                    report_monitor
                 }
 
                 property Firewall_Discharges_Trusted_Request
@@ -770,12 +777,42 @@ package GroundStation {
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
                                 firewall_request_out.header.client);
 
-                    after data_analysis:
+                    after data_analysis_1:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after data_manager_2:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after data_storage_2:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after log_monitor:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after data_storage_3:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after data_manager_3:
+                        HasEvent(firewall_request_out) implies
+                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
+                                firewall_request_out.header.client);
+
+                    after data_analysis_2:
                         true;
                 }
 
-                property ReportMonitor_Establishes_Wifi_Assumptions
-                    "The report monitor establishes both Wi-Fi assumptions for the next scheduled frame" {
+                property ReportMonitor_Establishes_Wifi_Input_Conditions_At_End_Of_Frame
+                    "The report monitor establishes both Wi-Fi input conditions and they remain true through the end of this frame" {
 
                     after report_monitor:
                         (HasEvent(report_alert) implies not HasEvent(report_out)) &
@@ -783,44 +820,83 @@ package GroundStation {
                             MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
                                 report_out.header.client));
 
-                    after bt_driver:
-                        (HasEvent(report_alert) implies not HasEvent(report_out)) &
-                        (HasEvent(report_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                report_out.header.client));
-
-                    after usb_driver:
-                        (HasEvent(report_alert) implies not HasEvent(report_out)) &
-                        (HasEvent(report_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                report_out.header.client));
-
-                    after data_storage:
-                        (HasEvent(report_alert) implies not HasEvent(report_out)) &
-                        (HasEvent(report_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                report_out.header.client));
-
-                    at END:
-                        (HasEvent(report_alert) implies not HasEvent(report_out)) &
-                        (HasEvent(report_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                report_out.header.client));
                 }
 
-                property DataManager_Zeroization_Invariant
-                    "A latched zeroize command keeps requested response payloads zeroized" {
+                property DataManager_Zeroize_Payload
+                    "The data-manager zeroization guarantee is available at the system level" {
 
-                    after data_manager:
+                    after data_manager_1:
+                        (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
+                            IS_ZEROIZED_RESPONSE(data_manager_response.payload);
+
+                    after data_manager_2:
+                        (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
+                            IS_ZEROIZED_RESPONSE(data_manager_response.payload);
+
+                    after data_manager_3:
                         (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
                             IS_ZEROIZED_RESPONSE(data_manager_response.payload);
                 }
 
-                property LogMonitor_No_Forward_After_Alert
-                    "Once log-monitor history records an alert, responses are not forwarded" {
+                property DataStorage_Zeroize_Cache
+                    "The data-storage zeroization guarantee is available at the system level" {
+
+                    after data_storage_1:
+                        data_storage_zeroize_cmd implies
+                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
+                                data_storage_cache);
+
+                    after data_storage_2:
+                        data_storage_zeroize_cmd implies
+                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
+                                data_storage_cache);
+
+                    after data_storage_3:
+                        data_storage_zeroize_cmd implies
+                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
+                                data_storage_cache);
+                }
+
+                property Storage_Zeroize_Activated_Before_Next_DataManager
+                    "An invalid response alerts storage, and storage activates zeroization before the immediately following data-manager dispatch" {
 
                     after log_monitor:
-                        not log_historically_no_alert implies
+                        (HasEvent(log_response_in) & not log_is_valid) implies
+                            HasEvent(storage_alert);
+
+                    after data_storage_3 "The alert is latched before data manager dispatches; DataStorage_Zeroize_Cache separately establishes the zeroized cache":
+                        (HasEvent(log_response_in) & not log_is_valid) implies
+                            data_storage_zeroize_cmd;
+                }
+
+                property LogMonitor_Alert_Activates_Storage_Zeroize
+                    "An invalid response makes the log monitor alert data storage, which activates zeroization in the same frame" {
+
+                    after log_monitor:
+                        (HasEvent(log_response_in) & not log_is_valid) implies
+                            HasEvent(storage_alert);
+
+                    after data_storage_3:
+                        (HasEvent(log_response_in) & not log_is_valid) implies
+                            data_storage_zeroize_cmd;
+                }
+
+                property LogMonitor_Send_Alert
+                    "The log monitor emits both alert commands exactly when an invalid response is received" {
+
+                    after log_monitor:
+                        if (HasEvent(log_response_in) & not log_is_valid) ?
+                            (HasEvent(log_alert) & HasEvent(storage_alert)) else
+                            (not HasEvent(log_alert) & not HasEvent(storage_alert));
+                }
+
+                property LogMonitor_Forward_Response
+                    "The log monitor forwards a response exactly under its established no-alert history condition" {
+
+                    after log_monitor:
+                        if (HasEvent(log_response_in) & log_historically_no_alert) ?
+                            (HasEvent(log_response_out) &
+                                (log_response_out == log_response_in)) else
                             not HasEvent(log_response_out);
                 }
 
