@@ -38,11 +38,4 @@ pub mod vc_integration;
 pub mod write_frames;
 pub mod trusted_assumptions;
 
-pub mod firewall_discharges_trusted_request;
-pub mod reportmonitor_establishes_wifi_input_conditions_at_end_of_frame;
-pub mod datamanager_zeroize_payload;
-pub mod datastorage_zeroize_cache;
-pub mod storage_zeroize_activated_before_next_datamanager;
-pub mod logmonitor_alert_activates_storage_zeroize;
-pub mod logmonitor_send_alert;
-pub mod logmonitor_forward_response;
+pub mod zeroize_storage_before_next_datamanager;

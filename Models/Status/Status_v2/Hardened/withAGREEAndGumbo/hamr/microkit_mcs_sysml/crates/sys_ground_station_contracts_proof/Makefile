@@ -42,45 +42,10 @@ all: trust-notice
 warm-deps:
 	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --no-verify
 
-# verify only property 'firewall_discharges_trusted_request'
-.PHONY: firewall_discharges_trusted_request
-firewall_discharges_trusted_request: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module firewall_discharges_trusted_request::vc_init --verify-module firewall_discharges_trusted_request::vc_sequential --verify-module firewall_discharges_trusted_request::vc_post_pre --verify-module firewall_discharges_trusted_request::vc_non_disabling
-
-# verify only property 'reportmonitor_establishes_wifi_input_conditions_at_end_of_frame'
-.PHONY: reportmonitor_establishes_wifi_input_conditions_at_end_of_frame
-reportmonitor_establishes_wifi_input_conditions_at_end_of_frame: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module reportmonitor_establishes_wifi_input_conditions_at_end_of_frame::vc_init --verify-module reportmonitor_establishes_wifi_input_conditions_at_end_of_frame::vc_sequential --verify-module reportmonitor_establishes_wifi_input_conditions_at_end_of_frame::vc_post_pre --verify-module reportmonitor_establishes_wifi_input_conditions_at_end_of_frame::vc_non_disabling
-
-# verify only property 'datamanager_zeroize_payload'
-.PHONY: datamanager_zeroize_payload
-datamanager_zeroize_payload: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module datamanager_zeroize_payload::vc_init --verify-module datamanager_zeroize_payload::vc_sequential --verify-module datamanager_zeroize_payload::vc_post_pre --verify-module datamanager_zeroize_payload::vc_non_disabling
-
-# verify only property 'datastorage_zeroize_cache'
-.PHONY: datastorage_zeroize_cache
-datastorage_zeroize_cache: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module datastorage_zeroize_cache::vc_init --verify-module datastorage_zeroize_cache::vc_sequential --verify-module datastorage_zeroize_cache::vc_post_pre --verify-module datastorage_zeroize_cache::vc_non_disabling
-
-# verify only property 'storage_zeroize_activated_before_next_datamanager'
-.PHONY: storage_zeroize_activated_before_next_datamanager
-storage_zeroize_activated_before_next_datamanager: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module storage_zeroize_activated_before_next_datamanager::vc_init --verify-module storage_zeroize_activated_before_next_datamanager::vc_sequential --verify-module storage_zeroize_activated_before_next_datamanager::vc_post_pre --verify-module storage_zeroize_activated_before_next_datamanager::vc_non_disabling
-
-# verify only property 'logmonitor_alert_activates_storage_zeroize'
-.PHONY: logmonitor_alert_activates_storage_zeroize
-logmonitor_alert_activates_storage_zeroize: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module logmonitor_alert_activates_storage_zeroize::vc_init --verify-module logmonitor_alert_activates_storage_zeroize::vc_sequential --verify-module logmonitor_alert_activates_storage_zeroize::vc_post_pre --verify-module logmonitor_alert_activates_storage_zeroize::vc_non_disabling
-
-# verify only property 'logmonitor_send_alert'
-.PHONY: logmonitor_send_alert
-logmonitor_send_alert: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module logmonitor_send_alert::vc_init --verify-module logmonitor_send_alert::vc_sequential --verify-module logmonitor_send_alert::vc_post_pre --verify-module logmonitor_send_alert::vc_non_disabling
-
-# verify only property 'logmonitor_forward_response'
-.PHONY: logmonitor_forward_response
-logmonitor_forward_response: warm-deps
-	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module logmonitor_forward_response::vc_init --verify-module logmonitor_forward_response::vc_sequential --verify-module logmonitor_forward_response::vc_post_pre --verify-module logmonitor_forward_response::vc_non_disabling
+# verify only property 'zeroize_storage_before_next_datamanager'
+.PHONY: zeroize_storage_before_next_datamanager
+zeroize_storage_before_next_datamanager: warm-deps
+	$(ENV_VARS) cargo-verus verify $(CARGO_FLAGS) -- $(SMT_OPTS) --verify-module zeroize_storage_before_next_datamanager::vc_init --verify-module zeroize_storage_before_next_datamanager::vc_sequential --verify-module zeroize_storage_before_next_datamanager::vc_post_pre --verify-module zeroize_storage_before_next_datamanager::vc_non_disabling
 
 # Announce the non-Rust component contracts this proof trusts (see
 # TRUSTED_ASSUMPTIONS.md / src/trusted_assumptions.rs). `all` depends on this.

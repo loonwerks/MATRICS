@@ -26,28 +26,28 @@ pub open spec fn wifi_global_write_frame(pre: SystemState, post: SystemState) ->
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** WIFI local write frame: the component may modify anything in its
@@ -74,28 +74,28 @@ pub open spec fn wifi_vm_global_write_frame(pre: SystemState, post: SystemState)
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** WIFI_VM local write frame: the component may modify anything in its
@@ -123,28 +123,28 @@ pub open spec fn btDriver_global_write_frame(pre: SystemState, post: SystemState
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** BTDRIVER local write frame: the component may modify anything in its
@@ -172,28 +172,28 @@ pub open spec fn usbDriver_global_write_frame(pre: SystemState, post: SystemStat
   && pre.usbRecv == post.usbRecv
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** USBDRIVER local write frame: the component may modify anything in its
@@ -204,7 +204,7 @@ pub open spec fn usbDriver_local_write_frame(pre: SystemState, post: SystemState
   true
 }
 
-/** DATA_MANAGER writes: encrypted_log, storage_request, data_manager_response, data_manager_zeroize_cmd.
+/** DATA_MANAGER writes: encrypted_log, storage_request, log_response_in, zeroize_cmd.
   * Everything else must be unchanged.
   */
 pub open spec fn data_manager_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -223,23 +223,23 @@ pub open spec fn data_manager_global_write_frame(pre: SystemState, post: SystemS
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** DATA_MANAGER local write frame: the component may modify anything in its
@@ -268,25 +268,25 @@ pub open spec fn data_storage_global_write_frame(pre: SystemState, post: SystemS
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** DATA_STORAGE local write frame: the component may modify anything in its
@@ -297,7 +297,7 @@ pub open spec fn data_storage_local_write_frame(pre: SystemState, post: SystemSt
   true
 }
 
-/** DATA_ANALYSIS writes: data_manager_request, analysis_report.
+/** DATA_ANALYSIS writes: request_log, analysis_report.
   * Everything else must be unchanged.
   */
 pub open spec fn data_analysis_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -315,26 +315,26 @@ pub open spec fn data_analysis_global_write_frame(pre: SystemState, post: System
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** DATA_ANALYSIS local write frame: the component may modify anything in its
@@ -363,27 +363,27 @@ pub open spec fn decryptor_global_write_frame(pre: SystemState, post: SystemStat
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** DECRYPTOR local write frame: the component may modify anything in its
@@ -394,7 +394,7 @@ pub open spec fn decryptor_local_write_frame(pre: SystemState, post: SystemState
   true
 }
 
-/** ENCRYPTOR writes: analysis_report_out.
+/** ENCRYPTOR writes: encryptor_analysis_report_out.
   * Everything else must be unchanged.
   */
 pub open spec fn encryptor_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -412,27 +412,27 @@ pub open spec fn encryptor_global_write_frame(pre: SystemState, post: SystemStat
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** ENCRYPTOR local write frame: the component may modify anything in its
@@ -443,7 +443,7 @@ pub open spec fn encryptor_local_write_frame(pre: SystemState, post: SystemState
   true
 }
 
-/** LOG_MONITOR writes: log_response_out, log_alert, storage_alert, log_monitor_since_result, log_is_valid, log_historically_no_alert.
+/** LOG_MONITOR writes: response_log_out, log_monitor_alert_out, storage_alert, log_monitor_since_result, log_is_valid, historically_no_alert_cmd.
   * Everything else must be unchanged.
   */
 pub open spec fn log_monitor_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -461,22 +461,22 @@ pub open spec fn log_monitor_global_write_frame(pre: SystemState, post: SystemSt
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1
   && pre.is_invalid2 == post.is_invalid2
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** LOG_MONITOR local write frame: the component may modify anything in its
@@ -487,7 +487,7 @@ pub open spec fn log_monitor_local_write_frame(pre: SystemState, post: SystemSta
   true
 }
 
-/** REPORT_MONITOR writes: report_out, report_alert, counter, report_monitor_since_result, is_valid1, is_invalid2.
+/** REPORT_MONITOR writes: report_monitor_analysis_report_out, report_monitor_alert_out, counter, report_monitor_since_result, is_valid1, is_invalid2.
   * Everything else must be unchanged.
   */
 pub open spec fn report_monitor_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -505,22 +505,22 @@ pub open spec fn report_monitor_global_write_frame(pre: SystemState, post: Syste
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.firewall_request_out == post.firewall_request_out
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.analysis_request_out == post.analysis_request_out
 }
 
 /** REPORT_MONITOR local write frame: the component may modify anything in its
@@ -531,7 +531,7 @@ pub open spec fn report_monitor_local_write_frame(pre: SystemState, post: System
   true
 }
 
-/** FIREWALL writes: firewall_request_out.
+/** FIREWALL writes: analysis_request_out.
   * Everything else must be unchanged.
   */
 pub open spec fn firewall_global_write_frame(pre: SystemState, post: SystemState) -> bool
@@ -549,23 +549,23 @@ pub open spec fn firewall_global_write_frame(pre: SystemState, post: SystemState
   && pre.usbSend == post.usbSend
   && pre.encrypted_log == post.encrypted_log
   && pre.storage_request == post.storage_request
-  && pre.data_manager_response == post.data_manager_response
-  && pre.data_manager_zeroize_cmd == post.data_manager_zeroize_cmd
+  && pre.log_response_in == post.log_response_in
+  && pre.zeroize_cmd == post.zeroize_cmd
   && pre.encrypted_response == post.encrypted_response
   && pre.data_storage_cache == post.data_storage_cache
   && pre.data_storage_zeroize_cmd == post.data_storage_zeroize_cmd
-  && pre.data_manager_request == post.data_manager_request
+  && pre.request_log == post.request_log
   && pre.analysis_report == post.analysis_report
   && pre.HMD_log_out == post.HMD_log_out
-  && pre.analysis_report_out == post.analysis_report_out
-  && pre.log_response_out == post.log_response_out
-  && pre.log_alert == post.log_alert
+  && pre.encryptor_analysis_report_out == post.encryptor_analysis_report_out
+  && pre.response_log_out == post.response_log_out
+  && pre.log_monitor_alert_out == post.log_monitor_alert_out
   && pre.storage_alert == post.storage_alert
   && pre.log_monitor_since_result == post.log_monitor_since_result
   && pre.log_is_valid == post.log_is_valid
-  && pre.log_historically_no_alert == post.log_historically_no_alert
-  && pre.report_out == post.report_out
-  && pre.report_alert == post.report_alert
+  && pre.historically_no_alert_cmd == post.historically_no_alert_cmd
+  && pre.report_monitor_analysis_report_out == post.report_monitor_analysis_report_out
+  && pre.report_monitor_alert_out == post.report_monitor_alert_out
   && pre.counter == post.counter
   && pre.report_monitor_since_result == post.report_monitor_since_result
   && pre.is_valid1 == post.is_valid1

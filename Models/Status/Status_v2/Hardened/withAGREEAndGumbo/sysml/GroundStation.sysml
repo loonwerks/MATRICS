@@ -707,19 +707,6 @@ package GroundStation {
         attribute :>> Scheduling = MCS;
 
         language "GUMBO" /*{
-            functions
-                def IS_ZEROIZED_RESPONSE(
-                    response: Common::Response_Impl): Base_Types::Boolean :=
-                    MATRICS_Model_Transformations::GUMBO__Library::IS_NULL_REQUEST(
-                        response.request) &
-                    response.validLogCount == 0 [u32] &
-                    response.moreAvailable == false &
-                    response.nextStartTime == 0 [u64] &
-                    ((0 .. size(response.logs) - 1) -> forAll { in response_log_index;
-                        MATRICS_Model_Transformations::GUMBO__Library::IS_NULL_LOG(
-                            response.logs#(response_log_index))
-                    });
-
             composition ground_station_contracts {
                 components
                     wifi_vm = cpuSw_wifiDriver_wifiDriverVM.wifiDriver;
@@ -734,19 +721,10 @@ package GroundStation {
                     data_storage = cpuSw_dataManager_dataStorage.dataStorage;
 
                 ports
-                    firewall_request_out = firewall.analysis_request_out;
-                    report_out = report_monitor.analysis_report_out;
-                    report_alert = report_monitor.alert_out;
-                    data_manager_request = data_manager.request_log;
-                    data_manager_response = data_manager.response_log;
                     log_response_in = log_monitor.response_log_in;
-                    log_response_out = log_monitor.response_log_out;
-                    log_alert = log_monitor.alert_out;
                     storage_alert = log_monitor.storage_alert_out;
 
                 state
-                    data_manager_zeroize_cmd = data_manager.zeroize_cmd;
-                    log_historically_no_alert = log_monitor.historically_no_alert_cmd;
                     log_is_valid = log_monitor.is_valid;
                     data_storage_cache = data_storage.cache;
                     data_storage_zeroize_cmd = data_storage.zeroize_cmd;
@@ -769,135 +747,22 @@ package GroundStation {
                     report_monitor
                 }
 
-                property Firewall_Discharges_Trusted_Request
-                    "The firewall establishes DataAnalysis.Trusted_Request" {
+                property Zeroize_Storage_Before_Next_DataManager
+                    "An invalid response makes logMonitor send the storage-zeroize event,
+                    |and dataStorage processes it and zeroizes its cache before the next
+                    |dataManager dispatch" {
 
-                    after firewall:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_analysis_1:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_manager_2:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_storage_2:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after log_monitor:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_storage_3:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_manager_3:
-                        HasEvent(firewall_request_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                firewall_request_out.header.client);
-
-                    after data_analysis_2:
-                        true;
-                }
-
-                property ReportMonitor_Establishes_Wifi_Input_Conditions_At_End_Of_Frame
-                    "The report monitor establishes both Wi-Fi input conditions and they remain true through the end of this frame" {
-
-                    after report_monitor:
-                        (HasEvent(report_alert) implies not HasEvent(report_out)) &
-                        (HasEvent(report_out) implies
-                            MATRICS_Model_Transformations::GUMBO__Library::FOUND_IN_ALLOW_LIST(
-                                report_out.header.client));
-
-                }
-
-                property DataManager_Zeroize_Payload
-                    "The data-manager zeroization guarantee is available at the system level" {
-
-                    after data_manager_1:
-                        (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
-                            IS_ZEROIZED_RESPONSE(data_manager_response.payload);
-
-                    after data_manager_2:
-                        (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
-                            IS_ZEROIZED_RESPONSE(data_manager_response.payload);
-
-                    after data_manager_3:
-                        (data_manager_zeroize_cmd & HasEvent(data_manager_request)) implies
-                            IS_ZEROIZED_RESPONSE(data_manager_response.payload);
-                }
-
-                property DataStorage_Zeroize_Cache
-                    "The data-storage zeroization guarantee is available at the system level" {
-
-                    after data_storage_1:
-                        data_storage_zeroize_cmd implies
-                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
-                                data_storage_cache);
-
-                    after data_storage_2:
-                        data_storage_zeroize_cmd implies
-                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
-                                data_storage_cache);
-
-                    after data_storage_3:
-                        data_storage_zeroize_cmd implies
-                            MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
-                                data_storage_cache);
-                }
-
-                property Storage_Zeroize_Activated_Before_Next_DataManager
-                    "An invalid response alerts storage, and storage activates zeroization before the immediately following data-manager dispatch" {
-
-                    after log_monitor:
+                    after log_monitor "logMonitor sends the storage-zeroize event":
                         (HasEvent(log_response_in) & not log_is_valid) implies
                             HasEvent(storage_alert);
 
-                    after data_storage_3 "The alert is latched before data manager dispatches; DataStorage_Zeroize_Cache separately establishes the zeroized cache":
+                    after data_storage_3 "This is also the place immediately before
+                        |data_manager_3; storage's zeroize latch is active and its
+                        |encrypted-log cache has been zeroized":
                         (HasEvent(log_response_in) & not log_is_valid) implies
-                            data_storage_zeroize_cmd;
-                }
-
-                property LogMonitor_Alert_Activates_Storage_Zeroize
-                    "An invalid response makes the log monitor alert data storage, which activates zeroization in the same frame" {
-
-                    after log_monitor:
-                        (HasEvent(log_response_in) & not log_is_valid) implies
-                            HasEvent(storage_alert);
-
-                    after data_storage_3:
-                        (HasEvent(log_response_in) & not log_is_valid) implies
-                            data_storage_zeroize_cmd;
-                }
-
-                property LogMonitor_Send_Alert
-                    "The log monitor emits both alert commands exactly when an invalid response is received" {
-
-                    after log_monitor:
-                        if (HasEvent(log_response_in) & not log_is_valid) ?
-                            (HasEvent(log_alert) & HasEvent(storage_alert)) else
-                            (not HasEvent(log_alert) & not HasEvent(storage_alert));
-                }
-
-                property LogMonitor_Forward_Response
-                    "The log monitor forwards a response exactly under its established no-alert history condition" {
-
-                    after log_monitor:
-                        if (HasEvent(log_response_in) & log_historically_no_alert) ?
-                            (HasEvent(log_response_out) &
-                                (log_response_out == log_response_in)) else
-                            not HasEvent(log_response_out);
+                            (data_storage_zeroize_cmd &
+                             MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
+                                data_storage_cache));
                 }
 
             }

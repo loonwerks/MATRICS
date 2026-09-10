@@ -32,8 +32,8 @@ pub struct SystemState {
   // -- GroundStation_Impl_Instance.cpuSw_dataManager_dataManager.dataManager --
   pub encrypted_log: Option<Common::StoredLogFile_Impl>, // channel
   pub storage_request: Option<Common::AnalysisRequest_Impl>, // channel
-  pub data_manager_response: Option<Common::AnalysisResponse_Impl>, // channel
-  pub data_manager_zeroize_cmd: bool, // state variable
+  pub log_response_in: Option<Common::AnalysisResponse_Impl>, // channel
+  pub zeroize_cmd: bool, // state variable
 
   // -- GroundStation_Impl_Instance.cpuSw_dataManager_dataStorage.dataStorage --
   pub encrypted_response: Option<Common::EncryptedAnalysisResponse_Impl>, // channel
@@ -41,33 +41,33 @@ pub struct SystemState {
   pub data_storage_zeroize_cmd: bool, // state variable
 
   // -- GroundStation_Impl_Instance.cpuSw_dataAnalysis.dataAnalysis --
-  pub data_manager_request: Option<Common::AnalysisRequest_Impl>, // channel
+  pub request_log: Option<Common::AnalysisRequest_Impl>, // channel
   pub analysis_report: Option<Common::AnalysisResponse_Impl>, // channel
 
   // -- GroundStation_Impl_Instance.cpuSw_decryptor.decryptor --
   pub HMD_log_out: Option<Common::Log_Impl>, // channel
 
   // -- GroundStation_Impl_Instance.cpuSw_encryptor.encryptor --
-  pub analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>, // channel
+  pub encryptor_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>, // channel
 
   // -- GroundStation_Impl_Instance.cpuSw_logMonitor.logMonitor --
-  pub log_response_out: Option<Common::AnalysisResponse_Impl>, // channel
-  pub log_alert: Option<u8>, // channel
+  pub response_log_out: Option<Common::AnalysisResponse_Impl>, // channel
+  pub log_monitor_alert_out: Option<u8>, // channel
   pub storage_alert: Option<u8>, // channel
   pub log_monitor_since_result: bool, // state variable
   pub log_is_valid: bool, // state variable
-  pub log_historically_no_alert: bool, // state variable
+  pub historically_no_alert_cmd: bool, // state variable
 
   // -- GroundStation_Impl_Instance.cpuSw_reportMonitor.reportMonitor --
-  pub report_out: Option<Common::OutgoingWifiMessage_Impl>, // channel
-  pub report_alert: Option<u8>, // channel
+  pub report_monitor_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>, // channel
+  pub report_monitor_alert_out: Option<u8>, // channel
   pub counter: u32, // state variable
   pub report_monitor_since_result: bool, // state variable
   pub is_valid1: bool, // state variable
   pub is_invalid2: bool, // state variable
 
   // -- GroundStation_Impl_Instance.cpuSw_firewall.firewall --
-  pub firewall_request_out: Option<Common::AnalysisRequest_Impl>, // channel
+  pub analysis_request_out: Option<Common::AnalysisRequest_Impl>, // channel
 }
 
 } // verus!

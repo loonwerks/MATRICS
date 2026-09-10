@@ -30,10 +30,10 @@ pub uninterp spec fn wifi_action_alert_cmd(alert_cmd: bool, wifiRecv: Option<Com
   */
 pub open spec fn wifi_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.wifiSend == wifi_action_wifiSend(pre.alert_cmd, pre.wifiRecvOut, pre.report_out, pre.report_alert, pre.wifiSend, pre.HMD_log, pre.analysis_request)
-  && post.HMD_log == wifi_action_HMD_log(pre.alert_cmd, pre.wifiRecvOut, pre.report_out, pre.report_alert, pre.wifiSend, pre.HMD_log, pre.analysis_request)
-  && post.analysis_request == wifi_action_analysis_request(pre.alert_cmd, pre.wifiRecvOut, pre.report_out, pre.report_alert, pre.wifiSend, pre.HMD_log, pre.analysis_request)
-  && post.alert_cmd == wifi_action_alert_cmd(pre.alert_cmd, pre.wifiRecvOut, pre.report_out, pre.report_alert, pre.wifiSend, pre.HMD_log, pre.analysis_request)
+  post.wifiSend == wifi_action_wifiSend(pre.alert_cmd, pre.wifiRecvOut, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out, pre.wifiSend, pre.HMD_log, pre.analysis_request)
+  && post.HMD_log == wifi_action_HMD_log(pre.alert_cmd, pre.wifiRecvOut, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out, pre.wifiSend, pre.HMD_log, pre.analysis_request)
+  && post.analysis_request == wifi_action_analysis_request(pre.alert_cmd, pre.wifiRecvOut, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out, pre.wifiSend, pre.HMD_log, pre.analysis_request)
+  && post.alert_cmd == wifi_action_alert_cmd(pre.alert_cmd, pre.wifiRecvOut, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out, pre.wifiSend, pre.HMD_log, pre.analysis_request)
   && wifi_global_write_frame(pre, post)
 }
 
@@ -90,10 +90,10 @@ pub uninterp spec fn data_manager_action_zeroize_cmd(zeroize_cmd: bool, HMD_log:
   */
 pub open spec fn data_manager_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.encrypted_log == data_manager_action_encrypted_log(pre.data_manager_zeroize_cmd, pre.HMD_log_out, pre.data_manager_request, pre.encrypted_response, pre.log_alert, pre.encrypted_log, pre.storage_request, pre.data_manager_response)
-  && post.storage_request == data_manager_action_storage_request(pre.data_manager_zeroize_cmd, pre.HMD_log_out, pre.data_manager_request, pre.encrypted_response, pre.log_alert, pre.encrypted_log, pre.storage_request, pre.data_manager_response)
-  && post.data_manager_response == data_manager_action_response_log(pre.data_manager_zeroize_cmd, pre.HMD_log_out, pre.data_manager_request, pre.encrypted_response, pre.log_alert, pre.encrypted_log, pre.storage_request, pre.data_manager_response)
-  && post.data_manager_zeroize_cmd == data_manager_action_zeroize_cmd(pre.data_manager_zeroize_cmd, pre.HMD_log_out, pre.data_manager_request, pre.encrypted_response, pre.log_alert, pre.encrypted_log, pre.storage_request, pre.data_manager_response)
+  post.encrypted_log == data_manager_action_encrypted_log(pre.zeroize_cmd, pre.HMD_log_out, pre.request_log, pre.encrypted_response, pre.log_monitor_alert_out, pre.encrypted_log, pre.storage_request, pre.log_response_in)
+  && post.storage_request == data_manager_action_storage_request(pre.zeroize_cmd, pre.HMD_log_out, pre.request_log, pre.encrypted_response, pre.log_monitor_alert_out, pre.encrypted_log, pre.storage_request, pre.log_response_in)
+  && post.log_response_in == data_manager_action_response_log(pre.zeroize_cmd, pre.HMD_log_out, pre.request_log, pre.encrypted_response, pre.log_monitor_alert_out, pre.encrypted_log, pre.storage_request, pre.log_response_in)
+  && post.zeroize_cmd == data_manager_action_zeroize_cmd(pre.zeroize_cmd, pre.HMD_log_out, pre.request_log, pre.encrypted_response, pre.log_monitor_alert_out, pre.encrypted_log, pre.storage_request, pre.log_response_in)
   && data_manager_global_write_frame(pre, post)
 }
 
@@ -124,8 +124,8 @@ pub uninterp spec fn data_analysis_action_analysis_report(response_log: Option<C
   */
 pub open spec fn data_analysis_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.data_manager_request == data_analysis_action_request_log(pre.log_response_out, pre.firewall_request_out, pre.data_manager_request, pre.analysis_report)
-  && post.analysis_report == data_analysis_action_analysis_report(pre.log_response_out, pre.firewall_request_out, pre.data_manager_request, pre.analysis_report)
+  post.request_log == data_analysis_action_request_log(pre.response_log_out, pre.analysis_request_out, pre.request_log, pre.analysis_report)
+  && post.analysis_report == data_analysis_action_analysis_report(pre.response_log_out, pre.analysis_request_out, pre.request_log, pre.analysis_report)
   && data_analysis_global_write_frame(pre, post)
 }
 
@@ -151,7 +151,7 @@ pub uninterp spec fn encryptor_action_analysis_report_out(analysis_report_in: Op
   */
 pub open spec fn encryptor_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.analysis_report_out == encryptor_action_analysis_report_out(pre.analysis_report, pre.analysis_report_out)
+  post.encryptor_analysis_report_out == encryptor_action_analysis_report_out(pre.analysis_report, pre.encryptor_analysis_report_out)
   && encryptor_global_write_frame(pre, post)
 }
 
@@ -169,12 +169,12 @@ pub uninterp spec fn log_monitor_action_historically_no_alert_cmd(since_result: 
   */
 pub open spec fn log_monitor_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.log_response_out == log_monitor_action_response_log_out(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
-  && post.log_alert == log_monitor_action_alert_out(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
-  && post.storage_alert == log_monitor_action_storage_alert_out(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
-  && post.log_monitor_since_result == log_monitor_action_since_result(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
-  && post.log_is_valid == log_monitor_action_is_valid(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
-  && post.log_historically_no_alert == log_monitor_action_historically_no_alert_cmd(pre.log_monitor_since_result, pre.log_is_valid, pre.log_historically_no_alert, pre.data_manager_request, pre.data_manager_response, pre.log_response_out, pre.log_alert, pre.storage_alert)
+  post.response_log_out == log_monitor_action_response_log_out(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
+  && post.log_monitor_alert_out == log_monitor_action_alert_out(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
+  && post.storage_alert == log_monitor_action_storage_alert_out(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
+  && post.log_monitor_since_result == log_monitor_action_since_result(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
+  && post.log_is_valid == log_monitor_action_is_valid(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
+  && post.historically_no_alert_cmd == log_monitor_action_historically_no_alert_cmd(pre.log_monitor_since_result, pre.log_is_valid, pre.historically_no_alert_cmd, pre.request_log, pre.log_response_in, pre.response_log_out, pre.log_monitor_alert_out, pre.storage_alert)
   && log_monitor_global_write_frame(pre, post)
 }
 
@@ -192,12 +192,12 @@ pub uninterp spec fn report_monitor_action_is_invalid2(counter: u32, since_resul
   */
 pub open spec fn report_monitor_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.report_out == report_monitor_action_analysis_report_out(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
-  && post.report_alert == report_monitor_action_alert_out(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
-  && post.counter == report_monitor_action_counter(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
-  && post.report_monitor_since_result == report_monitor_action_since_result(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
-  && post.is_valid1 == report_monitor_action_is_valid1(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
-  && post.is_invalid2 == report_monitor_action_is_invalid2(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.analysis_report_out, pre.report_out, pre.report_alert)
+  post.report_monitor_analysis_report_out == report_monitor_action_analysis_report_out(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
+  && post.report_monitor_alert_out == report_monitor_action_alert_out(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
+  && post.counter == report_monitor_action_counter(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
+  && post.report_monitor_since_result == report_monitor_action_since_result(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
+  && post.is_valid1 == report_monitor_action_is_valid1(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
+  && post.is_invalid2 == report_monitor_action_is_invalid2(pre.counter, pre.report_monitor_since_result, pre.is_valid1, pre.is_invalid2, pre.analysis_request, pre.encryptor_analysis_report_out, pre.report_monitor_analysis_report_out, pre.report_monitor_alert_out)
   && report_monitor_global_write_frame(pre, post)
 }
 
@@ -210,7 +210,7 @@ pub uninterp spec fn firewall_action_analysis_request_out(analysis_request_in: O
   */
 pub open spec fn firewall_fire(pre: SystemState, post: SystemState) -> bool
 {
-  post.firewall_request_out == firewall_action_analysis_request_out(pre.analysis_request, pre.firewall_request_out)
+  post.analysis_request_out == firewall_action_analysis_request_out(pre.analysis_request, pre.analysis_request_out)
   && firewall_global_write_frame(pre, post)
 }
 
