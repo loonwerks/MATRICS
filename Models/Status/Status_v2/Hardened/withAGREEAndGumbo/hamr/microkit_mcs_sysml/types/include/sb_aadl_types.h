@@ -104,7 +104,7 @@ typedef struct Common_OutgoingWifiMessage_Impl {
 } Common_OutgoingWifiMessage_Impl;
 
 typedef struct Common_StoredLogFile_Impl {
-  Common_LogFileMetadata_Impl 'metadata';
+  Common_LogFileMetadata_Impl logMetadata;
   Common_EncryptedMessage_Impl encryptedLog;
 } Common_StoredLogFile_Impl;
 

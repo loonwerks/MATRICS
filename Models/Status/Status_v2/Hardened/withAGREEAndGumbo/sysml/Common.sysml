@@ -128,7 +128,7 @@ package Common {
     }
 
     part def StoredLogFile_Impl :> Struct {
-        part 'metadata': LogFileMetadata_Impl;
+        part logMetadata: LogFileMetadata_Impl;
         part encryptedLog: EncryptedMessage_Impl;
     }
 

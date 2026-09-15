@@ -432,13 +432,13 @@ pub fn Common_StoredLogFile_Impl_strategy_default() -> impl Strategy<Value = Com
 }
 
 pub fn Common_StoredLogFile_Impl_strategy_cust
-  <'metadata'_Common_LogFileMetadata_Impl_strategy: Strategy<Value = Common::LogFileMetadata_Impl>, 
+  <logMetadata_Common_LogFileMetadata_Impl_strategy: Strategy<Value = Common::LogFileMetadata_Impl>, 
    encryptedLog_Common_EncryptedMessage_Impl_strategy: Strategy<Value = Common::EncryptedMessage_Impl>> (
-  'metadata'_strategy: 'metadata'_Common_LogFileMetadata_Impl_strategy,
+  logMetadata_strategy: logMetadata_Common_LogFileMetadata_Impl_strategy,
   encryptedLog_strategy: encryptedLog_Common_EncryptedMessage_Impl_strategy) -> impl Strategy<Value = Common::StoredLogFile_Impl>
 {
-  ('metadata'_strategy, encryptedLog_strategy).prop_map(|('metadata', encryptedLog)| {
-    Common::StoredLogFile_Impl { 'metadata', encryptedLog }
+  (logMetadata_strategy, encryptedLog_strategy).prop_map(|(logMetadata, encryptedLog)| {
+    Common::StoredLogFile_Impl { logMetadata, encryptedLog }
   })
 }
 
