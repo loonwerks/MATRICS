@@ -7,7 +7,7 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_analysis_request_in: Option<Common::AnalysisRequest_Impl>
+  pub api_analysis_request_in: Option<Common::AnalysisRequest_Impl>,
 }
 
 /// setter for component's incoming port values

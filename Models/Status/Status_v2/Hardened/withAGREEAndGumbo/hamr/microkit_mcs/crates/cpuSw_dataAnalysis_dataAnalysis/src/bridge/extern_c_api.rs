@@ -11,21 +11,30 @@ use std::sync::Mutex;
 
 #[cfg(not(test))]
 extern "C" {
-  fn get_response_log(value: *mut Common::ResponseLog_Impl) -> bool;
+  fn get_response_log(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn get_response_log_num_invalid() -> u64;
   fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
-  fn put_request_log(value: *mut Common::Request_Impl) -> bool;
-  fn put_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool;
+  fn get_analysis_request_num_invalid() -> u64;
+  fn put_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn put_analysis_report(value: *mut Common::AnalysisResponse_Impl) -> bool;
 }
 
-pub fn unsafe_get_response_log() -> Option<Common::ResponseLog_Impl>
+pub fn unsafe_get_response_log() -> Option<Common::AnalysisResponse_Impl>
 {
   unsafe {
-    let value: *mut Common::ResponseLog_Impl = &mut Common::ResponseLog_Impl::default();
+    let value: *mut Common::AnalysisResponse_Impl = &mut Common::AnalysisResponse_Impl::default();
     if (get_response_log(value)) {
       return Some(*value);
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_response_log_num_invalid() -> u64
+{
+  unsafe {
+    return get_response_log_num_invalid();
   }
 }
 
@@ -41,17 +50,24 @@ pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
   }
 }
 
-pub fn unsafe_put_request_log(value: &Common::Request_Impl) -> bool
+pub fn unsafe_get_analysis_request_num_invalid() -> u64
 {
   unsafe {
-    return put_request_log(value as *const Common::Request_Impl as *mut Common::Request_Impl);
+    return get_analysis_request_num_invalid();
   }
 }
 
-pub fn unsafe_put_analysis_report(value: &Common::AnalysisReport_Impl) -> bool
+pub fn unsafe_put_request_log(value: &Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
-    return put_analysis_report(value as *const Common::AnalysisReport_Impl as *mut Common::AnalysisReport_Impl);
+    return put_request_log(value as *const Common::AnalysisRequest_Impl as *mut Common::AnalysisRequest_Impl);
+  }
+}
+
+pub fn unsafe_put_analysis_report(value: &Common::AnalysisResponse_Impl) -> bool
+{
+  unsafe {
+    return put_analysis_report(value as *const Common::AnalysisResponse_Impl as *mut Common::AnalysisResponse_Impl);
   }
 }
 
@@ -64,10 +80,10 @@ lazy_static::lazy_static! {
   // simulate the global C variables that point to the microkit shared memory regions.  In a full
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
-  pub static ref IN_response_log: Mutex<Option<Common::ResponseLog_Impl>> = Mutex::new(None);
+  pub static ref IN_response_log: Mutex<Option<Common::AnalysisResponse_Impl>> = Mutex::new(None);
   pub static ref IN_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
-  pub static ref OUT_request_log: Mutex<Option<Common::Request_Impl>> = Mutex::new(None);
-  pub static ref OUT_analysis_report: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
+  pub static ref OUT_request_log: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
+  pub static ref OUT_analysis_report: Mutex<Option<Common::AnalysisResponse_Impl>> = Mutex::new(None);
 }
 
 #[cfg(test)]
@@ -81,7 +97,7 @@ pub fn initialize_test_globals() {
 }
 
 #[cfg(test)]
-pub fn get_response_log(value: *mut Common::ResponseLog_Impl) -> bool
+pub fn get_response_log(value: *mut Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
     match *IN_response_log.lock().unwrap_or_else(|e| e.into_inner()) {
@@ -92,6 +108,12 @@ pub fn get_response_log(value: *mut Common::ResponseLog_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_response_log_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]
@@ -109,7 +131,13 @@ pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_request_log(value: *mut Common::Request_Impl) -> bool
+pub fn get_analysis_request_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn put_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
     *OUT_request_log.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
@@ -118,7 +146,7 @@ pub fn put_request_log(value: *mut Common::Request_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool
+pub fn put_analysis_report(value: *mut Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
     *OUT_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);

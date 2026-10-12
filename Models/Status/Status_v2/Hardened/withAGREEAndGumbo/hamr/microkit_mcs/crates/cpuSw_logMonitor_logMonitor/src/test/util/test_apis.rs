@@ -7,8 +7,8 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_request_log: Option<Common::Request_Impl>,
-  pub api_response_log_in: Option<Common::ResponseLog_Impl>
+  pub api_request_log: Option<Common::AnalysisRequest_Impl>,
+  pub api_response_log_in: Option<Common::AnalysisResponse_Impl>,
 }
 
 /// container for component's incoming port values and GUMBO state variables
@@ -16,8 +16,8 @@ pub struct PreStateContainer_wGSV {
   pub In_since_result: bool,
   pub In_is_valid: bool,
   pub In_historically_no_alert_cmd: bool,
-  pub api_request_log: Option<Common::Request_Impl>,
-  pub api_response_log_in: Option<Common::ResponseLog_Impl>
+  pub api_request_log: Option<Common::AnalysisRequest_Impl>,
+  pub api_response_log_in: Option<Common::AnalysisResponse_Impl>,
 }
 
 /// setter for component's incoming port values
@@ -39,8 +39,8 @@ pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
 
 /// setter for component's incoming port values
 pub fn put_concrete_inputs(
-  request_log: Option<Common::Request_Impl>,
-  response_log_in: Option<Common::ResponseLog_Impl>)
+  request_log: Option<Common::AnalysisRequest_Impl>,
+  response_log_in: Option<Common::AnalysisResponse_Impl>)
 {
   put_request_log(request_log);
   put_response_log_in(response_log_in);
@@ -51,8 +51,8 @@ pub fn put_concrete_inputs_wGSV(
   In_since_result: bool,
   In_is_valid: bool,
   In_historically_no_alert_cmd: bool,
-  request_log: Option<Common::Request_Impl>,
-  response_log_in: Option<Common::ResponseLog_Impl>)
+  request_log: Option<Common::AnalysisRequest_Impl>,
+  response_log_in: Option<Common::AnalysisResponse_Impl>)
 {
   put_historically_no_alert_cmd(In_historically_no_alert_cmd);
   put_is_valid(In_is_valid);
@@ -62,27 +62,33 @@ pub fn put_concrete_inputs_wGSV(
 }
 
 /// setter for IN EventDataPort
-pub fn put_request_log(value: Option<Common::Request_Impl>)
+pub fn put_request_log(value: Option<Common::AnalysisRequest_Impl>)
 {
   *extern_api::IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// setter for IN EventDataPort
-pub fn put_response_log_in(value: Option<Common::ResponseLog_Impl>)
+pub fn put_response_log_in(value: Option<Common::AnalysisResponse_Impl>)
 {
   *extern_api::IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
-pub fn get_response_log_out() -> Option<Common::ResponseLog_Impl>
+pub fn get_response_log_out() -> Option<Common::AnalysisResponse_Impl>
 {
   return extern_api::OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for OUT EventPort
-pub fn get_alert() -> Option<u8>
+pub fn get_alert_out() -> Option<u8>
 {
-  return extern_api::OUT_alert.lock().unwrap_or_else(|e| e.into_inner()).clone()
+  return extern_api::OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
+}
+
+/// getter for OUT EventPort
+pub fn get_storage_alert_out() -> Option<u8>
+{
+  return extern_api::OUT_storage_alert_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for GUMBO State Variable

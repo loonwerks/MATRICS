@@ -7,7 +7,7 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_usbRecv: Option<Common::DummyMessage_Impl>
+  pub api_usbRecv: Option<Common::DummyMessage_Impl>,
 }
 
 /// setter for component's incoming port values

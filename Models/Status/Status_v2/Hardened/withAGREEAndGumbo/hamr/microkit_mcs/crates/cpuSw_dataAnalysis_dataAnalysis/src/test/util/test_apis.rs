@@ -7,8 +7,8 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_response_log: Option<Common::ResponseLog_Impl>,
-  pub api_analysis_request: Option<Common::AnalysisRequest_Impl>
+  pub api_response_log: Option<Common::AnalysisResponse_Impl>,
+  pub api_analysis_request: Option<Common::AnalysisRequest_Impl>,
 }
 
 /// setter for component's incoming port values
@@ -20,7 +20,7 @@ pub fn put_concrete_inputs_container(container: PreStateContainer)
 
 /// setter for component's incoming port values
 pub fn put_concrete_inputs(
-  response_log: Option<Common::ResponseLog_Impl>,
+  response_log: Option<Common::AnalysisResponse_Impl>,
   analysis_request: Option<Common::AnalysisRequest_Impl>)
 {
   put_response_log(response_log);
@@ -28,19 +28,19 @@ pub fn put_concrete_inputs(
 }
 
 /// getter for OUT EventDataPort
-pub fn get_request_log() -> Option<Common::Request_Impl>
+pub fn get_request_log() -> Option<Common::AnalysisRequest_Impl>
 {
   return extern_api::OUT_request_log.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// setter for IN EventDataPort
-pub fn put_response_log(value: Option<Common::ResponseLog_Impl>)
+pub fn put_response_log(value: Option<Common::AnalysisResponse_Impl>)
 {
   *extern_api::IN_response_log.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
-pub fn get_analysis_report() -> Option<Common::AnalysisReport_Impl>
+pub fn get_analysis_report() -> Option<Common::AnalysisResponse_Impl>
 {
   return extern_api::OUT_analysis_report.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

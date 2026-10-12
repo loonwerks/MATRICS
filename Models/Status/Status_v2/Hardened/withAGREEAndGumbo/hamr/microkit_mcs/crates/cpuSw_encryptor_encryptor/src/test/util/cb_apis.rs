@@ -54,7 +54,7 @@ testInitializeCB_macro {
   *
   * @param api_analysis_report_in incoming event data port
   */
-pub fn testComputeCB(api_analysis_report_in: Option<Common::AnalysisReport_Impl>) -> HarnessResult
+pub fn testComputeCB(api_analysis_report_in: Option<Common::AnalysisResponse_Impl>) -> HarnessResult
 {
   // Initialize the app
   crate::cpuSw_encryptor_encryptor_initialize();

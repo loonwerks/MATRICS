@@ -10,7 +10,7 @@ verus! {
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct AnalysisRequest_Impl {
     pub header: MsgHeader_Impl,
-    pub payload: Request_Impl
+    pub payload: Request_Impl,
   }
 
   impl Default for AnalysisRequest_Impl {
@@ -21,3 +21,9 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<AnalysisRequest_Impl>() == 40);
+const _: () = assert!(core::mem::align_of::<AnalysisRequest_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(AnalysisRequest_Impl, header) == 0);
+const _: () = assert!(core::mem::offset_of!(AnalysisRequest_Impl, payload) == 8);

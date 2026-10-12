@@ -12,7 +12,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_analysis_report_out(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
     {
       extern_api::unsafe_put_analysis_report_out(&value);
     }
@@ -22,11 +22,17 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_analysis_report_in(
       &mut self,
-      value: &Ghost<Option<Common::AnalysisReport_Impl>>) -> (res : Option<Common::AnalysisReport_Impl>)
+      value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
         res == value@,
     {
       return extern_api::unsafe_get_analysis_report_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_report_in_num_invalid();
     }
   }
 
@@ -35,31 +41,37 @@ verus! {
   pub struct cpuSw_encryptor_encryptor_Application_Api<API: cpuSw_encryptor_encryptor_Api> {
     pub api: API,
 
-    pub ghost analysis_report_in: Option<Common::AnalysisReport_Impl>,
-    pub ghost analysis_report_out: Option<Common::AnalysisReport_Impl>
+    pub ghost analysis_report_in: Option<Common::AnalysisResponse_Impl>,
+    pub ghost analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>,
   }
 
   impl<API: cpuSw_encryptor_encryptor_Put_Api> cpuSw_encryptor_encryptor_Application_Api<API> {
     pub fn put_analysis_report_out(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
       ensures
-        old(self).analysis_report_in == self.analysis_report_in,
-        self.analysis_report_out == Some(value),
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        final(self).analysis_report_out == Some(value),
     {
       self.api.unverified_put_analysis_report_out(value);
-      self.analysis_report_out = Some(value);
+      proof { self.analysis_report_out = Some(value); }
     }
   }
 
   impl<API: cpuSw_encryptor_encryptor_Get_Api> cpuSw_encryptor_encryptor_Application_Api<API> {
-    pub fn get_analysis_report_in(&mut self) -> (res : Option<Common::AnalysisReport_Impl>)
+    pub fn get_analysis_report_in(&mut self) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
-        old(self).analysis_report_in == self.analysis_report_in,
-        res == self.analysis_report_in,
-        old(self).analysis_report_out == self.analysis_report_out,
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        res == final(self).analysis_report_in,
+        old(self).analysis_report_out == final(self).analysis_report_out,
     {
       self.api.unverified_get_analysis_report_in(&Ghost(self.analysis_report_in))
+    }/// The number of messages received on analysis_report_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_report_in_num_invalid()
     }
   }
 

@@ -25,11 +25,12 @@ pub fn testInitializeCB() -> HarnessResult
   let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
+  let api_storage_alert_out = get_storage_alert_out();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::initialize_IEP_Post (historically_no_alert_cmd, is_valid, since_result, api_alert, api_response_log_out) {
+  if !GUMBOX::initialize_IEP_Post (historically_no_alert_cmd, is_valid, since_result, api_alert_out, api_storage_alert_out, api_response_log_out) {
     return HarnessResult::FailedPostcondition(
       TestCaseError::Fail("Postcondition failed: incorrect output behavior".into())
     );
@@ -70,8 +71,8 @@ testInitializeCB_macro {
   * @param api_response_log_in incoming event data port
   */
 pub fn testComputeCB(
-  api_request_log: Option<Common::Request_Impl>,
-  api_response_log_in: Option<Common::ResponseLog_Impl>) -> HarnessResult
+  api_request_log: Option<Common::AnalysisRequest_Impl>,
+  api_response_log_in: Option<Common::AnalysisResponse_Impl>) -> HarnessResult
 {
   // Initialize the app
   crate::cpuSw_logMonitor_logMonitor_initialize();
@@ -93,11 +94,12 @@ pub fn testComputeCB(
   let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
+  let api_storage_alert_out = get_storage_alert_out();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
+  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert_out, api_storage_alert_out, api_response_log_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -156,8 +158,8 @@ pub fn testComputeCBwGSV(
   In_historically_no_alert_cmd: bool,
   In_is_valid: bool,
   In_since_result: bool,
-  api_request_log: Option<Common::Request_Impl>,
-  api_response_log_in: Option<Common::ResponseLog_Impl>) -> HarnessResult
+  api_request_log: Option<Common::AnalysisRequest_Impl>,
+  api_response_log_in: Option<Common::AnalysisResponse_Impl>) -> HarnessResult
 {
   // Initialize the app
   crate::cpuSw_logMonitor_logMonitor_initialize();
@@ -178,11 +180,12 @@ pub fn testComputeCBwGSV(
   let historically_no_alert_cmd = get_historically_no_alert_cmd();
   let is_valid = get_is_valid();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
+  let api_storage_alert_out = get_storage_alert_out();
   let api_response_log_out = get_response_log_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert, api_response_log_out) {
+  if !GUMBOX::compute_CEP_Post(In_historically_no_alert_cmd, In_is_valid, In_since_result, historically_no_alert_cmd, is_valid, since_result, api_request_log, api_response_log_in, api_alert_out, api_storage_alert_out, api_response_log_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 

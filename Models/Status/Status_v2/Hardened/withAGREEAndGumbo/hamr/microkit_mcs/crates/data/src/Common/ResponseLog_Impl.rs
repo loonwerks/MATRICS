@@ -6,18 +6,12 @@ use super::*;
 
 verus! {
 
-  #[repr(C)]
-  #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-  pub struct ResponseLog_Impl {
-    pub header: ResponseHeader_Impl,
-    pub payload: LogArray_Impl
-  }
+  pub const Common_ResponseLog_Impl_DIM_0: usize = 10;
 
-  impl Default for ResponseLog_Impl {
-    fn default() -> Self
-    {
-      Self { header: Common::ResponseHeader_Impl::default(), payload: [Common::Log_Impl::default(); Common::Common_LogArray_Impl_DIM_0] }
-    }
-  }
+  pub type ResponseLog_Impl = [Log_Impl; Common_ResponseLog_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<ResponseLog_Impl>() == 3520);
+const _: () = assert!(core::mem::align_of::<ResponseLog_Impl>() == 8);

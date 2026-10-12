@@ -22,10 +22,12 @@ macro_rules! impliesL {
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_spec_Payload_Encrypted_guarantee(
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  api_analysis_report_out.unwrap().payload != api_analysis_report_in.unwrap().payload
+  impliesL!(
+    api_analysis_report_in.is_some(),
+    MATRICS_Model_Transformations::AES_128_GCM_ENCRYPTS_RESPONSE(api_analysis_report_in.unwrap().payload, api_analysis_report_out.unwrap().payload))
 }
 
 /** Compute Entrypoint Contract
@@ -36,8 +38,8 @@ pub fn compute_spec_Payload_Encrypted_guarantee(
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_spec_Header_Unencrypted_guarantee(
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   api_analysis_report_out.unwrap().header == api_analysis_report_in.unwrap().header
 }
@@ -48,8 +50,8 @@ pub fn compute_spec_Header_Unencrypted_guarantee(
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   let r0: bool = compute_spec_Payload_Encrypted_guarantee(api_analysis_report_in, api_analysis_report_out);
   let r1: bool = compute_spec_Header_Unencrypted_guarantee(api_analysis_report_in, api_analysis_report_out);
@@ -63,8 +65,8 @@ pub fn compute_CEP_T_Guar(
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_Post(
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of encryptor's compute entrypoint
   let r0: bool = compute_CEP_T_Guar(api_analysis_report_in, api_analysis_report_out);

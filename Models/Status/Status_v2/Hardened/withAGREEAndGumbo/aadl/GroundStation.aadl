@@ -205,8 +205,8 @@ public
 				def IS_ZEROIZED_ENCRYPTED_MESSAGE(
 					message: Common::EncryptedMessage.Impl): Base_Types::Boolean :=
 					(All (0 until message.nonce.size)(i => message.nonce(i) == u8"0")) &&
-					(All (0 until message.ciphertext.size)(i => message.ciphertext(i) == u8"0")) &&
-					(All (0 until message.tag.size)(i => message.tag(i) == u8"0"));
+					(All (0 until message.ciphertext.size)(j => message.ciphertext(j) == u8"0")) &&
+					(All (0 until message.tag.size)(k => message.tag(k) == u8"0"));
 
 				def IS_ZEROIZED_STORED_LOG_FILE(
 					file: Common::StoredLogFile.Impl): Base_Types::Boolean :=

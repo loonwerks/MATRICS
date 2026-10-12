@@ -31,6 +31,10 @@ bool get_analysis_request_in(Common_AnalysisRequest_Impl *data) {
   return get_analysis_request_in_poll (&numDropped, data);
 }
 
+uintmax_t get_analysis_request_in_num_invalid(void) {
+  return sb_queue_Common_AnalysisRequest_Impl_1_numInvalid((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_in_recv_queue);
+}
+
 void init(void) {
   printf("%s | INIT!\n", microkit_name);
 
@@ -47,6 +51,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_firewall_firewall_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_firewall_firewall_notify(channel);

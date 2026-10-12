@@ -28,7 +28,7 @@ verus! {
       ensures
         // BEGIN MARKER INITIALIZATION ENSURES
         // guarantee defaultAlert
-        self.alert_cmd == false,
+        final(self).alert_cmd == false,
         // END MARKER INITIALIZATION ENSURES
     {
       log_info("initialize entrypoint invoked");
@@ -44,21 +44,25 @@ verus! {
         old(api).wifiSend.is_none(),
         old(api).HMD_log.is_none(),
         old(api).analysis_request.is_none(),
+        // assume IncomingAlert
+        //   A: A report should not be received if an alert is received.
+        old(api).alert_in.is_some() ==> !(old(api).analysis_report.is_some()),
+        // assume Trusted_Report
+        //   A: Reports received are to a trusted destination.
+        old(api).analysis_report.is_some() ==> MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST_spec(old(api).analysis_report.unwrap().header.client),
         // END MARKER TIME TRIGGERED REQUIRES
       ensures
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee alert_cmd_variable
         //   G: Once an alert command is seen, always stay alerted.
-        (api.alert.is_some() ==>
-          (self.alert_cmd == true)) &&
-          ((old(self).alert_cmd == true) ==>
-            (self.alert_cmd == true)),
+        final(self).alert_cmd == (final(api).alert_in.is_some() || old(self).alert_cmd),
         // guarantee Process_Report
         //   G: Stop outgoing communication once an alert has been received.
-        if (api.analysis_report.is_some() && !self.alert_cmd) {
-          api.wifiSend.is_some()
+        if (final(api).analysis_report.is_some() && !final(self).alert_cmd) {
+          final(api).wifiSend.is_some() &&
+            (final(api).wifiSend.unwrap() == final(api).analysis_report.unwrap())
         } else {
-          api.wifiSend.is_none()
+          final(api).wifiSend.is_none()
         },
         // END MARKER TIME TRIGGERED ENSURES
     {

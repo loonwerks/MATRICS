@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libvmm/util/util.h>
+
 #include <stdint.h>
 #include <microkit.h>
 #include <sb_types.h>
@@ -11,8 +12,10 @@
 bool wifiSendIn_is_empty(void);
 bool get_wifiSendIn_poll(sb_event_counter_t *numDropped, Common_OutgoingWifiMessage_Impl *data);
 bool get_wifiSendIn(Common_OutgoingWifiMessage_Impl *data);
+uintmax_t get_wifiSendIn_num_invalid(void);
 bool put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data);
 bool wifiRecvIn_is_empty(void);
 bool get_wifiRecvIn_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMessage_Impl *data);
 bool get_wifiRecvIn(Common_IncomingWifiMessage_Impl *data);
+uintmax_t get_wifiRecvIn_num_invalid(void);
 bool put_wifiSendOut(const Common_OutgoingWifiMessage_Impl *data);

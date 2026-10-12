@@ -19,27 +19,15 @@ pub fn Counter(
   reset: bool,
   count: u32) -> u32
 {
-  if (reset == true) {
+  if (reset) {
     0u32
   } else {
-    if (i == true) {
+    if (i) {
       count + 1u32
     } else {
       count
     }
   }
-}
-
-pub fn ALLOW_LIST() -> MATRICS_Model_Transformations::AllowList_Impl
-{
-  [1u32, 2u32, 3u32, 4u32]
-}
-
-pub fn FOUND_IN_ALLOW_LIST(
-  allow_list: MATRICS_Model_Transformations::AllowList_Impl,
-  src: u32) -> bool
-{
-  (0..allow_list.len()).any(|i| allow_list[i] == src)
 }
 
 /** Initialize EntryPointContract
@@ -62,7 +50,7 @@ pub fn initialize_defaultCounterAndSince(
   * @param is_invalid2 post-state state variable
   * @param is_valid1 post-state state variable
   * @param since_result post-state state variable
-  * @param api_alert outgoing event port
+  * @param api_alert_out outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn initialize_IEP_Guar(
@@ -70,8 +58,8 @@ pub fn initialize_IEP_Guar(
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_alert: Option<u8>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_alert_out: Option<u8>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   initialize_defaultCounterAndSince(counter, since_result)
 }
@@ -82,7 +70,7 @@ pub fn initialize_IEP_Guar(
   * @param is_invalid2 post-state state variable
   * @param is_valid1 post-state state variable
   * @param since_result post-state state variable
-  * @param api_alert outgoing event port
+  * @param api_alert_out outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn initialize_IEP_Post(
@@ -90,16 +78,34 @@ pub fn initialize_IEP_Post(
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_alert: Option<u8>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_alert_out: Option<u8>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  initialize_IEP_Guar(counter, is_invalid2, is_valid1, since_result, api_alert, api_analysis_report_out)
+  initialize_IEP_Guar(counter, is_invalid2, is_valid1, since_result, api_alert_out, api_analysis_report_out)
+}
+
+/** Compute Entrypoint Contract
+  *
+  * guarantee counter_variable
+  *   G: counter set correctly
+  * @param In_counter pre-state state variable
+  * @param counter post-state state variable
+  * @param api_analysis_report_in incoming event data port
+  * @param api_analysis_request incoming event data port
+  */
+pub fn compute_spec_counter_variable_guarantee(
+  In_counter: u32,
+  counter: u32,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
+  api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
+{
+  counter == Counter(api_analysis_request.is_some(), api_analysis_report_in.is_some(), In_counter)
 }
 
 /** Compute Entrypoint Contract
   *
   * guarantee since_result_variable
-  *   G: Internal Variable since_result is equivalent to (not response_log_in event) Since (request_log event)
+  *   G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)
   * @param In_since_result pre-state state variable
   * @param since_result post-state state variable
   * @param api_analysis_report_in incoming event data port
@@ -108,10 +114,10 @@ pub fn initialize_IEP_Post(
 pub fn compute_spec_since_result_variable_guarantee(
   In_since_result: bool,
   since_result: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
 {
-  since_result == PastTimeLTL::Since(!(api_analysis_report_in.is_some()), api_analysis_request.is_some(), In_since_result)
+  since_result == GUMBO_PLTL::AGREE_Since(!(api_analysis_report_in.is_some()), api_analysis_request.is_some(), In_since_result)
 }
 
 /** Compute Entrypoint Contract
@@ -126,7 +132,7 @@ pub fn compute_spec_since_result_variable_guarantee(
 pub fn compute_spec_valid1_guarantee(
   In_since_result: bool,
   is_valid1: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
 {
   if (api_analysis_report_in.is_some() & api_analysis_request.is_some()) {
@@ -143,52 +149,35 @@ pub fn compute_spec_valid1_guarantee(
   * guarantee invalid2
   *   G: is_invalid2 set correctly
   * @param counter post-state state variable
-  * @param api_analysis_report_in incoming event data port
-  * @param api_analysis_request incoming event data port
+  * @param is_invalid2 post-state state variable
   */
 pub fn compute_spec_invalid2_guarantee(
   counter: u32,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
+  is_invalid2: bool) -> bool
 {
-  Counter(api_analysis_request.is_some(), api_analysis_report_in.is_some(), counter) >= 3u32
+  is_invalid2 == (counter >= 3u32)
 }
 
 /** Compute Entrypoint Contract
   *
-  * guarantee Alert1
-  *   G: Send an alert if more than one report is received without a request.
+  * guarantee Send_Alert
+  *   G: Send an alert if a report is received without a valid request or if three or more requests are received without a report.
+  * @param is_invalid2 post-state state variable
   * @param is_valid1 post-state state variable
   * @param api_analysis_report_in incoming event data port
-  * @param api_alert outgoing event port
+  * @param api_alert_out outgoing event port
   */
-pub fn compute_spec_Alert1_guarantee(
-  is_valid1: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_alert: Option<u8>) -> bool
-{
-  if (api_analysis_report_in.is_some() & !is_valid1) {
-    api_alert.is_some()
-  } else {
-    api_alert.is_none()
-  }
-}
-
-/** Compute Entrypoint Contract
-  *
-  * guarantee Alert2
-  *   G: Send an alert if 3 or more requests are received without a report.
-  * @param is_invalid2 post-state state variable
-  * @param api_alert outgoing event port
-  */
-pub fn compute_spec_Alert2_guarantee(
+pub fn compute_spec_Send_Alert_guarantee(
   is_invalid2: bool,
-  api_alert: Option<u8>) -> bool
+  is_valid1: bool,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
+  api_alert_out: Option<u8>) -> bool
 {
-  if (is_invalid2) {
-    api_alert.is_some()
+  if (api_analysis_report_in.is_some() & !is_valid1 |
+    is_invalid2) {
+    api_alert_out.is_some()
   } else {
-    api_alert.is_none()
+    api_alert_out.is_none()
   }
 }
 
@@ -204,13 +193,13 @@ pub fn compute_spec_Alert2_guarantee(
 pub fn compute_spec_Forward_Report_guarantee(
   is_invalid2: bool,
   is_valid1: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  if (api_analysis_report_in.is_some() & is_valid1 &
-    !is_invalid2 &
-    FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_report_in.unwrap().header.client)) {
-    api_analysis_report_out.is_some() &
+  if (api_analysis_report_in.is_some() && is_valid1 &&
+    !is_invalid2 &&
+    MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(api_analysis_report_in.unwrap().header.client)) {
+    api_analysis_report_out.is_some() &&
       (api_analysis_report_out.unwrap() == api_analysis_report_in.unwrap())
   } else {
     api_analysis_report_out.is_none()
@@ -219,6 +208,7 @@ pub fn compute_spec_Forward_Report_guarantee(
 
 /** CEP-T-Guar: Top-level guarantee contracts for reportMonitor's compute entrypoint
   *
+  * @param In_counter pre-state state variable
   * @param In_since_result pre-state state variable
   * @param counter post-state state variable
   * @param is_invalid2 post-state state variable
@@ -226,25 +216,26 @@ pub fn compute_spec_Forward_Report_guarantee(
   * @param since_result post-state state variable
   * @param api_analysis_report_in incoming event data port
   * @param api_analysis_request incoming event data port
-  * @param api_alert outgoing event port
+  * @param api_alert_out outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
+  In_counter: u32,
   In_since_result: bool,
   counter: u32,
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_alert: Option<u8>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_alert_out: Option<u8>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  let r0: bool = compute_spec_since_result_variable_guarantee(In_since_result, since_result, api_analysis_report_in, api_analysis_request);
-  let r1: bool = compute_spec_valid1_guarantee(In_since_result, is_valid1, api_analysis_report_in, api_analysis_request);
-  let r2: bool = compute_spec_invalid2_guarantee(counter, api_analysis_report_in, api_analysis_request);
-  let r3: bool = compute_spec_Alert1_guarantee(is_valid1, api_analysis_report_in, api_alert);
-  let r4: bool = compute_spec_Alert2_guarantee(is_invalid2, api_alert);
+  let r0: bool = compute_spec_counter_variable_guarantee(In_counter, counter, api_analysis_report_in, api_analysis_request);
+  let r1: bool = compute_spec_since_result_variable_guarantee(In_since_result, since_result, api_analysis_report_in, api_analysis_request);
+  let r2: bool = compute_spec_valid1_guarantee(In_since_result, is_valid1, api_analysis_report_in, api_analysis_request);
+  let r3: bool = compute_spec_invalid2_guarantee(counter, is_invalid2);
+  let r4: bool = compute_spec_Send_Alert_guarantee(is_invalid2, is_valid1, api_analysis_report_in, api_alert_out);
   let r5: bool = compute_spec_Forward_Report_guarantee(is_invalid2, is_valid1, api_analysis_report_in, api_analysis_report_out);
 
   return r0 && r1 && r2 && r3 && r4 && r5;
@@ -262,7 +253,7 @@ pub fn compute_CEP_T_Guar(
   * @param since_result post-state state variable
   * @param api_analysis_report_in incoming event data port
   * @param api_analysis_request incoming event data port
-  * @param api_alert outgoing event port
+  * @param api_alert_out outgoing event port
   * @param api_analysis_report_out outgoing event data port
   */
 pub fn compute_CEP_Post(
@@ -274,13 +265,13 @@ pub fn compute_CEP_Post(
   is_invalid2: bool,
   is_valid1: bool,
   since_result: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  api_alert: Option<u8>,
-  api_analysis_report_out: Option<Common::AnalysisReport_Impl>) -> bool
+  api_alert_out: Option<u8>,
+  api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of reportMonitor's compute entrypoint
-  let r0: bool = compute_CEP_T_Guar(In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert, api_analysis_report_out);
+  let r0: bool = compute_CEP_T_Guar(In_counter, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out);
 
   return r0;
 }

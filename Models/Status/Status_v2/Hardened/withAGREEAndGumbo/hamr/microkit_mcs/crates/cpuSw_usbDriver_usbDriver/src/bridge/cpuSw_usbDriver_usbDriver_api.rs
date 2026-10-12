@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_usbRecv();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_usbRecv_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_usbRecv_num_invalid();
+    }
   }
 
   pub trait cpuSw_usbDriver_usbDriver_Full_Api: cpuSw_usbDriver_usbDriver_Put_Api + cpuSw_usbDriver_usbDriver_Get_Api {}
@@ -36,7 +42,7 @@ verus! {
     pub api: API,
 
     pub ghost usbRecv: Option<Common::DummyMessage_Impl>,
-    pub ghost usbSend: Option<Common::DummyMessage_Impl>
+    pub ghost usbSend: Option<Common::DummyMessage_Impl>,
   }
 
   impl<API: cpuSw_usbDriver_usbDriver_Put_Api> cpuSw_usbDriver_usbDriver_Application_Api<API> {
@@ -44,22 +50,28 @@ verus! {
       &mut self,
       value: Common::DummyMessage_Impl)
       ensures
-        old(self).usbRecv == self.usbRecv,
-        self.usbSend == Some(value),
+        old(self).usbRecv == final(self).usbRecv,
+        final(self).usbSend == Some(value),
     {
       self.api.unverified_put_usbSend(value);
-      self.usbSend = Some(value);
+      proof { self.usbSend = Some(value); }
     }
   }
 
   impl<API: cpuSw_usbDriver_usbDriver_Get_Api> cpuSw_usbDriver_usbDriver_Application_Api<API> {
     pub fn get_usbRecv(&mut self) -> (res : Option<Common::DummyMessage_Impl>)
       ensures
-        old(self).usbRecv == self.usbRecv,
-        res == self.usbRecv,
-        old(self).usbSend == self.usbSend,
+        old(self).usbRecv == final(self).usbRecv,
+        res == final(self).usbRecv,
+        old(self).usbSend == final(self).usbSend,
     {
       self.api.unverified_get_usbRecv(&Ghost(self.usbRecv))
+    }/// The number of messages received on usbRecv that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_usbRecv_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_usbRecv_num_invalid()
     }
   }
 

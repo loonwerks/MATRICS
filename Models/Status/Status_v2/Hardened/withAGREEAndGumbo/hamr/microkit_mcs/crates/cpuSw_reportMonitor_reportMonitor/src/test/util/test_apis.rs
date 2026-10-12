@@ -8,7 +8,7 @@ use proptest::prelude::*;
 /// container for component's incoming port values
 pub struct PreStateContainer {
   pub api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  pub api_analysis_report_in: Option<Common::AnalysisReport_Impl>
+  pub api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
 }
 
 /// container for component's incoming port values and GUMBO state variables
@@ -18,7 +18,7 @@ pub struct PreStateContainer_wGSV {
   pub In_is_valid1: bool,
   pub In_is_invalid2: bool,
   pub api_analysis_request: Option<Common::AnalysisRequest_Impl>,
-  pub api_analysis_report_in: Option<Common::AnalysisReport_Impl>
+  pub api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
 }
 
 /// setter for component's incoming port values
@@ -42,7 +42,7 @@ pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
 /// setter for component's incoming port values
 pub fn put_concrete_inputs(
   analysis_request: Option<Common::AnalysisRequest_Impl>,
-  analysis_report_in: Option<Common::AnalysisReport_Impl>)
+  analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>)
 {
   put_analysis_request(analysis_request);
   put_analysis_report_in(analysis_report_in);
@@ -55,7 +55,7 @@ pub fn put_concrete_inputs_wGSV(
   In_is_valid1: bool,
   In_is_invalid2: bool,
   analysis_request: Option<Common::AnalysisRequest_Impl>,
-  analysis_report_in: Option<Common::AnalysisReport_Impl>)
+  analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>)
 {
   put_is_invalid2(In_is_invalid2);
   put_is_valid1(In_is_valid1);
@@ -72,21 +72,21 @@ pub fn put_analysis_request(value: Option<Common::AnalysisRequest_Impl>)
 }
 
 /// setter for IN EventDataPort
-pub fn put_analysis_report_in(value: Option<Common::AnalysisReport_Impl>)
+pub fn put_analysis_report_in(value: Option<Common::OutgoingWifiMessage_Impl>)
 {
   *extern_api::IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
-pub fn get_analysis_report_out() -> Option<Common::AnalysisReport_Impl>
+pub fn get_analysis_report_out() -> Option<Common::OutgoingWifiMessage_Impl>
 {
   return extern_api::OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for OUT EventPort
-pub fn get_alert() -> Option<u8>
+pub fn get_alert_out() -> Option<u8>
 {
-  return extern_api::OUT_alert.lock().unwrap_or_else(|e| e.into_inner()).clone()
+  return extern_api::OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
 /// getter for GUMBO State Variable

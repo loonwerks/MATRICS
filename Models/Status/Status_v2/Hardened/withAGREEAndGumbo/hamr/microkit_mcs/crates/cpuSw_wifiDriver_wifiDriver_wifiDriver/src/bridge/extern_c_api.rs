@@ -12,10 +12,12 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool;
-  fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool;
-  fn get_alert() -> bool;
+  fn get_wifiRecv_num_invalid() -> u64;
+  fn get_analysis_report(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn get_analysis_report_num_invalid() -> u64;
+  fn get_alert_in() -> bool;
   fn put_wifiSend(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
-  fn put_HMD_log(value: *mut Common::encryptedIncomingPayload_Impl) -> bool;
+  fn put_HMD_log(value: *mut Common::EncryptedMessage_Impl) -> bool;
   fn put_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
 }
 
@@ -31,10 +33,17 @@ pub fn unsafe_get_wifiRecv() -> Option<Common::IncomingWifiMessage_Impl>
   }
 }
 
-pub fn unsafe_get_analysis_report() -> Option<Common::AnalysisReport_Impl>
+pub fn unsafe_get_wifiRecv_num_invalid() -> u64
 {
   unsafe {
-    let value: *mut Common::AnalysisReport_Impl = &mut Common::AnalysisReport_Impl::default();
+    return get_wifiRecv_num_invalid();
+  }
+}
+
+pub fn unsafe_get_analysis_report() -> Option<Common::OutgoingWifiMessage_Impl>
+{
+  unsafe {
+    let value: *mut Common::OutgoingWifiMessage_Impl = &mut Common::OutgoingWifiMessage_Impl::default();
     if (get_analysis_report(value)) {
       return Some(*value);
     } else {
@@ -43,10 +52,17 @@ pub fn unsafe_get_analysis_report() -> Option<Common::AnalysisReport_Impl>
   }
 }
 
-pub fn unsafe_get_alert() -> bool
+pub fn unsafe_get_analysis_report_num_invalid() -> u64
 {
   unsafe {
-    return get_alert();
+    return get_analysis_report_num_invalid();
+  }
+}
+
+pub fn unsafe_get_alert_in() -> bool
+{
+  unsafe {
+    return get_alert_in();
   }
 }
 
@@ -57,10 +73,10 @@ pub fn unsafe_put_wifiSend(value: &Common::OutgoingWifiMessage_Impl) -> bool
   }
 }
 
-pub fn unsafe_put_HMD_log(value: &Common::encryptedIncomingPayload_Impl) -> bool
+pub fn unsafe_put_HMD_log(value: &Common::EncryptedMessage_Impl) -> bool
 {
   unsafe {
-    return put_HMD_log(value as *const Common::encryptedIncomingPayload_Impl as *mut Common::encryptedIncomingPayload_Impl);
+    return put_HMD_log(value as *const Common::EncryptedMessage_Impl as *mut Common::EncryptedMessage_Impl);
   }
 }
 
@@ -81,10 +97,10 @@ lazy_static::lazy_static! {
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
   pub static ref IN_wifiRecv: Mutex<Option<Common::IncomingWifiMessage_Impl>> = Mutex::new(None);
-  pub static ref IN_analysis_report: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
-  pub static ref IN_alert: Mutex<Option<u8>> = Mutex::new(None);
+  pub static ref IN_analysis_report: Mutex<Option<Common::OutgoingWifiMessage_Impl>> = Mutex::new(None);
+  pub static ref IN_alert_in: Mutex<Option<u8>> = Mutex::new(None);
   pub static ref OUT_wifiSend: Mutex<Option<Common::OutgoingWifiMessage_Impl>> = Mutex::new(None);
-  pub static ref OUT_HMD_log: Mutex<Option<Common::encryptedIncomingPayload_Impl>> = Mutex::new(None);
+  pub static ref OUT_HMD_log: Mutex<Option<Common::EncryptedMessage_Impl>> = Mutex::new(None);
   pub static ref OUT_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
 }
 
@@ -93,7 +109,7 @@ pub fn initialize_test_globals() {
   unsafe {
     *IN_wifiRecv.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *IN_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) = None;
-    *IN_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *IN_alert_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *OUT_wifiSend.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *OUT_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = None;
@@ -115,7 +131,13 @@ pub fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool
+pub fn get_wifiRecv_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn get_analysis_report(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
     match *IN_analysis_report.lock().unwrap_or_else(|e| e.into_inner()) {
@@ -129,10 +151,16 @@ pub fn get_analysis_report(value: *mut Common::AnalysisReport_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn get_alert() -> bool
+pub fn get_analysis_report_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn get_alert_in() -> bool
 {
   unsafe {
-    match *IN_alert.lock().unwrap_or_else(|e| e.into_inner()) {
+    match *IN_alert_in.lock().unwrap_or_else(|e| e.into_inner()) {
       Some(v) => {
         return true;
       },
@@ -151,7 +179,7 @@ pub fn put_wifiSend(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_HMD_log(value: *mut Common::encryptedIncomingPayload_Impl) -> bool
+pub fn put_HMD_log(value: *mut Common::EncryptedMessage_Impl) -> bool
 {
   unsafe {
     *OUT_HMD_log.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);

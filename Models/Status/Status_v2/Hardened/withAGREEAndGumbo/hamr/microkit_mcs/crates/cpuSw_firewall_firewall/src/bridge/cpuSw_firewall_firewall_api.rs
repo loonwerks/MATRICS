@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_analysis_request_in();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_request_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_request_in_num_invalid();
+    }
   }
 
   pub trait cpuSw_firewall_firewall_Full_Api: cpuSw_firewall_firewall_Put_Api + cpuSw_firewall_firewall_Get_Api {}
@@ -36,7 +42,7 @@ verus! {
     pub api: API,
 
     pub ghost analysis_request_in: Option<Common::AnalysisRequest_Impl>,
-    pub ghost analysis_request_out: Option<Common::AnalysisRequest_Impl>
+    pub ghost analysis_request_out: Option<Common::AnalysisRequest_Impl>,
   }
 
   impl<API: cpuSw_firewall_firewall_Put_Api> cpuSw_firewall_firewall_Application_Api<API> {
@@ -44,22 +50,28 @@ verus! {
       &mut self,
       value: Common::AnalysisRequest_Impl)
       ensures
-        old(self).analysis_request_in == self.analysis_request_in,
-        self.analysis_request_out == Some(value),
+        old(self).analysis_request_in == final(self).analysis_request_in,
+        final(self).analysis_request_out == Some(value),
     {
       self.api.unverified_put_analysis_request_out(value);
-      self.analysis_request_out = Some(value);
+      proof { self.analysis_request_out = Some(value); }
     }
   }
 
   impl<API: cpuSw_firewall_firewall_Get_Api> cpuSw_firewall_firewall_Application_Api<API> {
     pub fn get_analysis_request_in(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
-        old(self).analysis_request_in == self.analysis_request_in,
-        res == self.analysis_request_in,
-        old(self).analysis_request_out == self.analysis_request_out,
+        old(self).analysis_request_in == final(self).analysis_request_in,
+        res == final(self).analysis_request_in,
+        old(self).analysis_request_out == final(self).analysis_request_out,
     {
       self.api.unverified_get_analysis_request_in(&Ghost(self.analysis_request_in))
+    }/// The number of messages received on analysis_request_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_request_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_request_in_num_invalid()
     }
   }
 

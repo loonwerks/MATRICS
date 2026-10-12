@@ -12,15 +12,21 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_response_log_out(
       &mut self,
-      value: Common::ResponseLog_Impl)
+      value: Common::AnalysisResponse_Impl)
     {
       extern_api::unsafe_put_response_log_out(&value);
     }
 
     #[verifier::external_body]
-    fn unverified_put_alert(&mut self)
+    fn unverified_put_alert_out(&mut self)
     {
-      extern_api::unsafe_put_alert();
+      extern_api::unsafe_put_alert_out();
+    }
+
+    #[verifier::external_body]
+    fn unverified_put_storage_alert_out(&mut self)
+    {
+      extern_api::unsafe_put_storage_alert_out();
     }
   }
 
@@ -28,7 +34,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_request_log(
       &mut self,
-      value: &Ghost<Option<Common::Request_Impl>>) -> (res : Option<Common::Request_Impl>)
+      value: &Ghost<Option<Common::AnalysisRequest_Impl>>) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
         res == value@,
     {
@@ -36,13 +42,25 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_request_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_request_log_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_response_log_in(
       &mut self,
-      value: &Ghost<Option<Common::ResponseLog_Impl>>) -> (res : Option<Common::ResponseLog_Impl>)
+      value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
         res == value@,
     {
       return extern_api::unsafe_get_response_log_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_response_log_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_response_log_in_num_invalid();
     }
   }
 
@@ -51,57 +69,85 @@ verus! {
   pub struct cpuSw_logMonitor_logMonitor_Application_Api<API: cpuSw_logMonitor_logMonitor_Api> {
     pub api: API,
 
-    pub ghost request_log: Option<Common::Request_Impl>,
-    pub ghost response_log_in: Option<Common::ResponseLog_Impl>,
-    pub ghost response_log_out: Option<Common::ResponseLog_Impl>,
-    pub ghost alert: Option<u8>
+    pub ghost request_log: Option<Common::AnalysisRequest_Impl>,
+    pub ghost response_log_in: Option<Common::AnalysisResponse_Impl>,
+    pub ghost response_log_out: Option<Common::AnalysisResponse_Impl>,
+    pub ghost alert_out: Option<u8>,
+    pub ghost storage_alert_out: Option<u8>,
   }
 
   impl<API: cpuSw_logMonitor_logMonitor_Put_Api> cpuSw_logMonitor_logMonitor_Application_Api<API> {
     pub fn put_response_log_out(
       &mut self,
-      value: Common::ResponseLog_Impl)
+      value: Common::AnalysisResponse_Impl)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log_in == self.response_log_in,
-        self.response_log_out == Some(value),
-        old(self).alert == self.alert,
+        old(self).request_log == final(self).request_log,
+        old(self).response_log_in == final(self).response_log_in,
+        final(self).response_log_out == Some(value),
+        old(self).alert_out == final(self).alert_out,
+        old(self).storage_alert_out == final(self).storage_alert_out,
     {
       self.api.unverified_put_response_log_out(value);
-      self.response_log_out = Some(value);
+      proof { self.response_log_out = Some(value); }
     }
-    pub fn put_alert(&mut self)
+    pub fn put_alert_out(&mut self)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log_in == self.response_log_in,
-        old(self).response_log_out == self.response_log_out,
-        self.alert == Some(0u8),
+        old(self).request_log == final(self).request_log,
+        old(self).response_log_in == final(self).response_log_in,
+        old(self).response_log_out == final(self).response_log_out,
+        final(self).alert_out == Some(0u8),
+        old(self).storage_alert_out == final(self).storage_alert_out,
     {
-      self.api.unverified_put_alert();
-      self.alert = Some(0u8);
+      self.api.unverified_put_alert_out();
+      proof { self.alert_out = Some(0u8); }
+    }
+    pub fn put_storage_alert_out(&mut self)
+      ensures
+        old(self).request_log == final(self).request_log,
+        old(self).response_log_in == final(self).response_log_in,
+        old(self).response_log_out == final(self).response_log_out,
+        old(self).alert_out == final(self).alert_out,
+        final(self).storage_alert_out == Some(0u8),
+    {
+      self.api.unverified_put_storage_alert_out();
+      proof { self.storage_alert_out = Some(0u8); }
     }
   }
 
   impl<API: cpuSw_logMonitor_logMonitor_Get_Api> cpuSw_logMonitor_logMonitor_Application_Api<API> {
-    pub fn get_request_log(&mut self) -> (res : Option<Common::Request_Impl>)
+    pub fn get_request_log(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
-        old(self).request_log == self.request_log,
-        res == self.request_log,
-        old(self).response_log_in == self.response_log_in,
-        old(self).response_log_out == self.response_log_out,
-        old(self).alert == self.alert,
+        old(self).request_log == final(self).request_log,
+        res == final(self).request_log,
+        old(self).response_log_in == final(self).response_log_in,
+        old(self).response_log_out == final(self).response_log_out,
+        old(self).alert_out == final(self).alert_out,
+        old(self).storage_alert_out == final(self).storage_alert_out,
     {
       self.api.unverified_get_request_log(&Ghost(self.request_log))
+    }/// The number of messages received on request_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_request_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_request_log_num_invalid()
     }
-    pub fn get_response_log_in(&mut self) -> (res : Option<Common::ResponseLog_Impl>)
+    pub fn get_response_log_in(&mut self) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log_in == self.response_log_in,
-        res == self.response_log_in,
-        old(self).response_log_out == self.response_log_out,
-        old(self).alert == self.alert,
+        old(self).request_log == final(self).request_log,
+        old(self).response_log_in == final(self).response_log_in,
+        res == final(self).response_log_in,
+        old(self).response_log_out == final(self).response_log_out,
+        old(self).alert_out == final(self).alert_out,
+        old(self).storage_alert_out == final(self).storage_alert_out,
     {
       self.api.unverified_get_response_log_in(&Ghost(self.response_log_in))
+    }/// The number of messages received on response_log_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_response_log_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_response_log_in_num_invalid()
     }
   }
 
@@ -116,7 +162,8 @@ verus! {
       request_log: None,
       response_log_in: None,
       response_log_out: None,
-      alert: None
+      alert_out: None,
+      storage_alert_out: None
     }
   }
 
@@ -133,7 +180,8 @@ verus! {
       request_log: None,
       response_log_in: None,
       response_log_out: None,
-      alert: None
+      alert_out: None,
+      storage_alert_out: None
     }
   }
 

@@ -6,12 +6,12 @@ void cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize(void);
 void cpuSw_wifiDriver_wifiDriver_wifiDriver_notify(microkit_channel channel);
 void cpuSw_wifiDriver_wifiDriver_wifiDriver_timeTriggered(void);
 
-volatile sb_queue_Common_AnalysisReport_Impl_1_t *analysis_report_queue_1;
-sb_queue_Common_AnalysisReport_Impl_1_Recv_t analysis_report_recv_queue;
-volatile sb_queue_uint8_t_1_t *alert_queue_1;
-sb_queue_uint8_t_1_Recv_t alert_recv_queue;
+volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *analysis_report_queue_1;
+sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t analysis_report_recv_queue;
+volatile sb_queue_uint8_t_1_t *alert_in_queue_1;
+sb_queue_uint8_t_1_Recv_t alert_in_recv_queue;
 volatile sb_queue_Common_OutgoingWifiMessage_Impl_1_t *wifiSend_queue_1;
-volatile sb_queue_Common_encryptedIncomingPayload_Impl_1_t *HMD_log_queue_1;
+volatile sb_queue_Common_EncryptedMessage_Impl_1_t *HMD_log_queue_1;
 volatile sb_queue_Common_AnalysisRequest_Impl_1_t *analysis_request_queue_1;
 volatile sb_queue_Common_IncomingWifiMessage_Impl_1_t *wifiRecv_queue_1;
 sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t wifiRecv_recv_queue;
@@ -19,31 +19,35 @@ sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t wifiRecv_recv_queue;
 #define PORT_FROM_MON 0
 
 bool analysis_report_is_empty(void) {
-  return sb_queue_Common_AnalysisReport_Impl_1_is_empty(&analysis_report_recv_queue);
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_is_empty(&analysis_report_recv_queue);
 }
 
-bool get_analysis_report_poll(sb_event_counter_t *numDropped, Common_AnalysisReport_Impl *data) {
-  return sb_queue_Common_AnalysisReport_Impl_1_dequeue((sb_queue_Common_AnalysisReport_Impl_1_Recv_t *) &analysis_report_recv_queue, numDropped, data);
+bool get_analysis_report_poll(sb_event_counter_t *numDropped, Common_OutgoingWifiMessage_Impl *data) {
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_dequeue((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &analysis_report_recv_queue, numDropped, data);
 }
 
-bool get_analysis_report(Common_AnalysisReport_Impl *data) {
+bool get_analysis_report(Common_OutgoingWifiMessage_Impl *data) {
   sb_event_counter_t numDropped;
   return get_analysis_report_poll (&numDropped, data);
 }
 
-bool alert_is_empty(void) {
-  return sb_queue_uint8_t_1_is_empty(&alert_recv_queue);
+uintmax_t get_analysis_report_num_invalid(void) {
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_numInvalid((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &analysis_report_recv_queue);
 }
 
-bool get_alert_poll(sb_event_counter_t *numDropped) {
+bool alert_in_is_empty(void) {
+  return sb_queue_uint8_t_1_is_empty(&alert_in_recv_queue);
+}
+
+bool get_alert_in_poll(sb_event_counter_t *numDropped) {
   uint8_t eventPortPayload;
   uint8_t *data = &eventPortPayload;
-  return sb_queue_uint8_t_1_dequeue((sb_queue_uint8_t_1_Recv_t *) &alert_recv_queue, numDropped, data);
+  return sb_queue_uint8_t_1_dequeue((sb_queue_uint8_t_1_Recv_t *) &alert_in_recv_queue, numDropped, data);
 }
 
-bool get_alert() {
+bool get_alert_in() {
   sb_event_counter_t numDropped;
-  return get_alert_poll (&numDropped);
+  return get_alert_in_poll (&numDropped);
 }
 
 bool put_wifiSend(const Common_OutgoingWifiMessage_Impl *data) {
@@ -52,8 +56,8 @@ bool put_wifiSend(const Common_OutgoingWifiMessage_Impl *data) {
   return true;
 }
 
-bool put_HMD_log(const Common_encryptedIncomingPayload_Impl *data) {
-  sb_queue_Common_encryptedIncomingPayload_Impl_1_enqueue((sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_queue_1, (Common_encryptedIncomingPayload_Impl *) data);
+bool put_HMD_log(const Common_EncryptedMessage_Impl *data) {
+  sb_queue_Common_EncryptedMessage_Impl_1_enqueue((sb_queue_Common_EncryptedMessage_Impl_1_t *) HMD_log_queue_1, (Common_EncryptedMessage_Impl *) data);
 
   return true;
 }
@@ -77,16 +81,20 @@ bool get_wifiRecv(Common_IncomingWifiMessage_Impl *data) {
   return get_wifiRecv_poll (&numDropped, data);
 }
 
+uintmax_t get_wifiRecv_num_invalid(void) {
+  return sb_queue_Common_IncomingWifiMessage_Impl_1_numInvalid((sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t *) &wifiRecv_recv_queue);
+}
+
 void init(void) {
   printf("%s | INIT!\n", microkit_name);
 
-  sb_queue_Common_AnalysisReport_Impl_1_Recv_init(&analysis_report_recv_queue, (sb_queue_Common_AnalysisReport_Impl_1_t *) analysis_report_queue_1);
+  sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_init(&analysis_report_recv_queue, (sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) analysis_report_queue_1);
 
-  sb_queue_uint8_t_1_Recv_init(&alert_recv_queue, (sb_queue_uint8_t_1_t *) alert_queue_1);
+  sb_queue_uint8_t_1_Recv_init(&alert_in_recv_queue, (sb_queue_uint8_t_1_t *) alert_in_queue_1);
 
   sb_queue_Common_OutgoingWifiMessage_Impl_1_init((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) wifiSend_queue_1);
 
-  sb_queue_Common_encryptedIncomingPayload_Impl_1_init((sb_queue_Common_encryptedIncomingPayload_Impl_1_t *) HMD_log_queue_1);
+  sb_queue_Common_EncryptedMessage_Impl_1_init((sb_queue_Common_EncryptedMessage_Impl_1_t *) HMD_log_queue_1);
 
   sb_queue_Common_AnalysisRequest_Impl_1_init((sb_queue_Common_AnalysisRequest_Impl_1_t *) analysis_request_queue_1);
 
@@ -101,6 +109,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_wifiDriver_wifiDriver_wifiDriver_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_wifiDriver_wifiDriver_wifiDriver_notify(channel);

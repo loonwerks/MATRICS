@@ -11,16 +11,19 @@ use std::sync::Mutex;
 
 #[cfg(not(test))]
 extern "C" {
-  fn get_request_log(value: *mut Common::Request_Impl) -> bool;
-  fn get_response_log_in(value: *mut Common::ResponseLog_Impl) -> bool;
-  fn put_response_log_out(value: *mut Common::ResponseLog_Impl) -> bool;
-  fn put_alert() -> bool;
+  fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn get_request_log_num_invalid() -> u64;
+  fn get_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn get_response_log_in_num_invalid() -> u64;
+  fn put_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn put_alert_out() -> bool;
+  fn put_storage_alert_out() -> bool;
 }
 
-pub fn unsafe_get_request_log() -> Option<Common::Request_Impl>
+pub fn unsafe_get_request_log() -> Option<Common::AnalysisRequest_Impl>
 {
   unsafe {
-    let value: *mut Common::Request_Impl = &mut Common::Request_Impl::default();
+    let value: *mut Common::AnalysisRequest_Impl = &mut Common::AnalysisRequest_Impl::default();
     if (get_request_log(value)) {
       return Some(*value);
     } else {
@@ -29,10 +32,17 @@ pub fn unsafe_get_request_log() -> Option<Common::Request_Impl>
   }
 }
 
-pub fn unsafe_get_response_log_in() -> Option<Common::ResponseLog_Impl>
+pub fn unsafe_get_request_log_num_invalid() -> u64
 {
   unsafe {
-    let value: *mut Common::ResponseLog_Impl = &mut Common::ResponseLog_Impl::default();
+    return get_request_log_num_invalid();
+  }
+}
+
+pub fn unsafe_get_response_log_in() -> Option<Common::AnalysisResponse_Impl>
+{
+  unsafe {
+    let value: *mut Common::AnalysisResponse_Impl = &mut Common::AnalysisResponse_Impl::default();
     if (get_response_log_in(value)) {
       return Some(*value);
     } else {
@@ -41,17 +51,31 @@ pub fn unsafe_get_response_log_in() -> Option<Common::ResponseLog_Impl>
   }
 }
 
-pub fn unsafe_put_response_log_out(value: &Common::ResponseLog_Impl) -> bool
+pub fn unsafe_get_response_log_in_num_invalid() -> u64
 {
   unsafe {
-    return put_response_log_out(value as *const Common::ResponseLog_Impl as *mut Common::ResponseLog_Impl);
+    return get_response_log_in_num_invalid();
   }
 }
 
-pub fn unsafe_put_alert() -> bool
+pub fn unsafe_put_response_log_out(value: &Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
-    return put_alert();
+    return put_response_log_out(value as *const Common::AnalysisResponse_Impl as *mut Common::AnalysisResponse_Impl);
+  }
+}
+
+pub fn unsafe_put_alert_out() -> bool
+{
+  unsafe {
+    return put_alert_out();
+  }
+}
+
+pub fn unsafe_put_storage_alert_out() -> bool
+{
+  unsafe {
+    return put_storage_alert_out();
   }
 }
 
@@ -64,10 +88,11 @@ lazy_static::lazy_static! {
   // simulate the global C variables that point to the microkit shared memory regions.  In a full
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
-  pub static ref IN_request_log: Mutex<Option<Common::Request_Impl>> = Mutex::new(None);
-  pub static ref IN_response_log_in: Mutex<Option<Common::ResponseLog_Impl>> = Mutex::new(None);
-  pub static ref OUT_response_log_out: Mutex<Option<Common::ResponseLog_Impl>> = Mutex::new(None);
-  pub static ref OUT_alert: Mutex<Option<u8>> = Mutex::new(None);
+  pub static ref IN_request_log: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
+  pub static ref IN_response_log_in: Mutex<Option<Common::AnalysisResponse_Impl>> = Mutex::new(None);
+  pub static ref OUT_response_log_out: Mutex<Option<Common::AnalysisResponse_Impl>> = Mutex::new(None);
+  pub static ref OUT_alert_out: Mutex<Option<u8>> = Mutex::new(None);
+  pub static ref OUT_storage_alert_out: Mutex<Option<u8>> = Mutex::new(None);
 }
 
 #[cfg(test)]
@@ -76,12 +101,13 @@ pub fn initialize_test_globals() {
     *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
-    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_storage_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
 #[cfg(test)]
-pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
+pub fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
     match *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) {
@@ -95,7 +121,13 @@ pub fn get_request_log(value: *mut Common::Request_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn get_response_log_in(value: *mut Common::ResponseLog_Impl) -> bool
+pub fn get_request_log_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn get_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
     match *IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) {
@@ -109,7 +141,13 @@ pub fn get_response_log_in(value: *mut Common::ResponseLog_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_response_log_out(value: *mut Common::ResponseLog_Impl) -> bool
+pub fn get_response_log_in_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn put_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
     *OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
@@ -118,10 +156,19 @@ pub fn put_response_log_out(value: *mut Common::ResponseLog_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_alert() -> bool
+pub fn put_alert_out() -> bool
 {
   unsafe {
-    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
+    *OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
+    return true;
+  }
+}
+
+#[cfg(test)]
+pub fn put_storage_alert_out() -> bool
+{
+  unsafe {
+    *OUT_storage_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
 }

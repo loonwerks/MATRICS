@@ -48,7 +48,7 @@ verus! {
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee Payload_Decrypted
         //   G: Outgoing payload is decrypted.
-        api.HMD_log_out.unwrap() != api.HMD_log_in.unwrap(),
+        final(api).HMD_log_in.is_some() ==> MATRICS_Model_Transformations::AES_128_GCM_DECRYPTS_LOG_spec(final(api).HMD_log_in.unwrap(), final(api).HMD_log_out.unwrap()),
         // END MARKER TIME TRIGGERED ENSURES
     {
           let encrypted_log = api.get_HMD_log_in();

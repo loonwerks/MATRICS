@@ -20,7 +20,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_HMD_log(
       &mut self,
-      value: Common::encryptedIncomingPayload_Impl)
+      value: Common::EncryptedMessage_Impl)
     {
       extern_api::unsafe_put_HMD_log(&value);
     }
@@ -46,9 +46,15 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_wifiRecv_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_wifiRecv_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_analysis_report(
       &mut self,
-      value: &Ghost<Option<Common::AnalysisReport_Impl>>) -> (res : Option<Common::AnalysisReport_Impl>)
+      value: &Ghost<Option<Common::OutgoingWifiMessage_Impl>>) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
       ensures
         res == value@,
     {
@@ -56,13 +62,19 @@ verus! {
     }
 
     #[verifier::external_body]
-    fn unverified_get_alert(
+    fn unverified_get_analysis_report_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_report_num_invalid();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_alert_in(
       &mut self,
       value: &Ghost<Option<u8>>) -> (res : bool)
       ensures
         res == value@.is_some(),
     {
-      return extern_api::unsafe_get_alert();
+      return extern_api::unsafe_get_alert_in();
     }
   }
 
@@ -72,11 +84,11 @@ verus! {
     pub api: API,
 
     pub ghost wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
-    pub ghost analysis_report: Option<Common::AnalysisReport_Impl>,
-    pub ghost alert: Option<u8>,
+    pub ghost analysis_report: Option<Common::OutgoingWifiMessage_Impl>,
+    pub ghost alert_in: Option<u8>,
     pub ghost wifiSend: Option<Common::OutgoingWifiMessage_Impl>,
-    pub ghost HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
-    pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>
+    pub ghost HMD_log: Option<Common::EncryptedMessage_Impl>,
+    pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>,
   }
 
   impl<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Put_Api> cpuSw_wifiDriver_wifiDriver_wifiDriver_Application_Api<API> {
@@ -84,82 +96,94 @@ verus! {
       &mut self,
       value: Common::OutgoingWifiMessage_Impl)
       ensures
-        old(self).wifiRecv == self.wifiRecv,
-        self.wifiSend == Some(value),
-        old(self).HMD_log == self.HMD_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        old(self).alert == self.alert,
+        old(self).wifiRecv == final(self).wifiRecv,
+        final(self).wifiSend == Some(value),
+        old(self).HMD_log == final(self).HMD_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).alert_in == final(self).alert_in,
     {
       self.api.unverified_put_wifiSend(value);
-      self.wifiSend = Some(value);
+      proof { self.wifiSend = Some(value); }
     }
     pub fn put_HMD_log(
       &mut self,
-      value: Common::encryptedIncomingPayload_Impl)
+      value: Common::EncryptedMessage_Impl)
       ensures
-        old(self).wifiRecv == self.wifiRecv,
-        old(self).wifiSend == self.wifiSend,
-        self.HMD_log == Some(value),
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        old(self).alert == self.alert,
+        old(self).wifiRecv == final(self).wifiRecv,
+        old(self).wifiSend == final(self).wifiSend,
+        final(self).HMD_log == Some(value),
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).alert_in == final(self).alert_in,
     {
       self.api.unverified_put_HMD_log(value);
-      self.HMD_log = Some(value);
+      proof { self.HMD_log = Some(value); }
     }
     pub fn put_analysis_request(
       &mut self,
       value: Common::AnalysisRequest_Impl)
       ensures
-        old(self).wifiRecv == self.wifiRecv,
-        old(self).wifiSend == self.wifiSend,
-        old(self).HMD_log == self.HMD_log,
-        old(self).analysis_report == self.analysis_report,
-        self.analysis_request == Some(value),
-        old(self).alert == self.alert,
+        old(self).wifiRecv == final(self).wifiRecv,
+        old(self).wifiSend == final(self).wifiSend,
+        old(self).HMD_log == final(self).HMD_log,
+        old(self).analysis_report == final(self).analysis_report,
+        final(self).analysis_request == Some(value),
+        old(self).alert_in == final(self).alert_in,
     {
       self.api.unverified_put_analysis_request(value);
-      self.analysis_request = Some(value);
+      proof { self.analysis_request = Some(value); }
     }
   }
 
   impl<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Get_Api> cpuSw_wifiDriver_wifiDriver_wifiDriver_Application_Api<API> {
     pub fn get_wifiRecv(&mut self) -> (res : Option<Common::IncomingWifiMessage_Impl>)
       ensures
-        old(self).wifiRecv == self.wifiRecv,
-        res == self.wifiRecv,
-        old(self).wifiSend == self.wifiSend,
-        old(self).HMD_log == self.HMD_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        old(self).alert == self.alert,
+        old(self).wifiRecv == final(self).wifiRecv,
+        res == final(self).wifiRecv,
+        old(self).wifiSend == final(self).wifiSend,
+        old(self).HMD_log == final(self).HMD_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).alert_in == final(self).alert_in,
     {
       self.api.unverified_get_wifiRecv(&Ghost(self.wifiRecv))
+    }/// The number of messages received on wifiRecv that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_wifiRecv_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_wifiRecv_num_invalid()
     }
-    pub fn get_analysis_report(&mut self) -> (res : Option<Common::AnalysisReport_Impl>)
+    pub fn get_analysis_report(&mut self) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
       ensures
-        old(self).wifiRecv == self.wifiRecv,
-        old(self).wifiSend == self.wifiSend,
-        old(self).HMD_log == self.HMD_log,
-        old(self).analysis_report == self.analysis_report,
-        res == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        old(self).alert == self.alert,
+        old(self).wifiRecv == final(self).wifiRecv,
+        old(self).wifiSend == final(self).wifiSend,
+        old(self).HMD_log == final(self).HMD_log,
+        old(self).analysis_report == final(self).analysis_report,
+        res == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).alert_in == final(self).alert_in,
     {
       self.api.unverified_get_analysis_report(&Ghost(self.analysis_report))
-    }
-    pub fn get_alert(&mut self) -> (res : bool)
-      ensures
-        old(self).wifiRecv == self.wifiRecv,
-        old(self).wifiSend == self.wifiSend,
-        old(self).HMD_log == self.HMD_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        old(self).alert == self.alert,
-        res == self.alert.is_some(),
+    }/// The number of messages received on analysis_report that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_report_num_invalid(&self) -> u64
     {
-      self.api.unverified_get_alert(&Ghost(self.alert))
+      self.api.unverified_get_analysis_report_num_invalid()
+    }
+    pub fn get_alert_in(&mut self) -> (res : bool)
+      ensures
+        old(self).wifiRecv == final(self).wifiRecv,
+        old(self).wifiSend == final(self).wifiSend,
+        old(self).HMD_log == final(self).HMD_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).alert_in == final(self).alert_in,
+        res == final(self).alert_in.is_some(),
+    {
+      self.api.unverified_get_alert_in(&Ghost(self.alert_in))
     }
   }
 
@@ -173,7 +197,7 @@ verus! {
 
       wifiRecv: None,
       analysis_report: None,
-      alert: None,
+      alert_in: None,
       wifiSend: None,
       HMD_log: None,
       analysis_request: None
@@ -192,7 +216,7 @@ verus! {
 
       wifiRecv: None,
       analysis_report: None,
-      alert: None,
+      alert_in: None,
       wifiSend: None,
       HMD_log: None,
       analysis_request: None

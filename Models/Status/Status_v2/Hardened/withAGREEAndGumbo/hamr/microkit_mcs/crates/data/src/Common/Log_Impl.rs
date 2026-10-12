@@ -9,20 +9,29 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct Log_Impl {
-    pub timestamp: u32,
-    pub userID: u32,
-    pub numSuspects: u32,
-    pub numSuspectsFlagged: u32,
-    pub yaw: i32,
-    pub pitch: i32,
-    pub roll: i32
+    pub timestamp: u64,
+    pub guardID: u32,
+    pub deviceID: u32,
+    pub hmdPosition: HMDPosition_Impl,
+    pub targetCount: u32,
+    pub targets: TargetObservationArray_Impl,
   }
 
   impl Default for Log_Impl {
     fn default() -> Self
     {
-      Self { timestamp: 0, userID: 0, numSuspects: 0, numSuspectsFlagged: 0, yaw: 0, pitch: 0, roll: 0 }
+      Self { timestamp: 0, guardID: 0, deviceID: 0, hmdPosition: Common::HMDPosition_Impl::default(), targetCount: 0, targets: [Common::TargetObservation_Impl::default(); Common::Common_TargetObservationArray_Impl_DIM_0] }
     }
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<Log_Impl>() == 352);
+const _: () = assert!(core::mem::align_of::<Log_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, timestamp) == 0);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, guardID) == 8);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, deviceID) == 12);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, hmdPosition) == 16);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, targetCount) == 44);
+const _: () = assert!(core::mem::offset_of!(Log_Impl, targets) == 48);

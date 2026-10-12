@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_btRecv();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_btRecv_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_btRecv_num_invalid();
+    }
   }
 
   pub trait cpuSw_btDriver_btDriver_Full_Api: cpuSw_btDriver_btDriver_Put_Api + cpuSw_btDriver_btDriver_Get_Api {}
@@ -36,7 +42,7 @@ verus! {
     pub api: API,
 
     pub ghost btRecv: Option<Common::DummyMessage_Impl>,
-    pub ghost btSend: Option<Common::DummyMessage_Impl>
+    pub ghost btSend: Option<Common::DummyMessage_Impl>,
   }
 
   impl<API: cpuSw_btDriver_btDriver_Put_Api> cpuSw_btDriver_btDriver_Application_Api<API> {
@@ -44,22 +50,28 @@ verus! {
       &mut self,
       value: Common::DummyMessage_Impl)
       ensures
-        old(self).btRecv == self.btRecv,
-        self.btSend == Some(value),
+        old(self).btRecv == final(self).btRecv,
+        final(self).btSend == Some(value),
     {
       self.api.unverified_put_btSend(value);
-      self.btSend = Some(value);
+      proof { self.btSend = Some(value); }
     }
   }
 
   impl<API: cpuSw_btDriver_btDriver_Get_Api> cpuSw_btDriver_btDriver_Application_Api<API> {
     pub fn get_btRecv(&mut self) -> (res : Option<Common::DummyMessage_Impl>)
       ensures
-        old(self).btRecv == self.btRecv,
-        res == self.btRecv,
-        old(self).btSend == self.btSend,
+        old(self).btRecv == final(self).btRecv,
+        res == final(self).btRecv,
+        old(self).btSend == final(self).btSend,
     {
       self.api.unverified_get_btRecv(&Ghost(self.btRecv))
+    }/// The number of messages received on btRecv that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_btRecv_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_btRecv_num_invalid()
     }
   }
 

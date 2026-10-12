@@ -23,6 +23,98 @@ pub fn option_strategy_bias
   ]
 }
 
+/// default proptest strategy for u8: any value of the type
+pub fn u8_strategy_default() -> impl Strategy<Value = u8>
+{
+  any::<u8>()
+}
+
+/// custom proptest strategy for u8 restricted to an inclusive range
+pub fn u8_strategy_cust(range: core::ops::RangeInclusive<u8>) -> impl Strategy<Value = u8>
+{
+  range
+}
+
+/// default proptest strategy for u32: any value of the type
+pub fn u32_strategy_default() -> impl Strategy<Value = u32>
+{
+  any::<u32>()
+}
+
+/// custom proptest strategy for u32 restricted to an inclusive range
+pub fn u32_strategy_cust(range: core::ops::RangeInclusive<u32>) -> impl Strategy<Value = u32>
+{
+  range
+}
+
+pub fn Common_AnalysisType_strategy_default() -> impl Strategy<Value = Common::AnalysisType>
+{
+  Common_AnalysisType_strategy_cust(1, 1, 1, 1, 1)
+}
+
+pub fn Common_AnalysisType_strategy_cust(
+  All_Records_bias: u32,
+  Threat_Only_bias: u32,
+  Safe_Only_bias: u32,
+  Unreviewed_Only_bias: u32,
+  Target_History_bias: u32) -> impl Strategy<Value = Common::AnalysisType>
+{
+  prop_oneof![
+    All_Records_bias => Just(Common::AnalysisType::All_Records),
+    Threat_Only_bias => Just(Common::AnalysisType::Threat_Only),
+    Safe_Only_bias => Just(Common::AnalysisType::Safe_Only),
+    Unreviewed_Only_bias => Just(Common::AnalysisType::Unreviewed_Only),
+    Target_History_bias => Just(Common::AnalysisType::Target_History)
+  ]
+}
+
+/// default proptest strategy for u64: any value of the type
+pub fn u64_strategy_default() -> impl Strategy<Value = u64>
+{
+  any::<u64>()
+}
+
+/// custom proptest strategy for u64 restricted to an inclusive range
+pub fn u64_strategy_cust(range: core::ops::RangeInclusive<u64>) -> impl Strategy<Value = u64>
+{
+  range
+}
+
+/// default proptest strategy for bool: any value of the type
+pub fn bool_strategy_default() -> impl Strategy<Value = bool>
+{
+  any::<bool>()
+}
+
+/// default proptest strategy for i32: any value of the type
+pub fn i32_strategy_default() -> impl Strategy<Value = i32>
+{
+  any::<i32>()
+}
+
+/// custom proptest strategy for i32 restricted to an inclusive range
+pub fn i32_strategy_cust(range: core::ops::RangeInclusive<i32>) -> impl Strategy<Value = i32>
+{
+  range
+}
+
+pub fn Common_TargetAssessment_strategy_default() -> impl Strategy<Value = Common::TargetAssessment>
+{
+  Common_TargetAssessment_strategy_cust(1, 1, 1)
+}
+
+pub fn Common_TargetAssessment_strategy_cust(
+  Unreviewed_bias: u32,
+  Safe_bias: u32,
+  Threat_bias: u32) -> impl Strategy<Value = Common::TargetAssessment>
+{
+  prop_oneof![
+    Unreviewed_bias => Just(Common::TargetAssessment::Unreviewed),
+    Safe_bias => Just(Common::TargetAssessment::Safe),
+    Threat_bias => Just(Common::TargetAssessment::Threat)
+  ]
+}
+
 pub fn Common_DummyMessage_Impl_strategy_default() -> impl Strategy<Value = Common::DummyMessage_Impl>
 {
   Common_DummyMessage_Impl_strategy_cust(any::<u8>())
@@ -37,30 +129,44 @@ pub fn Common_DummyMessage_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>>
   })
 }
 
-pub fn Common_OutgoingPayload_Impl_strategy_default() -> impl Strategy<Value = Common::OutgoingPayload_Impl>
+pub fn Common_Nonce_Impl_strategy_default() -> impl Strategy<Value = Common::Nonce_Impl>
 {
-  Common_OutgoingPayload_Impl_strategy_cust(any::<u8>())
+  Common_Nonce_Impl_strategy_cust(any::<u8>())
 }
 
-pub fn Common_OutgoingPayload_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::OutgoingPayload_Impl>
+pub fn Common_Nonce_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::Nonce_Impl>
 {
-  proptest::collection::vec(base_strategy, Common::Common_OutgoingPayload_Impl_DIM_0)
+  proptest::collection::vec(base_strategy, Common::Common_Nonce_Impl_DIM_0)
     .prop_map(|v| {
-      let boxed: Box<[u8; Common::Common_OutgoingPayload_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      let boxed: Box<[u8; Common::Common_Nonce_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
       *boxed
   })
 }
 
-pub fn Common_encryptedIncomingPayload_Impl_strategy_default() -> impl Strategy<Value = Common::encryptedIncomingPayload_Impl>
+pub fn Common_Ciphertext_Impl_strategy_default() -> impl Strategy<Value = Common::Ciphertext_Impl>
 {
-  Common_encryptedIncomingPayload_Impl_strategy_cust(any::<u8>())
+  Common_Ciphertext_Impl_strategy_cust(any::<u8>())
 }
 
-pub fn Common_encryptedIncomingPayload_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::encryptedIncomingPayload_Impl>
+pub fn Common_Ciphertext_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::Ciphertext_Impl>
 {
-  proptest::collection::vec(base_strategy, Common::Common_encryptedIncomingPayload_Impl_DIM_0)
+  proptest::collection::vec(base_strategy, Common::Common_Ciphertext_Impl_DIM_0)
     .prop_map(|v| {
-      let boxed: Box<[u8; Common::Common_encryptedIncomingPayload_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      let boxed: Box<[u8; Common::Common_Ciphertext_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
+pub fn Common_AuthenticationTag_Impl_strategy_default() -> impl Strategy<Value = Common::AuthenticationTag_Impl>
+{
+  Common_AuthenticationTag_Impl_strategy_cust(any::<u8>())
+}
+
+pub fn Common_AuthenticationTag_Impl_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_strategy: u8_strategy) -> impl Strategy<Value = Common::AuthenticationTag_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_AuthenticationTag_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[u8; Common::Common_AuthenticationTag_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
       *boxed
   })
 }
@@ -79,137 +185,115 @@ pub fn Common_MsgHeader_Impl_strategy_cust<client_u32_strategy: Strategy<Value =
   })
 }
 
-pub fn hamr_SchedState_strategy_default() -> impl Strategy<Value = hamr::SchedState>
+pub fn Common_Request_Impl_strategy_default() -> impl Strategy<Value = Common::Request_Impl>
 {
-  hamr_SchedState_strategy_cust(
+  Common_Request_Impl_strategy_cust(
+    Common_AnalysisType_strategy_default(),
     any::<u32>(),
-    any::<u32>(),
+    any::<u64>(),
+    any::<u64>(),
     any::<u32>()
   )
 }
 
-pub fn hamr_SchedState_strategy_cust
-  <last_yielded_ch_u32_strategy: Strategy<Value = u32>, 
-   next_dispatch_ch_u32_strategy: Strategy<Value = u32>, 
-   current_timeslice_u32_strategy: Strategy<Value = u32>> (
-  last_yielded_ch_strategy: last_yielded_ch_u32_strategy,
-  next_dispatch_ch_strategy: next_dispatch_ch_u32_strategy,
-  current_timeslice_strategy: current_timeslice_u32_strategy) -> impl Strategy<Value = hamr::SchedState>
-{
-  (last_yielded_ch_strategy, next_dispatch_ch_strategy, current_timeslice_strategy).prop_map(|(last_yielded_ch, next_dispatch_ch, current_timeslice)| {
-    hamr::SchedState { last_yielded_ch, next_dispatch_ch, current_timeslice }
-  })
-}
-
-pub fn hamr_ScheduleChannels_strategy_default() -> impl Strategy<Value = hamr::ScheduleChannels>
-{
-  hamr_ScheduleChannels_strategy_cust(any::<u32>())
-}
-
-pub fn hamr_ScheduleChannels_strategy_cust<u32_strategy: Strategy<Value = u32>> (base_strategy: u32_strategy) -> impl Strategy<Value = hamr::ScheduleChannels>
-{
-  proptest::collection::vec(base_strategy, hamr::hamr_ScheduleChannels_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[u32; hamr::hamr_ScheduleChannels_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
-  })
-}
-
-pub fn MATRICS_Model_Transformations_AllowList_Impl_strategy_default() -> impl Strategy<Value = MATRICS_Model_Transformations::AllowList_Impl>
-{
-  MATRICS_Model_Transformations_AllowList_Impl_strategy_cust(any::<u32>())
-}
-
-pub fn MATRICS_Model_Transformations_AllowList_Impl_strategy_cust<u32_strategy: Strategy<Value = u32>> (base_strategy: u32_strategy) -> impl Strategy<Value = MATRICS_Model_Transformations::AllowList_Impl>
-{
-  proptest::collection::vec(base_strategy, MATRICS_Model_Transformations::MATRICS_Model_Transformations_AllowList_Impl_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[u32; MATRICS_Model_Transformations::MATRICS_Model_Transformations_AllowList_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
-  })
-}
-
-pub fn Common_Log_Impl_strategy_default() -> impl Strategy<Value = Common::Log_Impl>
-{
-  Common_Log_Impl_strategy_cust(
-    any::<u32>(),
-    any::<u32>(),
-    any::<u32>(),
-    any::<u32>(),
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>()
-  )
-}
-
-pub fn Common_Log_Impl_strategy_cust
-  <timestamp_u32_strategy: Strategy<Value = u32>, 
-   userID_u32_strategy: Strategy<Value = u32>, 
-   numSuspects_u32_strategy: Strategy<Value = u32>, 
-   numSuspectsFlagged_u32_strategy: Strategy<Value = u32>, 
-   yaw_i32_strategy: Strategy<Value = i32>, 
-   pitch_i32_strategy: Strategy<Value = i32>, 
-   roll_i32_strategy: Strategy<Value = i32>> (
-  timestamp_strategy: timestamp_u32_strategy,
-  userID_strategy: userID_u32_strategy,
-  numSuspects_strategy: numSuspects_u32_strategy,
-  numSuspectsFlagged_strategy: numSuspectsFlagged_u32_strategy,
-  yaw_strategy: yaw_i32_strategy,
-  pitch_strategy: pitch_i32_strategy,
-  roll_strategy: roll_i32_strategy) -> impl Strategy<Value = Common::Log_Impl>
-{
-  (timestamp_strategy, userID_strategy, numSuspects_strategy, numSuspectsFlagged_strategy, yaw_strategy, pitch_strategy, roll_strategy).prop_map(|(timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll)| {
-    Common::Log_Impl { timestamp, userID, numSuspects, numSuspectsFlagged, yaw, pitch, roll }
-  })
-}
-
-pub fn Common_Request_Impl_strategy_default() -> impl Strategy<Value = Common::Request_Impl>
-{
-  Common_Request_Impl_strategy_cust(
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>(),
-    any::<i32>()
-  )
-}
-
 pub fn Common_Request_Impl_strategy_cust
-  <requestID_i32_strategy: Strategy<Value = i32>, 
-   analysisType_i32_strategy: Strategy<Value = i32>, 
-   userID_i32_strategy: Strategy<Value = i32>, 
-   startTime_i32_strategy: Strategy<Value = i32>, 
-   endTime_i32_strategy: Strategy<Value = i32>> (
-  requestID_strategy: requestID_i32_strategy,
-  analysisType_strategy: analysisType_i32_strategy,
-  userID_strategy: userID_i32_strategy,
-  startTime_strategy: startTime_i32_strategy,
-  endTime_strategy: endTime_i32_strategy) -> impl Strategy<Value = Common::Request_Impl>
+  <analysisType_Common_AnalysisType_strategy: Strategy<Value = Common::AnalysisType>, 
+   guardID_u32_strategy: Strategy<Value = u32>, 
+   startTime_u64_strategy: Strategy<Value = u64>, 
+   endTime_u64_strategy: Strategy<Value = u64>, 
+   targetID_u32_strategy: Strategy<Value = u32>> (
+  analysisType_strategy: analysisType_Common_AnalysisType_strategy,
+  guardID_strategy: guardID_u32_strategy,
+  startTime_strategy: startTime_u64_strategy,
+  endTime_strategy: endTime_u64_strategy,
+  targetID_strategy: targetID_u32_strategy) -> impl Strategy<Value = Common::Request_Impl>
 {
-  (requestID_strategy, analysisType_strategy, userID_strategy, startTime_strategy, endTime_strategy).prop_map(|(requestID, analysisType, userID, startTime, endTime)| {
-    Common::Request_Impl { requestID, analysisType, userID, startTime, endTime }
+  (analysisType_strategy, guardID_strategy, startTime_strategy, endTime_strategy, targetID_strategy).prop_map(|(analysisType, guardID, startTime, endTime, targetID)| {
+    Common::Request_Impl { analysisType, guardID, startTime, endTime, targetID }
   })
 }
 
-pub fn Common_ResponseHeader_Impl_strategy_default() -> impl Strategy<Value = Common::ResponseHeader_Impl>
+pub fn Common_LogFileMetadata_Impl_strategy_default() -> impl Strategy<Value = Common::LogFileMetadata_Impl>
 {
-  Common_ResponseHeader_Impl_strategy_cust(
+  Common_LogFileMetadata_Impl_strategy_cust(
+    any::<u32>(),
+    any::<u32>(),
+    any::<u64>()
+  )
+}
+
+pub fn Common_LogFileMetadata_Impl_strategy_cust
+  <guardID_u32_strategy: Strategy<Value = u32>, 
+   deviceID_u32_strategy: Strategy<Value = u32>, 
+   timestamp_u64_strategy: Strategy<Value = u64>> (
+  guardID_strategy: guardID_u32_strategy,
+  deviceID_strategy: deviceID_u32_strategy,
+  timestamp_strategy: timestamp_u64_strategy) -> impl Strategy<Value = Common::LogFileMetadata_Impl>
+{
+  (guardID_strategy, deviceID_strategy, timestamp_strategy).prop_map(|(guardID, deviceID, timestamp)| {
+    Common::LogFileMetadata_Impl { guardID, deviceID, timestamp }
+  })
+}
+
+pub fn Common_HMDPosition_Impl_strategy_default() -> impl Strategy<Value = Common::HMDPosition_Impl>
+{
+  Common_HMDPosition_Impl_strategy_cust(
+    any::<i32>(),
+    any::<i32>(),
+    any::<i32>(),
+    any::<i32>(),
     any::<i32>(),
     any::<i32>(),
     any::<i32>()
   )
 }
 
-pub fn Common_ResponseHeader_Impl_strategy_cust
-  <requestID_i32_strategy: Strategy<Value = i32>, 
-   sequenceNumber_i32_strategy: Strategy<Value = i32>, 
-   totalParts_i32_strategy: Strategy<Value = i32>> (
-  requestID_strategy: requestID_i32_strategy,
-  sequenceNumber_strategy: sequenceNumber_i32_strategy,
-  totalParts_strategy: totalParts_i32_strategy) -> impl Strategy<Value = Common::ResponseHeader_Impl>
+pub fn Common_HMDPosition_Impl_strategy_cust
+  <positionX_i32_strategy: Strategy<Value = i32>, 
+   positionY_i32_strategy: Strategy<Value = i32>, 
+   positionZ_i32_strategy: Strategy<Value = i32>, 
+   orientationX_i32_strategy: Strategy<Value = i32>, 
+   orientationY_i32_strategy: Strategy<Value = i32>, 
+   orientationZ_i32_strategy: Strategy<Value = i32>, 
+   orientationW_i32_strategy: Strategy<Value = i32>> (
+  positionX_strategy: positionX_i32_strategy,
+  positionY_strategy: positionY_i32_strategy,
+  positionZ_strategy: positionZ_i32_strategy,
+  orientationX_strategy: orientationX_i32_strategy,
+  orientationY_strategy: orientationY_i32_strategy,
+  orientationZ_strategy: orientationZ_i32_strategy,
+  orientationW_strategy: orientationW_i32_strategy) -> impl Strategy<Value = Common::HMDPosition_Impl>
 {
-  (requestID_strategy, sequenceNumber_strategy, totalParts_strategy).prop_map(|(requestID, sequenceNumber, totalParts)| {
-    Common::ResponseHeader_Impl { requestID, sequenceNumber, totalParts }
+  (positionX_strategy, positionY_strategy, positionZ_strategy, orientationX_strategy, orientationY_strategy, orientationZ_strategy, orientationW_strategy).prop_map(|(positionX, positionY, positionZ, orientationX, orientationY, orientationZ, orientationW)| {
+    Common::HMDPosition_Impl { positionX, positionY, positionZ, orientationX, orientationY, orientationZ, orientationW }
+  })
+}
+
+pub fn Common_TargetObservation_Impl_strategy_default() -> impl Strategy<Value = Common::TargetObservation_Impl>
+{
+  Common_TargetObservation_Impl_strategy_cust(
+    any::<u32>(),
+    any::<i32>(),
+    any::<i32>(),
+    any::<i32>(),
+    Common_TargetAssessment_strategy_default()
+  )
+}
+
+pub fn Common_TargetObservation_Impl_strategy_cust
+  <targetID_u32_strategy: Strategy<Value = u32>, 
+   locationX_i32_strategy: Strategy<Value = i32>, 
+   locationY_i32_strategy: Strategy<Value = i32>, 
+   locationZ_i32_strategy: Strategy<Value = i32>, 
+   assessment_Common_TargetAssessment_strategy: Strategy<Value = Common::TargetAssessment>> (
+  targetID_strategy: targetID_u32_strategy,
+  locationX_strategy: locationX_i32_strategy,
+  locationY_strategy: locationY_i32_strategy,
+  locationZ_strategy: locationZ_i32_strategy,
+  assessment_strategy: assessment_Common_TargetAssessment_strategy) -> impl Strategy<Value = Common::TargetObservation_Impl>
+{
+  (targetID_strategy, locationX_strategy, locationY_strategy, locationZ_strategy, assessment_strategy).prop_map(|(targetID, locationX, locationY, locationZ, assessment)| {
+    Common::TargetObservation_Impl { targetID, locationX, locationY, locationZ, assessment }
   })
 }
 
@@ -227,83 +311,25 @@ pub fn Common_shortText_strategy_cust<u8_strategy: Strategy<Value = u8>> (base_s
   })
 }
 
-pub fn hamr_ScheduleTimeslices_strategy_default() -> impl Strategy<Value = hamr::ScheduleTimeslices>
+pub fn Common_EncryptedMessage_Impl_strategy_default() -> impl Strategy<Value = Common::EncryptedMessage_Impl>
 {
-  hamr_ScheduleTimeslices_strategy_cust(any::<u64>())
-}
-
-pub fn hamr_ScheduleTimeslices_strategy_cust<u64_strategy: Strategy<Value = u64>> (base_strategy: u64_strategy) -> impl Strategy<Value = hamr::ScheduleTimeslices>
-{
-  proptest::collection::vec(base_strategy, hamr::hamr_ScheduleTimeslices_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[u64; hamr::hamr_ScheduleTimeslices_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
-  })
-}
-
-pub fn hamr_ScheduleUserPartitions_strategy_default() -> impl Strategy<Value = hamr::ScheduleUserPartitions>
-{
-  hamr_ScheduleUserPartitions_strategy_cust(any::<bool>())
-}
-
-pub fn hamr_ScheduleUserPartitions_strategy_cust<bool_strategy: Strategy<Value = bool>> (base_strategy: bool_strategy) -> impl Strategy<Value = hamr::ScheduleUserPartitions>
-{
-  proptest::collection::vec(base_strategy, hamr::hamr_ScheduleUserPartitions_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[bool; hamr::hamr_ScheduleUserPartitions_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
-  })
-}
-
-pub fn Common_AnalysisReport_Impl_strategy_default() -> impl Strategy<Value = Common::AnalysisReport_Impl>
-{
-  Common_AnalysisReport_Impl_strategy_cust(
-    Common_MsgHeader_Impl_strategy_default(),
-    Common_OutgoingPayload_Impl_strategy_default()
+  Common_EncryptedMessage_Impl_strategy_cust(
+    Common_Nonce_Impl_strategy_default(),
+    Common_Ciphertext_Impl_strategy_default(),
+    Common_AuthenticationTag_Impl_strategy_default()
   )
 }
 
-pub fn Common_AnalysisReport_Impl_strategy_cust
-  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
-   payload_Common_OutgoingPayload_Impl_strategy: Strategy<Value = Common::OutgoingPayload_Impl>> (
-  header_strategy: header_Common_MsgHeader_Impl_strategy,
-  payload_strategy: payload_Common_OutgoingPayload_Impl_strategy) -> impl Strategy<Value = Common::AnalysisReport_Impl>
+pub fn Common_EncryptedMessage_Impl_strategy_cust
+  <nonce_Common_Nonce_Impl_strategy: Strategy<Value = Common::Nonce_Impl>, 
+   ciphertext_Common_Ciphertext_Impl_strategy: Strategy<Value = Common::Ciphertext_Impl>, 
+   tag_Common_AuthenticationTag_Impl_strategy: Strategy<Value = Common::AuthenticationTag_Impl>> (
+  nonce_strategy: nonce_Common_Nonce_Impl_strategy,
+  ciphertext_strategy: ciphertext_Common_Ciphertext_Impl_strategy,
+  tag_strategy: tag_Common_AuthenticationTag_Impl_strategy) -> impl Strategy<Value = Common::EncryptedMessage_Impl>
 {
-  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
-    Common::AnalysisReport_Impl { header, payload }
-  })
-}
-
-pub fn Common_OutgoingWifiMessage_Impl_strategy_default() -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
-{
-  Common_OutgoingWifiMessage_Impl_strategy_cust(
-    Common_MsgHeader_Impl_strategy_default(),
-    Common_OutgoingPayload_Impl_strategy_default()
-  )
-}
-
-pub fn Common_OutgoingWifiMessage_Impl_strategy_cust
-  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
-   payload_Common_OutgoingPayload_Impl_strategy: Strategy<Value = Common::OutgoingPayload_Impl>> (
-  header_strategy: header_Common_MsgHeader_Impl_strategy,
-  payload_strategy: payload_Common_OutgoingPayload_Impl_strategy) -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
-{
-  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
-    Common::OutgoingWifiMessage_Impl { header, payload }
-  })
-}
-
-pub fn Common_LogArray_Impl_strategy_default() -> impl Strategy<Value = Common::LogArray_Impl>
-{
-  Common_LogArray_Impl_strategy_cust(Common_Log_Impl_strategy_default())
-}
-
-pub fn Common_LogArray_Impl_strategy_cust<Common_Log_Impl_strategy: Strategy<Value = Common::Log_Impl>> (base_strategy: Common_Log_Impl_strategy) -> impl Strategy<Value = Common::LogArray_Impl>
-{
-  proptest::collection::vec(base_strategy, Common::Common_LogArray_Impl_DIM_0)
-    .prop_map(|v| {
-      let boxed: Box<[Common::Log_Impl; Common::Common_LogArray_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
-      *boxed
+  (nonce_strategy, ciphertext_strategy, tag_strategy).prop_map(|(nonce, ciphertext, tag)| {
+    Common::EncryptedMessage_Impl { nonce, ciphertext, tag }
   })
 }
 
@@ -326,6 +352,20 @@ pub fn Common_AnalysisRequest_Impl_strategy_cust
   })
 }
 
+pub fn Common_TargetObservationArray_Impl_strategy_default() -> impl Strategy<Value = Common::TargetObservationArray_Impl>
+{
+  Common_TargetObservationArray_Impl_strategy_cust(Common_TargetObservation_Impl_strategy_default())
+}
+
+pub fn Common_TargetObservationArray_Impl_strategy_cust<Common_TargetObservation_Impl_strategy: Strategy<Value = Common::TargetObservation_Impl>> (base_strategy: Common_TargetObservation_Impl_strategy) -> impl Strategy<Value = Common::TargetObservationArray_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_TargetObservationArray_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[Common::TargetObservation_Impl; Common::Common_TargetObservationArray_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
 pub fn Common_IncomingWifiHeader_Impl_strategy_default() -> impl Strategy<Value = Common::IncomingWifiHeader_Impl>
 {
   Common_IncomingWifiHeader_Impl_strategy_cust(
@@ -345,47 +385,72 @@ pub fn Common_IncomingWifiHeader_Impl_strategy_cust
   })
 }
 
-pub fn hamr_Schedule_strategy_default() -> impl Strategy<Value = hamr::Schedule>
+pub fn Common_OutgoingWifiMessage_Impl_strategy_default() -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
 {
-  hamr_Schedule_strategy_cust(
-    hamr_ScheduleTimeslices_strategy_default(),
-    hamr_ScheduleChannels_strategy_default(),
-    hamr_ScheduleUserPartitions_strategy_default(),
-    any::<u32>()
+  Common_OutgoingWifiMessage_Impl_strategy_cust(
+    Common_MsgHeader_Impl_strategy_default(),
+    Common_EncryptedMessage_Impl_strategy_default()
   )
 }
 
-pub fn hamr_Schedule_strategy_cust
-  <timeslices_hamr_ScheduleTimeslices_strategy: Strategy<Value = hamr::ScheduleTimeslices>, 
-   timeslice_ch_hamr_ScheduleChannels_strategy: Strategy<Value = hamr::ScheduleChannels>, 
-   is_user_partition_hamr_ScheduleUserPartitions_strategy: Strategy<Value = hamr::ScheduleUserPartitions>, 
-   num_timeslices_u32_strategy: Strategy<Value = u32>> (
-  timeslices_strategy: timeslices_hamr_ScheduleTimeslices_strategy,
-  timeslice_ch_strategy: timeslice_ch_hamr_ScheduleChannels_strategy,
-  is_user_partition_strategy: is_user_partition_hamr_ScheduleUserPartitions_strategy,
-  num_timeslices_strategy: num_timeslices_u32_strategy) -> impl Strategy<Value = hamr::Schedule>
+pub fn Common_OutgoingWifiMessage_Impl_strategy_cust
+  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
+   payload_Common_EncryptedMessage_Impl_strategy: Strategy<Value = Common::EncryptedMessage_Impl>> (
+  header_strategy: header_Common_MsgHeader_Impl_strategy,
+  payload_strategy: payload_Common_EncryptedMessage_Impl_strategy) -> impl Strategy<Value = Common::OutgoingWifiMessage_Impl>
 {
-  (timeslices_strategy, timeslice_ch_strategy, is_user_partition_strategy, num_timeslices_strategy).prop_map(|(timeslices, timeslice_ch, is_user_partition, num_timeslices)| {
-    hamr::Schedule { timeslices, timeslice_ch, is_user_partition, num_timeslices }
+  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
+    Common::OutgoingWifiMessage_Impl { header, payload }
   })
 }
 
-pub fn Common_ResponseLog_Impl_strategy_default() -> impl Strategy<Value = Common::ResponseLog_Impl>
+pub fn Common_StoredLogFile_Impl_strategy_default() -> impl Strategy<Value = Common::StoredLogFile_Impl>
 {
-  Common_ResponseLog_Impl_strategy_cust(
-    Common_ResponseHeader_Impl_strategy_default(),
-    Common_LogArray_Impl_strategy_default()
+  Common_StoredLogFile_Impl_strategy_cust(
+    Common_LogFileMetadata_Impl_strategy_default(),
+    Common_EncryptedMessage_Impl_strategy_default()
   )
 }
 
-pub fn Common_ResponseLog_Impl_strategy_cust
-  <header_Common_ResponseHeader_Impl_strategy: Strategy<Value = Common::ResponseHeader_Impl>, 
-   payload_Common_LogArray_Impl_strategy: Strategy<Value = Common::LogArray_Impl>> (
-  header_strategy: header_Common_ResponseHeader_Impl_strategy,
-  payload_strategy: payload_Common_LogArray_Impl_strategy) -> impl Strategy<Value = Common::ResponseLog_Impl>
+pub fn Common_StoredLogFile_Impl_strategy_cust
+  <metadata_Common_LogFileMetadata_Impl_strategy: Strategy<Value = Common::LogFileMetadata_Impl>, 
+   encryptedLog_Common_EncryptedMessage_Impl_strategy: Strategy<Value = Common::EncryptedMessage_Impl>> (
+  metadata_strategy: metadata_Common_LogFileMetadata_Impl_strategy,
+  encryptedLog_strategy: encryptedLog_Common_EncryptedMessage_Impl_strategy) -> impl Strategy<Value = Common::StoredLogFile_Impl>
 {
-  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
-    Common::ResponseLog_Impl { header, payload }
+  (metadata_strategy, encryptedLog_strategy).prop_map(|(metadata, encryptedLog)| {
+    Common::StoredLogFile_Impl { metadata, encryptedLog }
+  })
+}
+
+pub fn Common_Log_Impl_strategy_default() -> impl Strategy<Value = Common::Log_Impl>
+{
+  Common_Log_Impl_strategy_cust(
+    any::<u64>(),
+    any::<u32>(),
+    any::<u32>(),
+    Common_HMDPosition_Impl_strategy_default(),
+    any::<u32>(),
+    Common_TargetObservationArray_Impl_strategy_default()
+  )
+}
+
+pub fn Common_Log_Impl_strategy_cust
+  <timestamp_u64_strategy: Strategy<Value = u64>, 
+   guardID_u32_strategy: Strategy<Value = u32>, 
+   deviceID_u32_strategy: Strategy<Value = u32>, 
+   hmdPosition_Common_HMDPosition_Impl_strategy: Strategy<Value = Common::HMDPosition_Impl>, 
+   targetCount_u32_strategy: Strategy<Value = u32>, 
+   targets_Common_TargetObservationArray_Impl_strategy: Strategy<Value = Common::TargetObservationArray_Impl>> (
+  timestamp_strategy: timestamp_u64_strategy,
+  guardID_strategy: guardID_u32_strategy,
+  deviceID_strategy: deviceID_u32_strategy,
+  hmdPosition_strategy: hmdPosition_Common_HMDPosition_Impl_strategy,
+  targetCount_strategy: targetCount_u32_strategy,
+  targets_strategy: targets_Common_TargetObservationArray_Impl_strategy) -> impl Strategy<Value = Common::Log_Impl>
+{
+  (timestamp_strategy, guardID_strategy, deviceID_strategy, hmdPosition_strategy, targetCount_strategy, targets_strategy).prop_map(|(timestamp, guardID, deviceID, hmdPosition, targetCount, targets)| {
+    Common::Log_Impl { timestamp, guardID, deviceID, hmdPosition, targetCount, targets }
   })
 }
 
@@ -393,17 +458,153 @@ pub fn Common_IncomingWifiMessage_Impl_strategy_default() -> impl Strategy<Value
 {
   Common_IncomingWifiMessage_Impl_strategy_cust(
     Common_IncomingWifiHeader_Impl_strategy_default(),
-    Common_encryptedIncomingPayload_Impl_strategy_default()
+    Common_EncryptedMessage_Impl_strategy_default()
   )
 }
 
 pub fn Common_IncomingWifiMessage_Impl_strategy_cust
   <header_Common_IncomingWifiHeader_Impl_strategy: Strategy<Value = Common::IncomingWifiHeader_Impl>, 
-   payload_Common_encryptedIncomingPayload_Impl_strategy: Strategy<Value = Common::encryptedIncomingPayload_Impl>> (
+   payload_Common_EncryptedMessage_Impl_strategy: Strategy<Value = Common::EncryptedMessage_Impl>> (
   header_strategy: header_Common_IncomingWifiHeader_Impl_strategy,
-  payload_strategy: payload_Common_encryptedIncomingPayload_Impl_strategy) -> impl Strategy<Value = Common::IncomingWifiMessage_Impl>
+  payload_strategy: payload_Common_EncryptedMessage_Impl_strategy) -> impl Strategy<Value = Common::IncomingWifiMessage_Impl>
 {
   (header_strategy, payload_strategy).prop_map(|(header, payload)| {
     Common::IncomingWifiMessage_Impl { header, payload }
+  })
+}
+
+pub fn Common_EncryptedResponseLog_Impl_strategy_default() -> impl Strategy<Value = Common::EncryptedResponseLog_Impl>
+{
+  Common_EncryptedResponseLog_Impl_strategy_cust(Common_StoredLogFile_Impl_strategy_default())
+}
+
+pub fn Common_EncryptedResponseLog_Impl_strategy_cust<Common_StoredLogFile_Impl_strategy: Strategy<Value = Common::StoredLogFile_Impl>> (base_strategy: Common_StoredLogFile_Impl_strategy) -> impl Strategy<Value = Common::EncryptedResponseLog_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_EncryptedResponseLog_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[Common::StoredLogFile_Impl; Common::Common_EncryptedResponseLog_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
+pub fn Common_EncryptedLogArray_Impl_strategy_default() -> impl Strategy<Value = Common::EncryptedLogArray_Impl>
+{
+  Common_EncryptedLogArray_Impl_strategy_cust(Common_StoredLogFile_Impl_strategy_default())
+}
+
+pub fn Common_EncryptedLogArray_Impl_strategy_cust<Common_StoredLogFile_Impl_strategy: Strategy<Value = Common::StoredLogFile_Impl>> (base_strategy: Common_StoredLogFile_Impl_strategy) -> impl Strategy<Value = Common::EncryptedLogArray_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_EncryptedLogArray_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[Common::StoredLogFile_Impl; Common::Common_EncryptedLogArray_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
+pub fn Common_ResponseLog_Impl_strategy_default() -> impl Strategy<Value = Common::ResponseLog_Impl>
+{
+  Common_ResponseLog_Impl_strategy_cust(Common_Log_Impl_strategy_default())
+}
+
+pub fn Common_ResponseLog_Impl_strategy_cust<Common_Log_Impl_strategy: Strategy<Value = Common::Log_Impl>> (base_strategy: Common_Log_Impl_strategy) -> impl Strategy<Value = Common::ResponseLog_Impl>
+{
+  proptest::collection::vec(base_strategy, Common::Common_ResponseLog_Impl_DIM_0)
+    .prop_map(|v| {
+      let boxed: Box<[Common::Log_Impl; Common::Common_ResponseLog_Impl_DIM_0]> = v.into_boxed_slice().try_into().unwrap();
+      *boxed
+  })
+}
+
+pub fn Common_EncryptedResponse_Impl_strategy_default() -> impl Strategy<Value = Common::EncryptedResponse_Impl>
+{
+  Common_EncryptedResponse_Impl_strategy_cust(
+    Common_Request_Impl_strategy_default(),
+    any::<u32>(),
+    any::<bool>(),
+    any::<u64>(),
+    Common_EncryptedResponseLog_Impl_strategy_default()
+  )
+}
+
+pub fn Common_EncryptedResponse_Impl_strategy_cust
+  <request_Common_Request_Impl_strategy: Strategy<Value = Common::Request_Impl>, 
+   validLogCount_u32_strategy: Strategy<Value = u32>, 
+   moreAvailable_bool_strategy: Strategy<Value = bool>, 
+   nextStartTime_u64_strategy: Strategy<Value = u64>, 
+   logs_Common_EncryptedResponseLog_Impl_strategy: Strategy<Value = Common::EncryptedResponseLog_Impl>> (
+  request_strategy: request_Common_Request_Impl_strategy,
+  validLogCount_strategy: validLogCount_u32_strategy,
+  moreAvailable_strategy: moreAvailable_bool_strategy,
+  nextStartTime_strategy: nextStartTime_u64_strategy,
+  logs_strategy: logs_Common_EncryptedResponseLog_Impl_strategy) -> impl Strategy<Value = Common::EncryptedResponse_Impl>
+{
+  (request_strategy, validLogCount_strategy, moreAvailable_strategy, nextStartTime_strategy, logs_strategy).prop_map(|(request, validLogCount, moreAvailable, nextStartTime, logs)| {
+    Common::EncryptedResponse_Impl { request, validLogCount, moreAvailable, nextStartTime, logs }
+  })
+}
+
+pub fn Common_Response_Impl_strategy_default() -> impl Strategy<Value = Common::Response_Impl>
+{
+  Common_Response_Impl_strategy_cust(
+    Common_Request_Impl_strategy_default(),
+    any::<u32>(),
+    any::<bool>(),
+    any::<u64>(),
+    Common_ResponseLog_Impl_strategy_default()
+  )
+}
+
+pub fn Common_Response_Impl_strategy_cust
+  <request_Common_Request_Impl_strategy: Strategy<Value = Common::Request_Impl>, 
+   validLogCount_u32_strategy: Strategy<Value = u32>, 
+   moreAvailable_bool_strategy: Strategy<Value = bool>, 
+   nextStartTime_u64_strategy: Strategy<Value = u64>, 
+   logs_Common_ResponseLog_Impl_strategy: Strategy<Value = Common::ResponseLog_Impl>> (
+  request_strategy: request_Common_Request_Impl_strategy,
+  validLogCount_strategy: validLogCount_u32_strategy,
+  moreAvailable_strategy: moreAvailable_bool_strategy,
+  nextStartTime_strategy: nextStartTime_u64_strategy,
+  logs_strategy: logs_Common_ResponseLog_Impl_strategy) -> impl Strategy<Value = Common::Response_Impl>
+{
+  (request_strategy, validLogCount_strategy, moreAvailable_strategy, nextStartTime_strategy, logs_strategy).prop_map(|(request, validLogCount, moreAvailable, nextStartTime, logs)| {
+    Common::Response_Impl { request, validLogCount, moreAvailable, nextStartTime, logs }
+  })
+}
+
+pub fn Common_EncryptedAnalysisResponse_Impl_strategy_default() -> impl Strategy<Value = Common::EncryptedAnalysisResponse_Impl>
+{
+  Common_EncryptedAnalysisResponse_Impl_strategy_cust(
+    Common_MsgHeader_Impl_strategy_default(),
+    Common_EncryptedResponse_Impl_strategy_default()
+  )
+}
+
+pub fn Common_EncryptedAnalysisResponse_Impl_strategy_cust
+  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
+   payload_Common_EncryptedResponse_Impl_strategy: Strategy<Value = Common::EncryptedResponse_Impl>> (
+  header_strategy: header_Common_MsgHeader_Impl_strategy,
+  payload_strategy: payload_Common_EncryptedResponse_Impl_strategy) -> impl Strategy<Value = Common::EncryptedAnalysisResponse_Impl>
+{
+  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
+    Common::EncryptedAnalysisResponse_Impl { header, payload }
+  })
+}
+
+pub fn Common_AnalysisResponse_Impl_strategy_default() -> impl Strategy<Value = Common::AnalysisResponse_Impl>
+{
+  Common_AnalysisResponse_Impl_strategy_cust(
+    Common_MsgHeader_Impl_strategy_default(),
+    Common_Response_Impl_strategy_default()
+  )
+}
+
+pub fn Common_AnalysisResponse_Impl_strategy_cust
+  <header_Common_MsgHeader_Impl_strategy: Strategy<Value = Common::MsgHeader_Impl>, 
+   payload_Common_Response_Impl_strategy: Strategy<Value = Common::Response_Impl>> (
+  header_strategy: header_Common_MsgHeader_Impl_strategy,
+  payload_strategy: payload_Common_Response_Impl_strategy) -> impl Strategy<Value = Common::AnalysisResponse_Impl>
+{
+  (header_strategy, payload_strategy).prop_map(|(header, payload)| {
+    Common::AnalysisResponse_Impl { header, payload }
   })
 }

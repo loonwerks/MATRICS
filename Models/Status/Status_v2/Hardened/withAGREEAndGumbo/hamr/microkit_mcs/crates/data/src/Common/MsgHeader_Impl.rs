@@ -9,7 +9,7 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct MsgHeader_Impl {
-    pub client: u32
+    pub client: u32,
   }
 
   impl Default for MsgHeader_Impl {
@@ -20,3 +20,8 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<MsgHeader_Impl>() == 4);
+const _: () = assert!(core::mem::align_of::<MsgHeader_Impl>() == 4);
+const _: () = assert!(core::mem::offset_of!(MsgHeader_Impl, client) == 0);

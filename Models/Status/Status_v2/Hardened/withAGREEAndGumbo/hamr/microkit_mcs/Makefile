@@ -22,7 +22,7 @@ export MICROKIT_CONFIG ?= debug
 export CPU = cortex-a53
 export QEMU = qemu-system-aarch64
 
-export AR := ar
+export AR := llvm-ar
 export CC := clang
 export DTC := dtc
 export LD := ld.lld
@@ -60,8 +60,6 @@ check_microkit:
 
 ${IMAGE_FILE}: check_microkit ${TOP_BUILD_DIR}/Makefile FORCE
 	${MAKE} -C ${TOP_BUILD_DIR} $(notdir $@)
-	
-release: ${IMAGE_FILE}
 
 qemu ${REPORT_FILE}: $(IMAGE_FILE)
 	${MAKE} -C ${TOP_BUILD_DIR} $(notdir $@)

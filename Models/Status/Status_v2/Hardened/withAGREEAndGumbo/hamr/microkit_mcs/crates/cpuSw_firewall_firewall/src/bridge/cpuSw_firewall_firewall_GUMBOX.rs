@@ -14,18 +14,6 @@ macro_rules! impliesL {
   };
 }
 
-pub fn ALLOW_LIST() -> MATRICS_Model_Transformations::AllowList_Impl
-{
-  [1u32, 2u32, 3u32, 4u32]
-}
-
-pub fn FOUND_IN_ALLOW_LIST(
-  allow_list: MATRICS_Model_Transformations::AllowList_Impl,
-  src: u32) -> bool
-{
-  (0..allow_list.len()).any(|i| allow_list[i] == src)
-}
-
 /** Compute Entrypoint Contract
   *
   * guarantee Forward_Request
@@ -37,8 +25,8 @@ pub fn compute_spec_Forward_Request_guarantee(
   api_analysis_request_in: Option<Common::AnalysisRequest_Impl>,
   api_analysis_request_out: Option<Common::AnalysisRequest_Impl>) -> bool
 {
-  if (api_analysis_request_in.is_some() & FOUND_IN_ALLOW_LIST(ALLOW_LIST(), api_analysis_request_in.unwrap().header.client)) {
-    api_analysis_request_out.is_some() &
+  if (api_analysis_request_in.is_some() && MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(api_analysis_request_in.unwrap().header.client)) {
+    api_analysis_request_out.is_some() &&
       (api_analysis_request_out.unwrap() == api_analysis_request_in.unwrap())
   } else {
     api_analysis_request_out.is_none()

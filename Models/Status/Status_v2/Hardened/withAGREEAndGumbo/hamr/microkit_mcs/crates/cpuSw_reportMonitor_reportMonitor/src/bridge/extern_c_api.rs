@@ -12,9 +12,11 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
-  fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool;
-  fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool;
-  fn put_alert() -> bool;
+  fn get_analysis_request_num_invalid() -> u64;
+  fn get_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn get_analysis_report_in_num_invalid() -> u64;
+  fn put_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn put_alert_out() -> bool;
 }
 
 pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
@@ -29,10 +31,17 @@ pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
   }
 }
 
-pub fn unsafe_get_analysis_report_in() -> Option<Common::AnalysisReport_Impl>
+pub fn unsafe_get_analysis_request_num_invalid() -> u64
 {
   unsafe {
-    let value: *mut Common::AnalysisReport_Impl = &mut Common::AnalysisReport_Impl::default();
+    return get_analysis_request_num_invalid();
+  }
+}
+
+pub fn unsafe_get_analysis_report_in() -> Option<Common::OutgoingWifiMessage_Impl>
+{
+  unsafe {
+    let value: *mut Common::OutgoingWifiMessage_Impl = &mut Common::OutgoingWifiMessage_Impl::default();
     if (get_analysis_report_in(value)) {
       return Some(*value);
     } else {
@@ -41,17 +50,24 @@ pub fn unsafe_get_analysis_report_in() -> Option<Common::AnalysisReport_Impl>
   }
 }
 
-pub fn unsafe_put_analysis_report_out(value: &Common::AnalysisReport_Impl) -> bool
+pub fn unsafe_get_analysis_report_in_num_invalid() -> u64
 {
   unsafe {
-    return put_analysis_report_out(value as *const Common::AnalysisReport_Impl as *mut Common::AnalysisReport_Impl);
+    return get_analysis_report_in_num_invalid();
   }
 }
 
-pub fn unsafe_put_alert() -> bool
+pub fn unsafe_put_analysis_report_out(value: &Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
-    return put_alert();
+    return put_analysis_report_out(value as *const Common::OutgoingWifiMessage_Impl as *mut Common::OutgoingWifiMessage_Impl);
+  }
+}
+
+pub fn unsafe_put_alert_out() -> bool
+{
+  unsafe {
+    return put_alert_out();
   }
 }
 
@@ -65,9 +81,9 @@ lazy_static::lazy_static! {
   // microkit system we would be able to mutate the shared memory for out ports since they're r/w,
   // but we couldn't do that for in ports since they are read-only
   pub static ref IN_analysis_request: Mutex<Option<Common::AnalysisRequest_Impl>> = Mutex::new(None);
-  pub static ref IN_analysis_report_in: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
-  pub static ref OUT_analysis_report_out: Mutex<Option<Common::AnalysisReport_Impl>> = Mutex::new(None);
-  pub static ref OUT_alert: Mutex<Option<u8>> = Mutex::new(None);
+  pub static ref IN_analysis_report_in: Mutex<Option<Common::OutgoingWifiMessage_Impl>> = Mutex::new(None);
+  pub static ref OUT_analysis_report_out: Mutex<Option<Common::OutgoingWifiMessage_Impl>> = Mutex::new(None);
+  pub static ref OUT_alert_out: Mutex<Option<u8>> = Mutex::new(None);
 }
 
 #[cfg(test)]
@@ -76,7 +92,7 @@ pub fn initialize_test_globals() {
     *IN_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) = None;
     *OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
-    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    *OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = None;
   }
 }
 
@@ -95,7 +111,13 @@ pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool
+pub fn get_analysis_request_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn get_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
     match *IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) {
@@ -109,7 +131,13 @@ pub fn get_analysis_report_in(value: *mut Common::AnalysisReport_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool
+pub fn get_analysis_report_in_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
+pub fn put_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
     *OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(*value);
@@ -118,10 +146,10 @@ pub fn put_analysis_report_out(value: *mut Common::AnalysisReport_Impl) -> bool
 }
 
 #[cfg(test)]
-pub fn put_alert() -> bool
+pub fn put_alert_out() -> bool
 {
   unsafe {
-    *OUT_alert.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
+    *OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
 }

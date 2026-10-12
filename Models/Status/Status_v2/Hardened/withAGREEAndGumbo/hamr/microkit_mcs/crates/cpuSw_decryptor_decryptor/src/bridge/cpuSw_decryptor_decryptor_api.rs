@@ -22,11 +22,17 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_HMD_log_in(
       &mut self,
-      value: &Ghost<Option<Common::encryptedIncomingPayload_Impl>>) -> (res : Option<Common::encryptedIncomingPayload_Impl>)
+      value: &Ghost<Option<Common::EncryptedMessage_Impl>>) -> (res : Option<Common::EncryptedMessage_Impl>)
       ensures
         res == value@,
     {
       return extern_api::unsafe_get_HMD_log_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_HMD_log_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_HMD_log_in_num_invalid();
     }
   }
 
@@ -35,8 +41,8 @@ verus! {
   pub struct cpuSw_decryptor_decryptor_Application_Api<API: cpuSw_decryptor_decryptor_Api> {
     pub api: API,
 
-    pub ghost HMD_log_in: Option<Common::encryptedIncomingPayload_Impl>,
-    pub ghost HMD_log_out: Option<Common::Log_Impl>
+    pub ghost HMD_log_in: Option<Common::EncryptedMessage_Impl>,
+    pub ghost HMD_log_out: Option<Common::Log_Impl>,
   }
 
   impl<API: cpuSw_decryptor_decryptor_Put_Api> cpuSw_decryptor_decryptor_Application_Api<API> {
@@ -44,22 +50,28 @@ verus! {
       &mut self,
       value: Common::Log_Impl)
       ensures
-        old(self).HMD_log_in == self.HMD_log_in,
-        self.HMD_log_out == Some(value),
+        old(self).HMD_log_in == final(self).HMD_log_in,
+        final(self).HMD_log_out == Some(value),
     {
       self.api.unverified_put_HMD_log_out(value);
-      self.HMD_log_out = Some(value);
+      proof { self.HMD_log_out = Some(value); }
     }
   }
 
   impl<API: cpuSw_decryptor_decryptor_Get_Api> cpuSw_decryptor_decryptor_Application_Api<API> {
-    pub fn get_HMD_log_in(&mut self) -> (res : Option<Common::encryptedIncomingPayload_Impl>)
+    pub fn get_HMD_log_in(&mut self) -> (res : Option<Common::EncryptedMessage_Impl>)
       ensures
-        old(self).HMD_log_in == self.HMD_log_in,
-        res == self.HMD_log_in,
-        old(self).HMD_log_out == self.HMD_log_out,
+        old(self).HMD_log_in == final(self).HMD_log_in,
+        res == final(self).HMD_log_in,
+        old(self).HMD_log_out == final(self).HMD_log_out,
     {
       self.api.unverified_get_HMD_log_in(&Ghost(self.HMD_log_in))
+    }/// The number of messages received on HMD_log_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_HMD_log_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_HMD_log_in_num_invalid()
     }
   }
 

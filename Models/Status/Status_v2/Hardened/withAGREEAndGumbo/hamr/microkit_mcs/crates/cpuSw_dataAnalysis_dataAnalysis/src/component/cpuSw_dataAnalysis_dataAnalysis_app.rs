@@ -31,7 +31,15 @@ verus! {
       &mut self,
       api: &mut cpuSw_dataAnalysis_dataAnalysis_Application_Api<API>)
       requires
-        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
+        // BEGIN MARKER TIME TRIGGERED REQUIRES
+        // assume AADL_Requirement
+        //   All outgoing event ports must be empty
+        old(api).request_log.is_none(),
+        old(api).analysis_report.is_none(),
+        // assume Trusted_Request
+        //   A: Requests received are from a trusted source.
+        old(api).analysis_request.is_some() ==> MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST_spec(old(api).analysis_request.unwrap().header.client),
+        // END MARKER TIME TRIGGERED REQUIRES
       ensures
         // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
     {

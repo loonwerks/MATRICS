@@ -26,11 +26,11 @@ pub fn testInitializeCB() -> HarnessResult
   let is_invalid2 = get_is_invalid2();
   let is_valid1 = get_is_valid1();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::initialize_IEP_Post (counter, is_invalid2, is_valid1, since_result, api_alert, api_analysis_report_out) {
+  if !GUMBOX::initialize_IEP_Post (counter, is_invalid2, is_valid1, since_result, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(
       TestCaseError::Fail("Postcondition failed: incorrect output behavior".into())
     );
@@ -71,7 +71,7 @@ testInitializeCB_macro {
   * @param api_analysis_request incoming event data port
   */
 pub fn testComputeCB(
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> HarnessResult
 {
   // Initialize the app
@@ -96,11 +96,11 @@ pub fn testComputeCB(
   let is_invalid2 = get_is_invalid2();
   let is_valid1 = get_is_valid1();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert, api_analysis_report_out) {
+  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -161,7 +161,7 @@ pub fn testComputeCBwGSV(
   In_is_invalid2: bool,
   In_is_valid1: bool,
   In_since_result: bool,
-  api_analysis_report_in: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> HarnessResult
 {
   // Initialize the app
@@ -185,11 +185,11 @@ pub fn testComputeCBwGSV(
   let is_invalid2 = get_is_invalid2();
   let is_valid1 = get_is_valid1();
   let since_result = get_since_result();
-  let api_alert = get_alert();
+  let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert, api_analysis_report_out) {
+  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 

@@ -32,9 +32,9 @@ verus! {
       ensures
         // BEGIN MARKER INITIALIZATION ENSURES
         // guarantee defaultSince
-        self.since_result == false,
-        // guarantee defaultIsValid
-        self.historically_no_alert_cmd == true,
+        final(self).since_result == false,
+        // guarantee defaultHistorically
+        final(self).historically_no_alert_cmd == true,
         // END MARKER INITIALIZATION ENSURES
     {
       log_info("initialize entrypoint invoked");
@@ -48,36 +48,39 @@ verus! {
         // assume AADL_Requirement
         //   All outgoing event ports must be empty
         old(api).response_log_out.is_none(),
-        old(api).alert.is_none(),
+        old(api).alert_out.is_none(),
+        old(api).storage_alert_out.is_none(),
         // END MARKER TIME TRIGGERED REQUIRES
       ensures
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee is_valid_variable
         //   G: is_valid set correctly
-        if (api.request_log.is_some() && api.response_log_in.is_some()) {
-          self.is_valid == true
-        } else {
-          api.response_log_in.is_some() ==> old(self).since_result
-        },
+        final(self).is_valid ==
+          (if (final(api).request_log.is_some() && final(api).response_log_in.is_some()) {
+            true
+          } else {
+            final(api).response_log_in.is_some() ==> old(self).since_result
+          }),
         // guarantee since_result_variable
         //   G: since_result is equivalent to (not response_log_in event) Since (request_log event)
-        self.since_result == PastTimeLTL::Since_spec(!(api.response_log_in.is_some()), api.request_log.is_some(), old(self).since_result),
-        // guarantee Alert
+        final(self).since_result == GUMBO_PLTL::AGREE_Since_spec(!(final(api).response_log_in.is_some()), final(api).request_log.is_some(), old(self).since_result),
+        // guarantee historically_no_alert_cmd_variable
+        //   G: historically_no_alert_cmd is true if and only if no alert has been sent.
+        final(self).historically_no_alert_cmd == (old(self).historically_no_alert_cmd && !(final(api).alert_out.is_some())),
+        // guarantee Send_Alert
         //   G: Send an alert if more than one response is received without a request.
-        if (api.response_log_in.is_some() && !self.is_valid) {
-          api.alert.is_some() &&
-            (self.historically_no_alert_cmd == false)
+        if (final(api).response_log_in.is_some() && !final(self).is_valid) {
+          final(api).alert_out.is_some() && final(api).storage_alert_out.is_some()
         } else {
-          api.alert.is_none() &&
-            (old(self).historically_no_alert_cmd == self.historically_no_alert_cmd)
+          final(api).alert_out.is_none() && final(api).storage_alert_out.is_none()
         },
         // guarantee Forward_Response
         //   G: Only forward a response if a valid request has been made.
-        if (api.response_log_in.is_some() && self.historically_no_alert_cmd) {
-          api.response_log_out.is_some() &&
-            (api.response_log_out.unwrap() == api.response_log_in.unwrap())
+        if (final(api).response_log_in.is_some() && final(self).historically_no_alert_cmd) {
+          final(api).response_log_out.is_some() &&
+            (final(api).response_log_out.unwrap() == final(api).response_log_in.unwrap())
         } else {
-          api.response_log_out.is_none()
+          final(api).response_log_out.is_none()
         },
         // END MARKER TIME TRIGGERED ENSURES
     {

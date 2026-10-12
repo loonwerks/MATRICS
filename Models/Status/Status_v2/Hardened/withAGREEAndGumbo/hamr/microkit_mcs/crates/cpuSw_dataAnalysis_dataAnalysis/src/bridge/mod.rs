@@ -2,3 +2,4 @@
 
 pub mod extern_c_api;
 pub mod cpuSw_dataAnalysis_dataAnalysis_api;
+pub mod cpuSw_dataAnalysis_dataAnalysis_GUMBOX;

@@ -33,7 +33,7 @@ pub fn initialize_defaultAlert(alert_cmd: bool) -> bool
   */
 pub fn initialize_IEP_Guar(
   alert_cmd: bool,
-  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
+  api_HMD_log: Option<Common::EncryptedMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
@@ -49,7 +49,7 @@ pub fn initialize_IEP_Guar(
   */
 pub fn initialize_IEP_Post(
   alert_cmd: bool,
-  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
+  api_HMD_log: Option<Common::EncryptedMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
@@ -58,23 +58,81 @@ pub fn initialize_IEP_Post(
 
 /** Compute Entrypoint Contract
   *
+  * assumes IncomingAlert
+  *   A: A report should not be received if an alert is received.
+  * @param api_alert_in incoming event port
+  * @param api_analysis_report incoming event data port
+  */
+pub fn compute_spec_IncomingAlert_assume(
+  api_alert_in: Option<u8>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>) -> bool
+{
+  impliesL!(
+    api_alert_in.is_some(),
+    !(api_analysis_report.is_some()))
+}
+
+/** Compute Entrypoint Contract
+  *
+  * assumes Trusted_Report
+  *   A: Reports received are to a trusted destination.
+  * @param api_analysis_report incoming event data port
+  */
+pub fn compute_spec_Trusted_Report_assume(api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>) -> bool
+{
+  impliesL!(
+    api_analysis_report.is_some(),
+    MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(api_analysis_report.unwrap().header.client))
+}
+
+/** CEP-T-Assm: Top-level assume contracts for wifiDriver's compute entrypoint
+  *
+  * @param api_alert_in incoming event port
+  * @param api_analysis_report incoming event data port
+  */
+pub fn compute_CEP_T_Assm(
+  api_alert_in: Option<u8>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>) -> bool
+{
+  let r0: bool = compute_spec_IncomingAlert_assume(api_alert_in, api_analysis_report);
+  let r1: bool = compute_spec_Trusted_Report_assume(api_analysis_report);
+
+  return r0 && r1;
+}
+
+/** CEP-Pre: Compute Entrypoint Pre-Condition for wifiDriver
+  *
+  * @param In_alert_cmd pre-state state variable
+  * @param api_alert_in incoming event port
+  * @param api_analysis_report incoming event data port
+  * @param api_wifiRecv incoming event data port
+  */
+pub fn compute_CEP_Pre(
+  In_alert_cmd: bool,
+  api_alert_in: Option<u8>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>,
+  api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>) -> bool
+{
+  // CEP-Assm: assume clauses of wifiDriver's compute entrypoint
+  let r0: bool = compute_CEP_T_Assm(api_alert_in, api_analysis_report);
+
+  return r0;
+}
+
+/** Compute Entrypoint Contract
+  *
   * guarantee alert_cmd_variable
   *   G: Once an alert command is seen, always stay alerted.
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event port
+  * @param api_alert_in incoming event port
   */
 pub fn compute_spec_alert_cmd_variable_guarantee(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<u8>) -> bool
+  api_alert_in: Option<u8>) -> bool
 {
-  (impliesL!(
-    api_alert.is_some(),
-    (alert_cmd == true))) &
-    (impliesL!(
-      (In_alert_cmd == true),
-      (alert_cmd == true)))
+  alert_cmd == (api_alert_in.is_some() || In_alert_cmd)
 }
 
 /** Compute Entrypoint Contract
@@ -87,11 +145,12 @@ pub fn compute_spec_alert_cmd_variable_guarantee(
   */
 pub fn compute_spec_Process_Report_guarantee(
   alert_cmd: bool,
-  api_analysis_report: Option<Common::AnalysisReport_Impl>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   if (api_analysis_report.is_some() & !alert_cmd) {
-    api_wifiSend.is_some()
+    api_wifiSend.is_some() &&
+      (api_wifiSend.unwrap() == api_analysis_report.unwrap())
   } else {
     api_wifiSend.is_none()
   }
@@ -101,18 +160,18 @@ pub fn compute_spec_Process_Report_guarantee(
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event port
+  * @param api_alert_in incoming event port
   * @param api_analysis_report incoming event data port
   * @param api_wifiSend outgoing event data port
   */
 pub fn compute_CEP_T_Guar(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<u8>,
-  api_analysis_report: Option<Common::AnalysisReport_Impl>,
+  api_alert_in: Option<u8>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  let r0: bool = compute_spec_alert_cmd_variable_guarantee(In_alert_cmd, alert_cmd, api_alert);
+  let r0: bool = compute_spec_alert_cmd_variable_guarantee(In_alert_cmd, alert_cmd, api_alert_in);
   let r1: bool = compute_spec_Process_Report_guarantee(alert_cmd, api_analysis_report, api_wifiSend);
 
   return r0 && r1;
@@ -122,7 +181,7 @@ pub fn compute_CEP_T_Guar(
   *
   * @param In_alert_cmd pre-state state variable
   * @param alert_cmd post-state state variable
-  * @param api_alert incoming event port
+  * @param api_alert_in incoming event port
   * @param api_analysis_report incoming event data port
   * @param api_wifiRecv incoming event data port
   * @param api_HMD_log outgoing event data port
@@ -132,15 +191,15 @@ pub fn compute_CEP_T_Guar(
 pub fn compute_CEP_Post(
   In_alert_cmd: bool,
   alert_cmd: bool,
-  api_alert: Option<u8>,
-  api_analysis_report: Option<Common::AnalysisReport_Impl>,
+  api_alert_in: Option<u8>,
+  api_analysis_report: Option<Common::OutgoingWifiMessage_Impl>,
   api_wifiRecv: Option<Common::IncomingWifiMessage_Impl>,
-  api_HMD_log: Option<Common::encryptedIncomingPayload_Impl>,
+  api_HMD_log: Option<Common::EncryptedMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   api_wifiSend: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   // CEP-Guar: guarantee clauses of wifiDriver's compute entrypoint
-  let r0: bool = compute_CEP_T_Guar(In_alert_cmd, alert_cmd, api_alert, api_analysis_report, api_wifiSend);
+  let r0: bool = compute_CEP_T_Guar(In_alert_cmd, alert_cmd, api_alert_in, api_analysis_report, api_wifiSend);
 
   return r0;
 }

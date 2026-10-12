@@ -12,7 +12,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_request_log(
       &mut self,
-      value: Common::Request_Impl)
+      value: Common::AnalysisRequest_Impl)
     {
       extern_api::unsafe_put_request_log(&value);
     }
@@ -20,7 +20,7 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_analysis_report(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::AnalysisResponse_Impl)
     {
       extern_api::unsafe_put_analysis_report(&value);
     }
@@ -30,11 +30,17 @@ verus! {
     #[verifier::external_body]
     fn unverified_get_response_log(
       &mut self,
-      value: &Ghost<Option<Common::ResponseLog_Impl>>) -> (res : Option<Common::ResponseLog_Impl>)
+      value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
         res == value@,
     {
       return extern_api::unsafe_get_response_log();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_response_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_response_log_num_invalid();
     }
 
     #[verifier::external_body]
@@ -46,6 +52,12 @@ verus! {
     {
       return extern_api::unsafe_get_analysis_request();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_request_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_request_num_invalid();
+    }
   }
 
   pub trait cpuSw_dataAnalysis_dataAnalysis_Full_Api: cpuSw_dataAnalysis_dataAnalysis_Put_Api + cpuSw_dataAnalysis_dataAnalysis_Get_Api {}
@@ -53,59 +65,71 @@ verus! {
   pub struct cpuSw_dataAnalysis_dataAnalysis_Application_Api<API: cpuSw_dataAnalysis_dataAnalysis_Api> {
     pub api: API,
 
-    pub ghost response_log: Option<Common::ResponseLog_Impl>,
+    pub ghost response_log: Option<Common::AnalysisResponse_Impl>,
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>,
-    pub ghost request_log: Option<Common::Request_Impl>,
-    pub ghost analysis_report: Option<Common::AnalysisReport_Impl>
+    pub ghost request_log: Option<Common::AnalysisRequest_Impl>,
+    pub ghost analysis_report: Option<Common::AnalysisResponse_Impl>,
   }
 
   impl<API: cpuSw_dataAnalysis_dataAnalysis_Put_Api> cpuSw_dataAnalysis_dataAnalysis_Application_Api<API> {
     pub fn put_request_log(
       &mut self,
-      value: Common::Request_Impl)
+      value: Common::AnalysisRequest_Impl)
       ensures
-        self.request_log == Some(value),
-        old(self).response_log == self.response_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
+        final(self).request_log == Some(value),
+        old(self).response_log == final(self).response_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
     {
       self.api.unverified_put_request_log(value);
-      self.request_log = Some(value);
+      proof { self.request_log = Some(value); }
     }
     pub fn put_analysis_report(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::AnalysisResponse_Impl)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log == self.response_log,
-        self.analysis_report == Some(value),
-        old(self).analysis_request == self.analysis_request,
+        old(self).request_log == final(self).request_log,
+        old(self).response_log == final(self).response_log,
+        final(self).analysis_report == Some(value),
+        old(self).analysis_request == final(self).analysis_request,
     {
       self.api.unverified_put_analysis_report(value);
-      self.analysis_report = Some(value);
+      proof { self.analysis_report = Some(value); }
     }
   }
 
   impl<API: cpuSw_dataAnalysis_dataAnalysis_Get_Api> cpuSw_dataAnalysis_dataAnalysis_Application_Api<API> {
-    pub fn get_response_log(&mut self) -> (res : Option<Common::ResponseLog_Impl>)
+    pub fn get_response_log(&mut self) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log == self.response_log,
-        res == self.response_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
+        old(self).request_log == final(self).request_log,
+        old(self).response_log == final(self).response_log,
+        res == final(self).response_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
     {
       self.api.unverified_get_response_log(&Ghost(self.response_log))
+    }/// The number of messages received on response_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_response_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_response_log_num_invalid()
     }
     pub fn get_analysis_request(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
-        old(self).request_log == self.request_log,
-        old(self).response_log == self.response_log,
-        old(self).analysis_report == self.analysis_report,
-        old(self).analysis_request == self.analysis_request,
-        res == self.analysis_request,
+        old(self).request_log == final(self).request_log,
+        old(self).response_log == final(self).response_log,
+        old(self).analysis_report == final(self).analysis_report,
+        old(self).analysis_request == final(self).analysis_request,
+        res == final(self).analysis_request,
     {
       self.api.unverified_get_analysis_request(&Ghost(self.analysis_request))
+    }/// The number of messages received on analysis_request that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_request_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_request_num_invalid()
     }
   }
 

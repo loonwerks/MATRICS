@@ -40,10 +40,10 @@ verus! {
         // BEGIN MARKER TIME TRIGGERED ENSURES
         // guarantee Payload_Encrypted
         //   G: Outgoing payload is encrypted.
-        api.analysis_report_out.unwrap().payload != api.analysis_report_in.unwrap().payload,
+        final(api).analysis_report_in.is_some() ==> MATRICS_Model_Transformations::AES_128_GCM_ENCRYPTS_RESPONSE_spec(final(api).analysis_report_in.unwrap().payload, final(api).analysis_report_out.unwrap().payload),
         // guarantee Header_Unencrypted
         //   G: Outgoing header is not encrypted.
-        api.analysis_report_out.unwrap().header == api.analysis_report_in.unwrap().header,
+        final(api).analysis_report_out.unwrap().header == final(api).analysis_report_in.unwrap().header,
         // END MARKER TIME TRIGGERED ENSURES
     {
       // log_info("compute entrypoint invoked");

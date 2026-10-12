@@ -18,6 +18,6 @@ ros2.strict.aadl.mode=false
 scheduling=UserLand
 sel4.aux.code.symlink=false
 sel4.aux.src.dir=
-sel4.output.directory=/Users/e40002720/Documents/MATRICS/MATRICS-models/Models/Status/Status_v2/Hardened/withAGREEAndGumbo/hamr/microkit_mcs_new
+sel4.output.directory=/Users/e40002720/Documents/MATRICS/MATRICS-models/Models/Status/Status_v2/Hardened/withAGREEAndGumbo/hamr/microkit_mcs
 slang.output.directory=
 verus.attribute.syntax=false

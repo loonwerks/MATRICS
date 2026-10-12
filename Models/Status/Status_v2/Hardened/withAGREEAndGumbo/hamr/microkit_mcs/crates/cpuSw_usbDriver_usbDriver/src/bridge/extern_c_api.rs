@@ -12,6 +12,7 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_usbRecv(value: *mut Common::DummyMessage_Impl) -> bool;
+  fn get_usbRecv_num_invalid() -> u64;
   fn put_usbSend(value: *mut Common::DummyMessage_Impl) -> bool;
 }
 
@@ -24,6 +25,13 @@ pub fn unsafe_get_usbRecv() -> Option<Common::DummyMessage_Impl>
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_usbRecv_num_invalid() -> u64
+{
+  unsafe {
+    return get_usbRecv_num_invalid();
   }
 }
 
@@ -67,6 +75,12 @@ pub fn get_usbRecv(value: *mut Common::DummyMessage_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_usbRecv_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

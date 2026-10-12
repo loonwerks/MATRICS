@@ -7,7 +7,7 @@ use proptest::prelude::*;
 
 /// container for component's incoming port values
 pub struct PreStateContainer {
-  pub api_analysis_report_in: Option<Common::AnalysisReport_Impl>
+  pub api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
 }
 
 /// setter for component's incoming port values
@@ -17,19 +17,19 @@ pub fn put_concrete_inputs_container(container: PreStateContainer)
 }
 
 /// setter for component's incoming port values
-pub fn put_concrete_inputs(analysis_report_in: Option<Common::AnalysisReport_Impl>)
+pub fn put_concrete_inputs(analysis_report_in: Option<Common::AnalysisResponse_Impl>)
 {
   put_analysis_report_in(analysis_report_in);
 }
 
 /// setter for IN EventDataPort
-pub fn put_analysis_report_in(value: Option<Common::AnalysisReport_Impl>)
+pub fn put_analysis_report_in(value: Option<Common::AnalysisResponse_Impl>)
 {
   *extern_api::IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) = value
 }
 
 /// getter for OUT EventDataPort
-pub fn get_analysis_report_out() -> Option<Common::AnalysisReport_Impl>
+pub fn get_analysis_report_out() -> Option<Common::OutgoingWifiMessage_Impl>
 {
   return extern_api::OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }

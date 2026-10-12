@@ -28,6 +28,10 @@ bool get_wifiSendIn(Common_OutgoingWifiMessage_Impl *data) {
   return get_wifiSendIn_poll (&numDropped, data);
 }
 
+uintmax_t get_wifiSendIn_num_invalid(void) {
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_numInvalid((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &wifiSendIn_recv_queue);
+}
+
 bool put_wifiRecvOut(const Common_IncomingWifiMessage_Impl *data) {
   sb_queue_Common_IncomingWifiMessage_Impl_1_enqueue((sb_queue_Common_IncomingWifiMessage_Impl_1_t *) wifiRecvOut_queue_1, (Common_IncomingWifiMessage_Impl *) data);
 
@@ -45,6 +49,10 @@ bool get_wifiRecvIn_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMess
 bool get_wifiRecvIn(Common_IncomingWifiMessage_Impl *data) {
   sb_event_counter_t numDropped;
   return get_wifiRecvIn_poll (&numDropped, data);
+}
+
+uintmax_t get_wifiRecvIn_num_invalid(void) {
+  return sb_queue_Common_IncomingWifiMessage_Impl_1_numInvalid((sb_queue_Common_IncomingWifiMessage_Impl_1_Recv_t *) &wifiRecvIn_recv_queue);
 }
 
 bool put_wifiSendOut(const Common_OutgoingWifiMessage_Impl *data) {
@@ -73,6 +81,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(channel);

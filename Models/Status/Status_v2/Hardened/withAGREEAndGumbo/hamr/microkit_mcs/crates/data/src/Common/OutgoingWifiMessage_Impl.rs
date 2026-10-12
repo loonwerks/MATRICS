@@ -10,14 +10,20 @@ verus! {
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct OutgoingWifiMessage_Impl {
     pub header: MsgHeader_Impl,
-    pub payload: OutgoingPayload_Impl
+    pub payload: EncryptedMessage_Impl,
   }
 
   impl Default for OutgoingWifiMessage_Impl {
     fn default() -> Self
     {
-      Self { header: Common::MsgHeader_Impl::default(), payload: [0; Common::Common_OutgoingPayload_Impl_DIM_0] }
+      Self { header: Common::MsgHeader_Impl::default(), payload: Common::EncryptedMessage_Impl::default() }
     }
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<OutgoingWifiMessage_Impl>() == 4100);
+const _: () = assert!(core::mem::align_of::<OutgoingWifiMessage_Impl>() == 4);
+const _: () = assert!(core::mem::offset_of!(OutgoingWifiMessage_Impl, header) == 0);
+const _: () = assert!(core::mem::offset_of!(OutgoingWifiMessage_Impl, payload) == 4);

@@ -9,18 +9,27 @@ verus! {
   #[repr(C)]
   #[derive(Debug, Clone, Copy, PartialEq, Eq)]
   pub struct Request_Impl {
-    pub requestID: i32,
-    pub analysisType: i32,
-    pub userID: i32,
-    pub startTime: i32,
-    pub endTime: i32
+    pub analysisType: AnalysisType,
+    pub guardID: u32,
+    pub startTime: u64,
+    pub endTime: u64,
+    pub targetID: u32,
   }
 
   impl Default for Request_Impl {
     fn default() -> Self
     {
-      Self { requestID: 0, analysisType: 0, userID: 0, startTime: 0, endTime: 0 }
+      Self { analysisType: Common::AnalysisType::default(), guardID: 0, startTime: 0, endTime: 0, targetID: 0 }
     }
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<Request_Impl>() == 32);
+const _: () = assert!(core::mem::align_of::<Request_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(Request_Impl, analysisType) == 0);
+const _: () = assert!(core::mem::offset_of!(Request_Impl, guardID) == 4);
+const _: () = assert!(core::mem::offset_of!(Request_Impl, startTime) == 8);
+const _: () = assert!(core::mem::offset_of!(Request_Impl, endTime) == 16);
+const _: () = assert!(core::mem::offset_of!(Request_Impl, targetID) == 24);

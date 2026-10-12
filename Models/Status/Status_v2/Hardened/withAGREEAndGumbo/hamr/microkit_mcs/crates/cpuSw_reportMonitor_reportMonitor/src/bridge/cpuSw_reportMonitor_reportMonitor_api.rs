@@ -12,15 +12,15 @@ verus! {
     #[verifier::external_body]
     fn unverified_put_analysis_report_out(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
     {
       extern_api::unsafe_put_analysis_report_out(&value);
     }
 
     #[verifier::external_body]
-    fn unverified_put_alert(&mut self)
+    fn unverified_put_alert_out(&mut self)
     {
-      extern_api::unsafe_put_alert();
+      extern_api::unsafe_put_alert_out();
     }
   }
 
@@ -36,13 +36,25 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_analysis_request_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_request_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_analysis_report_in(
       &mut self,
-      value: &Ghost<Option<Common::AnalysisReport_Impl>>) -> (res : Option<Common::AnalysisReport_Impl>)
+      value: &Ghost<Option<Common::OutgoingWifiMessage_Impl>>) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
       ensures
         res == value@,
     {
       return extern_api::unsafe_get_analysis_report_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_report_in_num_invalid();
     }
   }
 
@@ -52,56 +64,68 @@ verus! {
     pub api: API,
 
     pub ghost analysis_request: Option<Common::AnalysisRequest_Impl>,
-    pub ghost analysis_report_in: Option<Common::AnalysisReport_Impl>,
-    pub ghost analysis_report_out: Option<Common::AnalysisReport_Impl>,
-    pub ghost alert: Option<u8>
+    pub ghost analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
+    pub ghost analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>,
+    pub ghost alert_out: Option<u8>,
   }
 
   impl<API: cpuSw_reportMonitor_reportMonitor_Put_Api> cpuSw_reportMonitor_reportMonitor_Application_Api<API> {
     pub fn put_analysis_report_out(
       &mut self,
-      value: Common::AnalysisReport_Impl)
+      value: Common::OutgoingWifiMessage_Impl)
       ensures
-        old(self).analysis_request == self.analysis_request,
-        old(self).analysis_report_in == self.analysis_report_in,
-        self.analysis_report_out == Some(value),
-        old(self).alert == self.alert,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        final(self).analysis_report_out == Some(value),
+        old(self).alert_out == final(self).alert_out,
     {
       self.api.unverified_put_analysis_report_out(value);
-      self.analysis_report_out = Some(value);
+      proof { self.analysis_report_out = Some(value); }
     }
-    pub fn put_alert(&mut self)
+    pub fn put_alert_out(&mut self)
       ensures
-        old(self).analysis_request == self.analysis_request,
-        old(self).analysis_report_in == self.analysis_report_in,
-        old(self).analysis_report_out == self.analysis_report_out,
-        self.alert == Some(0u8),
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        old(self).analysis_report_out == final(self).analysis_report_out,
+        final(self).alert_out == Some(0u8),
     {
-      self.api.unverified_put_alert();
-      self.alert = Some(0u8);
+      self.api.unverified_put_alert_out();
+      proof { self.alert_out = Some(0u8); }
     }
   }
 
   impl<API: cpuSw_reportMonitor_reportMonitor_Get_Api> cpuSw_reportMonitor_reportMonitor_Application_Api<API> {
     pub fn get_analysis_request(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
-        old(self).analysis_request == self.analysis_request,
-        res == self.analysis_request,
-        old(self).analysis_report_in == self.analysis_report_in,
-        old(self).analysis_report_out == self.analysis_report_out,
-        old(self).alert == self.alert,
+        old(self).analysis_request == final(self).analysis_request,
+        res == final(self).analysis_request,
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        old(self).analysis_report_out == final(self).analysis_report_out,
+        old(self).alert_out == final(self).alert_out,
     {
       self.api.unverified_get_analysis_request(&Ghost(self.analysis_request))
+    }/// The number of messages received on analysis_request that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_request_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_request_num_invalid()
     }
-    pub fn get_analysis_report_in(&mut self) -> (res : Option<Common::AnalysisReport_Impl>)
+    pub fn get_analysis_report_in(&mut self) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
       ensures
-        old(self).analysis_request == self.analysis_request,
-        old(self).analysis_report_in == self.analysis_report_in,
-        res == self.analysis_report_in,
-        old(self).analysis_report_out == self.analysis_report_out,
-        old(self).alert == self.alert,
+        old(self).analysis_request == final(self).analysis_request,
+        old(self).analysis_report_in == final(self).analysis_report_in,
+        res == final(self).analysis_report_in,
+        old(self).analysis_report_out == final(self).analysis_report_out,
+        old(self).alert_out == final(self).alert_out,
     {
       self.api.unverified_get_analysis_report_in(&Ghost(self.analysis_report_in))
+    }/// The number of messages received on analysis_report_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_report_in_num_invalid()
     }
   }
 
@@ -116,7 +140,7 @@ verus! {
       analysis_request: None,
       analysis_report_in: None,
       analysis_report_out: None,
-      alert: None
+      alert_out: None
     }
   }
 
@@ -133,7 +157,7 @@ verus! {
       analysis_request: None,
       analysis_report_in: None,
       analysis_report_out: None,
-      alert: None
+      alert_out: None
     }
   }
 
