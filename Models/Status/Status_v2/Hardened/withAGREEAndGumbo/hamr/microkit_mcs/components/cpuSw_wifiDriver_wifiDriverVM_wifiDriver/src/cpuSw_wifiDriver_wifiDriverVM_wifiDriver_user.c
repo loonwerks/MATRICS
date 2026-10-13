@@ -1,11 +1,11 @@
 #include <cpuSw_wifiDriver_wifiDriverVM_wifiDriver.h>
 #include <cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.h>
+#include <libvmm/guest.h>
+#include <libvmm/guest_ram.h>
+#include <libvmm/virq.h>
+#include <libvmm/util/util.h>
 #include <libvmm/arch/aarch64/linux.h>
 #include <libvmm/arch/aarch64/fault.h>
-#include <libvmm/guest.h>
-#include <libvmm/virq.h>
-#include <string.h>
-#include <stdlib.h>
 
 // This file will not be overwritten if HAMR codegen is rerun
 
@@ -24,20 +24,31 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
-// Microkit will set this variable to the start of the RX memory buffer
-uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
-
-// Microkit will set this variable to the start of the TX memory buffer
-uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
-
-static int get_dev_irq_by_ch(microkit_channel ch);
-static int get_dev_ch_by_irq(int irq, microkit_channel *ch);
-static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie);
-static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
+static bool is_passthrough_irq_ch(microkit_channel ch);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
   LOG_VMM("starting \"%s\"\n", microkit_name);
+
+  // Declare the guest's RAM layout before anything else. guest_init brings up
+  // the architectural subsystems everything below depends on, in particular the
+  // virtual GIC, and registers the RAM regions that guest physical addresses are
+  // resolved against.
+  arch_guest_init_t guest_args = {
+    .pci_init.mmio_aperature_size = 0, // no virtual PCI bus
+    .num_vcpus = 1,
+    .num_guest_ram_regions = 1,
+    .guest_ram_regions = { (struct guest_ram_region) {
+      .gpa_start = GUEST_RAM_START_GPA,
+      .size = GUEST_RAM_SIZE,
+      .vmm_vaddr = (void *) GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr } }
+  };
+
+  bool success = guest_init(guest_args);
+  if (!success) {
+    LOG_VMM_ERR("Failed to initialise guest\n");
+    return;
+  }
 
   // Place all the binaries in the right locations before starting the guest
 
@@ -45,16 +56,14 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   size_t dtb_size = _guest_dtb_image_end - _guest_dtb_image;
   size_t initrd_size = _guest_initrd_image_end - _guest_initrd_image;
 
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/arch/aarch64/linux.h#L37
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/arch/aarch64/linux.c#L11
-  uintptr_t kernel_pc = linux_setup_images(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr,
+  uintptr_t kernel_pc = linux_setup_images(GUEST_RAM_START_GPA,
                                           (uintptr_t) _guest_kernel_image,
                                           kernel_size,
                                           (uintptr_t) _guest_dtb_image,
-                                          GUEST_DTB_VADDR,
+                                          GUEST_DTB_GPA,
                                           dtb_size,
                                           (uintptr_t) _guest_initrd_image,
-                                          GUEST_INIT_RAM_DISK_VADDR,
+                                          GUEST_INIT_RAM_DISK_GPA,
                                           initrd_size);
 
   if (!kernel_pc) {
@@ -62,56 +71,41 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
     return;
   }
 
-  // Initialise the virtual GIC driver
-  bool success = virq_controller_init(GUEST_VCPU_ID);
-  if (!success) {
-    LOG_VMM_ERR("Failed to initialise emulated interrupt controller\n");
-    return;
-  }
-
-  // Register Pass-through device IRQs
+  // Register the pass-through device IRQs. libvmm acks the hardware IRQ itself
+  // once the guest acks the virtual one, so no ack handler is needed here.
   for(int i=0; i < MAX_IRQS; i++) {
-     printf("Registering pass-through device interrupt %d on channel %d\n", mk_irqs[i].irq, mk_irqs[i].channel);
-    success = virq_register(GUEST_VCPU_ID, mk_irqs[i].irq, &pt_dev_ack, NULL);
+    success = virq_register_passthrough(ARM_GIC_IRQ_ROUTE(GUEST_BOOT_VCPU_ID, mk_irqs[i].irq), mk_irqs[i].channel);
+    if (!success) {
+      LOG_VMM_ERR("Failed to register pass-through IRQ %d\n", mk_irqs[i].irq);
+      return;
+    }
     // Just in case there are already interrupts available to handle, we ack them here.
     microkit_irq_ack(mk_irqs[i].channel);
   }
 
-  // Finally start the guest /
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/include/libvmm/guest.h#L10
-  // https://github.com/au-ts/libvmm/blob/a996382581b9dbb7f067b25f312e87264c7b8ace/src/guest.c#L11
-  guest_start(GUEST_VCPU_ID, kernel_pc, GUEST_DTB_VADDR, GUEST_INIT_RAM_DISK_VADDR);
+  // Finally start the guest
+  success = guest_start(kernel_pc, GUEST_DTB_GPA, GUEST_INIT_RAM_DISK_GPA);
+  if (!success) {
+    LOG_VMM_ERR("Failed to start guest\n");
+    return;
+  }
 
-  LOG_VMM("Guest started, leaving cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize");
+  LOG_VMM("Guest started, leaving cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize\n");
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
-     uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
-     if (rx_ready == 1){
-          Common_IncomingWifiMessage_Impl message;
-          char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr + 0x04);
-          if (parse_message(data, &message)){
-               if (put_wifiRecvOut(&message)){
-                    // Reset RX flag
-                    *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
-               }
-          } else { // Message is not of correct format
-               // Reset RX flag
-               *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
-          }
-     }
+  printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
-     int irq = get_dev_irq_by_ch(ch);
-     if (irq != -1){
-          bool success = virq_inject(GUEST_VCPU_ID, irq);
-          if (!success) {
-               LOG_VMM_ERR("IRQ %d dropped on vCPU %d\n", irq, GUEST_VCPU_ID);
-          }
-     } else {
-          printf("Unexpected channel, ch: 0x%lx\n", ch);
-     }
+  if (is_passthrough_irq_ch(ch)) {
+    if (!virq_handle_passthrough(ch)) {
+      LOG_VMM_ERR("IRQ dropped on channel 0x%x\n", ch);
+    }
+    return;
+  }
+
+  printf("Unexpected channel, ch: 0x%x\n", ch);
 }
 
 /*
@@ -120,7 +114,6 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
  * the VMM to handle.
  */
 seL4_Bool fault(microkit_child child, microkit_msginfo msginfo, microkit_msginfo *reply_msginfo) {
-    // https://github.com/au-ts/libvmm/blob/29aceb2acb7611cc5678d6fc235913684af7893e/src/arch/aarch64/fault.c#L436
     bool success = fault_handle(child, msginfo);
     if (success) {
         // Now that we have handled the fault successfully, we reply to it so
@@ -132,35 +125,15 @@ seL4_Bool fault(microkit_child child, microkit_msginfo msginfo, microkit_msginfo
     return seL4_False;
 }
 
-static int get_dev_irq_by_ch(microkit_channel ch) {
+static bool is_passthrough_irq_ch(microkit_channel ch) {
   for(int i=0; i < MAX_IRQS; i++) {
     if (mk_irqs[i].channel == ch) {
-      return mk_irqs[i].irq;
+      return true;
     }
   }
 
-  return -1;
-}
 
-static int get_dev_ch_by_irq(int irq, microkit_channel *ch) {
-  for(int i=0; i < MAX_IRQS; i++) {
-    if (mk_irqs[i].irq == irq) {
-      *ch = mk_irqs[i].channel;
-      return 0;
-    }
-  }
-
-  return -1;
-}
-
-static void pt_dev_ack(size_t vcpu_id, int irq, void *cookie) {
-  // For now we by default simply ack the IRQ, we have not
-  // come across a case yet where more than this needs to be done.
-  microkit_channel ch = 0;
-  int status = get_dev_ch_by_irq(irq, &ch);
-  if (!status) {
-    microkit_irq_ack(ch);
-  }
+  return false;
 }
 
 uint32_t string_to_ip(const char** str){
@@ -289,9 +262,14 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     }
                }
           } else if(strcmp(key, "body") == 0){
-               char value[1024];
+               char value[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
                parse_string(&str, value, sizeof(value));
-               strcpy((char*)(*message).payload, value);
+               size_t length = strlen(value);
+               memcpy((char*)(*message).payload.nonce, value, 12); // Nonce/Initialization Vector(IV) first 12 bytes
+               size_t ciphertext_length = length - 12 - 16;
+               memcpy((char*)(*message).payload.ciphertext, value[12], ciphertext_length); // Cyphertext
+               (char*)(*message).payload.ciphertext[ciphertext_length] = '\0'; // Null-byte terminate
+               memcpy((char*)(*message).payload.tag, value[12+ciphertext_length], 16); // Tag/Checksum last 16 bytes
           } else {
                return false; // Unexpected JSON member
           }
