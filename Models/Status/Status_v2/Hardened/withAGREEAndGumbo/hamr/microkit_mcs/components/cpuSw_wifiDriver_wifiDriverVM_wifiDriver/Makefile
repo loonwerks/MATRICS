@@ -129,7 +129,7 @@ include $(LIB_VMM_DIR)/vmm.mk
 include $(SDDF)/util/util.mk
 vpath %.c $(LIB_VMM_DIR)
 
-$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a: libvmm.a libsddf_util.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
-	mkdir -p libsddf_util; cd libsddf_util; $(AR) -x ../libsddf_util.a
+$(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a: libvmm.a libsddf_util_debug.a $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
+	mkdir -p libsddf_util; cd libsddf_util; $(AR) -x ../libsddf_util_debug.a
 	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver.o $(TOP_BUILD_DIR)/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_user.o $(TOP_BUILD_DIR)/package_guest_images.o
 	cp libvmm.a $@

@@ -468,7 +468,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         Internet = 0xA_003_000
         Internet_IRQ = 79
         RX_Buffer = 0x50_000_000
-        TX_Buffer = 0x50_001_000
+        TX_Buffer = 0x50_002_000
     elif board.name == "rpi4b_4gb":
         RAM = 0x2000_0000
         RAM_SIZE = 0x4000_0000
@@ -479,7 +479,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         Internet = 0xFE30_0000
         Internet_IRQ = 158
         RX_Buffer = 0x60_000_000
-        TX_Buffer = 0x60_001_000
+        TX_Buffer = 0x60_002_000
     else:
         assert False
 
@@ -489,10 +489,10 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     wifi_internet = MemoryRegion(
         sdf, wifi_vmm_prefix + "Guest_Internet", 0x1_000, paddr=Internet)
     wifi_rx_buffer = MemoryRegion(
-        sdf, wifi_vmm_prefix + "Guest_RX_Buffer", 0x1_000,
+        sdf, wifi_vmm_prefix + "Guest_RX_Buffer", 0x2_000,
         paddr=RX_Buffer)
     wifi_tx_buffer = MemoryRegion(
-        sdf, wifi_vmm_prefix + "Guest_TX_Buffer", 0x1_000,
+        sdf, wifi_vmm_prefix + "Guest_TX_Buffer", 0x2_000,
         paddr=TX_Buffer)
     sdf.add_mr(wifi_internet)
     sdf.add_mr(wifi_rx_buffer)
@@ -611,6 +611,22 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         if board.name == "rpi4b_4gb":
             ET.SubElement(wifi_pd, 'irq', irq='65', id='3')
             ET.SubElement(wifi_pd, 'irq', irq='66', id='4')
+
+        data_storage_pd = require_one(
+            (pd for pd in root.iter('protection_domain')
+             if pd.get('name') ==
+             'cpuSw_dataManager_dataStorage_dataStorage'),
+            "data-storage VMM protection domain")
+        for irq in data_storage_pd.findall('irq'):
+            data_storage_pd.remove(irq)
+
+        data_storage_region_prefix = (
+            "GroundStation_Impl_Instance_cpuSw_dataManager_"
+            "dataStorage_dataStorage_VM_")
+        for region_suffix in ('Guest_RAM', 'GIC', 'Serial'):
+            memory_region(
+                data_storage_region_prefix + region_suffix
+            ).attrib.pop('phys_addr', None)
 
         ET.indent(root, space='  ')
         return ET.tostring(

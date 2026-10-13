@@ -6,6 +6,8 @@
 #include <libvmm/util/util.h>
 #include <libvmm/arch/aarch64/linux.h>
 #include <libvmm/arch/aarch64/fault.h>
+#include <string.h>
+#include <stdlib.h>
 
 // This file will not be overwritten if HAMR codegen is rerun
 
@@ -24,7 +26,14 @@ extern char _guest_initrd_image_end[];
 // Microkit will set this variable to the start of the guest RAM memory region.
 uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr;
 
+// Microkit will set this variable to the start of the RX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
+
+// Microkit will set this variable to the start of the TX memory buffer
+uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
+
 static bool is_passthrough_irq_ch(microkit_channel ch);
+static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -39,7 +48,7 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
     .num_vcpus = 1,
     .num_guest_ram_regions = 1,
     .guest_ram_regions = { (struct guest_ram_region) {
-      .gpa_start = GUEST_RAM_START_GPA,
+      .gpa_start = GUEST_RAM_START_VADDR,
       .size = GUEST_RAM_SIZE,
       .vmm_vaddr = (void *) GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr } }
   };
@@ -56,14 +65,14 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   size_t dtb_size = _guest_dtb_image_end - _guest_dtb_image;
   size_t initrd_size = _guest_initrd_image_end - _guest_initrd_image;
 
-  uintptr_t kernel_pc = linux_setup_images(GUEST_RAM_START_GPA,
+  uintptr_t kernel_pc = linux_setup_images(GUEST_RAM_START_VADDR,
                                           (uintptr_t) _guest_kernel_image,
                                           kernel_size,
                                           (uintptr_t) _guest_dtb_image,
-                                          GUEST_DTB_GPA,
+                                          GUEST_DTB_VADDR,
                                           dtb_size,
                                           (uintptr_t) _guest_initrd_image,
-                                          GUEST_INIT_RAM_DISK_GPA,
+                                          GUEST_INIT_RAM_DISK_VADDR,
                                           initrd_size);
 
   if (!kernel_pc) {
@@ -84,7 +93,7 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   }
 
   // Finally start the guest
-  success = guest_start(kernel_pc, GUEST_DTB_GPA, GUEST_INIT_RAM_DISK_GPA);
+  success = guest_start(kernel_pc, GUEST_DTB_VADDR, GUEST_INIT_RAM_DISK_VADDR);
   if (!success) {
     LOG_VMM_ERR("Failed to start guest\n");
     return;
@@ -94,7 +103,20 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
-  printf("%s: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered invoked\n", microkit_name);
+     uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
+     if (rx_ready == 1){
+          Common_IncomingWifiMessage_Impl message;
+          char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr + 0x04);
+          if (parse_message(data, &message)){
+               if (put_wifiRecvOut(&message)){
+                    // Reset RX flag
+                    *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
+               }
+          } else { // Message is not of correct format
+               // Reset RX flag
+               *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
+          }
+     }
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_notify(microkit_channel ch) {
@@ -135,6 +157,52 @@ static bool is_passthrough_irq_ch(microkit_channel ch) {
 
   return false;
 }
+
+// Reverse lookup table mapping ASCII characters to 6-bit values
+static const int b64_index[256] = {
+    ['A'] = 0,  ['B'] = 1,  ['C'] = 2,  ['D'] = 3,  ['E'] = 4,  ['F'] = 5,
+    ['G'] = 6,  ['H'] = 7,  ['I'] = 8,  ['J'] = 9,  ['K'] = 10, ['L'] = 11,
+    ['M'] = 12, ['N'] = 13, ['O'] = 14, ['P'] = 15, ['Q'] = 16, ['R'] = 17,
+    ['S'] = 18, ['T'] = 19, ['U'] = 20, ['V'] = 21, ['W'] = 22, ['X'] = 23,
+    ['Y'] = 24, ['Z'] = 25, ['a'] = 26, ['b'] = 27, ['c'] = 28, ['d'] = 29,
+    ['e'] = 30, ['f'] = 31, ['g'] = 32, ['h'] = 33, ['i'] = 34, ['j'] = 35,
+    ['k'] = 36, ['l'] = 37, ['m'] = 38, ['n'] = 39, ['o'] = 40, ['p'] = 41,
+    ['q'] = 42, ['r'] = 43, ['s'] = 44, ['t'] = 45, ['u'] = 46, ['v'] = 47,
+    ['w'] = 48, ['x'] = 49, ['y'] = 50, ['z'] = 51, ['0'] = 52, ['1'] = 53,
+    ['2'] = 54, ['3'] = 55, ['4'] = 56, ['5'] = 57, ['6'] = 58, ['7'] = 59,
+    ['8'] = 60, ['9'] = 61, ['+'] = 62, ['/'] = 63, ['='] = 0
+};
+
+// Decodes a base64 string and returns the length of decoded data.
+size_t base64_decode(const char *src, uint8_t *dst) {
+    size_t len = strlen(src);
+    if (len == 0 || len % 4 != 0) return 0; // Base64 strings must be a multiple of 4
+
+    size_t out_len = (len / 4) * 3;
+    
+    // Adjust output size based on trailing padding characters
+    if (src[len - 1] == '=') out_len--;
+    if (src[len - 2] == '=') out_len--;
+
+    size_t i, j;
+    for (i = 0, j = 0; i < len; i += 4, j += 3) {
+        // Pack 4 6-bit values into a 24-bit buffer
+        uint32_t sextet_a = b64_index[(unsigned char)src[i]];
+        uint32_t sextet_b = b64_index[(unsigned char)src[i+1]];
+        uint32_t sextet_c = b64_index[(unsigned char)src[i+2]];
+        uint32_t sextet_d = b64_index[(unsigned char)src[i+3]];
+
+        uint32_t triple = (sextet_a << 18) | (sextet_b << 12) | (sextet_c << 6) | sextet_d;
+
+        // Unpack into 3 bytes
+        if (j < out_len)     dst[j]   = (triple >> 16) & 0xFF;
+        if (j + 1 < out_len) dst[j+1] = (triple >> 8) & 0xFF;
+        if (j + 2 < out_len) dst[j+2] = triple & 0xFF;
+    }
+
+    return out_len;
+}
+
 
 uint32_t string_to_ip(const char** str){
      uint32_t ip = 0;
@@ -262,14 +330,15 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     }
                }
           } else if(strcmp(key, "body") == 0){
-               char value[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
-               parse_string(&str, value, sizeof(value));
-               size_t length = strlen(value);
-               memcpy((char*)(*message).payload.nonce, value, 12); // Nonce/Initialization Vector(IV) first 12 bytes
+               char encoded[5464]; // 4096 of decoded message is represented in 5464 base64 bytes
+               parse_string(&str, encoded, sizeof(encoded));
+               uint8_t decoded[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
+               size_t length = base64_decode(encoded, decoded);
+               memcpy((char*)(*message).payload.nonce, decoded, 12); // Nonce/Initialization Vector(IV) first 12 bytes
                size_t ciphertext_length = length - 12 - 16;
-               memcpy((char*)(*message).payload.ciphertext, value[12], ciphertext_length); // Cyphertext
-               (char*)(*message).payload.ciphertext[ciphertext_length] = '\0'; // Null-byte terminate
-               memcpy((char*)(*message).payload.tag, value[12+ciphertext_length], 16); // Tag/Checksum last 16 bytes
+               memcpy((char*)(*message).payload.ciphertext, decoded + 12, ciphertext_length); // Cyphertext
+               message->payload.ciphertext[ciphertext_length] = '\0'; // Null-byte terminate
+               memcpy((char*)(*message).payload.tag, decoded + 12 + ciphertext_length, 16); // Tag/Checksum last 16 bytes
           } else {
                return false; // Unexpected JSON member
           }
