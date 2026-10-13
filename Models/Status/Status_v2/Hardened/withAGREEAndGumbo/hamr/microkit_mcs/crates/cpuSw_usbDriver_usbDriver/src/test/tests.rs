@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_usbDriver_usbDriver_initialize();
-}
+  }
 
   #[test]
   #[serial]

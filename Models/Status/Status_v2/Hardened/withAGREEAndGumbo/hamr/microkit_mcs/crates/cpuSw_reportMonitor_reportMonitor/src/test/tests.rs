@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_reportMonitor_reportMonitor_initialize();
-}
+  }
 
   #[test]
   #[serial]
@@ -60,7 +60,7 @@ mod GUMBOX_tests {
       ..ProptestConfig::default()
     },
     // strategies for generating each component input
-    api_analysis_report_in: generators::option_strategy_default(generators::Common_AnalysisReport_Impl_strategy_default()),
+    api_analysis_report_in: generators::option_strategy_default(generators::Common_OutgoingWifiMessage_Impl_strategy_default()),
     api_analysis_request: generators::option_strategy_default(generators::Common_AnalysisRequest_Impl_strategy_default())
   }
 
@@ -77,7 +77,7 @@ mod GUMBOX_tests {
     In_is_invalid2: generators::bool_strategy_default(),
     In_is_valid1: generators::bool_strategy_default(),
     In_since_result: generators::bool_strategy_default(),
-    api_analysis_report_in: generators::option_strategy_default(generators::Common_AnalysisReport_Impl_strategy_default()),
+    api_analysis_report_in: generators::option_strategy_default(generators::Common_OutgoingWifiMessage_Impl_strategy_default()),
     api_analysis_request: generators::option_strategy_default(generators::Common_AnalysisRequest_Impl_strategy_default())
   }
 }

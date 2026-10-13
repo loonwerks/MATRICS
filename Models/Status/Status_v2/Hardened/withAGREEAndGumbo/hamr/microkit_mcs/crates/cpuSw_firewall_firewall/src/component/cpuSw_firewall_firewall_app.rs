@@ -76,18 +76,6 @@ verus! {
     log::warn!("Unexpected channel: {0}", channel);
   }
 
-  // BEGIN MARKER GUMBO METHODS
-  pub open spec fn ALLOW_LIST() -> MATRICS_Model_Transformations::AllowList_Impl
-  {
-    [1u32, 2u32, 3u32, 4u32]
-  }
-
-  pub open spec fn FOUND_IN_ALLOW_LIST(
-    allow_list: MATRICS_Model_Transformations::AllowList_Impl,
-    src: u32) -> bool
-  {
-    exists|i:int| 0 <= i < allow_list.len() && #[trigger] allow_list[i] == src
-  }
-  // END MARKER GUMBO METHODS
+  // PLACEHOLDER MARKER GUMBO METHODS
 
 }

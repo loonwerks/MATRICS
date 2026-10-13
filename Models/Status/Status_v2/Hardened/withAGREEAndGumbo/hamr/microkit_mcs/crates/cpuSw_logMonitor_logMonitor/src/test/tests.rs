@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_logMonitor_logMonitor_initialize();
-}
+  }
 
   #[test]
   #[serial]
@@ -60,8 +60,8 @@ mod GUMBOX_tests {
       ..ProptestConfig::default()
     },
     // strategies for generating each component input
-    api_request_log: generators::option_strategy_default(generators::Common_Request_Impl_strategy_default()),
-    api_response_log_in: generators::option_strategy_default(generators::Common_ResponseLog_Impl_strategy_default())
+    api_request_log: generators::option_strategy_default(generators::Common_AnalysisRequest_Impl_strategy_default()),
+    api_response_log_in: generators::option_strategy_default(generators::Common_AnalysisResponse_Impl_strategy_default())
   }
 
   testComputeCBwGSV_macro! {
@@ -76,7 +76,7 @@ mod GUMBOX_tests {
     In_historically_no_alert_cmd: generators::bool_strategy_default(),
     In_is_valid: generators::bool_strategy_default(),
     In_since_result: generators::bool_strategy_default(),
-    api_request_log: generators::option_strategy_default(generators::Common_Request_Impl_strategy_default()),
-    api_response_log_in: generators::option_strategy_default(generators::Common_ResponseLog_Impl_strategy_default())
+    api_request_log: generators::option_strategy_default(generators::Common_AnalysisRequest_Impl_strategy_default()),
+    api_response_log_in: generators::option_strategy_default(generators::Common_AnalysisResponse_Impl_strategy_default())
   }
 }

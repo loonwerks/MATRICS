@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_encryptor_encryptor_initialize();
-}
+  }
 
   #[test]
   #[serial]
@@ -59,6 +59,6 @@ mod GUMBOX_tests {
       ..ProptestConfig::default()
     },
     // strategies for generating each component input
-    api_analysis_report_in: generators::option_strategy_default(generators::Common_AnalysisReport_Impl_strategy_default())
+    api_analysis_report_in: generators::option_strategy_default(generators::Common_AnalysisResponse_Impl_strategy_default())
   }
 }

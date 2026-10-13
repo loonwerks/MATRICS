@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_btDriver_btDriver_initialize();
-}
+  }
 
   #[test]
   #[serial]

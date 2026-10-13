@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_wifiDriver_wifiDriver_wifiDriver_initialize();
-}
+  }
 
   #[test]
   #[serial]
@@ -60,8 +60,11 @@ mod GUMBOX_tests {
       ..ProptestConfig::default()
     },
     // strategies for generating each component input
-    api_alert: generators::option_strategy_default(generators::Common_DummyMessage_Impl_strategy_default()),
-    api_analysis_report: generators::option_strategy_default(generators::Common_AnalysisReport_Impl_strategy_default()),
+    // TODO: full-range default; if alert_in is constrained by a GUMBO assume clause then
+    //       narrow this strategy (e.g. generators::u8_strategy_cust(lou8..=hiu8))
+    //       to avoid exhausting the proptest rejection budget
+    api_alert_in: generators::option_strategy_default(generators::u8_strategy_default()),
+    api_analysis_report: generators::option_strategy_default(generators::Common_OutgoingWifiMessage_Impl_strategy_default()),
     api_wifiRecv: generators::option_strategy_default(generators::Common_IncomingWifiMessage_Impl_strategy_default())
   }
 
@@ -75,8 +78,11 @@ mod GUMBOX_tests {
     },
     // strategies for generating each component input
     In_alert_cmd: generators::bool_strategy_default(),
-    api_alert: generators::option_strategy_default(generators::Common_DummyMessage_Impl_strategy_default()),
-    api_analysis_report: generators::option_strategy_default(generators::Common_AnalysisReport_Impl_strategy_default()),
+    // TODO: full-range default; if alert_in is constrained by a GUMBO assume clause then
+    //       narrow this strategy (e.g. generators::u8_strategy_cust(lou8..=hiu8))
+    //       to avoid exhausting the proptest rejection budget
+    api_alert_in: generators::option_strategy_default(generators::u8_strategy_default()),
+    api_analysis_report: generators::option_strategy_default(generators::Common_OutgoingWifiMessage_Impl_strategy_default()),
     api_wifiRecv: generators::option_strategy_default(generators::Common_IncomingWifiMessage_Impl_strategy_default())
   }
 }

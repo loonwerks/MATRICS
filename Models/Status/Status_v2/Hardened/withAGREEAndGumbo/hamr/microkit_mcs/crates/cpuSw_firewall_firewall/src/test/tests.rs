@@ -12,7 +12,7 @@ mod tests {
   #[serial]
   fn test_initialization() {
     crate::cpuSw_firewall_firewall_initialize();
-}
+  }
 
   #[test]
   #[serial]
