@@ -19,7 +19,8 @@ cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR := $(shell dirname $(shell pwd))
 
 # @ivanv: incremental builds don't work with LINUX_IMAGE_DIR changing
 
-LIB_VMM_DIR ?= $(VMM_DIR)
+LIB_VMM_DIR ?= $(LIONSOS)/dep/libvmm
+override LIB_VMM_DIR := $(abspath $(LIB_VMM_DIR))
 ifeq ("$(wildcard $(LIB_VMM_DIR)/tools)","")
 LIB_VMM_DIR := $(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_DIR)/libvmm
 ifeq ("$(wildcard $(LIB_VMM_DIR)/tools)","")

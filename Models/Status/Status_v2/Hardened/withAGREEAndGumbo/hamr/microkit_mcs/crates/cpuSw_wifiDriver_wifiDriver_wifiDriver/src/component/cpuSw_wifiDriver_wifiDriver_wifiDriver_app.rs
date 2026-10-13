@@ -68,16 +68,18 @@ verus! {
     {
       let wifi_rx_message = api.get_wifiRecv();
       if wifi_rx_message.is_some() {
-          let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(64); // Find null byte
-          let start = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == b'/').unwrap_or(64); // Find first character
-          match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[start..len]) {
-               Ok(v) => {
-                    if v == "/hmd"{
-                         api.put_HMD_log(wifi_rx_message.unwrap().payload);
-                    }
-               },
-               Err(e) => panic!("Invalid UTF-8: {}", e),
-          };
+          let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(0); // Find null byte
+          let start = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == b'/').unwrap_or(0); // Find first character
+          if len > 0 && start > 0 {
+               match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[start..len]) {
+                    Ok(v) => {
+                         if v == "/hmd"{
+                              api.put_HMD_log(wifi_rx_message.unwrap().payload);
+                         }
+                    },
+                    Err(e) => panic!("Invalid UTF-8: {}", e),
+               };
+          }
       }
     }
 
