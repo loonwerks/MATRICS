@@ -1,4 +1,4 @@
-FROM jasonbelt/microkit_provers
+FROM jasonbelt/microkit_provers:2026.10.01
 
 RUN echo "ARM: Install Custom LionsOS" && \
   cd ${PROVERS_DIR} && \
@@ -11,8 +11,6 @@ RUN echo "ARM: Install Custom LionsOS" && \
 WORKDIR /home/microkit/ICS
 
 RUN sudo apt-get update -y && sudo apt install cpio vim -y
-
-ENV MICROKIT_SDK=/home/microkit/provers/microkit-sdk-2.2.0
 
 EXPOSE 8080/tcp
 EXPOSE 8443/tcp
