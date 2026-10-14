@@ -71,33 +71,33 @@ CFLAGS += \
 	-I$(SDDF)/include/microkit \
 	-I$(TOP_DIR)/scheduler/include \
 	$(TOP_TYPES_INCLUDE) \
-	-I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/include \
-	-I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/include \
 	-I$(TOP_DIR)/components/cpuSw_btDriver_btDriver/include \
 	-I$(TOP_DIR)/components/cpuSw_usbDriver_usbDriver/include \
-	-I$(TOP_DIR)/components/cpuSw_dataManager_dataManager_dataManager/include \
-	-I$(TOP_DIR)/components/cpuSw_dataManager_dataStorage_dataStorage/include \
 	-I$(TOP_DIR)/components/cpuSw_dataAnalysis_dataAnalysis/include \
 	-I$(TOP_DIR)/components/cpuSw_decryptor_decryptor/include \
 	-I$(TOP_DIR)/components/cpuSw_encryptor_encryptor/include \
 	-I$(TOP_DIR)/components/cpuSw_logMonitor_logMonitor/include \
 	-I$(TOP_DIR)/components/cpuSw_reportMonitor_reportMonitor/include \
-	-I$(TOP_DIR)/components/cpuSw_firewall_firewall/include
+	-I$(TOP_DIR)/components/cpuSw_firewall_firewall/include \
+	-I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/include \
+	-I$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/include \
+	-I$(TOP_DIR)/components/cpuSw_dataManager_dataManager_dataManager/include \
+	-I$(TOP_DIR)/components/cpuSw_dataManager_dataStorage_dataStorage/include
 
 
 UTIL_OBJS :=
 
 TYPE_OBJS := \
-	sb_queue_Common_OutgoingWifiMessage_Impl_1.o \
-	sb_queue_Common_EncryptedMessage_Impl_1.o \
-	sb_queue_Common_AnalysisRequest_Impl_1.o \
-	sb_queue_Common_IncomingWifiMessage_Impl_1.o \
 	sb_queue_Common_DummyMessage_Impl_1.o \
-	sb_queue_Common_StoredLogFile_Impl_1.o \
+	sb_queue_Common_AnalysisRequest_Impl_1.o \
 	sb_queue_Common_AnalysisResponse_Impl_1.o \
-	sb_queue_Common_EncryptedAnalysisResponse_Impl_1.o \
 	sb_queue_Common_Log_Impl_1.o \
-	sb_queue_uint8_t_1.o
+	sb_queue_Common_OutgoingWifiMessage_Impl_1.o \
+	sb_queue_uint8_t_1.o \
+	sb_queue_Common_EncryptedMessage_Impl_1.o \
+	sb_queue_Common_IncomingWifiMessage_Impl_1.o \
+	sb_queue_Common_StoredLogFile_Impl_1.o \
+	sb_queue_Common_EncryptedAnalysisResponse_Impl_1.o
 
 # The queue objects as an archive: each protection domain's link pulls in only the
 # queues it uses, not every queue in the system
@@ -130,35 +130,27 @@ ${CHECK_FLAGS_BOARD_MD5}:
 vpath %.c $(SDDF) \
 	$(TOP_DIR)/scheduler/src \
 	$(TOP_DIR)/types/src \
-	$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src \
-	$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/src \
 	$(TOP_DIR)/components/cpuSw_btDriver_btDriver/src \
 	$(TOP_DIR)/components/cpuSw_usbDriver_usbDriver/src \
-	$(TOP_DIR)/components/cpuSw_dataManager_dataManager_dataManager/src \
-	$(TOP_DIR)/components/cpuSw_dataManager_dataStorage_dataStorage/src \
 	$(TOP_DIR)/components/cpuSw_dataAnalysis_dataAnalysis/src \
 	$(TOP_DIR)/components/cpuSw_decryptor_decryptor/src \
 	$(TOP_DIR)/components/cpuSw_encryptor_encryptor/src \
 	$(TOP_DIR)/components/cpuSw_logMonitor_logMonitor/src \
 	$(TOP_DIR)/components/cpuSw_reportMonitor_reportMonitor/src \
-	$(TOP_DIR)/components/cpuSw_firewall_firewall/src
+	$(TOP_DIR)/components/cpuSw_firewall_firewall/src \
+	$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriver_wifiDriver/src \
+	$(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/src \
+	$(TOP_DIR)/components/cpuSw_dataManager_dataManager_dataManager/src \
+	$(TOP_DIR)/components/cpuSw_dataManager_dataStorage_dataStorage/src
 
 
 # EXTRA_IMAGES: protection domains only a variant has (the test controller, set by
 # test_scheduler.mk); empty for the shipped image
 IMAGES := timer_driver.elf scheduler.elf \
-	cpuSw_wifiDriver_wifiDriver_wifiDriver.elf \
-	cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf \
-	cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf \
-	cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf \
 	cpuSw_btDriver_btDriver.elf \
 	cpuSw_btDriver_btDriver_MON.elf \
 	cpuSw_usbDriver_usbDriver.elf \
 	cpuSw_usbDriver_usbDriver_MON.elf \
-	cpuSw_dataManager_dataManager_dataManager.elf \
-	cpuSw_dataManager_dataManager_dataManager_MON.elf \
-	cpuSw_dataManager_dataStorage_dataStorage.elf \
-	cpuSw_dataManager_dataStorage_dataStorage_MON.elf \
 	cpuSw_dataAnalysis_dataAnalysis.elf \
 	cpuSw_dataAnalysis_dataAnalysis_MON.elf \
 	cpuSw_decryptor_decryptor.elf \
@@ -171,14 +163,18 @@ IMAGES := timer_driver.elf scheduler.elf \
 	cpuSw_reportMonitor_reportMonitor_MON.elf \
 	cpuSw_firewall_firewall.elf \
 	cpuSw_firewall_firewall_MON.elf \
+	cpuSw_wifiDriver_wifiDriver_wifiDriver.elf \
+	cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf \
+	cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf \
+	cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf \
+	cpuSw_dataManager_dataManager_dataManager.elf \
+	cpuSw_dataManager_dataManager_dataManager_MON.elf \
+	cpuSw_dataManager_dataStorage_dataStorage.elf \
+	cpuSw_dataManager_dataStorage_dataStorage_MON.elf \
 	$(EXTRA_IMAGES)
 
 ${IMAGES}: libsddf_util_debug.a ${CHECK_FLAGS_BOARD_MD5}
 
-
-# user code
-cpuSw_wifiDriver_wifiDriver_wifiDriver_rust:
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
 
 # user code
 cpuSw_btDriver_btDriver_rust:
@@ -187,10 +183,6 @@ cpuSw_btDriver_btDriver_rust:
 # user code
 cpuSw_usbDriver_usbDriver_rust:
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver $(RUST_MAKE_TARGET)
-
-# user code
-cpuSw_dataManager_dataManager_dataManager_rust:
-	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager $(RUST_MAKE_TARGET)
 
 # user code
 cpuSw_dataAnalysis_dataAnalysis_rust:
@@ -215,6 +207,14 @@ cpuSw_reportMonitor_reportMonitor_rust:
 # user code
 cpuSw_firewall_firewall_rust:
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall $(RUST_MAKE_TARGET)
+
+# user code
+cpuSw_wifiDriver_wifiDriver_wifiDriver_rust:
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver $(RUST_MAKE_TARGET)
+
+# user code
+cpuSw_dataManager_dataManager_dataManager_rust:
+	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager $(RUST_MAKE_TARGET)
 
 # monitor
 cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o: $(TOP_DIR)/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/src/cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.c Makefile
@@ -261,18 +261,6 @@ $(TYPES_LIB): $(TYPE_OBJS)
 scheduler.elf: $(UTIL_OBJS) $(SCHEDULER_OBJ) $(TYPES_LIB) ${CHECK_FLAGS_BOARD_MD5}
 	$(LD) $(LDFLAGS) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
-
-cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o $(TYPES_LIB)
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
-
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
-
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPES_LIB) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
-	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a $(TYPES_LIB) --end-group -o $@
-
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON_user.o cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
@@ -284,18 +272,6 @@ cpuSw_usbDriver_usbDriver_MON.elf: cpuSw_usbDriver_usbDriver_MON_user.o cpuSw_us
 
 cpuSw_usbDriver_usbDriver.elf: $(UTIL_OBJS) cpuSw_usbDriver_usbDriver_rust cpuSw_usbDriver_usbDriver.o $(TYPES_LIB)
 	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_usbDriver_usbDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_usbDriver_usbDriver -o $@
-
-cpuSw_dataManager_dataManager_dataManager_MON.elf: cpuSw_dataManager_dataManager_dataManager_MON_user.o cpuSw_dataManager_dataManager_dataManager_MON.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
-
-cpuSw_dataManager_dataManager_dataManager.elf: $(UTIL_OBJS) cpuSw_dataManager_dataManager_dataManager_rust cpuSw_dataManager_dataManager_dataManager.o $(TYPES_LIB)
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_dataManager_dataManager_dataManager -o $@
-
-cpuSw_dataManager_dataStorage_dataStorage_MON.elf: cpuSw_dataManager_dataStorage_dataStorage_MON_user.o cpuSw_dataManager_dataStorage_dataStorage_MON.o
-	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
-
-cpuSw_dataManager_dataStorage_dataStorage.elf: $(TYPES_LIB) cpuSw_dataManager_dataStorage_dataStorage.a
-	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_dataManager_dataStorage_dataStorage.a $(TYPES_LIB) --end-group -o $@
 
 cpuSw_dataAnalysis_dataAnalysis_MON.elf: cpuSw_dataAnalysis_dataAnalysis_MON_user.o cpuSw_dataAnalysis_dataAnalysis_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
@@ -333,11 +309,35 @@ cpuSw_firewall_firewall_MON.elf: cpuSw_firewall_firewall_MON_user.o cpuSw_firewa
 cpuSw_firewall_firewall.elf: $(UTIL_OBJS) cpuSw_firewall_firewall_rust cpuSw_firewall_firewall.o $(TYPES_LIB)
 	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_firewall_firewall/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_firewall_firewall -o $@
 
+cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
+
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPES_LIB) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a $(TYPES_LIB) --end-group -o $@
+
+cpuSw_dataManager_dataManager_dataManager_MON.elf: cpuSw_dataManager_dataManager_dataManager_MON_user.o cpuSw_dataManager_dataManager_dataManager_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_dataManager_dataManager_dataManager.elf: $(UTIL_OBJS) cpuSw_dataManager_dataManager_dataManager_rust cpuSw_dataManager_dataManager_dataManager.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_dataManager_dataManager_dataManager -o $@
+
+cpuSw_dataManager_dataStorage_dataStorage_MON.elf: cpuSw_dataManager_dataStorage_dataStorage_MON_user.o cpuSw_dataManager_dataStorage_dataStorage_MON.o
+	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
+
+cpuSw_dataManager_dataStorage_dataStorage.elf: $(TYPES_LIB) cpuSw_dataManager_dataStorage_dataStorage.a
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_dataManager_dataStorage_dataStorage.a $(TYPES_LIB) --end-group -o $@
+
 
 
 $(SYSTEM_FILE): $(IMAGES) $(DTB) ${CHECK_FLAGS_BOARD_MD5}
 	$(PYTHON) $(SDFGEN_HELPER) --macros "$(SDFGEN_UNKOWN_MACROS)" --configs "$(SCHEDULER_CONFIG_HEADERS)" --output $(TOP_BUILD_DIR)/config_structs.py
-	LIST_TESTS="$(LIST_TESTS)" GUMBO_CHECKS="$(GUMBO_CHECKS)" SYSVERIF_CHECKS="$(SYSVERIF_CHECKS)" $(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY) --tests="$$TESTS"
+	LIST_TESTS="$(LIST_TESTS)" GUMBO_CHECKS="$(GUMBO_CHECKS)" SYSVERIF_CHECKS="$(SYSVERIF_CHECKS)" $(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY)
 	$(OBJCOPY) --update-section .device_resources=timer_driver_device_resources.data timer_driver.elf
 	$(OBJCOPY) --update-section .timer_client_config=timer_client_scheduler.data scheduler.elf
 
@@ -359,55 +359,41 @@ clobber:: clean
 	rm -f ${IMAGE_FILE} ${REPORT_FILE}
 
 test:: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver test
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver test
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver test
-	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager test
 	make -C ${CRATES_DIR}/cpuSw_dataAnalysis_dataAnalysis test
 	make -C ${CRATES_DIR}/cpuSw_decryptor_decryptor test
 	make -C ${CRATES_DIR}/cpuSw_encryptor_encryptor test
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor test
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor test
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall test
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver test
+	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager test
 
 clean:: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver clean
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver clean
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver clean
-	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager clean
 	make -C ${CRATES_DIR}/cpuSw_dataAnalysis_dataAnalysis clean
 	make -C ${CRATES_DIR}/cpuSw_decryptor_decryptor clean
 	make -C ${CRATES_DIR}/cpuSw_encryptor_encryptor clean
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor clean
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall clean
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver clean
+	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager clean
 	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
-	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
-	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
 	rm -rf ${TOP_DIR}/components/cpuSw_wifiDriver_wifiDriverVM_wifiDriver/build
 	rm -rf ${TOP_DIR}/components/cpuSw_dataManager_dataStorage_dataStorage/build
 
 verus: 
-	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver verus
 	make -C ${CRATES_DIR}/cpuSw_btDriver_btDriver verus
 	make -C ${CRATES_DIR}/cpuSw_usbDriver_usbDriver verus
-	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager verus
 	make -C ${CRATES_DIR}/cpuSw_dataAnalysis_dataAnalysis verus
 	make -C ${CRATES_DIR}/cpuSw_decryptor_decryptor verus
 	make -C ${CRATES_DIR}/cpuSw_encryptor_encryptor verus
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall verus
+	make -C ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver verus
+	make -C ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager verus

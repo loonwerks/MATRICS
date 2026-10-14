@@ -28,6 +28,8 @@ vstd = { version = "=0.0.0-2026-09-06-0133", default-features=false }
 verus_builtin = { version = "=0.0.0-2026-09-06-0133" }
 verus_builtin_macros = { version = "=0.0.0-2026-09-06-0133" }
 
+aes-gcm = {version = "0.10.3", default-features=false, features = ["aes"] }
+base64 = {version = "0.22.1", default-features=false }
 # PLACEHOLDER MARKER R2U2 CARGO DEPENDENCIES
 
 [dev-dependencies]
