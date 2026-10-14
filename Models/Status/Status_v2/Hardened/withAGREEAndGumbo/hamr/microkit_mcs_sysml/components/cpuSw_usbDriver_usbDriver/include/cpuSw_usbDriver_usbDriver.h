@@ -27,6 +27,5 @@ void *memset(void *dest, int c, size_t n);
 bool usbRecv_is_empty(void);
 bool get_usbRecv_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data);
 bool get_usbRecv(Common_DummyMessage_Impl *data);
-bool peek_usbRecv(Common_DummyMessage_Impl *data);
+uintmax_t get_usbRecv_num_invalid(void);
 bool put_usbSend(const Common_DummyMessage_Impl *data);
-bool peek_usbSend(Common_DummyMessage_Impl *data);

@@ -27,6 +27,5 @@ void *memset(void *dest, int c, size_t n);
 bool HMD_log_in_is_empty(void);
 bool get_HMD_log_in_poll(sb_event_counter_t *numDropped, Common_EncryptedMessage_Impl *data);
 bool get_HMD_log_in(Common_EncryptedMessage_Impl *data);
-bool peek_HMD_log_in(Common_EncryptedMessage_Impl *data);
+uintmax_t get_HMD_log_in_num_invalid(void);
 bool put_HMD_log_out(const Common_Log_Impl *data);
-bool peek_HMD_log_out(Common_Log_Impl *data);

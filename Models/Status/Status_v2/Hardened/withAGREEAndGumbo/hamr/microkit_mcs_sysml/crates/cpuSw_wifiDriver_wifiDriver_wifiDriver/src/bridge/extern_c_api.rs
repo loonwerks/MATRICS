@@ -12,7 +12,9 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool;
+  fn get_wifiRecv_num_invalid() -> u64;
   fn get_analysis_report(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn get_analysis_report_num_invalid() -> u64;
   fn get_alert_in() -> bool;
   fn put_wifiSend(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
   fn put_HMD_log(value: *mut Common::EncryptedMessage_Impl) -> bool;
@@ -31,6 +33,13 @@ pub fn unsafe_get_wifiRecv() -> Option<Common::IncomingWifiMessage_Impl>
   }
 }
 
+pub fn unsafe_get_wifiRecv_num_invalid() -> u64
+{
+  unsafe {
+    return get_wifiRecv_num_invalid();
+  }
+}
+
 pub fn unsafe_get_analysis_report() -> Option<Common::OutgoingWifiMessage_Impl>
 {
   unsafe {
@@ -40,6 +49,13 @@ pub fn unsafe_get_analysis_report() -> Option<Common::OutgoingWifiMessage_Impl>
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_analysis_report_num_invalid() -> u64
+{
+  unsafe {
+    return get_analysis_report_num_invalid();
   }
 }
 
@@ -115,6 +131,12 @@ pub fn get_wifiRecv(value: *mut Common::IncomingWifiMessage_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_wifiRecv_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_analysis_report(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
@@ -126,6 +148,12 @@ pub fn get_analysis_report(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_analysis_report_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

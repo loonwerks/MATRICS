@@ -24,3 +24,12 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<Response_Impl>() == 3568);
+const _: () = assert!(core::mem::align_of::<Response_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(Response_Impl, request) == 0);
+const _: () = assert!(core::mem::offset_of!(Response_Impl, validLogCount) == 32);
+const _: () = assert!(core::mem::offset_of!(Response_Impl, moreAvailable) == 36);
+const _: () = assert!(core::mem::offset_of!(Response_Impl, nextStartTime) == 40);
+const _: () = assert!(core::mem::offset_of!(Response_Impl, logs) == 48);

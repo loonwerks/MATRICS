@@ -12,7 +12,9 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn get_analysis_request_num_invalid() -> u64;
   fn get_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn get_analysis_report_in_num_invalid() -> u64;
   fn put_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
   fn put_alert_out() -> bool;
 }
@@ -29,6 +31,13 @@ pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
   }
 }
 
+pub fn unsafe_get_analysis_request_num_invalid() -> u64
+{
+  unsafe {
+    return get_analysis_request_num_invalid();
+  }
+}
+
 pub fn unsafe_get_analysis_report_in() -> Option<Common::OutgoingWifiMessage_Impl>
 {
   unsafe {
@@ -38,6 +47,13 @@ pub fn unsafe_get_analysis_report_in() -> Option<Common::OutgoingWifiMessage_Imp
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_analysis_report_in_num_invalid() -> u64
+{
+  unsafe {
+    return get_analysis_report_in_num_invalid();
   }
 }
 
@@ -95,6 +111,12 @@ pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_analysis_request_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
 {
   unsafe {
@@ -106,6 +128,12 @@ pub fn get_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> b
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_analysis_report_in_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

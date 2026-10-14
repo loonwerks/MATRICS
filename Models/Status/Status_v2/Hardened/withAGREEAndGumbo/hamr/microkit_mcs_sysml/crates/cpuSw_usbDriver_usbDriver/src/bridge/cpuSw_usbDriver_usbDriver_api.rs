@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_usbRecv();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_usbRecv_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_usbRecv_num_invalid();
+    }
   }
 
   pub trait cpuSw_usbDriver_usbDriver_Full_Api: cpuSw_usbDriver_usbDriver_Put_Api + cpuSw_usbDriver_usbDriver_Get_Api {}
@@ -60,6 +66,12 @@ verus! {
         old(self).usbSend == final(self).usbSend,
     {
       self.api.unverified_get_usbRecv(&Ghost(self.usbRecv))
+    }/// The number of messages received on usbRecv that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_usbRecv_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_usbRecv_num_invalid()
     }
   }
 

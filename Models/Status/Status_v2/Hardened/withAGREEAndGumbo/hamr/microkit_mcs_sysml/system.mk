@@ -31,6 +31,13 @@ MICROKIT_TOOL ?= $(MICROKIT_SDK)/bin/microkit
 DTC := dtc
 PYTHON ?= python3
 
+# Which cargo profile directory the Rust staticlibs land in.  The crate Makefiles'
+# default target is build-verus-release, and the *-release targets pass --release, so
+# those produce target/<triple>/release; the plain build / build-verus targets do not
+# and produce target/<triple>/debug.  The link rules below have to look in whichever
+# one RUST_MAKE_TARGET actually populated.
+RUST_PROFILE_DIR := $(if $(RUST_MAKE_TARGET),$(if $(filter %-release,$(RUST_MAKE_TARGET)),release,debug),release)
+
 SYSTEM_FILE := arinc_scheduling.system
 IMAGE_FILE := loader.img
 REPORT_FILE := report.txt
@@ -92,13 +99,28 @@ TYPE_OBJS := \
 	sb_queue_Common_Log_Impl_1.o \
 	sb_queue_uint8_t_1.o
 
+# The queue objects as an archive: each protection domain's link pulls in only the
+# queues it uses, not every queue in the system
+TYPES_LIB := libhamr_types.a
+
 
 all: cache.o
 
 # Sentinel file whose name encodes a hash of build-affecting variables.
 # When any of these change the old sentinel is removed and a new one is created,
 # forcing dependent targets to rebuild.
-CHECK_FLAGS_BOARD_MD5:=.board_cflags-$(shell echo -- ${CFLAGS} ${BOARD} ${MICROKIT_CONFIG} ${MICROKIT_SDK} ${MSD} ${SCHEDULER_C} ${SCHEDULER_CONFIG_HEADERS}| shasum | sed 's/ *-//')
+# TESTS, LIST_TESTS, GUMBO_CHECKS and SYSVERIF_CHECKS are part of the hash because they
+# are patched into an ELF section by the MSD step below (all but TESTS through its
+# environment, so a meta.py written before they existed still runs).  Without them,
+# changing one leaves this stamp -- and therefore $(SYSTEM_FILE) -- up to date, the
+# metaprogram never re-runs, and the image silently keeps running the previous
+# selection.  Each is hashed with its name: unlabelled, GUMBO_CHECKS=off and
+# SYSVERIF_CHECKS=off hash alike, since an empty variable leaves no trace.
+# TESTS reaches the MSD step through its environment ("$$TESTS"), so no character in it is
+# re-parsed by the shell; in the hash, a quote is replaced (after %, so no two filters hash
+# alike) so it cannot end the quoting.
+export TESTS
+CHECK_FLAGS_BOARD_MD5:=.board_cflags-$(shell echo -- ${CFLAGS} ${BOARD} ${MICROKIT_CONFIG} ${MICROKIT_SDK} ${MSD} ${SCHEDULER_C} ${SCHEDULER_CONFIG_HEADERS} 'TESTS=$(subst ',%27,$(subst %,%25,$(TESTS)))' LIST_TESTS=${LIST_TESTS} GUMBO_CHECKS=${GUMBO_CHECKS} SYSVERIF_CHECKS=${SYSVERIF_CHECKS}| shasum | sed 's/ *-//')
 
 ${CHECK_FLAGS_BOARD_MD5}:
 	-rm -f .board_cflags-*
@@ -122,6 +144,8 @@ vpath %.c $(SDDF) \
 	$(TOP_DIR)/components/cpuSw_firewall_firewall/src
 
 
+# EXTRA_IMAGES: protection domains only a variant has (the test controller, set by
+# test_scheduler.mk); empty for the shipped image
 IMAGES := timer_driver.elf scheduler.elf \
 	cpuSw_wifiDriver_wifiDriver_wifiDriver.elf \
 	cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf \
@@ -146,7 +170,8 @@ IMAGES := timer_driver.elf scheduler.elf \
 	cpuSw_reportMonitor_reportMonitor.elf \
 	cpuSw_reportMonitor_reportMonitor_MON.elf \
 	cpuSw_firewall_firewall.elf \
-	cpuSw_firewall_firewall_MON.elf
+	cpuSw_firewall_firewall_MON.elf \
+	$(EXTRA_IMAGES)
 
 ${IMAGES}: libsddf_util_debug.a ${CHECK_FLAGS_BOARD_MD5}
 
@@ -229,86 +254,90 @@ SCHEDULER_OBJ := $(notdir $(basename $(SCHEDULER_C))).o
 $(SCHEDULER_OBJ): $(SCHEDULER_C) ${SDDF}/include
 	${CC} ${CFLAGS} -c -o $@ $<
 
-scheduler.elf: $(UTIL_OBJS) $(TYPE_OBJS) $(SCHEDULER_OBJ) ${CHECK_FLAGS_BOARD_MD5}
-	$(LD) $(LDFLAGS) $(filter %.o, $^) $(LIBS) -o $@
+$(TYPES_LIB): $(TYPE_OBJS)
+	rm -f $@
+	$(AR) rcs $@ $^
+
+scheduler.elf: $(UTIL_OBJS) $(SCHEDULER_OBJ) $(TYPES_LIB) ${CHECK_FLAGS_BOARD_MD5}
+	$(LD) $(LDFLAGS) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -o $@
 
 cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriver_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
+cpuSw_wifiDriver_wifiDriver_wifiDriver.elf: $(UTIL_OBJS) cpuSw_wifiDriver_wifiDriver_wifiDriver_rust cpuSw_wifiDriver_wifiDriver_wifiDriver.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_wifiDriver_wifiDriver_wifiDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_wifiDriver_wifiDriver_wifiDriver -o $@
 
 cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf: cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON_user.o cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPE_OBJS) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
-	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a --end-group -o $@
+cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf: $(TYPES_LIB) cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_wifiDriver_wifiDriverVM_wifiDriver.a $(TYPES_LIB) --end-group -o $@
 
 cpuSw_btDriver_btDriver_MON.elf: cpuSw_btDriver_btDriver_MON_user.o cpuSw_btDriver_btDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_btDriver_btDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_btDriver_btDriver_rust cpuSw_btDriver_btDriver.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_btDriver_btDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_btDriver_btDriver -o $@
+cpuSw_btDriver_btDriver.elf: $(UTIL_OBJS) cpuSw_btDriver_btDriver_rust cpuSw_btDriver_btDriver.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_btDriver_btDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_btDriver_btDriver -o $@
 
 cpuSw_usbDriver_usbDriver_MON.elf: cpuSw_usbDriver_usbDriver_MON_user.o cpuSw_usbDriver_usbDriver_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_usbDriver_usbDriver.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_usbDriver_usbDriver_rust cpuSw_usbDriver_usbDriver.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_usbDriver_usbDriver/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_usbDriver_usbDriver -o $@
+cpuSw_usbDriver_usbDriver.elf: $(UTIL_OBJS) cpuSw_usbDriver_usbDriver_rust cpuSw_usbDriver_usbDriver.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_usbDriver_usbDriver/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_usbDriver_usbDriver -o $@
 
 cpuSw_dataManager_dataManager_dataManager_MON.elf: cpuSw_dataManager_dataManager_dataManager_MON_user.o cpuSw_dataManager_dataManager_dataManager_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_dataManager_dataManager_dataManager.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_dataManager_dataManager_dataManager_rust cpuSw_dataManager_dataManager_dataManager.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_dataManager_dataManager_dataManager -o $@
+cpuSw_dataManager_dataManager_dataManager.elf: $(UTIL_OBJS) cpuSw_dataManager_dataManager_dataManager_rust cpuSw_dataManager_dataManager_dataManager.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataManager_dataManager_dataManager/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_dataManager_dataManager_dataManager -o $@
 
 cpuSw_dataManager_dataStorage_dataStorage_MON.elf: cpuSw_dataManager_dataStorage_dataStorage_MON_user.o cpuSw_dataManager_dataStorage_dataStorage_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_dataManager_dataStorage_dataStorage.elf: $(TYPE_OBJS) cpuSw_dataManager_dataStorage_dataStorage.a
-	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_dataManager_dataStorage_dataStorage.a --end-group -o $@
+cpuSw_dataManager_dataStorage_dataStorage.elf: $(TYPES_LIB) cpuSw_dataManager_dataStorage_dataStorage.a
+	$(LD) $(LDFLAGS) $^ --start-group -lmicrokit -Tmicrokit.ld cpuSw_dataManager_dataStorage_dataStorage.a $(TYPES_LIB) --end-group -o $@
 
 cpuSw_dataAnalysis_dataAnalysis_MON.elf: cpuSw_dataAnalysis_dataAnalysis_MON_user.o cpuSw_dataAnalysis_dataAnalysis_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_dataAnalysis_dataAnalysis.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_dataAnalysis_dataAnalysis_rust cpuSw_dataAnalysis_dataAnalysis.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataAnalysis_dataAnalysis/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_dataAnalysis_dataAnalysis -o $@
+cpuSw_dataAnalysis_dataAnalysis.elf: $(UTIL_OBJS) cpuSw_dataAnalysis_dataAnalysis_rust cpuSw_dataAnalysis_dataAnalysis.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_dataAnalysis_dataAnalysis/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_dataAnalysis_dataAnalysis -o $@
 
 cpuSw_decryptor_decryptor_MON.elf: cpuSw_decryptor_decryptor_MON_user.o cpuSw_decryptor_decryptor_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_decryptor_decryptor.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_decryptor_decryptor_rust cpuSw_decryptor_decryptor.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_decryptor_decryptor/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_decryptor_decryptor -o $@
+cpuSw_decryptor_decryptor.elf: $(UTIL_OBJS) cpuSw_decryptor_decryptor_rust cpuSw_decryptor_decryptor.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_decryptor_decryptor/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_decryptor_decryptor -o $@
 
 cpuSw_encryptor_encryptor_MON.elf: cpuSw_encryptor_encryptor_MON_user.o cpuSw_encryptor_encryptor_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_encryptor_encryptor.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_encryptor_encryptor_rust cpuSw_encryptor_encryptor.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_encryptor_encryptor/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_encryptor_encryptor -o $@
+cpuSw_encryptor_encryptor.elf: $(UTIL_OBJS) cpuSw_encryptor_encryptor_rust cpuSw_encryptor_encryptor.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_encryptor_encryptor/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_encryptor_encryptor -o $@
 
 cpuSw_logMonitor_logMonitor_MON.elf: cpuSw_logMonitor_logMonitor_MON_user.o cpuSw_logMonitor_logMonitor_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_logMonitor_logMonitor.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_logMonitor_logMonitor_rust cpuSw_logMonitor_logMonitor.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_logMonitor_logMonitor/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_logMonitor_logMonitor -o $@
+cpuSw_logMonitor_logMonitor.elf: $(UTIL_OBJS) cpuSw_logMonitor_logMonitor_rust cpuSw_logMonitor_logMonitor.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_logMonitor_logMonitor/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_logMonitor_logMonitor -o $@
 
 cpuSw_reportMonitor_reportMonitor_MON.elf: cpuSw_reportMonitor_reportMonitor_MON_user.o cpuSw_reportMonitor_reportMonitor_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_reportMonitor_reportMonitor.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_reportMonitor_reportMonitor_rust cpuSw_reportMonitor_reportMonitor.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_reportMonitor_reportMonitor -o $@
+cpuSw_reportMonitor_reportMonitor.elf: $(UTIL_OBJS) cpuSw_reportMonitor_reportMonitor_rust cpuSw_reportMonitor_reportMonitor.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_reportMonitor_reportMonitor -o $@
 
 cpuSw_firewall_firewall_MON.elf: cpuSw_firewall_firewall_MON_user.o cpuSw_firewall_firewall_MON.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 
-cpuSw_firewall_firewall.elf: $(UTIL_OBJS) $(TYPE_OBJS) cpuSw_firewall_firewall_rust cpuSw_firewall_firewall.o
-	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_firewall_firewall/target/aarch64-unknown-none/release $(filter %.o, $^) $(LIBS) -lcpuSw_firewall_firewall -o $@
+cpuSw_firewall_firewall.elf: $(UTIL_OBJS) cpuSw_firewall_firewall_rust cpuSw_firewall_firewall.o $(TYPES_LIB)
+	$(LD) $(LDFLAGS) -L ${CRATES_DIR}/cpuSw_firewall_firewall/target/aarch64-unknown-none/$(RUST_PROFILE_DIR) $(filter %.o, $^) $(TYPES_LIB) $(LIBS) -lcpuSw_firewall_firewall -o $@
 
 
 
 $(SYSTEM_FILE): $(IMAGES) $(DTB) ${CHECK_FLAGS_BOARD_MD5}
 	$(PYTHON) $(SDFGEN_HELPER) --macros "$(SDFGEN_UNKOWN_MACROS)" --configs "$(SCHEDULER_CONFIG_HEADERS)" --output $(TOP_BUILD_DIR)/config_structs.py
-	$(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY)
+	LIST_TESTS="$(LIST_TESTS)" GUMBO_CHECKS="$(GUMBO_CHECKS)" SYSVERIF_CHECKS="$(SYSVERIF_CHECKS)" $(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY) --tests="$$TESTS"
 	$(OBJCOPY) --update-section .device_resources=timer_driver_device_resources.data timer_driver.elf
 	$(OBJCOPY) --update-section .timer_client_config=timer_client_scheduler.data scheduler.elf
 
@@ -382,6 +411,3 @@ verus:
 	make -C ${CRATES_DIR}/cpuSw_logMonitor_logMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_reportMonitor_reportMonitor verus
 	make -C ${CRATES_DIR}/cpuSw_firewall_firewall verus
-
-verus-sys-proof: 
-	make -C ${CRATES_DIR}/sys_ground_station_contracts_proof all

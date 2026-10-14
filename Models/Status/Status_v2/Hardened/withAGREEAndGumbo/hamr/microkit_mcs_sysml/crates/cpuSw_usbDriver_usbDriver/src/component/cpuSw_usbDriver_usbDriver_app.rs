@@ -31,11 +31,7 @@ verus! {
       &mut self,
       api: &mut cpuSw_usbDriver_usbDriver_Application_Api<API>)
       requires
-        // BEGIN MARKER TIME TRIGGERED REQUIRES
-        // assume AADL_Requirement
-        //   All outgoing event ports must be empty
-        old(api).usbSend.is_none(),
-        // END MARKER TIME TRIGGERED REQUIRES
+        // PLACEHOLDER MARKER TIME TRIGGERED REQUIRES
       ensures
         // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
     {

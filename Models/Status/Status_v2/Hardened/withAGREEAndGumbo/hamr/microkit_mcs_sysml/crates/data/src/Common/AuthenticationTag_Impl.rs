@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_AuthenticationTag_Impl_BYTE_SIZE: usize = 16;
   pub const Common_AuthenticationTag_Impl_DIM_0: usize = 16;
 
   pub type AuthenticationTag_Impl = [u8; Common_AuthenticationTag_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<AuthenticationTag_Impl>() == 16);
+const _: () = assert!(core::mem::align_of::<AuthenticationTag_Impl>() == 1);

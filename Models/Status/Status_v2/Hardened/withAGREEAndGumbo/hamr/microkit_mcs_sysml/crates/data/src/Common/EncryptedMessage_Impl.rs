@@ -22,3 +22,10 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<EncryptedMessage_Impl>() == 4096);
+const _: () = assert!(core::mem::align_of::<EncryptedMessage_Impl>() == 1);
+const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, nonce) == 0);
+const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, ciphertext) == 12);
+const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, tag) == 4080);

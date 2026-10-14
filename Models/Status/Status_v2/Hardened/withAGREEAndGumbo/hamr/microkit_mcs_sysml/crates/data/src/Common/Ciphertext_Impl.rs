@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_Ciphertext_Impl_BYTE_SIZE: usize = 4068;
   pub const Common_Ciphertext_Impl_DIM_0: usize = 4068;
 
   pub type Ciphertext_Impl = [u8; Common_Ciphertext_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<Ciphertext_Impl>() == 4068);
+const _: () = assert!(core::mem::align_of::<Ciphertext_Impl>() == 1);

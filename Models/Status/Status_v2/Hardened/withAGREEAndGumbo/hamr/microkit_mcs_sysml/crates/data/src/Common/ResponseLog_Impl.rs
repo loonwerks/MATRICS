@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_ResponseLog_Impl_BYTE_SIZE: usize = 3520;
   pub const Common_ResponseLog_Impl_DIM_0: usize = 10;
 
   pub type ResponseLog_Impl = [Log_Impl; Common_ResponseLog_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<ResponseLog_Impl>() == 3520);
+const _: () = assert!(core::mem::align_of::<ResponseLog_Impl>() == 8);

@@ -27,6 +27,5 @@ void *memset(void *dest, int c, size_t n);
 bool analysis_request_in_is_empty(void);
 bool get_analysis_request_in_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data);
 bool get_analysis_request_in(Common_AnalysisRequest_Impl *data);
-bool peek_analysis_request_in(Common_AnalysisRequest_Impl *data);
+uintmax_t get_analysis_request_in_num_invalid(void);
 bool put_analysis_request_out(const Common_AnalysisRequest_Impl *data);
-bool peek_analysis_request_out(Common_AnalysisRequest_Impl *data);

@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_HMD_log_in();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_HMD_log_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_HMD_log_in_num_invalid();
+    }
   }
 
   pub trait cpuSw_decryptor_decryptor_Full_Api: cpuSw_decryptor_decryptor_Put_Api + cpuSw_decryptor_decryptor_Get_Api {}
@@ -60,6 +66,12 @@ verus! {
         old(self).HMD_log_out == final(self).HMD_log_out,
     {
       self.api.unverified_get_HMD_log_in(&Ghost(self.HMD_log_in))
+    }/// The number of messages received on HMD_log_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_HMD_log_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_HMD_log_in_num_invalid()
     }
   }
 

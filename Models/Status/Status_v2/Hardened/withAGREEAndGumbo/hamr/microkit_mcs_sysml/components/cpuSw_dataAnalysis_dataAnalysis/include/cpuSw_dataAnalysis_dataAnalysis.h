@@ -25,14 +25,12 @@ void *memset(void *dest, int c, size_t n);
 
 
 bool put_request_log(const Common_AnalysisRequest_Impl *data);
-bool peek_request_log(Common_AnalysisRequest_Impl *data);
 bool put_analysis_report(const Common_AnalysisResponse_Impl *data);
-bool peek_analysis_report(Common_AnalysisResponse_Impl *data);
 bool response_log_is_empty(void);
 bool get_response_log_poll(sb_event_counter_t *numDropped, Common_AnalysisResponse_Impl *data);
 bool get_response_log(Common_AnalysisResponse_Impl *data);
-bool peek_response_log(Common_AnalysisResponse_Impl *data);
+uintmax_t get_response_log_num_invalid(void);
 bool analysis_request_is_empty(void);
 bool get_analysis_request_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data);
 bool get_analysis_request(Common_AnalysisRequest_Impl *data);
-bool peek_analysis_request(Common_AnalysisRequest_Impl *data);
+uintmax_t get_analysis_request_num_invalid(void);

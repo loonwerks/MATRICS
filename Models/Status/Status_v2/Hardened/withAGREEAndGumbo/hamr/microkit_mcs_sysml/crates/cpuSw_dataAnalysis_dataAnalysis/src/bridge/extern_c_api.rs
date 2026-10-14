@@ -12,7 +12,9 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_response_log(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn get_response_log_num_invalid() -> u64;
   fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn get_analysis_request_num_invalid() -> u64;
   fn put_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
   fn put_analysis_report(value: *mut Common::AnalysisResponse_Impl) -> bool;
 }
@@ -29,6 +31,13 @@ pub fn unsafe_get_response_log() -> Option<Common::AnalysisResponse_Impl>
   }
 }
 
+pub fn unsafe_get_response_log_num_invalid() -> u64
+{
+  unsafe {
+    return get_response_log_num_invalid();
+  }
+}
+
 pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
 {
   unsafe {
@@ -38,6 +47,13 @@ pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_analysis_request_num_invalid() -> u64
+{
+  unsafe {
+    return get_analysis_request_num_invalid();
   }
 }
 
@@ -95,6 +111,12 @@ pub fn get_response_log(value: *mut Common::AnalysisResponse_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_response_log_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
@@ -106,6 +128,12 @@ pub fn get_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_analysis_request_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

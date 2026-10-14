@@ -25,20 +25,16 @@ void *memset(void *dest, int c, size_t n);
 
 
 bool put_wifiSend(const Common_OutgoingWifiMessage_Impl *data);
-bool peek_wifiSend(Common_OutgoingWifiMessage_Impl *data);
 bool put_HMD_log(const Common_EncryptedMessage_Impl *data);
-bool peek_HMD_log(Common_EncryptedMessage_Impl *data);
 bool put_analysis_request(const Common_AnalysisRequest_Impl *data);
-bool peek_analysis_request(Common_AnalysisRequest_Impl *data);
 bool wifiRecv_is_empty(void);
 bool get_wifiRecv_poll(sb_event_counter_t *numDropped, Common_IncomingWifiMessage_Impl *data);
 bool get_wifiRecv(Common_IncomingWifiMessage_Impl *data);
-bool peek_wifiRecv(Common_IncomingWifiMessage_Impl *data);
+uintmax_t get_wifiRecv_num_invalid(void);
 bool analysis_report_is_empty(void);
 bool get_analysis_report_poll(sb_event_counter_t *numDropped, Common_OutgoingWifiMessage_Impl *data);
 bool get_analysis_report(Common_OutgoingWifiMessage_Impl *data);
-bool peek_analysis_report(Common_OutgoingWifiMessage_Impl *data);
+uintmax_t get_analysis_report_num_invalid(void);
 bool alert_in_is_empty(void);
 bool get_alert_in_poll(sb_event_counter_t *numDropped);
 bool get_alert_in();
-bool peek_alert_in();

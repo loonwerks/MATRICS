@@ -29,9 +29,8 @@ bool get_encrypted_log(Common_StoredLogFile_Impl *data) {
   return get_encrypted_log_poll (&numDropped, data);
 }
 
-bool peek_encrypted_log(Common_StoredLogFile_Impl *data) {
-  sb_event_counter_t numDropped;
-  return sb_queue_Common_StoredLogFile_Impl_1_peek((sb_queue_Common_StoredLogFile_Impl_1_Recv_t *) &encrypted_log_recv_queue, &numDropped, data);
+uintmax_t get_encrypted_log_num_invalid(void) {
+  return sb_queue_Common_StoredLogFile_Impl_1_numInvalid((sb_queue_Common_StoredLogFile_Impl_1_Recv_t *) &encrypted_log_recv_queue);
 }
 
 bool storage_request_is_empty(void) {
@@ -47,19 +46,14 @@ bool get_storage_request(Common_AnalysisRequest_Impl *data) {
   return get_storage_request_poll (&numDropped, data);
 }
 
-bool peek_storage_request(Common_AnalysisRequest_Impl *data) {
-  sb_event_counter_t numDropped;
-  return sb_queue_Common_AnalysisRequest_Impl_1_peek((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &storage_request_recv_queue, &numDropped, data);
+uintmax_t get_storage_request_num_invalid(void) {
+  return sb_queue_Common_AnalysisRequest_Impl_1_numInvalid((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &storage_request_recv_queue);
 }
 
 bool put_encrypted_response(const Common_EncryptedAnalysisResponse_Impl *data) {
   sb_queue_Common_EncryptedAnalysisResponse_Impl_1_enqueue((sb_queue_Common_EncryptedAnalysisResponse_Impl_1_t *) encrypted_response_queue_1, (Common_EncryptedAnalysisResponse_Impl *) data);
 
   return true;
-}
-
-bool peek_encrypted_response(Common_EncryptedAnalysisResponse_Impl *data) {
-  return sb_queue_Common_EncryptedAnalysisResponse_Impl_1_peek_latest((sb_queue_Common_EncryptedAnalysisResponse_Impl_1_t *) encrypted_response_queue_1, data);
 }
 
 bool zeroize_is_empty(void) {
@@ -75,13 +69,6 @@ bool get_zeroize_poll(sb_event_counter_t *numDropped) {
 bool get_zeroize() {
   sb_event_counter_t numDropped;
   return get_zeroize_poll (&numDropped);
-}
-
-bool peek_zeroize() {
-  uint8_t eventPortPayload;
-  uint8_t *data = &eventPortPayload;
-  sb_event_counter_t numDropped;
-  return sb_queue_uint8_t_1_peek((sb_queue_uint8_t_1_Recv_t *) &zeroize_recv_queue, &numDropped, data);
 }
 
 void init(void) {
@@ -104,6 +91,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_dataManager_dataStorage_dataStorage_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_dataManager_dataStorage_dataStorage_notify(channel);

@@ -36,6 +36,12 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_analysis_request_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_request_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_analysis_report_in(
       &mut self,
       value: &Ghost<Option<Common::OutgoingWifiMessage_Impl>>) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
@@ -43,6 +49,12 @@ verus! {
         res == value@,
     {
       return extern_api::unsafe_get_analysis_report_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_report_in_num_invalid();
     }
   }
 
@@ -92,6 +104,12 @@ verus! {
         old(self).alert_out == final(self).alert_out,
     {
       self.api.unverified_get_analysis_request(&Ghost(self.analysis_request))
+    }/// The number of messages received on analysis_request that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_request_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_request_num_invalid()
     }
     pub fn get_analysis_report_in(&mut self) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
       ensures
@@ -102,6 +120,12 @@ verus! {
         old(self).alert_out == final(self).alert_out,
     {
       self.api.unverified_get_analysis_report_in(&Ghost(self.analysis_report_in))
+    }/// The number of messages received on analysis_report_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_report_in_num_invalid()
     }
   }
 

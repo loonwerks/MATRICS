@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_EncryptedLogArray_Impl_BYTE_SIZE: usize = 411200;
   pub const Common_EncryptedLogArray_Impl_DIM_0: usize = 100;
 
   pub type EncryptedLogArray_Impl = [StoredLogFile_Impl; Common_EncryptedLogArray_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<EncryptedLogArray_Impl>() == 411200);
+const _: () = assert!(core::mem::align_of::<EncryptedLogArray_Impl>() == 8);

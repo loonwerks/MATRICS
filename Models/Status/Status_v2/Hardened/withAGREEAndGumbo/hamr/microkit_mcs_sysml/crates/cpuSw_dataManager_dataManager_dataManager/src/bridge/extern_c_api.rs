@@ -12,8 +12,11 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_HMD_log(value: *mut Common::Log_Impl) -> bool;
+  fn get_HMD_log_num_invalid() -> u64;
   fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn get_request_log_num_invalid() -> u64;
   fn get_encrypted_response(value: *mut Common::EncryptedAnalysisResponse_Impl) -> bool;
+  fn get_encrypted_response_num_invalid() -> u64;
   fn get_zeroize() -> bool;
   fn put_encrypted_log(value: *mut Common::StoredLogFile_Impl) -> bool;
   fn put_storage_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
@@ -32,6 +35,13 @@ pub fn unsafe_get_HMD_log() -> Option<Common::Log_Impl>
   }
 }
 
+pub fn unsafe_get_HMD_log_num_invalid() -> u64
+{
+  unsafe {
+    return get_HMD_log_num_invalid();
+  }
+}
+
 pub fn unsafe_get_request_log() -> Option<Common::AnalysisRequest_Impl>
 {
   unsafe {
@@ -44,6 +54,13 @@ pub fn unsafe_get_request_log() -> Option<Common::AnalysisRequest_Impl>
   }
 }
 
+pub fn unsafe_get_request_log_num_invalid() -> u64
+{
+  unsafe {
+    return get_request_log_num_invalid();
+  }
+}
+
 pub fn unsafe_get_encrypted_response() -> Option<Common::EncryptedAnalysisResponse_Impl>
 {
   unsafe {
@@ -53,6 +70,13 @@ pub fn unsafe_get_encrypted_response() -> Option<Common::EncryptedAnalysisRespon
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_encrypted_response_num_invalid() -> u64
+{
+  unsafe {
+    return get_encrypted_response_num_invalid();
   }
 }
 
@@ -130,6 +154,12 @@ pub fn get_HMD_log(value: *mut Common::Log_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_HMD_log_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
 {
   unsafe {
@@ -144,6 +174,12 @@ pub fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_request_log_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_encrypted_response(value: *mut Common::EncryptedAnalysisResponse_Impl) -> bool
 {
   unsafe {
@@ -155,6 +191,12 @@ pub fn get_encrypted_response(value: *mut Common::EncryptedAnalysisResponse_Impl
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_encrypted_response_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

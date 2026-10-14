@@ -26,3 +26,14 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<HMDPosition_Impl>() == 28);
+const _: () = assert!(core::mem::align_of::<HMDPosition_Impl>() == 4);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, positionX) == 0);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, positionY) == 4);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, positionZ) == 8);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, orientationX) == 12);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, orientationY) == 16);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, orientationZ) == 20);
+const _: () = assert!(core::mem::offset_of!(HMDPosition_Impl, orientationW) == 24);

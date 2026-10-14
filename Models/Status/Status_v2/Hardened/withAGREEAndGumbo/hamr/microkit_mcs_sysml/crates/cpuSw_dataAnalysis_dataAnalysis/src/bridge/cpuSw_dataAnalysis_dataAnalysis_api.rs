@@ -38,6 +38,12 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_response_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_response_log_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_analysis_request(
       &mut self,
       value: &Ghost<Option<Common::AnalysisRequest_Impl>>) -> (res : Option<Common::AnalysisRequest_Impl>)
@@ -45,6 +51,12 @@ verus! {
         res == value@,
     {
       return extern_api::unsafe_get_analysis_request();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_request_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_request_num_invalid();
     }
   }
 
@@ -96,6 +108,12 @@ verus! {
         old(self).analysis_request == final(self).analysis_request,
     {
       self.api.unverified_get_response_log(&Ghost(self.response_log))
+    }/// The number of messages received on response_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_response_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_response_log_num_invalid()
     }
     pub fn get_analysis_request(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
@@ -106,6 +124,12 @@ verus! {
         res == final(self).analysis_request,
     {
       self.api.unverified_get_analysis_request(&Ghost(self.analysis_request))
+    }/// The number of messages received on analysis_request that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_request_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_request_num_invalid()
     }
   }
 

@@ -42,6 +42,12 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_request_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_request_log_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_response_log_in(
       &mut self,
       value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
@@ -49,6 +55,12 @@ verus! {
         res == value@,
     {
       return extern_api::unsafe_get_response_log_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_response_log_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_response_log_in_num_invalid();
     }
   }
 
@@ -113,6 +125,12 @@ verus! {
         old(self).storage_alert_out == final(self).storage_alert_out,
     {
       self.api.unverified_get_request_log(&Ghost(self.request_log))
+    }/// The number of messages received on request_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_request_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_request_log_num_invalid()
     }
     pub fn get_response_log_in(&mut self) -> (res : Option<Common::AnalysisResponse_Impl>)
       ensures
@@ -124,6 +142,12 @@ verus! {
         old(self).storage_alert_out == final(self).storage_alert_out,
     {
       self.api.unverified_get_response_log_in(&Ghost(self.response_log_in))
+    }/// The number of messages received on response_log_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_response_log_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_response_log_in_num_invalid()
     }
   }
 

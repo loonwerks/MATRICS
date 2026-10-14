@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_Nonce_Impl_BYTE_SIZE: usize = 12;
   pub const Common_Nonce_Impl_DIM_0: usize = 12;
 
   pub type Nonce_Impl = [u8; Common_Nonce_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<Nonce_Impl>() == 12);
+const _: () = assert!(core::mem::align_of::<Nonce_Impl>() == 1);

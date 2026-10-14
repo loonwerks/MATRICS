@@ -21,3 +21,9 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<AnalysisResponse_Impl>() == 3576);
+const _: () = assert!(core::mem::align_of::<AnalysisResponse_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(AnalysisResponse_Impl, header) == 0);
+const _: () = assert!(core::mem::offset_of!(AnalysisResponse_Impl, payload) == 8);

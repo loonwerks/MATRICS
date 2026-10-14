@@ -12,6 +12,7 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_HMD_log_in(value: *mut Common::EncryptedMessage_Impl) -> bool;
+  fn get_HMD_log_in_num_invalid() -> u64;
   fn put_HMD_log_out(value: *mut Common::Log_Impl) -> bool;
 }
 
@@ -24,6 +25,13 @@ pub fn unsafe_get_HMD_log_in() -> Option<Common::EncryptedMessage_Impl>
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_HMD_log_in_num_invalid() -> u64
+{
+  unsafe {
+    return get_HMD_log_in_num_invalid();
   }
 }
 
@@ -67,6 +75,12 @@ pub fn get_HMD_log_in(value: *mut Common::EncryptedMessage_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_HMD_log_in_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

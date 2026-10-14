@@ -12,14 +12,12 @@
 bool encrypted_log_is_empty(void);
 bool get_encrypted_log_poll(sb_event_counter_t *numDropped, Common_StoredLogFile_Impl *data);
 bool get_encrypted_log(Common_StoredLogFile_Impl *data);
-bool peek_encrypted_log(Common_StoredLogFile_Impl *data);
+uintmax_t get_encrypted_log_num_invalid(void);
 bool storage_request_is_empty(void);
 bool get_storage_request_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data);
 bool get_storage_request(Common_AnalysisRequest_Impl *data);
-bool peek_storage_request(Common_AnalysisRequest_Impl *data);
+uintmax_t get_storage_request_num_invalid(void);
 bool put_encrypted_response(const Common_EncryptedAnalysisResponse_Impl *data);
-bool peek_encrypted_response(Common_EncryptedAnalysisResponse_Impl *data);
 bool zeroize_is_empty(void);
 bool get_zeroize_poll(sb_event_counter_t *numDropped);
 bool get_zeroize();
-bool peek_zeroize();

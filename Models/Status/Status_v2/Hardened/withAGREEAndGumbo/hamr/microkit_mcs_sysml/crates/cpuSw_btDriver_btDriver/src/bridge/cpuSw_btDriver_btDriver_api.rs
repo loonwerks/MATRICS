@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_btRecv();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_btRecv_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_btRecv_num_invalid();
+    }
   }
 
   pub trait cpuSw_btDriver_btDriver_Full_Api: cpuSw_btDriver_btDriver_Put_Api + cpuSw_btDriver_btDriver_Get_Api {}
@@ -60,6 +66,12 @@ verus! {
         old(self).btSend == final(self).btSend,
     {
       self.api.unverified_get_btRecv(&Ghost(self.btRecv))
+    }/// The number of messages received on btRecv that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_btRecv_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_btRecv_num_invalid()
     }
   }
 

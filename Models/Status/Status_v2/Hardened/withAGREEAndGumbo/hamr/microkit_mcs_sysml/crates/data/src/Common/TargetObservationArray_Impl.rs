@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_TargetObservationArray_Impl_BYTE_SIZE: usize = 300;
   pub const Common_TargetObservationArray_Impl_DIM_0: usize = 15;
 
   pub type TargetObservationArray_Impl = [TargetObservation_Impl; Common_TargetObservationArray_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<TargetObservationArray_Impl>() == 300);
+const _: () = assert!(core::mem::align_of::<TargetObservationArray_Impl>() == 4);

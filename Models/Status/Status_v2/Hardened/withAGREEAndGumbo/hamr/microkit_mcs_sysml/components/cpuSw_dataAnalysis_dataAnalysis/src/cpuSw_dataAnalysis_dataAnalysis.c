@@ -21,18 +21,10 @@ bool put_request_log(const Common_AnalysisRequest_Impl *data) {
   return true;
 }
 
-bool peek_request_log(Common_AnalysisRequest_Impl *data) {
-  return sb_queue_Common_AnalysisRequest_Impl_1_peek_latest((sb_queue_Common_AnalysisRequest_Impl_1_t *) request_log_queue_1, data);
-}
-
 bool put_analysis_report(const Common_AnalysisResponse_Impl *data) {
   sb_queue_Common_AnalysisResponse_Impl_1_enqueue((sb_queue_Common_AnalysisResponse_Impl_1_t *) analysis_report_queue_1, (Common_AnalysisResponse_Impl *) data);
 
   return true;
-}
-
-bool peek_analysis_report(Common_AnalysisResponse_Impl *data) {
-  return sb_queue_Common_AnalysisResponse_Impl_1_peek_latest((sb_queue_Common_AnalysisResponse_Impl_1_t *) analysis_report_queue_1, data);
 }
 
 bool response_log_is_empty(void) {
@@ -48,9 +40,8 @@ bool get_response_log(Common_AnalysisResponse_Impl *data) {
   return get_response_log_poll (&numDropped, data);
 }
 
-bool peek_response_log(Common_AnalysisResponse_Impl *data) {
-  sb_event_counter_t numDropped;
-  return sb_queue_Common_AnalysisResponse_Impl_1_peek((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &response_log_recv_queue, &numDropped, data);
+uintmax_t get_response_log_num_invalid(void) {
+  return sb_queue_Common_AnalysisResponse_Impl_1_numInvalid((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &response_log_recv_queue);
 }
 
 bool analysis_request_is_empty(void) {
@@ -66,9 +57,8 @@ bool get_analysis_request(Common_AnalysisRequest_Impl *data) {
   return get_analysis_request_poll (&numDropped, data);
 }
 
-bool peek_analysis_request(Common_AnalysisRequest_Impl *data) {
-  sb_event_counter_t numDropped;
-  return sb_queue_Common_AnalysisRequest_Impl_1_peek((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue, &numDropped, data);
+uintmax_t get_analysis_request_num_invalid(void) {
+  return sb_queue_Common_AnalysisRequest_Impl_1_numInvalid((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue);
 }
 
 void init(void) {
@@ -91,6 +81,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_dataAnalysis_dataAnalysis_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_dataAnalysis_dataAnalysis_notify(channel);

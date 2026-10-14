@@ -21,3 +21,9 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<EncryptedAnalysisResponse_Impl>() == 41176);
+const _: () = assert!(core::mem::align_of::<EncryptedAnalysisResponse_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(EncryptedAnalysisResponse_Impl, header) == 0);
+const _: () = assert!(core::mem::offset_of!(EncryptedAnalysisResponse_Impl, payload) == 8);

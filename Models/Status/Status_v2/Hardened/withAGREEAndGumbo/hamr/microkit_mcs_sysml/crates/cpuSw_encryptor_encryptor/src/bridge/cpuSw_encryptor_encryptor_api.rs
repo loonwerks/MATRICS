@@ -28,6 +28,12 @@ verus! {
     {
       return extern_api::unsafe_get_analysis_report_in();
     }
+
+    #[verifier::external_body]
+    fn unverified_get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_analysis_report_in_num_invalid();
+    }
   }
 
   pub trait cpuSw_encryptor_encryptor_Full_Api: cpuSw_encryptor_encryptor_Put_Api + cpuSw_encryptor_encryptor_Get_Api {}
@@ -60,6 +66,12 @@ verus! {
         old(self).analysis_report_out == final(self).analysis_report_out,
     {
       self.api.unverified_get_analysis_report_in(&Ghost(self.analysis_report_in))
+    }/// The number of messages received on analysis_report_in that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_analysis_report_in_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_analysis_report_in_num_invalid()
     }
   }
 

@@ -12,7 +12,9 @@ use std::sync::Mutex;
 #[cfg(not(test))]
 extern "C" {
   fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn get_request_log_num_invalid() -> u64;
   fn get_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn get_response_log_in_num_invalid() -> u64;
   fn put_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool;
   fn put_alert_out() -> bool;
   fn put_storage_alert_out() -> bool;
@@ -30,6 +32,13 @@ pub fn unsafe_get_request_log() -> Option<Common::AnalysisRequest_Impl>
   }
 }
 
+pub fn unsafe_get_request_log_num_invalid() -> u64
+{
+  unsafe {
+    return get_request_log_num_invalid();
+  }
+}
+
 pub fn unsafe_get_response_log_in() -> Option<Common::AnalysisResponse_Impl>
 {
   unsafe {
@@ -39,6 +48,13 @@ pub fn unsafe_get_response_log_in() -> Option<Common::AnalysisResponse_Impl>
     } else {
       return None;
     }
+  }
+}
+
+pub fn unsafe_get_response_log_in_num_invalid() -> u64
+{
+  unsafe {
+    return get_response_log_in_num_invalid();
   }
 }
 
@@ -105,6 +121,12 @@ pub fn get_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
 }
 
 #[cfg(test)]
+pub fn get_request_log_num_invalid() -> u64
+{
+  return 0;
+}
+
+#[cfg(test)]
 pub fn get_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool
 {
   unsafe {
@@ -116,6 +138,12 @@ pub fn get_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool
       None => return false,
     }
   }
+}
+
+#[cfg(test)]
+pub fn get_response_log_in_num_invalid() -> u64
+{
+  return 0;
 }
 
 #[cfg(test)]

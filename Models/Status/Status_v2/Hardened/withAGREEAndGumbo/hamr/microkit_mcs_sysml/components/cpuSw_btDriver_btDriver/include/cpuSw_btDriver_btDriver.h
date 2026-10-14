@@ -27,6 +27,5 @@ void *memset(void *dest, int c, size_t n);
 bool btRecv_is_empty(void);
 bool get_btRecv_poll(sb_event_counter_t *numDropped, Common_DummyMessage_Impl *data);
 bool get_btRecv(Common_DummyMessage_Impl *data);
-bool peek_btRecv(Common_DummyMessage_Impl *data);
+uintmax_t get_btRecv_num_invalid(void);
 bool put_btSend(const Common_DummyMessage_Impl *data);
-bool peek_btSend(Common_DummyMessage_Impl *data);

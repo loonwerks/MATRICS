@@ -25,19 +25,14 @@ bool get_analysis_report_in(Common_AnalysisResponse_Impl *data) {
   return get_analysis_report_in_poll (&numDropped, data);
 }
 
-bool peek_analysis_report_in(Common_AnalysisResponse_Impl *data) {
-  sb_event_counter_t numDropped;
-  return sb_queue_Common_AnalysisResponse_Impl_1_peek((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &analysis_report_in_recv_queue, &numDropped, data);
+uintmax_t get_analysis_report_in_num_invalid(void) {
+  return sb_queue_Common_AnalysisResponse_Impl_1_numInvalid((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &analysis_report_in_recv_queue);
 }
 
 bool put_analysis_report_out(const Common_OutgoingWifiMessage_Impl *data) {
   sb_queue_Common_OutgoingWifiMessage_Impl_1_enqueue((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) analysis_report_out_queue_1, (Common_OutgoingWifiMessage_Impl *) data);
 
   return true;
-}
-
-bool peek_analysis_report_out(Common_OutgoingWifiMessage_Impl *data) {
-  return sb_queue_Common_OutgoingWifiMessage_Impl_1_peek_latest((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) analysis_report_out_queue_1, data);
 }
 
 void init(void) {
@@ -56,6 +51,13 @@ void notified(microkit_channel channel) {
   switch (channel) {
     case PORT_FROM_MON:
       cpuSw_encryptor_encryptor_timeTriggered();
+      // Report that this dispatch has finished.  The _MON wrapper forwards it to
+      // the scheduler.  The default scheduler ignores runtime signals from
+      // partitions -- the schedule is static and each partition runs for its full
+      // allotted time -- so this is inert there; the test scheduler uses it as the
+      // slot-complete event, which is what lets it step as fast as threads run
+      // rather than waiting out each slot's wall-clock budget.
+      microkit_notify(PORT_FROM_MON);
       break;
     default:
       cpuSw_encryptor_encryptor_notify(channel);

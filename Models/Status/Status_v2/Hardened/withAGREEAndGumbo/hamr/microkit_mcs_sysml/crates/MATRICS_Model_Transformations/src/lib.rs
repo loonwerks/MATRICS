@@ -115,22 +115,6 @@ pub fn IS_NULL_REQUEST(request: Common::Request_Impl) -> bool
     (request.endTime == 0u64) &
     (request.targetID == 0u32)
 }
-
-pub fn IS_ZEROIZED_ENCRYPTED_MESSAGE(encrypted_message: Common::EncryptedMessage_Impl) -> bool
-{
-  (0..=encrypted_message.nonce.len() - 1).all(|nonce_index| encrypted_message.nonce[nonce_index] == 0u8) & (0..=encrypted_message.ciphertext.len() - 1).all(|ciphertext_index| encrypted_message.ciphertext[ciphertext_index] == 0u8) &
-    (0..=encrypted_message.tag.len() - 1).all(|tag_index| encrypted_message.tag[tag_index] == 0u8)
-}
-
-pub fn IS_ZEROIZED_STORED_LOG_FILE(file: Common::StoredLogFile_Impl) -> bool
-{
-  IS_ZEROIZED_ENCRYPTED_MESSAGE(file.encryptedLog)
-}
-
-pub fn IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(logs: Common::EncryptedLogArray_Impl) -> bool
-{
-  (0..=logs.len() - 1).all(|stored_log_index| IS_ZEROIZED_STORED_LOG_FILE(logs[stored_log_index]))
-}
 // END MARKER GUMBO RUST MARKER
 
 verus! {
@@ -211,22 +195,6 @@ verus! {
       (request.startTime == 0u64)) &&
       (request.endTime == 0u64)) &&
       (request.targetID == 0u32)
-  }
-
-  pub open spec fn IS_ZEROIZED_ENCRYPTED_MESSAGE_spec(encrypted_message: Common::EncryptedMessage_Impl) -> bool
-  {
-    (forall|nonce_index:int| 0 <= nonce_index <= encrypted_message.nonce.len() - 1 ==> #[trigger] encrypted_message.nonce[nonce_index] == 0u8 && forall|ciphertext_index:int| 0 <= ciphertext_index <= encrypted_message.ciphertext.len() - 1 ==> encrypted_message.ciphertext[ciphertext_index] == 0u8) &&
-      forall|tag_index:int| 0 <= tag_index <= encrypted_message.tag.len() - 1 ==> encrypted_message.tag[tag_index] == 0u8
-  }
-
-  pub open spec fn IS_ZEROIZED_STORED_LOG_FILE_spec(file: Common::StoredLogFile_Impl) -> bool
-  {
-    IS_ZEROIZED_ENCRYPTED_MESSAGE_spec(file.encryptedLog)
-  }
-
-  pub open spec fn IS_ZEROIZED_ENCRYPTED_LOG_ARRAY_spec(logs: Common::EncryptedLogArray_Impl) -> bool
-  {
-    forall|stored_log_index:int| 0 <= stored_log_index <= logs.len() - 1 ==> IS_ZEROIZED_STORED_LOG_FILE_spec(logs[stored_log_index])
   }
   // END MARKER GUMBO VERUS MARKER
 

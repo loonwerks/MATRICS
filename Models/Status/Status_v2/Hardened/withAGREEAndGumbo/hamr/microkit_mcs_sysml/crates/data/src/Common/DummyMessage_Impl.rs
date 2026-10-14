@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_DummyMessage_Impl_BYTE_SIZE: usize = 100;
   pub const Common_DummyMessage_Impl_DIM_0: usize = 100;
 
   pub type DummyMessage_Impl = [u8; Common_DummyMessage_Impl_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<DummyMessage_Impl>() == 100);
+const _: () = assert!(core::mem::align_of::<DummyMessage_Impl>() == 1);

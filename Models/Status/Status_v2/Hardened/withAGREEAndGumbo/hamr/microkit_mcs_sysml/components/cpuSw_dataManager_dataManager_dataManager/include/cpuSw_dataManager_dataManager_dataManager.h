@@ -25,24 +25,20 @@ void *memset(void *dest, int c, size_t n);
 
 
 bool put_encrypted_log(const Common_StoredLogFile_Impl *data);
-bool peek_encrypted_log(Common_StoredLogFile_Impl *data);
 bool put_storage_request(const Common_AnalysisRequest_Impl *data);
-bool peek_storage_request(Common_AnalysisRequest_Impl *data);
 bool put_response_log(const Common_AnalysisResponse_Impl *data);
-bool peek_response_log(Common_AnalysisResponse_Impl *data);
 bool encrypted_response_is_empty(void);
 bool get_encrypted_response_poll(sb_event_counter_t *numDropped, Common_EncryptedAnalysisResponse_Impl *data);
 bool get_encrypted_response(Common_EncryptedAnalysisResponse_Impl *data);
-bool peek_encrypted_response(Common_EncryptedAnalysisResponse_Impl *data);
+uintmax_t get_encrypted_response_num_invalid(void);
 bool request_log_is_empty(void);
 bool get_request_log_poll(sb_event_counter_t *numDropped, Common_AnalysisRequest_Impl *data);
 bool get_request_log(Common_AnalysisRequest_Impl *data);
-bool peek_request_log(Common_AnalysisRequest_Impl *data);
+uintmax_t get_request_log_num_invalid(void);
 bool HMD_log_is_empty(void);
 bool get_HMD_log_poll(sb_event_counter_t *numDropped, Common_Log_Impl *data);
 bool get_HMD_log(Common_Log_Impl *data);
-bool peek_HMD_log(Common_Log_Impl *data);
+uintmax_t get_HMD_log_num_invalid(void);
 bool zeroize_is_empty(void);
 bool get_zeroize_poll(sb_event_counter_t *numDropped);
 bool get_zeroize();
-bool peek_zeroize();

@@ -6,9 +6,12 @@ use super::*;
 
 verus! {
 
-  pub const Common_shortText_BYTE_SIZE: usize = 64;
   pub const Common_shortText_DIM_0: usize = 64;
 
   pub type shortText = [u8; Common_shortText_DIM_0];
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<shortText>() == 64);
+const _: () = assert!(core::mem::align_of::<shortText>() == 1);

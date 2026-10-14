@@ -24,3 +24,12 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<TargetObservation_Impl>() == 20);
+const _: () = assert!(core::mem::align_of::<TargetObservation_Impl>() == 4);
+const _: () = assert!(core::mem::offset_of!(TargetObservation_Impl, targetID) == 0);
+const _: () = assert!(core::mem::offset_of!(TargetObservation_Impl, locationX) == 4);
+const _: () = assert!(core::mem::offset_of!(TargetObservation_Impl, locationY) == 8);
+const _: () = assert!(core::mem::offset_of!(TargetObservation_Impl, locationZ) == 12);
+const _: () = assert!(core::mem::offset_of!(TargetObservation_Impl, assessment) == 16);

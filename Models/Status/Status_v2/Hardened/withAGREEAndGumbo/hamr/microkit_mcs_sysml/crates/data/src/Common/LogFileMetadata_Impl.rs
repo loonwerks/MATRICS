@@ -22,3 +22,10 @@ verus! {
   }
 
 }
+
+// Memory layout as HAMR computes it
+const _: () = assert!(core::mem::size_of::<LogFileMetadata_Impl>() == 16);
+const _: () = assert!(core::mem::align_of::<LogFileMetadata_Impl>() == 8);
+const _: () = assert!(core::mem::offset_of!(LogFileMetadata_Impl, guardID) == 0);
+const _: () = assert!(core::mem::offset_of!(LogFileMetadata_Impl, deviceID) == 4);
+const _: () = assert!(core::mem::offset_of!(LogFileMetadata_Impl, timestamp) == 8);

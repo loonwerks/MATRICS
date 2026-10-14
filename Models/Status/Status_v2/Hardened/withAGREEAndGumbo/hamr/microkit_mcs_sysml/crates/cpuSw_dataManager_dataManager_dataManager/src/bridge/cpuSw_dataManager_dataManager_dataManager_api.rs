@@ -46,6 +46,12 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_HMD_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_HMD_log_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_request_log(
       &mut self,
       value: &Ghost<Option<Common::AnalysisRequest_Impl>>) -> (res : Option<Common::AnalysisRequest_Impl>)
@@ -56,6 +62,12 @@ verus! {
     }
 
     #[verifier::external_body]
+    fn unverified_get_request_log_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_request_log_num_invalid();
+    }
+
+    #[verifier::external_body]
     fn unverified_get_encrypted_response(
       &mut self,
       value: &Ghost<Option<Common::EncryptedAnalysisResponse_Impl>>) -> (res : Option<Common::EncryptedAnalysisResponse_Impl>)
@@ -63,6 +75,12 @@ verus! {
         res == value@,
     {
       return extern_api::unsafe_get_encrypted_response();
+    }
+
+    #[verifier::external_body]
+    fn unverified_get_encrypted_response_num_invalid(&self) -> u64
+    {
+      return extern_api::unsafe_get_encrypted_response_num_invalid();
     }
 
     #[verifier::external_body]
@@ -151,6 +169,12 @@ verus! {
         old(self).zeroize == final(self).zeroize,
     {
       self.api.unverified_get_HMD_log(&Ghost(self.HMD_log))
+    }/// The number of messages received on HMD_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_HMD_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_HMD_log_num_invalid()
     }
     pub fn get_request_log(&mut self) -> (res : Option<Common::AnalysisRequest_Impl>)
       ensures
@@ -164,6 +188,12 @@ verus! {
         old(self).zeroize == final(self).zeroize,
     {
       self.api.unverified_get_request_log(&Ghost(self.request_log))
+    }/// The number of messages received on request_log that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_request_log_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_request_log_num_invalid()
     }
     pub fn get_encrypted_response(&mut self) -> (res : Option<Common::EncryptedAnalysisResponse_Impl>)
       ensures
@@ -177,6 +207,12 @@ verus! {
         old(self).zeroize == final(self).zeroize,
     {
       self.api.unverified_get_encrypted_response(&Ghost(self.encrypted_response))
+    }/// The number of messages received on encrypted_response that were dropped because they held
+    /// an invalid bit pattern (an out-of-range enum, a bool that is neither 0 nor 1, or a
+    /// string with no terminating NUL)
+    pub fn get_encrypted_response_num_invalid(&self) -> u64
+    {
+      self.api.unverified_get_encrypted_response_num_invalid()
     }
     pub fn get_zeroize(&mut self) -> (res : bool)
       ensures
