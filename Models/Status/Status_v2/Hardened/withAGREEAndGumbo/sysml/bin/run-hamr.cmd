@@ -45,18 +45,12 @@ val codegenArgs: ISZ[String] = ISZ(
   sireum.value, "hamr", "sysml", "codegen",
   "--platform", platform,
   "--package-name", "status_v2",
-  "--slang-output-dir", slangOutputDir.string,
-  "--output-c-dir", (hamrDir / "c").string,
+  "--output-dir", hamrDir.string,
   "--sel4-output-dir", sel4OutputDir.string,
-  "--run-transpiler",
-  "--bit-width", "32",
-  "--max-string-size", "256",
-  "--max-array-size", "32768",
-  "--verbose",
-  "--no-proyek-ive",
   "--workspace-root-dir", sysmlDir.string,
   "--sourcepath", sourcePath,
   "--system-name", "GroundStation::GroundStation_Impl",
+  "--no-proyek-ive",
   (sysmlDir / "GroundStation.sysml").value
 )
 

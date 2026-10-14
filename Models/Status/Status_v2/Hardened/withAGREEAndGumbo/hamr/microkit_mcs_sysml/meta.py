@@ -76,6 +76,36 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # PARTITION PROTECTION DOMAINS
     #######################################
+    cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = ProtectionDomain(
+      name="cpuSw_wifiDriver_wifiDriver_wifiDriver_MON",
+      program_image="cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf",
+      priority=150,
+      passive=True)
+    scheduler.add_child_pd(cpuSw_wifiDriver_wifiDriver_wifiDriver_MON)
+
+    cpuSw_wifiDriver_wifiDriver_wifiDriver = ProtectionDomain(
+      name="cpuSw_wifiDriver_wifiDriver_wifiDriver",
+      program_image="cpuSw_wifiDriver_wifiDriver_wifiDriver.elf",
+      priority=140,
+      passive=True,
+      stack_size=0x100_000)
+    cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.add_child_pd(cpuSw_wifiDriver_wifiDriver_wifiDriver, child_id=1)
+
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = ProtectionDomain(
+      name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON",
+      program_image="cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf",
+      priority=150,
+      passive=True)
+    scheduler.add_child_pd(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON)
+
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver = ProtectionDomain(
+      name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver",
+      program_image="cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf",
+      priority=140,
+      passive=True,
+      stack_size=0x100_000)
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.add_child_pd(cpuSw_wifiDriver_wifiDriverVM_wifiDriver, child_id=1)
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=33, id=1))
     cpuSw_btDriver_btDriver_MON = ProtectionDomain(
       name="cpuSw_btDriver_btDriver_MON",
       program_image="cpuSw_btDriver_btDriver_MON.elf",
@@ -106,6 +136,36 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
       stack_size=0x100_000)
     cpuSw_usbDriver_usbDriver_MON.add_child_pd(cpuSw_usbDriver_usbDriver, child_id=1)
 
+    cpuSw_dataManager_dataManager_dataManager_MON = ProtectionDomain(
+      name="cpuSw_dataManager_dataManager_dataManager_MON",
+      program_image="cpuSw_dataManager_dataManager_dataManager_MON.elf",
+      priority=150,
+      passive=True)
+    scheduler.add_child_pd(cpuSw_dataManager_dataManager_dataManager_MON)
+
+    cpuSw_dataManager_dataManager_dataManager = ProtectionDomain(
+      name="cpuSw_dataManager_dataManager_dataManager",
+      program_image="cpuSw_dataManager_dataManager_dataManager.elf",
+      priority=140,
+      passive=True,
+      stack_size=0x100_000)
+    cpuSw_dataManager_dataManager_dataManager_MON.add_child_pd(cpuSw_dataManager_dataManager_dataManager, child_id=1)
+
+    cpuSw_dataManager_dataStorage_dataStorage_MON = ProtectionDomain(
+      name="cpuSw_dataManager_dataStorage_dataStorage_MON",
+      program_image="cpuSw_dataManager_dataStorage_dataStorage_MON.elf",
+      priority=150,
+      passive=True)
+    scheduler.add_child_pd(cpuSw_dataManager_dataStorage_dataStorage_MON)
+
+    cpuSw_dataManager_dataStorage_dataStorage = ProtectionDomain(
+      name="cpuSw_dataManager_dataStorage_dataStorage",
+      program_image="cpuSw_dataManager_dataStorage_dataStorage.elf",
+      priority=140,
+      passive=True,
+      stack_size=0x100_000)
+    cpuSw_dataManager_dataStorage_dataStorage_MON.add_child_pd(cpuSw_dataManager_dataStorage_dataStorage, child_id=1)
+    cpuSw_dataManager_dataStorage_dataStorage.add_irq(IrqConventional(irq=33, id=1))
     cpuSw_dataAnalysis_dataAnalysis_MON = ProtectionDomain(
       name="cpuSw_dataAnalysis_dataAnalysis_MON",
       program_image="cpuSw_dataAnalysis_dataAnalysis_MON.elf",
@@ -196,66 +256,6 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
       stack_size=0x100_000)
     cpuSw_firewall_firewall_MON.add_child_pd(cpuSw_firewall_firewall, child_id=1)
 
-    cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = ProtectionDomain(
-      name="cpuSw_wifiDriver_wifiDriver_wifiDriver_MON",
-      program_image="cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.elf",
-      priority=150,
-      passive=True)
-    scheduler.add_child_pd(cpuSw_wifiDriver_wifiDriver_wifiDriver_MON)
-
-    cpuSw_wifiDriver_wifiDriver_wifiDriver = ProtectionDomain(
-      name="cpuSw_wifiDriver_wifiDriver_wifiDriver",
-      program_image="cpuSw_wifiDriver_wifiDriver_wifiDriver.elf",
-      priority=140,
-      passive=True,
-      stack_size=0x100_000)
-    cpuSw_wifiDriver_wifiDriver_wifiDriver_MON.add_child_pd(cpuSw_wifiDriver_wifiDriver_wifiDriver, child_id=1)
-
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = ProtectionDomain(
-      name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON",
-      program_image="cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.elf",
-      priority=150,
-      passive=True)
-    scheduler.add_child_pd(cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON)
-
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver = ProtectionDomain(
-      name="cpuSw_wifiDriver_wifiDriverVM_wifiDriver",
-      program_image="cpuSw_wifiDriver_wifiDriverVM_wifiDriver.elf",
-      priority=140,
-      passive=True,
-      stack_size=0x100_000)
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON.add_child_pd(cpuSw_wifiDriver_wifiDriverVM_wifiDriver, child_id=1)
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_irq(IrqConventional(irq=33, id=1))
-    cpuSw_dataManager_dataManager_dataManager_MON = ProtectionDomain(
-      name="cpuSw_dataManager_dataManager_dataManager_MON",
-      program_image="cpuSw_dataManager_dataManager_dataManager_MON.elf",
-      priority=150,
-      passive=True)
-    scheduler.add_child_pd(cpuSw_dataManager_dataManager_dataManager_MON)
-
-    cpuSw_dataManager_dataManager_dataManager = ProtectionDomain(
-      name="cpuSw_dataManager_dataManager_dataManager",
-      program_image="cpuSw_dataManager_dataManager_dataManager.elf",
-      priority=140,
-      passive=True,
-      stack_size=0x100_000)
-    cpuSw_dataManager_dataManager_dataManager_MON.add_child_pd(cpuSw_dataManager_dataManager_dataManager, child_id=1)
-
-    cpuSw_dataManager_dataStorage_dataStorage_MON = ProtectionDomain(
-      name="cpuSw_dataManager_dataStorage_dataStorage_MON",
-      program_image="cpuSw_dataManager_dataStorage_dataStorage_MON.elf",
-      priority=150,
-      passive=True)
-    scheduler.add_child_pd(cpuSw_dataManager_dataStorage_dataStorage_MON)
-
-    cpuSw_dataManager_dataStorage_dataStorage = ProtectionDomain(
-      name="cpuSw_dataManager_dataStorage_dataStorage",
-      program_image="cpuSw_dataManager_dataStorage_dataStorage.elf",
-      priority=140,
-      passive=True,
-      stack_size=0x100_000)
-    cpuSw_dataManager_dataStorage_dataStorage_MON.add_child_pd(cpuSw_dataManager_dataStorage_dataStorage, child_id=1)
-    cpuSw_dataManager_dataStorage_dataStorage.add_irq(IrqConventional(irq=33, id=1))
 
     #######################################
     # MEMORY REGIONS
@@ -272,6 +272,18 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_GIC)
     GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_Serial = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_Serial", 0x1_000, paddr=0x9_000_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_Serial)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region", 0x1_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btSend_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btSend_1_Memory_Region", 0x1_000)
@@ -280,6 +292,14 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbRecv_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbSend_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbSend_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbSend_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region", 0x3_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region", 0x1_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region", 0x2_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region)
+    GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region", 0x15_000)
+    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_analysis_report_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_analysis_report_1_Memory_Region", 0x2_000)
@@ -300,73 +320,53 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_out_1_Memory_Region)
     GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region", 0x1_000)
     sdf.add_mr(GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region", 0x1_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region", 0x3_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region", 0x1_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region", 0x2_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region)
-    GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region = MemoryRegion(sdf, "GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region", 0x15_000)
-    sdf.add_mr(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region)
 
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM, 0x40_000_000, perms="rw", setvar_vaddr="GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RAM_vaddr"))
     cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_Guest_RAM, 0x40_000_000, perms="rw", setvar_vaddr="GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_Guest_RAM_vaddr"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region, 0x10_000_000, perms="rw", setvar_vaddr="wifiSend_queue_1"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region, 0x20_000_000, perms="r", setvar_vaddr="wifiSendIn_queue_1"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region, 0x10_004_000, perms="rw", setvar_vaddr="HMD_log_queue_1"))
+    cpuSw_decryptor_decryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="HMD_log_in_queue_1"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_008_000, perms="rw", setvar_vaddr="analysis_request_queue_1"))
+    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="analysis_request_queue_1"))
+    cpuSw_firewall_firewall.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="analysis_request_in_queue_1"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region, 0x10_00A_000, perms="r", setvar_vaddr="wifiRecv_queue_1"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region, 0x20_004_000, perms="rw", setvar_vaddr="wifiRecvOut_queue_1"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region, 0x20_008_000, perms="r", setvar_vaddr="wifiRecvIn_queue_1"))
+    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region, 0x20_00C_000, perms="rw", setvar_vaddr="wifiSendOut_queue_1"))
     cpuSw_btDriver_btDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btRecv_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="btRecv_queue_1"))
     cpuSw_btDriver_btDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_btDriver_btDriver_btSend_1_Memory_Region, 0x10_002_000, perms="rw", setvar_vaddr="btSend_queue_1"))
     cpuSw_usbDriver_usbDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbRecv_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="usbRecv_queue_1"))
     cpuSw_usbDriver_usbDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_usbDriver_usbDriver_usbSend_1_Memory_Region, 0x10_002_000, perms="rw", setvar_vaddr="usbSend_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region, 0x10_000_000, perms="rw", setvar_vaddr="encrypted_log_queue_1"))
+    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region, 0x20_000_000, perms="r", setvar_vaddr="encrypted_log_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region, 0x10_004_000, perms="rw", setvar_vaddr="storage_request_queue_1"))
+    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region, 0x20_004_000, perms="r", setvar_vaddr="storage_request_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region, 0x10_006_000, perms="rw", setvar_vaddr="response_log_queue_1"))
+    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="response_log_in_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region, 0x10_009_000, perms="r", setvar_vaddr="encrypted_response_queue_1"))
+    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region, 0x20_006_000, perms="rw", setvar_vaddr="encrypted_response_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region, 0x10_01F_000, perms="r", setvar_vaddr="request_log_queue_1"))
     cpuSw_dataAnalysis_dataAnalysis.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region, 0x10_000_000, perms="rw", setvar_vaddr="request_log_queue_1"))
-    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="request_log_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="request_log_queue_1"))
+    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_request_log_1_Memory_Region, 0x10_003_000, perms="r", setvar_vaddr="request_log_queue_1"))
     cpuSw_dataAnalysis_dataAnalysis.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_analysis_report_1_Memory_Region, 0x10_002_000, perms="rw", setvar_vaddr="analysis_report_queue_1"))
     cpuSw_encryptor_encryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataAnalysis_dataAnalysis_analysis_report_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="analysis_report_in_queue_1"))
-    cpuSw_decryptor_decryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region, 0x10_000_000, perms="rw", setvar_vaddr="HMD_log_out_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region, 0x10_002_000, perms="r", setvar_vaddr="HMD_log_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region, 0x10_021_000, perms="r", setvar_vaddr="HMD_log_queue_1"))
+    cpuSw_decryptor_decryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_decryptor_decryptor_HMD_log_out_1_Memory_Region, 0x10_004_000, perms="rw", setvar_vaddr="HMD_log_out_queue_1"))
     cpuSw_encryptor_encryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region, 0x10_003_000, perms="rw", setvar_vaddr="analysis_report_out_queue_1"))
-    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="analysis_report_in_queue_1"))
+    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_encryptor_encryptor_analysis_report_out_1_Memory_Region, 0x10_002_000, perms="r", setvar_vaddr="analysis_report_in_queue_1"))
     cpuSw_dataAnalysis_dataAnalysis.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region, 0x10_005_000, perms="r", setvar_vaddr="response_log_queue_1"))
-    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region, 0x10_002_000, perms="rw", setvar_vaddr="response_log_out_queue_1"))
-    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_out_1_Memory_Region, 0x10_005_000, perms="rw", setvar_vaddr="alert_out_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_out_1_Memory_Region, 0x10_004_000, perms="r", setvar_vaddr="zeroize_queue_1"))
-    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_storage_alert_out_1_Memory_Region, 0x10_007_000, perms="rw", setvar_vaddr="storage_alert_out_queue_1"))
-    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_storage_alert_out_1_Memory_Region, 0x20_000_000, perms="r", setvar_vaddr="zeroize_queue_1"))
-    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region, 0x10_004_000, perms="rw", setvar_vaddr="analysis_report_out_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region, 0x10_000_000, perms="r", setvar_vaddr="analysis_report_queue_1"))
-    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_out_1_Memory_Region, 0x10_008_000, perms="rw", setvar_vaddr="alert_out_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_out_1_Memory_Region, 0x10_004_000, perms="r", setvar_vaddr="alert_in_queue_1"))
+    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_response_log_out_1_Memory_Region, 0x10_005_000, perms="rw", setvar_vaddr="response_log_out_queue_1"))
+    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_out_1_Memory_Region, 0x10_023_000, perms="r", setvar_vaddr="zeroize_queue_1"))
+    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_alert_out_1_Memory_Region, 0x10_008_000, perms="rw", setvar_vaddr="alert_out_queue_1"))
+    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_storage_alert_out_1_Memory_Region, 0x20_01C_000, perms="r", setvar_vaddr="zeroize_queue_1"))
+    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_logMonitor_logMonitor_storage_alert_out_1_Memory_Region, 0x10_00A_000, perms="rw", setvar_vaddr="storage_alert_out_queue_1"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region, 0x10_00E_000, perms="r", setvar_vaddr="analysis_report_queue_1"))
+    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_analysis_report_out_1_Memory_Region, 0x10_006_000, perms="rw", setvar_vaddr="analysis_report_out_queue_1"))
+    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_out_1_Memory_Region, 0x10_012_000, perms="r", setvar_vaddr="alert_in_queue_1"))
+    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_reportMonitor_reportMonitor_alert_out_1_Memory_Region, 0x10_00A_000, perms="rw", setvar_vaddr="alert_out_queue_1"))
     cpuSw_dataAnalysis_dataAnalysis.add_map(Map(GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region, 0x10_008_000, perms="r", setvar_vaddr="analysis_request_queue_1"))
-    cpuSw_firewall_firewall.add_map(Map(GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region, 0x10_000_000, perms="rw", setvar_vaddr="analysis_request_out_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region, 0x10_006_000, perms="rw", setvar_vaddr="wifiSend_queue_1"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_wifiSend_1_Memory_Region, 0x20_000_000, perms="r", setvar_vaddr="wifiSendIn_queue_1"))
-    cpuSw_decryptor_decryptor.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region, 0x10_002_000, perms="r", setvar_vaddr="HMD_log_in_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_HMD_log_1_Memory_Region, 0x10_00A_000, perms="rw", setvar_vaddr="HMD_log_queue_1"))
-    cpuSw_reportMonitor_reportMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_00A_000, perms="r", setvar_vaddr="analysis_request_queue_1"))
-    cpuSw_firewall_firewall.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_002_000, perms="r", setvar_vaddr="analysis_request_in_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriver_wifiDriver_analysis_request_1_Memory_Region, 0x10_00E_000, perms="rw", setvar_vaddr="analysis_request_queue_1"))
-    cpuSw_wifiDriver_wifiDriver_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region, 0x10_010_000, perms="r", setvar_vaddr="wifiRecv_queue_1"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvOut_1_Memory_Region, 0x20_004_000, perms="rw", setvar_vaddr="wifiRecvOut_queue_1"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiRecvIn_1_Memory_Region, 0x20_008_000, perms="r", setvar_vaddr="wifiRecvIn_queue_1"))
-    cpuSw_wifiDriver_wifiDriverVM_wifiDriver.add_map(Map(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_wifiSendOut_1_Memory_Region, 0x20_00C_000, perms="rw", setvar_vaddr="wifiSendOut_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region, 0x10_006_000, perms="rw", setvar_vaddr="encrypted_log_queue_1"))
-    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_encrypted_log_1_Memory_Region, 0x20_002_000, perms="r", setvar_vaddr="encrypted_log_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region, 0x10_00A_000, perms="rw", setvar_vaddr="storage_request_queue_1"))
-    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_storage_request_1_Memory_Region, 0x20_006_000, perms="r", setvar_vaddr="storage_request_queue_1"))
-    cpuSw_logMonitor_logMonitor.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region, 0x10_009_000, perms="r", setvar_vaddr="response_log_in_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataManager_dataManager_response_log_1_Memory_Region, 0x10_00C_000, perms="rw", setvar_vaddr="response_log_queue_1"))
-    cpuSw_dataManager_dataManager_dataManager.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region, 0x10_00F_000, perms="r", setvar_vaddr="encrypted_response_queue_1"))
-    cpuSw_dataManager_dataStorage_dataStorage.add_map(Map(GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_encrypted_response_1_Memory_Region, 0x20_008_000, perms="rw", setvar_vaddr="encrypted_response_queue_1"))
+    cpuSw_firewall_firewall.add_map(Map(GroundStation_Impl_Instance_cpuSw_firewall_firewall_analysis_request_out_1_Memory_Region, 0x10_002_000, perms="rw", setvar_vaddr="analysis_request_out_queue_1"))
 
     #######################################
     # VMMs
@@ -385,23 +385,31 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # CHANNELS
     #######################################
+    channel_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = 3
+    channel_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = 2
     channel_cpuSw_btDriver_btDriver_MON = 11
     channel_cpuSw_usbDriver_usbDriver_MON = 12
+    channel_cpuSw_dataManager_dataManager_dataManager_MON = 7
+    channel_cpuSw_dataManager_dataStorage_dataStorage_MON = 13
     channel_cpuSw_dataAnalysis_dataAnalysis_MON = 6
     channel_cpuSw_decryptor_decryptor_MON = 4
     channel_cpuSw_encryptor_encryptor_MON = 9
     channel_cpuSw_logMonitor_logMonitor_MON = 8
     channel_cpuSw_reportMonitor_reportMonitor_MON = 10
     channel_cpuSw_firewall_firewall_MON = 5
-    channel_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = 3
-    channel_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = 2
-    channel_cpuSw_dataManager_dataManager_dataManager_MON = 7
-    channel_cpuSw_dataManager_dataStorage_dataStorage_MON = 13
 
+    sdf.add_channel(Channel(a=scheduler, a_id=3, b=cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, b_id=0))
+    sdf.add_channel(Channel(a=cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, a_id=1, b=cpuSw_wifiDriver_wifiDriver_wifiDriver, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=2, b=cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, b_id=0))
+    sdf.add_channel(Channel(a=cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, a_id=1, b=cpuSw_wifiDriver_wifiDriverVM_wifiDriver, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=11, b=cpuSw_btDriver_btDriver_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_btDriver_btDriver_MON, a_id=1, b=cpuSw_btDriver_btDriver, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=12, b=cpuSw_usbDriver_usbDriver_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_usbDriver_usbDriver_MON, a_id=1, b=cpuSw_usbDriver_usbDriver, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=7, b=cpuSw_dataManager_dataManager_dataManager_MON, b_id=0))
+    sdf.add_channel(Channel(a=cpuSw_dataManager_dataManager_dataManager_MON, a_id=1, b=cpuSw_dataManager_dataManager_dataManager, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=13, b=cpuSw_dataManager_dataStorage_dataStorage_MON, b_id=0))
+    sdf.add_channel(Channel(a=cpuSw_dataManager_dataStorage_dataStorage_MON, a_id=1, b=cpuSw_dataManager_dataStorage_dataStorage, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=6, b=cpuSw_dataAnalysis_dataAnalysis_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_dataAnalysis_dataAnalysis_MON, a_id=1, b=cpuSw_dataAnalysis_dataAnalysis, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=4, b=cpuSw_decryptor_decryptor_MON, b_id=0))
@@ -414,14 +422,6 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     sdf.add_channel(Channel(a=cpuSw_reportMonitor_reportMonitor_MON, a_id=1, b=cpuSw_reportMonitor_reportMonitor, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=5, b=cpuSw_firewall_firewall_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_firewall_firewall_MON, a_id=1, b=cpuSw_firewall_firewall, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=3, b=cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, b_id=0))
-    sdf.add_channel(Channel(a=cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, a_id=1, b=cpuSw_wifiDriver_wifiDriver_wifiDriver, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=2, b=cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, b_id=0))
-    sdf.add_channel(Channel(a=cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, a_id=1, b=cpuSw_wifiDriver_wifiDriverVM_wifiDriver, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=7, b=cpuSw_dataManager_dataManager_dataManager_MON, b_id=0))
-    sdf.add_channel(Channel(a=cpuSw_dataManager_dataManager_dataManager_MON, a_id=1, b=cpuSw_dataManager_dataManager_dataManager, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=13, b=cpuSw_dataManager_dataStorage_dataStorage_MON, b_id=0))
-    sdf.add_channel(Channel(a=cpuSw_dataManager_dataStorage_dataStorage_MON, a_id=1, b=cpuSw_dataManager_dataStorage_dataStorage, b_id=0))
 
     #######################################
     # SCHEDULE
