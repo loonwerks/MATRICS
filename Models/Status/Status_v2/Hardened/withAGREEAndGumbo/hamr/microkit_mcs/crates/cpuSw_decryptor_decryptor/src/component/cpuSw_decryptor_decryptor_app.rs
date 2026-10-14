@@ -55,9 +55,9 @@ verus! {
                return;
           };
 
-          log::info!("Nonce: {:?}", encrypted_log.unwrap().nonce);
-          log::info!("Ciphertext: {:?}", encrypted_log.unwrap().ciphertext);
-          log::info!("Tag: {:?}", encrypted_log.unwrap().tag);
+          log::info!("Nonce: {:?}", encrypted.nonce);
+          log::info!("Ciphertext: {:?}", encrypted.ciphertext);
+          log::info!("Tag: {:?}", encrypted.tag);
           let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
           let tag = Tag::<U16>::from_slice(&encrypted.tag);
           match self.cipher.decrypt_in_place_detached(&nonce, b"", &mut encrypted.ciphertext, &tag) {
