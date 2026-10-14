@@ -706,67 +706,6 @@ package GroundStation {
 
         attribute :>> Scheduling = MCS;
 
-        language "GUMBO" /*{
-            composition ground_station_contracts {
-                components
-                    wifi_vm = cpuSw_wifiDriver_wifiDriverVM.wifiDriver;
-                    wifi = cpuSw_wifiDriver_wifiDriver.wifiDriver;
-                    decryptor = cpuSw_decryptor.decryptor;
-                    firewall = cpuSw_firewall.firewall;
-                    data_analysis = cpuSw_dataAnalysis.dataAnalysis;
-                    data_manager = cpuSw_dataManager_dataManager.dataManager;
-                    log_monitor = cpuSw_logMonitor.logMonitor;
-                    encryptor = cpuSw_encryptor.encryptor;
-                    report_monitor = cpuSw_reportMonitor.reportMonitor;
-                    data_storage = cpuSw_dataManager_dataStorage.dataStorage;
-
-                ports
-                    log_response_in = log_monitor.response_log_in;
-                    storage_alert = log_monitor.storage_alert_out;
-
-                state
-                    log_is_valid = log_monitor.is_valid;
-                    data_storage_cache = data_storage.cache;
-                    data_storage_zeroize_cmd = data_storage.zeroize_cmd;
-
-                schema {
-                    wifi_vm;
-                    wifi;
-                    decryptor;
-                    data_manager @ data_manager_1;
-                    data_storage @ data_storage_1;
-                    firewall;
-                    data_analysis @ data_analysis_1;
-                    data_manager @ data_manager_2;
-                    data_storage @ data_storage_2;
-                    log_monitor;
-                    data_storage @ data_storage_3;
-                    data_manager @ data_manager_3;
-                    data_analysis @ data_analysis_2;
-                    encryptor;
-                    report_monitor
-                }
-
-                property Zeroize_Storage_Before_Next_DataManager
-                    "An invalid response makes logMonitor send the storage-zeroize event,
-                    |and dataStorage processes it and zeroizes its cache before the next
-                    |dataManager dispatch" {
-
-                    after log_monitor "logMonitor sends the storage-zeroize event":
-                        (HasEvent(log_response_in) & not log_is_valid) implies
-                            HasEvent(storage_alert);
-
-                    after data_storage_3 "This is also the place immediately before
-                        |data_manager_3; storage's zeroize latch is active and its
-                        |encrypted-log cache has been zeroized":
-                        (HasEvent(log_response_in) & not log_is_valid) implies
-                            (data_storage_zeroize_cmd &
-                             MATRICS_Model_Transformations::GUMBO__Library::IS_ZEROIZED_ENCRYPTED_LOG_ARRAY(
-                                data_storage_cache));
-                }
-
-            }
-        }*/
     }
 
 }
