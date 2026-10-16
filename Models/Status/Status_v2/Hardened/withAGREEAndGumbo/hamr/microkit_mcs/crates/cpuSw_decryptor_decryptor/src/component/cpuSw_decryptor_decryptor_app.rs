@@ -9,20 +9,25 @@ use aes_gcm::{
 };
 use serde::Deserialize;
 
+// Shared key between client and server
+const AES_KEY: [u8; 16] = [
+    0xa8, 0xf0, 0xe5, 0x78,
+    0xe8, 0x26, 0x08, 0x6d,
+    0x30, 0x42, 0xa0, 0x50,
+    0x22, 0xa7, 0x8b, 0x26,
+];
+
 verus! {
 
   pub struct cpuSw_decryptor_decryptor {
     // PLACEHOLDER MARKER STATE VARS
-    pub cipher: Aes128Gcm,
   }
 
   impl cpuSw_decryptor_decryptor {
     pub fn new() -> Self
     {
-     let key = Key::<Aes128Gcm>::from_slice(b"\xa8\xf0\xe5\x78\xe8\x26\x08\x6d\x30\x42\xa0\x50\x22\xa7\x8b\x26"); // Shared key between client and server
       Self {
         // PLACEHOLDER MARKER STATE VAR INIT
-        cipher: Aes128Gcm::new(key),
       }
     }
 
@@ -55,22 +60,8 @@ verus! {
                return;
           };
 
-          let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
-          let tag = Tag::<U16>::from_slice(&encrypted.tag);
-          let ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
-          match self.cipher.decrypt_in_place_detached(&nonce, b"", ciphertext, &tag) {
-               Ok(()) => {
-                    // Success: 'ciphertext' now contains the valid plaintext
-                    match parse_json(&ciphertext){
-                         Some(log) => api.put_HMD_log_out(log),
-                         None => log_info("Parsing log failed"),
-                    }
-               }
-               Err(e) => {
-                    // Failure: Data is corrupted or tag is wrong. 
-                    // DO NOT trust the 'buffer' contents.
-                    log_info("Decryption failed");
-               }
+          if let Some(log) = decrypt(&mut encrypted) {
+               api.put_HMD_log_out(log);
           }
     }
 
@@ -98,6 +89,34 @@ verus! {
   {
     log::warn!("Unexpected channel: {0}", channel);
   }
+
+  #[verifier::external_body]
+    pub fn decrypt(encrypted: &mut Common::EncryptedMessage_Impl) -> Option<Common::Log_Impl>
+     {
+          let key = Key::<Aes128Gcm>::from_slice(&AES_KEY);
+          let cipher = Aes128Gcm::new(key);
+          let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
+          let tag = Tag::<U16>::from_slice(&encrypted.tag);
+          let ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
+          match cipher.decrypt_in_place_detached(&nonce, b"", ciphertext, &tag) {
+               Ok(()) => {
+                    // Success: 'ciphertext' now contains the valid plaintext
+                    match parse_json(&ciphertext){
+                         Some(log) => return Some(log),
+                         None => {
+                              log_info("Parsing log failed"); 
+                              return None;
+                         },
+                    }
+               }
+               Err(e) => {
+                    // Failure: Data is corrupted or tag is wrong. 
+                    // DO NOT trust the 'buffer' contents.
+                    log::info!("Decryption failed: {}", e);
+                    return None;
+               }
+          }
+    }
 
   #[verifier::external_body]
   pub fn parse_json(plaintext: &[u8]) -> Option<Common::Log_Impl>
