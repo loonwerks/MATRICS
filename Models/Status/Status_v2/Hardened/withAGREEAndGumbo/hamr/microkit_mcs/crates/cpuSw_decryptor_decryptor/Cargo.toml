@@ -28,8 +28,12 @@ vstd = { version = "=0.0.0-2026-09-20-0158", default-features=false }
 verus_builtin = { version = "=0.0.0-2026-09-16-0054" }
 verus_builtin_macros = { version = "=0.0.0-2026-09-20-0158" }
 
-aes-gcm = {version = "0.10.3", default-features=false, features = ["aes"] }
 # PLACEHOLDER MARKER R2U2 CARGO DEPENDENCIES
+
+aes-gcm = {version = "0.10.3", default-features=false, features = ["aes"] }
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+serde-json-core = {version = "0.7.0"}
+heapless = { version = "0.8", features = ["serde"] }
 
 [dev-dependencies]
 lazy_static = "1.5.1"

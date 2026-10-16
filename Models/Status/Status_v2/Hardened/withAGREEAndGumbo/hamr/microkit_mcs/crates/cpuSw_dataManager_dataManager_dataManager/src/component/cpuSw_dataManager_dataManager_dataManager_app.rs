@@ -56,7 +56,10 @@ verus! {
           IS_ZEROIZED(final(api).response_log.unwrap().payload),
         // END MARKER TIME TRIGGERED ENSURES
     {
-      //log_info("compute entrypoint invoked");
+          let Some(mut hmd_log) = api.get_HMD_log() else {
+               return;
+          };
+          log::info!("Log in dataManager: {:?}", hmd_log);
     }
 
     pub fn notify(

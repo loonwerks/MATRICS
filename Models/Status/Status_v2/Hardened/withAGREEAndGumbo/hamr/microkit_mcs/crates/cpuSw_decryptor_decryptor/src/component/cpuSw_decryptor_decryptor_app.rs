@@ -7,6 +7,7 @@ use aes_gcm::{
      aead::{AeadCore, AeadInPlace, consts::{U12,U16}},
      Aes128Gcm, Nonce, Key, KeyInit, Tag
 };
+use serde::Deserialize;
 
 verus! {
 
@@ -56,21 +57,19 @@ verus! {
 
           let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
           let tag = Tag::<U16>::from_slice(&encrypted.tag);
-          let mut ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
+          let ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
           match self.cipher.decrypt_in_place_detached(&nonce, b"", ciphertext, &tag) {
                Ok(()) => {
                     // Success: 'ciphertext' now contains the valid plaintext
-                    match core::str::from_utf8(&encrypted.ciphertext) {
-                         Ok(v) => {
-                              log::info!("Decrypted Payload: {}", v);
-                         },
-                         Err(e) => panic!("Invalid UTF-8: {}", e),
-                    };
+                    match parse_json(&ciphertext){
+                         Some(log) => api.put_HMD_log_out(log),
+                         None => log_info("Parsing log failed"),
+                    }
                }
                Err(e) => {
                     // Failure: Data is corrupted or tag is wrong. 
                     // DO NOT trust the 'buffer' contents.
-                    log::info!("Authentication failed: {}", e);
+                    log_info("Decryption failed");
                }
           }
     }
@@ -98,6 +97,89 @@ verus! {
   pub fn log_warn_channel(channel: u32)
   {
     log::warn!("Unexpected channel: {0}", channel);
+  }
+
+  #[verifier::external_body]
+  pub fn parse_json(plaintext: &[u8]) -> Option<Common::Log_Impl>
+  {
+     // We have to mirror Log_Impl to allow the #[derive(Deserialize)] macro to be applied
+     #[derive(Deserialize)]
+     struct HMDPosition_Mirror {
+          positionX: i32,
+          positionY: i32,
+          positionZ: i32,
+          orientationX: i32,
+          orientationY: i32,
+          orientationZ: i32,
+          orientationW: i32,
+     }
+
+     #[derive(Deserialize)]
+     enum TargetAssessment_Mirror {
+          Unreviewed = 0,
+          Safe = 1,
+          Threat = 2,
+     }
+
+     #[derive(Deserialize)]
+     struct TargetObservation_Mirror {
+          targetID: u32,
+          locationX: i32,
+          locationY: i32,
+          locationZ: i32,
+          assessment: TargetAssessment_Mirror,
+     }
+
+     #[derive(Deserialize)]
+     struct Log_Mirror {
+          timestamp: u64,
+          guardID: u32,
+          deviceID: u32,
+          hmdPosition: HMDPosition_Mirror,
+          targetCount: u32,
+          // Allows JSON to contain targetCount elements instead of all 15
+          targets: heapless::Vec<TargetObservation_Mirror, 15>,
+     }
+     
+     return match serde_json_core::from_slice::<Log_Mirror>(plaintext) {
+          Ok((mut data, _consumed)) =>
+          {
+               let mut targets = [Common::TargetObservation_Impl::default(); Common::Common_TargetObservationArray_Impl_DIM_0];
+
+               for (i, mirror) in data.targets.iter_mut().enumerate() {
+                    targets[i] = Common::TargetObservation_Impl {
+                         targetID: mirror.targetID,
+                         locationX: mirror.locationX,
+                         locationY: mirror.locationY,
+                         locationZ: mirror.locationZ,
+                         assessment: match mirror.assessment {
+                              TargetAssessment_Mirror::Unreviewed => Common::TargetAssessment::Unreviewed,
+                              TargetAssessment_Mirror::Safe => Common::TargetAssessment::Safe,
+                              TargetAssessment_Mirror::Threat => Common::TargetAssessment::Threat,
+                         },
+                    };
+               }
+
+               Some(Common::Log_Impl {
+                    timestamp: data.timestamp,
+                    guardID: data.guardID,
+                    deviceID: data.deviceID,
+                    hmdPosition: Common::HMDPosition_Impl {
+                         positionX: data.hmdPosition.positionX,
+                         positionY: data.hmdPosition.positionY,
+                         positionZ: data.hmdPosition.positionZ,
+                         orientationX: data.hmdPosition.orientationX,
+                         orientationY: data.hmdPosition.orientationY,
+                         orientationZ: data.hmdPosition.orientationZ,
+                         orientationW: data.hmdPosition.orientationW,
+                    },
+                    targetCount: data.targetCount,
+                    targets,
+               })
+          },
+          Err(_err) => 
+               None,
+     };
   }
 
   // PLACEHOLDER MARKER GUMBO METHODS
