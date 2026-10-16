@@ -335,9 +335,9 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                uint8_t decoded[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
                size_t length = base64_decode(encoded, decoded);
                memcpy((char*)(*message).payload.nonce, decoded, 12); // Nonce/Initialization Vector(IV) first 12 bytes
-               size_t ciphertext_length = length - 12 - 16;
+               uint32_t ciphertext_length = length - 12 - 16;
                memcpy((char*)(*message).payload.ciphertext, decoded + 12, ciphertext_length); // Ciphertext
-               message->payload.ciphertext[ciphertext_length] = '\0'; // Null-byte terminate
+               message->payload.ciphertext_len = ciphertext_length; // Ciphertext length
                memcpy((char*)(*message).payload.tag, decoded + 12 + ciphertext_length, 16); // Tag/Checksum last 16 bytes
           } else {
                return false; // Unexpected JSON member

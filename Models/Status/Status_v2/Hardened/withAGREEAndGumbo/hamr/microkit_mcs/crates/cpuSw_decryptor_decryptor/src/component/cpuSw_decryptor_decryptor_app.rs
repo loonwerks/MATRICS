@@ -3,7 +3,6 @@
 use data::*;
 use crate::bridge::cpuSw_decryptor_decryptor_api::*;
 use vstd::prelude::*;
-use base64::{Engine as _, engine::general_purpose};
 use aes_gcm::{
      aead::{AeadCore, AeadInPlace, consts::{U12,U16}},
      Aes128Gcm, Nonce, Key, KeyInit, Tag
@@ -55,12 +54,10 @@ verus! {
                return;
           };
 
-          log::info!("Nonce: {:?}", encrypted.nonce);
-          log::info!("Ciphertext: {:?}", encrypted.ciphertext);
-          log::info!("Tag: {:?}", encrypted.tag);
           let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
           let tag = Tag::<U16>::from_slice(&encrypted.tag);
-          match self.cipher.decrypt_in_place_detached(&nonce, b"", &mut encrypted.ciphertext, &tag) {
+          let mut ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
+          match self.cipher.decrypt_in_place_detached(&nonce, b"", ciphertext, &tag) {
                Ok(()) => {
                     // Success: 'ciphertext' now contains the valid plaintext
                     match core::str::from_utf8(&encrypted.ciphertext) {
