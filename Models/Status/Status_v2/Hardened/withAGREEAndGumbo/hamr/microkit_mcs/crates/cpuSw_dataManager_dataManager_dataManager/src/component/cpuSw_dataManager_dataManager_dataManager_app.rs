@@ -94,7 +94,7 @@ verus! {
       (response.validLogCount == 0u32) &&
       (response.moreAvailable == false) &&
       (response.nextStartTime == 0u64) &&
-      #[trigger] forall|i:int| 0 <= i < response.logs.len() ==> MATRICS_Model_Transformations::IS_NULL_LOG_spec(response.logs[i])
+      forall|i:int| 0 <= i < response.logs.len() ==> MATRICS_Model_Transformations::IS_NULL_LOG_spec(response.logs[i])
   }
   // END MARKER GUMBO METHODS
 

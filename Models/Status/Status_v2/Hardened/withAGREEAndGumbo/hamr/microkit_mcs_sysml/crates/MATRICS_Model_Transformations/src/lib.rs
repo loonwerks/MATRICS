@@ -185,7 +185,7 @@ verus! {
       (log.deviceID == 0u32)) &&
       IS_NULL_HMD_POSITION_spec(log.hmdPosition)) &&
       (log.targetCount == 0u32)) &&
-      #[trigger] forall|target_index:int| 0 <= target_index <= log.targets.len() - 1 ==> IS_NULL_TARGET_spec(log.targets[target_index])
+      forall|target_index:int| 0 <= target_index <= log.targets.len() - 1 ==> IS_NULL_TARGET_spec(log.targets[target_index])
   }
 
   pub open spec fn IS_NULL_REQUEST_spec(request: Common::Request_Impl) -> bool
