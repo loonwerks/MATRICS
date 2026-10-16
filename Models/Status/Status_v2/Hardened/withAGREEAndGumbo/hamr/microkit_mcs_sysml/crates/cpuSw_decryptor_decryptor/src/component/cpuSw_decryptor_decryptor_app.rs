@@ -62,7 +62,7 @@ verus! {
           let tag = Tag::<U16>::from_slice(&encrypted.tag);
           match self.cipher.decrypt_in_place_detached(&nonce, b"", &mut encrypted.ciphertext, &tag) {
                Ok(()) => {
-                    // Success: 'cyphertext' now contains the valid plaintext
+                    // Success: 'ciphertext' now contains the valid plaintext
                     match core::str::from_utf8(&encrypted.ciphertext) {
                          Ok(v) => {
                               log::info!("Decrypted Payload: {}", v);

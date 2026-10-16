@@ -305,18 +305,21 @@ typedef struct Common_EncryptedMessage_Impl {
   Common_Nonce_Impl nonce;
   Common_Ciphertext_Impl ciphertext;
   Common_AuthenticationTag_Impl tag;
+  uint32_t ciphertext_len;
 } Common_EncryptedMessage_Impl;
 
-_Static_assert(sizeof(Common_EncryptedMessage_Impl) == 4096, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
-_Static_assert(_Alignof(Common_EncryptedMessage_Impl) == 1, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_EncryptedMessage_Impl) == 4100, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(_Alignof(Common_EncryptedMessage_Impl) == 4, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedMessage_Impl, nonce) == 0, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedMessage_Impl, ciphertext) == 12, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedMessage_Impl, tag) == 4080, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(offsetof(Common_EncryptedMessage_Impl, ciphertext_len) == 4096, "Common_EncryptedMessage_Impl: memory layout differs from HAMR's");
 
 static inline bool Common_EncryptedMessage_Impl_is_valid(const Common_EncryptedMessage_Impl *v) {
   return Common_Nonce_Impl_is_valid(&v->nonce) &&
                   Common_Ciphertext_Impl_is_valid(&v->ciphertext) &&
-                  Common_AuthenticationTag_Impl_is_valid(&v->tag);
+                  Common_AuthenticationTag_Impl_is_valid(&v->tag) &&
+                  uint32_t_is_valid(&v->ciphertext_len);
 }
 
 typedef struct Common_AnalysisRequest_Impl {
@@ -358,7 +361,7 @@ typedef struct Common_IncomingWifiMessage_Impl {
   Common_EncryptedMessage_Impl payload;
 } Common_IncomingWifiMessage_Impl;
 
-_Static_assert(sizeof(Common_IncomingWifiMessage_Impl) == 4164, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_IncomingWifiMessage_Impl) == 4168, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_IncomingWifiMessage_Impl) == 4, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_IncomingWifiMessage_Impl, header) == 0, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_IncomingWifiMessage_Impl, payload) == 68, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
@@ -373,7 +376,7 @@ typedef struct Common_OutgoingWifiMessage_Impl {
   Common_EncryptedMessage_Impl payload;
 } Common_OutgoingWifiMessage_Impl;
 
-_Static_assert(sizeof(Common_OutgoingWifiMessage_Impl) == 4100, "Common_OutgoingWifiMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_OutgoingWifiMessage_Impl) == 4104, "Common_OutgoingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_OutgoingWifiMessage_Impl) == 4, "Common_OutgoingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_OutgoingWifiMessage_Impl, header) == 0, "Common_OutgoingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_OutgoingWifiMessage_Impl, payload) == 4, "Common_OutgoingWifiMessage_Impl: memory layout differs from HAMR's");
@@ -388,7 +391,7 @@ typedef struct Common_StoredLogFile_Impl {
   Common_EncryptedMessage_Impl encryptedLog;
 } Common_StoredLogFile_Impl;
 
-_Static_assert(sizeof(Common_StoredLogFile_Impl) == 4112, "Common_StoredLogFile_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_StoredLogFile_Impl) == 4120, "Common_StoredLogFile_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_StoredLogFile_Impl) == 8, "Common_StoredLogFile_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_StoredLogFile_Impl, logMetadata) == 0, "Common_StoredLogFile_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_StoredLogFile_Impl, encryptedLog) == 16, "Common_StoredLogFile_Impl: memory layout differs from HAMR's");
@@ -431,7 +434,7 @@ typedef Common_StoredLogFile_Impl Common_EncryptedResponseLog_Impl [Common_Encry
 
 #define Common_EncryptedResponseLog_Impl_BYTE_SIZE (sizeof(Common_EncryptedResponseLog_Impl))
 
-_Static_assert(sizeof(Common_EncryptedResponseLog_Impl) == 41120, "Common_EncryptedResponseLog_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_EncryptedResponseLog_Impl) == 41200, "Common_EncryptedResponseLog_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_EncryptedResponseLog_Impl) == 8, "Common_EncryptedResponseLog_Impl: memory layout differs from HAMR's");
 
 
@@ -450,7 +453,7 @@ typedef Common_StoredLogFile_Impl Common_EncryptedLogArray_Impl [Common_Encrypte
 
 #define Common_EncryptedLogArray_Impl_BYTE_SIZE (sizeof(Common_EncryptedLogArray_Impl))
 
-_Static_assert(sizeof(Common_EncryptedLogArray_Impl) == 411200, "Common_EncryptedLogArray_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_EncryptedLogArray_Impl) == 412000, "Common_EncryptedLogArray_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_EncryptedLogArray_Impl) == 8, "Common_EncryptedLogArray_Impl: memory layout differs from HAMR's");
 
 
@@ -490,7 +493,7 @@ typedef struct Common_EncryptedResponse_Impl {
   Common_EncryptedResponseLog_Impl logs;
 } Common_EncryptedResponse_Impl;
 
-_Static_assert(sizeof(Common_EncryptedResponse_Impl) == 41168, "Common_EncryptedResponse_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_EncryptedResponse_Impl) == 41248, "Common_EncryptedResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_EncryptedResponse_Impl) == 8, "Common_EncryptedResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedResponse_Impl, request) == 0, "Common_EncryptedResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedResponse_Impl, validLogCount) == 32, "Common_EncryptedResponse_Impl: memory layout differs from HAMR's");
@@ -535,7 +538,7 @@ typedef struct Common_EncryptedAnalysisResponse_Impl {
   Common_EncryptedResponse_Impl payload;
 } Common_EncryptedAnalysisResponse_Impl;
 
-_Static_assert(sizeof(Common_EncryptedAnalysisResponse_Impl) == 41176, "Common_EncryptedAnalysisResponse_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_EncryptedAnalysisResponse_Impl) == 41256, "Common_EncryptedAnalysisResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_EncryptedAnalysisResponse_Impl) == 8, "Common_EncryptedAnalysisResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedAnalysisResponse_Impl, header) == 0, "Common_EncryptedAnalysisResponse_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_EncryptedAnalysisResponse_Impl, payload) == 8, "Common_EncryptedAnalysisResponse_Impl: memory layout differs from HAMR's");

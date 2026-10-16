@@ -13,5 +13,5 @@ verus! {
 }
 
 // Memory layout as HAMR computes it
-const _: () = assert!(core::mem::size_of::<EncryptedLogArray_Impl>() == 411200);
+const _: () = assert!(core::mem::size_of::<EncryptedLogArray_Impl>() == 412000);
 const _: () = assert!(core::mem::align_of::<EncryptedLogArray_Impl>() == 8);

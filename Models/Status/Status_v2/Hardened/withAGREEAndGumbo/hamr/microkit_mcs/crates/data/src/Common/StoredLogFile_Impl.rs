@@ -23,7 +23,7 @@ verus! {
 }
 
 // Memory layout as HAMR computes it
-const _: () = assert!(core::mem::size_of::<StoredLogFile_Impl>() == 4112);
+const _: () = assert!(core::mem::size_of::<StoredLogFile_Impl>() == 4120);
 const _: () = assert!(core::mem::align_of::<StoredLogFile_Impl>() == 8);
 const _: () = assert!(core::mem::offset_of!(StoredLogFile_Impl, metadata) == 0);
 const _: () = assert!(core::mem::offset_of!(StoredLogFile_Impl, encryptedLog) == 16);

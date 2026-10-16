@@ -336,7 +336,7 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                size_t length = base64_decode(encoded, decoded);
                memcpy((char*)(*message).payload.nonce, decoded, 12); // Nonce/Initialization Vector(IV) first 12 bytes
                size_t ciphertext_length = length - 12 - 16;
-               memcpy((char*)(*message).payload.ciphertext, decoded + 12, ciphertext_length); // Cyphertext
+               memcpy((char*)(*message).payload.ciphertext, decoded + 12, ciphertext_length); // Ciphertext
                message->payload.ciphertext[ciphertext_length] = '\0'; // Null-byte terminate
                memcpy((char*)(*message).payload.tag, decoded + 12 + ciphertext_length, 16); // Tag/Checksum last 16 bytes
           } else {

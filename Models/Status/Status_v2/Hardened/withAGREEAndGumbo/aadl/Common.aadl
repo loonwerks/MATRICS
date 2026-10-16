@@ -316,9 +316,10 @@ public
 			nonce: data Nonce.Impl;
 			ciphertext: data Ciphertext.Impl;
 			tag: data AuthenticationTag.Impl;
+			ciphertext_len: data Base_Types::Unsigned_32;
 		properties
-			-- 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes.
-			Memory_Properties::Data_Size => 4096 Bytes;
+			-- 12-byte nonce + 4068-byte ciphertext + 16-byte tag + 4-byte ciphertext_len = 4100 bytes.
+			Memory_Properties::Data_Size => 4100 Bytes;
 	end EncryptedMessage.Impl;
 
 	-- Plaintext fields used to construct and index the filename for one encrypted
@@ -352,11 +353,11 @@ public
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (StoredLogFile.Impl));
 			Data_Model::Dimension => (100);
-			-- StoredLogFile.Impl is 4112 bytes: 16-byte metadata plus 4096-byte
-			-- encrypted frame. Therefore, 100 files * 4112 bytes = 411200 bytes.
+			-- StoredLogFile.Impl is 4200 bytes: 16-byte metadata plus 4100-byte
+			-- encrypted frame plus 4-bytes of padding. Therefore, 100 files * 4200 bytes = 411600 bytes.
 			-- This array models on-disk data accessed by dataStorage; it is not
 			-- transmitted as a port message.
-			Memory_Properties::Data_Size => 411200 Bytes;
+			Memory_Properties::Data_Size => 412000 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end EncryptedLogArray;
 
@@ -370,10 +371,10 @@ public
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (StoredLogFile.Impl));
 			Data_Model::Dimension => (MATRICS_Properties::MAX_LOGS_PER_RESPONSE);
-			-- StoredLogFile.Impl records is 4112 bytes: 16-byte metadata
-			-- plus 4096-byte encrypted frame. Therefore, 
-			-- MAX_LOGS_PER_RESPONSE (10) * 4112 bytes = 41120 bytes.
-			Memory_Properties::Data_Size => 41120 Bytes;
+			-- StoredLogFile.Impl records is 4116 bytes: 16-byte metadata
+			-- plus 4100-byte encrypted frame plus 4-bytes of padding. Therefore, 
+			-- MAX_LOGS_PER_RESPONSE (10) * 4200 = 41200 bytes.
+			Memory_Properties::Data_Size => 41200 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end EncryptedResponseLog;
 

@@ -15915,10 +15915,10 @@
                                               },
                                               "beginLine" : 118,
                                               "beginColumn" : 4,
-                                              "endLine" : 122,
+                                              "endLine" : 123,
                                               "endColumn" : 4,
                                               "offset" : 3757,
-                                              "length" : 163
+                                              "length" : 218
                                             }
                                           }
                                         }
@@ -15938,10 +15938,10 @@
                                               },
                                               "beginLine" : 118,
                                               "beginColumn" : 4,
-                                              "endLine" : 122,
+                                              "endLine" : 123,
                                               "endColumn" : 4,
                                               "offset" : 3757,
-                                              "length" : 163
+                                              "length" : 218
                                             }
                                           }
                                         }
@@ -15959,10 +15959,10 @@
                                           },
                                           "beginLine" : 118,
                                           "beginColumn" : 4,
-                                          "endLine" : 122,
+                                          "endLine" : 123,
                                           "endColumn" : 4,
                                           "offset" : 3757,
-                                          "length" : 163
+                                          "length" : 218
                                         }
                                       }
                                     }
@@ -15984,10 +15984,10 @@
                                         },
                                         "beginLine" : 118,
                                         "beginColumn" : 4,
-                                        "endLine" : 122,
+                                        "endLine" : 123,
                                         "endColumn" : 4,
                                         "offset" : 3757,
-                                        "length" : 163
+                                        "length" : 218
                                       }
                                     },
                                     "typedOpt" : {
@@ -18429,11 +18429,11 @@
                                                 "type" : "Some",
                                                 "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                               },
-                                              "beginLine" : 130,
+                                              "beginLine" : 131,
                                               "beginColumn" : 4,
-                                              "endLine" : 133,
+                                              "endLine" : 134,
                                               "endColumn" : 4,
-                                              "offset" : 4124,
+                                              "offset" : 4179,
                                               "length" : 142
                                             }
                                           }
@@ -18452,11 +18452,11 @@
                                                 "type" : "Some",
                                                 "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                               },
-                                              "beginLine" : 130,
+                                              "beginLine" : 131,
                                               "beginColumn" : 4,
-                                              "endLine" : 133,
+                                              "endLine" : 134,
                                               "endColumn" : 4,
-                                              "offset" : 4124,
+                                              "offset" : 4179,
                                               "length" : 142
                                             }
                                           }
@@ -18473,11 +18473,11 @@
                                             "type" : "Some",
                                             "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                           },
-                                          "beginLine" : 130,
+                                          "beginLine" : 131,
                                           "beginColumn" : 4,
-                                          "endLine" : 133,
+                                          "endLine" : 134,
                                           "endColumn" : 4,
-                                          "offset" : 4124,
+                                          "offset" : 4179,
                                           "length" : 142
                                         }
                                       }
@@ -18498,11 +18498,11 @@
                                           "type" : "Some",
                                           "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                         },
-                                        "beginLine" : 130,
+                                        "beginLine" : 131,
                                         "beginColumn" : 4,
-                                        "endLine" : 133,
+                                        "endLine" : 134,
                                         "endColumn" : 4,
-                                        "offset" : 4124,
+                                        "offset" : 4179,
                                         "length" : 142
                                       }
                                     },
@@ -19058,11 +19058,11 @@
                                                 "type" : "Some",
                                                 "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                               },
-                                              "beginLine" : 135,
+                                              "beginLine" : 136,
                                               "beginColumn" : 4,
-                                              "endLine" : 140,
+                                              "endLine" : 141,
                                               "endColumn" : 4,
-                                              "offset" : 4273,
+                                              "offset" : 4328,
                                               "length" : 250
                                             }
                                           }
@@ -19081,11 +19081,11 @@
                                                 "type" : "Some",
                                                 "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                               },
-                                              "beginLine" : 135,
+                                              "beginLine" : 136,
                                               "beginColumn" : 4,
-                                              "endLine" : 140,
+                                              "endLine" : 141,
                                               "endColumn" : 4,
-                                              "offset" : 4273,
+                                              "offset" : 4328,
                                               "length" : 250
                                             }
                                           }
@@ -19102,11 +19102,11 @@
                                             "type" : "Some",
                                             "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                           },
-                                          "beginLine" : 135,
+                                          "beginLine" : 136,
                                           "beginColumn" : 4,
-                                          "endLine" : 140,
+                                          "endLine" : 141,
                                           "endColumn" : 4,
-                                          "offset" : 4273,
+                                          "offset" : 4328,
                                           "length" : 250
                                         }
                                       }
@@ -19127,11 +19127,11 @@
                                           "type" : "Some",
                                           "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                                         },
-                                        "beginLine" : 135,
+                                        "beginLine" : 136,
                                         "beginColumn" : 4,
-                                        "endLine" : 140,
+                                        "endLine" : 141,
                                         "endColumn" : 4,
-                                        "offset" : 4273,
+                                        "offset" : 4328,
                                         "length" : 250
                                       }
                                     },
@@ -55819,10 +55819,10 @@
                                 },
                                 "beginLine" : 118,
                                 "beginColumn" : 4,
-                                "endLine" : 122,
+                                "endLine" : 123,
                                 "endColumn" : 4,
                                 "offset" : 3757,
-                                "length" : 163
+                                "length" : 218
                               }
                             }
                           }
@@ -55842,10 +55842,10 @@
                                 },
                                 "beginLine" : 118,
                                 "beginColumn" : 4,
-                                "endLine" : 122,
+                                "endLine" : 123,
                                 "endColumn" : 4,
                                 "offset" : 3757,
-                                "length" : 163
+                                "length" : 218
                               }
                             }
                           }
@@ -55863,10 +55863,10 @@
                             },
                             "beginLine" : 118,
                             "beginColumn" : 4,
-                            "endLine" : 122,
+                            "endLine" : 123,
                             "endColumn" : 4,
                             "offset" : 3757,
-                            "length" : 163
+                            "length" : 218
                           }
                         }
                       }
@@ -55888,10 +55888,10 @@
                           },
                           "beginLine" : 118,
                           "beginColumn" : 4,
-                          "endLine" : 122,
+                          "endLine" : 123,
                           "endColumn" : 4,
                           "offset" : 3757,
-                          "length" : 163
+                          "length" : 218
                         }
                       },
                       "typedOpt" : {
@@ -56406,10 +56406,10 @@
                                 },
                                 "beginLine" : 118,
                                 "beginColumn" : 4,
-                                "endLine" : 122,
+                                "endLine" : 123,
                                 "endColumn" : 4,
                                 "offset" : 3757,
-                                "length" : 163
+                                "length" : 218
                               }
                             }
                           }
@@ -56429,10 +56429,10 @@
                                 },
                                 "beginLine" : 118,
                                 "beginColumn" : 4,
-                                "endLine" : 122,
+                                "endLine" : 123,
                                 "endColumn" : 4,
                                 "offset" : 3757,
-                                "length" : 163
+                                "length" : 218
                               }
                             }
                           }
@@ -56450,10 +56450,10 @@
                             },
                             "beginLine" : 118,
                             "beginColumn" : 4,
-                            "endLine" : 122,
+                            "endLine" : 123,
                             "endColumn" : 4,
                             "offset" : 3757,
-                            "length" : 163
+                            "length" : 218
                           }
                         }
                       }
@@ -56475,10 +56475,10 @@
                           },
                           "beginLine" : 118,
                           "beginColumn" : 4,
-                          "endLine" : 122,
+                          "endLine" : 123,
                           "endColumn" : 4,
                           "offset" : 3757,
-                          "length" : 163
+                          "length" : 218
                         }
                       },
                       "typedOpt" : {
@@ -65468,10 +65468,10 @@
             },
             "beginLine" : 118,
             "beginColumn" : 4,
-            "endLine" : 122,
+            "endLine" : 123,
             "endColumn" : 4,
             "offset" : 3757,
-            "length" : 163
+            "length" : 218
           }
         }
       },
@@ -65924,6 +65924,135 @@
               "appliesTo" : [
               ]
             }
+          ],
+          "flows" : [
+          ],
+          "modes" : [
+          ],
+          "annexes" : [
+          ],
+          "uriFrag" : ""
+        },
+        {
+          "type" : "Component",
+          "identifier" : {
+            "type" : "Name",
+            "name" : ["ciphertext_len"],
+            "pos" : {
+              "type" : "Some",
+              "value" : {
+                "type" : "Position",
+                "uriOpt" : {
+                  "type" : "Some",
+                  "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
+                },
+                "beginLine" : 122,
+                "beginColumn" : 8,
+                "endLine" : 122,
+                "endColumn" : 52,
+                "offset" : 3924,
+                "length" : 44
+              }
+            }
+          },
+          "category" : {
+            "type" : "ComponentCategory",
+            "value" : "Data"
+          },
+          "classifier" : {
+            "type" : "Some",
+            "value" : {
+              "type" : "Classifier",
+              "name" : "Base_Types::Unsigned_32"
+            }
+          },
+          "features" : [
+          ],
+          "subComponents" : [
+            {
+              "type" : "Component",
+              "identifier" : {
+                "type" : "Name",
+                "name" : ["Number_Representation"],
+                "pos" : {
+                  "type" : "None"
+                }
+              },
+              "category" : {
+                "type" : "ComponentCategory",
+                "value" : "Data"
+              },
+              "classifier" : {
+                "type" : "Some",
+                "value" : {
+                  "type" : "Classifier",
+                  "name" : "Data_Model::Number_Representation_enum"
+                }
+              },
+              "features" : [
+              ],
+              "subComponents" : [
+              ],
+              "connections" : [
+              ],
+              "connectionInstances" : [
+              ],
+              "properties" : [
+                {
+                  "type" : "Property",
+                  "name" : {
+                    "type" : "Name",
+                    "name" : ["Data_Model::Data_Representation"],
+                    "pos" : {
+                      "type" : "None"
+                    }
+                  },
+                  "propertyValues" : [
+                    {
+                      "type" : "ValueProp",
+                      "value" : "Enum"
+                    }
+                  ],
+                  "appliesTo" : [
+                  ]
+                },
+                {
+                  "type" : "Property",
+                  "name" : {
+                    "type" : "Name",
+                    "name" : ["Data_Model::Enumerators"],
+                    "pos" : {
+                      "type" : "None"
+                    }
+                  },
+                  "propertyValues" : [
+                    {
+                      "type" : "ValueProp",
+                      "value" : "Signed"
+                    },
+                    {
+                      "type" : "ValueProp",
+                      "value" : "Unsigned"
+                    }
+                  ],
+                  "appliesTo" : [
+                  ]
+                }
+              ],
+              "flows" : [
+              ],
+              "modes" : [
+              ],
+              "annexes" : [
+              ],
+              "uriFrag" : ""
+            }
+          ],
+          "connections" : [
+          ],
+          "connectionInstances" : [
+          ],
+          "properties" : [
           ],
           "flows" : [
           ],
@@ -71832,11 +71961,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 162,
+            "beginLine" : 163,
             "beginColumn" : 4,
-            "endLine" : 167,
+            "endLine" : 168,
             "endColumn" : 4,
-            "offset" : 5226,
+            "offset" : 5281,
             "length" : 235
           }
         }
@@ -71980,11 +72109,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 169,
+            "beginLine" : 170,
             "beginColumn" : 4,
-            "endLine" : 172,
+            "endLine" : 173,
             "endColumn" : 4,
-            "offset" : 5468,
+            "offset" : 5523,
             "length" : 126
           }
         }
@@ -72016,11 +72145,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 170,
+                "beginLine" : 171,
                 "beginColumn" : 8,
-                "endLine" : 170,
+                "endLine" : 171,
                 "endColumn" : 29,
-                "offset" : 5521,
+                "offset" : 5576,
                 "length" : 21
               }
             }
@@ -72164,11 +72293,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 171,
+                "beginLine" : 172,
                 "beginColumn" : 8,
-                "endLine" : 171,
+                "endLine" : 172,
                 "endColumn" : 44,
-                "offset" : 5552,
+                "offset" : 5607,
                 "length" : 36
               }
             }
@@ -72308,11 +72437,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 174,
+            "beginLine" : 175,
             "beginColumn" : 4,
-            "endLine" : 177,
+            "endLine" : 178,
             "endColumn" : 4,
-            "offset" : 5601,
+            "offset" : 5656,
             "length" : 141
           }
         }
@@ -72344,11 +72473,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 175,
+                "beginLine" : 176,
                 "beginColumn" : 8,
-                "endLine" : 175,
+                "endLine" : 176,
                 "endColumn" : 44,
-                "offset" : 5655,
+                "offset" : 5710,
                 "length" : 36
               }
             }
@@ -72380,11 +72509,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 170,
+                    "beginLine" : 171,
                     "beginColumn" : 8,
-                    "endLine" : 170,
+                    "endLine" : 171,
                     "endColumn" : 29,
-                    "offset" : 5521,
+                    "offset" : 5576,
                     "length" : 21
                   }
                 }
@@ -72528,11 +72657,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 171,
+                    "beginLine" : 172,
                     "beginColumn" : 8,
-                    "endLine" : 171,
+                    "endLine" : 172,
                     "endColumn" : 44,
-                    "offset" : 5552,
+                    "offset" : 5607,
                     "length" : 36
                   }
                 }
@@ -72672,11 +72801,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 176,
+                "beginLine" : 177,
                 "beginColumn" : 8,
-                "endLine" : 176,
+                "endLine" : 177,
                 "endColumn" : 43,
-                "offset" : 5701,
+                "offset" : 5756,
                 "length" : 35
               }
             }
@@ -73130,6 +73259,135 @@
                   "appliesTo" : [
                   ]
                 }
+              ],
+              "flows" : [
+              ],
+              "modes" : [
+              ],
+              "annexes" : [
+              ],
+              "uriFrag" : ""
+            },
+            {
+              "type" : "Component",
+              "identifier" : {
+                "type" : "Name",
+                "name" : ["ciphertext_len"],
+                "pos" : {
+                  "type" : "Some",
+                  "value" : {
+                    "type" : "Position",
+                    "uriOpt" : {
+                      "type" : "Some",
+                      "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
+                    },
+                    "beginLine" : 122,
+                    "beginColumn" : 8,
+                    "endLine" : 122,
+                    "endColumn" : 52,
+                    "offset" : 3924,
+                    "length" : 44
+                  }
+                }
+              },
+              "category" : {
+                "type" : "ComponentCategory",
+                "value" : "Data"
+              },
+              "classifier" : {
+                "type" : "Some",
+                "value" : {
+                  "type" : "Classifier",
+                  "name" : "Base_Types::Unsigned_32"
+                }
+              },
+              "features" : [
+              ],
+              "subComponents" : [
+                {
+                  "type" : "Component",
+                  "identifier" : {
+                    "type" : "Name",
+                    "name" : ["Number_Representation"],
+                    "pos" : {
+                      "type" : "None"
+                    }
+                  },
+                  "category" : {
+                    "type" : "ComponentCategory",
+                    "value" : "Data"
+                  },
+                  "classifier" : {
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "Classifier",
+                      "name" : "Data_Model::Number_Representation_enum"
+                    }
+                  },
+                  "features" : [
+                  ],
+                  "subComponents" : [
+                  ],
+                  "connections" : [
+                  ],
+                  "connectionInstances" : [
+                  ],
+                  "properties" : [
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Data_Representation"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Enum"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    },
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Enumerators"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Signed"
+                        },
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Unsigned"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    }
+                  ],
+                  "flows" : [
+                  ],
+                  "modes" : [
+                  ],
+                  "annexes" : [
+                  ],
+                  "uriFrag" : ""
+                }
+              ],
+              "connections" : [
+              ],
+              "connectionInstances" : [
+              ],
+              "properties" : [
               ],
               "flows" : [
               ],
@@ -73362,11 +73620,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 179,
+            "beginLine" : 180,
             "beginColumn" : 4,
-            "endLine" : 182,
+            "endLine" : 183,
             "endColumn" : 4,
-            "offset" : 5749,
+            "offset" : 5804,
             "length" : 132
           }
         }
@@ -73398,11 +73656,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 180,
+                "beginLine" : 181,
                 "beginColumn" : 8,
-                "endLine" : 180,
+                "endLine" : 181,
                 "endColumn" : 35,
-                "offset" : 5803,
+                "offset" : 5858,
                 "length" : 27
               }
             }
@@ -73578,11 +73836,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 181,
+                "beginLine" : 182,
                 "beginColumn" : 8,
-                "endLine" : 181,
+                "endLine" : 182,
                 "endColumn" : 43,
-                "offset" : 5840,
+                "offset" : 5895,
                 "length" : 35
               }
             }
@@ -74036,6 +74294,135 @@
                   "appliesTo" : [
                   ]
                 }
+              ],
+              "flows" : [
+              ],
+              "modes" : [
+              ],
+              "annexes" : [
+              ],
+              "uriFrag" : ""
+            },
+            {
+              "type" : "Component",
+              "identifier" : {
+                "type" : "Name",
+                "name" : ["ciphertext_len"],
+                "pos" : {
+                  "type" : "Some",
+                  "value" : {
+                    "type" : "Position",
+                    "uriOpt" : {
+                      "type" : "Some",
+                      "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
+                    },
+                    "beginLine" : 122,
+                    "beginColumn" : 8,
+                    "endLine" : 122,
+                    "endColumn" : 52,
+                    "offset" : 3924,
+                    "length" : 44
+                  }
+                }
+              },
+              "category" : {
+                "type" : "ComponentCategory",
+                "value" : "Data"
+              },
+              "classifier" : {
+                "type" : "Some",
+                "value" : {
+                  "type" : "Classifier",
+                  "name" : "Base_Types::Unsigned_32"
+                }
+              },
+              "features" : [
+              ],
+              "subComponents" : [
+                {
+                  "type" : "Component",
+                  "identifier" : {
+                    "type" : "Name",
+                    "name" : ["Number_Representation"],
+                    "pos" : {
+                      "type" : "None"
+                    }
+                  },
+                  "category" : {
+                    "type" : "ComponentCategory",
+                    "value" : "Data"
+                  },
+                  "classifier" : {
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "Classifier",
+                      "name" : "Data_Model::Number_Representation_enum"
+                    }
+                  },
+                  "features" : [
+                  ],
+                  "subComponents" : [
+                  ],
+                  "connections" : [
+                  ],
+                  "connectionInstances" : [
+                  ],
+                  "properties" : [
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Data_Representation"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Enum"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    },
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Enumerators"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Signed"
+                        },
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Unsigned"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    }
+                  ],
+                  "flows" : [
+                  ],
+                  "modes" : [
+                  ],
+                  "annexes" : [
+                  ],
+                  "uriFrag" : ""
+                }
+              ],
+              "connections" : [
+              ],
+              "connectionInstances" : [
+              ],
+              "properties" : [
               ],
               "flows" : [
               ],
@@ -75124,11 +75511,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 124,
+            "beginLine" : 125,
             "beginColumn" : 4,
-            "endLine" : 128,
+            "endLine" : 129,
             "endColumn" : 4,
-            "offset" : 3927,
+            "offset" : 3982,
             "length" : 190
           }
         }
@@ -75160,11 +75547,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 125,
+                "beginLine" : 126,
                 "beginColumn" : 8,
-                "endLine" : 125,
+                "endLine" : 126,
                 "endColumn" : 45,
-                "offset" : 3977,
+                "offset" : 4032,
                 "length" : 37
               }
             }
@@ -75289,11 +75676,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 126,
+                "beginLine" : 127,
                 "beginColumn" : 8,
-                "endLine" : 126,
+                "endLine" : 127,
                 "endColumn" : 46,
-                "offset" : 4024,
+                "offset" : 4079,
                 "length" : 38
               }
             }
@@ -75418,11 +75805,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 127,
+                "beginLine" : 128,
                 "beginColumn" : 8,
-                "endLine" : 127,
+                "endLine" : 128,
                 "endColumn" : 47,
-                "offset" : 4072,
+                "offset" : 4127,
                 "length" : 39
               }
             }
@@ -75562,11 +75949,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 130,
+            "beginLine" : 131,
             "beginColumn" : 4,
-            "endLine" : 133,
+            "endLine" : 134,
             "endColumn" : 4,
-            "offset" : 4124,
+            "offset" : 4179,
             "length" : 142
           }
         }
@@ -75598,11 +75985,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 131,
+                "beginLine" : 132,
                 "beginColumn" : 8,
-                "endLine" : 131,
+                "endLine" : 132,
                 "endColumn" : 46,
-                "offset" : 4172,
+                "offset" : 4227,
                 "length" : 38
               }
             }
@@ -75634,11 +76021,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 125,
+                    "beginLine" : 126,
                     "beginColumn" : 8,
-                    "endLine" : 125,
+                    "endLine" : 126,
                     "endColumn" : 45,
-                    "offset" : 3977,
+                    "offset" : 4032,
                     "length" : 37
                   }
                 }
@@ -75763,11 +76150,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 126,
+                    "beginLine" : 127,
                     "beginColumn" : 8,
-                    "endLine" : 126,
+                    "endLine" : 127,
                     "endColumn" : 46,
-                    "offset" : 4024,
+                    "offset" : 4079,
                     "length" : 38
                   }
                 }
@@ -75892,11 +76279,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 127,
+                    "beginLine" : 128,
                     "beginColumn" : 8,
-                    "endLine" : 127,
+                    "endLine" : 128,
                     "endColumn" : 47,
-                    "offset" : 4072,
+                    "offset" : 4127,
                     "length" : 39
                   }
                 }
@@ -76036,11 +76423,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 132,
+                "beginLine" : 133,
                 "beginColumn" : 8,
-                "endLine" : 132,
+                "endLine" : 133,
                 "endColumn" : 48,
-                "offset" : 4220,
+                "offset" : 4275,
                 "length" : 40
               }
             }
@@ -76502,6 +76889,135 @@
               "annexes" : [
               ],
               "uriFrag" : ""
+            },
+            {
+              "type" : "Component",
+              "identifier" : {
+                "type" : "Name",
+                "name" : ["ciphertext_len"],
+                "pos" : {
+                  "type" : "Some",
+                  "value" : {
+                    "type" : "Position",
+                    "uriOpt" : {
+                      "type" : "Some",
+                      "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
+                    },
+                    "beginLine" : 122,
+                    "beginColumn" : 8,
+                    "endLine" : 122,
+                    "endColumn" : 52,
+                    "offset" : 3924,
+                    "length" : 44
+                  }
+                }
+              },
+              "category" : {
+                "type" : "ComponentCategory",
+                "value" : "Data"
+              },
+              "classifier" : {
+                "type" : "Some",
+                "value" : {
+                  "type" : "Classifier",
+                  "name" : "Base_Types::Unsigned_32"
+                }
+              },
+              "features" : [
+              ],
+              "subComponents" : [
+                {
+                  "type" : "Component",
+                  "identifier" : {
+                    "type" : "Name",
+                    "name" : ["Number_Representation"],
+                    "pos" : {
+                      "type" : "None"
+                    }
+                  },
+                  "category" : {
+                    "type" : "ComponentCategory",
+                    "value" : "Data"
+                  },
+                  "classifier" : {
+                    "type" : "Some",
+                    "value" : {
+                      "type" : "Classifier",
+                      "name" : "Data_Model::Number_Representation_enum"
+                    }
+                  },
+                  "features" : [
+                  ],
+                  "subComponents" : [
+                  ],
+                  "connections" : [
+                  ],
+                  "connectionInstances" : [
+                  ],
+                  "properties" : [
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Data_Representation"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Enum"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    },
+                    {
+                      "type" : "Property",
+                      "name" : {
+                        "type" : "Name",
+                        "name" : ["Data_Model::Enumerators"],
+                        "pos" : {
+                          "type" : "None"
+                        }
+                      },
+                      "propertyValues" : [
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Signed"
+                        },
+                        {
+                          "type" : "ValueProp",
+                          "value" : "Unsigned"
+                        }
+                      ],
+                      "appliesTo" : [
+                      ]
+                    }
+                  ],
+                  "flows" : [
+                  ],
+                  "modes" : [
+                  ],
+                  "annexes" : [
+                  ],
+                  "uriFrag" : ""
+                }
+              ],
+              "connections" : [
+              ],
+              "connectionInstances" : [
+              ],
+              "properties" : [
+              ],
+              "flows" : [
+              ],
+              "modes" : [
+              ],
+              "annexes" : [
+              ],
+              "uriFrag" : ""
             }
           ],
           "connections" : [
@@ -76546,11 +77062,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 142,
+            "beginLine" : 143,
             "beginColumn" : 4,
-            "endLine" : 147,
+            "endLine" : 148,
             "endColumn" : 4,
-            "offset" : 4530,
+            "offset" : 4585,
             "length" : 251
           }
         }
@@ -76644,7 +77160,7 @@
           "propertyValues" : [
             {
               "type" : "UnitProp",
-              "value" : "328960",
+              "value" : "329600",
               "unit" : {
                 "type" : "Some",
                 "value" : "bits"
@@ -76694,11 +77210,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 149,
+            "beginLine" : 150,
             "beginColumn" : 4,
-            "endLine" : 155,
+            "endLine" : 156,
             "endColumn" : 4,
-            "offset" : 4788,
+            "offset" : 4843,
             "length" : 285
           }
         }
@@ -76730,11 +77246,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 150,
+                "beginLine" : 151,
                 "beginColumn" : 8,
-                "endLine" : 150,
+                "endLine" : 151,
                 "endColumn" : 34,
-                "offset" : 4840,
+                "offset" : 4895,
                 "length" : 26
               }
             }
@@ -77387,11 +77903,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 151,
+                "beginLine" : 152,
                 "beginColumn" : 8,
-                "endLine" : 151,
+                "endLine" : 152,
                 "endColumn" : 51,
-                "offset" : 4876,
+                "offset" : 4931,
                 "length" : 43
               }
             }
@@ -77516,11 +78032,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 152,
+                "beginLine" : 153,
                 "beginColumn" : 8,
-                "endLine" : 152,
+                "endLine" : 153,
                 "endColumn" : 47,
-                "offset" : 4929,
+                "offset" : 4984,
                 "length" : 39
               }
             }
@@ -77567,11 +78083,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 153,
+                "beginLine" : 154,
                 "beginColumn" : 8,
-                "endLine" : 153,
+                "endLine" : 154,
                 "endColumn" : 51,
-                "offset" : 4978,
+                "offset" : 5033,
                 "length" : 43
               }
             }
@@ -77696,11 +78212,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 154,
+                "beginLine" : 155,
                 "beginColumn" : 8,
-                "endLine" : 154,
+                "endLine" : 155,
                 "endColumn" : 44,
-                "offset" : 5031,
+                "offset" : 5086,
                 "length" : 36
               }
             }
@@ -77794,7 +78310,7 @@
               "propertyValues" : [
                 {
                   "type" : "UnitProp",
-                  "value" : "328960",
+                  "value" : "329600",
                   "unit" : {
                     "type" : "Some",
                     "value" : "bits"
@@ -77859,11 +78375,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 157,
+            "beginLine" : 158,
             "beginColumn" : 4,
-            "endLine" : 160,
+            "endLine" : 161,
             "endColumn" : 4,
-            "offset" : 5080,
+            "offset" : 5135,
             "length" : 139
           }
         }
@@ -77895,11 +78411,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 158,
+                "beginLine" : 159,
                 "beginColumn" : 8,
-                "endLine" : 158,
+                "endLine" : 159,
                 "endColumn" : 35,
-                "offset" : 5140,
+                "offset" : 5195,
                 "length" : 27
               }
             }
@@ -78075,11 +78591,11 @@
                   "type" : "Some",
                   "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                 },
-                "beginLine" : 159,
+                "beginLine" : 160,
                 "beginColumn" : 8,
-                "endLine" : 159,
+                "endLine" : 160,
                 "endColumn" : 44,
-                "offset" : 5177,
+                "offset" : 5232,
                 "length" : 36
               }
             }
@@ -78111,11 +78627,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 150,
+                    "beginLine" : 151,
                     "beginColumn" : 8,
-                    "endLine" : 150,
+                    "endLine" : 151,
                     "endColumn" : 34,
-                    "offset" : 4840,
+                    "offset" : 4895,
                     "length" : 26
                   }
                 }
@@ -78768,11 +79284,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 151,
+                    "beginLine" : 152,
                     "beginColumn" : 8,
-                    "endLine" : 151,
+                    "endLine" : 152,
                     "endColumn" : 51,
-                    "offset" : 4876,
+                    "offset" : 4931,
                     "length" : 43
                   }
                 }
@@ -78897,11 +79413,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 152,
+                    "beginLine" : 153,
                     "beginColumn" : 8,
-                    "endLine" : 152,
+                    "endLine" : 153,
                     "endColumn" : 47,
-                    "offset" : 4929,
+                    "offset" : 4984,
                     "length" : 39
                   }
                 }
@@ -78948,11 +79464,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 153,
+                    "beginLine" : 154,
                     "beginColumn" : 8,
-                    "endLine" : 153,
+                    "endLine" : 154,
                     "endColumn" : 51,
-                    "offset" : 4978,
+                    "offset" : 5033,
                     "length" : 43
                   }
                 }
@@ -79077,11 +79593,11 @@
                       "type" : "Some",
                       "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
                     },
-                    "beginLine" : 154,
+                    "beginLine" : 155,
                     "beginColumn" : 8,
-                    "endLine" : 154,
+                    "endLine" : 155,
                     "endColumn" : 44,
-                    "offset" : 5031,
+                    "offset" : 5086,
                     "length" : 36
                   }
                 }
@@ -79175,7 +79691,7 @@
                   "propertyValues" : [
                     {
                       "type" : "UnitProp",
-                      "value" : "328960",
+                      "value" : "329600",
                       "unit" : {
                         "type" : "Some",
                         "value" : "bits"
@@ -80651,11 +81167,11 @@
               "type" : "Some",
               "value" : "file:\/\/\/Users\/e40002720\/Documents\/MATRICS\/MATRICS-models\/Models\/Status\/Status_v2\/Hardened\/withAGREEAndGumbo\/sysml\/Common.sysml"
             },
-            "beginLine" : 135,
+            "beginLine" : 136,
             "beginColumn" : 4,
-            "endLine" : 140,
+            "endLine" : 141,
             "endColumn" : 4,
-            "offset" : 4273,
+            "offset" : 4328,
             "length" : 250
           }
         }
@@ -80749,7 +81265,7 @@
           "propertyValues" : [
             {
               "type" : "UnitProp",
-              "value" : "3289600",
+              "value" : "3296000",
               "unit" : {
                 "type" : "Some",
                 "value" : "bits"

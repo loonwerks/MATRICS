@@ -119,6 +119,7 @@ package Common {
         part nonce: Nonce_Impl;
         part ciphertext: Ciphertext_Impl;
         part tag: AuthenticationTag_Impl;
+        part ciphertext_len: Base_Types::Unsigned_32; 
     }
 
     part def LogFileMetadata_Impl :> Struct {
@@ -136,14 +137,14 @@ package Common {
         part :>> Base_Type : StoredLogFile_Impl;
         attribute :>> Dimensions = 100;
         attribute :>> Array_Size_Kind = Array_Size_Kinds::Fixed;
-        attribute :>> Data_Size = 411200 [byte];
+        attribute :>> Data_Size = 412000 [byte];
     }
 
     part def EncryptedResponseLog_Impl :> Array {
         part :>> Base_Type : StoredLogFile_Impl;
         attribute :>> Dimensions = 10;
         attribute :>> Array_Size_Kind = Array_Size_Kinds::Fixed;
-        attribute :>> Data_Size = 41120 [byte];
+        attribute :>> Data_Size = 41200 [byte];
     }
 
     part def EncryptedResponse_Impl :> Struct {

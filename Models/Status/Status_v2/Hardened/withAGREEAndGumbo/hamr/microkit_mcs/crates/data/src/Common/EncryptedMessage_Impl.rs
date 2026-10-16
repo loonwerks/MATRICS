@@ -12,20 +12,22 @@ verus! {
     pub nonce: Nonce_Impl,
     pub ciphertext: Ciphertext_Impl,
     pub tag: AuthenticationTag_Impl,
+    pub ciphertext_len: u32,
   }
 
   impl Default for EncryptedMessage_Impl {
     fn default() -> Self
     {
-      Self { nonce: [0; Common::Common_Nonce_Impl_DIM_0], ciphertext: [0; Common::Common_Ciphertext_Impl_DIM_0], tag: [0; Common::Common_AuthenticationTag_Impl_DIM_0] }
+      Self { nonce: [0; Common::Common_Nonce_Impl_DIM_0], ciphertext: [0; Common::Common_Ciphertext_Impl_DIM_0], tag: [0; Common::Common_AuthenticationTag_Impl_DIM_0], ciphertext_len: 0 }
     }
   }
 
 }
 
 // Memory layout as HAMR computes it
-const _: () = assert!(core::mem::size_of::<EncryptedMessage_Impl>() == 4096);
-const _: () = assert!(core::mem::align_of::<EncryptedMessage_Impl>() == 1);
+const _: () = assert!(core::mem::size_of::<EncryptedMessage_Impl>() == 4100);
+const _: () = assert!(core::mem::align_of::<EncryptedMessage_Impl>() == 4);
 const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, nonce) == 0);
 const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, ciphertext) == 12);
 const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, tag) == 4080);
+const _: () = assert!(core::mem::offset_of!(EncryptedMessage_Impl, ciphertext_len) == 4096);

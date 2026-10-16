@@ -1559,7 +1559,7 @@
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
             <ownedValue>
-              <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+              <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
                 <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
@@ -1629,7 +1629,7 @@
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
               <ownedValue>
-                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
                   <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
                 </ownedValue>
               </ownedValue>
@@ -2210,7 +2210,7 @@
           <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
             <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
             <ownedValue>
-              <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+              <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
                 <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
               </ownedValue>
             </ownedValue>
@@ -2260,7 +2260,7 @@
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
               <ownedValue>
-                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
                   <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
                 </ownedValue>
               </ownedValue>
@@ -2333,7 +2333,7 @@
               <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
                 <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
                 <ownedValue>
-                  <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+                  <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
                     <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
                   </ownedValue>
                 </ownedValue>
@@ -2828,7 +2828,7 @@
             <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
               <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
               <ownedValue>
-                <ownedValue xsi:type="aadl2:IntegerLiteral" value="411200">
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="412000">
                   <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
                 </ownedValue>
               </ownedValue>
@@ -2954,7 +2954,7 @@
               <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
                 <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
                 <ownedValue>
-                  <ownedValue xsi:type="aadl2:IntegerLiteral" value="411200">
+                  <ownedValue xsi:type="aadl2:IntegerLiteral" value="412000">
                     <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
                   </ownedValue>
                 </ownedValue>
@@ -3617,7 +3617,7 @@
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
         <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
         <ownedValue>
-          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
             <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
           </ownedValue>
         </ownedValue>
@@ -3778,6 +3778,38 @@
         <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.2"/>
         <index>0</index>
         <classifier xsi:type="aadl2:DataImplementation" href="../Common.aadl#Common.AuthenticationTag.Impl"/>
+      </componentInstance>
+      <componentInstance name="ciphertext_len" category="data">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+              <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.3"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Unsigned_32"/>
       </componentInstance>
       <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.67/@ownedDataSubcomponent.1"/>
       <index>0</index>
@@ -3827,7 +3859,7 @@
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
         <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
         <ownedValue>
-          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
             <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
           </ownedValue>
         </ownedValue>
@@ -3988,6 +4020,38 @@
         <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.2"/>
         <index>0</index>
         <classifier xsi:type="aadl2:DataImplementation" href="../Common.aadl#Common.AuthenticationTag.Impl"/>
+      </componentInstance>
+      <componentInstance name="ciphertext_len" category="data">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+              <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.3"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Unsigned_32"/>
       </componentInstance>
       <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.69/@ownedDataSubcomponent.1"/>
       <index>0</index>
@@ -4593,7 +4657,7 @@
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
       <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
       <ownedValue>
-        <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+        <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
           <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
         </ownedValue>
       </ownedValue>
@@ -4754,6 +4818,38 @@
       <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.2"/>
       <index>0</index>
       <classifier xsi:type="aadl2:DataImplementation" href="../Common.aadl#Common.AuthenticationTag.Impl"/>
+    </componentInstance>
+    <componentInstance name="ciphertext_len" category="data">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+            <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:NamedValue">
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.3"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Unsigned_32"/>
     </componentInstance>
     <classifier xsi:type="aadl2:DataImplementation" href="../Common.aadl#Common.EncryptedMessage.Impl"/>
   </instance:ComponentInstance>
@@ -5275,7 +5371,7 @@
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
         <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
         <ownedValue>
-          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4096">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" value="4100">
             <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
           </ownedValue>
         </ownedValue>
@@ -5436,6 +5532,38 @@
         <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.2"/>
         <index>0</index>
         <classifier xsi:type="aadl2:DataImplementation" href="../Common.aadl#Common.AuthenticationTag.Impl"/>
+      </componentInstance>
+      <componentInstance name="ciphertext_len" category="data">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+              <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.49/@ownedDataSubcomponent.3"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Unsigned_32"/>
       </componentInstance>
       <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.53/@ownedDataSubcomponent.1"/>
       <index>0</index>
@@ -5724,7 +5852,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="41120">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="41200">
               <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>
@@ -5811,7 +5939,7 @@
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
       <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
       <ownedValue>
-        <ownedValue xsi:type="aadl2:IntegerLiteral" value="411200">
+        <ownedValue xsi:type="aadl2:IntegerLiteral" value="412000">
           <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
         </ownedValue>
       </ownedValue>

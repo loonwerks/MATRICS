@@ -316,20 +316,23 @@ pub fn Common_EncryptedMessage_Impl_strategy_default() -> impl Strategy<Value = 
   Common_EncryptedMessage_Impl_strategy_cust(
     Common_Nonce_Impl_strategy_default(),
     Common_Ciphertext_Impl_strategy_default(),
-    Common_AuthenticationTag_Impl_strategy_default()
+    Common_AuthenticationTag_Impl_strategy_default(),
+    any::<u32>()
   )
 }
 
 pub fn Common_EncryptedMessage_Impl_strategy_cust
   <nonce_Common_Nonce_Impl_strategy: Strategy<Value = Common::Nonce_Impl>, 
    ciphertext_Common_Ciphertext_Impl_strategy: Strategy<Value = Common::Ciphertext_Impl>, 
-   tag_Common_AuthenticationTag_Impl_strategy: Strategy<Value = Common::AuthenticationTag_Impl>> (
+   tag_Common_AuthenticationTag_Impl_strategy: Strategy<Value = Common::AuthenticationTag_Impl>, 
+   ciphertext_len_u32_strategy: Strategy<Value = u32>> (
   nonce_strategy: nonce_Common_Nonce_Impl_strategy,
   ciphertext_strategy: ciphertext_Common_Ciphertext_Impl_strategy,
-  tag_strategy: tag_Common_AuthenticationTag_Impl_strategy) -> impl Strategy<Value = Common::EncryptedMessage_Impl>
+  tag_strategy: tag_Common_AuthenticationTag_Impl_strategy,
+  ciphertext_len_strategy: ciphertext_len_u32_strategy) -> impl Strategy<Value = Common::EncryptedMessage_Impl>
 {
-  (nonce_strategy, ciphertext_strategy, tag_strategy).prop_map(|(nonce, ciphertext, tag)| {
-    Common::EncryptedMessage_Impl { nonce, ciphertext, tag }
+  (nonce_strategy, ciphertext_strategy, tag_strategy, ciphertext_len_strategy).prop_map(|(nonce, ciphertext, tag, ciphertext_len)| {
+    Common::EncryptedMessage_Impl { nonce, ciphertext, tag, ciphertext_len }
   })
 }
 
