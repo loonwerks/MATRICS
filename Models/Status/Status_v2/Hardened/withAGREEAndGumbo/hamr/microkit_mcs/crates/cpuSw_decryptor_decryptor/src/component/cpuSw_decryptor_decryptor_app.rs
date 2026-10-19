@@ -4,7 +4,7 @@ use data::*;
 use crate::bridge::cpuSw_decryptor_decryptor_api::*;
 use vstd::prelude::*;
 use aes_gcm::{
-     aead::{AeadCore, AeadInPlace, consts::{U12,U16}},
+     aead::{AeadCore, AeadInOut, inout::InOutBuf, consts::{U12,U16}},
      Aes128Gcm, Nonce, Key, KeyInit, Tag
 };
 use serde::Deserialize;
@@ -93,15 +93,15 @@ verus! {
   #[verifier::external_body]
     pub fn decrypt(encrypted: &mut Common::EncryptedMessage_Impl) -> Option<Common::Log_Impl>
      {
-          let key = Key::<Aes128Gcm>::from_slice(&AES_KEY);
-          let cipher = Aes128Gcm::new(key);
-          let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
-          let tag = Tag::<U16>::from_slice(&encrypted.tag);
-          let ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
-          match cipher.decrypt_in_place_detached(&nonce, b"", ciphertext, &tag) {
+          let key = Key::<Aes128Gcm>::try_from(AES_KEY.as_slice()).ok()?;
+          let cipher = Aes128Gcm::new(&key);
+          let nonce = Nonce::<U12>::try_from(encrypted.nonce.as_slice()).ok()?;
+          let tag = Tag::<U16>::try_from(encrypted.tag.as_slice()).ok()?;
+          let ciphertext = encrypted.ciphertext.get_mut(..encrypted.ciphertext_len as usize)?;
+          match cipher.decrypt_inout_detached(&nonce, b"", InOutBuf::from(&mut *ciphertext), &tag) {
                Ok(()) => {
                     // Success: 'ciphertext' now contains the valid plaintext
-                    match parse_json(&ciphertext){
+                    match parse_json(ciphertext){
                          Some(log) => return Some(log),
                          None => {
                               log_info("Parsing log failed"); 
