@@ -48,6 +48,10 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
+          let Some(analysis_request) = api.get_analysis_request_in() else {
+               return;
+          };
+          log::info!("Request: {:?}", analysis_request);
       // log_info("compute entrypoint invoked");
     }
 

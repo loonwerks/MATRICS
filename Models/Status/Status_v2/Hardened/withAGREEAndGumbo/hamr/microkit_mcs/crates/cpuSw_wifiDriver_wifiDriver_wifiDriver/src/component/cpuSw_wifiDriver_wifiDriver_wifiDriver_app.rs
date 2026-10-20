@@ -66,21 +66,23 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-      let wifi_rx_message = api.get_wifiRecv();
-      if wifi_rx_message.is_some() {
-          let len = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == 0).unwrap_or(0); // Find null byte
-          let start = wifi_rx_message.unwrap().header.route.iter().position(|&b| b == b'/').unwrap_or(0); // Find first character
-          if len > 0 && start > 0 {
-               match core::str::from_utf8(&wifi_rx_message.unwrap().header.route[start..len]) {
-                    Ok(v) => {
-                         if v == "/hmd"{
-                              api.put_HMD_log(wifi_rx_message.unwrap().payload);
-                         }
-                    },
-                    Err(e) => panic!("Invalid UTF-8: {}", e),
-               };
+     let Some(mut wifi_rx_message) = api.get_wifiRecv() else {
+          return;
+     };
+
+     if let Some(v) = extract_route(&wifi_rx_message.header.route) {
+          if v == "/hmd"{
+               api.put_HMD_log(wifi_rx_message.payload);
+          } else if v.starts_with("/request"){
+               if let Some(request) = parse_request(v) {
+                    let analysis_request = Common::AnalysisRequest_Impl{
+                         header: Common::MsgHeader_Impl { client: wifi_rx_message.header.client },
+                         payload: request,
+                    };
+                    api.put_analysis_request(analysis_request);
+               }
           }
-      }
+     }  
     }
 
     pub fn notify(
@@ -106,6 +108,80 @@ verus! {
   pub fn log_warn_channel(channel: u32)
   {
     log::warn!("Unexpected channel: {0}", channel);
+  }
+
+  #[verifier::external_body]
+  pub fn extract_route(route: &[u8]) -> Option<&str> {
+     let len = route.iter().position(|&b| b == 0).unwrap_or(0); // Find null byte
+     let start = route.iter().position(|&b| b == b'/').unwrap_or(0); // Find first character
+     if len > 0 && start > 0 {
+          match core::str::from_utf8(&route[start..len]) {
+               Ok(v) => {
+                    return Some(v)
+               },
+               Err(_) => return None,
+          };
+     } else {
+          return None;
+     }
+  }
+
+  #[verifier::external_body]
+  pub fn parse_request(route: &str) -> Option<Common::Request_Impl> {
+     let Some(query) = route.strip_prefix("/request?") else {
+          return None;
+     };
+
+     let mut request: Common::Request_Impl = Common::Request_Impl::default();
+
+     for parameter in query.split('&') {
+          let Some((name, value)) = parameter.split_once('=') else {
+               return None
+          };
+
+          match name {
+               "analysisType" => {
+                    request.analysisType = match value {
+                         "All_Records" => Common::AnalysisType::All_Records,
+                         "Threat_Only" => Common::AnalysisType::Threat_Only,
+                         "Safe_Only" => Common::AnalysisType::Safe_Only,
+                         "Unreviewed_Only" => Common::AnalysisType::Unreviewed_Only,
+                         "Target_History" => Common::AnalysisType::Target_History,
+                         _ => return None,
+                    };
+               }
+               "guardID" => {
+                    if let Ok(guard_id) = value.parse::<u32>() {
+                         request.guardID = guard_id;
+                    } else {
+                         return None;
+                    }
+               }
+               "startTime" => {
+                    if let Ok(start_time) = value.parse::<u64>() {
+                         request.startTime = start_time;
+                    } else {
+                         return None;
+                    }
+               }
+               "endTime" => {
+                    if let Ok(end_time) = value.parse::<u64>() {
+                         request.endTime = end_time;
+                    } else {
+                         return None;
+                    }
+               }
+               "targetID" => {
+                    if let Ok(target_id) = value.parse::<u32>() {
+                         request.targetID = target_id;
+                    } else {
+                         return None;
+                    }
+               }
+               _ => return None, // Unknown parameter
+          }
+     }
+     return Some(request);
   }
 
   // PLACEHOLDER MARKER GUMBO METHODS

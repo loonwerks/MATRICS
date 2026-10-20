@@ -40,6 +40,13 @@ def write_rx_buffer(msg):
                mm.close()
      return status
 
+@app.before_request
+def block_duplicate_args():
+    for key, values in request.args.lists():
+        if len(values) > 1: # Ensure there is only one of each argument
+            return {"status": "error", "message": f"There is more than one {key} argument."}
+
+
 # Define a route for the homepage
 @app.route("/")
 def hello_world():
