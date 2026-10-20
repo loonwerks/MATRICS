@@ -162,9 +162,9 @@ package Common {
 
     part def shortText :> Array {
         part :>> Base_Type : Base_Types::Character;
-        attribute :>> Dimensions = 64;
+        attribute :>> Dimensions = 256;
         attribute :>> Array_Size_Kind = Array_Size_Kinds::Fixed;
-        attribute :>> Data_Size = 64 [byte];
+        attribute :>> Data_Size = 256 [byte];
     }
 
     part def IncomingWifiHeader_Impl :> Struct {

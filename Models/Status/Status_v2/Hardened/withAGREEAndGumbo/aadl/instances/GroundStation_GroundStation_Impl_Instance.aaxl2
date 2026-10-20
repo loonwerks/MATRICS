@@ -3550,7 +3550,7 @@
           <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Dimension"/>
           <ownedValue>
             <ownedValue xsi:type="aadl2:ListValue">
-              <ownedListElement xsi:type="aadl2:IntegerLiteral" value="64"/>
+              <ownedListElement xsi:type="aadl2:IntegerLiteral" value="256"/>
             </ownedValue>
           </ownedValue>
           <propertyAssociation href="../Common.aadl#/0/@ownedPublicSection/@ownedClassifier.62/@ownedPropertyAssociation.2"/>
@@ -3558,7 +3558,7 @@
         <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
           <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
           <ownedValue>
-            <ownedValue xsi:type="aadl2:IntegerLiteral" value="64">
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="256">
               <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
             </ownedValue>
           </ownedValue>

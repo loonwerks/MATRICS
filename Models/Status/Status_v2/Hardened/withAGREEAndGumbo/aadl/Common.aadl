@@ -409,9 +409,9 @@ public
 		properties
 			Data_Model::Data_Representation => Array;
 			Data_Model::Base_Type => (classifier (Base_Types::Character));
-			Data_Model::Dimension => (64);
-			-- 64 characters * 1 byte per modeled character = 64 bytes.
-			Memory_Properties::Data_Size => 64 Bytes;
+			Data_Model::Dimension => (256);
+			-- 256 characters * 1 byte per modeled character = 256 bytes.
+			Memory_Properties::Data_Size => 256 Bytes;
 			HAMR::Array_Size_Kind => Fixed;
 	end shortText;
 	

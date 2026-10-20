@@ -23,7 +23,7 @@ verus! {
 }
 
 // Memory layout as HAMR computes it
-const _: () = assert!(core::mem::size_of::<IncomingWifiHeader_Impl>() == 68);
+const _: () = assert!(core::mem::size_of::<IncomingWifiHeader_Impl>() == 260);
 const _: () = assert!(core::mem::align_of::<IncomingWifiHeader_Impl>() == 4);
 const _: () = assert!(core::mem::offset_of!(IncomingWifiHeader_Impl, route) == 0);
-const _: () = assert!(core::mem::offset_of!(IncomingWifiHeader_Impl, client) == 64);
+const _: () = assert!(core::mem::offset_of!(IncomingWifiHeader_Impl, client) == 256);

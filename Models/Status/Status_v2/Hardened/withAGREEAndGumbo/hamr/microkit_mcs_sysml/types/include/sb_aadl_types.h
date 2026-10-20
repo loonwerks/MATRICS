@@ -83,13 +83,13 @@ static inline bool Common_TargetAssessment_is_valid(const Common_TargetAssessmen
   return (uint32_t) *v < 3;
 }
 
-#define Common_shortText_DIM_0 64
+#define Common_shortText_DIM_0 256
 
 typedef char Common_shortText [Common_shortText_DIM_0];
 
 #define Common_shortText_BYTE_SIZE (sizeof(Common_shortText))
 
-_Static_assert(sizeof(Common_shortText) == 64, "Common_shortText: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_shortText) == 256, "Common_shortText: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_shortText) == 1, "Common_shortText: memory layout differs from HAMR's");
 
 
@@ -291,10 +291,10 @@ typedef struct Common_IncomingWifiHeader_Impl {
   uint32_t client;
 } Common_IncomingWifiHeader_Impl;
 
-_Static_assert(sizeof(Common_IncomingWifiHeader_Impl) == 68, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_IncomingWifiHeader_Impl) == 260, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_IncomingWifiHeader_Impl) == 4, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_IncomingWifiHeader_Impl, route) == 0, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
-_Static_assert(offsetof(Common_IncomingWifiHeader_Impl, client) == 64, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
+_Static_assert(offsetof(Common_IncomingWifiHeader_Impl, client) == 256, "Common_IncomingWifiHeader_Impl: memory layout differs from HAMR's");
 
 static inline bool Common_IncomingWifiHeader_Impl_is_valid(const Common_IncomingWifiHeader_Impl *v) {
   return Common_shortText_is_valid(&v->route) &&
@@ -361,10 +361,10 @@ typedef struct Common_IncomingWifiMessage_Impl {
   Common_EncryptedMessage_Impl payload;
 } Common_IncomingWifiMessage_Impl;
 
-_Static_assert(sizeof(Common_IncomingWifiMessage_Impl) == 4168, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(sizeof(Common_IncomingWifiMessage_Impl) == 4360, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(_Alignof(Common_IncomingWifiMessage_Impl) == 4, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 _Static_assert(offsetof(Common_IncomingWifiMessage_Impl, header) == 0, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
-_Static_assert(offsetof(Common_IncomingWifiMessage_Impl, payload) == 68, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
+_Static_assert(offsetof(Common_IncomingWifiMessage_Impl, payload) == 260, "Common_IncomingWifiMessage_Impl: memory layout differs from HAMR's");
 
 static inline bool Common_IncomingWifiMessage_Impl_is_valid(const Common_IncomingWifiMessage_Impl *v) {
   return Common_IncomingWifiHeader_Impl_is_valid(&v->header) &&
