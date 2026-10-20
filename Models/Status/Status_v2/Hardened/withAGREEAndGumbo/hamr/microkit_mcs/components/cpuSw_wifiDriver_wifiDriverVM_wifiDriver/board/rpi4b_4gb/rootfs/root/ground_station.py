@@ -38,7 +38,7 @@ def write_rx_buffer(msg):
                status = Status.FAILURE
           finally:
                mm.close()
-               return status
+     return status
 
 # Define a route for the homepage
 @app.route("/")
@@ -69,7 +69,10 @@ def hello_world():
 
 @app.route("/hmd", methods=["POST"])
 def store_hmd_data():
-     headers = dict(request.headers)
+     headers = {
+               'Host': f"{request.host}{request.headers.get('X-Original-URI')}",
+               'X-Forwarded-For': request.headers.get('X-Forwarded-For')
+          }
      body = request.get_data().decode('utf-8')
      result = {"headers": headers,
                "body": body}
@@ -80,7 +83,70 @@ def store_hmd_data():
 
 @app.route("/request", methods=["GET"])
 def request_hmd_data():
-     client_ip = request.remote_addr
+     if request.get_data():
+          return {"status": "error", "message": "Requests must not contain a body."}
+
+     ALLOWED_PARAMS = {
+          'analysisType': str,
+          'guardID': int,
+          'startTime': int,
+          'endTime': int,
+          'targetID': int
+     }
+
+     received_keys = set(request.args.keys())
+     allowed_keys = set(ALLOWED_PARAMS.keys())
+     unknown_keys = received_keys - allowed_keys
+     if unknown_keys:
+          return {"status": "error", "message": f"Invalid query parameter(s): {list(unknown_keys)}"}
+
+     if 'analysisType' in request.args:
+          val = request.args.get('analysisType')
+          if val not in {'All_Records', 'Threat_Only', 'Safe_Only', 'Unreviewed_Only', 'Target_History'}:
+               return {"status": "error", "message": "analysisType must be All_Records, Threat_Only, Safe_Only, Unreviewed_Only, or Target_History"}
+          if val == 'Target_History':
+               if 'targetID' in request.args:
+                    val_target = request.args.get('targetID')
+                    if not val_target.isdigit():
+                         return {"status": "error", "message": "targetID must be a valid ID number."}
+               else: 
+                    return {"status": "error", "message": "No targetID indicated."}
+          else:
+               if 'targetID' in request.args:
+                    return {"status": "error", "message": f"targetID is not allowed for analysisType {val}"}
+     else:
+          return {"status": "error", "message": "No analysisType indicated."}
+
+     if 'guardID' in request.args:
+          val = request.args.get('guardID')
+          if not val.isdigit():
+               return {"status": "error", "message": "guardID must be a valid ID number."}
+     else:
+          return {"status": "error", "message": "No guardID indicated."}
+
+     if 'startTime' in request.args:
+          val = request.args.get('startTime')
+          if not val.isdigit():
+               return {"status": "error", "message": "startTime must be a valid timestamp."}
+     else:
+          return {"status": "error", "message": "No startTime indicated."}
+
+     if 'endTime' in request.args:
+          val = request.args.get('endTime')
+          if not val.isdigit():
+               return {"status": "error", "message": "endTime must be a valid timestamp."}
+
+     headers = {
+          'Host': f"{request.host}{request.headers.get('X-Original-URI')}",
+          'X-Forwarded-For': request.headers.get('X-Forwarded-For')
+     }
+     
+     result = {"headers": headers}
+     
+     if write_rx_buffer(result) == Status.SUCCESS:
+          return {"status": "success", "message": "Data received"}
+     else:
+          return {"status": "failure", "message": "Data received but failure occurred"}
 
 if __name__ == '__main__':
      app.run()

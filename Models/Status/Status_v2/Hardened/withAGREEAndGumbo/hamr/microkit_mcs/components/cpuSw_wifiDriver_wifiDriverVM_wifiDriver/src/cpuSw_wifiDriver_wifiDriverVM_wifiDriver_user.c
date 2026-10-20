@@ -230,7 +230,8 @@ void skip_whitespace(const char **str) {
 }
 
 void parse_string(const char **str, char *dest, size_t dest_size){
-     (*str)++; // Skip openning quote
+     if(**str == '"')
+          (*str)++; // Skip openning quote
      size_t i = 0;
 
      while (**str != '"' && **str != '\0'){
@@ -247,7 +248,8 @@ void parse_string(const char **str, char *dest, size_t dest_size){
 }
 
 void parse_string_first_item(const char **str, char *dest, size_t dest_size){
-     (*str)++; // Skip openning quote
+     if(**str == '"')
+          (*str)++; // Skip openning quote
      size_t i = 0;
 
      while (**str != '"' && **str != '\0' && **str != ','){
@@ -311,7 +313,7 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     }
                     str++; // Skip ':'
                     skip_whitespace(&str);
-                    char value[64];
+                    char value[256];
                     if(strcmp(header_key, "Host") == 0){
                          parse_string(&str, value, sizeof(value));
                          strcpy(header.route, value);
