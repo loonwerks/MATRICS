@@ -6,6 +6,13 @@ use vstd::prelude::*;
 
 verus! {
 
+  const ALLOWED_IP_ADDRESSES: [u32; 4]= [
+    3232235877, // 197.168.1.101
+    3232235878, // 197.168.1.102
+    3232235879, // 197.168.1.103
+    3232235880, // 197.168.1.104
+  ];
+
   pub struct cpuSw_firewall_firewall {
     // PLACEHOLDER MARKER STATE VARS
   }
@@ -51,8 +58,23 @@ verus! {
           let Some(analysis_request) = api.get_analysis_request_in() else {
                return;
           };
-          log::info!("Request: {:?}", analysis_request);
-      // log_info("compute entrypoint invoked");
+
+
+          for i in scan: 0..ALLOWED_IP_ADDRESSES.len() 
+               invariant
+                    // Connect api.analysis_request_in to the retried analysis_request
+                    api.analysis_request_in == Some(analysis_request),
+                    // Nothing has been forwarded yet
+                    api.analysis_request_out.is_none(),
+                    // Every address already checked differs from the client
+                    forall |j: int| 0 <= j < scan.index() ==>
+                         ALLOWED_IP_ADDRESSES[j] != analysis_request.header.client,
+          {
+               if analysis_request.header.client == ALLOWED_IP_ADDRESSES[i] {
+                    api.put_analysis_request_out(analysis_request);
+                    return;
+               }
+          }
     }
 
     pub fn notify(
