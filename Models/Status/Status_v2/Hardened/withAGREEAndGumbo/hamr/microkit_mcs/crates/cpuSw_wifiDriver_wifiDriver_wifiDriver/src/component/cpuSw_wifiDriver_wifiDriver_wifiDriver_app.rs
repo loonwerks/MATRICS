@@ -31,7 +31,7 @@ verus! {
         final(self).alert_cmd == false,
         // END MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+          self.alert_cmd = false;
     }
 
     pub fn timeTriggered<API: cpuSw_wifiDriver_wifiDriver_wifiDriver_Full_Api> (
@@ -66,23 +66,48 @@ verus! {
         },
         // END MARKER TIME TRIGGERED ENSURES
     {
-     let Some(mut wifi_rx_message) = api.get_wifiRecv() else {
-          return;
-     };
+          if api.get_alert_in() {
+               self.alert_cmd = true;
+          }
 
-     if let Some(v) = extract_route(&wifi_rx_message.header.route) {
-          if v == "/hmd"{
-               api.put_HMD_log(wifi_rx_message.payload);
-          } else if v.starts_with("/request"){
-               if let Some(request) = parse_request(v) {
-                    let analysis_request = Common::AnalysisRequest_Impl{
-                         header: Common::MsgHeader_Impl { client: wifi_rx_message.header.client },
-                         payload: request,
-                    };
-                    api.put_analysis_request(analysis_request);
+          fn starts_with_request(value: &str) -> bool {
+               let bytes = value.as_bytes();
+
+               if bytes.len() < 8 {
+                    false
+               } else {
+                    bytes[0] == b'/'
+                         && bytes[1] == b'r'
+                         && bytes[2] == b'e'
+                         && bytes[3] == b'q'
+                         && bytes[4] == b'u'
+                         && bytes[5] == b'e'
+                         && bytes[6] == b's'
+                         && bytes[7] == b't'
                }
           }
-     }  
+
+          if let Some(mut wifi_rx_message) = api.get_wifiRecv() {
+               if let Some(v) = extract_route(&wifi_rx_message.header.route) {
+                    if v == "/hmd"{
+                         api.put_HMD_log(wifi_rx_message.payload);
+                    } else if starts_with_request(v) {
+                         if let Some(request) = parse_request(v) {
+                              let analysis_request = Common::AnalysisRequest_Impl{
+                                   header: Common::MsgHeader_Impl { client: wifi_rx_message.header.client },
+                                   payload: request,
+                              };
+                              api.put_analysis_request(analysis_request);
+                         }
+                    }
+               }
+          }
+
+          if !self.alert_cmd {
+               if let Some(analysis_report) = api.get_analysis_report() {
+                    api.put_wifiSend(analysis_report); // Forward analysis_report
+               }
+          }
     }
 
     pub fn notify(
