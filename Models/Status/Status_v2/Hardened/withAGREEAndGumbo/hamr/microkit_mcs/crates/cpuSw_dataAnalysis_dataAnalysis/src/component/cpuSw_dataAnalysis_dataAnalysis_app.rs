@@ -24,7 +24,6 @@ verus! {
       ensures
         // PLACEHOLDER MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
     }
 
     pub fn timeTriggered<API: cpuSw_dataAnalysis_dataAnalysis_Full_Api> (
@@ -46,7 +45,7 @@ verus! {
         old(api).response_log.is_some() ==>
           forall|i: int|
                0 <= i < old(api).response_log.unwrap().payload.validLogCount as int ==>
-                    old(api).response_log.unwrap().payload.logs[i].targetCount
+                    #[trigger] old(api).response_log.unwrap().payload.logs[i].targetCount
                          <= Common::Common_TargetObservationArray_Impl_DIM_0 as u32,
       ensures
         // PLACEHOLDER MARKER TIME TRIGGERED ENSURES
@@ -68,7 +67,7 @@ verus! {
                                    validLogCount as int <= logs_loop.index(),
                                    forall|k: int|
                                         0 <= k < response.payload.validLogCount as int ==>
-                                             response.payload.logs[k].targetCount
+                                             #[trigger] response.payload.logs[k].targetCount
                                                   <= Common::Common_TargetObservationArray_Impl_DIM_0 as u32,
                          {
                               let log = response.payload.logs[i as usize];
@@ -103,7 +102,7 @@ verus! {
                                    validLogCount as int <= logs_loop.index(),
                                    forall|k: int|
                                         0 <= k < response.payload.validLogCount as int ==>
-                                             response.payload.logs[k].targetCount
+                                             #[trigger] response.payload.logs[k].targetCount
                                                   <= Common::Common_TargetObservationArray_Impl_DIM_0 as u32,
                          {
                               let log = response.payload.logs[i as usize];
@@ -138,7 +137,7 @@ verus! {
                                    validLogCount as int <= logs_loop.index(),
                                    forall|k: int|
                                         0 <= k < response.payload.validLogCount as int ==>
-                                             response.payload.logs[k].targetCount
+                                             #[trigger] response.payload.logs[k].targetCount
                                                   <= Common::Common_TargetObservationArray_Impl_DIM_0 as u32,
                          {
                               let log = response.payload.logs[i as usize];
@@ -173,7 +172,7 @@ verus! {
                                    validLogCount as int <= logs_loop.index(),
                                    forall|k: int|
                                         0 <= k < response.payload.validLogCount as int ==>
-                                             response.payload.logs[k].targetCount
+                                             #[trigger] response.payload.logs[k].targetCount
                                                   <= Common::Common_TargetObservationArray_Impl_DIM_0 as u32,
                          {
                               let log = response.payload.logs[i as usize];
