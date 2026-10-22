@@ -46,7 +46,7 @@ verus! {
         final(self).zeroize_cmd == false,
         // END MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      self.zeroize_cmd = false;
     }
 
     pub fn timeTriggered<API: cpuSw_dataManager_dataManager_dataManager_Full_Api> (
@@ -71,13 +71,6 @@ verus! {
           IS_ZEROIZED(final(api).response_log.unwrap().payload),
         // END MARKER TIME TRIGGERED ENSURES
     {
-
-     //    request_log, // From Request
-     //    storage_request, // Send to DataStorage
-     //    encrypted_response, // Response from DataStorage
-     //    response_log // Output to logMonitor
-
-
           if api.get_zeroize() {
                self.zeroize_cmd = true;
           }
@@ -94,6 +87,73 @@ verus! {
                     });
                };
           };
+
+          if let Some(request_log) = api.get_request_log() { // Send Request to dataStorage
+               if self.zeroize_cmd { // Abort sending request to dataStorage...zeroize!
+                    let zero_response = Common::AnalysisResponse_Impl {
+                         header: request_log.header,
+                         payload: Common::Response_Impl {
+                              request: Common::Request_Impl {
+                                   analysisType: Common::AnalysisType::All_Records,
+                                   guardID: 0u32,
+                                   startTime: 0u64,
+                                   endTime: 0u64,
+                                   targetID: 0u32,
+                              },
+                              validLogCount: 0u32,
+                              moreAvailable: false,
+                              nextStartTime: 0u64,
+                              logs: [
+                                   Common::Log_Impl {
+                                   timestamp: 0u64,
+                                   guardID: 0u32,
+                                   deviceID: 0u32,
+                                   hmdPosition: Common::HMDPosition_Impl {
+                                             positionX: 0i32,
+                                             positionY: 0i32,
+                                             positionZ: 0i32,
+                                             orientationX: 0i32,
+                                             orientationY: 0i32,
+                                             orientationZ: 0i32,
+                                             orientationW: 0i32,
+                                        },
+                                   targetCount: 0u32,
+                                   targets: [
+                                        Common::TargetObservation_Impl {
+                                             targetID: 0u32,
+                                             locationX: 0i32,
+                                             locationY: 0i32,
+                                             locationZ: 0i32,
+                                             assessment: Common::TargetAssessment::Unreviewed,
+                                        };
+                                        Common::Common_TargetObservationArray_Impl_DIM_0
+                                   ],
+                              };
+                                   Common::Common_ResponseLog_Impl_DIM_0
+                              ],
+                         },
+                    };
+                    api.put_response_log(zero_response);
+                    return;
+               }
+               api.put_storage_request(request_log);
+          }
+
+          if let Some(mut encrypted_response) = api.get_encrypted_response() { // Send Response to logMonitor
+               if let Some(response_log) = decrypt(&mut encrypted_response.payload.logs) {
+                    api.put_response_log(Common::AnalysisResponse_Impl {
+                         header: encrypted_response.header,
+                         payload: Common::Response_Impl {
+                              request: encrypted_response.payload.request,
+                              validLogCount: encrypted_response.payload.validLogCount,
+                              moreAvailable: encrypted_response.payload.moreAvailable,
+                              nextStartTime: encrypted_response.payload.nextStartTime,
+                              logs: response_log,
+                         },
+                    });
+               }
+          }
+
 
 
 
@@ -162,60 +222,52 @@ verus! {
                return None; 
           },
      };
-     // let key = Key::<Aes128Gcm>::from_slice(&AES_KEY);
-     // let cipher = Aes128Gcm::new(key);
-     // let nonce = Nonce::<U12>::from_slice(&encrypted.nonce);
-     // let tag = Tag::<U16>::from_slice(&encrypted.tag);
-     // let ciphertext = &mut encrypted.ciphertext[..encrypted.ciphertext_len as usize];
-     // match cipher.decrypt_in_place(&nonce, b"", ciphertext, &tag) {
-     //      Ok(()) => {
-     //           // Success: 'ciphertext' now contains the valid plaintext
-     //           match parse_json(&ciphertext){
-     //                Some(log) => return Some(log),
-     //                None => {
-     //                     log_info("Parsing log failed"); 
-     //                     return None;
-     //                },
-     //           }
-     //      }
-     //      Err(e) => {
-     //           // Failure: Data is corrupted or tag is wrong. 
-     //           // DO NOT trust the 'buffer' contents.
-     //           log::info!("Decryption failed: {}", e);
-     //           return None;
-     //      }
-     // }
   }
 
   #[verifier::external_body]
-  pub fn decrypt(encrypted: &mut Common::EncryptedMessage_Impl) -> Option<Common::Log_Impl>
+  pub fn decrypt(encrypted_response: &mut Common::EncryptedResponseLog_Impl) -> Option<Common::ResponseLog_Impl>
   {
      let key = Key::<Aes128Gcm>::try_from(AES_KEY.as_slice()).ok()?;
      let cipher = Aes128Gcm::new(&key);
-     let nonce = Nonce::<U12>::try_from(encrypted.nonce.as_slice()).ok()?;
-     let tag = Tag::<U16>::try_from(encrypted.tag.as_slice()).ok()?;
-     let ciphertext = encrypted.ciphertext.get_mut(..encrypted.ciphertext_len as usize)?;
-     match cipher.decrypt_inout_detached(&nonce, b"", InOutBuf::from(&mut *ciphertext), &tag) {
-          Ok(()) => {
-               // Success: 'ciphertext' now contains the valid plaintext
-               match parse_json(&ciphertext){
-                    Some(log) => return Some(log),
-                    None => {
-                         log_info("Parsing log failed"); 
-                         return None;
-                    },
+
+     let mut response_log: Common::ResponseLog_Impl = [Common::Log_Impl::default(); Common::Common_ResponseLog_Impl_DIM_0];
+
+     for (i, log_file) in encrypted_response.iter_mut().enumerate() {
+          if (i >= Common::Common_ResponseLog_Impl_DIM_0){
+               return None; // Check for valid response entry number
+          }
+          let nonce = Nonce::<U12>::try_from(log_file.encryptedLog.nonce.as_slice()).ok()?;
+          let tag = Tag::<U16>::try_from(log_file.encryptedLog.tag.as_slice()).ok()?;
+          let ciphertext = log_file.encryptedLog.ciphertext.get_mut(..log_file.encryptedLog.ciphertext_len as usize)?;
+          match cipher.decrypt_inout_detached(&nonce, b"", InOutBuf::from(&mut *ciphertext), &tag) {
+               Ok(()) => {
+                    // Success: 'ciphertext' now contains the valid plaintext
+                    match parse_json(&ciphertext){
+                         Some(mut log) => {
+                              log.guardID = log_file.metadata.guardID;
+                              log.deviceID = log_file.metadata.deviceID;
+                              log.timestamp = log_file.metadata.timestamp;
+                              response_log[i] = log;
+                         },
+                         None => {
+                              log_info("Parsing log failed"); 
+                              return None;
+                         },
+                    }
+               }
+               Err(e) => {
+                    // Failure: Data is corrupted or tag is wrong. 
+                    // DO NOT trust the 'buffer' contents.
+                    log::info!("Decryption failed: {}", e);
+                    return None;
                }
           }
-          Err(e) => {
-               // Failure: Data is corrupted or tag is wrong. 
-               // DO NOT trust the 'buffer' contents.
-               log::info!("Decryption failed: {}", e);
-               return None;
-          }
      }
+     return Some(response_log);
   }
 
   // We have to mirror Log_Impl to allow the #[derive(Deserialize)] macro to be applied
+  #[verifier::external]
   #[derive(Deserialize, Serialize)]
   struct HMDPosition_Mirror {
      positionX: i32,
@@ -227,6 +279,7 @@ verus! {
      orientationW: i32,
   }
 
+  #[verifier::external]
   #[derive(Deserialize, Serialize)]
   enum TargetAssessment_Mirror {
      Unreviewed = 0,
@@ -234,6 +287,7 @@ verus! {
      Threat = 2,
   }
 
+  #[verifier::external]
   #[derive(Deserialize, Serialize)]
   struct TargetObservation_Mirror {
      targetID: u32,
@@ -243,6 +297,7 @@ verus! {
      assessment: TargetAssessment_Mirror,
   }
 
+  #[verifier::external]
   impl Default for TargetObservation_Mirror {
     fn default() -> Self
     {
@@ -250,6 +305,7 @@ verus! {
     }
   }
 
+  #[verifier::external]
   #[derive(Deserialize, Serialize)]
   struct Stored_Log { // Differs slightly from Log_Impl as it doesn't include timestamp, guardID, or deviceID
      hmdPosition: HMDPosition_Mirror,
@@ -264,20 +320,21 @@ verus! {
      let mut targets = heapless::Vec::<TargetObservation_Mirror, 15>::new();
 
      for i in 0..hmd_log.targetCount as usize {
-          if (i > Common::Common_TargetObservationArray_Impl_DIM_0){
+          if (i >= Common::Common_TargetObservationArray_Impl_DIM_0){
                return None; // Check for invalid targetCount
           }
-          targets.push(TargetObservation_Mirror {
-               targetID: hmd_log.targets[i].targetID,
-               locationX: hmd_log.targets[i].locationX,
-               locationY: hmd_log.targets[i].locationY,
-               locationZ: hmd_log.targets[i].locationZ,
-               assessment: match hmd_log.targets[i].assessment {
-                    Common::TargetAssessment::Unreviewed => TargetAssessment_Mirror::Unreviewed,
-                    Common::TargetAssessment::Safe => TargetAssessment_Mirror::Safe,
-                    Common::TargetAssessment::Threat => TargetAssessment_Mirror::Threat,
-               },
-          });
+          if targets.push(TargetObservation_Mirror {
+                    targetID: hmd_log.targets[i].targetID,
+                    locationX: hmd_log.targets[i].locationX,
+                    locationY: hmd_log.targets[i].locationY,
+                    locationZ: hmd_log.targets[i].locationZ,
+                    assessment: match hmd_log.targets[i].assessment {
+                         Common::TargetAssessment::Unreviewed => TargetAssessment_Mirror::Unreviewed,
+                         Common::TargetAssessment::Safe => TargetAssessment_Mirror::Safe,
+                         Common::TargetAssessment::Threat => TargetAssessment_Mirror::Threat,
+               },}).is_err() {
+               return None;
+          }
      }
 
      let stored_log = Stored_Log {
