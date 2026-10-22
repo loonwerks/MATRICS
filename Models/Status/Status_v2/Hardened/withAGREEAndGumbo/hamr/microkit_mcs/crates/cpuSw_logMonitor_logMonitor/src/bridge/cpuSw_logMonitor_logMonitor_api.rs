@@ -62,6 +62,56 @@ verus! {
     {
       return extern_api::unsafe_get_response_log_in_num_invalid();
     }
+
+    #[verifier::external_body]
+    fn unverified_peek_request_log(
+      &self,
+      value: &Ghost<Option<Common::AnalysisRequest_Impl>>) -> (res : Option<Common::AnalysisRequest_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_request_log();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_response_log_in(
+      &self,
+      value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_response_log_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_response_log_out(
+      &self,
+      value: &Ghost<Option<Common::AnalysisResponse_Impl>>) -> (res : Option<Common::AnalysisResponse_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_response_log_out();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_alert_out(
+      &self,
+      value: &Ghost<Option<u8>>) -> (res : bool)
+      ensures
+        res == value@.is_some(),
+    {
+      return extern_api::unsafe_peek_alert_out();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_storage_alert_out(
+      &self,
+      value: &Ghost<Option<u8>>) -> (res : bool)
+      ensures
+        res == value@.is_some(),
+    {
+      return extern_api::unsafe_peek_storage_alert_out();
+    }
   }
 
   pub trait cpuSw_logMonitor_logMonitor_Full_Api: cpuSw_logMonitor_logMonitor_Put_Api + cpuSw_logMonitor_logMonitor_Get_Api {}
@@ -148,6 +198,36 @@ verus! {
     pub fn get_response_log_in_num_invalid(&self) -> u64
     {
       self.api.unverified_get_response_log_in_num_invalid()
+    }
+    pub fn peek_request_log(&self) -> (res : Option<Common::AnalysisRequest_Impl>)
+      ensures
+        res == self.request_log,
+    {
+      self.api.unverified_peek_request_log(&Ghost(self.request_log))
+    }
+    pub fn peek_response_log_in(&self) -> (res : Option<Common::AnalysisResponse_Impl>)
+      ensures
+        res == self.response_log_in,
+    {
+      self.api.unverified_peek_response_log_in(&Ghost(self.response_log_in))
+    }
+    pub fn peek_response_log_out(&self) -> (res : Option<Common::AnalysisResponse_Impl>)
+      ensures
+        res == self.response_log_out,
+    {
+      self.api.unverified_peek_response_log_out(&Ghost(self.response_log_out))
+    }
+    pub fn peek_alert_out(&self) -> (res : bool)
+      ensures
+        res == self.alert_out.is_some(),
+    {
+      self.api.unverified_peek_alert_out(&Ghost(self.alert_out))
+    }
+    pub fn peek_storage_alert_out(&self) -> (res : bool)
+      ensures
+        res == self.storage_alert_out.is_some(),
+    {
+      self.api.unverified_peek_storage_alert_out(&Ghost(self.storage_alert_out))
     }
   }
 

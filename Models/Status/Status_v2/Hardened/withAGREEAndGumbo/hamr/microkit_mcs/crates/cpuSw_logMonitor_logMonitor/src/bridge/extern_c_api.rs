@@ -18,6 +18,11 @@ extern "C" {
   fn put_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool;
   fn put_alert_out() -> bool;
   fn put_storage_alert_out() -> bool;
+  fn peek_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn peek_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn peek_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool;
+  fn peek_alert_out() -> bool;
+  fn peek_storage_alert_out() -> bool;
 }
 
 pub fn unsafe_get_request_log() -> Option<Common::AnalysisRequest_Impl>
@@ -76,6 +81,56 @@ pub fn unsafe_put_storage_alert_out() -> bool
 {
   unsafe {
     return put_storage_alert_out();
+  }
+}
+
+pub fn unsafe_peek_request_log() -> Option<Common::AnalysisRequest_Impl>
+{
+  unsafe {
+    let value: *mut Common::AnalysisRequest_Impl = &mut Common::AnalysisRequest_Impl::default();
+    if (peek_request_log(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_response_log_in() -> Option<Common::AnalysisResponse_Impl>
+{
+  unsafe {
+    let value: *mut Common::AnalysisResponse_Impl = &mut Common::AnalysisResponse_Impl::default();
+    if (peek_response_log_in(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_response_log_out() -> Option<Common::AnalysisResponse_Impl>
+{
+  unsafe {
+    let value: *mut Common::AnalysisResponse_Impl = &mut Common::AnalysisResponse_Impl::default();
+    if (peek_response_log_out(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_alert_out() -> bool
+{
+  unsafe {
+    return peek_alert_out();
+  }
+}
+
+pub fn unsafe_peek_storage_alert_out() -> bool
+{
+  unsafe {
+    return peek_storage_alert_out();
   }
 }
 
@@ -171,4 +226,58 @@ pub fn put_storage_alert_out() -> bool
     *OUT_storage_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
+}
+
+#[cfg(test)]
+pub fn peek_request_log(value: *mut Common::AnalysisRequest_Impl) -> bool
+{
+  unsafe {
+    match *IN_request_log.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_response_log_in(value: *mut Common::AnalysisResponse_Impl) -> bool
+{
+  unsafe {
+    match *IN_response_log_in.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_response_log_out(value: *mut Common::AnalysisResponse_Impl) -> bool
+{
+  unsafe {
+    match *OUT_response_log_out.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_alert_out() -> bool
+{
+  return OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()).is_some();
+}
+
+#[cfg(test)]
+pub fn peek_storage_alert_out() -> bool
+{
+  return OUT_storage_alert_out.lock().unwrap_or_else(|e| e.into_inner()).is_some();
 }

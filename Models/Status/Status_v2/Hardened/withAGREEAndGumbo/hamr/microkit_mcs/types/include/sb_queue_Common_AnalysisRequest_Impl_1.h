@@ -103,6 +103,12 @@ void sb_queue_Common_AnalysisRequest_Impl_1_enqueue(
   sb_queue_Common_AnalysisRequest_Impl_1_t *queue,
   Common_AnalysisRequest_Impl *data);
 
+// Copy the most recently enqueued element without modifying the queue.
+// Returns false if no element has been enqueued.
+bool sb_queue_Common_AnalysisRequest_Impl_1_peek_latest(
+  sb_queue_Common_AnalysisRequest_Impl_1_t *queue,
+  Common_AnalysisRequest_Impl *data);
+
 //------------------------------------------------------------------------------
 // Receiver API
 //
@@ -169,6 +175,14 @@ bool sb_queue_Common_AnalysisRequest_Impl_1_dequeue(
 static inline uintmax_t sb_queue_Common_AnalysisRequest_Impl_1_numInvalid(sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *recvQueue) {
   return recvQueue->numInvalid;
 }
+
+// Copy the element that the next dequeue would observe without advancing
+// this receiver. With no intervening enqueue, peek and dequeue return the
+// same status, dropped count, and data.
+bool sb_queue_Common_AnalysisRequest_Impl_1_peek(
+  sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *recvQueue,
+  sb_event_counter_t *numDropped,
+  Common_AnalysisRequest_Impl *data);
 
 // Is queue empty? If the queue is not empty, it will stay that way until the
 // receiver dequeues all data. If the queue is empty you can make no

@@ -48,6 +48,7 @@ pub extern "C" fn cpuSw_logMonitor_logMonitor_initialize() {
 
     let mut _app = cpuSw_logMonitor_logMonitor::new();
     _app.initialize(&mut init_api);
+    _app.r2u2_monitor_initialize();
     app = Some(_app);
   }
 }
@@ -56,7 +57,9 @@ pub extern "C" fn cpuSw_logMonitor_logMonitor_initialize() {
 pub extern "C" fn cpuSw_logMonitor_logMonitor_timeTriggered() {
   unsafe {
     if let Some(_app) = app.as_mut() {
+      _app.r2u2_monitor_pre_timeTriggered(&compute_api);
       _app.timeTriggered(&mut compute_api);
+      _app.r2u2_monitor_post_timeTriggered(&mut compute_api);
     } else {
       panic!("Unexpected: app is None");
     }

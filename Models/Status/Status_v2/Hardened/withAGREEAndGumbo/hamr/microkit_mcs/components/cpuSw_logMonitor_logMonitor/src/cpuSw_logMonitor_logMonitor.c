@@ -33,10 +33,19 @@ uintmax_t get_request_log_num_invalid(void) {
   return sb_queue_Common_AnalysisRequest_Impl_1_numInvalid((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &request_log_recv_queue);
 }
 
+bool peek_request_log(Common_AnalysisRequest_Impl *data) {
+  sb_event_counter_t numDropped;
+  return sb_queue_Common_AnalysisRequest_Impl_1_peek((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &request_log_recv_queue, &numDropped, data);
+}
+
 bool put_response_log_out(const Common_AnalysisResponse_Impl *data) {
   sb_queue_Common_AnalysisResponse_Impl_1_enqueue((sb_queue_Common_AnalysisResponse_Impl_1_t *) response_log_out_queue_1, (Common_AnalysisResponse_Impl *) data);
 
   return true;
+}
+
+bool peek_response_log_out(Common_AnalysisResponse_Impl *data) {
+  return sb_queue_Common_AnalysisResponse_Impl_1_peek_latest((sb_queue_Common_AnalysisResponse_Impl_1_t *) response_log_out_queue_1, data);
 }
 
 bool put_alert_out() {
@@ -47,12 +56,24 @@ bool put_alert_out() {
   return true;
 }
 
+bool peek_alert_out() {
+  uint8_t eventPortPayload;
+  uint8_t *data = &eventPortPayload;
+  return sb_queue_uint8_t_1_peek_latest((sb_queue_uint8_t_1_t *) alert_out_queue_1, data);
+}
+
 bool put_storage_alert_out() {
   uint8_t eventPayload = 0; // always send 0 as the event payload
   uint8_t *data = &eventPayload;
   sb_queue_uint8_t_1_enqueue((sb_queue_uint8_t_1_t *) storage_alert_out_queue_1, (uint8_t *) data);
 
   return true;
+}
+
+bool peek_storage_alert_out() {
+  uint8_t eventPortPayload;
+  uint8_t *data = &eventPortPayload;
+  return sb_queue_uint8_t_1_peek_latest((sb_queue_uint8_t_1_t *) storage_alert_out_queue_1, data);
 }
 
 bool response_log_in_is_empty(void) {
@@ -70,6 +91,11 @@ bool get_response_log_in(Common_AnalysisResponse_Impl *data) {
 
 uintmax_t get_response_log_in_num_invalid(void) {
   return sb_queue_Common_AnalysisResponse_Impl_1_numInvalid((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &response_log_in_recv_queue);
+}
+
+bool peek_response_log_in(Common_AnalysisResponse_Impl *data) {
+  sb_event_counter_t numDropped;
+  return sb_queue_Common_AnalysisResponse_Impl_1_peek((sb_queue_Common_AnalysisResponse_Impl_1_Recv_t *) &response_log_in_recv_queue, &numDropped, data);
 }
 
 void init(void) {

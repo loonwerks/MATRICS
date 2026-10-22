@@ -263,43 +263,13 @@ public
 				else not(event(response_log_out));
 		**};
 		annex GUMBO{**
-			state
-				since_result: Base_Types::Boolean;
-				is_valid: Base_Types::Boolean;
-				historically_no_alert_cmd: Base_Types::Boolean;
-			initialize
-				modifies since_result, historically_no_alert_cmd;
-				guarantee defaultSince:
-					since_result == false;
-				guarantee defaultHistorically:
-					historically_no_alert_cmd == true;
-				
-			compute
-				modifies since_result, is_valid, historically_no_alert_cmd;
-				
-				guarantee is_valid_variable "G: is_valid set correctly" :
-					is_valid ==
-						(if (HasEvent(request_log) & HasEvent(response_log_in))
-						 true
-						 else (HasEvent(response_log_in) ->: In(since_result)));
-				
-				
-				guarantee since_result_variable "G: since_result is equivalent to (not response_log_in event) Since (request_log event)":
-				since_result == GUMBO_PLTL::AGREE_Since(
-						!HasEvent(response_log_in), HasEvent(request_log), In(since_result));
-
-				guarantee historically_no_alert_cmd_variable "G: historically_no_alert_cmd is true if and only if no alert has been sent." :
-					historically_no_alert_cmd ==
-						(In(historically_no_alert_cmd) && !HasEvent(alert_out));
-
-				guarantee Send_Alert "G: Send an alert if more than one response is received without a request." :
-					if (HasEvent(response_log_in) & !(is_valid)) 
-					(MustSend(alert_out) && MustSend(storage_alert_out))
-					else (NoSend(alert_out) && NoSend(storage_alert_out));
-				guarantee Forward_Response "G: Only forward a response if a valid request has been made." :
-					if (HasEvent(response_log_in) & historically_no_alert_cmd)
-					(MustSend(response_log_out) && (response_log_out == response_log_in))
-					else NoSend(response_log_out);
+			monitor 
+				guarantee No_Response_Without_Request "G: No more than one reponse is received per request (only looks back 365 days)" :
+					HasEvent(response_log_in) ->: (HasEvent(request_log) or (!HasEvent(response_log_in) Since[1, 31536000] HasEvent(request_log)));
+				guarantee Historically_No_Alert "G: No alert was ever sent (time out after one year)":
+					Historically[0, 31536000] (HasEvent(response_log_in) ->: (HasEvent(request_log) or (!HasEvent(response_log_in) Since[1, 31536000] HasEvent(request_log))));
+				alert No_Response_Without_Request on alert_out;
+				alert No_Response_Without_Request on storage_alert_out;
 		**};
 	end logMonitor;
 	

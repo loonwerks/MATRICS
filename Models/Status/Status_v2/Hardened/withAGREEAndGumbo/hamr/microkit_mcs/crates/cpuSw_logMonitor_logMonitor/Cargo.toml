@@ -28,7 +28,12 @@ vstd = { version = "=0.0.0-2026-09-20-0158", default-features=false }
 verus_builtin = { version = "=0.0.0-2026-09-16-0054" }
 verus_builtin_macros = { version = "=0.0.0-2026-09-20-0158" }
 
-# PLACEHOLDER MARKER R2U2 CARGO DEPENDENCIES
+# BEGIN MARKER R2U2 CARGO DEPENDENCIES
+# -----------------------------------------------------------------------------
+# R2U2 crate dependencies
+# -----------------------------------------------------------------------------
+r2u2_core = { version = "4.2.4" }
+# END MARKER R2U2 CARGO DEPENDENCIES
 
 [dev-dependencies]
 lazy_static = "1.5.1"
