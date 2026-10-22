@@ -3,3 +3,5 @@ bin/
 .DS_Store
 build/
 Cargo.lock
+spec.bin
+config.toml
