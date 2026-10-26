@@ -42,7 +42,7 @@ pub fn compute_spec_Header_Unencrypted_guarantee(
   api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
   implies!(
-    api_analysis_report_in.is_some(),
+    api_analysis_report_out.is_some(),
     (api_analysis_report_out.unwrap().header == api_analysis_report_in.unwrap().header))
 }
 

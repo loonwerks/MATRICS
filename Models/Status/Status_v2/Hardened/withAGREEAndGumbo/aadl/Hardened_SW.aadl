@@ -501,7 +501,7 @@ public
 							analysis_report_out.payload);
 
 				guarantee Header_Unencrypted "G: Outgoing header is not encrypted." :
-					HasEvent(analysis_report_in) ->: analysis_report_out.header == analysis_report_in.header;
+					HasEvent(analysis_report_out) ->: analysis_report_out.header == analysis_report_in.header;
 		**};
 	end encryptor;
 	

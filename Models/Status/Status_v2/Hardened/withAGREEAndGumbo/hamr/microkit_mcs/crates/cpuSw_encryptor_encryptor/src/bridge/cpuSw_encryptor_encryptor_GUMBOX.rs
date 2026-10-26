@@ -41,7 +41,9 @@ pub fn compute_spec_Header_Unencrypted_guarantee(
   api_analysis_report_in: Option<Common::AnalysisResponse_Impl>,
   api_analysis_report_out: Option<Common::OutgoingWifiMessage_Impl>) -> bool
 {
-  api_analysis_report_out.unwrap().header == api_analysis_report_in.unwrap().header
+  impliesL!(
+    api_analysis_report_out.is_some(),
+    (api_analysis_report_out.unwrap().header == api_analysis_report_in.unwrap().header))
 }
 
 /** CEP-T-Guar: Top-level guarantee contracts for encryptor's compute entrypoint
