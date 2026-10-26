@@ -328,7 +328,7 @@ package GroundStation {
                             analysis_report_out.payload);
 
                 guarantee Header_Unencrypted "G: Outgoing header is not encrypted.":
-                    analysis_report_out.header == analysis_report_in.header;
+                    HasEvent(analysis_report_in) implies analysis_report_out.header == analysis_report_in.header;
         }*/
     }
 
