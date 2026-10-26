@@ -353,7 +353,7 @@ cpuSw_dataManager_dataStorage_dataStorage.elf: $(TYPES_LIB) cpuSw_dataManager_da
 
 $(SYSTEM_FILE): $(IMAGES) $(DTB) ${CHECK_FLAGS_BOARD_MD5}
 	$(PYTHON) $(SDFGEN_HELPER) --macros "$(SDFGEN_UNKOWN_MACROS)" --configs "$(SCHEDULER_CONFIG_HEADERS)" --output $(TOP_BUILD_DIR)/config_structs.py
-	LIST_TESTS="$(LIST_TESTS)" GUMBO_CHECKS="$(GUMBO_CHECKS)" SYSVERIF_CHECKS="$(SYSVERIF_CHECKS)" PROPTEST_SEED="$(PROPTEST_SEED)" $(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY) --tests="$$TESTS"
+	LIST_TESTS="$(LIST_TESTS)" GUMBO_CHECKS="$(GUMBO_CHECKS)" SYSVERIF_CHECKS="$(SYSVERIF_CHECKS)" PROPTEST_SEED="$(PROPTEST_SEED)" $(PYTHON) $(MSD) --sddf $(SDDF) --board $(MICROKIT_BOARD) --dtb $(DTB) --output . --sdf $(SYSTEM_FILE) --objcopy $(OBJCOPY)
 	$(OBJCOPY) --update-section .device_resources=timer_driver_device_resources.data timer_driver.elf
 	$(OBJCOPY) --update-section .timer_client_config=timer_client_scheduler.data scheduler.elf
 

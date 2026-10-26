@@ -42,16 +42,16 @@ verus! {
       // Optional implementation placeholder for handling R2U2 verdicts.
       match property {
         R2U2Property::Historically_No_Alert => {
-          if let Some(response) = api.get_response_log_in(){
-               match verdict {
+          match verdict {
                Some(true) => {
-                    api.put_response_log_out(response); // Forward
+                    if let Some(response) = api.get_response_log_in(){
+                         api.put_response_log_out(response); // Forward
+                    }
                },
                Some(false) => {
                     return; // Do not forward
                },
                None => {}, // This is never the case with past-time logic
-               }
           }
         },
         _ => {}

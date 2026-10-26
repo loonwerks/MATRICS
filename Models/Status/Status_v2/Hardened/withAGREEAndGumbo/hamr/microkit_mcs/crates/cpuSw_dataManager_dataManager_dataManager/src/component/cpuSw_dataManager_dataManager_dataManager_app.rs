@@ -233,8 +233,11 @@ verus! {
      let mut response_log: Common::ResponseLog_Impl = [Common::Log_Impl::default(); Common::Common_ResponseLog_Impl_DIM_0];
 
      for (i, log_file) in encrypted_response.iter_mut().enumerate() {
-          if (i >= Common::Common_ResponseLog_Impl_DIM_0){
+          if (i >= Common::Common_ResponseLog_Impl_DIM_0) {
                return None; // Check for valid response entry number
+          }
+          if (log_file.encryptedLog.ciphertext_len == 0) { // Empty log 
+               continue;
           }
           let nonce = Nonce::<U12>::try_from(log_file.encryptedLog.nonce.as_slice()).ok()?;
           let tag = Tag::<U16>::try_from(log_file.encryptedLog.tag.as_slice()).ok()?;

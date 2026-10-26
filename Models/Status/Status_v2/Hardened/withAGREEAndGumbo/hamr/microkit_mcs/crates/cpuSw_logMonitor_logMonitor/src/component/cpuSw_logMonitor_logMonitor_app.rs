@@ -49,7 +49,6 @@ verus! {
         old(api).response_log_out == final(api).response_log_out,
     {
       let request_log = api.get_request_log(); // Clear event data port for next frame
-      log_info("compute entrypoint invoked");
     }
 
     pub fn notify(
