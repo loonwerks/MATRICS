@@ -363,7 +363,7 @@ public
                 modifies counter;
                 
                 assume counter_range "G: counter within integer range" :
-                	counter <= 2147483647 && counter >= -2147483648;
+                	counter <= s32"2147483646" && counter >= s32"-2147483648";
 
                 guarantee counter_variable "G: counter set correctly":
 						counter == Counter(HasEvent(analysis_request),

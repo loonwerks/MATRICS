@@ -70,6 +70,46 @@ pub fn initialize_IEP_Post(
 
 /** Compute Entrypoint Contract
   *
+  * assumes counter_range
+  *   G: counter within integer range
+  * @param In_counter pre-state state variable
+  */
+pub fn compute_spec_counter_range_assume(In_counter: i32) -> bool
+{
+  (In_counter <= 2147483646i32) &&
+    (In_counter >= -2147483648i32)
+}
+
+/** CEP-T-Assm: Top-level assume contracts for reportMonitor's compute entrypoint
+  *
+  * @param In_counter pre-state state variable
+  */
+pub fn compute_CEP_T_Assm(In_counter: i32) -> bool
+{
+  let r0: bool = compute_spec_counter_range_assume(In_counter);
+
+  return r0;
+}
+
+/** CEP-Pre: Compute Entrypoint Pre-Condition for reportMonitor
+  *
+  * @param In_counter pre-state state variable
+  * @param api_analysis_report_in incoming event data port
+  * @param api_analysis_request incoming event data port
+  */
+pub fn compute_CEP_Pre(
+  In_counter: i32,
+  api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
+  api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> bool
+{
+  // CEP-Assm: assume clauses of reportMonitor's compute entrypoint
+  let r0: bool = compute_CEP_T_Assm(In_counter);
+
+  return r0;
+}
+
+/** Compute Entrypoint Contract
+  *
   * guarantee counter_variable
   *   G: counter set correctly
   * @param In_counter pre-state state variable

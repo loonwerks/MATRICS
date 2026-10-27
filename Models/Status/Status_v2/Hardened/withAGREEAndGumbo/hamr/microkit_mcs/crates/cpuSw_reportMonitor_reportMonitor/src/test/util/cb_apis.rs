@@ -78,6 +78,11 @@ pub fn testComputeCB(
   //                from the component state
   let In_counter: i32 = get_counter();
 
+  // [CheckPre]: check/filter based on pre-condition.
+  if !GUMBOX::compute_CEP_Pre (In_counter, api_analysis_report_in, api_analysis_request) {
+    return HarnessResult::RejectedPrecondition;
+  }
+
   // [PutInPorts]: Set values on the input ports
   put_analysis_report_in(api_analysis_report_in);
   put_analysis_request(api_analysis_request);
@@ -151,6 +156,11 @@ pub fn testComputeCBwGSV(
 {
   // Initialize the app
   crate::cpuSw_reportMonitor_reportMonitor_initialize();
+
+  // [CheckPre]: check/filter based on pre-condition.
+  if !GUMBOX::compute_CEP_Pre (In_counter, api_analysis_report_in, api_analysis_request) {
+    return HarnessResult::RejectedPrecondition;
+  }
 
   // [PutInPorts]: Set values on the input ports
   put_analysis_report_in(api_analysis_report_in);

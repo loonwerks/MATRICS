@@ -29,6 +29,8 @@ verus! {
       api: &mut cpuSw_reportMonitor_reportMonitor_Application_Api<API>,
       property: R2U2Property,
       verdict: Option<bool>)
+      requires
+          old(api).analysis_report_out.is_none(),
       ensures
         // guarantee Monitor_Requirement
         //   Alert ports are reserved for the monitor
@@ -56,8 +58,13 @@ verus! {
                     invariant
                          // Connect api.analysis_report_in to the retried analysis_report_in
                          api.analysis_report_in == Some(report),
+                         // Connect property state
+                         property == R2U2Property::Valid_And_Trusted_Report,
+                         verdict == Some(true),
                          // Nothing has been forwarded yet
                          api.analysis_report_out.is_none(),
+                         // Alert ports are not touched
+                         old(api).alert_out == api.alert_out,
                          // Every address already checked differs from the client
                          forall |j: int| 0 <= j < scan.index() ==>
                               ALLOWED_IP_ADDRESSES[j] != report.header.client,

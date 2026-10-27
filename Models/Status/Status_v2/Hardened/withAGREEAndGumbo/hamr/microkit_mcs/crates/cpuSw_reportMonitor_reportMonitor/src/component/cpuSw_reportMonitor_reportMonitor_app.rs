@@ -43,6 +43,10 @@ verus! {
         //   All outgoing event ports must be empty
         old(api).analysis_report_out.is_none(),
         old(api).alert_out.is_none(),
+        // assume counter_range
+        //   G: counter within integer range
+        (old(self).counter <= 2147483646i32) &&
+          (old(self).counter >= -2147483648i32),
         // END MARKER TIME TRIGGERED REQUIRES
       ensures
         // BEGIN MARKER TIME TRIGGERED ENSURES
