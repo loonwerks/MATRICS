@@ -8,6 +8,7 @@
 #include <libvmm/arch/aarch64/fault.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sddf/util/printf.h>
 
 // This file will not be overwritten if HAMR codegen is rerun
 
@@ -34,6 +35,7 @@ uintptr_t GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_V
 
 static bool is_passthrough_irq_ch(microkit_channel ch);
 static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message);
+static void base64_encode(const uint8_t *src, size_t src_len, char *dst);
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
   // Initialise the VMM, the VCPU(s), and start the guest
@@ -103,18 +105,38 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 }
 
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
-     uint32_t rx_ready = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
-     if (rx_ready == 1){
+     uint32_t rx_full = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
+     if (rx_full == 1){
           Common_IncomingWifiMessage_Impl message;
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr + 0x04);
           if (parse_message(data, &message)){
                if (put_wifiRecvOut(&message)){
-                    // Reset RX flag
+                    // Reset RX full flag
                     *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
                }
           } else { // Message is not of correct format
-               // Reset RX flag
+               // Reset RX full flag
                *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr = 0;
+          }
+     }
+
+     Common_OutgoingWifiMessage_Impl message;
+     if (get_wifiSendIn(&message)) {
+          uint32_t tx_full = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
+          if (tx_full == 0) {
+               uint8_t encrypted_data[4096];
+               memcpy(encrypted_data, message.payload.nonce, Common_Nonce_Impl_DIM_0);
+               memcpy(encrypted_data + Common_Nonce_Impl_DIM_0, message.payload.ciphertext, message.payload.ciphertext_len);
+               memcpy(encrypted_data + Common_Nonce_Impl_DIM_0 + message.payload.ciphertext_len, message.payload.tag, Common_AuthenticationTag_Impl_DIM_0);
+               
+               char encoded[5465]; // 4096 of encoded message is represented in 5464 base64 bytes + null byte
+               base64_encode(encrypted_data, Common_Nonce_Impl_DIM_0 + message.payload.ciphertext_len + Common_AuthenticationTag_Impl_DIM_0,encoded);
+               
+               char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr + 0x04);
+               if (sddf_snprintf(data, 0x2000-0x04, "{\"client\": %d, \"body\": \"%s\"}", message.header.client, encoded) >= 0){
+                    // Set TX full flag
+                    *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr = 1;
+               };
           }
      }
 }
@@ -158,49 +180,93 @@ static bool is_passthrough_irq_ch(microkit_channel ch) {
   return false;
 }
 
-// Reverse lookup table mapping ASCII characters to 6-bit values
-static const int b64_index[256] = {
-    ['A'] = 0,  ['B'] = 1,  ['C'] = 2,  ['D'] = 3,  ['E'] = 4,  ['F'] = 5,
-    ['G'] = 6,  ['H'] = 7,  ['I'] = 8,  ['J'] = 9,  ['K'] = 10, ['L'] = 11,
-    ['M'] = 12, ['N'] = 13, ['O'] = 14, ['P'] = 15, ['Q'] = 16, ['R'] = 17,
-    ['S'] = 18, ['T'] = 19, ['U'] = 20, ['V'] = 21, ['W'] = 22, ['X'] = 23,
-    ['Y'] = 24, ['Z'] = 25, ['a'] = 26, ['b'] = 27, ['c'] = 28, ['d'] = 29,
-    ['e'] = 30, ['f'] = 31, ['g'] = 32, ['h'] = 33, ['i'] = 34, ['j'] = 35,
-    ['k'] = 36, ['l'] = 37, ['m'] = 38, ['n'] = 39, ['o'] = 40, ['p'] = 41,
-    ['q'] = 42, ['r'] = 43, ['s'] = 44, ['t'] = 45, ['u'] = 46, ['v'] = 47,
-    ['w'] = 48, ['x'] = 49, ['y'] = 50, ['z'] = 51, ['0'] = 52, ['1'] = 53,
-    ['2'] = 54, ['3'] = 55, ['4'] = 56, ['5'] = 57, ['6'] = 58, ['7'] = 59,
-    ['8'] = 60, ['9'] = 61, ['+'] = 62, ['/'] = 63, ['='] = 0
-};
-
 // Decodes a base64 string and returns the length of decoded data.
 size_t base64_decode(const char *src, uint8_t *dst) {
-    size_t len = strlen(src);
-    if (len == 0 || len % 4 != 0) return 0; // Base64 strings must be a multiple of 4
+     // Reverse lookup table mapping ASCII characters to 6-bit values
+     static const int b64_index[256] = {
+     ['A'] = 0,  ['B'] = 1,  ['C'] = 2,  ['D'] = 3,  ['E'] = 4,  ['F'] = 5,
+     ['G'] = 6,  ['H'] = 7,  ['I'] = 8,  ['J'] = 9,  ['K'] = 10, ['L'] = 11,
+     ['M'] = 12, ['N'] = 13, ['O'] = 14, ['P'] = 15, ['Q'] = 16, ['R'] = 17,
+     ['S'] = 18, ['T'] = 19, ['U'] = 20, ['V'] = 21, ['W'] = 22, ['X'] = 23,
+     ['Y'] = 24, ['Z'] = 25, ['a'] = 26, ['b'] = 27, ['c'] = 28, ['d'] = 29,
+     ['e'] = 30, ['f'] = 31, ['g'] = 32, ['h'] = 33, ['i'] = 34, ['j'] = 35,
+     ['k'] = 36, ['l'] = 37, ['m'] = 38, ['n'] = 39, ['o'] = 40, ['p'] = 41,
+     ['q'] = 42, ['r'] = 43, ['s'] = 44, ['t'] = 45, ['u'] = 46, ['v'] = 47,
+     ['w'] = 48, ['x'] = 49, ['y'] = 50, ['z'] = 51, ['0'] = 52, ['1'] = 53,
+     ['2'] = 54, ['3'] = 55, ['4'] = 56, ['5'] = 57, ['6'] = 58, ['7'] = 59,
+     ['8'] = 60, ['9'] = 61, ['+'] = 62, ['/'] = 63, ['='] = 0
+     };
 
-    size_t out_len = (len / 4) * 3;
-    
-    // Adjust output size based on trailing padding characters
-    if (src[len - 1] == '=') out_len--;
-    if (src[len - 2] == '=') out_len--;
+     size_t len = strlen(src);
+     if (len == 0 || len % 4 != 0) return 0; // Base64 strings must be a multiple of 4
 
-    size_t i, j;
-    for (i = 0, j = 0; i < len; i += 4, j += 3) {
-        // Pack 4 6-bit values into a 24-bit buffer
-        uint32_t sextet_a = b64_index[(unsigned char)src[i]];
-        uint32_t sextet_b = b64_index[(unsigned char)src[i+1]];
-        uint32_t sextet_c = b64_index[(unsigned char)src[i+2]];
-        uint32_t sextet_d = b64_index[(unsigned char)src[i+3]];
+     size_t out_len = (len / 4) * 3;
+     
+     // Adjust output size based on trailing padding characters
+     if (src[len - 1] == '=') out_len--;
+     if (src[len - 2] == '=') out_len--;
 
-        uint32_t triple = (sextet_a << 18) | (sextet_b << 12) | (sextet_c << 6) | sextet_d;
+     size_t i, j;
+     for (i = 0, j = 0; i < len; i += 4, j += 3) {
+          // Pack 4 6-bit values into a 24-bit buffer
+          uint32_t sextet_a = b64_index[(unsigned char)src[i]];
+          uint32_t sextet_b = b64_index[(unsigned char)src[i+1]];
+          uint32_t sextet_c = b64_index[(unsigned char)src[i+2]];
+          uint32_t sextet_d = b64_index[(unsigned char)src[i+3]];
 
-        // Unpack into 3 bytes
-        if (j < out_len)     dst[j]   = (triple >> 16) & 0xFF;
-        if (j + 1 < out_len) dst[j+1] = (triple >> 8) & 0xFF;
-        if (j + 2 < out_len) dst[j+2] = triple & 0xFF;
-    }
+          uint32_t triple = (sextet_a << 18) | (sextet_b << 12) | (sextet_c << 6) | sextet_d;
 
-    return out_len;
+          // Unpack into 3 bytes
+          if (j < out_len)     dst[j]   = (triple >> 16) & 0xFF;
+          if (j + 1 < out_len) dst[j+1] = (triple >> 8) & 0xFF;
+          if (j + 2 < out_len) dst[j+2] = triple & 0xFF;
+     }
+
+     return out_len;
+}
+
+// Encodes a base64 string and returns the length of encoded data.
+void base64_encode(const uint8_t *src, size_t src_len, char *dst) {
+     static const char alphabet[] =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          "abcdefghijklmnopqrstuvwxyz"
+          "0123456789+/";
+
+     size_t i = 0;
+     size_t j = 0;
+
+     while (i + 3 <= src_len) {
+          uint32_t triple =
+               ((uint32_t)src[i] << 16) |
+               ((uint32_t)src[i + 1] << 8) |
+               (uint32_t)src[i + 2];
+
+          dst[j++] = alphabet[(triple >> 18) & 0x3F];
+          dst[j++] = alphabet[(triple >> 12) & 0x3F];
+          dst[j++] = alphabet[(triple >> 6) & 0x3F];
+          dst[j++] = alphabet[triple & 0x3F];
+
+          i += 3;
+     }
+
+     if (i < src_len) {
+          uint32_t triple = (uint32_t)src[i] << 16;
+
+          dst[j++] = alphabet[(triple >> 18) & 0x3F];
+
+          if (i + 1 < src_len) {
+               triple |= (uint32_t)src[i + 1] << 8;
+               dst[j++] = alphabet[(triple >> 12) & 0x3F];
+               dst[j++] = alphabet[(triple >> 6) & 0x3F];
+               dst[j++] = '=';
+          } else {
+               dst[j++] = alphabet[(triple >> 12) & 0x3F];
+               dst[j++] = '=';
+               dst[j++] = '=';
+          }
+     }
+
+     dst[j] = '\0';
 }
 
 
@@ -332,7 +398,7 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     }
                }
           } else if(strcmp(key, "body") == 0){
-               char encoded[5464]; // 4096 of decoded message is represented in 5464 base64 bytes
+               char encoded[5465]; // 4096 of decoded message is represented in 5464 base64 bytes + 1 null byte
                parse_string(&str, encoded, sizeof(encoded));
                uint8_t decoded[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
                size_t length = base64_decode(encoded, decoded);

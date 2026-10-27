@@ -3,6 +3,7 @@ from enum import Enum
 import mmap
 import ctypes
 import json
+import time
 
 # Create the application instance
 app = Flask(__name__)
@@ -11,11 +12,12 @@ app = Flask(__name__)
 class Status(Enum):
      SUCCESS = 1
      BUSY = 2
-     FAILURE = 3
+     EMPTY = 3
+     FAILURE = 4
 
 def write_rx_buffer(msg):
      memory_addr = 0x50000000
-     memory_size = 0x1000
+     memory_size = 0x2000
      status = Status.SUCCESS
      with open("/dev/mem", "r+b") as f:
           mm = mmap.mmap(f.fileno(), memory_size, offset=memory_addr, flags = mmap.MAP_SHARED | mmap.MAP_POPULATE)
@@ -27,18 +29,54 @@ def write_rx_buffer(msg):
                ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
                flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
                if flag != 0x1:
-                    ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer ready flag
+                    ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer full flag
                     # Iteratively write the payload as 32-bit words starting at index 1 (offset 0x04)
                     for i in range(0, len(data), 4):
                          word = int.from_bytes(data[i:i+4], byteorder='little')
                          ctypes.cast(ptr + 0x04 + i, ctypes.POINTER(ctypes.c_uint32)).contents.value = word
                else:
-                    status = Status.BUSY
+                    status = Status.EMPTY
           except Exception as e:
                status = Status.FAILURE
           finally:
                mm.close()
      return status
+
+def read_tx_buffer(client):
+     memory_addr = 0x50002000
+     memory_size = 0x2000
+     status = Status.SUCCESS
+     msg = ""
+     with open("/dev/mem", "r+b") as f:
+          mm = mmap.mmap(f.fileno(), memory_size, offset=memory_addr, flags = mmap.MAP_SHARED | mmap.MAP_POPULATE)
+          try:
+               ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
+               flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
+               if flag != 0x0:
+
+                    end_of_data = mm.find(b"\x00", 0x04)
+                    if end_of_data != -1 and end_of_data < memory_size:
+                         null_terminated_bytes = mm[0x04:end_of_data]
+                         try:
+                              data = null_terminated_bytes.decode('utf-8')
+                              parsed_data = json.loads(data)
+                              ip_addr = f"""{(parsed_data["client"] >> 24) & 0xFF}.{(parsed_data["client"] >> 16) & 0xFF}.{(parsed_data["client"] >> 8) & 0xFF}.{parsed_data["client"] & 0xFF}"""
+                              if ip_addr == client: # The data in the TX Buffer is for this current client
+                                   msg = parsed_data["body"]
+                                   ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x0 # reset TX buffer full flag
+                              else: # Something is in the TX Buffer but its not for this current client
+                                   status = Status.EMPTY
+                         except Exception as e:
+                              status = Status.FAILURE
+                    else:
+                         status = Status.FAILURE
+               else:
+                    status = Status.EMPTY
+          except Exception as e:
+               status = Status.FAILURE
+          finally:
+               mm.close()
+     return (msg, status)
 
 @app.before_request
 def block_duplicate_args():
@@ -149,11 +187,18 @@ def request_hmd_data():
      }
      
      result = {"headers": headers}
-     
      if write_rx_buffer(result) == Status.SUCCESS:
-          return {"status": "success", "message": "Data received"}
+          deadline = time.monotonic() + 2.0 # Deadline is 2 seconds
+          while time.monotonic() < deadline:
+               (data, status) = read_tx_buffer(request.access_route[0])
+               if status == Status.SUCCESS:
+                    return data, 200
+               elif status == Status.FAILURE:
+                    return {"status": "failure"}, 500
+               time.sleep(0.01)
+          return {"status": "timeout"}, 504
      else:
-          return {"status": "failure", "message": "Data received but failure occurred"}
+          return {"status": "failure"}
 
 if __name__ == '__main__':
      app.run()
