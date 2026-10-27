@@ -385,32 +385,32 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     #######################################
     # CHANNELS
     #######################################
-    channel_cpuSw_btDriver_btDriver_MON = 11
-    channel_cpuSw_usbDriver_usbDriver_MON = 12
+    channel_cpuSw_btDriver_btDriver_MON = 12
+    channel_cpuSw_usbDriver_usbDriver_MON = 13
     channel_cpuSw_dataAnalysis_dataAnalysis_MON = 6
     channel_cpuSw_decryptor_decryptor_MON = 4
-    channel_cpuSw_encryptor_encryptor_MON = 9
-    channel_cpuSw_logMonitor_logMonitor_MON = 8
-    channel_cpuSw_reportMonitor_reportMonitor_MON = 10
+    channel_cpuSw_encryptor_encryptor_MON = 10
+    channel_cpuSw_logMonitor_logMonitor_MON = 9
+    channel_cpuSw_reportMonitor_reportMonitor_MON = 11
     channel_cpuSw_firewall_firewall_MON = 5
     channel_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = 3
     channel_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = 2
     channel_cpuSw_dataManager_dataManager_dataManager_MON = 7
-    channel_cpuSw_dataManager_dataStorage_dataStorage_MON = 13
+    channel_cpuSw_dataManager_dataStorage_dataStorage_MON = 8
 
-    sdf.add_channel(Channel(a=scheduler, a_id=11, b=cpuSw_btDriver_btDriver_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=12, b=cpuSw_btDriver_btDriver_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_btDriver_btDriver_MON, a_id=1, b=cpuSw_btDriver_btDriver, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=12, b=cpuSw_usbDriver_usbDriver_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=13, b=cpuSw_usbDriver_usbDriver_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_usbDriver_usbDriver_MON, a_id=1, b=cpuSw_usbDriver_usbDriver, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=6, b=cpuSw_dataAnalysis_dataAnalysis_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_dataAnalysis_dataAnalysis_MON, a_id=1, b=cpuSw_dataAnalysis_dataAnalysis, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=4, b=cpuSw_decryptor_decryptor_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_decryptor_decryptor_MON, a_id=1, b=cpuSw_decryptor_decryptor, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=9, b=cpuSw_encryptor_encryptor_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=10, b=cpuSw_encryptor_encryptor_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_encryptor_encryptor_MON, a_id=1, b=cpuSw_encryptor_encryptor, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=8, b=cpuSw_logMonitor_logMonitor_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=9, b=cpuSw_logMonitor_logMonitor_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_logMonitor_logMonitor_MON, a_id=1, b=cpuSw_logMonitor_logMonitor, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=10, b=cpuSw_reportMonitor_reportMonitor_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=11, b=cpuSw_reportMonitor_reportMonitor_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_reportMonitor_reportMonitor_MON, a_id=1, b=cpuSw_reportMonitor_reportMonitor, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=5, b=cpuSw_firewall_firewall_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_firewall_firewall_MON, a_id=1, b=cpuSw_firewall_firewall, b_id=0))
@@ -420,25 +420,24 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     sdf.add_channel(Channel(a=cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, a_id=1, b=cpuSw_wifiDriver_wifiDriverVM_wifiDriver, b_id=0))
     sdf.add_channel(Channel(a=scheduler, a_id=7, b=cpuSw_dataManager_dataManager_dataManager_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_dataManager_dataManager_dataManager_MON, a_id=1, b=cpuSw_dataManager_dataManager_dataManager, b_id=0))
-    sdf.add_channel(Channel(a=scheduler, a_id=13, b=cpuSw_dataManager_dataStorage_dataStorage_MON, b_id=0))
+    sdf.add_channel(Channel(a=scheduler, a_id=8, b=cpuSw_dataManager_dataStorage_dataStorage_MON, b_id=0))
     sdf.add_channel(Channel(a=cpuSw_dataManager_dataStorage_dataStorage_MON, a_id=1, b=cpuSw_dataManager_dataStorage_dataStorage, b_id=0))
 
     #######################################
     # SCHEDULE
     #######################################
-    ts_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = (channel_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, 150000000, True)
-    ts_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = (channel_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, 50000000, True)
-    ts_cpuSw_decryptor_decryptor_MON = (channel_cpuSw_decryptor_decryptor_MON, 50000000, True)
-    ts_cpuSw_firewall_firewall_MON = (channel_cpuSw_firewall_firewall_MON, 50000000, True)
-    ts_cpuSw_dataAnalysis_dataAnalysis_MON = (channel_cpuSw_dataAnalysis_dataAnalysis_MON, 50000000, True)
-    ts_cpuSw_dataManager_dataManager_dataManager_MON = (channel_cpuSw_dataManager_dataManager_dataManager_MON, 50000000, True)
-    ts_cpuSw_logMonitor_logMonitor_MON = (channel_cpuSw_logMonitor_logMonitor_MON, 50000000, True)
-    ts_cpuSw_encryptor_encryptor_MON = (channel_cpuSw_encryptor_encryptor_MON, 50000000, True)
-    ts_cpuSw_reportMonitor_reportMonitor_MON = (channel_cpuSw_reportMonitor_reportMonitor_MON, 50000000, True)
-    ts_cpuSw_btDriver_btDriver_MON = (channel_cpuSw_btDriver_btDriver_MON, 50000000, True)
-    ts_cpuSw_usbDriver_usbDriver_MON = (channel_cpuSw_usbDriver_usbDriver_MON, 50000000, True)
-    ts_cpuSw_dataManager_dataStorage_dataStorage_MON = (channel_cpuSw_dataManager_dataStorage_dataStorage_MON, 50000000, True)
-    ts_pad = (0, 300000000, False)
+    ts_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON = (channel_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON, 10000000, True)
+    ts_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON = (channel_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON, 1000000, True)
+    ts_cpuSw_decryptor_decryptor_MON = (channel_cpuSw_decryptor_decryptor_MON, 1000000, True)
+    ts_cpuSw_firewall_firewall_MON = (channel_cpuSw_firewall_firewall_MON, 1000000, True)
+    ts_cpuSw_dataAnalysis_dataAnalysis_MON = (channel_cpuSw_dataAnalysis_dataAnalysis_MON, 2000000, True)
+    ts_cpuSw_dataManager_dataManager_dataManager_MON = (channel_cpuSw_dataManager_dataManager_dataManager_MON, 2000000, True)
+    ts_cpuSw_dataManager_dataStorage_dataStorage_MON = (channel_cpuSw_dataManager_dataStorage_dataStorage_MON, 10000000, True)
+    ts_cpuSw_logMonitor_logMonitor_MON = (channel_cpuSw_logMonitor_logMonitor_MON, 1000000, True)
+    ts_cpuSw_encryptor_encryptor_MON = (channel_cpuSw_encryptor_encryptor_MON, 1000000, True)
+    ts_cpuSw_reportMonitor_reportMonitor_MON = (channel_cpuSw_reportMonitor_reportMonitor_MON, 1000000, True)
+    ts_cpuSw_btDriver_btDriver_MON = (channel_cpuSw_btDriver_btDriver_MON, 10000000, True)
+    ts_cpuSw_usbDriver_usbDriver_MON = (channel_cpuSw_usbDriver_usbDriver_MON, 10000000, True)
 
     user_schedule = schedule(
       ts_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON,
@@ -447,13 +446,12 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
       ts_cpuSw_firewall_firewall_MON,
       ts_cpuSw_dataAnalysis_dataAnalysis_MON,
       ts_cpuSw_dataManager_dataManager_dataManager_MON,
+      ts_cpuSw_dataManager_dataStorage_dataStorage_MON,
       ts_cpuSw_logMonitor_logMonitor_MON,
       ts_cpuSw_encryptor_encryptor_MON,
       ts_cpuSw_reportMonitor_reportMonitor_MON,
       ts_cpuSw_btDriver_btDriver_MON,
-      ts_cpuSw_usbDriver_usbDriver_MON,
-      ts_cpuSw_dataManager_dataStorage_dataStorage_MON,
-      ts_pad
+      ts_cpuSw_usbDriver_usbDriver_MON
     )
 
     # END META MARKER
@@ -536,6 +534,20 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
             Map(mailbox, 0xFE00_B000, perms="rw", cached=False))
         cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_vm.add_map(
             Map(rng, 0xFE10_4000, perms="rw", cached=False))
+
+    # Custom Schedule (remove btDriver and usbDriver)
+    user_schedule = schedule(
+      ts_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_MON,
+      ts_cpuSw_wifiDriver_wifiDriver_wifiDriver_MON,
+      ts_cpuSw_decryptor_decryptor_MON,
+      ts_cpuSw_firewall_firewall_MON,
+      ts_cpuSw_dataAnalysis_dataAnalysis_MON,
+      ts_cpuSw_dataManager_dataManager_dataManager_MON,
+      ts_cpuSw_dataManager_dataStorage_dataStorage_MON,
+      ts_cpuSw_logMonitor_logMonitor_MON,
+      ts_cpuSw_encryptor_encryptor_MON,
+      ts_cpuSw_reportMonitor_reportMonitor_MON,
+    )
 
     sdf.add_pd(timer_driver)
     sdf.add_pd(scheduler)

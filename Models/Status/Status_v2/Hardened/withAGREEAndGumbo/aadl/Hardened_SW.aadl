@@ -26,9 +26,9 @@ public
 			f2: flow path wifiSendIn -> wifiSendOut;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
-			Compute_Execution_Time => 150ms .. 150ms;	
+			Compute_Execution_Time => 10ms .. 10ms;	
 			HAMR::Microkit_Language => C;		
 	end wifiDriverVM;
 	
@@ -153,7 +153,7 @@ public
 		properties
 			MATRICS_Properties::Requires_Data_Confidentiality => true applies to logs;
 			MATRICS_Properties::Encrypted => AES_GCM applies to logs;
-			CASE_Scheduling::Domain => 13;
+			CASE_Scheduling::Domain => 8;
 			HAMR::Microkit_Language => C;
 	end dataStorage_seL4.Impl;
 	
@@ -200,7 +200,7 @@ public
 			c1: port btRecv -> btDriver.btRecv;
 			c2: port btDriver.btSend -> btSend;
 		properties
-			CASE_Scheduling::Domain => 11;
+			CASE_Scheduling::Domain => 12;
 	end btDriver_seL4.Impl;
 	
 	process usbDriver_seL4
@@ -220,7 +220,7 @@ public
 			c1: port usbRecv -> usbDriver.usbRecv;
 			c2: port usbDriver.usbSend -> usbSend;
 		properties
-			CASE_Scheduling::Domain => 12;
+			CASE_Scheduling::Domain => 13;
 	end usbDriver_seL4.Impl;
 	
 	-- High-Assurance Components
@@ -239,8 +239,9 @@ public
 			f4: flow source storage_alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;	
 		annex agree {**
 			eq is_valid: bool = 
 				if event(request_log) and event(response_log_in)
@@ -299,7 +300,7 @@ public
 			c4: port logMonitor.alert_out -> alert_out;
 			c5: port logMonitor.storage_alert_out -> storage_alert_out;
 		properties
-			CASE_Scheduling::Domain => 8;
+			CASE_Scheduling::Domain => 9;
 		annex agree {**
 			lift contract;
 		**};
@@ -318,8 +319,9 @@ public
 			f3: flow source alert_out;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
-			Stack_size => 1048576 Bytes;			
+			Period => 50ms;
+			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;			
 		annex agree {**
 			node Counter(i: bool, reset: bool) returns (count: int);
 			let
@@ -401,7 +403,7 @@ public
 			c3: port reportMonitor.analysis_report_out -> analysis_report_out;
 			c4: port reportMonitor.alert_out -> alert_out;
 		properties
-			CASE_Scheduling::Domain => 10;
+			CASE_Scheduling::Domain => 11;
 		annex agree {**
 			lift contract;
 		**};
@@ -416,8 +418,9 @@ public
 			f1: flow path HMD_log_in -> HMD_log_out;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;
 		annex agree {**
 			guarantee Payload_Decrypted "G: Outgoing payload is decrypted." : 
 				event(HMD_log_in) =>
@@ -464,8 +467,9 @@ public
 			f1: flow path analysis_report_in -> analysis_report_out;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;
 		annex agree {**
 			guarantee Payload_Encrypted "G: Outgoing payload is encrypted." : 
 				event(analysis_report_in) =>
@@ -505,7 +509,7 @@ public
 			c1: port analysis_report_in -> encryptor.analysis_report_in;
 			c2: port encryptor.analysis_report_out -> analysis_report_out;
 		properties
-			CASE_Scheduling::Domain => 9;
+			CASE_Scheduling::Domain => 10;
 		annex agree {**
 			lift contract;
 		**};			
@@ -520,8 +524,9 @@ public
 			f1: flow path analysis_request_in -> analysis_request_out;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;
 		annex agree {**
 			guarantee Forward_Request "G: Only forward a request if it is from a trusted source." :
 				if event(analysis_request_in) and FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request_in.header.client)

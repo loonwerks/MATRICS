@@ -16,7 +16,7 @@ public
 		features
 			sera: requires bus access Common::Serial_Bus;
 		properties
-			Frame_Period => 1000ms;
+			Frame_Period => 50ms;
 			Clock_Period => 1ms;
 			CASE_Scheduling::Max_Domain => 15;				
 	end Proc;
@@ -62,8 +62,9 @@ public
 			f4: flow sink alert_in;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
-			Stack_size => 1048576 Bytes;			
+			Period => 50ms;
+			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 1ms .. 1ms;			
 		annex agree {**
 			assume Alert "A: A report should not be received if an alert is received." :
 				event(alert_in) => not(event(analysis_report));
@@ -119,8 +120,9 @@ public
 			f4: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 2ms .. 2ms;
 		annex agree {**
 			fun IS_ZEROIZED(response: Common::Response.Impl): bool =
 				response.request = NULL_REQUEST and
@@ -176,9 +178,10 @@ public
 			f3: flow sink zeroize;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
 			HAMR::Microkit_Language => C;
+			Compute_Execution_Time => 10ms .. 10ms;
 		annex agree {**
 			-- Abstract view of the persistent encrypted array reached through log_data.
 			eq cache: Common::EncryptedLogArray.Impl;
@@ -244,8 +247,9 @@ public
 			f2: flow path response_log -> analysis_report;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 2ms .. 2ms;
 		annex agree {**
 			assume Trusted_Request "A: Requests received are from a trusted source." :
 				event(analysis_request) => FOUND_IN_ALLOW_LIST(ALLOW_LIST, analysis_request.header.client);
@@ -267,8 +271,9 @@ public
 			f1: flow path btRecv -> btSend;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 10ms .. 10ms;
 	end btDriver;
 	
 	thread usbDriver
@@ -279,8 +284,9 @@ public
 			f1: flow path usbRecv -> usbSend;
 		properties
 			Dispatch_Protocol => Periodic;
-			Period => 1000ms;
+			Period => 50ms;
 			Stack_size => 1048576 Bytes;
+			Compute_Execution_Time => 10ms .. 10ms;
 	end usbDriver;
 
 	-- The Ground Station communication system
