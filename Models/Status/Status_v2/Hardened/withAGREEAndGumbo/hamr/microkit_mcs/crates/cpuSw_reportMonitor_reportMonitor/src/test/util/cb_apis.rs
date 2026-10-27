@@ -23,14 +23,11 @@ pub fn testInitializeCB() -> HarnessResult
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let counter = get_counter();
-  let is_invalid2 = get_is_invalid2();
-  let is_valid1 = get_is_valid1();
-  let since_result = get_since_result();
   let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::initialize_IEP_Post (counter, is_invalid2, is_valid1, since_result, api_alert_out, api_analysis_report_out) {
+  if !GUMBOX::initialize_IEP_Post (counter, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(
       TestCaseError::Fail("Postcondition failed: incorrect output behavior".into())
     );
@@ -79,10 +76,7 @@ pub fn testComputeCB(
 
   // [SaveInLocal]: retrieve and save the current (input) values of GUMBO-declared local state variables as retrieved
   //                from the component state
-  let In_counter: u32 = get_counter();
-  let In_is_invalid2: bool = get_is_invalid2();
-  let In_is_valid1: bool = get_is_valid1();
-  let In_since_result: bool = get_since_result();
+  let In_counter: i32 = get_counter();
 
   // [PutInPorts]: Set values on the input ports
   put_analysis_report_in(api_analysis_report_in);
@@ -93,14 +87,11 @@ pub fn testComputeCB(
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let counter = get_counter();
-  let is_invalid2 = get_is_invalid2();
-  let is_valid1 = get_is_valid1();
-  let since_result = get_since_result();
   let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
+  if !GUMBOX::compute_CEP_Post(In_counter, counter, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -150,17 +141,11 @@ testComputeCB_macro {
 /** Contract-based test harness for the compute entry point
   *
   * @param In_counter pre-state state variable
-  * @param In_is_invalid2 pre-state state variable
-  * @param In_is_valid1 pre-state state variable
-  * @param In_since_result pre-state state variable
   * @param api_analysis_report_in incoming event data port
   * @param api_analysis_request incoming event data port
   */
 pub fn testComputeCBwGSV(
-  In_counter: u32,
-  In_is_invalid2: bool,
-  In_is_valid1: bool,
-  In_since_result: bool,
+  In_counter: i32,
   api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
   api_analysis_request: Option<Common::AnalysisRequest_Impl>) -> HarnessResult
 {
@@ -173,23 +158,17 @@ pub fn testComputeCBwGSV(
 
   // [SetInStateVars]: set the pre-state values of state variables
   put_counter(In_counter);
-  put_is_invalid2(In_is_invalid2);
-  put_is_valid1(In_is_valid1);
-  put_since_result(In_since_result);
 
   // [InvokeEntryPoint]: Invoke the entry point
   crate::cpuSw_reportMonitor_reportMonitor_timeTriggered();
 
   // [RetrieveOutState]: retrieve values of the output ports via get operations and GUMBO declared local state variable
   let counter = get_counter();
-  let is_invalid2 = get_is_invalid2();
-  let is_valid1 = get_is_valid1();
-  let since_result = get_since_result();
   let api_alert_out = get_alert_out();
   let api_analysis_report_out = get_analysis_report_out();
 
   // [CheckPost]: invoke the oracle function
-  if !GUMBOX::compute_CEP_Post(In_counter, In_is_invalid2, In_is_valid1, In_since_result, counter, is_invalid2, is_valid1, since_result, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
+  if !GUMBOX::compute_CEP_Post(In_counter, counter, api_analysis_report_in, api_analysis_request, api_alert_out, api_analysis_report_out) {
     return HarnessResult::FailedPostcondition(TestCaseError::Fail("Postcondition failed: incorrect output behavior".into()));
   }
 
@@ -200,7 +179,7 @@ pub fn testComputeCBwGSV(
   */
 pub fn testComputeCBwGSV_container(container: PreStateContainer_wGSV) -> HarnessResult
 {
-  return testComputeCBwGSV(container.In_counter, container.In_is_invalid2, container.In_is_valid1, container.In_since_result, container.api_analysis_report_in, container.api_analysis_request)
+  return testComputeCBwGSV(container.In_counter, container.api_analysis_report_in, container.api_analysis_request)
 }
 
 #[macro_export]
@@ -210,9 +189,6 @@ testComputeCBwGSV_macro {
     $test_name: ident,
     config: $config:expr,
     In_counter: $In_counter_strat:expr,
-    In_is_invalid2: $In_is_invalid2_strat:expr,
-    In_is_valid1: $In_is_valid1_strat:expr,
-    In_since_result: $In_since_result_strat:expr,
     api_analysis_report_in: $api_analysis_report_in_strat:expr,
     api_analysis_request: $api_analysis_request_strat:expr
   ) => {
@@ -221,10 +197,10 @@ testComputeCBwGSV_macro {
       #[test]
       #[serial]
       fn $test_name(
-        (In_counter, In_is_invalid2, In_is_valid1, In_since_result, api_analysis_report_in, api_analysis_request)
-            in ($In_counter_strat, $In_is_invalid2_strat, $In_is_valid1_strat, $In_since_result_strat, $api_analysis_report_in_strat, $api_analysis_request_strat)
+        (In_counter, api_analysis_report_in, api_analysis_request)
+            in ($In_counter_strat, $api_analysis_report_in_strat, $api_analysis_request_strat)
       ) {
-        match $crate::test::util::cb_apis::testComputeCBwGSV(In_counter, In_is_invalid2, In_is_valid1, In_since_result, api_analysis_report_in, api_analysis_request) {
+        match $crate::test::util::cb_apis::testComputeCBwGSV(In_counter, api_analysis_report_in, api_analysis_request) {
           $crate::test::util::cb_apis::HarnessResult::RejectedPrecondition => {
             return Err(proptest::test_runner::TestCaseError::reject(
               "Precondition failed: invalid input combination",

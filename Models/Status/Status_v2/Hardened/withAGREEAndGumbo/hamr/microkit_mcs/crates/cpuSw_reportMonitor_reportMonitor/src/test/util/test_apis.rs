@@ -13,10 +13,7 @@ pub struct PreStateContainer {
 
 /// container for component's incoming port values and GUMBO state variables
 pub struct PreStateContainer_wGSV {
-  pub In_counter: u32,
-  pub In_since_result: bool,
-  pub In_is_valid1: bool,
-  pub In_is_invalid2: bool,
+  pub In_counter: i32,
   pub api_analysis_request: Option<Common::AnalysisRequest_Impl>,
   pub api_analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>,
 }
@@ -31,9 +28,6 @@ pub fn put_concrete_inputs_container(container: PreStateContainer)
 /// setter for component's incoming port values and GUMBO state variables
 pub fn put_concrete_inputs_container_wGSV(container: PreStateContainer_wGSV)
 {
-  put_is_invalid2(container.In_is_invalid2);
-  put_is_valid1(container.In_is_valid1);
-  put_since_result(container.In_since_result);
   put_counter(container.In_counter);
   put_analysis_request(container.api_analysis_request);
   put_analysis_report_in(container.api_analysis_report_in);
@@ -50,16 +44,10 @@ pub fn put_concrete_inputs(
 
 /// setter for component's incoming port values and GUMBO state variables
 pub fn put_concrete_inputs_wGSV(
-  In_counter: u32,
-  In_since_result: bool,
-  In_is_valid1: bool,
-  In_is_invalid2: bool,
+  In_counter: i32,
   analysis_request: Option<Common::AnalysisRequest_Impl>,
   analysis_report_in: Option<Common::OutgoingWifiMessage_Impl>)
 {
-  put_is_invalid2(In_is_invalid2);
-  put_is_valid1(In_is_valid1);
-  put_since_result(In_since_result);
   put_counter(In_counter);
   put_analysis_request(analysis_request);
   put_analysis_report_in(analysis_report_in);
@@ -90,7 +78,7 @@ pub fn get_alert_out() -> Option<u8>
 }
 
 /// getter for GUMBO State Variable
-pub fn get_counter() -> u32
+pub fn get_counter() -> i32
 {
   unsafe {
     match &crate::app {
@@ -101,77 +89,11 @@ pub fn get_counter() -> u32
 }
 
 /// setter for GUMBO State Variable
-pub fn put_counter(value: u32)
+pub fn put_counter(value: i32)
 {
   unsafe {
     match &mut crate::app {
       Some(inner) => inner.counter = value,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// getter for GUMBO State Variable
-pub fn get_since_result() -> bool
-{
-  unsafe {
-    match &crate::app {
-      Some(inner) => inner.since_result,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// setter for GUMBO State Variable
-pub fn put_since_result(value: bool)
-{
-  unsafe {
-    match &mut crate::app {
-      Some(inner) => inner.since_result = value,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// getter for GUMBO State Variable
-pub fn get_is_valid1() -> bool
-{
-  unsafe {
-    match &crate::app {
-      Some(inner) => inner.is_valid1,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// setter for GUMBO State Variable
-pub fn put_is_valid1(value: bool)
-{
-  unsafe {
-    match &mut crate::app {
-      Some(inner) => inner.is_valid1 = value,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// getter for GUMBO State Variable
-pub fn get_is_invalid2() -> bool
-{
-  unsafe {
-    match &crate::app {
-      Some(inner) => inner.is_invalid2,
-      None => panic!("The app is None")
-    }
-  }
-}
-
-/// setter for GUMBO State Variable
-pub fn put_is_invalid2(value: bool)
-{
-  unsafe {
-    match &mut crate::app {
-      Some(inner) => inner.is_invalid2 = value,
       None => panic!("The app is None")
     }
   }

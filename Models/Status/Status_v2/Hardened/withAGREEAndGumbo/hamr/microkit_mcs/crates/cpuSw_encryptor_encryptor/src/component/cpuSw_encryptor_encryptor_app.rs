@@ -69,7 +69,6 @@ verus! {
           }; 
 
           if let Some(encrypted) = encrypt(analysis_response.payload) {
-
                api.put_analysis_report_out(Common::OutgoingWifiMessage_Impl {
                          header: analysis_response.header,
                          payload: encrypted,

@@ -17,6 +17,10 @@ extern "C" {
   fn get_analysis_report_in_num_invalid() -> u64;
   fn put_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
   fn put_alert_out() -> bool;
+  fn peek_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool;
+  fn peek_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn peek_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool;
+  fn peek_alert_out() -> bool;
 }
 
 pub fn unsafe_get_analysis_request() -> Option<Common::AnalysisRequest_Impl>
@@ -68,6 +72,49 @@ pub fn unsafe_put_alert_out() -> bool
 {
   unsafe {
     return put_alert_out();
+  }
+}
+
+pub fn unsafe_peek_analysis_request() -> Option<Common::AnalysisRequest_Impl>
+{
+  unsafe {
+    let value: *mut Common::AnalysisRequest_Impl = &mut Common::AnalysisRequest_Impl::default();
+    if (peek_analysis_request(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_analysis_report_in() -> Option<Common::OutgoingWifiMessage_Impl>
+{
+  unsafe {
+    let value: *mut Common::OutgoingWifiMessage_Impl = &mut Common::OutgoingWifiMessage_Impl::default();
+    if (peek_analysis_report_in(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_analysis_report_out() -> Option<Common::OutgoingWifiMessage_Impl>
+{
+  unsafe {
+    let value: *mut Common::OutgoingWifiMessage_Impl = &mut Common::OutgoingWifiMessage_Impl::default();
+    if (peek_analysis_report_out(value)) {
+      return Some(*value);
+    } else {
+      return None;
+    }
+  }
+}
+
+pub fn unsafe_peek_alert_out() -> bool
+{
+  unsafe {
+    return peek_alert_out();
   }
 }
 
@@ -152,4 +199,52 @@ pub fn put_alert_out() -> bool
     *OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()) = Some(0u8);
     return true;
   }
+}
+
+#[cfg(test)]
+pub fn peek_analysis_request(value: *mut Common::AnalysisRequest_Impl) -> bool
+{
+  unsafe {
+    match *IN_analysis_request.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_analysis_report_in(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
+{
+  unsafe {
+    match *IN_analysis_report_in.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_analysis_report_out(value: *mut Common::OutgoingWifiMessage_Impl) -> bool
+{
+  unsafe {
+    match *OUT_analysis_report_out.lock().unwrap_or_else(|e| e.into_inner()) {
+      Some(v) => {
+        *value = v;
+        return true;
+      },
+      None => return false,
+    }
+  }
+}
+
+#[cfg(test)]
+pub fn peek_alert_out() -> bool
+{
+  return OUT_alert_out.lock().unwrap_or_else(|e| e.into_inner()).is_some();
 }

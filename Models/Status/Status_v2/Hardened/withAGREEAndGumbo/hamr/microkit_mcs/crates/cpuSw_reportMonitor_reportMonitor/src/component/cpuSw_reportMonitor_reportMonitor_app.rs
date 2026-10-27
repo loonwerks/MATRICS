@@ -8,10 +8,7 @@ verus! {
 
   pub struct cpuSw_reportMonitor_reportMonitor {
     // BEGIN MARKER STATE VARS
-    pub counter: u32,
-    pub since_result: bool,
-    pub is_valid1: bool,
-    pub is_invalid2: bool,
+    pub counter: i32,
     // END MARKER STATE VARS
   }
 
@@ -21,9 +18,6 @@ verus! {
       Self {
         // BEGIN MARKER STATE VAR INIT
         counter: 0,
-        since_result: false,
-        is_valid1: false,
-        is_invalid2: false,
         // END MARKER STATE VAR INIT
       }
     }
@@ -33,12 +27,11 @@ verus! {
       api: &mut cpuSw_reportMonitor_reportMonitor_Application_Api<API>)
       ensures
         // BEGIN MARKER INITIALIZATION ENSURES
-        // guarantee defaultCounterAndSince
-        (final(self).counter == 0u32) &&
-          (final(self).since_result == false),
+        // guarantee defaultCounter
+        final(self).counter == 0i32,
         // END MARKER INITIALIZATION ENSURES
     {
-      log_info("initialize entrypoint invoked");
+      self.counter = 0;
     }
 
     pub fn timeTriggered<API: cpuSw_reportMonitor_reportMonitor_Full_Api> (
@@ -56,40 +49,22 @@ verus! {
         // guarantee counter_variable
         //   G: counter set correctly
         final(self).counter == Counter(final(api).analysis_request.is_some(), final(api).analysis_report_in.is_some(), old(self).counter),
-        // guarantee since_result_variable
-        //   G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)
-        final(self).since_result == GUMBO_PLTL::AGREE_Since_spec(!(final(api).analysis_report_in.is_some()), final(api).analysis_request.is_some(), old(self).since_result),
-        // guarantee valid1
-        //   G: is_valid1 set correctly
-        if (final(api).analysis_report_in.is_some() && final(api).analysis_request.is_some()) {
-          final(self).is_valid1 == true
-        } else {
-          final(self).is_valid1 == (final(api).analysis_report_in.is_some() ==> old(self).since_result)
-        },
-        // guarantee invalid2
-        //   G: is_invalid2 set correctly
-        final(self).is_invalid2 == (final(self).counter >= 3u32),
-        // guarantee Send_Alert
-        //   G: Send an alert if a report is received without a valid request or if three or more requests are received without a report.
-        if ((final(api).analysis_report_in.is_some() && !final(self).is_valid1) ||
-          final(self).is_invalid2) {
-          final(api).alert_out.is_some()
-        } else {
-          final(api).alert_out.is_none()
-        },
-        // guarantee Forward_Report
-        //   G: Only forward a report if a valid request has been made and it is to a trusted destination.
-        if (final(api).analysis_report_in.is_some() && final(self).is_valid1 &&
-          !final(self).is_invalid2 &&
-          MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST_spec(final(api).analysis_report_in.unwrap().header.client)) {
-          final(api).analysis_report_out.is_some() &&
-            (final(api).analysis_report_out.unwrap() == final(api).analysis_report_in.unwrap())
-        } else {
-          final(api).analysis_report_out.is_none()
-        },
+        // guarantee Monitor_Requirement
+        //   Alert ports are reserved for the monitor
+        old(api).alert_out == final(api).alert_out,
         // END MARKER TIME TRIGGERED ENSURES
+        // analysis_report_out is reserved for handle_r2u2_verdict
+        old(api).analysis_report_out == final(api).analysis_report_out,
     {
-      // log_info("compute entrypoint invoked");
+          let request = api.get_analysis_request(); // Clears event data port for next frame
+          let report = api.peek_analysis_report_in(); // Peek at the analysis_report_in but do not clear
+          if request.is_some() {
+               self.counter += 1; // Increment counter whenever a request is received
+          }
+
+          if report.is_some() {
+               self.counter = 0; // Reset counter when a report is received
+          }
     }
 
     pub fn notify(
@@ -121,13 +96,13 @@ verus! {
   pub open spec fn Counter(
     i: bool,
     reset: bool,
-    count: u32) -> u32
+    count: i32) -> i32
   {
     if (reset) {
-      0u32
+      0i32
     } else {
       if (i) {
-        (count + 1u32) as u32
+        (count + 1i32) as i32
       } else {
         count
       }

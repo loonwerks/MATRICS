@@ -56,6 +56,46 @@ verus! {
     {
       return extern_api::unsafe_get_analysis_report_in_num_invalid();
     }
+
+    #[verifier::external_body]
+    fn unverified_peek_analysis_request(
+      &self,
+      value: &Ghost<Option<Common::AnalysisRequest_Impl>>) -> (res : Option<Common::AnalysisRequest_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_analysis_request();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_analysis_report_in(
+      &self,
+      value: &Ghost<Option<Common::OutgoingWifiMessage_Impl>>) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_analysis_report_in();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_analysis_report_out(
+      &self,
+      value: &Ghost<Option<Common::OutgoingWifiMessage_Impl>>) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
+      ensures
+        res == value@,
+    {
+      return extern_api::unsafe_peek_analysis_report_out();
+    }
+
+    #[verifier::external_body]
+    fn unverified_peek_alert_out(
+      &self,
+      value: &Ghost<Option<u8>>) -> (res : bool)
+      ensures
+        res == value@.is_some(),
+    {
+      return extern_api::unsafe_peek_alert_out();
+    }
   }
 
   pub trait cpuSw_reportMonitor_reportMonitor_Full_Api: cpuSw_reportMonitor_reportMonitor_Put_Api + cpuSw_reportMonitor_reportMonitor_Get_Api {}
@@ -126,6 +166,30 @@ verus! {
     pub fn get_analysis_report_in_num_invalid(&self) -> u64
     {
       self.api.unverified_get_analysis_report_in_num_invalid()
+    }
+    pub fn peek_analysis_request(&self) -> (res : Option<Common::AnalysisRequest_Impl>)
+      ensures
+        res == self.analysis_request,
+    {
+      self.api.unverified_peek_analysis_request(&Ghost(self.analysis_request))
+    }
+    pub fn peek_analysis_report_in(&self) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
+      ensures
+        res == self.analysis_report_in,
+    {
+      self.api.unverified_peek_analysis_report_in(&Ghost(self.analysis_report_in))
+    }
+    pub fn peek_analysis_report_out(&self) -> (res : Option<Common::OutgoingWifiMessage_Impl>)
+      ensures
+        res == self.analysis_report_out,
+    {
+      self.api.unverified_peek_analysis_report_out(&Ghost(self.analysis_report_out))
+    }
+    pub fn peek_alert_out(&self) -> (res : bool)
+      ensures
+        res == self.alert_out.is_some(),
+    {
+      self.api.unverified_peek_alert_out(&Ghost(self.alert_out))
     }
   }
 

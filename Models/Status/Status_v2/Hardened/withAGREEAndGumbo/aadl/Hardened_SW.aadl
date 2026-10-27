@@ -346,52 +346,35 @@ public
 		**};
 		annex GUMBO {**
 			state
-				counter: Base_Types::Unsigned_32;
-				since_result: Base_Types::Boolean;
-				is_valid1: Base_Types::Boolean;
-				is_invalid2: Base_Types::Boolean;
+				counter: Base_Types::Integer_32;
 			functions
 				def Counter(i: Base_Types::Boolean, reset: Base_Types::Boolean,
-                                   count: Base_Types::Unsigned_32): Base_Types::Unsigned_32 :=
+                                   count: Base_Types::Integer_32): Base_Types::Integer_32 :=
                          if (reset)
-                         u32"0"
-                         else (if (i) (count + u32"1") else count);
+                         s32"0"
+                         else (if (i) (count + s32"1") else count);
 			initialize
-				modifies counter, since_result;
+				modifies counter;
 				
-				guarantee defaultCounterAndSince:
-					counter == u32"0" & 
-					since_result == false;
+				guarantee defaultCounter:
+					counter == s32"0";
 					
 			compute
-                    modifies counter, since_result, is_valid1, is_invalid2;
+                modifies counter;
+                
+                assume counter_range "G: counter within integer range" :
+                	counter <= 2147483647 && counter >= -2147483648;
 
-                    guarantee counter_variable "G: counter set correctly":
+                guarantee counter_variable "G: counter set correctly":
 						counter == Counter(HasEvent(analysis_request),
 							HasEvent(analysis_report_in), In(counter));
-
-				
-				guarantee since_result_variable "G: Internal variable since_result is equivalent to (not analysis_report_in event) Since (analysis_request event)":
-				since_result == GUMBO_PLTL::AGREE_Since(!HasEvent(analysis_report_in), HasEvent(analysis_request), In(since_result));
-				
-				guarantee valid1 "G: is_valid1 set correctly" :
-					if (HasEvent(analysis_report_in) & HasEvent(analysis_request))
-					is_valid1 == true 
-					else is_valid1 == (HasEvent(analysis_report_in) ->: In(since_result));
-					
-				guarantee invalid2 "G: is_invalid2 set correctly" : 
-					is_invalid2 == (counter >= u32"3");
-								 
-				guarantee Send_Alert "G: Send an alert if a report is received without a valid request or if three or more requests are received without a report." :
-					if ((HasEvent(analysis_report_in) & !(is_valid1)) | is_invalid2)
-					MustSend(alert_out)
-					else NoSend(alert_out);
-				guarantee Forward_Report "G: Only forward a report if a valid request has been made and it is to a trusted destination." :
-					if (HasEvent(analysis_report_in) && is_valid1 && !(is_invalid2) &&
-						MATRICS_Model_Transformations::FOUND_IN_ALLOW_LIST(
-							analysis_report_in.header.client))
-					MustSend(analysis_report_out) && (analysis_report_out == analysis_report_in)
-					else NoSend(analysis_report_out);	
+			monitor
+				guarantee Valid_Response_Request_Behavior "G: A report is not received without a valid request and no more than three requests are received without a report (only looks back 365 days)" :
+					(HasEvent(analysis_report_in) ->: (HasEvent(analysis_request) or (!HasEvent(analysis_report_in) Since[1, 31536000] HasEvent(analysis_request)))) or (counter >= s32"3");
+				guarantee Valid_And_Trusted_Report "G: A valid request has been made (only looks back 365 days)" :
+					HasEvent(analysis_report_in) and (HasEvent(analysis_request) or (!HasEvent(analysis_report_in) Since[1, 31536000] HasEvent(analysis_request))) and (counter < s32"3");
+					 
+				alert Valid_Response_Request_Behavior on alert_out;
 		**};
 	end reportMonitor;
 

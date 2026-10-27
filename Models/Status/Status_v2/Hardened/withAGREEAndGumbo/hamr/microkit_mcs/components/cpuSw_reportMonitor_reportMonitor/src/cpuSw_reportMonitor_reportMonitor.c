@@ -32,10 +32,19 @@ uintmax_t get_analysis_report_in_num_invalid(void) {
   return sb_queue_Common_OutgoingWifiMessage_Impl_1_numInvalid((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &analysis_report_in_recv_queue);
 }
 
+bool peek_analysis_report_in(Common_OutgoingWifiMessage_Impl *data) {
+  sb_event_counter_t numDropped;
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_peek((sb_queue_Common_OutgoingWifiMessage_Impl_1_Recv_t *) &analysis_report_in_recv_queue, &numDropped, data);
+}
+
 bool put_analysis_report_out(const Common_OutgoingWifiMessage_Impl *data) {
   sb_queue_Common_OutgoingWifiMessage_Impl_1_enqueue((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) analysis_report_out_queue_1, (Common_OutgoingWifiMessage_Impl *) data);
 
   return true;
+}
+
+bool peek_analysis_report_out(Common_OutgoingWifiMessage_Impl *data) {
+  return sb_queue_Common_OutgoingWifiMessage_Impl_1_peek_latest((sb_queue_Common_OutgoingWifiMessage_Impl_1_t *) analysis_report_out_queue_1, data);
 }
 
 bool put_alert_out() {
@@ -44,6 +53,12 @@ bool put_alert_out() {
   sb_queue_uint8_t_1_enqueue((sb_queue_uint8_t_1_t *) alert_out_queue_1, (uint8_t *) data);
 
   return true;
+}
+
+bool peek_alert_out() {
+  uint8_t eventPortPayload;
+  uint8_t *data = &eventPortPayload;
+  return sb_queue_uint8_t_1_peek_latest((sb_queue_uint8_t_1_t *) alert_out_queue_1, data);
 }
 
 bool analysis_request_is_empty(void) {
@@ -61,6 +76,11 @@ bool get_analysis_request(Common_AnalysisRequest_Impl *data) {
 
 uintmax_t get_analysis_request_num_invalid(void) {
   return sb_queue_Common_AnalysisRequest_Impl_1_numInvalid((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue);
+}
+
+bool peek_analysis_request(Common_AnalysisRequest_Impl *data) {
+  sb_event_counter_t numDropped;
+  return sb_queue_Common_AnalysisRequest_Impl_1_peek((sb_queue_Common_AnalysisRequest_Impl_1_Recv_t *) &analysis_request_recv_queue, &numDropped, data);
 }
 
 void init(void) {
