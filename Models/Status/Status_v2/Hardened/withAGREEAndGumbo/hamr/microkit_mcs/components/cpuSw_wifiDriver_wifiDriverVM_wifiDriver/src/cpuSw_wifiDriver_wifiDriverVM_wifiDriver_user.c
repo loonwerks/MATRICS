@@ -107,7 +107,7 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_initialize(void) {
 void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
      uint32_t rx_full = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr;
      if (rx_full == 1){
-          Common_IncomingWifiMessage_Impl message;
+          Common_IncomingWifiMessage_Impl message = {0};
           char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_RX_Buffer_vaddr + 0x04);
           if (parse_message(data, &message)){
                if (put_wifiRecvOut(&message)){
@@ -133,7 +133,7 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
                base64_encode(encrypted_data, Common_Nonce_Impl_DIM_0 + message.payload.ciphertext_len + Common_AuthenticationTag_Impl_DIM_0,encoded);
                
                char *data = (char *)(GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr + 0x04);
-               if (sddf_snprintf(data, 0x2000-0x04, "{\"client\": %d, \"body\": \"%s\"}", message.header.client, encoded) >= 0){
+               if (sddf_snprintf(data, 0x2000-0x04, "{\"client\": %u, \"body\": \"%s\"}", (uint32_t) message.header.client, encoded) >= 0){
                     // Set TX full flag
                     *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr = 1;
                };
@@ -200,11 +200,34 @@ size_t base64_decode(const char *src, uint8_t *dst) {
      size_t len = strlen(src);
      if (len == 0 || len % 4 != 0) return 0; // Base64 strings must be a multiple of 4
 
+     for (size_t i = 0; i < len; i++) { // Check for valid Base64 values
+          char c = src[i];
+          bool valid =
+               (c >= 'A' && c <= 'Z') ||
+               (c >= 'a' && c <= 'z') ||
+               (c >= '0' && c <= '9') ||
+               c == '+' || c == '/';
+
+          bool valid_padding = c == '=' && i >= len - 2;
+
+          if (!valid && !valid_padding) {
+               return 0;
+          }
+     }
+
+     if (src[len - 2] == '=' && src[len - 1] != '=') {
+          return 0; // Ensure something like "=X" is not possible
+     }
+
      size_t out_len = (len / 4) * 3;
      
      // Adjust output size based on trailing padding characters
      if (src[len - 1] == '=') out_len--;
      if (src[len - 2] == '=') out_len--;
+
+     if (out_len > 4096) {
+          return 0;
+     }
 
      size_t i, j;
      for (i = 0, j = 0; i < len; i += 4, j += 3) {
@@ -276,28 +299,46 @@ uint32_t string_to_ip(const char** str){
      size_t i;
      for (int j = 24; j >= 0; j=j-8){
           i = 0;
-          while(**str != '.' && i < 3){
+          while(**str >= '0' && **str <= '9'){
                value[i++] = **str;
                (*str)++;
+               if (i > 3){
+                    return 0; // Invalid IP address
+               }
           }
-          if(**str == '.'){
+
+          if(i == 0){
+               return 0; // Invalid IP address
+          } else if(**str == '.'){
+               if (j == 0){
+                    return 0; // Invalid IP address
+               }
                (*str)++; // skip dot
+          } else if (**str != '\0'){
+               return 0; // Invalid IP address
           }
           value[i] = '\0'; // Null-terminate the string
-          ip = ip | ((uint32_t)atoi(value) << j);
+          uint32_t octet = (uint32_t)atoi(value);
+          if (octet > 255){
+               return 0; // Invalid IP address
+          }
+          ip = ip | (octet << j);
      }
      return ip;
-} 
+}
 
 void skip_whitespace(const char **str) {
-     while(**str == ' '){
+     while(**str == ' '  || **str == '\t' || **str == '\r' || **str == '\n') {
           (*str)++;
      }
 }
 
-void parse_string(const char **str, char *dest, size_t dest_size){
+bool parse_string(const char **str, char *dest, size_t dest_size){
      if(**str == '"')
           (*str)++; // Skip openning quote
+     else
+          return false;
+
      size_t i = 0;
 
      while (**str != '"' && **str != '\0'){
@@ -307,15 +348,25 @@ void parse_string(const char **str, char *dest, size_t dest_size){
           (*str)++;
      }
 
-     dest[i] = '\0'; // Null-terminate the string
+     if (i < dest_size) {
+          dest[i] = '\0'; // Null-terminate the string
+     } else {
+          return false;
+     }
 
-     if(**str == '"')
-          (*str)++; // Skip ending quote
+     if(**str != '"')
+          return false;
+     (*str)++; // Skip ending quote
+
+     return true;
 }
 
-void parse_string_first_item(const char **str, char *dest, size_t dest_size){
+bool parse_string_first_item(const char **str, char *dest, size_t dest_size){
      if(**str == '"')
           (*str)++; // Skip openning quote
+     else
+          return false;
+
      size_t i = 0;
 
      while (**str != '"' && **str != '\0' && **str != ','){
@@ -325,34 +376,55 @@ void parse_string_first_item(const char **str, char *dest, size_t dest_size){
           (*str)++;
      }
      
-     dest[i] = '\0'; // Null-terminate the string
+     if (i < dest_size) {
+          dest[i] = '\0'; // Null-terminate the string
+     } else {
+          return false;
+     }
 
      while (**str != '"' && **str != '\0'){ // Ignore rest of list
           (*str)++;
      }
 
-     if(**str == '"')
-          (*str)++; // Skip ending quote
+     if(**str != '"')
+          return false;
+     (*str)++; // Skip ending quote
+
+     return true;
 }
 
 static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *message){
-     Common_IncomingWifiHeader_Impl header;
+     size_t length = 0;
+     size_t capacity = 0x2000 - 0x04;
+
+     while (length < capacity && str[length] != '\0') {
+          if (str[length] == '\\') {
+               return false; // Escape sequences are not expected/permitted
+          }
+          length++;
+     }
+     if (length == capacity) {
+          return false; // No terminator was found inside the RX buffer.
+     }
+
+     Common_IncomingWifiHeader_Impl header = {0};
      skip_whitespace(&str);
      if(*str != '{'){
           return false; // Invalid JSON
      }
      str++; // Skip '{'
 
-     while(1) {
+     while(*str != '\0') {
           skip_whitespace(&str);
-          if (*str == '}'){
-               str++; // Skip '}'
+          if (*str == '}' && *(str+1) == '\0'){
                break;
           }
 
           // Parse key
           char key[64];
-          parse_string(&str, key, sizeof(key));
+          if (!parse_string(&str, key, sizeof(key))){
+               return false;
+          }
           skip_whitespace(&str);
           if (*str != ':'){
                return false; // Invalid JSON
@@ -372,7 +444,9 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     }
                     // Parse key
                     char header_key[64];
-                    parse_string(&str, header_key, sizeof(header_key));
+                    if (!parse_string(&str, header_key, sizeof(header_key))){
+                         return false;
+                    }
                     skip_whitespace(&str);
                     if (*str != ':'){
                          return false; // Invalid JSON
@@ -381,15 +455,21 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                     skip_whitespace(&str);
                     char value[256];
                     if(strcmp(header_key, "Host") == 0){
-                         parse_string(&str, value, sizeof(value));
+                         if (!parse_string(&str, value, sizeof(value))){
+                              return false;
+                         }
                          strcpy(header.route, value);
                     } else if(strcmp(header_key, "X-Forwarded-For") == 0){
-                         parse_string_first_item(&str, value, sizeof(value));
+                         if (!parse_string_first_item(&str, value, sizeof(value))){
+                              return false;
+                         }
                          const char *temp_ptr = value;
                          header.client = string_to_ip(&temp_ptr);
                     }
                     else {
-                         parse_string(&str, value, sizeof(value));
+                         if (!parse_string(&str, value, sizeof(value))){
+                              return false;
+                         }
                     }
                     skip_whitespace(&str);
                     if (*str == ','){
@@ -399,9 +479,14 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                }
           } else if(strcmp(key, "body") == 0){
                char encoded[5465]; // 4096 of decoded message is represented in 5464 base64 bytes + 1 null byte
-               parse_string(&str, encoded, sizeof(encoded));
+               if (!parse_string(&str, encoded, sizeof(encoded))){
+                    return false;
+               }
                uint8_t decoded[4096]; // 12-byte nonce + 4068-byte ciphertext + 16-byte tag = 4096 bytes
                size_t length = base64_decode(encoded, decoded);
+               if (length < 28){
+                    return false; // Error decoding base64
+               }
                memcpy((char*)(*message).payload.nonce, decoded, 12); // Nonce/Initialization Vector(IV) first 12 bytes
                uint32_t ciphertext_length = length - 12 - 16;
                memcpy((char*)(*message).payload.ciphertext, decoded + 12, ciphertext_length); // Ciphertext
@@ -414,6 +499,9 @@ static bool parse_message(const char* str, Common_IncomingWifiMessage_Impl *mess
                str++; // Skip ','
                skip_whitespace(&str);
           }
+     }
+     if (*str != '}'){ // Didn't see a closing bracket
+          return false;
      }
      (*message).header = header;
      return true;
