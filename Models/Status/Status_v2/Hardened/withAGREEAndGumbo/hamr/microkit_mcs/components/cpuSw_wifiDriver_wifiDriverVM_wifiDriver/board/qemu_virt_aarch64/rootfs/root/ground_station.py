@@ -22,20 +22,22 @@ def write_rx_buffer(msg):
      with open("/dev/mem", "r+b") as f:
           mm = mmap.mmap(f.fileno(), memory_size, offset=memory_addr, flags = mmap.MAP_SHARED | mmap.MAP_POPULATE)
           try:
-               pad_len = (4 - (len(msg) % 4))
-               data = json.dumps(msg).encode('utf-8') + (b"\x00" * pad_len) # manually add null terminated bytes to make multiple of 4
-               if len(data) >= memory_size:
+               serialized = json.dumps(msg).encode('utf-8')
+               pad_len =  4 - (len(serialized) % 4)
+               data = serialized + (b"\x00" * pad_len) # manually add null terminated bytes to make multiple of 4
+               if len(data) > memory_size - 0x04:
                     status = Status.FAILURE
-               ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
-               flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
-               if flag != 0x1:
-                    ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer full flag
-                    # Iteratively write the payload as 32-bit words starting at index 1 (offset 0x04)
-                    for i in range(0, len(data), 4):
-                         word = int.from_bytes(data[i:i+4], byteorder='little')
-                         ctypes.cast(ptr + 0x04 + i, ctypes.POINTER(ctypes.c_uint32)).contents.value = word
                else:
-                    status = Status.EMPTY
+                    ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
+                    flag = ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
+                    if flag != 0x1:
+                         # Iteratively write the payload as 32-bit words starting at index 1 (offset 0x04)
+                         for i in range(0, len(data), 4):
+                              word = int.from_bytes(data[i:i+4], byteorder='little')
+                              ctypes.cast(ptr + 0x04 + i, ctypes.POINTER(ctypes.c_uint32)).contents.value = word
+                         ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer full flag
+                    else:
+                         status = Status.EMPTY
           except Exception as e:
                status = Status.FAILURE
           finally:
@@ -83,34 +85,6 @@ def block_duplicate_args():
     for key, values in request.args.lists():
         if len(values) > 1: # Ensure there is only one of each argument
             return {"status": "error", "message": f"There is more than one {key} argument."}
-
-
-# Define a route for the homepage
-@app.route("/")
-def hello_world():
-#     text = f"<p>Headers: {dict(request.headers)}</p>"
-#     text += f"<p>Args: {request.args.to_dict()}</p>"
-#     text += f"<p>Form: {request.form.to_dict()}</p>"
-#     text += f"<p>JSON: {request.get_json(silent=True)}</p>"
-#     text += f"<p>Body: {request.get_data()}</p>"
-
-    headers = dict(request.headers)
-    body = request.get_data().decode('utf-8')
-    result = {"headers": headers,
-               "body": body}
-    memory_addr = 0x50000000
-    memory_size = 0x1000
-    with open("/dev/mem", "r+b") as f:
-          mm = mmap.mmap(f.fileno(), memory_size, offset=memory_addr, flags = mmap.MAP_SHARED | mmap.MAP_POPULATE)
-          data = json.dumps(result).encode('utf-8')
-          ptr = ctypes.addressof(ctypes.c_char.from_buffer(mm))
-          flag =  ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value
-          if flag != 0x1:
-               ctypes.cast(ptr, ctypes.POINTER(ctypes.c_uint32)).contents.value = 0x1 # set RX buffer ready flag
-               ctypes.memmove(ptr+0x04, data + b"\x00", len(data)+1) # manually add null terminated byte
-          mm.close()
-
-    return json.dumps(result)
 
 @app.route("/hmd", methods=["POST"])
 def store_hmd_data():

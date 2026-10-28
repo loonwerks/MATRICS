@@ -120,10 +120,10 @@ void cpuSw_wifiDriver_wifiDriverVM_wifiDriver_timeTriggered(void) {
           }
      }
 
-     Common_OutgoingWifiMessage_Impl message;
-     if (get_wifiSendIn(&message)) {
-          uint32_t tx_full = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
-          if (tx_full == 0) {
+     uint32_t tx_full = *(uint32_t *)GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_Guest_TX_Buffer_vaddr;
+     if (tx_full == 0) {
+          Common_OutgoingWifiMessage_Impl message;
+          if (get_wifiSendIn(&message)) {
                uint8_t encrypted_data[4096];
                memcpy(encrypted_data, message.payload.nonce, Common_Nonce_Impl_DIM_0);
                memcpy(encrypted_data + Common_Nonce_Impl_DIM_0, message.payload.ciphertext, message.payload.ciphertext_len);
