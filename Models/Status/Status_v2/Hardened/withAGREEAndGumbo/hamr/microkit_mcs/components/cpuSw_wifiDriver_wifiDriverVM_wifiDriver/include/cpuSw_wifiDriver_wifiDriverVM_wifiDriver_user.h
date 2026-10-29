@@ -24,20 +24,18 @@
 #endif
 
 #if defined(BOARD_qemu_virt_aarch64)
-#define MAX_IRQS 2
-#define SERIAL_IRQ_CH 1
-#define SERIAL_IRQ 33
-#define INTERNET_IRQ_CH 2
+#define MAX_IRQS 1
+#define INTERNET_IRQ_CH 1
 #define INTERNET_IRQ 79
 #elif defined(BOARD_rpi4b_4gb)
-#define MAX_IRQS 4
-#define SERIAL_IRQ_CH 1
-#define SERIAL_IRQ 125
-#define INTERNET_IRQ_CH 2
+#define MAX_IRQS 3
+// #define SERIAL_IRQ_CH 1
+// #define SERIAL_IRQ 125
+#define INTERNET_IRQ_CH 1
 #define INTERNET_IRQ 158
-#define MAILBOX_IRQ_CH 3
+#define MAILBOX_IRQ_CH 2
 #define MAILBOX_IRQ 65
-#define VCHIQ_IRQ_CH 4
+#define VCHIQ_IRQ_CH 3
 #define VCHIQ_IRQ 66
 #else
 #error Need to define IRQs
@@ -50,10 +48,6 @@ struct mk_irq {
 
 #if defined(BOARD_qemu_virt_aarch64)
 struct mk_irq mk_irqs[MAX_IRQS] = {
-  { // Serial
-    .irq = SERIAL_IRQ,
-    .channel = SERIAL_IRQ_CH,
-  },
   // Internet
   {
      .irq = INTERNET_IRQ,
@@ -62,10 +56,10 @@ struct mk_irq mk_irqs[MAX_IRQS] = {
 };
 #elif defined(BOARD_rpi4b_4gb)
 struct mk_irq mk_irqs[MAX_IRQS] = {
-  { // Serial
-    .irq = SERIAL_IRQ,
-    .channel = SERIAL_IRQ_CH,
-  },
+//   { // Serial
+//     .irq = SERIAL_IRQ,
+//     .channel = SERIAL_IRQ_CH,
+//   },
   // Internet
   {
      .irq = INTERNET_IRQ,

@@ -617,12 +617,11 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         for irq in wifi_pd.findall('irq'):
             wifi_pd.remove(irq)
         ET.SubElement(
-            wifi_pd, 'irq', irq=str(Serial_IRQ), id='1')
-        ET.SubElement(
-            wifi_pd, 'irq', irq=str(Internet_IRQ), id='2')
+            wifi_pd, 'irq', irq=str(Internet_IRQ), id='1')
         if board.name == "rpi4b_4gb":
-            ET.SubElement(wifi_pd, 'irq', irq='65', id='3')
-            ET.SubElement(wifi_pd, 'irq', irq='66', id='4')
+            ET.SubElement(wifi_pd, 'irq', irq='65', id='2')
+            ET.SubElement(wifi_pd, 'irq', irq='66', id='3')
+          #   ET.SubElement(wifi_pd, 'irq', irq=str(Serial_IRQ), id='1')
 
         data_storage_pd = require_one(
             (pd for pd in root.iter('protection_domain')
