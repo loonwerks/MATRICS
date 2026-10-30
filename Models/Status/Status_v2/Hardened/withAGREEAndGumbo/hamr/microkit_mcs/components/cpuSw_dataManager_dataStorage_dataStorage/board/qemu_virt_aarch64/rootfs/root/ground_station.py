@@ -3,12 +3,12 @@ import mmap
 import ctypes
 import time
 
-usb_path = Path("/dev/sda")
+usb_path = Path("/mnt/usb")
 
 def main():
      i = 0
      while True:
-          if usb_path.exists():
+          if usb_path.is_mount():
                files = [str(file) for file in usb_path.rglob("*") if file.is_file()]
      
                print(f"Found {len(files)} files on the USB drive:")

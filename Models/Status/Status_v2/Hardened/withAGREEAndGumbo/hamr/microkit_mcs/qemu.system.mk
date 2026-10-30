@@ -8,6 +8,7 @@ qemu: $(USB_IMG)
 
 $(USB_IMG):
 	dd if=/dev/zero of=$@ bs=1M count=1024
+	mkfs.vfat -F 32 $@
 
 # Preserve the QEMU platform and networking options used by the Wi-Fi guest.
 override QEMU_ARCH_ARGS := \

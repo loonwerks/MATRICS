@@ -10,7 +10,7 @@ RUN echo "ARM: Install Custom LionsOS" && \
 
 WORKDIR /home/microkit/ICS
 
-RUN sudo apt-get update -y && sudo apt install cpio vim -y
+RUN sudo apt-get update -y && sudo apt install cpio vim dosfstools -y
 
 EXPOSE 8080/tcp
 EXPOSE 8443/tcp

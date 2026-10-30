@@ -21,6 +21,7 @@ $(DTB_FILE): $(LINUX_DTS) $(OVERLAY_DTS)
 $(USB_IMG):
 	dd if=/dev/zero of=$(USB_IMG) bs=1M count=1024
 
+# Reserve the guest's 16 KiB PCI aperture for xHCI, without QEMU's default NIC.
 qemu: $(IMAGE_FILE) $(DTB_FILE) $(USB_IMG)
 	qemu-system-aarch64 -machine virt,virtualization=on,highmem=off,secure=off,gic-version=2 \
 			-cpu cortex-a53 \
@@ -30,6 +31,7 @@ qemu: $(IMAGE_FILE) $(DTB_FILE) $(USB_IMG)
 			-initrd $(INITRAMFS_FILE) \
 			-m size=1G \
 			-nographic \
+			-nic none \
 			-global virtio-mmio.force-legacy=false \
 			-device qemu-xhci,id=xhci \
 			-drive file=$(USB_IMG),format=raw,if=none,id=myusb \
