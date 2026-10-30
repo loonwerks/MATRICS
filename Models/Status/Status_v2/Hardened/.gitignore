@@ -1,3 +1,4 @@
 *.aadlbin-gen/
 !*/sysml/bin/
 !*/sysml/bin/run-hamr.cmd
+usb.img

@@ -140,20 +140,9 @@ We must create and compress an initial root file system.
 
      **NOTE:** You will want to deselect `Kernel` >> `Linux Kernel` so Buildroot doesn't compile a linux kernel (because we already did that above).
 
-     <!-- **NOTE:** For nginx webserver, enable `Target Packages` >> `Networking applications` >> `nginx` and enable the following modules:
+     **NOTE:** You will have to naviate to `Target Packages` >> `Filesystem and flash utilities` and enable `dosfstools`
 
-     - `ngx_http_ssl_module`
-     - `ngx_http_proxy_module`
-
-     **NOTE:** For Flask Python Webserver, enable `Target Packages` >> `Interpreter languages and scripting` >> `python3` and enable the following modules:
-
-     - `python-flask`
-     - `python-flask-expects-json`
-     - `python-gunicorn`
-     - 
-     **NOTE:** For creating SSL certificates with OpenSSL, enable `Target Packages` >> `Libraries` >> `Crypto` and enable the following:
-
-     - `openssl binary` -->
+     **NOTE:** You will have to naviate to `Target Packages` >> `Interpreter languages and scripting` and enable `python3`
 
      <u>Option 2:</u> Utilize already created .config:
      
@@ -248,6 +237,7 @@ We must create and compress an initial root file system.
 
 2. Make changes to startup scripts by adding required scripts to /etc/init.d/
    
+**NOTE:** Remove `etc/init.d/S40network` to eliminate trying to bootup the network that doesn't exist
 **NOTE:** `etc/network/interfaces` should not include `eth0`
 
 1. Recompress the rootfs (from `rootfs/` directory)

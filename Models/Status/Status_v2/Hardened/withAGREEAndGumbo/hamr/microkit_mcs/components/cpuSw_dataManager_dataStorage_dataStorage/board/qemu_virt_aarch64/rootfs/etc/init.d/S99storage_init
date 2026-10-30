@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "Setting Up Data Storage"
+python3 ground_station.py

@@ -10,36 +10,41 @@
 // This file will not be overwritten if HAMR codegen is rerun
 
 #if defined(BOARD_qemu_virt_aarch64)
-// Where the guest sees its RAM. This must match the memory region the virtual
-// machine's <map> element gives it in the system description.
-#define GUEST_RAM_START_GPA       0x40000000
-#define GUEST_RAM_SIZE            0x10000000
-// Where the DTB and initial RAM disk are copied to within that RAM
-#define GUEST_DTB_GPA             0x4f000000
-#define GUEST_INIT_RAM_DISK_GPA   0x4d000000
+#define GUEST_RAM_SIZE 0x10000000
+#define GUEST_RAM_START_VADDR 0x80000000
+#define GUEST_DTB_VADDR           0x87f00000
+#define GUEST_INIT_RAM_DISK_VADDR 0x87000000
+#elif defined(BOARD_rpi4b_4gb)
+#define GUEST_RAM_SIZE 0x40000000
+#define GUEST_RAM_START_VADDR 0x00000000
+#define GUEST_DTB_VADDR           0x5f000000
+#define GUEST_INIT_RAM_DISK_VADDR 0x5c000000
 #else
 #error Need to define guest kernel image address and DTB address
 #endif
 
-#define MAX_IRQS 1
-
 #if defined(BOARD_qemu_virt_aarch64)
+#define MAX_IRQS 0
+#elif defined(BOARD_rpi4b_4gb)
+#define MAX_IRQS 0
 #define SERIAL_IRQ_CH 1
-#define SERIAL_IRQ 33
+#define SERIAL_IRQ 125
 #else
 #error Need to define IRQs
 #endif
 
-// Device IRQs passed through to the guest: the guest sees interrupt 'irq',
-// and this component is notified on 'channel' when it fires.
 struct mk_irq {
   int irq;
   microkit_channel channel;
 };
 
+#if defined(BOARD_qemu_virt_aarch64)
+struct mk_irq mk_irqs[MAX_IRQS] = {};
+#elif defined(BOARD_rpi4b_4gb)
 struct mk_irq mk_irqs[MAX_IRQS] = {
-  { // Serial
-    .irq = SERIAL_IRQ,
-    .channel = SERIAL_IRQ_CH
-  }
+//   { // Serial
+//     .irq = SERIAL_IRQ,
+//     .channel = SERIAL_IRQ_CH,
+//   },
 };
+#endif

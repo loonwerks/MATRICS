@@ -457,7 +457,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     # END META MARKER
 
     if board.name == "qemu_virt_aarch64":
-        RAM = 0x4000_0000
+        WIFI_RAM = 0x4000_0000
+        STORAGE_RAM = 0x8000_0000
         RAM_SIZE = 0x1000_0000
         GIC_VM = 0x8_010_000
         GIC_VMM = 0x8_040_000
@@ -468,7 +469,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         RX_Buffer = 0x50_000_000
         TX_Buffer = 0x50_002_000
     elif board.name == "rpi4b_4gb":
-        RAM = 0x2000_0000
+        WIFI_RAM = 0x2000_0000
+        STORAGE_RAM = 0x4000_0000  # To-Do
         RAM_SIZE = 0x4000_0000
         GIC_VM = 0xFF84_2000  # CPU interface
         GIC_VMM = 0xFF84_6000  # vCPU interface
@@ -483,6 +485,9 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
 
     wifi_vmm_prefix = \
         "GroundStation_Impl_Instance_cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_"
+
+    storage_vmm_prefix = \
+        "GroundStation_Impl_Instance_cpuSw_dataManager_dataStorage_dataStorage_VM_"
 
     wifi_internet = MemoryRegion(
         sdf, wifi_vmm_prefix + "Guest_Internet", 0x1_000, paddr=Internet)
@@ -563,7 +568,7 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
                        user_schedule.section_name,
                        data_path)
 
-    # Apply board-specific Wi-Fi VMM settings after the HAMR-generated
+    # Apply board-specific VMM settings after the HAMR-generated
     # section. HAMR's model has one set of physical addresses, while the
     # RPi4B and QEMU platforms require different guest RAM, GIC, serial, and
     # interrupt configurations.
@@ -588,31 +593,74 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
                  if m.get('mr') == region_name),
                 f"mapping for {region_name}")
 
-        guest_ram_name = wifi_vmm_prefix + "Guest_RAM"
-        gic_name = wifi_vmm_prefix + "GIC"
-        serial_name = wifi_vmm_prefix + "Serial"
+        wifi_guest_ram_name = wifi_vmm_prefix + "Guest_RAM"
+        wifi_gic_name = wifi_vmm_prefix + "GIC"
+        wifi_serial_name = wifi_vmm_prefix + "Serial"
 
-        guest_ram = memory_region(guest_ram_name)
-        guest_ram.set('size', hex(RAM_SIZE))
-        guest_ram.set('phys_addr', hex(RAM))
-        memory_region(gic_name).set('phys_addr', hex(GIC_VMM))
-        memory_region(serial_name).set('phys_addr', hex(Serial))
+        storage_guest_ram_name = storage_vmm_prefix + "Guest_RAM"
+        storage_gic_name = storage_vmm_prefix + "GIC"
+        storage_serial_name = storage_vmm_prefix + "Serial"
+
+        shared_gic_name = "GroundStation_Impl_Instance_Shared_GIC"
+        shared_serial_name = "GroundStation_Impl_Instance_Shared_Serial"
+
+        wifi_guest_ram = memory_region(wifi_guest_ram_name)
+        wifi_guest_ram.set('size', hex(RAM_SIZE))
+        wifi_guest_ram.set('phys_addr', hex(WIFI_RAM))
+
+        storage_guest_ram = memory_region(storage_guest_ram_name)
+        storage_guest_ram.set('size', hex(RAM_SIZE))
+        storage_guest_ram.set('phys_addr', hex(STORAGE_RAM))
+
+        shared_gic = memory_region(wifi_gic_name)
+        shared_gic.set('name', shared_gic_name)
+        shared_gic.set('phys_addr', hex(GIC_VMM))
+        root.remove(memory_region(storage_gic_name))
+
+        shared_serial = memory_region(wifi_serial_name)
+        shared_serial.set('name', shared_serial_name)
+        shared_serial.set('phys_addr', hex(Serial))
+        root.remove(memory_region(storage_serial_name))
 
         wifi_pd = require_one(
             (pd for pd in root.iter('protection_domain')
              if pd.get('name') ==
              'cpuSw_wifiDriver_wifiDriverVM_wifiDriver'),
             "Wi-Fi VMM protection domain")
-        mapping(wifi_pd, guest_ram_name).set('vaddr', hex(RAM))
+        mapping(wifi_pd, wifi_guest_ram_name).set('vaddr', hex(WIFI_RAM))
+
+        storage_pd = require_one(
+            (pd for pd in root.iter('protection_domain')
+             if pd.get('name') ==
+             'cpuSw_dataManager_dataStorage_dataStorage'),
+            "data-storage VMM protection domain")
+        mapping(storage_pd, storage_guest_ram_name).set('vaddr', hex(STORAGE_RAM))
 
         wifi_vm = require_one(
             (vm for vm in wifi_pd.findall('virtual_machine')
              if vm.get('name') ==
              'cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM'),
             "Wi-Fi virtual machine")
-        mapping(wifi_vm, guest_ram_name).set('vaddr', hex(RAM))
-        mapping(wifi_vm, gic_name).set('vaddr', hex(GIC_VM))
-        mapping(wifi_vm, serial_name).set('vaddr', hex(Serial))
+        mapping(wifi_vm, wifi_guest_ram_name).set('vaddr', hex(WIFI_RAM))
+        wifi_gic_map = mapping(wifi_vm, wifi_gic_name)
+        wifi_gic_map.set('mr', shared_gic_name)
+        wifi_gic_map.set('vaddr', hex(GIC_VM))
+        wifi_serial_map = mapping(wifi_vm, wifi_serial_name)
+        wifi_serial_map.set('mr', shared_serial_name)
+        wifi_serial_map.set('vaddr', hex(Serial))
+
+        storage_vm = require_one(
+            (vm for vm in storage_pd.findall('virtual_machine')
+             if vm.get('name') ==
+             'cpuSw_dataManager_dataStorage_dataStorage_VM'),
+            "Data Storage virtual machine")
+        mapping(storage_vm, storage_guest_ram_name).set('vaddr', hex(STORAGE_RAM))
+        storage_gic_map = mapping(storage_vm, storage_gic_name)
+        storage_gic_map.set('mr', shared_gic_name)
+        storage_gic_map.set('vaddr', hex(GIC_VM))
+        storage_serial_map = mapping(storage_vm, storage_serial_name)
+        storage_serial_map.set('mr', shared_serial_name)
+        storage_serial_map.set('vaddr', hex(Serial))
 
         for irq in wifi_pd.findall('irq'):
             wifi_pd.remove(irq)
@@ -621,23 +669,9 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
         if board.name == "rpi4b_4gb":
             ET.SubElement(wifi_pd, 'irq', irq='65', id='2')
             ET.SubElement(wifi_pd, 'irq', irq='66', id='3')
-          #   ET.SubElement(wifi_pd, 'irq', irq=str(Serial_IRQ), id='1')
 
-        data_storage_pd = require_one(
-            (pd for pd in root.iter('protection_domain')
-             if pd.get('name') ==
-             'cpuSw_dataManager_dataStorage_dataStorage'),
-            "data-storage VMM protection domain")
-        for irq in data_storage_pd.findall('irq'):
-            data_storage_pd.remove(irq)
-
-        data_storage_region_prefix = (
-            "GroundStation_Impl_Instance_cpuSw_dataManager_"
-            "dataStorage_dataStorage_VM_")
-        for region_suffix in ('Guest_RAM', 'GIC', 'Serial'):
-            memory_region(
-                data_storage_region_prefix + region_suffix
-            ).attrib.pop('phys_addr', None)
+        for irq in storage_pd.findall('irq'):
+            storage_pd.remove(irq)
 
         ET.indent(root, space='  ')
         return ET.tostring(

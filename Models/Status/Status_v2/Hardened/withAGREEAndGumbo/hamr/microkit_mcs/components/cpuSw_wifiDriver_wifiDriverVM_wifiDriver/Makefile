@@ -92,9 +92,6 @@ $(INITRD):
 	cp $(LINUX_IMAGE_DIR)/$(INITRD_VER)/rootfs.cpio.gz $@
 
 $(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
-
-
-$(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
 	cp -r $(LINUX_IMAGE_DIR)/rootfs $(TOP_BUILD_DIR)/rootfs_staging
 	( \
     	gunzip -dc $< ; \
