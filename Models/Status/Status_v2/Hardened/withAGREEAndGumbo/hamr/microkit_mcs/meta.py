@@ -515,6 +515,19 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
     cpuSw_wifiDriver_wifiDriverVM_wifiDriver_VM_vm.add_map(
         Map(wifi_internet, Internet, perms="rw", cached=False))
 
+    if board.name == "qemu_virt_aarch64":
+        storage_pcie_ecam = MemoryRegion(
+            sdf, storage_vmm_prefix + "Guest_PCIe_ECAM", 0x10_0000,
+            paddr=0x3F00_0000)
+        storage_pcie_mmio = MemoryRegion(
+            sdf, storage_vmm_prefix + "Guest_PCIe_MMIO", 0x4_000,
+            paddr=0x1000_0000)
+        for region, address in ((storage_pcie_ecam, 0x3F00_0000),
+                                (storage_pcie_mmio, 0x1000_0000)):
+            sdf.add_mr(region)
+            cpuSw_dataManager_dataStorage_dataStorage_VM_vm.add_map(
+                Map(region, address, perms="rw", cached=False))
+
     if board.name == "rpi4b_4gb":
         clock_manager = MemoryRegion(
             sdf, wifi_vmm_prefix + "Guest_Clock_Manager", 0x2_000,
@@ -672,6 +685,8 @@ def generate(sdf_path: str, output_dir: str, dtb: DeviceTree):
 
         for irq in storage_pd.findall('irq'):
             storage_pd.remove(irq)
+        if board.name == "qemu_virt_aarch64":
+            ET.SubElement(storage_pd, 'irq', irq='36', id='1')
 
         ET.indent(root, space='  ')
         return ET.tostring(

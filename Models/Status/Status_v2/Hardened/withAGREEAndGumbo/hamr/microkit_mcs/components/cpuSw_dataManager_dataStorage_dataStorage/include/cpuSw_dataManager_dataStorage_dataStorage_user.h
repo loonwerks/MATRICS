@@ -12,7 +12,7 @@
 #if defined(BOARD_qemu_virt_aarch64)
 #define GUEST_RAM_SIZE 0x10000000
 #define GUEST_RAM_START_VADDR 0x80000000
-#define GUEST_DTB_VADDR           0x87f00000
+#define GUEST_DTB_VADDR           0x89000000
 #define GUEST_INIT_RAM_DISK_VADDR 0x87000000
 #elif defined(BOARD_rpi4b_4gb)
 #define GUEST_RAM_SIZE 0x40000000
@@ -24,7 +24,9 @@
 #endif
 
 #if defined(BOARD_qemu_virt_aarch64)
-#define MAX_IRQS 0
+#define MAX_IRQS 1
+#define USB_IRQ_CH 1
+#define USB_IRQ 36
 #elif defined(BOARD_rpi4b_4gb)
 #define MAX_IRQS 0
 #define SERIAL_IRQ_CH 1
@@ -39,7 +41,13 @@ struct mk_irq {
 };
 
 #if defined(BOARD_qemu_virt_aarch64)
-struct mk_irq mk_irqs[MAX_IRQS] = {};
+struct mk_irq mk_irqs[MAX_IRQS] = {
+  // USB
+  {
+     .irq = USB_IRQ,
+     .channel = USB_IRQ_CH,
+  },
+};
 #elif defined(BOARD_rpi4b_4gb)
 struct mk_irq mk_irqs[MAX_IRQS] = {
 //   { // Serial

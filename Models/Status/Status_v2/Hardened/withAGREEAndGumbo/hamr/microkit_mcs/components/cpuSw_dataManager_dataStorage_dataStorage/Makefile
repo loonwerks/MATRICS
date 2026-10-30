@@ -38,7 +38,8 @@ SDDF_CUSTOM_LIBC := 1
 LINUX_IMAGE_DIR := $(cpuSw_dataManager_dataStorage_dataStorage_DIR)/board/$(MICROKIT_BOARD)
 LINUX := $(LINUX_IMAGE_DIR)/linux
 DTS := $(LINUX_IMAGE_DIR)/linux.dts
-DTB := $(TOP_BUILD_DIR)/linux.dtb
+GUEST_BUILD_DIR := $(TOP_BUILD_DIR)/storage_guest
+DTB := $(GUEST_BUILD_DIR)/linux.dtb
 INITRD := $(LINUX_IMAGE_DIR)/rootfs.cpio.gz
 ROOTFS_PACKAGING_DIR := $(cpuSw_dataManager_dataStorage_dataStorage_DIR)/rootfs
 LINUX_VER ?= 85000f3f42a882e4476e57003d53f2bbec8262b0-linux
@@ -90,27 +91,27 @@ $(INITRD):
 	tar xf $@.tar.gz -C $(LINUX_IMAGE_DIR)
 	cp $(LINUX_IMAGE_DIR)/$(INITRD_VER)/rootfs.cpio.gz $@
 
-$(TOP_BUILD_DIR)/rootfs.cpio.gz: ${INITRD}
-	cp -r $(LINUX_IMAGE_DIR)/rootfs $(TOP_BUILD_DIR)/rootfs_staging
-	( \
-    	gunzip -dc $< ; \
-    	cd $(TOP_BUILD_DIR)/rootfs_staging && find . | cpio --quiet -o -H newc \
-	 ) | gzip > $@
+$(GUEST_BUILD_DIR):
+	mkdir -p $@
 
-$(DTB):
+$(GUEST_BUILD_DIR)/rootfs.cpio.gz: ${INITRD} | $(GUEST_BUILD_DIR)
+	mkdir -p $(GUEST_BUILD_DIR)/rootfs_staging
+	cp -R $(LINUX_IMAGE_DIR)/rootfs/. $(GUEST_BUILD_DIR)/rootfs_staging/
+	(gunzip -dc $<; cd $(GUEST_BUILD_DIR)/rootfs_staging && find . | cpio --quiet -o -H newc) | gzip > $@
+
+$(DTB): $(DTS) $(LINUX_IMAGE_DIR)/overlay.dts | $(GUEST_BUILD_DIR)
 ifeq ("", "$(shell which $(DTC))")
 	$(error "Could not find dependency: Device Tree Compiler (dtc)")
 endif
-	$(LIB_VMM_TOOLS_DIR)/dtscat $(DTS) $(LINUX_IMAGE_DIR)/overlay.dts > $(TOP_BUILD_DIR)/linux.dts
+	$(LIB_VMM_TOOLS_DIR)/dtscat $(DTS) $(LINUX_IMAGE_DIR)/overlay.dts > $(GUEST_BUILD_DIR)/linux.dts
 	# @ivanv: Shouldn't supress warnings
-	$(DTC) -q -I dts -O dtb $(TOP_BUILD_DIR)/linux.dts > $@
+	$(DTC) -q -I dts -O dtb $(GUEST_BUILD_DIR)/linux.dts > $@
 
-#$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX_IMAGE_DIR) $(LINUX) $(INITRD) $(DTB)
-$(TOP_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(TOP_BUILD_DIR)/rootfs.cpio.gz $(DTB)
+$(GUEST_BUILD_DIR)/package_guest_images.o: $(LIB_VMM_TOOLS_DIR)/package_guest_images.S $(LINUX) $(GUEST_BUILD_DIR)/rootfs.cpio.gz $(DTB)
 	$(CC) -c -g3 -x assembler-with-cpp \
 		-DGUEST_KERNEL_IMAGE_PATH=\"$(LINUX)\" \
 		-DGUEST_DTB_IMAGE_PATH=\"$(DTB)\" \
-		-DGUEST_INITRD_IMAGE_PATH=\"$(TOP_BUILD_DIR)/rootfs.cpio.gz\" \
+		-DGUEST_INITRD_IMAGE_PATH=\"$(GUEST_BUILD_DIR)/rootfs.cpio.gz\" \
 		-target $(TARGET) \
 		$< \
 		-o $@
@@ -125,7 +126,7 @@ include $(LIB_VMM_DIR)/vmm.mk
 include $(SDDF)/util/util.mk
 vpath %.c $(LIB_VMM_DIR)
 
-$(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.a: libvmm.a libsddf_util_debug.a $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage_user.o $(TOP_BUILD_DIR)/package_guest_images.o Makefile
+$(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.a: libvmm.a libsddf_util_debug.a $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage_user.o $(GUEST_BUILD_DIR)/package_guest_images.o Makefile
 	mkdir -p libsddf_util; cd libsddf_util; $(AR) -x ../libsddf_util_debug.a
-	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage_user.o $(TOP_BUILD_DIR)/package_guest_images.o
+	$(AR) r libvmm.a libsddf_util/*.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage.o $(TOP_BUILD_DIR)/cpuSw_dataManager_dataStorage_dataStorage_user.o $(GUEST_BUILD_DIR)/package_guest_images.o
 	cp libvmm.a $@
